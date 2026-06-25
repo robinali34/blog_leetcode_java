@@ -59,6 +59,16 @@ header_pages:
 github_username: robinali34
 linkedin_username: robinali
 
+# Optional Chinese translation widget (Google Translate, lazy-loaded on demand)
+translate:
+  enabled: true
+  page_language: en
+  included_languages: "zh-CN,zh-TW"
+  title: "中文翻译"
+  subtitle: "可选 · Optional"
+  hint: "机器翻译仅供参考，代码与技术术语可能不准确。"
+  restore_label: "恢复英文"
+
 # # Author information
 # author:
 #   name: "Robina Li"

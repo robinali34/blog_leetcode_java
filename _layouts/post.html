@@ -31,7 +31,9 @@ layout: default
           </ul>
         </nav>
       </div>
+      {%- if site.translate.enabled != false -%}
       {%- include translate-sidebar.html -%}
+      {%- endif -%}
     </aside>
 
     <!-- Main Content -->

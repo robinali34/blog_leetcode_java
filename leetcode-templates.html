@@ -11,7 +11,40 @@ permalink: /leetcode-templates/
   </header>
 
   <section class="master-link" style="margin: 1.5rem 0;">
-    <a class="page-link" href="/posts/2025-10-29-leetcode-categories-and-templates/">➤ View Master: LeetCode Categories and Solution Templates</a>
+    <a class="page-link" href="{{ '/posts/2025-10-29-leetcode-categories-and-templates/' | relative_url }}">➤ View Master: LeetCode Categories and Solution Templates</a>
+  </section>
+
+  <section class="template-diagrams" aria-label="Template relationship diagrams">
+    <header class="template-diagrams-header">
+      <h2 class="template-diagrams-title">Template relationship maps</h2>
+      <p class="template-diagrams-desc">Visual guides for how the collections connect — from shared primitives to traversal paradigms and optimization patterns.</p>
+    </header>
+
+    <div class="template-diagram-grid">
+      <figure class="template-diagram-card">
+        <figcaption>
+          <strong>Hub view</strong>
+          <span>All category collections orbit the master index.</span>
+        </figcaption>
+        <img src="{{ '/assets/svg/leetcode-template-hub.svg' | relative_url }}" alt="Hub diagram of LeetCode template categories around the master index" loading="lazy" width="980" height="640">
+      </figure>
+
+      <figure class="template-diagram-card">
+        <figcaption>
+          <strong>Layer stack</strong>
+          <span>Foundation → domain structures → traversal → paradigms.</span>
+        </figcaption>
+        <img src="{{ '/assets/svg/leetcode-template-layers.svg' | relative_url }}" alt="Layered stack from data structures to optimization paradigms" loading="lazy" width="920" height="520">
+      </figure>
+
+      <figure class="template-diagram-card template-diagram-card-wide">
+        <figcaption>
+          <strong>Cross-links</strong>
+          <span>Which families reuse primitives from Data Structures &amp; Core Algorithms.</span>
+        </figcaption>
+        <img src="{{ '/assets/svg/leetcode-template-cross-links.svg' | relative_url }}" alt="Cross-link diagram showing dependencies between template families" loading="lazy" width="980" height="560">
+      </figure>
+    </div>
   </section>
 
   <div class="posts-list" id="templatesList">

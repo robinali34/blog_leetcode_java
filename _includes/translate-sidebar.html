@@ -1,4 +1,39 @@
-<div class="sidebar-section translate-section">
-  <h3 class="sidebar-title">Translate</h3>
-  <div id="google_translate_element"></div>
+{%- assign t = site.translate -%}
+{%- if t.enabled != false -%}
+<div class="sidebar-section translate-section" id="translate-widget" data-translate-widget>
+  <details class="translate-details" {% if t.expanded %}open{% endif %}>
+    <summary class="translate-summary">
+      <span class="translate-summary-title">{{ t.title | default: "中文翻译" }}</span>
+      <span class="translate-summary-subtitle">{{ t.subtitle | default: "可选 · Optional" }}</span>
+    </summary>
+
+    <div class="translate-panel">
+      <p class="translate-hint">{{ t.hint | default: "机器翻译仅供参考，代码与技术术语可能不准确。" }}</p>
+
+      <div class="translate-actions" role="group" aria-label="Translate page">
+        <button type="button" class="translate-btn" data-translate-lang="zh-CN">简体中文</button>
+        <button type="button" class="translate-btn" data-translate-lang="zh-TW">繁體中文</button>
+        <button type="button" class="translate-btn translate-btn-secondary" data-translate-lang="en">
+          {{ t.restore_label | default: "恢复英文" }}
+        </button>
+      </div>
+
+      <p class="translate-status" data-translate-status hidden></p>
+
+      <div class="translate-google-host">
+        <div id="google_translate_element"></div>
+      </div>
+    </div>
+  </details>
 </div>
+
+<script>
+  window.__translateConfig = {
+    enabled: true,
+    pageLanguage: {{ t.page_language | default: "en" | jsonify }},
+    includedLanguages: {{ t.included_languages | default: "zh-CN,zh-TW" | jsonify }},
+    baseurl: {{ site.baseurl | jsonify }}
+  };
+</script>
+<script src="{{ '/assets/js/translate-widget.js' | relative_url }}" defer></script>
+{%- endif -%}

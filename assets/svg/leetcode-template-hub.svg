@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 640" role="img" aria-labelledby="hubTitle hubDesc">
+  <title id="hubTitle">LeetCode Template Hub</title>
+  <desc id="hubDesc">Master hub connected to all template category collections.</desc>
+  <defs>
+    <style>
+      .hub { fill: #D4D8E0; stroke: #8B8680; stroke-width: 2; }
+      .node { fill: #fff; stroke: #B8B5B0; stroke-width: 1.4; }
+      .node-core { fill: #E8D5D0; stroke: #B8B5B0; stroke-width: 1.4; }
+      .node-trav { fill: #D4D8D0; stroke: #B8B5B0; stroke-width: 1.4; }
+      .node-opt { fill: #F0EBE3; stroke: #B8B5B0; stroke-width: 1.4; }
+      .title { font: 600 14px ui-sans-serif, system-ui, sans-serif; fill: #5A5752; }
+      .label { font: 500 11.5px ui-sans-serif, system-ui, sans-serif; fill: #5A5752; }
+      .hint { font: 400 10px ui-sans-serif, system-ui, sans-serif; fill: #7A7772; }
+      .link { stroke: #C4C8C0; stroke-width: 1.3; fill: none; }
+    </style>
+  </defs>
+
+  <rect width="980" height="640" fill="#FAF7F2" rx="12"/>
+  <text x="490" y="32" text-anchor="middle" class="title" style="font-size:16px">Template categories around the master index</text>
+  <text x="490" y="52" text-anchor="middle" class="hint">Each collection links back to the master categories post and shares core primitives.</text>
+
+  <circle cx="490" cy="320" r="72" class="hub"/>
+  <text x="490" y="312" text-anchor="middle" class="title">Master</text>
+  <text x="490" y="330" text-anchor="middle" class="hint">Categories</text>
+  <text x="490" y="346" text-anchor="middle" class="hint">&amp; Templates</text>
+
+  <!-- spokes -->
+  <g class="link">
+    <line x1="490" y1="248" x2="490" y2="118"/>
+    <line x1="548" y1="272" x2="650" y2="170"/>
+    <line x1="568" y1="320" x2="700" y2="320"/>
+    <line x1="548" y1="368" x2="650" y2="470"/>
+    <line x1="490" y1="392" x2="490" y2="522"/>
+    <line x1="432" y1="368" x2="330" y2="470"/>
+    <line x1="412" y1="320" x2="280" y2="320"/>
+    <line x1="432" y1="272" x2="330" y2="170"/>
+    <line x1="520" y1="260" x2="610" y2="110"/>
+    <line x1="560" y1="290" x2="720" y2="230"/>
+    <line x1="560" y1="350" x2="720" y2="410"/>
+    <line x1="520" y1="380" x2="610" y2="530"/>
+    <line x1="460" y1="380" x2="370" y2="530"/>
+    <line x1="420" y1="350" x2="260" y2="410"/>
+    <line x1="420" y1="290" x2="260" y2="230"/>
+    <line x1="460" y1="260" x2="370" y2="110"/>
+  </g>
+
+  <!-- top row -->
+  <rect x="410" y="70" width="160" height="48" class="node-core" rx="8"/>
+  <text x="490" y="92" text-anchor="middle" class="label">Data Structures</text>
+  <text x="490" y="108" text-anchor="middle" class="hint">core primitives</text>
+
+  <rect x="600" y="82" width="130" height="44" class="node" rx="8"/>
+  <text x="665" y="108" text-anchor="middle" class="label">Array &amp; Matrix</text>
+
+  <rect x="250" y="82" width="130" height="44" class="node" rx="8"/>
+  <text x="315" y="108" text-anchor="middle" class="label">String</text>
+
+  <!-- upper mid -->
+  <rect x="700" y="188" width="120" height="44" class="node" rx="8"/>
+  <text x="760" y="214" text-anchor="middle" class="label">Linked List</text>
+
+  <rect x="160" y="188" width="100" height="44" class="node" rx="8"/>
+  <text x="210" y="214" text-anchor="middle" class="label">Tree</text>
+
+  <!-- sides -->
+  <rect x="730" y="298" width="100" height="44" class="node-trav" rx="8"/>
+  <text x="780" y="324" text-anchor="middle" class="label">BFS</text>
+
+  <rect x="150" y="298" width="100" height="44" class="node-trav" rx="8"/>
+  <text x="200" y="324" text-anchor="middle" class="label">DFS</text>
+
+  <rect x="700" y="388" width="120" height="44" class="node-trav" rx="8"/>
+  <text x="760" y="414" text-anchor="middle" class="label">Graph</text>
+
+  <rect x="160" y="388" width="100" height="44" class="node" rx="8"/>
+  <text x="210" y="414" text-anchor="middle" class="label">Stack</text>
+
+  <!-- lower mid -->
+  <rect x="650" y="468" width="100" height="44" class="node" rx="8"/>
+  <text x="700" y="494" text-anchor="middle" class="label">Queue</text>
+
+  <rect x="230" y="468" width="90" height="44" class="node" rx="8"/>
+  <text x="275" y="494" text-anchor="middle" class="label">Heap</text>
+
+  <!-- bottom row -->
+  <rect x="410" y="522" width="160" height="48" class="node-opt" rx="8"/>
+  <text x="490" y="544" text-anchor="middle" class="label">DP · Greedy · Backtrack</text>
+  <text x="490" y="560" text-anchor="middle" class="hint">optimization paradigms</text>
+
+  <rect x="600" y="530" width="130" height="44" class="node-opt" rx="8"/>
+  <text x="665" y="556" text-anchor="middle" class="label">DS Design</text>
+
+  <rect x="250" y="530" width="130" height="44" class="node-opt" rx="8"/>
+  <text x="315" y="548" text-anchor="middle" class="label">Advanced</text>
+  <text x="315" y="562" text-anchor="middle" class="hint">Math · Search</text>
+</svg>
