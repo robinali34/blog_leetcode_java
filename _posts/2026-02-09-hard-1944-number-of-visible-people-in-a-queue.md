@@ -147,4 +147,4 @@ We process from **right to left** ($i = 5 \to 0$):
 
 ## Template Reference
 
-See [Monotonic Stack Templates](/posts/2025-10-29-leetcode-templates-data-structures/#monotonic-stack) for more patterns.
+See [Monotonic Stack Templates](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-data-structures/#monotonic-stack) for more patterns.

@@ -26,7 +26,7 @@ permalink: /leetcode-templates/
           <strong>Hub view</strong>
           <span>All category collections orbit the master index.</span>
         </figcaption>
-        <img src="{{ '/assets/svg/leetcode-template-hub.svg' | relative_url }}" alt="Hub diagram of LeetCode template categories around the master index" loading="lazy" width="980" height="640">
+        {% include diagrams/leetcode-template-hub.svg.html %}
       </figure>
 
       <figure class="template-diagram-card">
@@ -34,7 +34,7 @@ permalink: /leetcode-templates/
           <strong>Layer stack</strong>
           <span>Foundation → domain structures → traversal → paradigms.</span>
         </figcaption>
-        <img src="{{ '/assets/svg/leetcode-template-layers.svg' | relative_url }}" alt="Layered stack from data structures to optimization paradigms" loading="lazy" width="920" height="520">
+        {% include diagrams/leetcode-template-layers.svg.html %}
       </figure>
 
       <figure class="template-diagram-card template-diagram-card-wide">
@@ -42,7 +42,7 @@ permalink: /leetcode-templates/
           <strong>Cross-links</strong>
           <span>Which families reuse primitives from Data Structures &amp; Core Algorithms.</span>
         </figcaption>
-        <img src="{{ '/assets/svg/leetcode-template-cross-links.svg' | relative_url }}" alt="Cross-link diagram showing dependencies between template families" loading="lazy" width="980" height="560">
+        {% include diagrams/leetcode-template-cross-links.svg.html %}
       </figure>
     </div>
   </section>
@@ -50,7 +50,7 @@ permalink: /leetcode-templates/
   <div class="posts-list" id="templatesList">
     <article class="post-item">
       <div class="post-meta">Templates</div>
-      <h2 class="post-title"><a class="post-link" href="https://robinali34.github.io/blog_leetcode_java/posts/2025-10-29-leetcode-templates-data-structures/">Data Structures &amp; Core Algorithms</a></h2>
+      <h2 class="post-title"><a class="post-link" href="{{ '/posts/2025-10-29-leetcode-templates-data-structures/' | relative_url }}">Data Structures &amp; Core Algorithms</a></h2>
       <div class="post-excerpt">
         <strong>Subcategories:</strong> Binary search (bounds), Prefix sum &amp; difference array, Monotonic stack/queue, Heap (K-way merge), DSU, Trie, Segment tree, Fenwick tree, Sparse table
       </div>
@@ -58,7 +58,7 @@ permalink: /leetcode-templates/
 
     <article class="post-item">
       <div class="post-meta">In progress</div>
-      <h2 class="post-title"><a class="post-link" href="https://robinali34.github.io/blog_leetcode_java/posts/2025-11-24-leetcode-templates-array-matrix/">Array &amp; Matrix</a></h2>
+      <h2 class="post-title"><a class="post-link" href="{{ '/posts/2025-11-24-leetcode-templates-array-matrix/' | relative_url }}">Array &amp; Matrix</a></h2>
       <div class="post-excerpt">
         <strong>Subcategories:</strong> Two Pointers, Sliding Window (fixed/variable), Prefix Sum / Difference Array, Binary Search (sorted/rotated), Matrix Operations (rotate, spiral), Array Manipulation (merge intervals, jump game)
       </div>
@@ -66,7 +66,7 @@ permalink: /leetcode-templates/
 
     <article class="post-item">
       <div class="post-meta">In progress</div>
-      <h2 class="post-title"><a class="post-link" href="https://robinali34.github.io/blog_leetcode_java/posts/2025-11-24-leetcode-templates-string-processing/">String Processing</a></h2>
+      <h2 class="post-title"><a class="post-link" href="{{ '/posts/2025-11-24-leetcode-templates-string-processing/' | relative_url }}">String Processing</a></h2>
       <div class="post-excerpt">
         <strong>Subcategories:</strong> Sliding Window (longest substring, minimum window), Two Pointers (palindrome, reverse), String Matching (KMP), String Manipulation (anagrams, duplicates), Parsing (decode string, abbreviations)
       </div>
@@ -74,7 +74,7 @@ permalink: /leetcode-templates/
 
     <article class="post-item">
       <div class="post-meta">In progress</div>
-      <h2 class="post-title"><a class="post-link" href="https://robinali34.github.io/blog_leetcode_java/posts/2025-11-24-leetcode-templates-linked-list/">Linked List</a></h2>
+      <h2 class="post-title"><a class="post-link" href="{{ '/posts/2025-11-24-leetcode-templates-linked-list/' | relative_url }}">Linked List</a></h2>
       <div class="post-excerpt">
         <strong>Subcategories:</strong> Basic Operations (traversal, insertion, deletion), Two Pointers (fast/slow, kth from end), Dummy Node Pattern, Reversal (entire list, between positions, k-group), Merge (two sorted, k sorted), Cycle Detection, Circular Linked List
       </div>
@@ -82,7 +82,7 @@ permalink: /leetcode-templates/
 
     <article class="post-item">
       <div class="post-meta">In progress</div>
-      <h2 class="post-title"><a class="post-link" href="https://robinali34.github.io/blog_leetcode_java/posts/2025-10-29-leetcode-templates-trees/">Tree</a></h2>
+      <h2 class="post-title"><a class="post-link" href="{{ '/posts/2025-10-29-leetcode-templates-trees/' | relative_url }}">Tree</a></h2>
       <div class="post-excerpt">
         <strong>Subcategories:</strong> Tree Traversals (iterative inorder/level-order), LCA (Binary Lifting), HLD (Heavy-Light Decomposition) skeleton, BST operations, Tree DFS patterns
       </div>
@@ -90,7 +90,7 @@ permalink: /leetcode-templates/
 
     <article class="post-item">
       <div class="post-meta">In progress</div>
-      <h2 class="post-title"><a class="post-link" href="https://robinali34.github.io/blog_leetcode_java/posts/2025-11-24-leetcode-templates-bfs/">BFS</a></h2>
+      <h2 class="post-title"><a class="post-link" href="{{ '/posts/2025-11-24-leetcode-templates-bfs/' | relative_url }}">BFS</a></h2>
       <div class="post-excerpt">
         <strong>Subcategories:</strong> Basic BFS (graph traversal), BFS on Grid (4/8-directional), Multi-source BFS, BFS for Shortest Path (unweighted), Level-order Traversal (tree), BFS with State
       </div>
@@ -98,7 +98,7 @@ permalink: /leetcode-templates/
 
     <article class="post-item">
       <div class="post-meta">In progress</div>
-      <h2 class="post-title"><a class="post-link" href="https://robinali34.github.io/blog_leetcode_java/posts/2025-11-24-leetcode-templates-dfs/">DFS</a></h2>
+      <h2 class="post-title"><a class="post-link" href="{{ '/posts/2025-11-24-leetcode-templates-dfs/' | relative_url }}">DFS</a></h2>
       <div class="post-excerpt">
         <strong>Subcategories:</strong> Basic DFS (graph traversal), DFS on Grid (connected components, paths), DFS on Tree (preorder, inorder, postorder), DFS with Memoization, Iterative DFS (using stack)
       </div>
@@ -106,7 +106,7 @@ permalink: /leetcode-templates/
 
     <article class="post-item">
       <div class="post-meta">In progress</div>
-      <h2 class="post-title"><a class="post-link" href="https://robinali34.github.io/blog_leetcode_java/posts/2025-10-29-leetcode-templates-dp/">Dynamic Programming</a></h2>
+      <h2 class="post-title"><a class="post-link" href="{{ '/posts/2025-10-29-leetcode-templates-dp/' | relative_url }}">Dynamic Programming</a></h2>
       <div class="post-excerpt">
         <strong>Subcategories:</strong> 1D DP (Knapsack/linear transitions), 2D DP (grid paths/obstacles), Digit DP (count numbers with property), Bitmask DP (TSP/subsets), LIS (Patience Sorting)
       </div>
@@ -114,7 +114,7 @@ permalink: /leetcode-templates/
 
     <article class="post-item">
       <div class="post-meta">In progress</div>
-      <h2 class="post-title"><a class="post-link" href="https://robinali34.github.io/blog_leetcode_java/posts/2025-11-24-leetcode-templates-backtracking/">Backtracking</a></h2>
+      <h2 class="post-title"><a class="post-link" href="{{ '/posts/2025-11-24-leetcode-templates-backtracking/' | relative_url }}">Backtracking</a></h2>
       <div class="post-excerpt">
         <strong>Subcategories:</strong> Permutations (with/without duplicates), Combinations (choose k from n), Subsets (power set generation), Combination Sum (unbounded/reuse elements), Grid Backtracking (Word Search, path finding), Constraint Satisfaction (N-Queens, Sudoku), Palindrome Partitioning
       </div>
@@ -122,7 +122,7 @@ permalink: /leetcode-templates/
 
     <article class="post-item">
       <div class="post-meta">In progress</div>
-      <h2 class="post-title"><a class="post-link" href="https://robinali34.github.io/blog_leetcode_java/posts/2025-12-14-leetcode-templates-greedy/">Greedy</a></h2>
+      <h2 class="post-title"><a class="post-link" href="{{ '/posts/2025-12-14-leetcode-templates-greedy/' | relative_url }}">Greedy</a></h2>
       <div class="post-excerpt">
         <strong>Subcategories:</strong> Interval Scheduling, Activity Selection, Greedy on Arrays (Kadane's, stock problems), Greedy on Strings (subsequence matching), Greedy with Sorting (assign cookies, queue reconstruction), Jump Problems, Scheduling Problems
       </div>
@@ -130,7 +130,7 @@ permalink: /leetcode-templates/
 
     <article class="post-item">
       <div class="post-meta">In progress</div>
-      <h2 class="post-title"><a class="post-link" href="https://robinali34.github.io/blog_leetcode_java/posts/2025-11-13-leetcode-templates-stack/">Stack</a></h2>
+      <h2 class="post-title"><a class="post-link" href="{{ '/posts/2025-11-13-leetcode-templates-stack/' | relative_url }}">Stack</a></h2>
       <div class="post-excerpt">
         <strong>Subcategories:</strong> Stack (expression evaluation, parentheses matching), Monotonic Stack, Calculator (basic, II, III), Reverse Polish Notation, Nested Structure Processing
       </div>
@@ -138,7 +138,7 @@ permalink: /leetcode-templates/
 
     <article class="post-item">
       <div class="post-meta">In progress</div>
-      <h2 class="post-title"><a class="post-link" href="https://robinali34.github.io/blog_leetcode_java/posts/2025-11-24-leetcode-templates-queue/">Queue</a></h2>
+      <h2 class="post-title"><a class="post-link" href="{{ '/posts/2025-11-24-leetcode-templates-queue/' | relative_url }}">Queue</a></h2>
       <div class="post-excerpt">
         <strong>Subcategories:</strong> Basic Queue Operations, BFS with Queue, Monotonic Queue (sliding window max), Priority Queue (heap, k-way merge, top k), Circular Queue, Double-ended Queue (Deque)
       </div>
@@ -146,7 +146,7 @@ permalink: /leetcode-templates/
 
     <article class="post-item">
       <div class="post-meta">In progress</div>
-      <h2 class="post-title"><a class="post-link" href="https://robinali34.github.io/blog_leetcode_java/posts/2026-01-05-leetcode-templates-heap/">Heap</a></h2>
+      <h2 class="post-title"><a class="post-link" href="{{ '/posts/2026-01-05-leetcode-templates-heap/' | relative_url }}">Heap</a></h2>
       <div class="post-excerpt">
         <strong>Subcategories:</strong> Min Heap, Max Heap, Custom Comparators (struct, lambda), K-way Merge, Top K Elements, Two Heaps (median finding), Dijkstra's Algorithm, Frequency-Based Problems, Scheduling Problems
       </div>
@@ -154,7 +154,7 @@ permalink: /leetcode-templates/
 
     <article class="post-item">
       <div class="post-meta">In progress</div>
-      <h2 class="post-title"><a class="post-link" href="https://robinali34.github.io/blog_leetcode_java/posts/2025-10-29-leetcode-templates-graph/">Graph</a></h2>
+      <h2 class="post-title"><a class="post-link" href="{{ '/posts/2025-10-29-leetcode-templates-graph/' | relative_url }}">Graph</a></h2>
       <div class="post-excerpt">
         <strong>Subcategories:</strong> BFS / Shortest Path (unweighted), Multi-source BFS (grids/graphs), BFS on Bitmask State (visit all keys), Topological Sort (Kahn / DFS), Dijkstra (nonnegative weights), 0-1 BFS (edge weights 0 or 1), Disjoint Set Union (DSU), Tarjan SCC (strongly connected components), Bridges &amp; Articulation Points
       </div>
@@ -162,7 +162,7 @@ permalink: /leetcode-templates/
 
     <article class="post-item">
       <div class="post-meta">In progress</div>
-      <h2 class="post-title"><a class="post-link" href="https://robinali34.github.io/blog_leetcode_java/posts/2025-11-24-leetcode-templates-data-structure-design/">Data Structure Design</a></h2>
+      <h2 class="post-title"><a class="post-link" href="{{ '/posts/2025-11-24-leetcode-templates-data-structure-design/' | relative_url }}">Data Structure Design</a></h2>
       <div class="post-excerpt">
         <strong>Subcategories:</strong> LRU Cache, LFU Cache, Trie (Prefix Tree), Time-based Key-Value Store, Design Patterns (Random Pick with Weight, Tic-Tac-Toe)
       </div>
@@ -170,7 +170,7 @@ permalink: /leetcode-templates/
 
     <article class="post-item">
       <div class="post-meta">In progress</div>
-      <h2 class="post-title"><a class="post-link" href="https://robinali34.github.io/blog_leetcode_java/posts/2025-10-29-leetcode-templates-advanced/">Advanced Algorithms</a></h2>
+      <h2 class="post-title"><a class="post-link" href="{{ '/posts/2025-10-29-leetcode-templates-advanced/' | relative_url }}">Advanced Algorithms</a></h2>
       <div class="post-excerpt">
         <strong>Subcategories:</strong> Coordinate Compression, Meet-in-the-Middle (subset sums), Manacher (longest palindromic substring O(n)), Z-Algorithm (pattern occurrences), Bitwise Trie (max XOR pair), Sweep Line (intervals)
       </div>
@@ -178,7 +178,7 @@ permalink: /leetcode-templates/
 
     <article class="post-item">
       <div class="post-meta">In progress</div>
-      <h2 class="post-title"><a class="post-link" href="https://robinali34.github.io/blog_leetcode_java/posts/2025-11-24-leetcode-templates-math-bit-manipulation/">Math &amp; Bit Manipulation</a></h2>
+      <h2 class="post-title"><a class="post-link" href="{{ '/posts/2025-11-24-leetcode-templates-math-bit-manipulation/' | relative_url }}">Math &amp; Bit Manipulation</a></h2>
       <div class="post-excerpt">
         <strong>Subcategories:</strong> Bit Operations (set, clear, toggle, count), Common Bit Tricks (lowest set bit, power of 2), Single Number problems, Gray Code, Fast Exponentiation, GCD and LCM, Prime Numbers (Sieve of Eratosthenes), Number Theory
       </div>
@@ -186,7 +186,7 @@ permalink: /leetcode-templates/
 
     <article class="post-item">
       <div class="post-meta">In progress</div>
-      <h2 class="post-title"><a class="post-link" href="https://robinali34.github.io/blog_leetcode_java/posts/2026-01-20-leetcode-templates-search/">Search</a></h2>
+      <h2 class="post-title"><a class="post-link" href="{{ '/posts/2026-01-20-leetcode-templates-search/' | relative_url }}">Search</a></h2>
       <div class="post-excerpt">
         <strong>Subcategories:</strong> Binary Search (sorted array, rotated array, answer space), Search in 2D Matrix, Advanced Search (merge sort on prefix sums, divide and conquer), Search Templates and Patterns
       </div>

@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 520" role="img" aria-labelledby="layersTitle layersDesc" class="template-diagram-svg">
+  <title id="layersTitle">LeetCode Template Layers</title>
+  <desc id="layersDesc">Four layers from foundation data structures to optimization paradigms.</desc>
+  <defs>
+    <style>
+      .box { fill: #fff; stroke: #B8B5B0; stroke-width: 1.5; }
+      .layer { fill: #F5F0E8; stroke: #D4D1CC; stroke-width: 1.2; }
+      .title { font: 600 15px ui-sans-serif, system-ui, sans-serif; fill: #5A5752; }
+      .label { font: 500 12px ui-sans-serif, system-ui, sans-serif; fill: #5A5752; }
+      .hint { font: 400 11px ui-sans-serif, system-ui, sans-serif; fill: #7A7772; }
+      .arrow { stroke: #9A9792; stroke-width: 1.4; fill: none; marker-end: url(#layers-arrow); }
+    </style>
+    <marker id="layers-arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#9A9792"/>
+    </marker>
+  </defs>
+
+  <rect width="920" height="520" fill="#FAF7F2" rx="12"/>
+
+  <text x="460" y="34" text-anchor="middle" class="title">Template stack: bottom-up relationships</text>
+  <text x="460" y="54" text-anchor="middle" class="hint">Lower layers supply primitives; upper layers compose them into problem-solving patterns.</text>
+
+  <rect x="40" y="78" width="840" height="88" class="layer" rx="10"/>
+  <text x="60" y="102" class="title">Layer 1 · Foundation</text>
+  <rect x="60" y="114" width="250" height="40" class="box" rx="8"/>
+  <text x="185" y="139" text-anchor="middle" class="label">Data Structures &amp; Core Algorithms</text>
+  <text x="330" y="139" class="hint">BS · Prefix · Mono Stack/Queue · Heap · DSU · Trie · Seg/Fenwick</text>
+
+  <rect x="40" y="186" width="840" height="108" class="layer" rx="10"/>
+  <text x="60" y="210" class="title">Layer 2 · Domain structures</text>
+  <rect x="60" y="224" width="150" height="56" class="box" rx="8"/>
+  <text x="135" y="248" text-anchor="middle" class="label">Array &amp; Matrix</text>
+  <text x="135" y="266" text-anchor="middle" class="hint">2 pointers · window</text>
+  <rect x="230" y="224" width="150" height="56" class="box" rx="8"/>
+  <text x="305" y="248" text-anchor="middle" class="label">String</text>
+  <text x="305" y="266" text-anchor="middle" class="hint">KMP · parsing</text>
+  <rect x="400" y="224" width="150" height="56" class="box" rx="8"/>
+  <text x="475" y="248" text-anchor="middle" class="label">Linked List</text>
+  <text x="475" y="266" text-anchor="middle" class="hint">dummy · reverse</text>
+  <rect x="570" y="224" width="120" height="56" class="box" rx="8"/>
+  <text x="630" y="256" text-anchor="middle" class="label">Tree</text>
+  <rect x="710" y="224" width="150" height="56" class="box" rx="8"/>
+  <text x="785" y="248" text-anchor="middle" class="label">Search</text>
+  <text x="785" y="266" text-anchor="middle" class="hint">BS templates</text>
+
+  <rect x="40" y="314" width="840" height="108" class="layer" rx="10"/>
+  <text x="60" y="338" class="title">Layer 3 · Traversal &amp; containers</text>
+  <rect x="60" y="352" width="110" height="56" class="box" rx="8"/>
+  <text x="115" y="384" text-anchor="middle" class="label">Stack</text>
+  <rect x="185" y="352" width="110" height="56" class="box" rx="8"/>
+  <text x="240" y="384" text-anchor="middle" class="label">Queue</text>
+  <rect x="310" y="352" width="110" height="56" class="box" rx="8"/>
+  <text x="365" y="384" text-anchor="middle" class="label">Heap</text>
+  <rect x="435" y="352" width="110" height="56" class="box" rx="8"/>
+  <text x="490" y="384" text-anchor="middle" class="label">BFS</text>
+  <rect x="560" y="352" width="110" height="56" class="box" rx="8"/>
+  <text x="615" y="384" text-anchor="middle" class="label">DFS</text>
+  <rect x="685" y="352" width="175" height="56" class="box" rx="8"/>
+  <text x="772" y="376" text-anchor="middle" class="label">Graph</text>
+  <text x="772" y="394" text-anchor="middle" class="hint">topo · Dijkstra · DSU</text>
+
+  <rect x="40" y="442" width="840" height="58" class="layer" rx="10"/>
+  <text x="60" y="466" class="title">Layer 4 · Paradigms &amp; design</text>
+  <rect x="60" y="474" width="120" height="18" class="box" rx="4"/>
+  <text x="120" y="487" text-anchor="middle" class="hint">DP</text>
+  <rect x="195" y="474" width="120" height="18" class="box" rx="4"/>
+  <text x="255" y="487" text-anchor="middle" class="hint">Greedy</text>
+  <rect x="330" y="474" width="140" height="18" class="box" rx="4"/>
+  <text x="400" y="487" text-anchor="middle" class="hint">Backtracking</text>
+  <rect x="485" y="474" width="160" height="18" class="box" rx="4"/>
+  <text x="565" y="487" text-anchor="middle" class="hint">DS Design</text>
+  <rect x="660" y="474" width="100" height="18" class="box" rx="4"/>
+  <text x="710" y="487" text-anchor="middle" class="hint">Advanced</text>
+  <rect x="775" y="474" width="95" height="18" class="box" rx="4"/>
+  <text x="822" y="487" text-anchor="middle" class="hint">Math/Bit</text>
+
+  <path class="arrow" d="M460 166 L460 186"/>
+  <path class="arrow" d="M460 294 L460 314"/>
+  <path class="arrow" d="M460 422 L460 442"/>
+</svg>

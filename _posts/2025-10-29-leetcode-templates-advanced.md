@@ -91,7 +91,7 @@ class BitTrie{ class Node{int ch[2]; Node(){ch[0]=ch[1]=-1;}}; Node[]t{Node()}
 
 ## More templates
 
-- **Arrays & Strings (Manacher, Z, rolling hash):** [Arrays & Strings](/posts/2025-10-29-leetcode-templates-arrays-strings/)
-- **Data structures (Trie):** [Data Structures & Core Algorithms](/posts/2025-10-29-leetcode-templates-data-structures/)
-- **Search (divide and conquer):** [Search](/posts/2026-01-20-leetcode-templates-search/)
-- **Master index:** [Categories & Templates](/posts/2025-10-29-leetcode-categories-and-templates/)
+- **Arrays & Strings (Manacher, Z, rolling hash):** [Arrays & Strings](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-arrays-strings/)
+- **Data structures (Trie):** [Data Structures & Core Algorithms](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-data-structures/)
+- **Search (divide and conquer):** [Search](/blog_leetcode_java/posts/2026-01-20-leetcode-templates-search/)
+- **Master index:** [Categories & Templates](/blog_leetcode_java/posts/2025-10-29-leetcode-categories-and-templates/)

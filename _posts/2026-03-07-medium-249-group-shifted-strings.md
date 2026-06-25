@@ -98,7 +98,7 @@ In Java, the `%` operator can return negative values for negative operands. For 
 
 ## Key Takeaways
 
-- This is a **"group by canonical form"** problem, same pattern as [LC 49 Group Anagrams](https://leetcode.com/problems/group-anagrams/) and [LC 893 Groups of Special-Equivalent Strings](/2026/02/15/easy-893-groups-of-special-equivalent-strings/)
+- This is a **"group by canonical form"** problem, same pattern as [LC 49 Group Anagrams](https://leetcode.com/problems/group-anagrams/) and [LC 893 Groups of Special-Equivalent Strings](/blog_leetcode_java/2026/02/15/easy-893-groups-of-special-equivalent-strings/)
 - The canonical form here is the **difference sequence** rather than sorted characters
 - Always use a separator when building composite keys from numbers to avoid collisions
 

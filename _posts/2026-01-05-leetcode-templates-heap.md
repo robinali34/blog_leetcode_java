@@ -8,7 +8,7 @@ tags: [leetcode, templates, heap, priority-queue, data-structures]
 ---
 
 {% raw %}
-Minimal, copy-paste Java for min/max heap, K-way merge, top K, and two heaps. See also [Data Structures](/posts/2025-10-29-leetcode-templates-data-structures/) for heap patterns.
+Minimal, copy-paste Java for min/max heap, K-way merge, top K, and two heaps. See also [Data Structures](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-data-structures/) for heap patterns.
 
 ## Contents
 
@@ -620,9 +620,9 @@ int[]dijkstra(vector<List<int[]>>& graph, int start) {
 
 ## More templates
 
-- **Data structures (heap, monotonic queue):** [Data Structures & Core Algorithms](/posts/2025-10-29-leetcode-templates-data-structures/)
-- **Graph (Dijkstra):** [Graph](/posts/2025-10-29-leetcode-templates-graph/)
-- **Master index:** [Categories & Templates](/posts/2025-10-29-leetcode-categories-and-templates/)
+- **Data structures (heap, monotonic queue):** [Data Structures & Core Algorithms](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-data-structures/)
+- **Graph (Dijkstra):** [Graph](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-graph/)
+- **Master index:** [Categories & Templates](/blog_leetcode_java/posts/2025-10-29-leetcode-categories-and-templates/)
 
 {% endraw %}
 

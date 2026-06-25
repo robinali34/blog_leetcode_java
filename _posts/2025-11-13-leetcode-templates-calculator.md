@@ -7,7 +7,7 @@ permalink: /posts/2025-11-13-leetcode-templates-calculator/
 tags: [leetcode, templates, calculator, expression-evaluation, stack]
 ---
 
-Minimal, copy-paste Java for expression evaluation with +, −, ×, ÷ and parentheses. See also [Stack](/posts/2025-11-13-leetcode-templates-stack/) for RPN and nested expressions.
+Minimal, copy-paste Java for expression evaluation with +, −, ×, ÷ and parentheses. See also [Stack](/blog_leetcode_java/posts/2025-11-13-leetcode-templates-stack/) for RPN and nested expressions.
 
 ## Contents
 
@@ -300,7 +300,7 @@ if(c == '(') {
 
 ## More templates
 
-- **Stack (parentheses, RPN, decode string):** [Stack](/posts/2025-11-13-leetcode-templates-stack/)
-- **Data structures, Graph, Search:** [Data Structures & Core Algorithms](/posts/2025-10-29-leetcode-templates-data-structures/), [Graph](/posts/2025-10-29-leetcode-templates-graph/), [Search](/posts/2026-01-20-leetcode-templates-search/)
-- **Master index:** [Categories & Templates](/posts/2025-10-29-leetcode-categories-and-templates/)
+- **Stack (parentheses, RPN, decode string):** [Stack](/blog_leetcode_java/posts/2025-11-13-leetcode-templates-stack/)
+- **Data structures, Graph, Search:** [Data Structures & Core Algorithms](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-data-structures/), [Graph](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-graph/), [Search](/blog_leetcode_java/posts/2026-01-20-leetcode-templates-search/)
+- **Master index:** [Categories & Templates](/blog_leetcode_java/posts/2025-10-29-leetcode-categories-and-templates/)
 

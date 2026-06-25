@@ -440,6 +440,6 @@ static int tsp(int[][]& w){
 
 ## More templates
 
-- **Data structures (segment tree, Fenwick):** [Data Structures & Core Algorithms](/posts/2025-10-29-leetcode-templates-data-structures/)
-- **Graph, Search (binary search on answer):** [Graph](/posts/2025-10-29-leetcode-templates-graph/), [Search](/posts/2026-01-20-leetcode-templates-search/)
-- **Master index:** [Categories & Templates](/posts/2025-10-29-leetcode-categories-and-templates/)
+- **Data structures (segment tree, Fenwick):** [Data Structures & Core Algorithms](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-data-structures/)
+- **Graph, Search (binary search on answer):** [Graph](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-graph/), [Search](/blog_leetcode_java/posts/2026-01-20-leetcode-templates-search/)
+- **Master index:** [Categories & Templates](/blog_leetcode_java/posts/2025-10-29-leetcode-categories-and-templates/)

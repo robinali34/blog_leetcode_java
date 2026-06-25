@@ -613,7 +613,8 @@ hr {
   font-size: 0.95rem;
 }
 
-.template-diagram-card img {
+.template-diagram-card img,
+.template-diagram-card svg.template-diagram-svg {
   display: block;
   width: 100%;
   height: auto;

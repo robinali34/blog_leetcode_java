@@ -112,7 +112,7 @@ class Solution {
 
 ## Key Takeaways
 
-- Same frequency counting pattern as [LC 242 Valid Anagram](/2026/03/07/easy-242-valid-anagram/), but **one-directional**: magazine supplies letters, ransom note consumes them
+- Same frequency counting pattern as [LC 242 Valid Anagram](/blog_leetcode_java/2026/03/07/easy-242-valid-anagram/), but **one-directional**: magazine supplies letters, ransom note consumes them
 - The array solution is preferred in interviews: faster, constant space, simpler
 - This is a "is A a subset of B (with multiplicity)" check
 

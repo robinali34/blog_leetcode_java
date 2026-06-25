@@ -8,7 +8,7 @@ tags: [leetcode, templates, array, matrix]
 ---
 
 {% raw %}
-Minimal, copy-paste Java for two pointers, sliding window, prefix sum, binary search, and matrix operations. See also [Arrays & Strings](/posts/2025-10-29-leetcode-templates-arrays-strings/) and [Search](/posts/2026-01-20-leetcode-templates-search/).
+Minimal, copy-paste Java for two pointers, sliding window, prefix sum, binary search, and matrix operations. See also [Arrays & Strings](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-arrays-strings/) and [Search](/blog_leetcode_java/posts/2026-01-20-leetcode-templates-search/).
 
 ## Contents
 
@@ -372,8 +372,8 @@ static int jump(int[] nums) {
 
 ## More templates
 
-- **Arrays & Strings, Search:** [Arrays & Strings](/posts/2025-10-29-leetcode-templates-arrays-strings/), [Search](/posts/2026-01-20-leetcode-templates-search/)
-- **Data structures, Graph:** [Data Structures & Core Algorithms](/posts/2025-10-29-leetcode-templates-data-structures/), [Graph](/posts/2025-10-29-leetcode-templates-graph/)
-- **Master index:** [Categories & Templates](/posts/2025-10-29-leetcode-categories-and-templates/)
+- **Arrays & Strings, Search:** [Arrays & Strings](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-arrays-strings/), [Search](/blog_leetcode_java/posts/2026-01-20-leetcode-templates-search/)
+- **Data structures, Graph:** [Data Structures & Core Algorithms](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-data-structures/), [Graph](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-graph/)
+- **Master index:** [Categories & Templates](/blog_leetcode_java/posts/2025-10-29-leetcode-categories-and-templates/)
 {% endraw %}
 

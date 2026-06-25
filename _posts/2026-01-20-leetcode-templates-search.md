@@ -8,7 +8,7 @@ tags: [leetcode, templates, search, binary-search, divide-and-conquer]
 ---
 
 {% raw %}
-Minimal, copy-paste Java for binary search, rotated arrays, 2D search, and answer-space search. Matches [Data Structures](/posts/2025-10-29-leetcode-templates-data-structures/#binary-search-bounds) lower/upper bound style.
+Minimal, copy-paste Java for binary search, rotated arrays, 2D search, and answer-space search. Matches [Data Structures](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-data-structures/#binary-search-bounds) lower/upper bound style.
 
 ## Contents
 
@@ -21,7 +21,7 @@ Minimal, copy-paste Java for binary search, rotated arrays, 2D search, and answe
 
 ## Basic binary search
 
-Standard: `[0, n-1]`, `left <= right`. Lower/upper bound: `[0, n]`, `left < right` — same as [Data Structures](/posts/2025-10-29-leetcode-templates-data-structures/#binary-search-bounds).
+Standard: `[0, n-1]`, `left <= right`. Lower/upper bound: `[0, n]`, `left < right` — same as [Data Structures](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-data-structures/#binary-search-bounds).
 
 ```java
 static int bsearch(int[] a, int target) {
@@ -199,7 +199,7 @@ static boolean search2D_flat(int[][]& mat, int target) {
 
 **Exponential search (702):** Double index until past target, then binary search in `[i/2, min(i,n-1)]`.
 
-**Tree-based:** Segment tree / Fenwick: [Data Structures](/posts/2025-10-29-leetcode-templates-data-structures/), [Trees](/posts/2025-10-29-leetcode-templates-trees/) (tree walk, lazy segment, BIT).
+**Tree-based:** Segment tree / Fenwick: [Data Structures](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-data-structures/), [Trees](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-trees/) (tree walk, lazy segment, BIT).
 
 | ID | Title | Link |
 |----|--------|------|
@@ -210,8 +210,8 @@ static boolean search2D_flat(int[][]& mat, int target) {
 
 ## More templates
 
-- **Data structures (binary search bounds, prefix sum, segment tree, BIT):** [Data Structures & Core Algorithms](/posts/2025-10-29-leetcode-templates-data-structures/)
-- **Graph (BFS, Dijkstra, topo):** [Graph](/posts/2025-10-29-leetcode-templates-graph/)
-- **Master index:** [Categories & Templates](/posts/2025-10-29-leetcode-categories-and-templates/)
+- **Data structures (binary search bounds, prefix sum, segment tree, BIT):** [Data Structures & Core Algorithms](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-data-structures/)
+- **Graph (BFS, Dijkstra, topo):** [Graph](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-graph/)
+- **Master index:** [Categories & Templates](/blog_leetcode_java/posts/2025-10-29-leetcode-categories-and-templates/)
 
 {% endraw %}

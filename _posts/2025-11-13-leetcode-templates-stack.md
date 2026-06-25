@@ -476,7 +476,7 @@ class MinStack {
 
 ## More templates
 
-- **Data structures (monotonic stack/queue):** [Data Structures & Core Algorithms](/posts/2025-10-29-leetcode-templates-data-structures/)
-- **Graph, Search:** [Graph](/posts/2025-10-29-leetcode-templates-graph/), [Search](/posts/2026-01-20-leetcode-templates-search/)
-- **Master index:** [Categories & Templates](/posts/2025-10-29-leetcode-categories-and-templates/)
+- **Data structures (monotonic stack/queue):** [Data Structures & Core Algorithms](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-data-structures/)
+- **Graph, Search:** [Graph](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-graph/), [Search](/blog_leetcode_java/posts/2026-01-20-leetcode-templates-search/)
+- **Master index:** [Categories & Templates](/blog_leetcode_java/posts/2025-10-29-leetcode-categories-and-templates/)
 

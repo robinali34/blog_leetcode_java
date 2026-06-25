@@ -368,6 +368,6 @@ class SparseTable {
 
 ## More Templates
 
-- **Graph (BFS, Dijkstra, Topo, DSU):** [Graph Templates](/posts/2025-10-29-leetcode-templates-graph/)
-- **Binary search (rotated, 2D, answer space):** [Search Templates](/posts/2026-01-20-leetcode-templates-search/)
-- **DP, Backtracking, Greedy, Stack:** [Categories & Templates](/posts/2025-10-29-leetcode-categories-and-templates/)
+- **Graph (BFS, Dijkstra, Topo, DSU):** [Graph Templates](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-graph/)
+- **Binary search (rotated, 2D, answer space):** [Search Templates](/blog_leetcode_java/posts/2026-01-20-leetcode-templates-search/)
+- **DP, Backtracking, Greedy, Stack:** [Categories & Templates](/blog_leetcode_java/posts/2025-10-29-leetcode-categories-and-templates/)

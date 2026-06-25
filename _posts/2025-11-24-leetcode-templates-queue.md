@@ -8,7 +8,7 @@ tags: [leetcode, templates, queue, data-structures]
 ---
 
 {% raw %}
-Minimal, copy-paste Java for BFS queue, monotonic queue, priority queue, circular queue, and deque. See also [Graph](/posts/2025-10-29-leetcode-templates-graph/) and [Data Structures](/posts/2025-10-29-leetcode-templates-data-structures/) (monotonic queue).
+Minimal, copy-paste Java for BFS queue, monotonic queue, priority queue, circular queue, and deque. See also [Graph](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-graph/) and [Data Structures](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-data-structures/) (monotonic queue).
 
 ## Contents
 
@@ -430,8 +430,8 @@ class FrontMiddleBackQueue {
 
 ## More templates
 
-- **Data structures (monotonic queue):** [Data Structures & Core Algorithms](/posts/2025-10-29-leetcode-templates-data-structures/)
-- **BFS, Graph:** [BFS](/posts/2025-11-24-leetcode-templates-bfs/), [Graph](/posts/2025-10-29-leetcode-templates-graph/)
-- **Master index:** [Categories & Templates](/posts/2025-10-29-leetcode-categories-and-templates/)
+- **Data structures (monotonic queue):** [Data Structures & Core Algorithms](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-data-structures/)
+- **BFS, Graph:** [BFS](/blog_leetcode_java/posts/2025-11-24-leetcode-templates-bfs/), [Graph](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-graph/)
+- **Master index:** [Categories & Templates](/blog_leetcode_java/posts/2025-10-29-leetcode-categories-and-templates/)
 {% endraw %}
 

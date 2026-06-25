@@ -2,7 +2,7 @@
 title: "Robina Li"
 description: "Technical Blog - Exploring algorithms, data structures, and software engineering insights"
 baseurl: "/blog_leetcode_java" # the subpath of your site, e.g. /blog_leetcode
-url: "https://robinali34.github.io/blog_leetcode_java/" # the base hostname & protocol for your site
+url: "https://robinali34.github.io" # the base hostname & protocol for your site
 
 # Build settings
 markdown: kramdown
@@ -37,6 +37,11 @@ plugins:
   - jekyll-feed
   - jekyll-sitemap
   - jekyll-paginate
+  - jekyll-relative-links
+
+relative_links:
+  enabled: true
+  collections: true
 
 # Exclude from processing
 exclude:

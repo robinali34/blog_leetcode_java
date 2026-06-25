@@ -8,7 +8,7 @@ tags: [leetcode, templates, bfs, graph, traversal]
 ---
 
 {% raw %}
-Minimal, copy-paste Java for graph and grid BFS, multi-source BFS, shortest path, and level-order traversal. See also [Graph](/posts/2025-10-29-leetcode-templates-graph/) for Dijkstra and 0-1 BFS.
+Minimal, copy-paste Java for graph and grid BFS, multi-source BFS, shortest path, and level-order traversal. See also [Graph](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-graph/) for Dijkstra and 0-1 BFS.
 
 ## Contents
 
@@ -334,8 +334,8 @@ static int shortestPath(int[][]& grid, int k) {
 
 ## More templates
 
-- **Graph (Dijkstra, 0-1 BFS, topo):** [Graph](/posts/2025-10-29-leetcode-templates-graph/)
-- **Data structures, Search:** [Data Structures & Core Algorithms](/posts/2025-10-29-leetcode-templates-data-structures/), [Search](/posts/2026-01-20-leetcode-templates-search/)
-- **Master index:** [Categories & Templates](/posts/2025-10-29-leetcode-categories-and-templates/)
+- **Graph (Dijkstra, 0-1 BFS, topo):** [Graph](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-graph/)
+- **Data structures, Search:** [Data Structures & Core Algorithms](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-data-structures/), [Search](/blog_leetcode_java/posts/2026-01-20-leetcode-templates-search/)
+- **Master index:** [Categories & Templates](/blog_leetcode_java/posts/2025-10-29-leetcode-categories-and-templates/)
 {% endraw %}
 

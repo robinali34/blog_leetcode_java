@@ -8,7 +8,7 @@ tags: [leetcode, templates, dfs, graph, traversal]
 ---
 
 {% raw %}
-Minimal, copy-paste Java for graph DFS, grid DFS, tree DFS, memoization, and iterative DFS. See also [Graph](/posts/2025-10-29-leetcode-templates-graph/) and [Backtracking](/posts/2025-11-24-leetcode-templates-backtracking/).
+Minimal, copy-paste Java for graph DFS, grid DFS, tree DFS, memoization, and iterative DFS. See also [Graph](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-graph/) and [Backtracking](/blog_leetcode_java/posts/2025-11-24-leetcode-templates-backtracking/).
 
 ## Contents
 
@@ -282,8 +282,8 @@ int[]preorderIterative(TreeNode root) {
 
 ## More templates
 
-- **Graph, Backtracking:** [Graph](/posts/2025-10-29-leetcode-templates-graph/), [Backtracking](/posts/2025-11-24-leetcode-templates-backtracking/)
-- **Data structures, Search:** [Data Structures & Core Algorithms](/posts/2025-10-29-leetcode-templates-data-structures/), [Search](/posts/2026-01-20-leetcode-templates-search/)
-- **Master index:** [Categories & Templates](/posts/2025-10-29-leetcode-categories-and-templates/)
+- **Graph, Backtracking:** [Graph](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-graph/), [Backtracking](/blog_leetcode_java/posts/2025-11-24-leetcode-templates-backtracking/)
+- **Data structures, Search:** [Data Structures & Core Algorithms](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-data-structures/), [Search](/blog_leetcode_java/posts/2026-01-20-leetcode-templates-search/)
+- **Master index:** [Categories & Templates](/blog_leetcode_java/posts/2025-10-29-leetcode-categories-and-templates/)
 {% endraw %}
 

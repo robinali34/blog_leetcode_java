@@ -40,7 +40,7 @@ Output: false
 
 ## Thinking Process
 
-This extends [LC 217 Contains Duplicate](/2026/03/07/easy-217-contains-duplicate/) with a distance constraint: duplicates must be within `k` positions of each other.
+This extends [LC 217 Contains Duplicate](/blog_leetcode_java/2026/03/07/easy-217-contains-duplicate/) with a distance constraint: duplicates must be within `k` positions of each other.
 
 Two approaches:
 1. **Hash map** -- store the last seen index of each value. On a repeat, check if the distance is $\leq k$.

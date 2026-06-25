@@ -8,7 +8,7 @@ tags: [leetcode, templates, math, bit-manipulation]
 ---
 
 {% raw %}
-Minimal, copy-paste Java for bit operations, fast exponentiation, GCD/LCM, primes, and number theory. See also [Math & Geometry](/posts/2025-10-29-leetcode-templates-math-geometry/).
+Minimal, copy-paste Java for bit operations, fast exponentiation, GCD/LCM, primes, and number theory. See also [Math & Geometry](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-math-geometry/).
 
 ## Contents
 
@@ -294,8 +294,8 @@ static int reverse(int x) {
 
 ## More templates
 
-- **Math & Geometry:** [Math & Geometry](/posts/2025-10-29-leetcode-templates-math-geometry/)
-- **Advanced (bitwise trie):** [Advanced Techniques](/posts/2025-10-29-leetcode-templates-advanced/)
-- **Master index:** [Categories & Templates](/posts/2025-10-29-leetcode-categories-and-templates/)
+- **Math & Geometry:** [Math & Geometry](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-math-geometry/)
+- **Advanced (bitwise trie):** [Advanced Techniques](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-advanced/)
+- **Master index:** [Categories & Templates](/blog_leetcode_java/posts/2025-10-29-leetcode-categories-and-templates/)
 {% endraw %}
 

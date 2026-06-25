@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 560" role="img" aria-labelledby="crossTitle crossDesc" class="template-diagram-svg">
+  <title id="crossTitle">LeetCode Template Cross Links</title>
+  <desc id="crossDesc">Key reuse paths between template families.</desc>
+  <defs>
+    <style>
+      .box { fill: #fff; stroke: #B8B5B0; stroke-width: 1.4; }
+      .accent { fill: #E8D5D0; stroke: #8B8680; stroke-width: 1.6; }
+      .title { font: 600 14px ui-sans-serif, system-ui, sans-serif; fill: #5A5752; }
+      .label { font: 500 12px ui-sans-serif, system-ui, sans-serif; fill: #5A5752; }
+      .hint { font: 400 10.5px ui-sans-serif, system-ui, sans-serif; fill: #7A7772; }
+      .flow { stroke: #9A9792; stroke-width: 1.5; fill: none; marker-end: url(#cross-arrow); }
+      .flow-soft { stroke: #C4C8C0; stroke-width: 1.2; fill: none; stroke-dasharray: 5 4; marker-end: url(#cross-arrow-soft); }
+    </style>
+    <marker id="cross-arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#9A9792"/>
+    </marker>
+    <marker id="cross-arrow-soft" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#C4C8C0"/>
+    </marker>
+  </defs>
+
+  <rect width="980" height="560" fill="#FAF7F2" rx="12"/>
+  <text x="490" y="32" text-anchor="middle" class="title" style="font-size:16px">How templates borrow from each other</text>
+  <text x="490" y="52" text-anchor="middle" class="hint">Solid arrows = direct building blocks · Dashed = common pattern overlap</text>
+
+  <rect x="390" y="78" width="200" height="54" class="accent" rx="10"/>
+  <text x="490" y="102" text-anchor="middle" class="label">Data Structures &amp; Core</text>
+  <text x="490" y="120" text-anchor="middle" class="hint">BS · Prefix · Mono · Heap · DSU · Trie</text>
+
+  <rect x="70" y="190" width="150" height="48" class="box" rx="8"/>
+  <text x="145" y="218" text-anchor="middle" class="label">Array / String</text>
+
+  <rect x="250" y="190" width="120" height="48" class="box" rx="8"/>
+  <text x="310" y="218" text-anchor="middle" class="label">Search</text>
+
+  <rect x="400" y="190" width="120" height="48" class="box" rx="8"/>
+  <text x="460" y="218" text-anchor="middle" class="label">Stack</text>
+
+  <rect x="550" y="190" width="120" height="48" class="box" rx="8"/>
+  <text x="610" y="218" text-anchor="middle" class="label">Queue</text>
+
+  <rect x="700" y="190" width="120" height="48" class="box" rx="8"/>
+  <text x="760" y="218" text-anchor="middle" class="label">Heap</text>
+
+  <rect x="850" y="190" width="100" height="48" class="box" rx="8"/>
+  <text x="900" y="218" text-anchor="middle" class="label">Design</text>
+
+  <rect x="170" y="300" width="110" height="48" class="box" rx="8"/>
+  <text x="225" y="328" text-anchor="middle" class="label">BFS</text>
+
+  <rect x="320" y="300" width="110" height="48" class="box" rx="8"/>
+  <text x="375" y="328" text-anchor="middle" class="label">DFS</text>
+
+  <rect x="470" y="300" width="110" height="48" class="box" rx="8"/>
+  <text x="525" y="328" text-anchor="middle" class="label">Graph</text>
+
+  <rect x="620" y="300" width="130" height="48" class="box" rx="8"/>
+  <text x="685" y="328" text-anchor="middle" class="label">Tree</text>
+
+  <rect x="250" y="410" width="130" height="48" class="box" rx="8"/>
+  <text x="315" y="438" text-anchor="middle" class="label">Backtracking</text>
+
+  <rect x="420" y="410" width="90" height="48" class="box" rx="8"/>
+  <text x="465" y="438" text-anchor="middle" class="label">DP</text>
+
+  <rect x="540" y="410" width="100" height="48" class="box" rx="8"/>
+  <text x="590" y="438" text-anchor="middle" class="label">Greedy</text>
+
+  <rect x="670" y="410" width="120" height="48" class="box" rx="8"/>
+  <text x="730" y="438" text-anchor="middle" class="label">Advanced</text>
+
+  <path class="flow" d="M450 132 C420 160 180 170 145 190"/>
+  <path class="flow" d="M470 132 C450 160 340 170 310 190"/>
+  <path class="flow" d="M490 132 L490 190"/>
+  <path class="flow" d="M510 132 C530 160 590 170 610 190"/>
+  <path class="flow" d="M530 132 C560 160 720 170 760 190"/>
+  <path class="flow" d="M550 132 C600 160 860 170 900 190"/>
+
+  <path class="flow" d="M610 238 C560 260 280 280 225 300"/>
+  <path class="flow" d="M460 238 C430 260 390 280 375 300"/>
+  <path class="flow" d="M375 348 C420 370 480 380 525 300"/>
+  <path class="flow" d="M525 348 C590 370 650 380 685 300"/>
+  <path class="flow" d="M225 348 C270 380 300 390 315 410"/>
+  <path class="flow-soft" d="M145 238 C170 260 280 280 315 410"/>
+  <path class="flow-soft" d="M685 348 C650 380 600 390 590 410"/>
+  <path class="flow-soft" d="M760 238 C740 320 720 360 730 410"/>
+
+  <text x="490" y="520" text-anchor="middle" class="hint">Tip: start from Data Structures, then pick the domain (array/graph/tree) before choosing DP / greedy / backtracking.</text>
+</svg>

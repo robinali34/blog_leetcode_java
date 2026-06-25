@@ -47,7 +47,7 @@ Output: []
 
 ## Thinking Process
 
-This is [LC 112 Path Sum](/2026/03/06/easy-112-path-sum/) extended to **collect all valid paths** instead of just returning true/false.
+This is [LC 112 Path Sum](/blog_leetcode_java/2026/03/06/easy-112-path-sum/) extended to **collect all valid paths** instead of just returning true/false.
 
 ### From LC 112 to LC 113
 

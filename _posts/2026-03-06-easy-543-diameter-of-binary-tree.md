@@ -44,7 +44,7 @@ The diameter passing through a node = **left depth + right depth + 2** (counting
 
 ### Why Bottom-Up?
 
-We need the depth of every subtree. Computing depth top-down would recompute subtrees repeatedly ($O(n^2)$). Instead, compute depth bottom-up and update a global maximum at each node -- same pattern as [LC 110 Balanced Binary Tree](/2026/03/06/easy-110-balanced-binary-tree/).
+We need the depth of every subtree. Computing depth top-down would recompute subtrees repeatedly ($O(n^2)$). Instead, compute depth bottom-up and update a global maximum at each node -- same pattern as [LC 110 Balanced Binary Tree](/blog_leetcode_java/2026/03/06/easy-110-balanced-binary-tree/).
 
 ### Edge Count vs Node Count
 

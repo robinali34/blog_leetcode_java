@@ -427,7 +427,7 @@ List<int[]> bridges(int n, int[][]& g) {
 
 ## DSU
 
-Path compression + rank. See [Data Structures & Core Algorithms](/posts/2025-10-29-leetcode-templates-data-structures/#union-find-dsu) for full template.
+Path compression + rank. See [Data Structures & Core Algorithms](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-data-structures/#union-find-dsu) for full template.
 
 | ID | Title | Link | Solution |
 |----|--------|------|----------|
@@ -444,7 +444,7 @@ Path compression + rank. See [Data Structures & Core Algorithms](/posts/2025-10-
 
 ## More templates
 
-- **Data structures (DSU, segment tree, etc.):** [Data Structures & Core Algorithms](/posts/2025-10-29-leetcode-templates-data-structures/)
-- **Binary search, rotated array, 2D:** [Search](/posts/2026-01-20-leetcode-templates-search/)
-- **Master index:** [Categories & Templates](/posts/2025-10-29-leetcode-categories-and-templates/)
+- **Data structures (DSU, segment tree, etc.):** [Data Structures & Core Algorithms](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-data-structures/)
+- **Binary search, rotated array, 2D:** [Search](/blog_leetcode_java/posts/2026-01-20-leetcode-templates-search/)
+- **Master index:** [Categories & Templates](/blog_leetcode_java/posts/2025-10-29-leetcode-categories-and-templates/)
 {% endraw %}

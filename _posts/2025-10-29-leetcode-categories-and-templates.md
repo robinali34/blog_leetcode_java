@@ -13,16 +13,16 @@ tags: [leetcode, templates, patterns, dp, graph, sliding-window, two-pointers, b
 A quick reference to the most common LeetCode categories and battle‑tested Java templates to speed up implementation.
 
 > This guide is split into category posts (minimal, copy-paste Java):
-> - **Data Structures & Core Algorithms:** [Binary search bounds, prefix/diff, monotonic stack/queue, heap, DSU, Trie, segment tree, Fenwick, sparse table](/posts/2025-10-29-leetcode-templates-data-structures/)
-> - Arrays & Strings: [/posts/2025-10-29-leetcode-templates-arrays-strings/](/posts/2025-10-29-leetcode-templates-arrays-strings/)
-> - Stack: [/posts/2025-11-13-leetcode-templates-stack/](/posts/2025-11-13-leetcode-templates-stack/)
-> - Calculator: [/posts/2025-11-13-leetcode-templates-calculator/](/posts/2025-11-13-leetcode-templates-calculator/)
-> - Graph: [/posts/2025-10-29-leetcode-templates-graph/](/posts/2025-10-29-leetcode-templates-graph/)
-> - Backtracking: [/posts/2025-11-24-leetcode-templates-backtracking/](/posts/2025-11-24-leetcode-templates-backtracking/)
-> - Trees: [/posts/2025-10-29-leetcode-templates-trees/](/posts/2025-10-29-leetcode-templates-trees/)
-> - Dynamic Programming: [/posts/2025-10-29-leetcode-templates-dp/](/posts/2025-10-29-leetcode-templates-dp/)
-> - Math & Geometry: [/posts/2025-10-29-leetcode-templates-math-geometry/](/posts/2025-10-29-leetcode-templates-math-geometry/)
-> - Advanced Techniques: [/posts/2025-10-29-leetcode-templates-advanced/](/posts/2025-10-29-leetcode-templates-advanced/)
+> - **Data Structures & Core Algorithms:** [Binary search bounds, prefix/diff, monotonic stack/queue, heap, DSU, Trie, segment tree, Fenwick, sparse table](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-data-structures/)
+> - Arrays & Strings: [/posts/2025-10-29-leetcode-templates-arrays-strings/](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-arrays-strings/)
+> - Stack: [/posts/2025-11-13-leetcode-templates-stack/](/blog_leetcode_java/posts/2025-11-13-leetcode-templates-stack/)
+> - Calculator: [/posts/2025-11-13-leetcode-templates-calculator/](/blog_leetcode_java/posts/2025-11-13-leetcode-templates-calculator/)
+> - Graph: [/posts/2025-10-29-leetcode-templates-graph/](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-graph/)
+> - Backtracking: [/posts/2025-11-24-leetcode-templates-backtracking/](/blog_leetcode_java/posts/2025-11-24-leetcode-templates-backtracking/)
+> - Trees: [/posts/2025-10-29-leetcode-templates-trees/](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-trees/)
+> - Dynamic Programming: [/posts/2025-10-29-leetcode-templates-dp/](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-dp/)
+> - Math & Geometry: [/posts/2025-10-29-leetcode-templates-math-geometry/](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-math-geometry/)
+> - Advanced Techniques: [/posts/2025-10-29-leetcode-templates-advanced/](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-advanced/)
 
 ## Contents
 

@@ -8,7 +8,7 @@ tags: [leetcode, templates, string, algorithms]
 ---
 
 {% raw %}
-Minimal, copy-paste Java for sliding window, two pointers, string matching, manipulation, and parsing. See also [Arrays & Strings](/posts/2025-10-29-leetcode-templates-arrays-strings/) for KMP and rolling hash.
+Minimal, copy-paste Java for sliding window, two pointers, string matching, manipulation, and parsing. See also [Arrays & Strings](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-arrays-strings/) for KMP and rolling hash.
 
 ## Contents
 
@@ -350,8 +350,8 @@ static String decodeString(String s) {
 
 ## More templates
 
-- **Arrays & Strings (KMP, Manacher):** [Arrays & Strings](/posts/2025-10-29-leetcode-templates-arrays-strings/)
-- **Stack (decode string):** [Stack](/posts/2025-11-13-leetcode-templates-stack/)
-- **Master index:** [Categories & Templates](/posts/2025-10-29-leetcode-categories-and-templates/)
+- **Arrays & Strings (KMP, Manacher):** [Arrays & Strings](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-arrays-strings/)
+- **Stack (decode string):** [Stack](/blog_leetcode_java/posts/2025-11-13-leetcode-templates-stack/)
+- **Master index:** [Categories & Templates](/blog_leetcode_java/posts/2025-10-29-leetcode-categories-and-templates/)
 {% endraw %}
 
