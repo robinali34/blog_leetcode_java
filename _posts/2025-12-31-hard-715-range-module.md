@@ -1,0 +1,538 @@
+---
+layout: post
+title: "[Hard] 715. Range Module"
+date: 2025-12-31 16:30:00 -0700
+categories: [leetcode, hard, design, data-structures, interval, map, tree-map]
+permalink: /2025/12/31/hard-715-range-module/
+---
+
+# 715. Range Module
+
+## Problem Statement
+
+A Range Module is a module that tracks ranges of numbers. Design a data structure to track the ranges represented as **half-open intervals** `[left, right)`.
+
+Implement the `RangeModule` class:
+
+- `RangeModule()` Initializes the object of the data structure.
+- `void addRange(int left, int right)` Adds the **half-open interval** `[left, right)`, tracking every real number in that interval. Adding an interval that partially overlaps with currently tracked numbers should add any numbers in the interval `[left, right)` that are not already tracked.
+- `bool queryRange(int left, int right)` Returns `true` if every real number in the interval `[left, right)` is currently being tracked, and `false` otherwise.
+- `void removeRange(int left, int right)` Stops tracking every real number currently being tracked in the **half-open interval** `[left, right)`.
+
+## Examples
+
+**Example 1:**
+```
+Input
+["RangeModule", "addRange", "removeRange", "queryRange", "queryRange", "queryRange"]
+[[], [10, 20], [14, 16], [10, 14], [13, 15], [16, 17]]
+Output
+[null, null, null, true, false, true]
+
+Explanation
+RangeModule rangeModule = new RangeModule();
+rangeModule.addRange(10, 20);  // Track [10, 20)
+rangeModule.removeRange(14, 16); // Stop tracking [14, 16)
+rangeModule.queryRange(10, 14); // Returns true (every number in [10, 14) is being tracked)
+rangeModule.queryRange(13, 15); // Returns false (numbers like 13.5, 14, 14.5, 15 in [13, 15) are not being tracked)
+rangeModule.queryRange(16, 17); // Returns true (the number 16 in [16, 17) is still being tracked, despite the removeRange operation)
+```
+
+## Constraints
+
+- `1 <= left < right <= 10^9`
+- At most `10^4` calls will be made to `addRange`, `queryRange`, and `removeRange`.
+
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Range format**: Are ranges inclusive or exclusive? (Assumption: Half-open interval [left, right) - left is inclusive, right is exclusive)
+
+2. **Overlapping ranges**: How should we handle overlapping ranges when adding? (Assumption: Merge overlapping ranges - union of all tracked ranges)
+
+3. **Partial removal**: What happens when removing a range that partially overlaps tracked ranges? (Assumption: Remove only the overlapping portion - split ranges if needed)
+
+4. **Query definition**: What does queryRange check? (Assumption: Returns true if every number in [left, right) is being tracked)
+
+5. **Range boundaries**: What's the valid range for left and right? (Assumption: 1 <= left < right <= 10^9 per constraints)
+
+## Interview Deduction Process (30 minutes)
+
+### Step 1: Brute-Force Approach (8 minutes)
+**Initial Thought**: "I need to track ranges. Let me use a simple list and check/merge manually."
+
+**Naive Solution**: Store all intervals in an unsorted list. For each operation, linearly scan through all intervals to find overlaps, then manually merge or split.
+
+**Complexity**: O(n) per operation, O(n^2) worst case for merging
+
+**Issues**:
+- O(n) per operation - linear scan through all intervals
+- O(n^2) worst case when merging requires checking all pairs
+- No efficient way to find overlapping intervals
+- Complex merge/split logic with many edge cases
+- Doesn't scale well for many operations
+
+### Step 2: Semi-Optimized Approach (10 minutes)
+**Insight**: "I need sorted intervals for efficient operations. A sorted vector with binary search can help find positions quickly."
+
+**Improved Solution**: Maintain intervals in a sorted vector. Use binary search to find insertion points, but still need O(n) for vector insertions/deletions.
+
+**Complexity**: O(log n) search + O(n) insertion/deletion per operation
+
+**Improvements**:
+- Binary search reduces search time to O(log n)
+- Still O(n) for insertions/deletions due to vector shifting
+- Better than brute-force but not optimal
+- Query becomes O(log n) which is good
+
+### Step 3: Optimized Solution (12 minutes)
+**Final Optimization**: "A sorted map (TreeMap) provides O(log n) operations and efficient merging. It handles insertions/deletions efficiently."
+
+**Best Solution**: Use `TreeMap` to store intervals sorted by start point. Use `binary search (upper bound)()` to find insertion points, then merge or split intervals as needed.
+
+**Complexity**: O(k log n) per operation where k = number of intervals affected
+
+**Key Realizations**:
+1. `TreeMap` provides O(log n) operations and automatic sorting
+2. `binary search (upper bound)()` efficiently finds insertion points in O(log n)
+3. Merge logic handles overlapping intervals elegantly by extending boundaries
+4. Split logic handles partial overlaps correctly by truncating/creating intervals
+5. O(k log n) complexity where k is number of intervals affected (typically small)
+6. Much more efficient than linear approaches for many operations
+
+## Solution Structure Breakdown
+
+### Evolution from Naive to Optimized
+
+**Naive Approach** (List-based):
+- **Structure**: Store intervals in unsorted list, linear scan
+- **Complexity**: O(n) per operation, O(n^2) worst case
+- **Limitation**: No efficient way to find/merge intervals
+
+**Semi-Optimized Approach** (Sorted Vector):
+- **Structure**: Maintain sorted vector, binary search for position
+- **Complexity**: O(log n) search + O(n) insertion/deletion
+- **Improvement**: Faster search, but still O(n) for modifications
+
+**Optimized Approach** (Sorted Map):
+- **Structure**: `TreeMap` for automatic sorting and O(log n) operations
+- **Complexity**: O(k log n) where k = intervals affected
+- **Enhancement**: Efficient merge/split operations
+
+### Code Structure Comparison
+
+| Approach | Data Structure | Search | Insert/Delete | Merge Logic |
+|----------|---------------|--------|---------------|-------------|
+| **Naive** | Unsorted list | O(n) | O(1) | O(n^2) |
+| **Semi-Opt** | Sorted vector | O(log n) | O(n) | O(n) |
+| **Optimized** | Sorted map | O(log n) | O(log n) | O(k log n) |
+
+## Solution Approach
+
+This problem requires efficiently managing intervals (ranges) with support for adding, querying, and removing. We can use a **sorted map** (like `TreeMap` in Java) to store non-overlapping intervals, where keys are start points and values are end points.
+
+### Key Insights:
+
+1. **Sorted Map**: Use `map<int, int>` to store intervals in sorted order by start point
+2. **Merge Intervals**: When adding, merge overlapping or adjacent intervals
+3. **Split Intervals**: When removing, split intervals that partially overlap
+4. **Query Check**: Check if query range is completely contained in an existing interval
+
+### Algorithm:
+
+1. **addRange**: Find overlapping intervals, merge them, remove subsumed intervals
+2. **queryRange**: Check if query range is completely within a single interval
+3. **removeRange**: Split intervals that overlap with removal range
+
+## Solution
+
+### **Solution 1: Brute-Force List-Based Approach**
+
+**Time Complexity:** O(n) per operation, O(n^2) worst case for merging  
+**Space Complexity:** O(n)
+
+Store all intervals in an unsorted list and linearly scan for operations.
+
+```java
+// import java.util.Arrays;
+// import java.util.Collections;
+class RangeModule {
+    List<int[]> intervals;
+
+    void mergeIntervals() {
+        if (intervals.length == 0) return;
+        Arrays.sort(intervals);
+        List<int[]> merged;
+        merged.add(intervals[0]);
+
+        for (int i = 1; i < intervals.length; i++) {
+            if (merged.getLast().second >= intervals[i].first) {
+                merged.getLast().second = Math.max(merged.getLast().second, intervals[i].second);
+            } else {
+                merged.add(intervals[i]);
+            }
+        }
+        intervals = merged;
+    }
+    RangeModule() {
+
+    }
+
+    void addRange(int left, int right) {
+        intervals.add({left, right});
+        mergeIntervals();  // O(n log n) + O(n)
+    }
+
+    boolean queryRange(int left, int right) {
+        for (auto& [l, r] : intervals) {
+            if (l <= left && right <= r) return true;
+        }
+        return false;
+    }
+
+    void removeRange(int left, int right) {
+        List<int[]> newIntervals;
+        for (auto& [l, r] : intervals) {
+            if (r <= left || l >= right) {
+                newIntervals.add({l, r});
+            } else {
+                if (l < left) newIntervals.add({l, left});
+                if (r > right) newIntervals.add({right, r});
+            }
+        }
+        intervals = newIntervals;
+    }
+}
+```
+
+**Note**: This approach is inefficient due to O(n) operations and O(n^2) worst case merging.
+
+### **Solution 2: Sorted Vector with Binary Search**
+
+**Time Complexity:** O(log n) search + O(n) insertion/deletion per operation  
+**Space Complexity:** O(n)
+
+Maintain sorted intervals using a vector with binary search for finding positions.
+
+```java
+class RangeModule {
+    List<int[]> intervals;  // Kept sorted
+
+    int findInsertPos(int left) {
+        int low = 0, high = intervals.length;
+        while (low < high) {
+            int mid = low + (high - low) / 2;
+            if (intervals[mid].first <= left) {
+                low = mid + 1;
+            } else {
+                high = mid;
+            }
+        }
+        return low;
+    }
+    RangeModule() {
+
+    }
+
+    void addRange(int left, int right) {
+        int pos = findInsertPos(left);  // O(log n)
+        intervals.add(intervals.iterator() + pos, {left, right});  // O(n)
+        // Merge overlapping intervals - O(n)
+        mergeIntervals();
+    }
+
+    boolean queryRange(int left, int right) {
+        int pos = findInsertPos(left);  // O(log n)
+        if (pos > 0) {
+            var prev = intervals[pos - 1];
+            if (prev.first <= left && right <= prev.second) return true;
+        }
+        return false;
+    }
+
+    void removeRange(int left, int right) {
+        // Find and remove/split intervals - O(n)
+        List<int[]> newIntervals;
+        for (auto& [l, r] : intervals) {
+            if (r <= left || l >= right) {
+                newIntervals.add({l, r});
+            } else {
+                if (l < left) newIntervals.add({l, left});
+                if (r > right) newIntervals.add({right, r});
+            }
+        }
+        intervals = newIntervals;
+    }
+    void mergeIntervals() {
+        if (intervals.length == 0) return;
+        List<int[]> merged;
+        merged.add(intervals[0]);
+
+        for (int i = 1; i < intervals.length; i++) {
+            if (merged.getLast().second >= intervals[i].first) {
+                merged.getLast().second = Math.max(merged.getLast().second, intervals[i].second);
+            } else {
+                merged.add(intervals[i]);
+            }
+        }
+        intervals = merged;
+    }
+}
+```
+
+**Note**: Better than brute-force with O(log n) search, but still O(n) for insertions/deletions.
+
+### **Solution 3: Map-Based Interval Management (Recommended)**
+
+```java
+// import java.util.*;
+class RangeModule {
+    TreeMap<Integer, Integer> intervals;
+    RangeModule() {
+
+    }
+
+    void addRange(int left, int right) {
+        var it = intervals.binary search (upper bound)(left);
+        if(it != intervals.iterator()) {
+            var start = prev(it);
+            if(start.second >= right) return;
+            if(start.second >= left) {
+                left = start.first;
+                intervals.remove(start);
+            }
+        }
+        while(it != intervals.iterator() && it.first <= right) {
+            right = Math.max(right, it.second);
+            it = intervals.remove(it);
+        }
+        intervals.put(left, right);
+    }
+
+    boolean queryRange(int left, int right) {
+        var it = intervals.binary search (upper bound)(left);
+        if(it == intervals.iterator()) return false;
+        it = prev(it);
+        return right <= it.second;
+    }
+
+    void removeRange(int left, int right) {
+        var it = intervals.binary search (upper bound)(left);
+        if(it != intervals.iterator()) {
+            var start = prev(it);
+            if(start.second >= right) {
+                int ri = start.second;
+                if(start.first == left) {
+                    intervals.remove(start);
+                } else {
+                    start.second = left;
+                }
+                if(right != ri) {
+                    intervals.put(right, ri);
+                }
+                return;
+            } else if(start.second > left) {
+                if(start.first == left) {
+                    intervals.remove(start);
+                } else {
+                    start.second = left;
+                }
+            }
+        }
+        while(it != intervals.iterator() && it.first < right) {
+            if(it.second <= right) {
+                it = intervals.remove(it);
+            } else {
+                intervals.put(right, it.second);
+                intervals.remove(it);
+                break;
+            }
+        }
+    }
+}
+```
+
+### **Algorithm Explanation:**
+
+#### **1. addRange (Lines 10-24)**
+
+**Purpose**: Add interval `[left, right)`, merging with overlapping intervals.
+
+**Steps**:
+1. **Find insertion point** (Line 11): `binary search (upper bound)(left)` finds first interval starting after `left`
+2. **Check previous interval** (Lines 12-19):
+   - If previous interval ends at or after `right`: already covered, return
+   - If previous interval ends at or after `left`: merge by extending `left` to previous start
+3. **Merge overlapping intervals** (Lines 20-23):
+   - While current interval starts before or at `right`: merge by extending `right`
+   - Remove merged intervals
+4. **Insert merged interval** (Line 24): Add final merged interval
+
+**Example**:
+```
+Initial: intervals = {[10, 20]}
+addRange(15, 25):
+  it = binary search (upper bound)(15) → points to [10, 20]
+  prev(it) = [10, 20]
+  start->second (20) >= left (15) → merge
+  left = 10
+  it->first (10) <= right (25) → merge
+  right = max(25, 20) = 25
+  Result: {[10, 25]}
+```
+
+#### **2. queryRange (Lines 26-31)**
+
+**Purpose**: Check if entire range `[left, right)` is tracked.
+
+**Steps**:
+1. **Find candidate interval** (Line 27): `binary search (upper bound)(left)` finds first interval after `left`
+2. **Check previous interval** (Line 28): Move to previous interval (might contain `left`)
+3. **Verify coverage** (Line 30): Check if previous interval completely covers `[left, right)`
+
+**Example**:
+```
+intervals = {[10, 20]}
+queryRange(12, 18):
+  it = binary search (upper bound)(12) → points to [10, 20]
+  prev(it) = [10, 20]
+  Check: right (18) <= it->second (20) → true
+```
+
+#### **3. removeRange (Lines 33-56)**
+
+**Purpose**: Remove interval `[left, right)` from tracked ranges.
+
+**Steps**:
+1. **Find starting point** (Line 34): `binary search (upper bound)(left)` finds first interval after `left`
+2. **Handle previous interval** (Lines 35-50):
+   - If previous interval completely contains `[left, right)`:
+     - Split into `[start, left)` and `[right, end)` if needed
+   - If previous interval partially overlaps:
+     - Truncate to `[start, left)`
+3. **Remove/truncate following intervals** (Lines 51-56):
+   - Remove intervals completely within `[left, right)`
+   - Truncate interval that extends beyond `right`
+
+**Example**:
+```
+intervals = {[10, 20]}
+removeRange(14, 16):
+  it = binary search (upper bound)(14) → points to [10, 20]
+  prev(it) = [10, 20]
+  start->second (20) >= right (16) → split needed
+  start->first (10) != left (14) → truncate to [10, 14)
+  right (16) != ri (20) → add [16, 20)
+  Result: {[10, 14), [16, 20)}
+```
+
+### **Detailed Example Walkthrough:**
+
+**Operations:**
+```
+1. addRange(10, 20)
+   intervals = {[10, 20)}
+
+2. addRange(15, 25)
+   - Check [10, 20): overlaps, merge
+   intervals = {[10, 25)}
+
+3. removeRange(14, 16)
+   - [10, 25) overlaps with [14, 16)
+   - Split: [10, 14) and [16, 25)
+   intervals = {[10, 14), [16, 25)}
+
+4. queryRange(10, 14)
+   - Find interval containing 10: [10, 14)
+   - Check: 14 <= 14? Yes → true
+
+5. queryRange(13, 15)
+   - Find interval containing 13: [10, 14)
+   - Check: 15 <= 14? No → false
+
+6. queryRange(16, 17)
+   - Find interval containing 16: [16, 25)
+   - Check: 17 <= 25? Yes → true
+```
+
+## Algorithm Breakdown
+
+### **Key Insight: Sorted Map for Intervals**
+
+Using `map<int, int>` provides:
+- **Sorted keys**: Intervals stored by start point
+- **O(log n) operations**: Insert, delete, search
+- **Efficient merging**: Easy to find overlapping intervals
+
+### **Interval Merging Logic**
+
+**addRange** merges intervals by:
+1. Finding intervals that overlap or are adjacent
+2. Extending `left` to earliest start
+3. Extending `right` to latest end
+4. Removing all subsumed intervals
+
+### **Interval Splitting Logic**
+
+**removeRange** splits intervals by:
+1. Truncating intervals that start before `left`
+2. Removing intervals completely within `[left, right)`
+3. Creating new interval for part extending beyond `right`
+
+## Complexity Analysis
+
+### **Time Complexity:**
+- **addRange**: O(k log n) where k = number of intervals to merge
+- **queryRange**: O(log n) - binary search in map
+- **removeRange**: O(k log n) where k = number of intervals to remove/split
+- **n** = number of intervals stored
+
+### **Space Complexity:** O(n)
+- **Map storage**: O(n) intervals stored
+- **Each operation**: O(1) extra space
+
+## Key Points
+
+1. **Half-Open Intervals**: `[left, right)` means left included, right excluded
+2. **Sorted Map**: Maintains intervals in sorted order for efficient operations
+3. **Merging**: Automatically merges overlapping/adjacent intervals
+4. **Splitting**: Handles partial overlaps by splitting intervals
+5. **Efficient Queries**: O(log n) lookup using binary search
+
+## Edge Cases
+
+1. **Empty intervals**: `left >= right` should be handled (though constraints say `left < right`)
+2. **No overlapping**: Adding non-overlapping interval creates new entry
+3. **Complete overlap**: Adding interval already covered does nothing
+4. **Remove entire interval**: Removing completely removes interval
+5. **Query outside range**: Returns false if no interval covers query
+
+## Alternative Approaches
+
+### **Approach 1: Map-Based (Current Solution)**
+- **Time**: O(k log n) per operation
+- **Space**: O(n)
+- **Best for**: Efficient interval management
+
+### **Approach 2: Segment Tree**
+- **Time**: O(log max_value) per operation
+- **Space**: O(max_value)
+- **Use case**: When range of values is limited
+
+### **Approach 3: Balanced BST of Intervals**
+- **Time**: O(k log n) per operation
+- **Space**: O(n)
+- **Similar**: Custom interval tree structure
+
+## Related Problems
+
+- [715. Range Module](https://leetcode.com/problems/range-module/) - Current problem
+- [56. Merge Intervals](https://leetcode.com/problems/merge-intervals/) - Merge overlapping intervals
+- [57. Insert Interval](https://leetcode.com/problems/insert-interval/) - Insert and merge
+- [352. Data Stream as Disjoint Intervals](https://leetcode.com/problems/data-stream-as-disjoint-intervals/) - Similar interval management
+
+## Tags
+
+`Design`, `Data Structures`, `Interval`, `Map`, `Tree Map`, `Hard`
+

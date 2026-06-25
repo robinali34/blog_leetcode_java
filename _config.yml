@@ -1,0 +1,66 @@
+# Site settings
+title: "Robina Li"
+description: "Technical Blog - Exploring algorithms, data structures, and software engineering insights"
+baseurl: "/blog_leetcode_java" # the subpath of your site, e.g. /blog_leetcode
+url: "https://robinali34.github.io/blog_leetcode_java/" # the base hostname & protocol for your site
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+theme: minima
+show_excerpts: true
+
+# Collections
+collections:
+  posts:
+    output: true
+    permalink: /:year/:month/:day/:title/
+
+# Pagination
+paginate: 10
+paginate_path: "/posts/page:num/"
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+  - scope:
+      path: ""
+    values:
+      layout: "default"
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-paginate
+
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - README.md
+
+# Navigation
+header_pages:
+  - about.md
+  - leetcode-questions-list.md
+  - leetcode-templates.html
+
+# Social links
+github_username: robinali34
+linkedin_username: robinali
+
+# # Author information
+# author:
+#   name: "Robina Li"
+#   email: "robina@example.com"
+#   description: "Passionate about algorithms, data structures, and software engineering. Sharing knowledge and helping others understand complex technical topics."

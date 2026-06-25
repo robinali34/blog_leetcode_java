@@ -1,0 +1,97 @@
+---
+layout: post
+title: "Algorithm Templates: Advanced Techniques"
+date: 2025-10-29 00:00:00 -0700
+categories: leetcode templates advanced
+permalink: /posts/2025-10-29-leetcode-templates-advanced/
+tags: [leetcode, templates, advanced]
+---
+
+Minimal, copy-paste Java for coordinate compression, meet-in-the-middle, Manacher, Z-algorithm, and bitwise trie (max XOR).
+
+## Contents
+
+- [Coordinate Compression](#coordinate-compression)
+- [Meet-in-the-Middle (subset sums)](#meet-in-the-middle-subset-sums)
+- [Manacher (LPS O(n))](#manacher-longest-palindromic-substring-on)
+- [Z-Algorithm](#z-algorithm-pattern-occurrences)
+- [Bitwise Trie (Max XOR Pair)](#bitwise-trie-max-xor-pair)
+
+## Coordinate Compression
+
+```java
+// import java.util.Arrays;
+// import java.util.Collections;
+template<class T>
+class Compressor{
+    T[]vals; template<class It> void add(It b, It e){ vals.add(vals.iterator(), b, e); }
+    void build(){ Arrays.sort(vals); vals.remove(unique(vals /* elements of vals */), vals.iterator()); }
+    int get(T x) { return int(binary search (lower bound)(vals /* elements of vals */, x)-vals.iterator()); }
+}
+```
+
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 315 | Count of Smaller Numbers After Self | [Link](https://leetcode.com/problems/count-of-smaller-numbers-after-self/) | - |
+| 327 | Count of Range Sum | [Link](https://leetcode.com/problems/count-of-range-sum/) | - |
+
+## Meet-in-the-Middle (subset sums)
+
+```java
+// import java.util.Arrays;
+// import java.util.Collections;
+static long countSubsets(int[] a, long T){
+    int n=a.size(), m=n/2; long[]L,R; L.reserve(1<<m); R.reserve(1<<(n-m));
+    var go =[&](int l,int r, long[] out){ int k=r-l; for(int mask=0; mask<(1<<k); ++mask){ long s=0; for(int i=0;i<k;++i) if(mask>>i 1) s+=a[l+i]; out.add(s); } }
+    go(0,m,L); go(m,n,R); Arrays.sort(R); long ans=0; for(long x: L){ var pr =equal_range(R /* elements of R */, T-x); ans += pr.second - pr.first; } return ans;
+}
+```
+
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 1755 | Closest Subsequence Sum | [Link](https://leetcode.com/problems/closest-subsequence-sum/) | - |
+| 805 | Split Array With Same Average | [Link](https://leetcode.com/problems/split-array-with-same-average/) | - |
+
+## Manacher (Longest Palindromic Substring, O(n))
+
+```java
+static String manacher(String s){ String t="|"; for(char c:s){ t.add(c); t.add('|'); }
+    int n=t.size(); int[]p(n); int c=0,r=0, best=0, center=0;
+    for(int i=0;i<n;++i){ int mir=2 c-i; if(i<r) p[i]=Math.min(r-i,p[mir]); while(i-1-p[i]>=0 && i+1+p[i]<n && t[i-1-p[i]]==t[i+1+p[i]]) ++p[i]; if(i+p[i]>r){ c=i; r=i+p[i]; } if(p[i]>best){ best=p[i]; center=i; } }
+    int start=(center-best)/2; return s.substr(start, best);
+}
+```
+
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 5 | Longest Palindromic Substring | [Link](https://leetcode.com/problems/longest-palindromic-substring/) | - |
+
+## Z-Algorithm (Pattern occurrences)
+
+```java
+int[]zfunc(String s){ int n=s.size(); int[]z(n); int l=0,r=0; for(int i=1;i<n;++i){ if(i<=r) z[i]=Math.min(r-i+1, z[i-l]); while(i+z[i]<n && s[z[i]]==s[i+z[i]]) ++z[i]; if(i+z[i]-1>r){ l=i; r=i+z[i]-1; } } return z; }
+```
+
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 1392 | Longest Happy Prefix | [Link](https://leetcode.com/problems/longest-happy-prefix/) | - |
+
+## Bitwise Trie (Max XOR Pair)
+
+```java
+class BitTrie{ class Node{int ch[2]; Node(){ch[0]=ch[1]=-1;}}; Node[]t{Node()}
+    void insert(int x){ int u=0; for(int b=31;b>=0;--b){ int bit=(x>>b)&1; if(t[u].ch[bit]==-1){ t[u].ch[bit]=t.size(); t.add(Node()); } u=t[u].ch[bit]; } }
+    int maxXor(int x){ int u=0, ans=0; for(int b=31;b>=0;--b){ int bit=(x>>b)&1, want=bit^1; if(t[u].ch[want]!=-1){ ans |= 1<<b; u=t[u].ch[want]; } else u=t[u].ch[bit]; } return ans; }
+}
+```
+
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 421 | Maximum XOR of Two Numbers in an Array | [Link](https://leetcode.com/problems/maximum-xor-of-two-numbers-in-an-array/) | - |
+
+## More templates
+
+- **Arrays & Strings (Manacher, Z, rolling hash):** [Arrays & Strings](/posts/2025-10-29-leetcode-templates-arrays-strings/)
+- **Data structures (Trie):** [Data Structures & Core Algorithms](/posts/2025-10-29-leetcode-templates-data-structures/)
+- **Search (divide and conquer):** [Search](/posts/2026-01-20-leetcode-templates-search/)
+- **Master index:** [Categories & Templates](/posts/2025-10-29-leetcode-categories-and-templates/)

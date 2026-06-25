@@ -1,0 +1,337 @@
+---
+layout: post
+title: "[Easy] 203. Remove Linked List Elements"
+date: 2025-11-18 00:00:00 -0800
+categories: leetcode algorithm easy java linked-list iteration problem-solving
+permalink: /posts/2025-11-18-easy-203-remove-linked-list-elements/
+tags: [leetcode, easy, linked-list, two-pointers, dummy-node]
+---
+
+# [Easy] 203. Remove Linked List Elements
+
+Given the `head` of a linked list and an integer `val`, remove all the nodes of the linked list that has `Node.val == val`, and return *the new head*.
+
+## Examples
+
+**Example 1:**
+```
+Input: head = [1,2,6,3,4,5,6], val = 6
+Output: [1,2,3,4,5]
+```
+
+**Example 2:**
+```
+Input: head = [], val = 1
+Output: []
+```
+
+**Example 3:**
+```
+Input: head = [7,7,7,7], val = 7
+Output: []
+```
+
+## Constraints
+
+- The number of nodes in the list is in the range `[0, 10^4]`.
+- `1 <= Node.val <= 50`
+- `0 <= val <= 50`
+
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Removal operation**: What does "remove" mean? (Assumption: Remove all nodes with value equal to val from the linked list)
+
+2. **In-place requirement**: Should we remove in-place? (Assumption: Yes - modify pointers, not create new list)
+
+3. **Return value**: What should we return? (Assumption: Head of modified linked list - may be different if head was removed)
+
+4. **Empty list**: What if list is empty? (Assumption: Return nullptr - no nodes to process)
+
+5. **All nodes removed**: What if all nodes have value val? (Assumption: Return nullptr - empty list after removal)
+
+## Interview Deduction Process (10 minutes)
+
+### Step 1: Brute-Force Approach (2 minutes)
+**Initial Thought**: "I need to remove nodes. Let me traverse and remove nodes with matching value."
+
+**Naive Solution**: Traverse list, when finding node with val, remove it by updating previous node's next pointer.
+
+**Complexity**: O(n) time, O(1) space
+
+**Issues**:
+- Need to handle head removal specially
+- Complex pointer manipulation
+- Error-prone edge cases
+- Can be simplified
+
+### Step 2: Semi-Optimized Approach (3 minutes)
+**Insight**: "I can use dummy node to simplify head removal handling."
+
+**Improved Solution**: Use dummy node before head. Traverse list, remove nodes with val by updating pointers. Dummy node handles head removal uniformly.
+
+**Complexity**: O(n) time, O(1) space
+
+**Improvements**:
+- Dummy node simplifies logic
+- Handles head removal uniformly
+- Cleaner code
+- O(1) space is optimal
+
+### Step 3: Optimized Solution (5 minutes)
+**Final Optimization**: "Dummy node approach is optimal. Can also use recursive approach."
+
+**Best Solution**: Dummy node approach is optimal. Dummy node eliminates special case for head removal. Traverse and remove nodes with val.
+
+**Complexity**: O(n) time, O(1) space
+
+**Key Realizations**:
+1. Dummy node is key technique for linked list problems
+2. O(n) time is optimal - must visit each node
+3. O(1) space is optimal
+4. Handles all edge cases elegantly
+
+## Solution: Dummy Node Approach
+
+**Time Complexity:** O(n) - We visit each node once  
+**Space Complexity:** O(1) - Only using constant extra space
+
+The key insight is to use a dummy node to handle edge cases where the head itself needs to be removed. We traverse the list with two pointers: `prev` (previous node) and `curr` (current node), removing nodes that match the target value.
+
+### Solution: Iterative with Dummy Node
+
+```java
+/**
+ * Definition for singly-linked list.
+ * class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() { this.val = 0; this.next = null; }
+ *     ListNode(int x) { this.val = x; this.next = null; }
+ *     ListNode(int x, ListNode next) { this.val = x; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode removeElements(ListNode head, int val) {
+        if(head == null) return head;
+
+        ListNode dummy = ListNode(0, head);
+        ListNode prev = &dummy;
+        ListNode curr = head;
+        ListNode toDelete = null;
+
+        while(curr != null) {
+            if (curr.val == val) {
+                prev.next = curr.next;
+                toDelete = curr;
+            } else {
+                prev = curr;
+            }
+            curr = curr.next;
+
+            if(toDelete != null) {
+                delete toDelete;
+                toDelete = null;
+            }
+        }
+
+        ListNode ret = dummy.next;
+        return ret;
+    }
+}
+```
+
+## How the Algorithm Works
+
+### Step-by-Step Example: `head = [1,2,6,3,4,5,6]`, `val = 6`
+
+```
+Initial:  dummy -> 1 -> 2 -> 6 -> 3 -> 4 -> 5 -> 6 -> nullptr
+          ↑       ↑
+         prev    curr
+
+Step 1:   curr->val = 1 ≠ 6, move prev forward
+          dummy -> 1 -> 2 -> 6 -> 3 -> 4 -> 5 -> 6 -> nullptr
+                  ↑    ↑
+                 prev curr
+
+Step 2:   curr->val = 2 ≠ 6, move prev forward
+          dummy -> 1 -> 2 -> 6 -> 3 -> 4 -> 5 -> 6 -> nullptr
+                       ↑    ↑
+                      prev curr
+
+Step 3:   curr->val = 6 == 6, remove node
+          prev->next = curr->next (skip 6)
+          delete curr
+          dummy -> 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> nullptr
+                       ↑    ↑
+                      prev curr
+
+Step 4:   curr->val = 3 ≠ 6, move prev forward
+          dummy -> 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> nullptr
+                            ↑    ↑
+                           prev curr
+
+Step 5:   curr->val = 4 ≠ 6, move prev forward
+          dummy -> 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> nullptr
+                                 ↑    ↑
+                                prev curr
+
+Step 6:   curr->val = 5 ≠ 6, move prev forward
+          dummy -> 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> nullptr
+                                      ↑    ↑
+                                     prev curr
+
+Step 7:   curr->val = 6 == 6, remove node
+          prev->next = curr->next (skip 6)
+          delete curr
+          dummy -> 1 -> 2 -> 3 -> 4 -> 5 -> nullptr
+                                      ↑    ↑
+                                     prev curr (nullptr)
+
+Result:   Return dummy.next = [1,2,3,4,5]
+```
+
+### Visual Representation
+
+```
+Before:  [1] -> [2] -> [6] -> [3] -> [4] -> [5] -> [6] -> nullptr
+         ↑
+        head
+
+After:   [1] -> [2] -> [3] -> [4] -> [5] -> nullptr
+         ↑
+        head
+```
+
+## Key Insights
+
+1. **Dummy Node**: Using a dummy node simplifies edge cases, especially when the head needs to be removed
+2. **Two Pointers**: `prev` tracks the previous valid node, `curr` traverses the list
+3. **Memory Management**: Properly delete removed nodes to prevent memory leaks
+4. **Pointer Updates**: Only update `prev` when we don't remove a node; otherwise, `prev` stays the same
+
+## Algorithm Breakdown
+
+```java
+ListNode removeElements(ListNode head, int val) {
+    // Handle empty list
+    if(head == null) return head;
+
+    // Create dummy node to simplify edge cases
+    ListNode dummy(0, head);
+    ListNode prev = &dummy;  // Previous valid node
+    ListNode curr = head;    // Current node being checked
+    ListNode toDelete = null;
+
+    while(curr != null) {
+        if (curr.val == val) {
+            // Skip the current node
+            prev.next = curr.next;
+            toDelete = curr;  // Mark for deletion
+        } else {
+            // Move prev forward only when we keep the node
+            prev = curr;
+        }
+
+        // Move to next node
+        curr = curr.next;
+
+        // Delete removed node
+        if(toDelete != null) {
+            delete toDelete;
+            toDelete = null;
+        }
+    }
+
+    return dummy.next;  // Return new head
+}
+```
+
+## Edge Cases
+
+1. **Empty list**: `head = []` → return `[]`
+2. **Head needs removal**: `head = [7,7,7,7], val = 7` → return `[]`
+3. **All nodes removed**: `head = [1,1,1], val = 1` → return `[]`
+4. **No nodes removed**: `head = [1,2,3], val = 4` → return `[1,2,3]`
+5. **Remove from middle**: `head = [1,2,3,2,4], val = 2` → return `[1,3,4]`
+
+## Common Mistakes
+
+1. **Not using dummy node**: Makes it harder to handle head removal
+2. **Incorrect pointer updates**: Forgetting to update `prev` only when keeping a node
+3. **Memory leaks**: Not deleting removed nodes
+4. **Returning wrong pointer**: Should return `dummy.next`, not `head`
+5. **Null pointer dereference**: Not checking if `head` is `nullptr` first
+
+## Alternative Approaches
+
+### Approach 2: Recursive Solution
+
+**Time Complexity:** O(n)  
+**Space Complexity:** O(n) - Due to recursion stack
+
+```java
+class Solution {
+    public ListNode removeElements(ListNode head, int val) {
+        if(head == null) return head;
+
+        head.next = removeElements(head.next, val);
+
+        return head.val == val ? head.next : head;
+    }
+}
+```
+
+### Approach 3: Simplified Iterative (No Memory Deletion)
+
+For LeetCode submissions where memory management isn't required:
+
+```java
+class Solution {
+    public ListNode removeElements(ListNode head, int val) {
+        ListNode dummy(0, head);
+        ListNode prev = &dummy;
+        ListNode curr = head;
+
+        while(curr != null) {
+            if(curr.val == val) {
+                prev.next = curr.next;
+            } else {
+                prev = curr;
+            }
+            curr = curr.next;
+        }
+
+        return dummy.next;
+    }
+}
+```
+
+## Complexity Analysis
+
+| Approach | Time | Space | Pros | Cons |
+|----------|------|-------|------|------|
+| **Iterative with Dummy** | O(n) | O(1) | Space efficient, handles all cases | Requires memory management |
+| **Recursive** | O(n) | O(n) | Elegant, concise | Stack overflow risk for long lists |
+| **Simplified Iterative** | O(n) | O(1) | Simple, no memory management | Doesn't free memory (fine for LeetCode) |
+
+## Related Problems
+
+- [83. Remove Duplicates from Sorted List](https://leetcode.com/problems/remove-duplicates-from-sorted-list/) - Remove duplicates
+- [82. Remove Duplicates from Sorted List II](https://leetcode.com/problems/remove-duplicates-from-sorted-list-ii/) - Remove all duplicates
+- [237. Delete Node in a Linked List](https://leetcode.com/problems/delete-node-in-a-linked-list/) - Delete without head reference
+- [19. Remove Nth Node From End of List](https://leetcode.com/problems/remove-nth-node-from-end-of-list/) - Remove specific node
+
+## Optimization Notes
+
+1. **Dummy Node Pattern**: Essential for simplifying linked list deletion problems
+2. **Memory Management**: In production code, always delete removed nodes
+3. **Early Termination**: Could optimize by checking if list is empty first
+4. **Pointer Safety**: Always check for `nullptr` before dereferencing
+
+---
+
+*This problem demonstrates the importance of using dummy nodes to handle edge cases in linked list manipulation, and proper object references in Java.*
+

@@ -1,0 +1,205 @@
+---
+layout: post
+title: "[Medium] 794. Valid Tic-Tac-Toe State"
+date: 2025-09-24 17:00:00 -0000
+categories: leetcode algorithm simulation data-structures game-logic validation medium java tic-tac-toe game-validation problem-solving
+---
+
+# [Medium] 794. Valid Tic-Tac-Toe State
+
+This is a simulation problem that requires understanding the rules of Tic-Tac-Toe and validating whether a given board state is possible. The key insight is checking the count of X's and O's, and ensuring that winning conditions are valid.
+
+## Problem Description
+
+Given a Tic-Tac-Toe board as an array of strings, return whether this board state is valid.
+
+A Tic-Tac-Toe board is valid if:
+1. The number of X's and O's follows the game rules
+2. Only one player can win
+3. If X wins, there should be exactly one more X than O
+4. If O wins, there should be equal number of X's and O's
+
+### Examples
+
+**Example 1:**
+```
+Input: board = ["O  ","   ","   "]
+Output: false
+Explanation: The first player always plays "X".
+```
+
+**Example 2:**
+```
+Input: board = ["XOX"," X ","   "]
+Output: false
+Explanation: Players take turns making moves.
+```
+
+**Example 3:**
+```
+Input: board = ["XXX","   ","OOO"]
+Output: false
+Explanation: Both players win at the same time.
+```
+
+### Constraints
+- board.length == 3
+- board[i].length == 3
+- board[i][j] is either 'X', 'O', or ' '
+
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Game rules**: What are the tic-tac-toe rules? (Assumption: X goes first, players alternate, game ends when someone wins or board is full)
+
+2. **Win condition**: How does a player win? (Assumption: Three in a row horizontally, vertically, or diagonally)
+
+3. **Valid state**: What makes a board state valid? (Assumption: State is reachable through valid gameplay - X count equals O count or X count = O count + 1)
+
+4. **Multiple winners**: Can both players win simultaneously? (Assumption: No - per examples, if both win, state is invalid)
+
+5. **Return value**: What should we return? (Assumption: Boolean - true if board state is valid, false otherwise)
+
+## Interview Deduction Process (20 minutes)
+
+### Step 1: Brute-Force Approach (5 minutes)
+**Initial Thought**: "I need to check if board is valid. Let me check all winning conditions and count pieces."
+
+**Naive Solution**: Check all 8 winning lines (3 rows, 3 columns, 2 diagonals), count X's and O's, check if counts are valid.
+
+**Complexity**: O(1) time, O(1) space
+
+**Issues**:
+- May miss edge cases
+- Need to check multiple conditions
+- Logic can be complex
+- Need to handle all invalid cases
+
+### Step 2: Semi-Optimized Approach (7 minutes)
+**Insight**: "I need to check: count difference (X - O should be 0 or 1), and at most one winner."
+
+**Improved Solution**: Count X's and O's, check if difference is valid (0 or 1). Check all winning lines, ensure at most one winner. If X wins, count difference must be 1. If O wins, count difference must be 0.
+
+**Complexity**: O(1) time, O(1) space
+
+**Improvements**:
+- Systematic checking of all conditions
+- Handles all edge cases
+- Clear logic flow
+- O(1) time is optimal
+
+### Step 3: Optimized Solution (8 minutes)
+**Final Optimization**: "The approach is already optimal. Let me refine the condition checking logic."
+
+**Best Solution**: Check count difference first (must be 0 or 1). Then check winners: if both win, invalid. If X wins, must have count difference 1. If O wins, must have count difference 0.
+
+**Complexity**: O(1) time, O(1) space
+
+**Key Realizations**:
+1. Count difference check is first validation
+2. Winner checking must consider count difference
+3. O(1) time is optimal - fixed size board
+4. All conditions must be checked systematically
+
+## Approach
+
+The solution involves checking several conditions:
+
+1. **Count Validation**: Count X's and O's - X should have equal or one more count than O
+2. **Win Detection**: Check if either player has won (rows, columns, diagonals)
+3. **Win Validation**: 
+   - If X wins, O should have exactly one less count than X
+   - If O wins, X and O should have equal counts
+   - Both players cannot win simultaneously
+
+## Solution in Java
+
+**Time Complexity:** O(1) - Constant time since board is always 3x3  
+**Space Complexity:** O(1) - Only using constant extra space
+
+```java
+class Solution {
+    public boolean validTicTacToe(String[] board) {
+        int x_cnt = 0, o_cnt = 0;
+        for (int i= 0; i < board.size(); i++) {
+            for (auto c : board[i]) {
+                if (c == 'X') x_cnt++;
+                if (c == 'O') o_cnt++;
+            }
+        }
+        if (x_cnt != o_cnt + 1 && x_cnt != o_cnt) return false;
+        boolean x_win = this.win(board, 'X');
+        boolean o_win = this.win(board, 'O');
+        if (x_win && o_cnt + 1 != x_cnt) return false;
+        if (o_win && o_cnt != x_cnt) return false;
+        if (x_win && o_win) return false;
+        return true;
+    }
+    boolean win(String[] board, char P) {
+        int n = board.size();
+        int cnt = 0;
+        for (int i = 0; i< n; i++) {
+            cnt = 0;
+            for (int j = 0; j < n; j++) {
+                if(board[i][j]== P) cnt++;
+            }
+            if (cnt == n) return true;
+
+            cnt = 0;
+            for (int j = 0; j < n; j++) {
+                if(board[j][i] == P) cnt++;
+            }
+            if (cnt == n) return true;
+        }
+
+        cnt = 0;
+        for (int i = 0; i< n; i++) {
+            if(board[i][i] == P) cnt++;
+        }
+        if (cnt == n) return true;
+
+        cnt = 0;
+        for (int i = n - 1; i >= 0; i--) {
+            if(board[i][n - i - 1] == P) cnt++;
+        }
+        if (cnt == n) return true;
+        return false;
+    }
+}
+```
+
+## Step-by-Step Example
+
+Let's trace through the solution with board = `["XOX"," X ","OOO"]`:
+
+**Step 1:** Count X's and O's
+- X count: 3 (positions: (0,0), (0,2), (1,1))
+- O count: 3 (positions: (0,1), (2,0), (2,1), (2,2))
+- Check: `x_cnt != o_cnt + 1 && x_cnt != o_cnt` → `3 != 4 && 3 != 3` → `true && false` → `false` ✓
+
+**Step 2:** Check for wins
+- X wins: Check rows, columns, diagonals → No win for X
+- O wins: Row 2 has all O's → O wins ✓
+
+**Step 3:** Validate win conditions
+- O wins and `o_cnt != x_cnt` → `3 != 3` → `false` ✓
+- Both X and O don't win simultaneously ✓
+
+**Result:** Valid board state
+
+## Key Insights
+
+1. **Turn Order**: X always goes first, so X should have equal or one more count than O
+2. **Win Detection**: Check all rows, columns, and both diagonals
+3. **Mutual Exclusivity**: Only one player can win in a valid game
+4. **Count Validation**: Winning player must have the correct count based on game rules
+
+## Common Mistakes
+
+- Not checking if both players win simultaneously
+- Incorrect count validation (allowing O to have more pieces than X)
+- Missing diagonal win conditions
+- Not handling edge cases like empty boards
+
+---

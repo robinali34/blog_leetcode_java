@@ -1,0 +1,174 @@
+---
+layout: post
+title: "[Medium] 33. Search in Rotated Sorted Array"
+date: 2025-09-23 10:00:00 -0000
+categories: leetcode algorithm binary-search data-structures array medium java rotated-array search problem-solving
+---
+
+# [Medium] 33. Search in Rotated Sorted Array
+
+This is a classic binary search problem that requires understanding how to search in a rotated sorted array. The key insight is that even though the array is rotated, we can still use binary search by determining which half of the array is sorted.
+
+## Problem Description
+
+Given a rotated sorted array and a target value, find the index of the target in the array. If the target is not found, return -1.
+
+## Template in Java
+
+### Binary search on answer
+
+```java
+static int bs_on_answer(int left, int right) {
+    while (left <= right) {
+        int pivot = left + (right - left) / 2;
+        if (condition(pivot)) {
+            right = pivot + 1;
+        } else {
+            left = pivot + 1;
+        }
+    }
+    return -1;
+}
+```
+
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Rotated array definition**: What does "rotated" mean? (Assumption: Array was originally sorted but rotated at some pivot point - e.g., [4,5,6,7,0,1,2] is rotated)
+
+2. **Array properties**: Is the array guaranteed to have no duplicates? (Assumption: Yes - per problem statement, all values are unique)
+
+3. **Return value**: What should we return if target not found? (Assumption: Return -1 - target not in array)
+
+4. **Time complexity**: What time complexity is expected? (Assumption: O(log n) - binary search approach)
+
+5. **Array modification**: Can we modify the array? (Assumption: No - just search, don't modify)
+
+## Interview Deduction Process (20 minutes)
+
+### Step 1: Brute-Force Approach (5 minutes)
+**Initial Thought**: "I need to search in rotated array. Let me try linear search first."
+
+**Naive Solution**: Linear search through entire array to find target.
+
+**Complexity**: O(n) time, O(1) space
+
+**Issues**:
+- Doesn't leverage sorted property
+- O(n) time when O(log n) is possible
+- Inefficient for large arrays
+- Not optimal solution
+
+### Step 2: Semi-Optimized Approach (7 minutes)
+**Insight**: "The array is sorted but rotated. I can find the pivot point, then search in appropriate half."
+
+**Improved Solution**: Find pivot point where rotation occurs (where nums[i] > nums[i+1]), then perform binary search in the appropriate half (left or right of pivot).
+
+**Complexity**: O(n) to find pivot + O(log n) to search = O(n) time, O(1) space
+
+**Improvements**:
+- Leverages sorted property
+- Still O(n) due to pivot finding
+- Better than linear search but not optimal
+
+### Step 3: Optimized Solution (8 minutes)
+**Final Optimization**: "I can do binary search directly by determining which half is sorted and contains target."
+
+**Best Solution**: Modified binary search. At each step, determine which half is sorted. If target is in sorted half, search there; otherwise search the other half.
+
+**Complexity**: O(log n) time, O(1) space
+
+**Key Realizations**:
+1. Modified binary search works despite rotation
+2. Key is determining which half is sorted
+3. O(log n) time is optimal
+4. O(1) space is optimal
+
+## Solution in Java
+
+```java
+class Solution {
+    public int search(int[] nums, int target) {
+        int left = 0, right = nums.length - 1;
+
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+
+            if (nums[mid] == target) {
+                return mid;
+            }
+
+            // Subarray on mid's left is sorted
+            if (nums[mid] >= nums[left]) {
+                if (target >= nums[left] && target < nums[mid]) {
+                    right = mid - 1;
+                } else {
+                    left = mid + 1;
+                }
+            }
+            // Subarray on mid's right is sorted
+            else {
+                if (target <= nums[right] && target > nums[mid]) {
+                    left = mid + 1;
+                } else {
+                    right = mid - 1;
+                }
+            }
+        }
+
+        return -1;
+    }
+}
+```
+
+## Solution in Python
+
+```java
+class Solution:
+    public static void search(this, nums: List[int], target: int) . int:
+        left, right = 0, nums.length - 1
+        
+        while left <= right:
+            mid = left + (right - left) // 2
+            
+            if nums[mid] == target:
+                return mid
+            
+            # Subarray on mid's left is sorted
+            elif nums[mid] >= nums[left]:
+                if target >= nums[left] and target < nums[mid]:
+                    right = mid - 1
+                else:
+                    left = mid + 1
+            # Subarray on mid's right is sorted
+            else:
+                if target <= nums[right] and target > nums[mid]:
+                    left = mid + 1
+                else:
+                    right = mid - 1
+        
+        return -1
+```
+
+## Algorithm Explanation
+
+The key insight is that in a rotated sorted array, at least one half of the array (either left or right of the middle element) will always be sorted. We can use this property to determine which half to search:
+
+1. **Check if the left half is sorted**: If `nums[mid] >= nums[left]`, then the left half is sorted
+2. **Check if the right half is sorted**: If `nums[mid] < nums[left]`, then the right half is sorted
+3. **Determine search direction**: Based on which half is sorted and where the target might be located, we decide whether to search left or right
+
+## Time Complexity
+- **Time**: O(log n) - Binary search approach
+- **Space**: O(1) - Constant extra space
+
+## Example
+
+For array `[4,5,6,7,0,1,2]` and target `0`:
+- Initially: left=0, right=6, mid=3
+- nums[3]=7, nums[0]=4, so left half [4,5,6,7] is sorted
+- target=0 is not in [4,5,6,7], so search right half
+- Continue binary search in right half until target is found
+
+This problem demonstrates the power of binary search even in seemingly complex scenarios like rotated arrays.

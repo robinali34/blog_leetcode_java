@@ -1,0 +1,301 @@
+---
+layout: post
+title: "Algorithm Templates: Math & Bit Manipulation"
+date: 2025-11-24 00:00:00 -0700
+categories: leetcode templates math bit-manipulation
+permalink: /posts/2025-11-24-leetcode-templates-math-bit-manipulation/
+tags: [leetcode, templates, math, bit-manipulation]
+---
+
+{% raw %}
+Minimal, copy-paste Java for bit operations, fast exponentiation, GCD/LCM, primes, and number theory. See also [Math & Geometry](/posts/2025-10-29-leetcode-templates-math-geometry/).
+
+## Contents
+
+- [Bit Operations](#bit-operations)
+- [Common Bit Tricks](#common-bit-tricks)
+- [Fast Exponentiation](#fast-exponentiation)
+- [GCD and LCM](#gcd-and-lcm)
+- [Prime Numbers](#prime-numbers)
+- [Number Theory](#number-theory)
+
+## Bit Operations
+
+### Basic Operations
+
+```java
+// Set bit at position i
+static int setBit(int num, int i) {
+    return num | (1 << i);
+}
+
+// Clear bit at position i
+static int clearBit(int num, int i) {
+    return num & ~(1 << i);
+}
+
+// Toggle bit at position i
+static int toggleBit(int num, int i) {
+    return num ^ (1 << i);
+}
+
+// Check if bit is set
+static boolean isBitSet(int num, int i) {
+    return (num >> i) & 1;
+}
+
+// Count set bits
+static int countSetBits(int num) {
+    int count = 0;
+    while (num) {
+        count += num 1;
+        num >>= 1;
+    }
+    return count;
+}
+
+// Count set bits (Brian Kernighan's algorithm)
+static int countSetBitsFast(int num) {
+    int count = 0;
+    while (num) {
+        num &= (num - 1);
+        count++;
+    }
+    return count;
+}
+```
+
+### Common Bit Tricks
+
+```java
+// Get lowest set bit
+static int lowestSetBit(int num) {
+    return num & (-num);
+}
+
+// Clear lowest set bit
+static int clearLowestSetBit(int num) {
+    return num & (num - 1);
+}
+
+// Check if power of 2
+static boolean isPowerOfTwo(int num) {
+    return num > 0 && (num & (num - 1)) == 0;
+}
+
+// Get next power of 2
+static int nextPowerOfTwo(int num) {
+    num--;
+    num |= num >> 1;
+    num |= num >> 2;
+    num |= num >> 4;
+    num |= num >> 8;
+    num |= num >> 16;
+    return num + 1;
+}
+
+// Swap two numbers
+static void swap(int a, int b) {
+    a ^= b;
+    b ^= a;
+    a ^= b;
+}
+```
+
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 29 | Divide Two Integers | [Link](https://leetcode.com/problems/divide-two-integers/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/02/14/medium-29-divide-two-integers/) |
+| 36 | Valid Sudoku | [Link](https://leetcode.com/problems/valid-sudoku/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/02/14/medium-36-valid-sudoku/) |
+| 67 | Add Binary | [Link](https://leetcode.com/problems/add-binary/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-12-11-easy-67-add-binary/) |
+| 191 | Number of 1 Bits | [Link](https://leetcode.com/problems/number-of-1-bits/) | - |
+| 231 | Power of Two | [Link](https://leetcode.com/problems/power-of-two/) | - |
+| 338 | Counting Bits | [Link](https://leetcode.com/problems/counting-bits/) | - |
+| 393 | UTF-8 Validation | [Link](https://leetcode.com/problems/utf-8-validation/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/12/31/medium-393-utf-8-validation/) |
+| 1177 | Can Make Palindrome from Substring | [Link](https://leetcode.com/problems/can-make-palindrome-from-substring/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/01/medium-1177-can-make-palindrome-from-substring/) |
+| 593 | Valid Square | [Link](https://leetcode.com/problems/valid-square/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-12-02-medium-593-valid-square/) |
+
+## Common Bit Tricks
+
+### Single Number
+
+```java
+// Single Number (all appear twice except one)
+static int singleNumber(int[] nums) {
+    int result = 0;
+    for (int num : nums) {
+        result ^= num;
+    }
+    return result;
+}
+
+// Single Number II (all appear three times except one)
+static int singleNumberII(int[] nums) {
+    int ones = 0, twos = 0;
+    for (int num : nums) {
+        ones = (ones ^ num) & ~twos;
+        twos = (twos ^ num) & ~ones;
+    }
+    return ones;
+}
+```
+
+### Gray Code
+
+```java
+int[]grayCode(int n) {
+    int[]result;
+    for (int i = 0; i < (1 << n); ++i) {
+        result.add(i ^ (i >> 1));
+    }
+    return result;
+}
+```
+
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 136 | Single Number | [Link](https://leetcode.com/problems/single-number/) | - |
+| 137 | Single Number II | [Link](https://leetcode.com/problems/single-number-ii/) | - |
+| 89 | Gray Code | [Link](https://leetcode.com/problems/gray-code/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/09/25/medium-89-gray-code/) |
+| 389 | Find the Difference | [Link](https://leetcode.com/problems/find-the-difference/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/27/easy-389-find-the-difference/) |
+| 260 | Single Number III | [Link](https://leetcode.com/problems/single-number-iii/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/31/medium-260-single-number-iii/) |
+| 2433 | Find The Original Array of Prefix Xor | [Link](https://leetcode.com/problems/find-the-original-array-of-prefix-xor/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/04/05/medium-2433-find-the-original-array-of-prefix-xor/) |
+
+## Fast Exponentiation
+
+### Power Function
+
+```java
+// Fast exponentiation: x^n
+static double myPow(double x, int n) {
+    long N = n;
+    if (N < 0) {
+        x = 1 / x;
+        N = -N;
+    }
+
+    double result = 1;
+    double current = x;
+
+    while (N > 0) {
+        if (N % 2 == 1) {
+            result *= current;
+        }
+        current *= current;
+        N /= 2;
+    }
+
+    return result;
+}
+```
+
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 50 | Pow(x, n) | [Link](https://leetcode.com/problems/powx-n/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/09/25/medium-50-pow-x-n/) |
+
+## GCD and LCM
+
+```java
+// Greatest Common Divisor (Euclidean algorithm)
+static int gcd(int a, int b) {
+    while (b !) {
+        int temp = b;
+        b = a % b;
+        a = temp;
+    }
+    return a;
+}
+
+// Recursive GCD
+static int gcdRecursive(int a, int b) {
+    return b == 0 ? a : gcdRecursive(b, a % b);
+}
+
+// Least Common Multiple
+static int lcm(int a, int b) {
+    return a / gcd(a, b) * b;
+}
+```
+
+## Prime Numbers
+
+### Check Prime
+
+```java
+static boolean isPrime(int n) {
+    if (n < 2) return false;
+    if (n == 2) return true;
+    if (n % 2 == 0) return false;
+
+    for (int i = 3; i i <= n; i += 2) {
+        if (n % i == 0) return false;
+    }
+
+    return true;
+}
+```
+
+### Sieve of Eratosthenes
+
+```java
+boolean[]sieveOfEratosthenes(int n) {
+    boolean[]isPrime(n + 1, true);
+    isPrime[0] = isPrime[1] = false;
+
+    for (int i = 2; i i <= n; ++i) {
+        if (isPrime[i]) {
+            for (int j = i i; j <= n; j += i) {
+                isPrime[j] = false;
+            }
+        }
+    }
+
+    return isPrime;
+}
+```
+
+## Number Theory
+
+### Factorial Trailing Zeroes
+
+```java
+static int trailingZeroes(int n) {
+    int count = 0;
+    while (n > 0) {
+        n /= 5;
+        count += n;
+    }
+    return count;
+}
+```
+
+### Reverse Integer
+
+```java
+static int reverse(int x) {
+    int result = 0;
+    while (x !) {
+        if (result > Integer.MAX_VALUE / 10 || result < Integer.MIN_VALUE / 10) {
+            return 0;
+        }
+        result = result 10 + x % 10;
+        x /= 10;
+    }
+    return result;
+}
+```
+
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 172 | Factorial Trailing Zeroes | [Link](https://leetcode.com/problems/factorial-trailing-zeroes/) | - |
+| 7 | Reverse Integer | [Link](https://leetcode.com/problems/reverse-integer/) | - |
+| 9 | Palindrome Number | [Link](https://leetcode.com/problems/palindrome-number/) | - |
+| 279 | Perfect Squares | [Link](https://leetcode.com/problems/perfect-squares/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-12-14-medium-279-perfect-squares/) |
+| 43 | Multiply Strings | [Link](https://leetcode.com/problems/multiply-strings/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/02/17/medium-43-multiply-strings/) |
+
+## More templates
+
+- **Math & Geometry:** [Math & Geometry](/posts/2025-10-29-leetcode-templates-math-geometry/)
+- **Advanced (bitwise trie):** [Advanced Techniques](/posts/2025-10-29-leetcode-templates-advanced/)
+- **Master index:** [Categories & Templates](/posts/2025-10-29-leetcode-categories-and-templates/)
+{% endraw %}
+

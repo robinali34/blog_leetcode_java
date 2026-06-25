@@ -1,0 +1,317 @@
+---
+layout: post
+title: "[Medium] 692. Top K Frequent Words"
+date: 2026-01-08 00:00:00 -0700
+categories: [leetcode, medium, hash-table, heap, sorting, string]
+permalink: /2026/01/08/medium-692-top-k-frequent-words/
+tags: [leetcode, medium, hash-table, heap, sorting, string, priority-queue]
+---
+
+# 692. Top K Frequent Words
+
+## Problem Statement
+
+Given an array of strings `words` and an integer `k`, return *the* `k` *most frequent strings*.
+
+Return the answer **sorted by the frequency** from highest to lowest. Sort the words with the same frequency by their **lexicographical order**.
+
+## Examples
+
+**Example 1:**
+```
+Input: words = ["i","love","leetcode","i","love","coding"], k = 2
+Output: ["i","love"]
+Explanation: "i" and "love" are the two most frequent words.
+Note that "i" comes before "love" due to a lower alphabetical order.
+```
+
+**Example 2:**
+```
+Input: words = ["the","day","is","sunny","the","the","the","sunny","is","is"], k = 2
+Output: ["the","is"]
+Explanation: "the", "is", "sunny" and "day" are the four most frequent words, with the number of occurrence being 4, 3, 2 and 1 respectively.
+```
+
+## Constraints
+
+- `1 <= words.length <= 500`
+- `1 <= words[i].length <= 10`
+- `words[i]` consists of lowercase English letters.
+- `k` is in the range `[1, The number of unique words[i]]`
+
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Tie-breaking**: When words have the same frequency, how should we break ties? (Assumption: Sort lexicographically - alphabetical order)
+
+2. **Frequency calculation**: How is frequency calculated? (Assumption: Count occurrences of each word in the input array)
+
+3. **Case sensitivity**: Are word comparisons case-sensitive? (Assumption: Based on constraints, only lowercase letters, so case doesn't matter)
+
+4. **Output format**: Should we return k words or all words with same frequency? (Assumption: Return exactly k words - top k most frequent)
+
+5. **Word uniqueness**: Can the same word appear multiple times in result? (Assumption: No - each word appears once in the result, sorted by frequency then lexicographically)
+
+## Interview Deduction Process (20 minutes)
+
+### Step 1: Brute-Force Approach (5 minutes)
+**Initial Thought**: "I need to find top k frequent words. Let me count frequencies and sort."
+
+**Naive Solution**: Count frequency of each word, sort by frequency (descending) then lexicographically, return top k.
+
+**Complexity**: O(n log n) time, O(n) space
+
+**Issues**:
+- O(n log n) time when O(n log k) is possible
+- Sorts all words when only need top k
+- Doesn't leverage heap
+- Can be optimized
+
+### Step 2: Semi-Optimized Approach (7 minutes)
+**Insight**: "I can use min-heap of size k to track top k words, with custom comparator."
+
+**Improved Solution**: Count frequencies, use min-heap of size k with custom comparator (frequency then lexicographic). For each word, if heap size < k, add; else if word is more frequent or same frequency but lexicographically smaller, replace top.
+
+**Complexity**: O(n log k) time, O(n) space
+
+**Improvements**:
+- O(n log k) time is better than O(n log n)
+- Heap efficiently maintains top k
+- Custom comparator handles tie-breaking
+- Can optimize further
+
+### Step 3: Optimized Solution (8 minutes)
+**Final Optimization**: "Min-heap with custom comparator is optimal. Sort result at end for correct order."
+
+**Best Solution**: Min-heap approach is optimal. Count frequencies, use min-heap of size k. After processing, extract and sort heap elements for final result (frequency descending, then lexicographic).
+
+**Complexity**: O(n log k) time, O(n) space
+
+**Key Realizations**:
+1. Heap is perfect for top-k problems
+2. Custom comparator handles tie-breaking
+3. O(n log k) time is optimal for heap approach
+4. Final sort ensures correct order
+
+## Solution Approach
+
+This problem is similar to [LC 347: Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/), but with two key differences:
+1. **Strings instead of integers**: Need to handle string comparison
+2. **Lexicographic ordering**: When frequencies are equal, sort alphabetically
+
+### Key Insights:
+
+1. **Frequency Counting**: Use hash map to count word frequencies
+2. **Custom Sorting**: Sort by frequency (descending), then by lexicographic order (ascending)
+3. **Top K Selection**: Return only the first k elements after sorting
+
+### Algorithm:
+
+1. **Count frequencies**: Use `unordered_map` to count occurrences of each word
+2. **Collect unique words**: Extract all unique words from the map
+3. **Sort**: Sort by frequency (descending), then lexicographically (ascending)
+4. **Return top k**: Take first k elements
+
+## Solution
+
+### **Solution: Hash Map + Custom Sorting**
+
+```java
+// import java.util.*;
+class Solution {
+    public String[]topKFrequent(String[] words, int k) {
+        HashMap<String, int> cnt = new HashMap<String, int>();
+        for(auto word: words) {
+            cnt.put(word, cnt.getOrDefault(word, 0) + 1);
+        }
+        String[]rtn;
+        for(auto& [key, value]: cnt) {
+            rtn.add(key);
+        }
+        sort(rtn /* elements of rtn */, [&](String a, String b){
+            return cnt.put(a, = cnt[b]? a < b : cnt[a] > cnt[b]);
+        });
+        rtn.remove(rtn.iterator() + k, rtn.iterator());
+        return rtn;
+    }
+}
+```
+
+### **Algorithm Explanation:**
+
+1. **Count Frequencies (Lines 3-6)**:
+   - Create `unordered_map<string, int>` to count word occurrences
+   - Iterate through all words and increment their counts
+
+2. **Collect Unique Words (Lines 7-10)**:
+   - Extract all unique words (keys) from the frequency map
+   - Store them in result vector `rtn`
+
+3. **Custom Sort (Lines 11-13)**:
+   - **Primary sort**: By frequency (descending) - `cnt[a] > cnt[b]`
+   - **Secondary sort**: By lexicographic order (ascending) - `a < b` when frequencies are equal
+   - Uses lambda with capture-by-reference `[&]` to access `cnt` map
+
+4. **Return Top K (Lines 14-15)**:
+   - Erase elements after index `k` to keep only top k
+   - Return the result
+
+### **Why This Works:**
+
+- **Hash map counting**: Efficiently counts frequencies in O(n) time
+- **Custom comparator**: Handles both frequency and lexicographic ordering
+- **Sorting approach**: Simple and straightforward for small input sizes
+
+### **Example Walkthrough:**
+
+**For `words = ["i","love","leetcode","i","love","coding"], k = 2`:**
+
+```
+Step 1: Count frequencies
+cnt = {
+    "i": 2,
+    "love": 2,
+    "leetcode": 1,
+    "coding": 1
+}
+
+Step 2: Collect unique words
+rtn = ["i", "love", "leetcode", "coding"]
+
+Step 3: Sort with custom comparator
+Compare pairs:
+  - "i" vs "love": cnt["i"] == cnt["love"] (both 2) → "i" < "love" → "i" comes first
+  - "leetcode" vs "coding": cnt["leetcode"] == cnt["coding"] (both 1) → "coding" < "leetcode" → "coding" comes first
+  - "i"/"love" vs "leetcode"/"coding": cnt["i"] > cnt["leetcode"] → higher frequency comes first
+
+After sorting:
+rtn = ["i", "love", "coding", "leetcode"]
+
+Step 4: Take top k = 2
+rtn = ["i", "love"]
+
+Result: ["i", "love"]
+```
+
+### **Complexity Analysis:**
+
+- **Time Complexity:** O(n + m log m) where n is total words, m is unique words
+  - O(n) for frequency counting
+  - O(m) for collecting unique words
+  - O(m log m) for sorting m unique words
+  - O(k) for erasing (can be optimized to O(1) by using resize)
+- **Space Complexity:** O(m) where m is number of unique words
+  - O(m) for frequency map
+  - O(m) for result vector
+
+### **Optimization Note:**
+
+Instead of `erase`, we could use `resize(k)` which is more efficient:
+```java
+rtn.resize(k);
+return rtn;
+```
+
+## Alternative Approaches
+
+### **Approach 2: Min Heap (Better for Large k)**
+
+For cases where k is much smaller than the number of unique words, a min heap approach would be more efficient:
+
+```java
+// import java.util.*;
+class Solution {
+    public String[]topKFrequent(String[] words, int k) {
+        HashMap<String, int> cnt = new HashMap<String, int>();
+        for(auto word: words) {
+            cnt.put(word, cnt.getOrDefault(word, 0) + 1);
+        }
+
+        var cmp = [&](String a, String b) {
+            return cnt.put(a, = cnt[b] ? a > b : cnt[a] < cnt[b]);
+        }
+        priority_queue<String, String[], decltype(cmp)> pq(cmp);
+        for(auto& [word, freq]: cnt) {
+            pq.push(word);
+            if(pq.size() > k) pq.pop();
+        }
+
+        String[]rtn;
+        while(!pq.length == 0) {
+            rtn.add(pq.top());
+            pq.pop();
+        }
+        reverse(rtn /* elements of rtn */);
+        return rtn;
+    }
+}
+```
+
+**Time Complexity:** O(n + m log k) where m is unique words  
+**Space Complexity:** O(m + k)
+
+### **Approach 3: Bucket Sort**
+
+Similar to LC 347, but requires additional sorting within each bucket:
+
+```java
+// import java.util.*;
+class Solution {
+    public String[]topKFrequent(String[] words, int k) {
+        HashMap<String, int> cnt = new HashMap<String, int>();
+        for(auto word: words) {
+            cnt.put(word, cnt.getOrDefault(word, 0) + 1);
+        }
+
+        int maxFreq = 0;
+        for(auto& [word, freq]: cnt) {
+            maxFreq = Math.max(maxFreq, freq);
+        }
+
+        vector<String[]> buckets(maxFreq + 1);
+        for(auto& [word, freq]: cnt) {
+            buckets[freq].push_back(word);
+        }
+
+        String[]rtn;
+        for(int i = maxFreq; i >= 1 && rtn.size() < k; i--) {
+            sort(buckets[i].begin(), buckets[i].end());
+            for(auto word: buckets[i]) {
+                rtn.add(word);
+                if(rtn.size() == k) break;
+            }
+        }
+        return rtn;
+    }
+}
+```
+
+**Time Complexity:** O(n + m log m) in worst case  
+**Space Complexity:** O(m)
+
+## Key Insights
+
+1. **Custom Comparator**: The key is the two-level sorting: frequency first, then lexicographic order
+2. **Hash Map Efficiency**: `unordered_map` provides O(1) average case for frequency counting
+3. **Sorting Trade-off**: Simple sorting works well for small inputs; heap is better for large k
+4. **Lexicographic Order**: When frequencies are equal, use standard string comparison (`<`)
+
+## Edge Cases
+
+1. **All words have same frequency**: Sort purely by lexicographic order
+2. **k equals number of unique words**: Return all words sorted
+3. **Single word repeated**: Return that word
+4. **Different frequencies, same lexicographic prefix**: Frequency takes priority
+
+## Related Problems
+
+- [LC 347: Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/) - Similar problem with integers
+- [LC 215: Kth Largest Element in an Array](https://leetcode.com/problems/kth-largest-element-in-an-array/) - Kth largest element
+- [LC 451: Sort Characters By Frequency](https://leetcode.com/problems/sort-characters-by-frequency/) - Sort by frequency
+- [LC 973: K Closest Points to Origin](https://leetcode.com/problems/k-closest-points-to-origin/) - Top K with custom ordering
+
+---
+
+*This problem demonstrates the importance of custom comparators for multi-criteria sorting, combining frequency-based and lexicographic ordering.*
+

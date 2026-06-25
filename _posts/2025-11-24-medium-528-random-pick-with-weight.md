@@ -1,0 +1,521 @@
+---
+layout: post
+title: "[Medium] 528. Random Pick with Weight"
+date: 2025-11-24 00:00:00 -0800
+categories: leetcode algorithm medium java design binary-search prefix-sum problem-solving
+permalink: /posts/2025-11-24-medium-528-random-pick-with-weight/
+tags: [leetcode, medium, design, binary-search, prefix-sum, weighted-random]
+---
+
+# [Medium] 528. Random Pick with Weight
+
+You are given a **0-indexed** array of positive integers `w` where `w[i]` describes the **weight** of the `i`th index.
+
+You need to implement the function `pickIndex()`, which **randomly** picks an index in the range `[0, w.length - 1]` (inclusive) and returns it. The **probability** of picking an index `i` is `w[i] / sum(w)`.
+
+For example, if `w = [1, 3]`, the probability of picking index `0` is `1 / (1 + 3) = 0.25` (i.e., 25%), and the probability of picking index `1` is `3 / (1 + 3) = 0.75` (i.e., 75%).
+
+## Examples
+
+**Example 1:**
+```
+Input
+["Solution","pickIndex","pickIndex","pickIndex","pickIndex","pickIndex"]
+[[[1]],[],[],[],[],[]]
+Output
+[null,0,0,0,0,0]
+
+Explanation
+Solution solution = new Solution([1]);
+solution.pickIndex(); // return 0. The only option is to return 0 since there is only one element in w.
+```
+
+**Example 2:**
+```
+Input
+["Solution","pickIndex","pickIndex","pickIndex","pickIndex","pickIndex"]
+[[[1,3]],[],[],[],[],[]]
+Output
+[null,1,1,1,1,0]
+
+Explanation
+Solution solution = new Solution([1, 3]);
+solution.pickIndex(); // return 1. It's returning the right index (1), and the probability of returning 1 is 3/4 = 0.75.
+solution.pickIndex(); // return 1
+solution.pickIndex(); // return 1
+solution.pickIndex(); // return 1
+solution.pickIndex(); // return 0. The probability of returning 0 is 1/4 = 0.25.
+```
+
+## Constraints
+
+- `1 <= w.length <= 10^4`
+- `1 <= w[i] <= 10^5`
+- `pickIndex` will be called at most `10^4` times.
+
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Weight definition**: What does "weight" mean? (Assumption: Probability weight - higher weight means higher probability of being picked)
+
+2. **Pick operation**: What should pickIndex() return? (Assumption: Random index based on weights - index i has probability w[i] / sum(w))
+
+3. **Weight values**: Can weights be zero or negative? (Assumption: Per constraints, weights are positive integers - no zero or negative)
+
+4. **Return value**: What should we return? (Assumption: Integer index from 0 to n-1, randomly selected based on weights)
+
+5. **Randomness**: Should picks be independent? (Assumption: Yes - each call to pickIndex() is independent random selection)
+
+## Interview Deduction Process (20 minutes)
+
+### Step 1: Brute-Force Approach (5 minutes)
+**Initial Thought**: "I need to pick index with probability proportional to weight. Let me expand array."
+
+**Naive Solution**: Expand array: for weight w[i], add index i to array w[i] times. Randomly pick from expanded array.
+
+**Complexity**: O(sum(weights)) space, O(1) pickIndex() time
+
+**Issues**:
+- O(sum(weights)) space - very inefficient
+- Doesn't scale for large weights
+- Wastes memory
+- Can be optimized
+
+### Step 2: Semi-Optimized Approach (7 minutes)
+**Insight**: "I can use prefix sum to represent cumulative weights, then binary search."
+
+**Improved Solution**: Build prefix sum array. Generate random number in [0, total_weight). Binary search to find which range it falls into.
+
+**Complexity**: O(n) space, O(log n) pickIndex() time
+
+**Improvements**:
+- Prefix sum enables efficient range lookup
+- O(n) space instead of O(sum(weights))
+- O(log n) pickIndex() is efficient
+- Scales well
+
+### Step 3: Optimized Solution (8 minutes)
+**Final Optimization**: "Prefix sum + binary search is optimal. Can optimize binary search implementation."
+
+**Best Solution**: Prefix sum + binary search is optimal. Build prefix sum in constructor. pickIndex() generates random number, binary searches prefix sum to find index.
+
+**Complexity**: O(n) space, O(log n) pickIndex() time
+
+**Key Realizations**:
+1. Prefix sum is key technique for weighted random
+2. Binary search enables O(log n) lookup
+3. O(n) space is optimal
+4. O(log n) pickIndex() is optimal
+
+## Solution: Prefix Sum + Binary Search
+
+**Time Complexity:** 
+- Constructor: O(n) - Build prefix sum array
+- pickIndex: O(n) linear search or O(log n) binary search
+
+**Space Complexity:** O(n) - Prefix sum array
+
+The key insight is to use prefix sums to create ranges proportional to weights, then use binary search to find the index corresponding to a random value.
+
+### Solution 1: Linear Search
+
+```java
+class Solution {
+    public int[]prefixSum;
+    Solution(int[] w) {
+        for(auto n: w) {
+            prefixSum.add(n + (prefixSum.length == 0? 0: prefixSum.getLast()));
+        }
+    }
+
+    int pickIndex() {
+        float randNum = (float) rand() / RAND_MAX;
+        float target = randNum prefixSum.getLast();
+
+        for(int i = 0; i < prefixSum.size(); i++) {
+            if(target < prefixSum[i]) return i;
+        }
+
+        return prefixSum.size() - 1;
+    }
+}
+```
+
+### Solution 2: Binary Search (Optimized)
+
+```java
+class Solution {
+    public int[]prefixSum;
+    Solution(int[] w) {
+        for(auto n: w) {
+            prefixSum.add(n + (prefixSum.length == 0? 0: prefixSum.getLast()));
+        }
+    }
+
+    int pickIndex() {
+        float randNum = (float) rand() / RAND_MAX;
+        float target = randNum prefixSum.getLast();
+
+        return binary search (lower bound)(prefixSum /* elements of prefixSum */, target) - prefixSum.iterator();
+    }
+}
+```
+
+## How the Algorithm Works
+
+### Step-by-Step Example: `w = [1, 3, 2]`
+
+```
+Constructor:
+  prefixSum = []
+  n=1: prefixSum.push_back(1 + 0) = [1]
+  n=3: prefixSum.push_back(3 + 1) = [1, 4]
+  n=2: prefixSum.push_back(2 + 4) = [1, 4, 6]
+  
+  Ranges:
+    Index 0: [0, 1)     → weight 1
+    Index 1: [1, 4)     → weight 3
+    Index 2: [4, 6)     → weight 2
+    Total: 6
+
+pickIndex() call 1:
+  randNum = 0.7 (example)
+  target = 0.7 * 6 = 4.2
+  
+  Linear Search:
+    i=0: 4.2 < 1? No
+    i=1: 4.2 < 4? No
+    i=2: 4.2 < 6? Yes → return 2
+    
+  Binary Search:
+    binary search (lower bound)([1,4,6], 4.2) → points to index 2
+    return 2
+
+pickIndex() call 2:
+  randNum = 0.3 (example)
+  target = 0.3 * 6 = 1.8
+  
+  Linear Search:
+    i=0: 1.8 < 1? No
+    i=1: 1.8 < 4? Yes → return 1
+    
+  Binary Search:
+    binary search (lower bound)([1,4,6], 1.8) → points to index 1
+    return 1
+```
+
+### Visual Representation
+
+```
+Weights:     [1,  3,  2]
+Prefix Sums: [1,  4,  6]
+
+Range Mapping:
+  0    1    4    6
+  |----|----|----|
+   [0]  [1]  [2]
+   
+Random value 0.0-6.0 maps to:
+  [0.0, 1.0) → Index 0 (weight 1)
+  [1.0, 4.0) → Index 1 (weight 3)
+  [4.0, 6.0) → Index 2 (weight 2)
+```
+
+## Key Insights
+
+1. **Prefix Sum Creates Ranges**: Each index gets a range proportional to its weight
+2. **Random Target**: Generate random number in [0, totalSum) range
+3. **Binary Search**: Find first prefix sum >= target (O(log n))
+4. **Linear Search**: Simpler but slower (O(n))
+5. **Probability Proportional**: Larger weights get larger ranges
+
+## Algorithm Breakdown
+
+### Constructor
+
+```java
+Solution(int[] w) {
+    for(auto n: w) {
+        prefixSum.add(n + (prefixSum.length == 0? 0: prefixSum.getLast()));
+    }
+}
+```
+
+**How it works:**
+- Build cumulative prefix sum array
+- `prefixSum[i]` = sum of weights from index 0 to i
+- Example: `w = [1,3,2]` → `prefixSum = [1,4,6]`
+
+### pickIndex - Linear Search
+
+```java
+static int pickIndex() {
+    float randNum = (float) rand() / RAND_MAX;  // [0.0, 1.0)
+    float target = randNum prefixSum.getLast();   // [0.0, totalSum)
+
+    for(int i = 0; i < prefixSum.size(); i++) {
+        if(target < prefixSum[i]) return i;
+    }
+
+    return prefixSum.size() - 1;  // Fallback (shouldn't happen)
+}
+```
+
+**How it works:**
+1. Generate random float in [0.0, 1.0)
+2. Scale to [0.0, totalSum)
+3. Find first prefix sum >= target
+4. Return corresponding index
+
+### pickIndex - Binary Search
+
+```java
+static int pickIndex() {
+    float randNum = (float) rand() / RAND_MAX;
+    float target = randNum prefixSum.getLast();
+
+    return binary search (lower bound)(prefixSum /* elements of prefixSum */, target)
+           - prefixSum.iterator();
+}
+```
+
+**How it works:**
+- `binary search (lower bound)` finds first element >= target
+- Returns iterator, subtract `begin()` to get index
+- O(log n) instead of O(n)
+
+## Edge Cases
+
+1. **Single weight**: `w = [1]` → always return 0
+2. **Equal weights**: `w = [1,1,1]` → equal probability for all
+3. **Very large weight**: `w = [1, 1000000]` → index 1 almost always picked
+4. **Single large weight**: `w = [100]` → always return 0
+
+## Alternative Approaches
+
+### Approach 2: Integer Random (More Precise)
+
+**Time Complexity:** O(log n) per pickIndex  
+**Space Complexity:** O(n)
+
+```java
+class Solution {
+    public int[]prefixSum;
+    Solution(int[] w) {
+        for(int weight : w) {
+            prefixSum.add(weight + (prefixSum.length == 0 ? 0 : prefixSum.getLast()));
+        }
+    }
+
+    int pickIndex() {
+        int target = rand() % prefixSum.getLast() + 1;  // [1, totalSum]
+        return binary search (lower bound)(prefixSum /* elements of prefixSum */, target)
+               - prefixSum.iterator();
+    }
+}
+```
+
+**Pros:**
+- Uses integer arithmetic (more precise)
+- `+1` ensures range [1, totalSum] for proper distribution
+
+**Cons:**
+- Slightly different random distribution
+
+### Approach 3: Custom Binary Search
+
+**Time Complexity:** O(log n) per pickIndex  
+**Space Complexity:** O(n)
+
+```java
+class Solution {
+    public int[]prefixSum;
+    Solution(int[] w) {
+        for(int weight : w) {
+            prefixSum.add(weight + (prefixSum.length == 0 ? 0 : prefixSum.getLast()));
+        }
+    }
+
+    int pickIndex() {
+        int target = rand() % prefixSum.getLast() + 1;
+        int left = 0, right = prefixSum.size() - 1;
+
+        while(left < right) {
+            int mid = left + (right - left) / 2;
+            if(prefixSum[mid] < target) {
+                left = mid + 1;
+            } else {
+                right = mid;
+            }
+        }
+
+        return left;
+    }
+}
+```
+
+**Pros:**
+- Explicit binary search implementation
+- No JDK dependency
+
+**Cons:**
+- More verbose than `binary search (lower bound)`
+
+## Complexity Analysis
+
+| Approach | Constructor | pickIndex | Space | Pros | Cons |
+|----------|-------------|-----------|-------|------|------|
+| **Linear Search** | O(n) | O(n) | O(n) | Simple | Slow for many calls |
+| **Binary Search (binary search (lower bound))** | O(n) | O(log n) | O(n) | Fast, clean | Uses JDK |
+| **Custom Binary Search** | O(n) | O(log n) | O(n) | Fast, explicit | More code |
+
+## Implementation Details
+
+### Prefix Sum Construction
+
+```java
+prefixSum.add(n + (prefixSum.length == 0? 0: prefixSum.getLast()));
+```
+
+**Why this works:**
+- First element: `n + 0 = n`
+- Subsequent: `n + previous_sum = cumulative_sum`
+- Creates ranges: `[0, prefixSum[0]), [prefixSum[0], prefixSum[1]), ...`
+
+### Random Number Generation
+
+```java
+float randNum = (float) rand() / RAND_MAX;  // [0.0, 1.0)
+float target = randNum prefixSum.getLast();  // [0.0, totalSum)
+```
+
+**Why float?**
+- `rand() / RAND_MAX` gives uniform distribution in [0, 1)
+- Multiplying by total sum scales to [0, totalSum)
+- Float provides fine-grained selection
+
+### binary search (lower bound) Usage
+
+```java
+binary search (lower bound)(prefixSum /* elements of prefixSum */, target)
+```
+
+**What it does:**
+- Returns iterator to first element >= target
+- If all elements < target, returns `end()`
+- Subtract `begin()` to get index
+
+## Common Mistakes
+
+1. **Wrong random range**: Using `rand() % totalSum` instead of scaling properly
+2. **Off-by-one errors**: Not handling edge cases correctly
+3. **Integer overflow**: Not considering large weights
+4. **Wrong comparison**: Using `<=` instead of `<` in linear search
+5. **Not seeding random**: Should call `srand(time(nullptr))` in constructor
+
+## Optimization Tips
+
+1. **Use Binary Search**: Always prefer binary search for O(log n) performance
+2. **Integer Random**: Use `rand() % totalSum + 1` for integer precision
+3. **Precompute Total**: Store `totalSum` instead of calling `prefixSum.back()` repeatedly
+4. **Modern Random**: Consider `<random>` header for better randomness
+
+## Related Problems
+
+- [497. Random Point in Non-overlapping Rectangles](https://leetcode.com/problems/random-point-in-non-overlapping-rectangles/) - Similar weighted selection
+- [710. Random Pick with Blacklist](https://leetcode.com/problems/random-pick-with-blacklist/) - Random with exclusions
+- [380. Insert Delete GetRandom O(1)](https://leetcode.com/problems/insert-delete-getrandom-o1/) - Random from set
+- [398. Random Pick Index](https://leetcode.com/problems/random-pick-index/) - Random index of target value
+
+## Real-World Applications
+
+1. **Load Balancing**: Weighted random selection of servers
+2. **Game Development**: Weighted loot drops, random encounters
+3. **Sampling**: Proportional sampling from populations
+4. **Recommendation Systems**: Weighted content selection
+5. **A/B Testing**: Weighted traffic distribution
+
+## Pattern Recognition
+
+This problem demonstrates the **"Weighted Random Selection"** pattern:
+
+```
+1. Build prefix sum array (creates proportional ranges)
+2. Generate random number in [0, totalSum)
+3. Binary search to find corresponding index
+4. Return index
+```
+
+Similar problems:
+- Random Point in Rectangles
+- Weighted sampling
+- Proportional selection
+
+## Why Prefix Sum Works
+
+1. **Proportional Ranges**: Each index gets range size = its weight
+2. **Non-overlapping**: Ranges don't overlap, covering [0, totalSum)
+3. **Uniform Random**: Random number uniformly distributed maps to proportional selection
+4. **Efficient Lookup**: Binary search finds index in O(log n)
+
+## Mathematical Proof
+
+For weights `w = [w₀, w₁, ..., wₙ₋₁]`:
+- Total sum: `S = Σwᵢ`
+- Prefix sums: `P = [w₀, w₀+w₁, ..., S]`
+- Random value `r ∈ [0, S)` maps to index `i` where `P[i-1] ≤ r < P[i]`
+- Probability of `r` falling in range `[P[i-1], P[i])` = `wᵢ/S` ✓
+
+## Random Number Generation Notes
+
+### Using `rand()`
+
+```java
+srand(time(null));  // Seed once
+int target = rand() % prefixSum.getLast() + 1;
+```
+
+**Pros:**
+- Simple, built-in
+- Fast
+
+**Cons:**
+- Lower quality randomness
+- Not thread-safe
+
+### Using `java.util.Random` (Modern Java)
+
+```java
+class Solution {
+    public int[]prefixSum;
+    mt19937 gen;
+    uniform_real_distribution<double> dis;
+    Solution(int[] w) {}()), dis(0.0, 1.0) {
+        for(int weight : w) {
+            prefixSum.add(weight + (prefixSum.length == 0 ? 0 : prefixSum.getLast()));
+        }
+    }
+
+    int pickIndex() {
+        double target = dis(gen) * prefixSum.getLast();
+        return binary search (lower bound)(prefixSum /* elements of prefixSum */, target)
+               - prefixSum.iterator();
+    }
+}
+```
+
+**Pros:**
+- Better randomness quality
+- Thread-safe
+- More control
+
+**Cons:**
+- Works in all Java versions
+- More complex
+
+---
+
+*This problem is an excellent example of combining prefix sums with binary search to achieve efficient weighted random selection, a common pattern in system design and algorithms.*
+
+

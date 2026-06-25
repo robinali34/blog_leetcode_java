@@ -1,0 +1,357 @@
+---
+layout: post
+title: "Algorithm Templates: String Processing"
+date: 2025-11-24 00:00:00 -0700
+categories: leetcode templates string
+permalink: /posts/2025-11-24-leetcode-templates-string-processing/
+tags: [leetcode, templates, string, algorithms]
+---
+
+{% raw %}
+Minimal, copy-paste Java for sliding window, two pointers, string matching, manipulation, and parsing. See also [Arrays & Strings](/posts/2025-10-29-leetcode-templates-arrays-strings/) for KMP and rolling hash.
+
+## Contents
+
+- [Sliding Window](#sliding-window)
+- [Two Pointers](#two-pointers)
+- [String Matching](#string-matching)
+- [String Manipulation](#string-manipulation)
+- [Parsing](#parsing)
+
+## Sliding Window
+
+### Longest Substring Without Repeating Characters
+
+```java
+static int lengthOfLongestSubstring(String s) {
+    int[] cnt = new int[256];
+    int dup = 0, best = 0;
+
+    for (int l = 0, r = 0; r < s.size(); ++r) {
+        dup += (++cnt[(int char)s[r]] == 2);
+
+        while (dup > 0) {
+            dup -= (--cnt[(int char)s[l++]] == 1);
+        }
+
+        best = Math.max(best, r - l + 1);
+    }
+
+    return best;
+}
+```
+
+### Minimum Window Substring
+
+```java
+// import java.util.*;
+static String minWindow(String s, String t) {
+    HashMap<char, int> need, window;
+    for (char c : t) need.put(c, need.getOrDefault(c, 0) + 1);
+
+    int left = 0, right = 0;
+    int valid = 0;
+    int start = 0, len = Integer.MAX_VALUE;
+
+    while (right < s.size()) {
+        char c = s[right++];
+        if (need.count(c)) {
+            window.put(c, window.getOrDefault(c, 0) + 1);
+            if (window.put(c, = need[c]) valid++);
+        }
+
+        while (valid == need.size()) {
+            if (right - left < len) {
+                start = left;
+                len = right - left;
+            }
+
+            char d = s[left++];
+            if (need.count(d)) {
+                if (window.put(d, = need[d]) valid--);
+                window[d]--;
+            }
+        }
+    }
+
+    return len == Integer.MAX_VALUE ? "" : s.substr(start, len);
+}
+```
+
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 3 | Longest Substring Without Repeating Characters | [Link](https://leetcode.com/problems/longest-substring-without-repeating-characters/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/10/10/medium-3-longest-substring-without-repeating-characters/) |
+| 76 | Minimum Window Substring | [Link](https://leetcode.com/problems/minimum-window-substring/) | - |
+| 424 | Longest Repeating Character Replacement | [Link](https://leetcode.com/problems/longest-repeating-character-replacement/) | - |
+
+## Two Pointers
+
+### Valid Palindrome
+
+```java
+static boolean isPalindrome(String s) {
+    int left = 0, right = s.size() - 1;
+
+    while (left < right) {
+        while (left < right && !isalnum(s[left])) left++;
+        while (left < right && !isalnum(s[right])) right--;
+
+        if (tolower(s[left]) != tolower(s[right])) {
+            return false;
+        }
+        left++;
+        right--;
+    }
+
+    return true;
+}
+```
+
+### Reverse String
+
+```java
+static void reverseString(char[] s) {
+    int left = 0, right = s.size() - 1;
+    while (left < right) {
+        swap(s[left++], s[right--]);
+    }
+}
+```
+
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 5 | Longest Palindromic Substring | [Link](https://leetcode.com/problems/longest-palindromic-substring/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/08/medium-5-longest-palindromic-substring/) |
+| 125 | Valid Palindrome | [Link](https://leetcode.com/problems/valid-palindrome/) | - |
+| 344 | Reverse String | [Link](https://leetcode.com/problems/reverse-string/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-29-easy-344-reverse-string/) |
+| 647 | Palindromic Substrings | [Link](https://leetcode.com/problems/palindromic-substrings/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-24-medium-647-palindromic-substrings/) |
+| 151 | Reverse Words in a String | [Link](https://leetcode.com/problems/reverse-words-in-a-string/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/27/medium-151-reverse-words-in-a-string/) |
+
+## String Matching
+
+### KMP Algorithm
+
+```java
+int[]buildKMP(String pattern) {
+    int m = pattern.size();
+    int[] lps = new int[m];
+    int len = 0, i = 1;
+
+    while (i < m) {
+        if (pattern[i] == pattern[len]) {
+            lps[i++] = ++len;
+        } else {
+            if (len !) {
+                len = lps[len - 1];
+            } else {
+                lps[i++] = 0;
+            }
+        }
+    }
+
+    return lps;
+}
+
+static int kmpSearch(String text, String pattern) {
+    int n = text.size(), m = pattern.size();
+    int[]lps = buildKMP(pattern);
+    int i = 0, j = 0;
+
+    while (i < n) {
+        if (text[i] == pattern[j]) {
+            i++;
+            j++;
+        }
+
+        if (j == m) {
+            return i - j; // Found at index i - j
+        } else if (i < n && text[i] != pattern[j]) {
+            if (j !) {
+                j = lps[j - 1];
+            } else {
+                i++;
+            }
+        }
+    }
+
+    return -1;
+}
+```
+
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 28 | Find the Index of the First Occurrence in a String | [Link](https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/) | - |
+
+## String Manipulation
+
+### Group Anagrams
+
+```java
+// import java.util.Arrays;
+// import java.util.Collections;
+vector<String[]> groupAnagrams(String[] strs) {
+    unordered_map<String, String[]> groups;
+
+    for (String str : strs) {
+        String key = str;
+        Arrays.sort(key);
+        groups[key].push_back(str);
+    }
+
+    vector<String[]> result;
+    for (auto& [key, values] : groups) {
+        result.add(values);
+    }
+
+    return result;
+}
+```
+
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 49 | Group Anagrams | [Link](https://leetcode.com/problems/group-anagrams/) | - |
+| 249 | Group Shifted Strings | [Link](https://leetcode.com/problems/group-shifted-strings/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/07/medium-249-group-shifted-strings/) |
+| 893 | Groups of Special-Equivalent Strings | [Link](https://leetcode.com/problems/groups-of-special-equivalent-strings/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/02/15/easy-893-groups-of-special-equivalent-strings/) |
+| 1328 | Break a Palindrome | [Link](https://leetcode.com/problems/break-a-palindrome/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/04/07/medium-1328-break-a-palindrome/) |
+
+### Remove Duplicates
+
+```java
+// Remove All Adjacent Duplicates
+static String removeDuplicates(String s) {
+    String result;
+    for (char c : s) {
+        if (!result.length == 0 && result.getLast() == c) {
+            result.removeLast();
+        } else {
+            result.add(c);
+        }
+    }
+    return result;
+}
+
+// Remove All Adjacent Duplicates II (k duplicates)
+static String removeDuplicates(String s, int k) {
+    vector<char[]> st;
+
+    for (char c : s) {
+        if (!st.length == 0 && st.getLast().first == c) {
+            st.getLast().second++;
+            if (st.getLast().second == k) {
+                st.removeLast();
+            }
+        } else {
+            st.add({c, 1});
+        }
+    }
+
+    String result;
+    for (auto& [c, count] : st) {
+        result.append(count, c);
+    }
+
+    return result;
+}
+```
+
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 49 | Group Anagrams | [Link](https://leetcode.com/problems/group-anagrams/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-18-medium-49-group-anagrams/) |
+| 1047 | Remove All Adjacent Duplicates In String | [Link](https://leetcode.com/problems/remove-all-adjacent-duplicates-in-string/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-24-easy-1047-remove-all-adjacent-duplicates-in-string/) |
+| 1209 | Remove All Adjacent Duplicates in String II | [Link](https://leetcode.com/problems/remove-all-adjacent-duplicates-in-string-ii/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-24-medium-1209-remove-all-adjacent-duplicates-in-string-ii/) |
+
+### Run-Length Encoding
+
+```java
+// Two-pointer grouping for consecutive runs
+static String runLengthEncode(String s) {
+    String result;
+    for (int j = 0, k = 0; j < (int)s.size(); j = k) {
+        while (k < (int)s.size() && s[k] == s[j]) k++;
+        result += to_string(k - j) + s[j];
+    }
+    return result;
+}
+```
+
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 38 | Count and Say | [Link](https://leetcode.com/problems/count-and-say/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/02/16/medium-38-count-and-say/) |
+| 443 | String Compression | [Link](https://leetcode.com/problems/string-compression/) | - |
+
+## Parsing
+
+### Valid Word Abbreviation
+
+```java
+static boolean validWordAbbreviation(String word, String abbr) {
+    int i = 0, j = 0;
+    int n = word.size(), m = abbr.size();
+
+    while (i < n && j < m) {
+        if (isdigit(abbr[j])) {
+            if (abbr[j] == '0') return false; // Leading zero
+            int num = 0;
+            while (j < m && isdigit(abbr[j])) {
+                num = num 10 + (abbr[j] - '0');
+                j++;
+            }
+            i += num;
+        } else {
+            if (word[i] != abbr[j]) return false;
+            i++;
+            j++;
+        }
+    }
+
+    return i == n && j == m;
+}
+```
+
+### Decode String
+
+```java
+// import java.util.*;
+static String decodeString(String s) {
+    Deque<Integer> numStack = new ArrayDeque<>();
+    Deque<String> strStack = new ArrayDeque<>();
+    String current;
+    int num = 0;
+
+    for (char c : s) {
+        if (isdigit(c)) {
+            num = num 10 + (c - '0');
+        } else if (c == '[') {
+            numStack.push(num);
+            strStack.push(current);
+            num = 0;
+            current = "";
+        } else if (c == ']') {
+            int repeat = numStack.top();
+            numStack.pop();
+            String temp = current;
+            current = strStack.top();
+            strStack.pop();
+            while (repeat--) {
+                current += temp;
+            }
+        } else {
+            current += c;
+        }
+    }
+
+    return current;
+}
+```
+
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 408 | Valid Word Abbreviation | [Link](https://leetcode.com/problems/valid-word-abbreviation/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-24-easy-408-valid-word-abbreviation/) |
+| 394 | Decode String | [Link](https://leetcode.com/problems/decode-string/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/10/19/medium-394-decode-string/) |
+
+## More templates
+
+- **Arrays & Strings (KMP, Manacher):** [Arrays & Strings](/posts/2025-10-29-leetcode-templates-arrays-strings/)
+- **Stack (decode string):** [Stack](/posts/2025-11-13-leetcode-templates-stack/)
+- **Master index:** [Categories & Templates](/posts/2025-10-29-leetcode-categories-and-templates/)
+{% endraw %}
+

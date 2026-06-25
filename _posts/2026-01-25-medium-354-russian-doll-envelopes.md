@@ -1,0 +1,260 @@
+---
+layout: post
+title: "[Medium] 354. Russian Doll Envelopes"
+date: 2026-01-25 00:00:00 -0700
+categories: [leetcode, medium, array, dynamic-programming, binary-search, sorting]
+permalink: /2026/01/25/medium-354-russian-doll-envelopes/
+tags: [leetcode, medium, array, dynamic-programming, binary-search, sorting, longest-increasing-subsequence]
+---
+
+# 354. Russian Doll Envelopes
+
+## Problem Statement
+
+You are given a 2D array of integers `envelopes` where `envelopes[i] = [wi, hi]` represents the width and the height of an envelope.
+
+One envelope can fit into another if and only if both the width and height of one envelope are greater than the other envelope's width and height.
+
+Return *the maximum number of envelopes you can Russian doll* (i.e., put one inside the other).
+
+**Note:** You cannot rotate an envelope.
+
+## Examples
+
+**Example 1:**
+
+```
+Input: envelopes = [[5,4],[6,4],[6,7],[2,3]]
+Output: 3
+Explanation: The maximum number of envelopes you can Russian doll is 3 ([2,3] => [5,4] => [6,7]).
+```
+
+**Example 2:**
+
+```
+Input: envelopes = [[1,1],[1,1],[1,1]]
+Output: 1
+Explanation: No envelope can fit into another envelope.
+```
+
+## Constraints
+
+- `1 <= envelopes.length <= 10^5`
+- `envelopes[i].length == 2`
+- `1 <= wi, hi <= 10^5`
+
+## Clarification Questions
+
+Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+
+1. **Fitting condition**: For envelope A to fit inside envelope B, do both width and height need to be strictly smaller? (Assumption: Yes - both `w1 < w2` AND `h1 < h2` must be true)
+
+2. **Equal dimensions**: What if two envelopes have the same width or height? (Assumption: They cannot nest - need strictly smaller dimensions)
+
+3. **Rotation**: Can we rotate envelopes (swap width and height)? (Assumption: No - envelopes cannot be rotated)
+
+4. **Multiple nesting**: Can we nest multiple envelopes? (Assumption: Yes - we want the maximum number of envelopes that can be nested)
+
+5. **Empty result**: What should we return if no envelopes can be nested? (Assumption: Return `1` - at least one envelope can be considered as a "nest")
+
+## Interview Deduction Process (20 minutes)
+
+**Step 1: Brute-Force Approach (5 minutes)**
+
+Try all possible sequences of envelopes and check which sequences form valid nesting chains. For each envelope, recursively try to nest other envelopes inside it. This approach has exponential time complexity O(2^n), which is infeasible for n up to 5000. The challenge is that we need to find the longest increasing subsequence in 2D space.
+
+**Step 2: Semi-Optimized Approach (7 minutes)**
+
+Sort envelopes by width, then use dynamic programming: dp[i] = maximum nesting chain ending at envelope i. For each envelope i, check all previous envelopes j where envelope j can fit inside envelope i, and update dp[i] = max(dp[j]) + 1. This gives O(n²) time complexity, which works but can be optimized further. The challenge is handling the case where multiple envelopes have the same width (they can't nest each other).
+
+**Step 3: Optimized Solution (8 minutes)**
+
+Sort envelopes by width in ascending order, and for envelopes with the same width, sort by height in descending order. Then, find the longest increasing subsequence (LIS) based on height. The descending order for same widths ensures that envelopes with the same width don't nest each other (since we need strictly smaller dimensions). Use binary search to find the LIS efficiently, similar to the patience sorting algorithm. This achieves O(n log n) time complexity, which is optimal. The key insight is reducing the 2D problem to 1D LIS by sorting on one dimension and handling ties carefully.
+
+## Solution Approach
+
+This problem is a **2D version of the Longest Increasing Subsequence (LIS)** problem. We need to find the longest chain of envelopes where each envelope can fit inside the next.
+
+### Key Insights:
+
+1. **Sorting Strategy**: Sort by width (ascending), and if widths are equal, sort by height (descending)
+   - This ensures we process envelopes in order of increasing width
+   - Descending height for equal widths prevents multiple envelopes with same width from being in the chain
+2. **LIS on Heights**: After sorting, find LIS on heights using binary search
+3. **Binary Search Optimization**: Use `binary search (lower bound)` to find insertion position in O(log n) time
+
+### Why Sort Height Descending for Equal Widths?
+
+If we have envelopes `[5,4]` and `[5,5]`, we want to consider `[5,5]` before `[5,4]` so that:
+- If `[5,5]` can't fit in the chain, we can still try `[5,4]`
+- This prevents both from being in the chain (which would be invalid since they have the same width)
+
+## Solution
+
+```java
+class Solution {
+    public int maxEnvelopes(int[][]& envelopes) {
+        if(envelopes.length == 0) return 0;
+        int N = envelopes.size();
+        sort(envelopes /* elements of envelopes */, [](auto e1, auto e2) {
+            return e1[0] < e2[0] || (e1[0] == e2[0] && e1[1] > e2[1]);
+        });
+
+        int[]dp = {envelopes[0][1]}
+        for(int i = 1; i < N; i++) {
+            int num = envelopes[i][1];
+            if(num > dp.getLast()) {
+                dp.add(num);
+            } else {
+                var it = binary search (lower bound)(dp /* elements of dp */, num);
+                *it = num;
+            }
+        }
+        return dp.length;
+    }
+}
+```
+
+### Algorithm Explanation:
+
+#### **Step 1: Sort Envelopes**
+
+```java
+sort(envelopes /* elements of envelopes */, [](auto e1, auto e2) {
+    return e1[0] < e2[0] || (e1[0] == e2[0] && e1[1] > e2[1]);
+});
+```
+
+- **Primary Sort**: By width (`e1[0]`) in ascending order
+- **Secondary Sort**: If widths are equal, by height (`e1[1]`) in descending order
+- **Result**: Envelopes are ordered by width, with taller envelopes first when widths match
+
+#### **Step 2: Find LIS on Heights**
+
+After sorting, we only need to find the longest increasing subsequence on heights, since widths are already in order.
+
+```java
+int[]dp = {envelopes[0][1]}
+for(int i = 1; i < N; i++) {
+    int num = envelopes[i][1];
+    if(num > dp.getLast()) {
+        dp.add(num);
+    } else {
+        var it = binary search (lower bound)(dp /* elements of dp */, num);
+        *it = num;
+    }
+}
+```
+
+- **`dp`**: Maintains smallest tail element for each subsequence length
+- **If `num > dp.back()`**: Extend the longest subsequence
+- **Otherwise**: Replace the first element >= `num` to maintain smaller tails
+
+### Example Walkthrough:
+
+**Input:** `envelopes = [[5,4],[6,4],[6,7],[2,3]]`
+
+```
+Step 1: Sort
+  Original: [[5,4], [6,4], [6,7], [2,3]]
+  Sorted:   [[2,3], [5,4], [6,7], [6,4]]
+            (by width ascending, height descending for equal widths)
+
+Step 2: Find LIS on Heights
+  Process [2,3]: dp = [3]
+  Process [5,4]: 4 > 3 → dp = [3, 4]
+  Process [6,7]: 7 > 4 → dp = [3, 4, 7]
+  Process [6,4]: 4 <= 7, replace first >= 4 → dp = [3, 4, 7]
+                 (binary search (lower bound) finds position of 4, replaces it)
+
+Result: dp.size() = 3 ✓
+
+Chain: [2,3] → [5,4] → [6,7]
+```
+
+### Why This Works:
+
+1. **Sorting by Width**: Ensures envelopes are processed in order of increasing width
+2. **Descending Height for Equal Widths**: Prevents multiple envelopes with same width from being in chain
+3. **LIS on Heights**: After sorting, finding LIS on heights gives the longest valid chain
+4. **Binary Search**: `binary search (lower bound)` finds insertion position in O(log n) time
+
+### Complexity Analysis:
+
+- **Time Complexity:** O(n log n)
+  - Sorting: O(n log n)
+  - Finding LIS: O(n log n) - each element requires O(log n) binary search
+  - Overall: O(n log n)
+
+- **Space Complexity:** O(n)
+  - `dp` array: O(n) in worst case
+  - Sorting: O(1) extra space (in-place)
+  - Overall: O(n)
+
+## Key Insights
+
+1. **2D LIS Problem**: This is essentially finding LIS in 2D space
+2. **Sorting Strategy**: Sort by one dimension, then find LIS on the other
+3. **Equal Width Handling**: Sort heights descending for equal widths to prevent invalid chains
+4. **Binary Search Optimization**: Use `binary search (lower bound)` for O(log n) insertion
+5. **Greedy Approach**: Maintain smallest tail elements for each subsequence length
+
+## Edge Cases
+
+1. **Empty input**: `envelopes = []` → return `0`
+2. **Single envelope**: `envelopes = [[1,1]]` → return `1`
+3. **All same size**: `envelopes = [[1,1],[1,1],[1,1]]` → return `1`
+4. **No valid chain**: All envelopes have same width → return `1`
+5. **Perfect chain**: Envelopes form a perfect chain → return `n`
+
+## Common Mistakes
+
+1. **Wrong sorting order**: Not sorting heights descending for equal widths
+2. **Using strict inequality**: Must use `>` not `>=` for fitting condition
+3. **Not handling empty input**: Should return `0` for empty array
+4. **Wrong LIS implementation**: Not using binary search optimization
+5. **Forgetting equal width constraint**: Multiple envelopes with same width can't be in chain
+
+## Alternative Approaches
+
+### Approach 2: O(n²) Dynamic Programming
+
+```java
+// import java.util.Arrays;
+// import java.util.Collections;
+class Solution {
+    public int maxEnvelopes(int[][]& envelopes) {
+        if(envelopes.length == 0) return 0;
+        Arrays.sort(envelopes);
+        int n = envelopes.size();
+        int[] dp = new int[n];
+
+        for(int i = 1; i < n; i++) {
+            for(int j = 0; j < i; j++) {
+                if(envelopes[i][0] > envelopes[j][0] &&
+                   envelopes[i][1] > envelopes[j][1]) {
+                    dp[i] = Math.max(dp[i], dp[j] + 1);
+                }
+            }
+        }
+
+        return max_element(dp /* elements of dp */);
+    }
+}
+```
+
+**Time Complexity:** O(n²)  
+**Space Complexity:** O(n)
+
+**When to Use:** Simpler code, but slower for large inputs (n > 10⁴)
+
+## Related Problems
+
+- [LC 300: Longest Increasing Subsequence](https://robinali34.github.io/blog_leetcode_java/2025/10/17/medium-300-longest-increasing-subsequence/) - 1D LIS problem
+- [LC 673: Number of Longest Increasing Subsequence](https://robinali34.github.io/blog_leetcode_java/2026/01/09/medium-673-number-of-longest-increasing-subsequence/) - Count number of LIS
+- [LC 646: Maximum Length of Pair Chain](https://leetcode.com/problems/maximum-length-of-pair-chain/) - Similar interval chaining
+- [LC 334: Increasing Triplet Subsequence](https://leetcode.com/problems/increasing-triplet-subsequence/) - Check if triplet exists
+
+---
+
+*This problem demonstrates how to extend the **Longest Increasing Subsequence** pattern to 2D. The key insight is sorting by one dimension and finding LIS on the other, with careful handling of equal values.*
