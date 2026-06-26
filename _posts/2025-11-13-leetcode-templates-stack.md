@@ -108,9 +108,9 @@ Use stack's LIFO property to match opening and closing brackets in reverse order
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 20 | Valid Parentheses | [Link](https://leetcode.com/problems/valid-parentheses/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-04-easy-20-valid-parentheses/) |
-| 921 | Minimum Add to Make Valid Parentheses | [Link](https://leetcode.com/problems/minimum-add-to-make-valid-parentheses/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-04-medium-921-minimum-add-to-make-valid-parentheses/) |
-| 1249 | Minimum Remove to Make Valid Parentheses | [Link](https://leetcode.com/problems/minimum-remove-to-make-valid-parentheses/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-10-22-medium-1249-minimum-remove-to-make-valid-parentheses/) |
+| 20 | Valid Parentheses | [Link](https://leetcode.com/problems/valid-parentheses/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-04-easy-20-valid-parentheses/) |
+| 921 | Minimum Add to Make Valid Parentheses | [Link](https://leetcode.com/problems/minimum-add-to-make-valid-parentheses/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-04-medium-921-minimum-add-to-make-valid-parentheses/) |
+| 1249 | Minimum Remove to Make Valid Parentheses | [Link](https://leetcode.com/problems/minimum-remove-to-make-valid-parentheses/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-22-medium-1249-minimum-remove-to-make-valid-parentheses/) |
 
 ```java
 // import java.util.*;
@@ -146,10 +146,10 @@ Use stack to handle operator precedence and parentheses in mathematical expressi
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 150 | Evaluate Reverse Polish Notation | [Link](https://leetcode.com/problems/evaluate-reverse-polish-notation/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/09/24/medium-150-evaluate-reverse-polish-notation/) |
-| 224 | Basic Calculator | [Link](https://leetcode.com/problems/basic-calculator/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-13-medium-224-basic-calculator/) |
-| 227 | Basic Calculator II | [Link](https://leetcode.com/problems/basic-calculator-ii/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-13-medium-227-basic-calculator-ii/) |
-| 772 | Basic Calculator III | [Link](https://leetcode.com/problems/basic-calculator-iii/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-13-hard-772-basic-calculator-iii/) |
+| 150 | Evaluate Reverse Polish Notation | [Link](https://leetcode.com/problems/evaluate-reverse-polish-notation/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-09-24-medium-150-evaluate-reverse-polish-notation/) |
+| 224 | Basic Calculator | [Link](https://leetcode.com/problems/basic-calculator/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-13-medium-224-basic-calculator/) |
+| 227 | Basic Calculator II | [Link](https://leetcode.com/problems/basic-calculator-ii/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-13-medium-227-basic-calculator-ii/) |
+| 772 | Basic Calculator III | [Link](https://leetcode.com/problems/basic-calculator-iii/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-13-hard-772-basic-calculator-iii/) |
 
 ```java
 // import java.util.*;
@@ -182,7 +182,7 @@ static int calculate(String s) {
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 150 | Evaluate Reverse Polish Notation | [Link](https://leetcode.com/problems/evaluate-reverse-polish-notation/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/09/24/medium-150-evaluate-reverse-polish-notation/) |
+| 150 | Evaluate Reverse Polish Notation | [Link](https://leetcode.com/problems/evaluate-reverse-polish-notation/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-09-24-medium-150-evaluate-reverse-polish-notation/) |
 | 224 | Basic Calculator | [Link](https://leetcode.com/problems/basic-calculator/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-13-medium-224-basic-calculator/) |
 | 227 | Basic Calculator II | [Link](https://leetcode.com/problems/basic-calculator-ii/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-13-medium-227-basic-calculator-ii/) |
 | 772 | Basic Calculator III | [Link](https://leetcode.com/problems/basic-calculator-iii/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-13-hard-772-basic-calculator-iii/) |
@@ -194,8 +194,8 @@ Use stack to process nested structures like strings, expressions, or function ca
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 394 | Decode String | [Link](https://leetcode.com/problems/decode-string/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/19/medium-394-decode-string/) |
-| 636 | Exclusive Time of Functions | [Link](https://leetcode.com/problems/exclusive-time-of-functions/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-10-27-medium-636-exclusive-time-of-functions/) |
+| 394 | Decode String | [Link](https://leetcode.com/problems/decode-string/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-19-medium-394-decode-string/) |
+| 636 | Exclusive Time of Functions | [Link](https://leetcode.com/problems/exclusive-time-of-functions/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-27-medium-636-exclusive-time-of-functions/) |
 | 71 | Simplify Path | [Link](https://leetcode.com/problems/simplify-path/) | - |
 
 ```java
@@ -229,7 +229,7 @@ static String decodeString(String s) {
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 394 | Decode String | [Link](https://leetcode.com/problems/decode-string/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/10/19/medium-394-decode-string/) |
+| 394 | Decode String | [Link](https://leetcode.com/problems/decode-string/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-19-medium-394-decode-string/) |
 | 636 | Exclusive Time of Functions | [Link](https://leetcode.com/problems/exclusive-time-of-functions/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-27-medium-636-exclusive-time-of-functions/) |
 | 71 | Simplify Path | [Link](https://leetcode.com/problems/simplify-path/) | - |
 
@@ -286,11 +286,11 @@ Find the first element **to the right** that is strictly greater. Use a **monoto
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 496 | Next Greater Element I | [Link](https://leetcode.com/problems/next-greater-element-i/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/12/31/easy-496-next-greater-element-i/) |
-| 739 | Daily Temperatures | [Link](https://leetcode.com/problems/daily-temperatures/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/29/medium-739-daily-temperatures/) |
-| 503 | Next Greater Element II | [Link](https://leetcode.com/problems/next-greater-element-ii/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-503-next-greater-element-ii/) |
+| 496 | Next Greater Element I | [Link](https://leetcode.com/problems/next-greater-element-i/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/12/31/easy-496-next-greater-element-i/) |
+| 739 | Daily Temperatures | [Link](https://leetcode.com/problems/daily-temperatures/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/29/medium-739-daily-temperatures/) |
+| 503 | Next Greater Element II | [Link](https://leetcode.com/problems/next-greater-element-ii/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-17-medium-503-next-greater-element-ii/) |
 | 901 | Online Stock Span | [Link](https://leetcode.com/problems/online-stock-span/) | - |
-| 1944 | Visible People in Queue | [Link](https://leetcode.com/problems/number-of-visible-people-in-a-queue/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/02/09/hard-1944-number-of-visible-people-in-a-queue/) |
+| 1944 | Visible People in Queue | [Link](https://leetcode.com/problems/number-of-visible-people-in-a-queue/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/02/09/hard-1944-number-of-visible-people-in-a-queue/) |
 
 ---
 
@@ -303,7 +303,7 @@ Same idea but reversed comparison. Use a **monotonic increasing** stack (top is 
 | ID | Title | Link | Solution |
 |---|---|---|---|
 | 1475 | Final Prices With Special Discount | [Link](https://leetcode.com/problems/final-prices-with-a-special-discount-in-a-shop/) | - |
-| 84 | Largest Rectangle in Histogram | [Link](https://leetcode.com/problems/largest-rectangle-in-histogram/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/20/hard-84-largest-rectangle-in-histogram/) |
+| 84 | Largest Rectangle in Histogram | [Link](https://leetcode.com/problems/largest-rectangle-in-histogram/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/10/20/hard-84-largest-rectangle-in-histogram/) |
 
 ---
 
@@ -377,8 +377,8 @@ Combine **next smaller** (right boundary) and **previous smaller** (left boundar
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 84 | Largest Rectangle in Histogram | [Link](https://leetcode.com/problems/largest-rectangle-in-histogram/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/20/hard-84-largest-rectangle-in-histogram/) |
-| 42 | Trapping Rain Water | [Link](https://leetcode.com/problems/trapping-rain-water/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/02/17/hard-42-trapping-rain-water/) |
+| 84 | Largest Rectangle in Histogram | [Link](https://leetcode.com/problems/largest-rectangle-in-histogram/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/10/20/hard-84-largest-rectangle-in-histogram/) |
+| 42 | Trapping Rain Water | [Link](https://leetcode.com/problems/trapping-rain-water/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/02/17/hard-42-trapping-rain-water/) |
 
 ---
 
@@ -492,7 +492,7 @@ Maintain a **monotonic decreasing deque** of indices for sliding window maximum.
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 239 | Sliding Window Maximum | [Link](https://leetcode.com/problems/sliding-window-maximum/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-04-hard-239-sliding-window-maximum/) |
+| 239 | Sliding Window Maximum | [Link](https://leetcode.com/problems/sliding-window-maximum/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-04-hard-239-sliding-window-maximum/) |
 
 ---
 
@@ -507,7 +507,7 @@ Use the stack to maintain an optimal ordering. While the stack top is worse than
 | ID | Title | Link | Solution |
 |---|---|---|---|
 | 402 | Remove K Digits | [Link](https://leetcode.com/problems/remove-k-digits/) | - |
-| 316 | Remove Duplicate Letters | [Link](https://leetcode.com/problems/remove-duplicate-letters/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-316-remove-duplicate-letters/) |
+| 316 | Remove Duplicate Letters | [Link](https://leetcode.com/problems/remove-duplicate-letters/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-17-medium-316-remove-duplicate-letters/) |
 
 ---
 
@@ -519,7 +519,7 @@ Find the shortest subarray with sum at least `k`. Combine prefix sums with an **
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 862 | Shortest Subarray with Sum at Least K | [Link](https://leetcode.com/problems/shortest-subarray-with-sum-at-least-k/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/26/hard-862-shortest-subarray-with-sum-at-least-k/) |
+| 862 | Shortest Subarray with Sum at Least K | [Link](https://leetcode.com/problems/shortest-subarray-with-sum-at-least-k/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/26/hard-862-shortest-subarray-with-sum-at-least-k/) |
 
 ---
 
@@ -557,7 +557,7 @@ int[]nextGreater(int[] nums) {
 |---|---|---|---|
 | 496 | Next Greater Element I | [Link](https://leetcode.com/problems/next-greater-element-i/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/12/31/easy-496-next-greater-element-i/) |
 | 739 | Daily Temperatures | [Link](https://leetcode.com/problems/daily-temperatures/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/29/medium-739-daily-temperatures/) |
-| 503 | Next Greater Element II | [Link](https://leetcode.com/problems/next-greater-element-ii/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/10/17/medium-503-next-greater-element-ii/) |
+| 503 | Next Greater Element II | [Link](https://leetcode.com/problems/next-greater-element-ii/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-17-medium-503-next-greater-element-ii/) |
 | 901 | Online Stock Span | [Link](https://leetcode.com/problems/online-stock-span/) | - |
 | 1944 | Visible People in Queue | [Link](https://leetcode.com/problems/number-of-visible-people-in-a-queue/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/02/09/hard-1944-number-of-visible-people-in-a-queue/) |
 
@@ -734,7 +734,7 @@ static String removeKdigits(String num, int k) {
 | ID | Title | Link | Solution |
 |---|---|---|---|
 | 402 | Remove K Digits | [Link](https://leetcode.com/problems/remove-k-digits/) | - |
-| 316 | Remove Duplicate Letters | [Link](https://leetcode.com/problems/remove-duplicate-letters/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/10/17/medium-316-remove-duplicate-letters/) |
+| 316 | Remove Duplicate Letters | [Link](https://leetcode.com/problems/remove-duplicate-letters/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-17-medium-316-remove-duplicate-letters/) |
 
 ---
 
@@ -788,8 +788,8 @@ Use stack to save and restore state when processing nested or hierarchical struc
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 636 | Exclusive Time of Functions | [Link](https://leetcode.com/problems/exclusive-time-of-functions/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-10-27-medium-636-exclusive-time-of-functions/) |
-| 394 | Decode String | [Link](https://leetcode.com/problems/decode-string/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/19/medium-394-decode-string/) |
+| 636 | Exclusive Time of Functions | [Link](https://leetcode.com/problems/exclusive-time-of-functions/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-27-medium-636-exclusive-time-of-functions/) |
+| 394 | Decode String | [Link](https://leetcode.com/problems/decode-string/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-19-medium-394-decode-string/) |
 
 ```java
 // Example: Tracking function call stack
@@ -819,7 +819,7 @@ static void processLogs(String[] logs) {
 | ID | Title | Link | Solution |
 |---|---|---|---|
 | 636 | Exclusive Time of Functions | [Link](https://leetcode.com/problems/exclusive-time-of-functions/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-27-medium-636-exclusive-time-of-functions/) |
-| 394 | Decode String | [Link](https://leetcode.com/problems/decode-string/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/10/19/medium-394-decode-string/) |
+| 394 | Decode String | [Link](https://leetcode.com/problems/decode-string/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-19-medium-394-decode-string/) |
 
 ## Stack Design (Min/Max Stack)
 Maintaining extra information (like minimums or frequencies) alongside the primary stack data.
@@ -880,7 +880,7 @@ Maintaining extra information (like minimums or frequencies) alongside the prima
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 155 | Min Stack | [Link](https://leetcode.com/problems/min-stack/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/02/11/medium-155-min-stack/) |
+| 155 | Min Stack | [Link](https://leetcode.com/problems/min-stack/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/02/11/medium-155-min-stack/) |
 | 716 | Max Stack | [Link](https://leetcode.com/problems/max-stack/) | - |
 
 ```java
@@ -926,7 +926,7 @@ class MinStack {
 4. **Index vs value** confusion in monotonic stack problems
 
 ## More templates
-- **Beginner's Guide:** [LeetCode Beginner's Guide](/2026/06/25/leetcode-beginners-guide/)
+- **Beginner's Guide:** [LeetCode Beginner's Guide](/blog_leetcode_java/posts/2026-06-25-leetcode-beginners-guide/)
 - **Data structures (monotonic stack/queue):** [Data Structures & Core Algorithms](/posts/2025-10-29-leetcode-templates-data-structures/)
 - **Graph, Search:** [Graph](/posts/2025-10-29-leetcode-templates-graph/), [Search](/posts/2026-01-20-leetcode-templates-search/)
 - **Master index:** [Categories & Templates](/posts/2025-10-29-leetcode-categories-and-templates/)

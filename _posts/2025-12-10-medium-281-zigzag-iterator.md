@@ -1,8 +1,10 @@
 ---
+
 layout: post
 title: "[Medium] 281. Zigzag Iterator"
 date: 2025-12-10 00:00:00 -0800
 categories: leetcode algorithm medium java design iterator problem-solving
+permalink: /posts/2025-12-10-medium-281-zigzag-iterator/
 ---
 
 # [Medium] 281. Zigzag Iterator

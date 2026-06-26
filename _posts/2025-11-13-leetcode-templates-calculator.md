@@ -26,7 +26,7 @@ Handles addition, subtraction, and parentheses. Use stack to save state before e
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 224 | Basic Calculator | [Link](https://leetcode.com/problems/basic-calculator/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-13-medium-224-basic-calculator/) |
+| 224 | Basic Calculator | [Link](https://leetcode.com/problems/basic-calculator/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-13-medium-224-basic-calculator/) |
 
 ```java
 // import java.util.*;
@@ -91,7 +91,7 @@ Handles all four operators without parentheses. Evaluate `*` and `/` immediately
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 227 | Basic Calculator II | [Link](https://leetcode.com/problems/basic-calculator-ii/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-13-medium-227-basic-calculator-ii/) |
+| 227 | Basic Calculator II | [Link](https://leetcode.com/problems/basic-calculator-ii/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-13-medium-227-basic-calculator-ii/) |
 
 ```java
 // import java.util.*;
@@ -186,7 +186,7 @@ Combines all operators with parentheses. Use recursion or stack to handle nestin
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 772 | Basic Calculator III | [Link](https://leetcode.com/problems/basic-calculator-iii/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-13-hard-772-basic-calculator-iii/) |
+| 772 | Basic Calculator III | [Link](https://leetcode.com/problems/basic-calculator-iii/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-13-hard-772-basic-calculator-iii/) |
 
 ```java
 class Solution {

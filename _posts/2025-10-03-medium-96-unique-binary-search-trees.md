@@ -1,8 +1,10 @@
 ---
+
 layout: post
 title: "[Medium] 96. Unique Binary Search Trees"
 date: 2025-10-03 00:00:00 -0000
 categories: leetcode algorithm dynamic-programming data-structures math catalan-numbers medium java binary-search-trees problem-solving
+permalink: /posts/2025-10-03-medium-96-unique-binary-search-trees/
 ---
 
 # [Medium] 96. Unique Binary Search Trees

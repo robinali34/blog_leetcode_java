@@ -1,8 +1,10 @@
 ---
+
 layout: post
 title: "[Medium] 2466. Count Ways To Build Good Strings"
 date: 2025-10-16 20:01:57 -0700
 categories: leetcode algorithm medium java dynamic-programming dp problem-solving
+permalink: /posts/2025-10-16-medium-2466-count-ways-to-build-good-strings/
 ---
 
 # [Medium] 2466. Count Ways To Build Good Strings

@@ -1,8 +1,10 @@
 ---
+
 layout: post
 title: "[Medium] 794. Valid Tic-Tac-Toe State"
 date: 2025-09-24 17:00:00 -0000
 categories: leetcode algorithm simulation data-structures game-logic validation medium java tic-tac-toe game-validation problem-solving
+permalink: /posts/2025-09-24-medium-794-valid-tic-tac-toe-state/
 ---
 
 # [Medium] 794. Valid Tic-Tac-Toe State

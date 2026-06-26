@@ -1,8 +1,10 @@
 ---
+
 layout: post
 title: "[Hard] 460. LFU Cache"
 date: 2025-11-14 00:00:00 -0800
 categories: leetcode algorithm hard java design data-structures hash-map linked-list problem-solving
+permalink: /posts/2025-11-14-hard-460-lfu-cache/
 ---
 
 # [Hard] 460. LFU Cache

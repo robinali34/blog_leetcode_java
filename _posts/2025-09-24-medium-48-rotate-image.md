@@ -1,8 +1,10 @@
 ---
+
 layout: post
 title: "[Medium] 48. Rotate Image"
 date: 2025-09-24 21:00:00 -0000
 categories: leetcode algorithm matrix data-structures 2d-array transformation medium java rotate-image in-place problem-solving
+permalink: /posts/2025-09-24-medium-48-rotate-image/
 ---
 
 # [Medium] 48. Rotate Image

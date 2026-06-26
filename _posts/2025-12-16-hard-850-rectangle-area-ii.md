@@ -1,8 +1,10 @@
 ---
+
 layout: post
 title: "[Hard] 850. Rectangle Area II"
 date: 2025-12-16 00:00:00 -0800
 categories: leetcode algorithm hard java geometry sweep-line segment-tree problem-solving
+permalink: /posts/2025-12-16-hard-850-rectangle-area-ii/
 ---
 
 {% raw %}

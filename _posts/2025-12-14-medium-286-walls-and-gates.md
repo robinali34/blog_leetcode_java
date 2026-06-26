@@ -1,8 +1,10 @@
 ---
+
 layout: post
 title: "[Medium] 286. Walls and Gates"
 date: 2025-12-14 00:00:00 -0800
 categories: leetcode algorithm medium java array matrix bfs problem-solving
+permalink: /posts/2025-12-14-medium-286-walls-and-gates/
 ---
 
 {% raw %}

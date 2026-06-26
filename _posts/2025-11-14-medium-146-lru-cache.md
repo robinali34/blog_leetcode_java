@@ -1,8 +1,10 @@
 ---
+
 layout: post
 title: "[Medium] 146. LRU Cache"
 date: 2025-11-15 00:00:00 -0800
 categories: leetcode algorithm medium java design data-structures hash-map linked-list problem-solving
+permalink: /posts/2025-11-14-medium-146-lru-cache/
 ---
 
 # [Medium] 146. LRU Cache

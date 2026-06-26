@@ -33,7 +33,7 @@ Data structure design problems are among the most popular interview questions at
   <text x="400" y="180" font-size="10" fill="#3A6B3A" font-weight="600" text-anchor="middle">Both get and put are O(1)</text>
 </svg>
 
-- **Beginner's Guide:** [LeetCode Beginner's Guide](/2026/06/25/leetcode-beginners-guide/)
+- **Beginner's Guide:** [LeetCode Beginner's Guide](/blog_leetcode_java/posts/2026-06-25-leetcode-beginners-guide/)
 ## Summary
 | Pattern | Signal Phrases | Structures Used |
 |---|---|---|
@@ -61,7 +61,7 @@ Maintain a primary stack for data and an auxiliary stack to track the minimum va
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 155 | Min Stack | [Link](https://leetcode.com/problems/min-stack/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/02/11/medium-155-min-stack/) |
+| 155 | Min Stack | [Link](https://leetcode.com/problems/min-stack/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/02/11/medium-155-min-stack/) |
 
 ```java
 // import java.util.*;
@@ -97,7 +97,7 @@ Thread-safe version using mutex for concurrent access.
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 146 | LRU Cache | [Link](https://leetcode.com/problems/lru-cache/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-14-medium-146-lru-cache/) |
+| 146 | LRU Cache | [Link](https://leetcode.com/problems/lru-cache/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-14-medium-146-lru-cache/) |
 
 ```java
 // import java.util.*;
@@ -221,7 +221,7 @@ Least Frequently Used cache.
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 460 | LFU Cache | [Link](https://leetcode.com/problems/lfu-cache/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-14-hard-460-lfu-cache/) |
+| 460 | LFU Cache | [Link](https://leetcode.com/problems/lfu-cache/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-14-hard-460-lfu-cache/) |
 
 ```java
 // import java.util.*;
@@ -348,8 +348,8 @@ class Trie {
 | ID | Title | Link | Solution |
 |---|---|---|---|
 | 981 | Time Based Key-Value Store | [Link](https://leetcode.com/problems/time-based-key-value-store/) | - |
-| 362 | Design Hit Counter | [Link](https://leetcode.com/problems/design-hit-counter/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/18/medium-362-design-hit-counter/) |
-| 1146 | Snapshot Array | [Link](https://leetcode.com/problems/snapshot-array/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/19/medium-1146-snapshot-array/) |
+| 362 | Design Hit Counter | [Link](https://leetcode.com/problems/design-hit-counter/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/18/medium-362-design-hit-counter/) |
+| 1146 | Snapshot Array | [Link](https://leetcode.com/problems/snapshot-array/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/19/medium-1146-snapshot-array/) |
 
 ```java
 // import java.util.*;
@@ -402,16 +402,16 @@ class TimeMap {
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 528 | Random Pick with Weight | [Link](https://leetcode.com/problems/random-pick-with-weight/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-528-random-pick-with-weight/) |
-| 348 | Design Tic-Tac-Toe | [Link](https://leetcode.com/problems/design-tic-tac-toe/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/04/medium-348-design-tic-tac-toe/) |
-| 1275 | Find Winner on a Tic Tac Toe Game | [Link](https://leetcode.com/problems/find-winner-on-a-tic-tac-toe-game/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/04/easy-1275-find-winner-on-a-tic-tac-toe-game/) |
-| 398 | Random Pick Index | [Link](https://leetcode.com/problems/random-pick-index/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-398-random-pick-index/) |
-| 2043 | Simple Bank System | [Link](https://leetcode.com/problems/simple-bank-system/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-2043-simple-bank-system/) |
-| 281 | Zigzag Iterator | [Link](https://leetcode.com/problems/zigzag-iterator/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-12-10-medium-281-zigzag-iterator/) |
-| 1206 | Design Skiplist | [Link](https://leetcode.com/problems/design-skiplist/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-12-03-hard-1206-design-skiplist/) |
-| 341 | Flatten Nested List Iterator | [Link](https://leetcode.com/problems/flatten-nested-list-iterator/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/24/medium-341-flatten-nested-list-iterator/) |
-| 1115 | Print FooBar Alternately | [Link](https://leetcode.com/problems/print-foobar-alternately/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/28/medium-1115-print-foobar-alternately/) |
-| 1188 | Design Bounded Blocking Queue | [Link](https://leetcode.com/problems/design-bounded-blocking-queue/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/29/medium-1188-design-bounded-blocking-queue/) |
+| 528 | Random Pick with Weight | [Link](https://leetcode.com/problems/random-pick-with-weight/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-24-medium-528-random-pick-with-weight/) |
+| 348 | Design Tic-Tac-Toe | [Link](https://leetcode.com/problems/design-tic-tac-toe/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-21-medium-348-design-tic-tac-toe/) |
+| 1275 | Find Winner on a Tic Tac Toe Game | [Link](https://leetcode.com/problems/find-winner-on-a-tic-tac-toe-game/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/04/easy-1275-find-winner-on-a-tic-tac-toe-game/) |
+| 398 | Random Pick Index | [Link](https://leetcode.com/problems/random-pick-index/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-24-medium-398-random-pick-index/) |
+| 2043 | Simple Bank System | [Link](https://leetcode.com/problems/simple-bank-system/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/10/20/medium-2043-simple-bank-system/) |
+| 281 | Zigzag Iterator | [Link](https://leetcode.com/problems/zigzag-iterator/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-12-10-medium-281-zigzag-iterator/) |
+| 1206 | Design Skiplist | [Link](https://leetcode.com/problems/design-skiplist/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-12-03-hard-1206-design-skiplist/) |
+| 341 | Flatten Nested List Iterator | [Link](https://leetcode.com/problems/flatten-nested-list-iterator/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/24/medium-341-flatten-nested-list-iterator/) |
+| 1115 | Print FooBar Alternately | [Link](https://leetcode.com/problems/print-foobar-alternately/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/28/medium-1115-print-foobar-alternately/) |
+| 1188 | Design Bounded Blocking Queue | [Link](https://leetcode.com/problems/design-bounded-blocking-queue/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/29/medium-1188-design-bounded-blocking-queue/) |
 
 ```java
 class Solution {
@@ -460,7 +460,7 @@ class TicTacToe {
 | ID | Title | Link | Solution |
 |---|---|---|---|
 | 528 | Random Pick with Weight | [Link](https://leetcode.com/problems/random-pick-with-weight/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-24-medium-528-random-pick-with-weight/) |
-| 348 | Design Tic-Tac-Toe | [Link](https://leetcode.com/problems/design-tic-tac-toe/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/04/medium-348-design-tic-tac-toe/) |
+| 348 | Design Tic-Tac-Toe | [Link](https://leetcode.com/problems/design-tic-tac-toe/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-21-medium-348-design-tic-tac-toe/) |
 | 1275 | Find Winner on a Tic Tac Toe Game | [Link](https://leetcode.com/problems/find-winner-on-a-tic-tac-toe-game/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/04/easy-1275-find-winner-on-a-tic-tac-toe-game/) |
 | 398 | Random Pick Index | [Link](https://leetcode.com/problems/random-pick-index/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-24-medium-398-random-pick-index/) |
 | 2043 | Simple Bank System | [Link](https://leetcode.com/problems/simple-bank-system/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/10/20/medium-2043-simple-bank-system/) |

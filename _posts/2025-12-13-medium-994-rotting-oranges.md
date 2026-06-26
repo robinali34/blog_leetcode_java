@@ -1,8 +1,10 @@
 ---
+
 layout: post
 title: "[Medium] 994. Rotting Oranges"
 date: 2025-12-13 00:00:00 -0800
 categories: leetcode algorithm medium java array matrix bfs problem-solving
+permalink: /posts/2025-12-13-medium-994-rotting-oranges/
 ---
 
 {% raw %}

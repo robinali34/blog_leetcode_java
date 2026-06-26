@@ -228,4 +228,4 @@ class Solution {
 
 ## Template Reference
 
-See [Graph Templates: Dijkstra](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-graph/#dijkstra) for the standard Dijkstra template and variant with node disappearance constraints.
+See [Graph Templates: Dijkstra](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-graph/#dijkstra/) for the standard Dijkstra template and variant with node disappearance constraints.

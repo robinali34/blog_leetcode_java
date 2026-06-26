@@ -4,7 +4,7 @@ title: "[Medium] 348. Design Tic-Tac-Toe"
 date: 2026-03-04
 categories: [leetcode, medium, design, matrix]
 tags: [leetcode, medium, design, matrix, simulation]
-permalink: /2026/03/04/medium-348-design-tic-tac-toe/
+permalink: /posts/2025-10-21-medium-348-design-tic-tac-toe/
 ---
 
 Design a Tic-Tac-Toe game that is played on an `n x n` board between two players. A move is guaranteed to be valid and is placed on an empty block. Once a winning condition is reached, no more moves are allowed. A player wins if they place `n` marks in a row, column, diagonal, or anti-diagonal.

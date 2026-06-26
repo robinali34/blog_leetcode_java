@@ -566,7 +566,7 @@ class SparseTable {
 ---
 
 ## More Templates
-- **Beginner's Guide:** [LeetCode Beginner's Guide](/2026/06/25/leetcode-beginners-guide/)
+- **Beginner's Guide:** [LeetCode Beginner's Guide](/blog_leetcode_java/posts/2026-06-25-leetcode-beginners-guide/)
 - **Graph (BFS, Dijkstra, Topo, DSU):** [Graph Templates](/posts/2025-10-29-leetcode-templates-graph/)
 - **Binary search (rotated, 2D, answer space):** [Search Templates](/posts/2026-01-20-leetcode-templates-search/)
 - **DP, Backtracking, Greedy, Stack:** [Categories & Templates](/posts/2025-10-29-leetcode-categories-and-templates/)

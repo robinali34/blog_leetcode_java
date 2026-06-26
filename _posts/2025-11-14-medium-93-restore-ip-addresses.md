@@ -1,8 +1,10 @@
 ---
+
 layout: post
 title: "[Medium] 93. Restore IP Addresses"
 date: 2025-11-14 00:00:00 -0800
 categories: leetcode algorithm medium java backtracking string problem-solving
+permalink: /posts/2025-11-14-medium-93-restore-ip-addresses/
 ---
 
 # [Medium] 93. Restore IP Addresses

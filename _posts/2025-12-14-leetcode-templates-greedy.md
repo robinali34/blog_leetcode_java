@@ -492,40 +492,40 @@ int[][] reconstructQueue(int[][] people) {
 ## Easy Problems
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 455 | Assign Cookies | [Link](https://leetcode.com/problems/assign-cookies/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/03/easy-455-assign-cookies/) |
-| 860 | Lemonade Change | [Link](https://leetcode.com/problems/lemonade-change/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/03/easy-860-lemonade-change/) |
-| 392 | Is Subsequence | [Link](https://leetcode.com/problems/is-subsequence/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/03/easy-392-is-subsequence/) |
-| 406 | Queue Reconstruction by Height | [Link](https://leetcode.com/problems/queue-reconstruction-by-height/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/19/medium-406-queue-reconstruction-by-height/) |
-| 53 | Maximum Subarray | [Link](https://leetcode.com/problems/maximum-subarray/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/04/medium-53-maximum-subarray/) |
-| 435 | Non-overlapping Intervals | [Link](https://leetcode.com/problems/non-overlapping-intervals/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/03/medium-435-non-overlapping-intervals/) |
-| 452 | Minimum Number of Arrows to Burst Balloons | [Link](https://leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/03/medium-452-minimum-number-of-arrows-to-burst-balloons/) |
-| 561 | Array Partition | [Link](https://leetcode.com/problems/array-partition/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/03/easy-561-array-partition/) |
-| 1029 | Two City Scheduling | [Link](https://leetcode.com/problems/two-city-scheduling/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/04/medium-1029-two-city-scheduling/) |
-| 122 | Best Time to Buy and Sell Stock II | [Link](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/03/medium-122-best-time-to-buy-and-sell-stock-ii/) |
-| 1710 | Maximum Units on a Truck | [Link](https://leetcode.com/problems/maximum-units-on-a-truck/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/04/easy-1710-maximum-units-on-a-truck/) |
-| 1217 | Minimum Cost to Move Chips to The Same Position | [Link](https://leetcode.com/problems/minimum-cost-to-move-chips-to-the-same-position/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/04/easy-1217-minimum-cost-to-move-chips-to-the-same-position/) |
+| 455 | Assign Cookies | [Link](https://leetcode.com/problems/assign-cookies/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/03/easy-455-assign-cookies/) |
+| 860 | Lemonade Change | [Link](https://leetcode.com/problems/lemonade-change/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/03/easy-860-lemonade-change/) |
+| 392 | Is Subsequence | [Link](https://leetcode.com/problems/is-subsequence/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/03/easy-392-is-subsequence/) |
+| 406 | Queue Reconstruction by Height | [Link](https://leetcode.com/problems/queue-reconstruction-by-height/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-19-medium-406-queue-reconstruction-by-height/) |
+| 53 | Maximum Subarray | [Link](https://leetcode.com/problems/maximum-subarray/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/04/medium-53-maximum-subarray/) |
+| 435 | Non-overlapping Intervals | [Link](https://leetcode.com/problems/non-overlapping-intervals/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/03/medium-435-non-overlapping-intervals/) |
+| 452 | Minimum Number of Arrows to Burst Balloons | [Link](https://leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/03/medium-452-minimum-number-of-arrows-to-burst-balloons/) |
+| 561 | Array Partition | [Link](https://leetcode.com/problems/array-partition/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/03/easy-561-array-partition/) |
+| 1029 | Two City Scheduling | [Link](https://leetcode.com/problems/two-city-scheduling/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/04/medium-1029-two-city-scheduling/) |
+| 122 | Best Time to Buy and Sell Stock II | [Link](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/03/medium-122-best-time-to-buy-and-sell-stock-ii/) |
+| 1710 | Maximum Units on a Truck | [Link](https://leetcode.com/problems/maximum-units-on-a-truck/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/04/easy-1710-maximum-units-on-a-truck/) |
+| 1217 | Minimum Cost to Move Chips to The Same Position | [Link](https://leetcode.com/problems/minimum-cost-to-move-chips-to-the-same-position/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/04/easy-1217-minimum-cost-to-move-chips-to-the-same-position/) |
 
 ## Medium Problems
 | ID | Title | Link | Solution |
 |---|---|---|---|
 | 763 | Partition Labels | [Link](https://leetcode.com/problems/partition-labels/) | - |
 | 621 | Task Scheduler | [Link](https://leetcode.com/problems/task-scheduler/) | - |
-| 435 | Non-overlapping Intervals | [Link](https://leetcode.com/problems/non-overlapping-intervals/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/03/medium-435-non-overlapping-intervals/) |
-| 55 | Jump Game | [Link](https://leetcode.com/problems/jump-game/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/03/medium-55-jump-game/) |
-| 1094 | Car Pooling | [Link](https://leetcode.com/problems/car-pooling/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-10-22-medium-1094-car-pooling/) |
-| 45 | Jump Game II | [Link](https://leetcode.com/problems/jump-game-ii/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-18-medium-45-jump-game-ii/) |
+| 435 | Non-overlapping Intervals | [Link](https://leetcode.com/problems/non-overlapping-intervals/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/03/medium-435-non-overlapping-intervals/) |
+| 55 | Jump Game | [Link](https://leetcode.com/problems/jump-game/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/03/medium-55-jump-game/) |
+| 1094 | Car Pooling | [Link](https://leetcode.com/problems/car-pooling/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-22-medium-1094-car-pooling/) |
+| 45 | Jump Game II | [Link](https://leetcode.com/problems/jump-game-ii/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-18-medium-45-jump-game-ii/) |
 | 134 | Gas Station | [Link](https://leetcode.com/problems/gas-station/) | - |
 | 1024 | Video Stitching | [Link](https://leetcode.com/problems/video-stitching/) | - |
-| 1247 | Minimum Swaps to Make Strings Equal | [Link](https://leetcode.com/problems/minimum-swaps-to-make-strings-equal/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/04/medium-1247-minimum-swaps-to-make-strings-equal/) |
-| 1400 | Construct K Palindrome Strings | [Link](https://leetcode.com/problems/construct-k-palindrome-strings/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/04/medium-1400-construct-k-palindrome-strings/) |
-| 1605 | Find Valid Matrix Given Row and Column Sums | [Link](https://leetcode.com/problems/find-valid-matrix-given-row-and-column-sums/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/04/medium-1605-find-valid-matrix-given-row-and-column-sums/) |
-| 376 | Wiggle Subsequence | [Link](https://leetcode.com/problems/wiggle-subsequence/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/04/medium-376-wiggle-subsequence/) |
-| 274 | H-Index | [Link](https://leetcode.com/problems/h-index/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/04/17/medium-274-h-index/) |
+| 1247 | Minimum Swaps to Make Strings Equal | [Link](https://leetcode.com/problems/minimum-swaps-to-make-strings-equal/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/04/medium-1247-minimum-swaps-to-make-strings-equal/) |
+| 1400 | Construct K Palindrome Strings | [Link](https://leetcode.com/problems/construct-k-palindrome-strings/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/04/medium-1400-construct-k-palindrome-strings/) |
+| 1605 | Find Valid Matrix Given Row and Column Sums | [Link](https://leetcode.com/problems/find-valid-matrix-given-row-and-column-sums/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/04/medium-1605-find-valid-matrix-given-row-and-column-sums/) |
+| 376 | Wiggle Subsequence | [Link](https://leetcode.com/problems/wiggle-subsequence/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/04/medium-376-wiggle-subsequence/) |
+| 274 | H-Index | [Link](https://leetcode.com/problems/h-index/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/04/17/medium-274-h-index/) |
 
 ## Hard Problems
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 135 | Candy | [Link](https://leetcode.com/problems/candy/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/04/hard-135-candy/) |
+| 135 | Candy | [Link](https://leetcode.com/problems/candy/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/04/hard-135-candy/) |
 | 871 | Minimum Number of Refueling Stops | [Link](https://leetcode.com/problems/minimum-number-of-refueling-stops/) | - |
 | 818 | Race Car | [Link](https://leetcode.com/problems/race-car/) | - |
 | 410 | Split Array Largest Sum | [Link](https://leetcode.com/problems/split-array-largest-sum/) | - |
@@ -588,7 +588,7 @@ int[][] reconstructQueue(int[][] people) {
 - [Mastering Greedy Algorithms with LeetCode](https://leetcode.com/discuss/post/5330283/mastering-greedy-algorithms-with-leetcod-d0dq/) - Comprehensive guide to greedy algorithms with LeetCode problems
 
 ## More templates
-- **Beginner's Guide:** [LeetCode Beginner's Guide](/2026/06/25/leetcode-beginners-guide/)
+- **Beginner's Guide:** [LeetCode Beginner's Guide](/blog_leetcode_java/posts/2026-06-25-leetcode-beginners-guide/)
 - **DP (when greedy doesn't apply):** [Dynamic Programming](/posts/2025-10-29-leetcode-templates-dp/)
 - **Data structures, Graph, Search:** [Data Structures & Core Algorithms](/posts/2025-10-29-leetcode-templates-data-structures/), [Graph](/posts/2025-10-29-leetcode-templates-graph/), [Search](/posts/2026-01-20-leetcode-templates-search/)
 - **Master index:** [Categories & Templates](/posts/2025-10-29-leetcode-categories-and-templates/)

@@ -1,8 +1,10 @@
 ---
+
 layout: post
 title: "[Medium] 3. Longest Substring Without Repeating Characters"
 date: 2025-10-09 21:47:51 -0700
 categories: leetcode algorithm medium java sliding-window hash-map string two-pointers problem-solving
+permalink: /posts/2025-10-09-medium-3-longest-substring-without-repeating-characters/
 ---
 
 # [Medium] 3. Longest Substring Without Repeating Characters

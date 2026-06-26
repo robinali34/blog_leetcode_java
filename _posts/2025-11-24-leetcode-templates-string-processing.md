@@ -59,7 +59,7 @@ Welcome to the String Processing template collection! These are ready-to-use Jav
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 3 | Longest Substring Without Repeating Characters | [Link](https://leetcode.com/problems/longest-substring-without-repeating-characters/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/10/medium-3-longest-substring-without-repeating-characters/) |
+| 3 | Longest Substring Without Repeating Characters | [Link](https://leetcode.com/problems/longest-substring-without-repeating-characters/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-09-medium-3-longest-substring-without-repeating-characters/) |
 | 76 | Minimum Window Substring | [Link](https://leetcode.com/problems/minimum-window-substring/) | - |
 | 424 | Longest Repeating Character Replacement | [Link](https://leetcode.com/problems/longest-repeating-character-replacement/) | - |
 
@@ -121,7 +121,7 @@ static String minWindow(String s, String t) {
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 3 | Longest Substring Without Repeating Characters | [Link](https://leetcode.com/problems/longest-substring-without-repeating-characters/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/10/10/medium-3-longest-substring-without-repeating-characters/) |
+| 3 | Longest Substring Without Repeating Characters | [Link](https://leetcode.com/problems/longest-substring-without-repeating-characters/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-09-medium-3-longest-substring-without-repeating-characters/) |
 | 76 | Minimum Window Substring | [Link](https://leetcode.com/problems/minimum-window-substring/) | - |
 | 424 | Longest Repeating Character Replacement | [Link](https://leetcode.com/problems/longest-repeating-character-replacement/) | - |
 
@@ -138,11 +138,11 @@ static String minWindow(String s, String t) {
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 5 | Longest Palindromic Substring | [Link](https://leetcode.com/problems/longest-palindromic-substring/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/08/medium-5-longest-palindromic-substring/) |
+| 5 | Longest Palindromic Substring | [Link](https://leetcode.com/problems/longest-palindromic-substring/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/08/medium-5-longest-palindromic-substring/) |
 | 125 | Valid Palindrome | [Link](https://leetcode.com/problems/valid-palindrome/) | - |
-| 344 | Reverse String | [Link](https://leetcode.com/problems/reverse-string/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-10-29-easy-344-reverse-string/) |
-| 647 | Palindromic Substrings | [Link](https://leetcode.com/problems/palindromic-substrings/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-647-palindromic-substrings/) |
-| 151 | Reverse Words in a String | [Link](https://leetcode.com/problems/reverse-words-in-a-string/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/27/medium-151-reverse-words-in-a-string/) |
+| 344 | Reverse String | [Link](https://leetcode.com/problems/reverse-string/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-29-easy-344-reverse-string/) |
+| 647 | Palindromic Substrings | [Link](https://leetcode.com/problems/palindromic-substrings/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-24-medium-647-palindromic-substrings/) |
+| 151 | Reverse Words in a String | [Link](https://leetcode.com/problems/reverse-words-in-a-string/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/27/medium-151-reverse-words-in-a-string/) |
 
 ```java
 static boolean isPalindrome(String s) {
@@ -254,9 +254,9 @@ static int kmpSearch(String text, String pattern) {
 | ID | Title | Link | Solution |
 |---|---|---|---|
 | 49 | Group Anagrams | [Link](https://leetcode.com/problems/group-anagrams/) | - |
-| 249 | Group Shifted Strings | [Link](https://leetcode.com/problems/group-shifted-strings/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/07/medium-249-group-shifted-strings/) |
-| 893 | Groups of Special-Equivalent Strings | [Link](https://leetcode.com/problems/groups-of-special-equivalent-strings/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/02/15/easy-893-groups-of-special-equivalent-strings/) |
-| 1328 | Break a Palindrome | [Link](https://leetcode.com/problems/break-a-palindrome/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/04/07/medium-1328-break-a-palindrome/) |
+| 249 | Group Shifted Strings | [Link](https://leetcode.com/problems/group-shifted-strings/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/07/medium-249-group-shifted-strings/) |
+| 893 | Groups of Special-Equivalent Strings | [Link](https://leetcode.com/problems/groups-of-special-equivalent-strings/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/02/15/easy-893-groups-of-special-equivalent-strings/) |
+| 1328 | Break a Palindrome | [Link](https://leetcode.com/problems/break-a-palindrome/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/04/07/medium-1328-break-a-palindrome/) |
 
 ### Remove Duplicates
 
@@ -264,9 +264,9 @@ static int kmpSearch(String text, String pattern) {
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 49 | Group Anagrams | [Link](https://leetcode.com/problems/group-anagrams/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-18-medium-49-group-anagrams/) |
-| 1047 | Remove All Adjacent Duplicates In String | [Link](https://leetcode.com/problems/remove-all-adjacent-duplicates-in-string/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-easy-1047-remove-all-adjacent-duplicates-in-string/) |
-| 1209 | Remove All Adjacent Duplicates in String II | [Link](https://leetcode.com/problems/remove-all-adjacent-duplicates-in-string-ii/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-1209-remove-all-adjacent-duplicates-in-string-ii/) |
+| 49 | Group Anagrams | [Link](https://leetcode.com/problems/group-anagrams/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-18-medium-49-group-anagrams/) |
+| 1047 | Remove All Adjacent Duplicates In String | [Link](https://leetcode.com/problems/remove-all-adjacent-duplicates-in-string/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-24-easy-1047-remove-all-adjacent-duplicates-in-string/) |
+| 1209 | Remove All Adjacent Duplicates in String II | [Link](https://leetcode.com/problems/remove-all-adjacent-duplicates-in-string-ii/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-24-medium-1209-remove-all-adjacent-duplicates-in-string-ii/) |
 
 ### Run-Length Encoding
 
@@ -274,7 +274,7 @@ static int kmpSearch(String text, String pattern) {
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 38 | Count and Say | [Link](https://leetcode.com/problems/count-and-say/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/02/16/medium-38-count-and-say/) |
+| 38 | Count and Say | [Link](https://leetcode.com/problems/count-and-say/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/02/16/medium-38-count-and-say/) |
 | 443 | String Compression | [Link](https://leetcode.com/problems/string-compression/) | - |
 
 ```java
@@ -384,8 +384,8 @@ static String runLengthEncode(String s) {
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 408 | Valid Word Abbreviation | [Link](https://leetcode.com/problems/valid-word-abbreviation/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-easy-408-valid-word-abbreviation/) |
-| 394 | Decode String | [Link](https://leetcode.com/problems/decode-string/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/19/medium-394-decode-string/) |
+| 408 | Valid Word Abbreviation | [Link](https://leetcode.com/problems/valid-word-abbreviation/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-24-easy-408-valid-word-abbreviation/) |
+| 394 | Decode String | [Link](https://leetcode.com/problems/decode-string/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-19-medium-394-decode-string/) |
 
 ```java
 static boolean validWordAbbreviation(String word, String abbr) {
@@ -451,10 +451,10 @@ static String decodeString(String s) {
 | ID | Title | Link | Solution |
 |---|---|---|---|
 | 408 | Valid Word Abbreviation | [Link](https://leetcode.com/problems/valid-word-abbreviation/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-24-easy-408-valid-word-abbreviation/) |
-| 394 | Decode String | [Link](https://leetcode.com/problems/decode-string/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/10/19/medium-394-decode-string/) |
+| 394 | Decode String | [Link](https://leetcode.com/problems/decode-string/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-19-medium-394-decode-string/) |
 
 ## More templates
-- **Beginner's Guide:** [LeetCode Beginner's Guide](/2026/06/25/leetcode-beginners-guide/)
+- **Beginner's Guide:** [LeetCode Beginner's Guide](/blog_leetcode_java/posts/2026-06-25-leetcode-beginners-guide/)
 - **Arrays & Strings (KMP, Manacher):** [Arrays & Strings](/posts/2025-10-29-leetcode-templates-arrays-strings/)
 - **Stack (decode string):** [Stack](/posts/2025-11-13-leetcode-templates-stack/)
 - **Master index:** [Categories & Templates](/posts/2025-10-29-leetcode-categories-and-templates/)

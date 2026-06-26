@@ -1,7 +1,9 @@
 ---
+
 layout: post
 title: "[Medium] 50. Pow(x, n)"
 categories: leetcode algorithm math data-structures recursion bit-manipulation medium java pow problem-solving
+permalink: /posts/2025-09-25-medium-50-pow-x-n/
 ---
 
 # [Medium] 50. Pow(x, n)

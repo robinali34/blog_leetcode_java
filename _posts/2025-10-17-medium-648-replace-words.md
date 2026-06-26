@@ -1,8 +1,10 @@
 ---
+
 layout: post
 title: "[Medium] 648. Replace Words"
 date: 2025-10-17 16:17:34 -0700
 categories: leetcode algorithm medium java trie hash-set string-processing problem-solving
+permalink: /posts/2025-10-17-medium-648-replace-words/
 ---
 
 # [Medium] 648. Replace Words

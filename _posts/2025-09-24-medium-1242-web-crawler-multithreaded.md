@@ -1,8 +1,10 @@
 ---
+
 layout: post
 title: "[Medium] 1242. Web Crawler Multithreaded"
 date: 2025-09-24 18:00:00 -0000
 categories: leetcode algorithm multithreading concurrency data-structures synchronization medium java web-crawler concurrent-programming problem-solving
+permalink: /posts/2025-09-24-medium-1242-web-crawler-multithreaded/
 ---
 
 # [Medium] 1242. Web Crawler Multithreaded

@@ -262,8 +262,8 @@ Avoid duplicates by sorting first, then skipping duplicates at the same level wh
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 46 | Permutations | [Link](https://leetcode.com/problems/permutations/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-46-permutations/) |
-| 47 | Permutations II | [Link](https://leetcode.com/problems/permutations-ii/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-47-permutations-ii/) |
+| 46 | Permutations | [Link](https://leetcode.com/problems/permutations/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/10/20/medium-46-permutations/) |
+| 47 | Permutations II | [Link](https://leetcode.com/problems/permutations-ii/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/10/20/medium-47-permutations-ii/) |
 
 ```java
 // Permutations without duplicates
@@ -334,8 +334,8 @@ Generate all combinations of k elements from n elements. Order doesn't matter, s
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 77 | Combinations | [Link](https://leetcode.com/problems/combinations/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-77-combinations/) |
-| 22 | Generate Parentheses | [Link](https://leetcode.com/problems/generate-parentheses/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/12/medium-22-generate-parentheses/) |
+| 77 | Combinations | [Link](https://leetcode.com/problems/combinations/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/10/20/medium-77-combinations/) |
+| 22 | Generate Parentheses | [Link](https://leetcode.com/problems/generate-parentheses/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/12/medium-22-generate-parentheses/) |
 
 ```java
 // Combinations C(n, k)
@@ -452,7 +452,7 @@ Sort first, then skip duplicates at the same level.
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 78 | Subsets | [Link](https://leetcode.com/problems/subsets/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/05/medium-78-subsets/) |
+| 78 | Subsets | [Link](https://leetcode.com/problems/subsets/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/05/medium-78-subsets/) |
 | 90 | Subsets II | [Link](https://leetcode.com/problems/subsets-ii/) | - |
 
 ```java
@@ -615,11 +615,11 @@ Backtrack on 2D grid with constraints. Mark cells as visited during exploration,
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 79 | Word Search | [Link](https://leetcode.com/problems/word-search/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/12/medium-79-word-search/) |
+| 79 | Word Search | [Link](https://leetcode.com/problems/word-search/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/12/medium-79-word-search/) |
 | 212 | Word Search II | [Link](https://leetcode.com/problems/word-search-ii/) | - |
-| 351 | Android Unlock Patterns | [Link](https://leetcode.com/problems/android-unlock-patterns/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/02/medium-351-android-unlock-patterns/) |
-| 425 | Word Squares | [Link](https://leetcode.com/problems/word-squares/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/12/31/hard-425-word-squares/) |
-| 489 | Robot Room Cleaner | [Link](https://leetcode.com/problems/robot-room-cleaner/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-hard-489-robot-room-cleaner/) |
+| 351 | Android Unlock Patterns | [Link](https://leetcode.com/problems/android-unlock-patterns/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/02/medium-351-android-unlock-patterns/) |
+| 425 | Word Squares | [Link](https://leetcode.com/problems/word-squares/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/12/31/hard-425-word-squares/) |
+| 489 | Robot Room Cleaner | [Link](https://leetcode.com/problems/robot-room-cleaner/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-24-hard-489-robot-room-cleaner/) |
 
 ```java
 // Word Search: find if word exists in grid
@@ -678,7 +678,7 @@ Backtracking with complex constraints. Validate each move before placing.
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 51 | N-Queens | [Link](https://leetcode.com/problems/n-queens/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/12/hard-51-n-queens/) |
+| 51 | N-Queens | [Link](https://leetcode.com/problems/n-queens/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/12/hard-51-n-queens/) |
 | 52 | N-Queens II | [Link](https://leetcode.com/problems/n-queens-ii/) | - |
 | 37 | Sudoku Solver | [Link](https://leetcode.com/problems/sudoku-solver/) | - |
 
@@ -770,10 +770,10 @@ Partition string into palindromic substrings. Check if substring is palindrome b
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 131 | Palindrome Partitioning | [Link](https://leetcode.com/problems/palindrome-partitioning/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/09/30/medium-131-palindrome-partitioning/) |
+| 131 | Palindrome Partitioning | [Link](https://leetcode.com/problems/palindrome-partitioning/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-09-30-medium-131-palindrome-partitioning/) |
 | 132 | Palindrome Partitioning II | [Link](https://leetcode.com/problems/palindrome-partitioning-ii/) | - |
-| 5 | Longest Palindromic Substring | [Link](https://leetcode.com/problems/longest-palindromic-substring/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/08/medium-5-longest-palindromic-substring/) |
-| 647 | Palindromic Substrings | [Link](https://leetcode.com/problems/palindromic-substrings/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-647-palindromic-substrings/) |
+| 5 | Longest Palindromic Substring | [Link](https://leetcode.com/problems/longest-palindromic-substring/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/08/medium-5-longest-palindromic-substring/) |
+| 647 | Palindromic Substrings | [Link](https://leetcode.com/problems/palindromic-substrings/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-24-medium-647-palindromic-substrings/) |
 
 ```java
 // import java.util.*;
@@ -820,7 +820,7 @@ boolean[][] precomputePalindromes(String s){
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 131 | Palindrome Partitioning | [Link](https://leetcode.com/problems/palindrome-partitioning/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/09/30/medium-131-palindrome-partitioning/) |
+| 131 | Palindrome Partitioning | [Link](https://leetcode.com/problems/palindrome-partitioning/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-09-30-medium-131-palindrome-partitioning/) |
 | 132 | Palindrome Partitioning II | [Link](https://leetcode.com/problems/palindrome-partitioning-ii/) | - |
 | 5 | Longest Palindromic Substring | [Link](https://leetcode.com/problems/longest-palindromic-substring/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/08/medium-5-longest-palindromic-substring/) |
 | 647 | Palindromic Substrings | [Link](https://leetcode.com/problems/palindromic-substrings/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-24-medium-647-palindromic-substrings/) |
@@ -837,8 +837,8 @@ Generate all valid parentheses combinations using backtracking.
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 22 | Generate Parentheses | [Link](https://leetcode.com/problems/generate-parentheses/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/12/medium-22-generate-parentheses/) |
-| 1087 | Brace Expansion | [Link](https://leetcode.com/problems/brace-expansion/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/26/medium-1087-brace-expansion/) |
+| 22 | Generate Parentheses | [Link](https://leetcode.com/problems/generate-parentheses/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/12/medium-22-generate-parentheses/) |
+| 1087 | Brace Expansion | [Link](https://leetcode.com/problems/brace-expansion/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/26/medium-1087-brace-expansion/) |
 
 ```java
 // Generate Parentheses: generate all valid n pairs
@@ -926,7 +926,7 @@ static void backtrack(state, constraints, current_solution, results){
 **Space Complexity:** O(depth) for recursion stack + O(solution_size) for current solution
 
 ## More templates
-- **Beginner's Guide:** [LeetCode Beginner's Guide](/2026/06/25/leetcode-beginners-guide/)
+- **Beginner's Guide:** [LeetCode Beginner's Guide](/blog_leetcode_java/posts/2026-06-25-leetcode-beginners-guide/)
 - **Data structures, Graph, Search:** [Data Structures & Core Algorithms](/posts/2025-10-29-leetcode-templates-data-structures/), [Graph](/posts/2025-10-29-leetcode-templates-graph/), [Search](/posts/2026-01-20-leetcode-templates-search/)
 - **Master index:** [Categories & Templates](/posts/2025-10-29-leetcode-categories-and-templates/)
 {% endraw %}

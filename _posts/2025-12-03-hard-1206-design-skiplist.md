@@ -1,8 +1,10 @@
 ---
+
 layout: post
 title: "[Hard] 1206. Design Skiplist"
 date: 2025-12-03 00:00:00 -0800
 categories: leetcode algorithm hard java data-structures skiplist linked-list problem-solving
+permalink: /posts/2025-12-03-hard-1206-design-skiplist/
 ---
 
 # [Hard] 1206. Design Skiplist

@@ -1,8 +1,10 @@
 ---
+
 layout: post
 title: "[Easy] 67. Add Binary"
 date: 2025-12-11 00:00:00 -0800
 categories: leetcode algorithm easy java string math bit-manipulation problem-solving
+permalink: /posts/2025-12-11-easy-67-add-binary/
 ---
 
 # [Easy] 67. Add Binary

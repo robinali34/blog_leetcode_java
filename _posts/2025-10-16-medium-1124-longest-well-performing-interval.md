@@ -1,8 +1,10 @@
 ---
+
 layout: post
 title: "[Medium] 1124. Longest Well-Performing Interval"
 date: 2025-10-16 15:04:54 -0700
 categories: leetcode algorithm medium java hash-map prefix-sum problem-solving
+permalink: /posts/2025-10-16-medium-1124-longest-well-performing-interval/
 ---
 
 # [Medium] 1124. Longest Well-Performing Interval

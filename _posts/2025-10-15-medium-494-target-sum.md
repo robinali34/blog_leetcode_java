@@ -1,8 +1,10 @@
 ---
+
 layout: post
 title: "[Medium] 494. Target Sum"
 date: 2025-10-15 15:28:04 -0700
 categories: leetcode algorithm medium java dynamic-programming dp subset-sum problem-solving
+permalink: /posts/2025-10-15-medium-494-target-sum/
 ---
 
 # [Medium] 494. Target Sum

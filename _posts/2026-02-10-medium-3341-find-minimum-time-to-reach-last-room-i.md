@@ -110,4 +110,4 @@ class Solution {
 
 ## Template Reference
 
-- [Graph Templates: Dijkstra](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-graph/#dijkstra)
+- [Graph Templates: Dijkstra](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-graph/#dijkstra/)

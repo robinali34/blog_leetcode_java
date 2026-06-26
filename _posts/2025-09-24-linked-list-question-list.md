@@ -1,8 +1,10 @@
 ---
+
 layout: post
 title: "LeetCode Linked List Mastery List"
 date: 2025-09-24 15:31:00 -0000
 categories: leetcode algorithm linked-list data-structures interview-preparation practice-list problem-solving competitive-programming pointers traversal
+permalink: /posts/2025-09-24-linked-list-question-list/
 ---
 # LeetCode Linked List Mastery List
 

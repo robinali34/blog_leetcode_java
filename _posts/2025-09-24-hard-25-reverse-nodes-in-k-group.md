@@ -1,8 +1,10 @@
 ---
+
 layout: post
 title: "[Hard] 25. Reverse Nodes in k-Group"
 date: 2025-09-24 22:00:00 -0000
 categories: leetcode algorithm linked-list recursive data-structures pointers hard java reverse-nodes k-group recursion problem-solving
+permalink: /posts/2025-09-24-hard-25-reverse-nodes-in-k-group/
 ---
 
 # [Hard] 25. Reverse Nodes in k-Group

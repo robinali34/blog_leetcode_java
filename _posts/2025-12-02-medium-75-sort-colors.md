@@ -1,8 +1,10 @@
 ---
+
 layout: post
 title: "[Medium] 75. Sort Colors"
 date: 2025-12-02 00:00:00 -0800
 categories: leetcode algorithm medium java array two-pointers sorting problem-solving
+permalink: /posts/2025-12-02-medium-75-sort-colors/
 ---
 
 # [Medium] 75. Sort Colors

@@ -1,7 +1,9 @@
 ---
+
 layout: post
 title: "[Medium] 89. Gray Code"
 categories: leetcode algorithm backtracking data-structures recursion bit-manipulation medium java gray-code problem-solving
+permalink: /posts/2025-09-25-medium-89-gray-code/
 ---
 
 # [Medium] 89. Gray Code

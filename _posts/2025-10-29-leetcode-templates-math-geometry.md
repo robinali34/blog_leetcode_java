@@ -29,7 +29,7 @@ Minimal, copy-paste Java for combinatorics (nCk mod P) and 2D geometry primitive
 ## Combinatorics (nCk mod P)
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 62 | Unique Paths | [Link](https://leetcode.com/problems/unique-paths/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/09/24/medium-62-unique-paths/) |
+| 62 | Unique Paths | [Link](https://leetcode.com/problems/unique-paths/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-09-24-medium-62-unique-paths/) |
 | 172 | Factorial Trailing Zeroes | [Link](https://leetcode.com/problems/factorial-trailing-zeroes/) | - |
 
 ```java
@@ -42,7 +42,7 @@ static long nCk(int n,int k){ if(k<0||k>n) return 0; return fact[n]*invfact[k]%M
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 62 | Unique Paths | [Link](https://leetcode.com/problems/unique-paths/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/09/24/medium-62-unique-paths/) |
+| 62 | Unique Paths | [Link](https://leetcode.com/problems/unique-paths/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-09-24-medium-62-unique-paths/) |
 | 172 | Factorial Trailing Zeroes | [Link](https://leetcode.com/problems/factorial-trailing-zeroes/) | - |
 
 ## Geometry Primitives (2D)
@@ -50,7 +50,7 @@ static long nCk(int n,int k){ if(k<0||k>n) return 0; return fact[n]*invfact[k]%M
 |---|---|---|---|
 | 149 | Max Points on a Line | [Link](https://leetcode.com/problems/max-points-on-a-line/) | - |
 | 223 | Rectangle Area | [Link](https://leetcode.com/problems/rectangle-area/) | - |
-| 1344 | Angle Between Hands of a Clock | [Link](https://leetcode.com/problems/angle-between-hands-of-a-clock/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/04/medium-1344-angle-between-hands-of-a-clock/) |
+| 1344 | Angle Between Hands of a Clock | [Link](https://leetcode.com/problems/angle-between-hands-of-a-clock/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/04/medium-1344-angle-between-hands-of-a-clock/) |
 
 ```java
 class P{ long x,y; }

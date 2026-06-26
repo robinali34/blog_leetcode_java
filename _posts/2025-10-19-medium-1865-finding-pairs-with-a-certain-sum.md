@@ -1,8 +1,10 @@
 ---
+
 layout: post
 title: "[Medium] 1865. Finding Pairs With a Certain Sum"
 date: 2025-10-19 17:38:17 -0700
 categories: leetcode algorithm medium java hash-map data-structure problem-solving
+permalink: /posts/2025-10-19-medium-1865-finding-pairs-with-a-certain-sum/
 ---
 
 # [Medium] 1865. Finding Pairs With a Certain Sum

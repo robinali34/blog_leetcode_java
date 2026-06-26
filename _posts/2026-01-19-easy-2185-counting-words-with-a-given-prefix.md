@@ -249,8 +249,8 @@ class Solution {
 ## Related Problems
 
 - [LC 208: Implement Trie (Prefix Tree)](https://robinali34.github.io/blog_leetcode_java/2026/01/18/medium-208-implement-trie/) - More efficient for multiple prefix queries
-- [LC 211: Design Add and Search Words Data Structure](https://robinali34.github.io/blog_leetcode_java/2026/01/18/medium-211-design-add-and-search-words-data-structure/) - Trie with wildcard support
-- [LC 648: Replace Words](https://robinali34.github.io/blog_leetcode_java/2025/10/17/medium-648-replace-words/) - Prefix matching with replacement
+- [LC 211: Design Add and Search Words Data Structure](https://robinali34.github.io/blog_leetcode_java/2026/01/19/medium-211-design-add-and-search-words-data-structure/) - Trie with wildcard support
+- [LC 648: Replace Words](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-17-medium-648-replace-words/) - Prefix matching with replacement
 - [LC 14: Longest Common Prefix](https://leetcode.com/problems/longest-common-prefix/) - Finding common prefix
 - [LC 720: Longest Word in Dictionary](https://leetcode.com/problems/longest-word-in-dictionary/) - Prefix-based word selection
 

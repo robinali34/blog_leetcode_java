@@ -41,13 +41,13 @@ Welcome to the Array & Matrix template collection! These are ready-to-use Java s
 | ID | Title | Link | Solution |
 |---|---|---|---|
 | 15 | 3Sum | [Link](https://leetcode.com/problems/3sum/) | - |
-| 18 | 4Sum | [Link](https://leetcode.com/problems/4sum/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/11/04/medium-18-4sum/) |
+| 18 | 4Sum | [Link](https://leetcode.com/problems/4sum/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-04-medium-18-4sum/) |
 | 11 | Container With Most Water | [Link](https://leetcode.com/problems/container-with-most-water/) | - |
-| 75 | Sort Colors | [Link](https://leetcode.com/problems/sort-colors/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-12-02-medium-75-sort-colors/) |
-| 360 | Sort Transformed Array | [Link](https://leetcode.com/problems/sort-transformed-array/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/12/31/medium-360-sort-transformed-array/) |
-| 344 | Reverse String | [Link](https://leetcode.com/problems/reverse-string/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-10-29-easy-344-reverse-string/) |
-| 844 | Backspace String Compare | [Link](https://leetcode.com/problems/backspace-string-compare/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/12/easy-844-backspace-string-compare/) |
-| 1868 | Product of Two Run-Length Encoded Arrays | [Link](https://leetcode.com/problems/product-of-two-run-length-encoded-arrays/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-1868-product-of-two-run-length-encoded-arrays/) |
+| 75 | Sort Colors | [Link](https://leetcode.com/problems/sort-colors/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-12-02-medium-75-sort-colors/) |
+| 360 | Sort Transformed Array | [Link](https://leetcode.com/problems/sort-transformed-array/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/12/31/medium-360-sort-transformed-array/) |
+| 344 | Reverse String | [Link](https://leetcode.com/problems/reverse-string/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-29-easy-344-reverse-string/) |
+| 844 | Backspace String Compare | [Link](https://leetcode.com/problems/backspace-string-compare/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/12/easy-844-backspace-string-compare/) |
+| 1868 | Product of Two Run-Length Encoded Arrays | [Link](https://leetcode.com/problems/product-of-two-run-length-encoded-arrays/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/10/20/medium-1868-product-of-two-run-length-encoded-arrays/) |
 
 ```java
 static boolean twoSumSorted(int[] a, int target){
@@ -99,7 +99,7 @@ int[][] threeSum(int[] nums) {
 | ID | Title | Link | Solution |
 |---|---|---|---|
 | 15 | 3Sum | [Link](https://leetcode.com/problems/3sum/) | - |
-| 18 | 4Sum | [Link](https://leetcode.com/problems/4sum/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/11/04/medium-18-4sum/) |
+| 18 | 4Sum | [Link](https://leetcode.com/problems/4sum/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-04-medium-18-4sum/) |
 | 11 | Container With Most Water | [Link](https://leetcode.com/problems/container-with-most-water/) | - |
 | 75 | Sort Colors | [Link](https://leetcode.com/problems/sort-colors/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-12-02-medium-75-sort-colors/) |
 | 360 | Sort Transformed Array | [Link](https://leetcode.com/problems/sort-transformed-array/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/12/31/medium-360-sort-transformed-array/) |
@@ -177,12 +177,12 @@ int[][] threeSum(int[] nums) {
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 3 | Longest Substring Without Repeating Characters | [Link](https://leetcode.com/problems/longest-substring-without-repeating-characters/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/10/medium-3-longest-substring-without-repeating-characters/) |
+| 3 | Longest Substring Without Repeating Characters | [Link](https://leetcode.com/problems/longest-substring-without-repeating-characters/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-09-medium-3-longest-substring-without-repeating-characters/) |
 | 209 | Minimum Size Subarray Sum | [Link](https://leetcode.com/problems/minimum-size-subarray-sum/) | - |
-| 239 | Sliding Window Maximum | [Link](https://leetcode.com/problems/sliding-window-maximum/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-04-hard-239-sliding-window-maximum/) |
-| 480 | Sliding Window Median | [Link](https://leetcode.com/problems/sliding-window-median/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-04-hard-480-sliding-window-median/) |
-| 2799 | Count Complete Subarrays in an Array | [Link](https://leetcode.com/problems/count-complete-subarrays-in-an-array/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-2799-count-complete-subarrays-in-an-array/) |
-| 346 | Moving Average from Data Stream | [Link](https://leetcode.com/problems/moving-average-from-data-stream/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-12-14-easy-346-moving-average-from-data-stream/) |
+| 239 | Sliding Window Maximum | [Link](https://leetcode.com/problems/sliding-window-maximum/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-04-hard-239-sliding-window-maximum/) |
+| 480 | Sliding Window Median | [Link](https://leetcode.com/problems/sliding-window-median/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-04-hard-480-sliding-window-median/) |
+| 2799 | Count Complete Subarrays in an Array | [Link](https://leetcode.com/problems/count-complete-subarrays-in-an-array/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-17-medium-2799-count-complete-subarrays-in-an-array/) |
+| 346 | Moving Average from Data Stream | [Link](https://leetcode.com/problems/moving-average-from-data-stream/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-12-14-easy-346-moving-average-from-data-stream/) |
 | 713 | Subarray Product Less Than K | [Link](https://leetcode.com/problems/subarray-product-less-than-k/) | - |
 
 ```java
@@ -226,11 +226,11 @@ static int longestSubarray(int[] nums, int k) {
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 3 | Longest Substring Without Repeating Characters | [Link](https://leetcode.com/problems/longest-substring-without-repeating-characters/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/10/10/medium-3-longest-substring-without-repeating-characters/) |
+| 3 | Longest Substring Without Repeating Characters | [Link](https://leetcode.com/problems/longest-substring-without-repeating-characters/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-09-medium-3-longest-substring-without-repeating-characters/) |
 | 209 | Minimum Size Subarray Sum | [Link](https://leetcode.com/problems/minimum-size-subarray-sum/) | - |
 | 239 | Sliding Window Maximum | [Link](https://leetcode.com/problems/sliding-window-maximum/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-04-hard-239-sliding-window-maximum/) |
 | 480 | Sliding Window Median | [Link](https://leetcode.com/problems/sliding-window-median/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-04-hard-480-sliding-window-median/) |
-| 2799 | Count Complete Subarrays in an Array | [Link](https://leetcode.com/problems/count-complete-subarrays-in-an-array/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/10/17/medium-2799-count-complete-subarrays-in-an-array/) |
+| 2799 | Count Complete Subarrays in an Array | [Link](https://leetcode.com/problems/count-complete-subarrays-in-an-array/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-17-medium-2799-count-complete-subarrays-in-an-array/) |
 | 346 | Moving Average from Data Stream | [Link](https://leetcode.com/problems/moving-average-from-data-stream/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-12-14-easy-346-moving-average-from-data-stream/) |
 | 713 | Subarray Product Less Than K | [Link](https://leetcode.com/problems/subarray-product-less-than-k/) | - |
 
@@ -290,14 +290,14 @@ static int longestSubarray(int[] nums, int k) {
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 303 | Range Sum Query - Immutable | [Link](https://leetcode.com/problems/range-sum-query-immutable/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/01/easy-303-range-sum-query-immutable/) |
-| 307 | Range Sum Query - Mutable | [Link](https://leetcode.com/problems/range-sum-query-mutable/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/16/medium-307-range-sum-query-mutable/) |
+| 303 | Range Sum Query - Immutable | [Link](https://leetcode.com/problems/range-sum-query-immutable/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/01/easy-303-range-sum-query-immutable/) |
+| 307 | Range Sum Query - Mutable | [Link](https://leetcode.com/problems/range-sum-query-mutable/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/16/medium-307-range-sum-query-mutable/) |
 | 560 | Subarray Sum Equals K | [Link](https://leetcode.com/problems/subarray-sum-equals-k/) | - |
-| 525 | Contiguous Array | [Link](https://leetcode.com/problems/contiguous-array/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-04-medium-525-contiguous-array/) |
-| 1124 | Longest Well-Performing Interval | [Link](https://leetcode.com/problems/longest-well-performing-interval/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/16/medium-1124-longest-well-performing-interval/) |
-| 327 | Count of Range Sum | [Link](https://leetcode.com/problems/count-of-range-sum/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/20/hard-327-count-of-range-sum/) |
+| 525 | Contiguous Array | [Link](https://leetcode.com/problems/contiguous-array/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-04-medium-525-contiguous-array/) |
+| 1124 | Longest Well-Performing Interval | [Link](https://leetcode.com/problems/longest-well-performing-interval/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-16-medium-1124-longest-well-performing-interval/) |
+| 327 | Count of Range Sum | [Link](https://leetcode.com/problems/count-of-range-sum/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/20/hard-327-count-of-range-sum/) |
 | 370 | Range Addition | [Link](https://leetcode.com/problems/range-addition/) | - |
-| 1094 | Car Pooling | [Link](https://leetcode.com/problems/car-pooling/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-10-22-medium-1094-car-pooling/) |
+| 1094 | Car Pooling | [Link](https://leetcode.com/problems/car-pooling/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-22-medium-1094-car-pooling/) |
 
 ```java
 int[]prefixSum(int[] a){
@@ -342,7 +342,7 @@ int[]getModifiedArray(int length, int[][] updates) {
 | 307 | Range Sum Query - Mutable | [Link](https://leetcode.com/problems/range-sum-query-mutable/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/16/medium-307-range-sum-query-mutable/) |
 | 560 | Subarray Sum Equals K | [Link](https://leetcode.com/problems/subarray-sum-equals-k/) | - |
 | 525 | Contiguous Array | [Link](https://leetcode.com/problems/contiguous-array/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-04-medium-525-contiguous-array/) |
-| 1124 | Longest Well-Performing Interval | [Link](https://leetcode.com/problems/longest-well-performing-interval/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/10/16/medium-1124-longest-well-performing-interval/) |
+| 1124 | Longest Well-Performing Interval | [Link](https://leetcode.com/problems/longest-well-performing-interval/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-16-medium-1124-longest-well-performing-interval/) |
 | 327 | Count of Range Sum | [Link](https://leetcode.com/problems/count-of-range-sum/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/20/hard-327-count-of-range-sum/) |
 | 370 | Range Addition | [Link](https://leetcode.com/problems/range-addition/) | - |
 | 1094 | Car Pooling | [Link](https://leetcode.com/problems/car-pooling/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-22-medium-1094-car-pooling/) |
@@ -360,9 +360,9 @@ int[]getModifiedArray(int length, int[][] updates) {
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 33 | Search in Rotated Sorted Array | [Link](https://leetcode.com/problems/search-in-rotated-sorted-array/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/09/23/medium-33-search-in-rotated-sorted-array/) |
+| 33 | Search in Rotated Sorted Array | [Link](https://leetcode.com/problems/search-in-rotated-sorted-array/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-09-23-medium-33-search-in-rotated-sorted-array/) |
 | 34 | Find First and Last Position | [Link](https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/) | - |
-| 240 | Search a 2D Matrix II | [Link](https://leetcode.com/problems/search-a-2d-matrix-ii/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/07/medium-240-search-a-2d-matrix-ii/) |
+| 240 | Search a 2D Matrix II | [Link](https://leetcode.com/problems/search-a-2d-matrix-ii/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-06-medium-240-search-a-2d-matrix-ii/) |
 
 ```java
 static int binarySearch(int[] nums, int target) {
@@ -412,9 +412,9 @@ static int searchRotated(int[] nums, int target) {
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 33 | Search in Rotated Sorted Array | [Link](https://leetcode.com/problems/search-in-rotated-sorted-array/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/09/23/medium-33-search-in-rotated-sorted-array/) |
+| 33 | Search in Rotated Sorted Array | [Link](https://leetcode.com/problems/search-in-rotated-sorted-array/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-09-23-medium-33-search-in-rotated-sorted-array/) |
 | 34 | Find First and Last Position | [Link](https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/) | - |
-| 240 | Search a 2D Matrix II | [Link](https://leetcode.com/problems/search-a-2d-matrix-ii/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/10/07/medium-240-search-a-2d-matrix-ii/) |
+| 240 | Search a 2D Matrix II | [Link](https://leetcode.com/problems/search-a-2d-matrix-ii/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-06-medium-240-search-a-2d-matrix-ii/) |
 
 ## Matrix Operations
 **When to use:** The problem says "rotate image", "spiral order", "transpose matrix", or involves traversing a 2D grid in a specific pattern.
@@ -488,14 +488,14 @@ static int searchRotated(int[] nums, int target) {
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 48 | Rotate Image | [Link](https://leetcode.com/problems/rotate-image/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/09/24/medium-48-rotate-image/) |
-| 54 | Spiral Matrix | [Link](https://leetcode.com/problems/spiral-matrix/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/09/25/medium-54-spiral-matrix/) |
-| 59 | Spiral Matrix II | [Link](https://leetcode.com/problems/spiral-matrix-ii/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/02/18/medium-59-spiral-matrix-ii/) |
-| 498 | Diagonal Traverse | [Link](https://leetcode.com/problems/diagonal-traverse/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/20/medium-498-diagonal-traverse/) |
-| 189 | Rotate Array | [Link](https://leetcode.com/problems/rotate-array/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/20/medium-189-rotate-array/) |
-| 419 | Battleships in a Board | [Link](https://leetcode.com/problems/battleships-in-a-board/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-10-21-medium-419-battleships-in-a-board/) |
-| 661 | Image Smoother | [Link](https://leetcode.com/problems/image-smoother/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/12/30/easy-661-image-smoother/) |
-| 73 | Set Matrix Zeroes | [Link](https://leetcode.com/problems/set-matrix-zeroes/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/04/02/medium-73-set-matrix-zeroes/) |
+| 48 | Rotate Image | [Link](https://leetcode.com/problems/rotate-image/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-09-24-medium-48-rotate-image/) |
+| 54 | Spiral Matrix | [Link](https://leetcode.com/problems/spiral-matrix/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-09-25-medium-54-spiral-matrix/) |
+| 59 | Spiral Matrix II | [Link](https://leetcode.com/problems/spiral-matrix-ii/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/02/18/medium-59-spiral-matrix-ii/) |
+| 498 | Diagonal Traverse | [Link](https://leetcode.com/problems/diagonal-traverse/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/20/medium-498-diagonal-traverse/) |
+| 189 | Rotate Array | [Link](https://leetcode.com/problems/rotate-array/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/20/medium-189-rotate-array/) |
+| 419 | Battleships in a Board | [Link](https://leetcode.com/problems/battleships-in-a-board/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-21-medium-419-battleships-in-a-board/) |
+| 661 | Image Smoother | [Link](https://leetcode.com/problems/image-smoother/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/12/30/easy-661-image-smoother/) |
+| 73 | Set Matrix Zeroes | [Link](https://leetcode.com/problems/set-matrix-zeroes/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/04/02/medium-73-set-matrix-zeroes/) |
 
 ```java
 // Rotate 90 degrees clockwise
@@ -562,8 +562,8 @@ int[]spiralOrder(int[][] matrix) {
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 48 | Rotate Image | [Link](https://leetcode.com/problems/rotate-image/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/09/24/medium-48-rotate-image/) |
-| 54 | Spiral Matrix | [Link](https://leetcode.com/problems/spiral-matrix/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/09/25/medium-54-spiral-matrix/) |
+| 48 | Rotate Image | [Link](https://leetcode.com/problems/rotate-image/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-09-24-medium-48-rotate-image/) |
+| 54 | Spiral Matrix | [Link](https://leetcode.com/problems/spiral-matrix/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-09-25-medium-54-spiral-matrix/) |
 | 59 | Spiral Matrix II | [Link](https://leetcode.com/problems/spiral-matrix-ii/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/02/18/medium-59-spiral-matrix-ii/) |
 | 498 | Diagonal Traverse | [Link](https://leetcode.com/problems/diagonal-traverse/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/20/medium-498-diagonal-traverse/) |
 | 189 | Rotate Array | [Link](https://leetcode.com/problems/rotate-array/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/20/medium-189-rotate-array/) |
@@ -584,9 +584,9 @@ int[]spiralOrder(int[][] matrix) {
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 56 | Merge Intervals | [Link](https://leetcode.com/problems/merge-intervals/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-56-merge-intervals/) |
-| 45 | Jump Game II | [Link](https://leetcode.com/problems/jump-game-ii/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-18-medium-45-jump-game-ii/) |
-| 969 | Pancake Sorting | [Link](https://leetcode.com/problems/pancake-sorting/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-18-medium-969-pancake-sorting/) |
+| 56 | Merge Intervals | [Link](https://leetcode.com/problems/merge-intervals/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-24-medium-56-merge-intervals/) |
+| 45 | Jump Game II | [Link](https://leetcode.com/problems/jump-game-ii/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-18-medium-45-jump-game-ii/) |
+| 969 | Pancake Sorting | [Link](https://leetcode.com/problems/pancake-sorting/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-18-medium-969-pancake-sorting/) |
 
 ```java
 // import java.util.Arrays;
@@ -635,7 +635,7 @@ static int jump(int[] nums) {
 | 969 | Pancake Sorting | [Link](https://leetcode.com/problems/pancake-sorting/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-18-medium-969-pancake-sorting/) |
 
 ## More templates
-- **Beginner's Guide:** [LeetCode Beginner's Guide](/2026/06/25/leetcode-beginners-guide/)
+- **Beginner's Guide:** [LeetCode Beginner's Guide](/blog_leetcode_java/posts/2026-06-25-leetcode-beginners-guide/)
 - **Arrays & Strings, Search:** [Arrays & Strings](/posts/2025-10-29-leetcode-templates-arrays-strings/), [Search](/posts/2026-01-20-leetcode-templates-search/)
 - **Data structures, Graph:** [Data Structures & Core Algorithms](/posts/2025-10-29-leetcode-templates-data-structures/), [Graph](/posts/2025-10-29-leetcode-templates-graph/)
 - **Master index:** [Categories & Templates](/posts/2025-10-29-leetcode-categories-and-templates/)

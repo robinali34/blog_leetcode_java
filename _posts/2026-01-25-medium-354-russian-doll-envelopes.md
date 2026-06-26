@@ -250,7 +250,7 @@ class Solution {
 
 ## Related Problems
 
-- [LC 300: Longest Increasing Subsequence](https://robinali34.github.io/blog_leetcode_java/2025/10/17/medium-300-longest-increasing-subsequence/) - 1D LIS problem
+- [LC 300: Longest Increasing Subsequence](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-17-medium-300-longest-increasing-subsequence/) - 1D LIS problem
 - [LC 673: Number of Longest Increasing Subsequence](https://robinali34.github.io/blog_leetcode_java/2026/01/09/medium-673-number-of-longest-increasing-subsequence/) - Count number of LIS
 - [LC 646: Maximum Length of Pair Chain](https://leetcode.com/problems/maximum-length-of-pair-chain/) - Similar interval chaining
 - [LC 334: Increasing Triplet Subsequence](https://leetcode.com/problems/increasing-triplet-subsequence/) - Check if triplet exists

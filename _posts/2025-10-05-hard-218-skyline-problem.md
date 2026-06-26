@@ -1,8 +1,10 @@
 ---
+
 layout: post
 title: "[Hard] 218. The Skyline Problem"
 date: 2025-10-05 00:00:00 -0000
 categories: leetcode algorithm hard java sweep-line priority-queue data-structures union-find problem-solving
+permalink: /posts/2025-10-05-hard-218-skyline-problem/
 ---
 
 # [Hard] 218. The Skyline Problem

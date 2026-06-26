@@ -359,7 +359,7 @@ Result: return 2 ✓
 
 ## Related Problems
 
-- [LC 3: Longest Substring Without Repeating Characters](https://robinali34.github.io/blog_leetcode_java/2025/10/10/medium-3-longest-substring-without-repeating-characters/) - Sliding window pattern
+- [LC 3: Longest Substring Without Repeating Characters](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-09-medium-3-longest-substring-without-repeating-characters/) - Sliding window pattern
 - [LC 76: Minimum Window Substring](https://leetcode.com/problems/minimum-window-substring/) - Similar sliding window
 - [LC 209: Minimum Size Subarray Sum](https://leetcode.com/problems/minimum-size-subarray-sum/) - This problem
 - [LC 862: Shortest Subarray with Sum at Least K](https://leetcode.com/problems/shortest-subarray-with-sum-at-least-k/) - Similar with negative numbers

@@ -48,7 +48,7 @@ Output: "Draw"
 
 ## Thinking Process
 
-This uses the exact same `+1 / -1` counter trick as [LC 348 Design Tic-Tac-Toe](/blog_leetcode_java/2026/03/04/medium-348-design-tic-tac-toe/):
+This uses the exact same `+1 / -1` counter trick as [LC 348 Design Tic-Tac-Toe](/blog_leetcode_java/posts/2025-10-21-medium-348-design-tic-tac-toe/):
 
 - Player A (even-indexed moves) contributes `+1`
 - Player B (odd-indexed moves) contributes `-1`
@@ -104,7 +104,7 @@ class Solution {
 
 ## Key Takeaways
 
-- Same `+1 / -1` counter pattern as [LC 348](/blog_leetcode_java/2026/03/04/medium-348-design-tic-tac-toe/) -- the only difference is replaying moves from an array vs receiving them one at a time
+- Same `+1 / -1` counter pattern as [LC 348](/blog_leetcode_java/posts/2025-10-21-medium-348-design-tic-tac-toe/) -- the only difference is replaying moves from an array vs receiving them one at a time
 - The fixed `3 x 3` grid means everything is $O(1)$ in practice
 - Check for a winner **after each move** to correctly identify the winning player
 

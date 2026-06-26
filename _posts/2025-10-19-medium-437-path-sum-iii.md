@@ -1,8 +1,10 @@
 ---
+
 layout: post
 title: "[Medium] 437. Path Sum III"
 date: 2025-10-19 17:25:53 -0700
 categories: leetcode algorithm medium java tree dfs recursion problem-solving
+permalink: /posts/2025-10-19-medium-437-path-sum-iii/
 ---
 
 # [Medium] 437. Path Sum III

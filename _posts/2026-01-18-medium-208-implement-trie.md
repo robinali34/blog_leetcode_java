@@ -313,7 +313,7 @@ However, for LeetCode problems, this is often omitted for simplicity.
 - [LC 211: Design Add and Search Words Data Structure](https://leetcode.com/problems/design-add-and-search-words-data-structure/) - Trie with wildcard search
 - [LC 212: Word Search II](https://leetcode.com/problems/word-search-ii/) - Trie + DFS on board
 - [LC 642: Design Search Autocomplete System](https://leetcode.com/problems/design-search-autocomplete-system/) - Trie with frequency tracking
-- [LC 648: Replace Words](https://robinali34.github.io/blog_leetcode_java/2025/10/17/medium-648-replace-words/) - Trie for prefix replacement
+- [LC 648: Replace Words](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-17-medium-648-replace-words/) - Trie for prefix replacement
 - [LC 677: Map Sum Pairs](https://leetcode.com/problems/map-sum-pairs/) - Trie with value storage
 - [LC 720: Longest Word in Dictionary](https://leetcode.com/problems/longest-word-in-dictionary/) - Trie traversal
 

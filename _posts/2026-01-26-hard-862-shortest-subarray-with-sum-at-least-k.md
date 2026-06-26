@@ -274,7 +274,7 @@ Consider `preSum = [0, 5, 3, 4]`:
 ## Related Problems
 
 - [LC 209: Minimum Size Subarray Sum](https://robinali34.github.io/blog_leetcode_java/2026/01/26/medium-209-minimum-size-subarray-sum/) - Similar but all positive numbers
-- [LC 3: Longest Substring Without Repeating Characters](https://robinali34.github.io/blog_leetcode_java/2025/10/10/medium-3-longest-substring-without-repeating-characters/) - Sliding window pattern
+- [LC 3: Longest Substring Without Repeating Characters](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-09-medium-3-longest-substring-without-repeating-characters/) - Sliding window pattern
 - [LC 76: Minimum Window Substring](https://leetcode.com/problems/minimum-window-substring/) - Similar sliding window
 - [LC 53: Maximum Subarray](https://robinali34.github.io/blog_leetcode_java/2026/01/04/medium-53-maximum-subarray/) - Maximum sum subarray
 - [LC 239: Sliding Window Maximum](https://leetcode.com/problems/sliding-window-maximum/) - Monotonic deque pattern

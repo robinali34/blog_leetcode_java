@@ -1,7 +1,9 @@
 ---
+
 layout: post
 title: "[Medium] 54. Spiral Matrix"
 categories: leetcode algorithm matrix data-structures simulation traversal medium java spiral-matrix problem-solving
+permalink: /posts/2025-09-25-medium-54-spiral-matrix/
 ---
 
 # [Medium] 54. Spiral Matrix

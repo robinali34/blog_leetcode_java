@@ -1,8 +1,10 @@
 ---
+
 layout: post
 title: "[Medium] 417. Pacific Atlantic Water Flow"
 date: 2025-10-19 11:43:11 -0700
 categories: leetcode algorithm medium java dfs bfs graph problem-solving
+permalink: /posts/2025-10-19-medium-417-pacific-atlantic-water-flow/
 ---
 
 # [Medium] 417. Pacific Atlantic Water Flow

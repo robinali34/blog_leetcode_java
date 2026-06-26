@@ -1,8 +1,10 @@
 ---
+
 layout: post
 title: "[Medium] 300. Longest Increasing Subsequence"
 date: 2025-10-17 15:18:26 -0700
 categories: leetcode algorithm medium java dynamic-programming dp binary-search problem-solving
+permalink: /posts/2025-10-17-medium-300-longest-increasing-subsequence/
 ---
 
 # [Medium] 300. Longest Increasing Subsequence

@@ -1,8 +1,10 @@
 ---
+
 layout: post
 title: "[Medium] 690. Employee Importance"
 date: 2025-12-16 00:00:00 -0800
 categories: leetcode algorithm medium java dfs bfs hash-table problem-solving
+permalink: /posts/2025-12-16-medium-690-employee-importance/
 ---
 
 {% raw %}

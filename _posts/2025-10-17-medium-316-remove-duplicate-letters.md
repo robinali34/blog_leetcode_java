@@ -1,8 +1,10 @@
 ---
+
 layout: post
 title: "[Medium] 316. Remove Duplicate Letters"
 date: 2025-10-17 22:23:33 -0700
 categories: leetcode algorithm medium java stack monotonic-stack greedy problem-solving
+permalink: /posts/2025-10-17-medium-316-remove-duplicate-letters/
 ---
 
 # [Medium] 316. Remove Duplicate Letters

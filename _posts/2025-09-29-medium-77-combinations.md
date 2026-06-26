@@ -1,8 +1,10 @@
 ---
+
 layout: post
 title: "[Medium] 77. Combinations"
 date: 2025-09-29 00:00:00 -0000
 categories: leetcode algorithm backtracking data-structures recursion medium java combinations dfs problem-solving
+permalink: /posts/2025-09-29-medium-77-combinations/
 ---
 
 # [Medium] 77. Combinations

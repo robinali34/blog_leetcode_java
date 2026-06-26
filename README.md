@@ -47,8 +47,8 @@ A technical blog focused on algorithms, data structures, and software engineerin
    ```
 
 5. Open your browser to:
-   - Local access: `http://localhost:4000/blog_leetcode_java/`
-   - Network access: `http://0.0.0.0:4000/blog_leetcode_java/`
+   - Local access: `http://localhost:4000/blog_leetcode_java/`/
+   - Network access: `http://0.0.0.0:4000/blog_leetcode_java/`/
 
 ### Local Testing Commands
 
@@ -136,7 +136,7 @@ chmod +x local-test.sh
 This blog is automatically deployed to GitHub Pages when you push changes to the `main` branch. The deployment is handled by GitHub Actions.
 
 **Repository**: `blog_leetcode_java`  
-**Live URL**: `https://robinali34.github.io/blog_leetcode_java/`
+**Live URL**: `https://robinali34.github.io/blog_leetcode_java/`/
 
 ## Customization
 

@@ -1,8 +1,10 @@
 ---
+
 layout: post
 title: "[Medium] 253. Meeting Rooms II"
 date: 2025-12-11 00:00:00 -0800
 categories: leetcode algorithm medium java array sorting priority-queue two-pointers problem-solving
+permalink: /posts/2025-12-11-medium-253-meeting-rooms-ii/
 ---
 
 # [Medium] 253. Meeting Rooms II

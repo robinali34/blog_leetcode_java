@@ -1,8 +1,10 @@
 ---
+
 layout: post
 title: "[Medium] 1424. Diagonal Traverse II"
 date: 2025-11-17 00:00:00 -0800
 categories: leetcode algorithm medium java array matrix hash-map bfs problem-solving
+permalink: /posts/2025-11-17-medium-1424-diagonal-traverse-ii/
 ---
 
 # [Medium] 1424. Diagonal Traverse II

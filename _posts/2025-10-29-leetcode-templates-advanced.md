@@ -26,7 +26,7 @@ This page covers specialized algorithmic techniques that appear in Hard-level Le
   <text x="350" y="168" font-size="10" fill="#9A9792" text-anchor="middle">Use when n ≤ 40 and brute force 2^n is too slow</text>
 </svg>
 
-- **Beginner's Guide:** [LeetCode Beginner's Guide](/2026/06/25/leetcode-beginners-guide/)
+- **Beginner's Guide:** [LeetCode Beginner's Guide](/blog_leetcode_java/posts/2026-06-25-leetcode-beginners-guide/)
 ## Summary
 | Technique | When to Use | Time |
 |---|---|---|

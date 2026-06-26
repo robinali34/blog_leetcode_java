@@ -350,7 +350,7 @@ Step 2: book(10, 40)
 - [LC 729: My Calendar I](https://robinali34.github.io/blog_leetcode_java/2026/01/17/medium-729-my-calendar-i/) - Check for any overlap
 - [LC 731: My Calendar II](https://leetcode.com/problems/my-calendar-ii/) - Allow double booking, prevent triple
 - [LC 56: Merge Intervals](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-24-medium-56-merge-intervals/) - Merge overlapping intervals
-- [LC 218: The Skyline Problem](https://robinali34.github.io/blog_leetcode_java/2025/10/05/hard-218-skyline-problem/) - Similar sweep line approach
+- [LC 218: The Skyline Problem](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-05-hard-218-skyline-problem/) - Similar sweep line approach
 
 ---
 

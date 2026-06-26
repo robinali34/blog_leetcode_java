@@ -266,7 +266,7 @@ int[]vec = listToVector(head);  // vec = [1, 2, 3, 4, 5]
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 203 | Remove Linked List Elements | [Link](https://leetcode.com/problems/remove-linked-list-elements/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-18-easy-203-remove-linked-list-elements/) |
+| 203 | Remove Linked List Elements | [Link](https://leetcode.com/problems/remove-linked-list-elements/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-18-easy-203-remove-linked-list-elements/) |
 | 237 | Delete Node in a Linked List | [Link](https://leetcode.com/problems/delete-node-in-a-linked-list/) | - |
 
 ```java
@@ -418,7 +418,7 @@ ListNode deleteNode(ListNode head, int val) {
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 876 | Middle of the Linked List | [Link](https://leetcode.com/problems/middle-of-the-linked-list/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/10/easy-876-middle-of-the-linked-list/) |
+| 876 | Middle of the Linked List | [Link](https://leetcode.com/problems/middle-of-the-linked-list/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/10/easy-876-middle-of-the-linked-list/) |
 | 19 | Remove Nth Node From End of List | [Link](https://leetcode.com/problems/remove-nth-node-from-end-of-list/) | - |
 
 ```java
@@ -493,7 +493,7 @@ ListNode partition(ListNode head, int x) {
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 203 | Remove Linked List Elements | [Link](https://leetcode.com/problems/remove-linked-list-elements/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-18-easy-203-remove-linked-list-elements/) |
+| 203 | Remove Linked List Elements | [Link](https://leetcode.com/problems/remove-linked-list-elements/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-18-easy-203-remove-linked-list-elements/) |
 
 ```java
 // Remove elements with dummy node
@@ -617,10 +617,10 @@ ListNode removeElements(ListNode head, int val) {
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 206 | Reverse Linked List | [Link](https://leetcode.com/problems/reverse-linked-list/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-16-easy-206-reverse-linked-list/) |
-| 92 | Reverse Linked List II | [Link](https://leetcode.com/problems/reverse-linked-list-ii/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/04/16/medium-92-reverse-linked-list-ii/) |
-| 25 | Reverse Nodes in k-Group | [Link](https://leetcode.com/problems/reverse-nodes-in-k-group/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/09/24/hard-25-reverse-nodes-in-k-group/) |
-| 24 | Swap Nodes in Pairs | [Link](https://leetcode.com/problems/swap-nodes-in-pairs/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/09/24/medium-23-swap-nodes-in-pairs/) |
+| 206 | Reverse Linked List | [Link](https://leetcode.com/problems/reverse-linked-list/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-16-easy-206-reverse-linked-list/) |
+| 92 | Reverse Linked List II | [Link](https://leetcode.com/problems/reverse-linked-list-ii/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/04/16/medium-92-reverse-linked-list-ii/) |
+| 25 | Reverse Nodes in k-Group | [Link](https://leetcode.com/problems/reverse-nodes-in-k-group/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-09-24-hard-25-reverse-nodes-in-k-group/) |
+| 24 | Swap Nodes in Pairs | [Link](https://leetcode.com/problems/swap-nodes-in-pairs/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-09-24-medium-23-swap-nodes-in-pairs/) |
 
 ```java
 // Iterative reversal
@@ -701,8 +701,8 @@ ListNode reverseKGroup(ListNode head, int k) {
 |---|---|---|---|
 | 206 | Reverse Linked List | [Link](https://leetcode.com/problems/reverse-linked-list/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-16-easy-206-reverse-linked-list/) |
 | 92 | Reverse Linked List II | [Link](https://leetcode.com/problems/reverse-linked-list-ii/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/04/16/medium-92-reverse-linked-list-ii/) |
-| 25 | Reverse Nodes in k-Group | [Link](https://leetcode.com/problems/reverse-nodes-in-k-group/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/09/24/hard-25-reverse-nodes-in-k-group/) |
-| 24 | Swap Nodes in Pairs | [Link](https://leetcode.com/problems/swap-nodes-in-pairs/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/09/24/medium-23-swap-nodes-in-pairs/) |
+| 25 | Reverse Nodes in k-Group | [Link](https://leetcode.com/problems/reverse-nodes-in-k-group/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-09-24-hard-25-reverse-nodes-in-k-group/) |
+| 24 | Swap Nodes in Pairs | [Link](https://leetcode.com/problems/swap-nodes-in-pairs/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-09-24-medium-23-swap-nodes-in-pairs/) |
 
 ## Merge
 **When to use:** The problem says "merge two sorted lists", "merge k sorted lists", or "add two numbers represented as lists". Compare heads, advance the smaller, and use a dummy node to collect the result.
@@ -782,9 +782,9 @@ ListNode reverseKGroup(ListNode head, int k) {
 | ID | Title | Link | Solution |
 |---|---|---|---|
 | 21 | Merge Two Sorted Lists | [Link](https://leetcode.com/problems/merge-two-sorted-lists/) | - |
-| 23 | Merge k Sorted Lists | [Link](https://leetcode.com/problems/merge-k-sorted-lists/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/02/15/hard-23-merge-k-sorted-lists/) |
-| 2 | Add Two Numbers | [Link](https://leetcode.com/problems/add-two-numbers/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-18-medium-2-add-two-numbers/) |
-| 1669 | Merge In Between Linked Lists | [Link](https://leetcode.com/problems/merge-in-between-linked-lists/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/04/15/medium-1669-merge-in-between-linked-lists/) |
+| 23 | Merge k Sorted Lists | [Link](https://leetcode.com/problems/merge-k-sorted-lists/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/02/15/hard-23-merge-k-sorted-lists/) |
+| 2 | Add Two Numbers | [Link](https://leetcode.com/problems/add-two-numbers/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-18-medium-2-add-two-numbers/) |
+| 1669 | Merge In Between Linked Lists | [Link](https://leetcode.com/problems/merge-in-between-linked-lists/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/04/15/medium-1669-merge-in-between-linked-lists/) |
 
 ```java
 // Merge two sorted lists
@@ -968,8 +968,8 @@ ListNode detectCycle(ListNode head) {
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 708 | Insert into a Sorted Circular Linked List | [Link](https://leetcode.com/problems/insert-into-a-sorted-circular-linked-list/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-10-27-medium-708-insert-into-a-sorted-circular-linked-list/) |
-| 382 | Linked List Random Node | [Link](https://leetcode.com/problems/linked-list-random-node/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/04/08/medium-382-linked-list-random-node/) |
+| 708 | Insert into a Sorted Circular Linked List | [Link](https://leetcode.com/problems/insert-into-a-sorted-circular-linked-list/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-27-medium-708-insert-into-a-sorted-circular-linked-list/) |
+| 382 | Linked List Random Node | [Link](https://leetcode.com/problems/linked-list-random-node/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/04/08/medium-382-linked-list-random-node/) |
 
 ```java
 // Insert into sorted circular linked list
@@ -1008,7 +1008,7 @@ ListNode insert(ListNode head, int insertVal) {
 | 382 | Linked List Random Node | [Link](https://leetcode.com/problems/linked-list-random-node/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/04/08/medium-382-linked-list-random-node/) |
 
 ## More templates
-- **Beginner's Guide:** [LeetCode Beginner's Guide](/2026/06/25/leetcode-beginners-guide/)
+- **Beginner's Guide:** [LeetCode Beginner's Guide](/blog_leetcode_java/posts/2026-06-25-leetcode-beginners-guide/)
 - **Data structures (pointers, recursion):** [Data Structures & Core Algorithms](/posts/2025-10-29-leetcode-templates-data-structures/)
 - **Graph, Search:** [Graph](/posts/2025-10-29-leetcode-templates-graph/), [Search](/posts/2026-01-20-leetcode-templates-search/)
 - **Master index:** [Categories & Templates](/posts/2025-10-29-leetcode-categories-and-templates/)

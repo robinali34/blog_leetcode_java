@@ -333,7 +333,7 @@ Consider: `folder = ["/a/b", "/a/bc"]`
 ## Related Problems
 
 - [LC 208: Implement Trie (Prefix Tree)](https://robinali34.github.io/blog_leetcode_java/2026/01/18/medium-208-implement-trie/) - Trie basics
-- [LC 648: Replace Words](https://robinali34.github.io/blog_leetcode_java/2025/10/17/medium-648-replace-words/) - Trie for prefix replacement
+- [LC 648: Replace Words](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-17-medium-648-replace-words/) - Trie for prefix replacement
 - [LC 720: Longest Word in Dictionary](https://leetcode.com/problems/longest-word-in-dictionary/) - Trie traversal
 - [LC 14: Longest Common Prefix](https://leetcode.com/problems/longest-common-prefix/) - Prefix matching
 

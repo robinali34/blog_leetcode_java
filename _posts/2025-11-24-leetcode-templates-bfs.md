@@ -97,7 +97,7 @@ Breadth-First Search explores nodes level by level using a queue.
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 841 | Keys and Rooms | [Link](https://leetcode.com/problems/keys-and-rooms/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/12/medium-841-keys-and-rooms/) |
+| 841 | Keys and Rooms | [Link](https://leetcode.com/problems/keys-and-rooms/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/12/medium-841-keys-and-rooms/) |
 
 ```java
 // import java.util.*;
@@ -231,8 +231,8 @@ BFS for 2D grid problems (4-directional or 8-directional).
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 200 | Number of Islands | [Link](https://leetcode.com/problems/number-of-islands/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-20-medium-200-number-of-islands/) |
-| 695 | Max Area of Island | [Link](https://leetcode.com/problems/max-area-of-island/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-695-max-area-of-island/) |
+| 200 | Number of Islands | [Link](https://leetcode.com/problems/number-of-islands/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-20-medium-200-number-of-islands/) |
+| 695 | Max Area of Island | [Link](https://leetcode.com/problems/max-area-of-island/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/10/20/medium-695-max-area-of-island/) |
 
 ```java
 // import java.util.*;
@@ -398,10 +398,10 @@ Start BFS from multiple sources simultaneously -- enqueue all starting points be
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 286 | Walls and Gates | [Link](https://leetcode.com/problems/walls-and-gates/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-12-14-medium-286-walls-and-gates/) |
+| 286 | Walls and Gates | [Link](https://leetcode.com/problems/walls-and-gates/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-12-14-medium-286-walls-and-gates/) |
 | 542 | 01 Matrix | [Link](https://leetcode.com/problems/01-matrix/) | - |
-| 317 | Shortest Distance from All Buildings | [Link](https://leetcode.com/problems/shortest-distance-from-all-buildings/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/09/24/hard-317-shortest-distance-from-all-buildings/) |
-| 994 | Rotting Oranges | [Link](https://leetcode.com/problems/rotting-oranges/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-12-13-medium-994-rotting-oranges/) |
+| 317 | Shortest Distance from All Buildings | [Link](https://leetcode.com/problems/shortest-distance-from-all-buildings/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-09-24-hard-317-shortest-distance-from-all-buildings/) |
+| 994 | Rotting Oranges | [Link](https://leetcode.com/problems/rotting-oranges/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-12-13-medium-994-rotting-oranges/) |
 
 ```java
 // import java.util.*;
@@ -442,7 +442,7 @@ int[][] updateMatrix(int[][] mat) {
 |---|---|---|---|
 | 286 | Walls and Gates | [Link](https://leetcode.com/problems/walls-and-gates/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-12-14-medium-286-walls-and-gates/) |
 | 542 | 01 Matrix | [Link](https://leetcode.com/problems/01-matrix/) | - |
-| 317 | Shortest Distance from All Buildings | [Link](https://leetcode.com/problems/shortest-distance-from-all-buildings/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/09/24/hard-317-shortest-distance-from-all-buildings/) |
+| 317 | Shortest Distance from All Buildings | [Link](https://leetcode.com/problems/shortest-distance-from-all-buildings/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-09-24-hard-317-shortest-distance-from-all-buildings/) |
 | 994 | Rotting Oranges | [Link](https://leetcode.com/problems/rotting-oranges/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-12-13-medium-994-rotting-oranges/) |
 
 ## BFS for Shortest Path
@@ -454,10 +454,10 @@ BFS finds shortest path in unweighted graphs -- the first time you reach a node 
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 1091 | Shortest Path in Binary Matrix | [Link](https://leetcode.com/problems/shortest-path-in-binary-matrix/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/11/medium-1091-shortest-path-in-binary-matrix/) |
+| 1091 | Shortest Path in Binary Matrix | [Link](https://leetcode.com/problems/shortest-path-in-binary-matrix/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/11/medium-1091-shortest-path-in-binary-matrix/) |
 | 127 | Word Ladder | [Link](https://leetcode.com/problems/word-ladder/) | - |
-| 433 | Minimum Genetic Mutation | [Link](https://leetcode.com/problems/minimum-genetic-mutation/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/15/medium-433-minimum-genetic-mutation/) |
-| 1197 | Minimum Knight Moves | [Link](https://leetcode.com/problems/minimum-knight-moves/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/19/medium-1197-minimum-knight-moves/) |
+| 433 | Minimum Genetic Mutation | [Link](https://leetcode.com/problems/minimum-genetic-mutation/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/15/medium-433-minimum-genetic-mutation/) |
+| 1197 | Minimum Knight Moves | [Link](https://leetcode.com/problems/minimum-knight-moves/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/19/medium-1197-minimum-knight-moves/) |
 
 ```java
 // import java.util.*;
@@ -505,12 +505,12 @@ BFS for tree level-order traversal -- use `q.size()` to process one complete lev
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 102 | Binary Tree Level Order Traversal | [Link](https://leetcode.com/problems/binary-tree-level-order-traversal/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/07/medium-102-binary-tree-level-order-traversal/) |
-| 103 | Binary Tree Zigzag Level Order Traversal | [Link](https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/06/medium-103-binary-tree-zigzag-level-order-traversal/) |
-| 314 | Binary Tree Vertical Order Traversal | [Link](https://leetcode.com/problems/binary-tree-vertical-order-traversal/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-314-binary-tree-vertical-order-traversal/) |
-| 429 | N-ary Tree Level Order Traversal | [Link](https://leetcode.com/problems/n-ary-tree-level-order-traversal/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/07/medium-429-n-ary-tree-level-order-traversal/) |
-| 993 | Cousins in Binary Tree | [Link](https://leetcode.com/problems/cousins-in-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/07/easy-993-cousins-in-binary-tree/) |
-| 863 | All Nodes Distance K in Binary Tree | [Link](https://leetcode.com/problems/all-nodes-distance-k-in-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-10-25-medium-863-all-nodes-distance-k-in-binary-tree/) |
+| 102 | Binary Tree Level Order Traversal | [Link](https://leetcode.com/problems/binary-tree-level-order-traversal/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/07/medium-102-binary-tree-level-order-traversal/) |
+| 103 | Binary Tree Zigzag Level Order Traversal | [Link](https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/06/medium-103-binary-tree-zigzag-level-order-traversal/) |
+| 314 | Binary Tree Vertical Order Traversal | [Link](https://leetcode.com/problems/binary-tree-vertical-order-traversal/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/10/20/medium-314-binary-tree-vertical-order-traversal/) |
+| 429 | N-ary Tree Level Order Traversal | [Link](https://leetcode.com/problems/n-ary-tree-level-order-traversal/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/07/medium-429-n-ary-tree-level-order-traversal/) |
+| 993 | Cousins in Binary Tree | [Link](https://leetcode.com/problems/cousins-in-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/07/easy-993-cousins-in-binary-tree/) |
+| 863 | All Nodes Distance K in Binary Tree | [Link](https://leetcode.com/problems/all-nodes-distance-k-in-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-25-medium-863-all-nodes-distance-k-in-binary-tree/) |
 
 ```java
 // import java.util.*;
@@ -711,6 +711,6 @@ static int shortestPath(int[][] grid, int k) {
 ## More templates
 - **Graph (Dijkstra, 0-1 BFS, topo):** [Graph](/posts/2025-10-29-leetcode-templates-graph/)
 - **Data structures, Search:** [Data Structures & Core Algorithms](/posts/2025-10-29-leetcode-templates-data-structures/), [Search](/posts/2026-01-20-leetcode-templates-search/)
-- **Beginner's Guide:** [LeetCode Beginner's Guide](/2026/06/25/leetcode-beginners-guide/)
+- **Beginner's Guide:** [LeetCode Beginner's Guide](/blog_leetcode_java/posts/2026-06-25-leetcode-beginners-guide/)
 - **Master index:** [Categories & Templates](/posts/2025-10-29-leetcode-categories-and-templates/)
 {% endraw %}

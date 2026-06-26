@@ -1,8 +1,10 @@
 ---
+
 layout: post
 title: "[Medium] 279. Perfect Squares"
 date: 2025-12-14 00:00:00 -0800
 categories: leetcode algorithm medium java math dynamic-programming bfs problem-solving
+permalink: /posts/2025-12-14-medium-279-perfect-squares/
 ---
 
 {% raw %}

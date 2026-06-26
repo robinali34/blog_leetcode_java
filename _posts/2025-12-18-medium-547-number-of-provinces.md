@@ -1,8 +1,10 @@
 ---
+
 layout: post
 title: "[Medium] 547. Number of Provinces"
 date: 2025-12-18 00:00:00 -0800
 categories: leetcode algorithm medium java disjoint-set dfs graph problem-solving
+permalink: /posts/2025-12-18-medium-547-number-of-provinces/
 ---
 
 {% raw %}

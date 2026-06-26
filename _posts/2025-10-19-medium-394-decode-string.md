@@ -1,8 +1,10 @@
 ---
+
 layout: post
 title: "[Medium] 394. Decode String"
 date: 2025-10-19 17:24:19 -0700
 categories: leetcode algorithm medium java stack string-processing problem-solving
+permalink: /posts/2025-10-19-medium-394-decode-string/
 ---
 
 # [Medium] 394. Decode String

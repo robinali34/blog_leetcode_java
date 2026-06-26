@@ -1,8 +1,10 @@
 ---
+
 layout: post
 title: "[Medium] 399. Evaluate Division"
 date: 2025-12-17 00:00:00 -0800
 categories: leetcode algorithm medium java disjoint-set graph dfs problem-solving
+permalink: /posts/2025-12-17-medium-399-evaluate-division/
 ---
 
 {% raw %}

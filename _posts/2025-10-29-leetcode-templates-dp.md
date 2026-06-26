@@ -213,19 +213,19 @@ dp[i] depends on dp[i-1], dp[i-2], ... (look back at previous states)
 The key insight: iterate items in the outer loop, **capacity in reverse** in the inner loop (to avoid using the same item twice).
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 509 | Fibonacci Number | [Link](https://leetcode.com/problems/fibonacci-number/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-18-easy-509-fibonacci-number/) |
-| 198 | House Robber | [Link](https://leetcode.com/problems/house-robber/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-18-medium-198-house-robber/) |
-| 279 | Perfect Squares | [Link](https://leetcode.com/problems/perfect-squares/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-12-14-medium-279-perfect-squares/) |
-| 322 | Coin Change | [Link](https://leetcode.com/problems/coin-change/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-322-coin-change/) |
-| 494 | Target Sum | [Link](https://leetcode.com/problems/target-sum/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/15/medium-494-target-sum/) |
+| 509 | Fibonacci Number | [Link](https://leetcode.com/problems/fibonacci-number/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-18-easy-509-fibonacci-number/) |
+| 198 | House Robber | [Link](https://leetcode.com/problems/house-robber/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-18-medium-198-house-robber/) |
+| 279 | Perfect Squares | [Link](https://leetcode.com/problems/perfect-squares/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-12-14-medium-279-perfect-squares/) |
+| 322 | Coin Change | [Link](https://leetcode.com/problems/coin-change/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/10/20/medium-322-coin-change/) |
+| 494 | Target Sum | [Link](https://leetcode.com/problems/target-sum/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-15-medium-494-target-sum/) |
 | 139 | Word Break | [Link](https://leetcode.com/problems/word-break/) | - |
-| 487 | Max Consecutive Ones II | [Link](https://leetcode.com/problems/max-consecutive-ones-ii/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/12/30/medium-487-max-consecutive-ones-ii/) |
-| 983 | Minimum Cost For Tickets | [Link](https://leetcode.com/problems/minimum-cost-for-tickets/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-983-minimum-cost-for-tickets/) |
-| 2466 | Count Ways To Build Good Strings | [Link](https://leetcode.com/problems/count-ways-to-build-good-strings/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/16/medium-2466-count-ways-to-build-good-strings/) |
-| 32 | Longest Valid Parentheses | [Link](https://leetcode.com/problems/longest-valid-parentheses/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-hard-32-longest-valid-parentheses/) |
-| 91 | Decode Ways | [Link](https://leetcode.com/problems/decode-ways/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/02/09/medium-91-decode-ways/) |
-| 416 | Partition Equal Subset Sum | [Link](https://leetcode.com/problems/partition-equal-subset-sum/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/02/11/medium-416-partition-equal-subset-sum/) |
-| 918 | Maximum Sum Circular Subarray | [Link](https://leetcode.com/problems/maximum-sum-circular-subarray/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/25/medium-918-maximum-sum-circular-subarray/) |
+| 487 | Max Consecutive Ones II | [Link](https://leetcode.com/problems/max-consecutive-ones-ii/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/12/30/medium-487-max-consecutive-ones-ii/) |
+| 983 | Minimum Cost For Tickets | [Link](https://leetcode.com/problems/minimum-cost-for-tickets/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-24-medium-983-minimum-cost-for-tickets/) |
+| 2466 | Count Ways To Build Good Strings | [Link](https://leetcode.com/problems/count-ways-to-build-good-strings/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-16-medium-2466-count-ways-to-build-good-strings/) |
+| 32 | Longest Valid Parentheses | [Link](https://leetcode.com/problems/longest-valid-parentheses/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-24-hard-32-longest-valid-parentheses/) |
+| 91 | Decode Ways | [Link](https://leetcode.com/problems/decode-ways/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/02/09/medium-91-decode-ways/) |
+| 416 | Partition Equal Subset Sum | [Link](https://leetcode.com/problems/partition-equal-subset-sum/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/02/11/medium-416-partition-equal-subset-sum/) |
+| 918 | Maximum Sum Circular Subarray | [Link](https://leetcode.com/problems/maximum-sum-circular-subarray/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/25/medium-918-maximum-sum-circular-subarray/) |
 
 ```
 dp[i] = best answer considering elements 0..i
@@ -250,19 +250,19 @@ dp[i] depends on dp[i-1], dp[i-2], ... (look back at previous states)
 The key insight: iterate items in the outer loop, **capacity in reverse** in the inner loop (to avoid using the same item twice).
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 509 | Fibonacci Number | [Link](https://leetcode.com/problems/fibonacci-number/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-18-easy-509-fibonacci-number/) |
-| 198 | House Robber | [Link](https://leetcode.com/problems/house-robber/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-18-medium-198-house-robber/) |
-| 279 | Perfect Squares | [Link](https://leetcode.com/problems/perfect-squares/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-12-14-medium-279-perfect-squares/) |
-| 322 | Coin Change | [Link](https://leetcode.com/problems/coin-change/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-322-coin-change/) |
-| 494 | Target Sum | [Link](https://leetcode.com/problems/target-sum/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/15/medium-494-target-sum/) |
+| 509 | Fibonacci Number | [Link](https://leetcode.com/problems/fibonacci-number/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-18-easy-509-fibonacci-number/) |
+| 198 | House Robber | [Link](https://leetcode.com/problems/house-robber/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-18-medium-198-house-robber/) |
+| 279 | Perfect Squares | [Link](https://leetcode.com/problems/perfect-squares/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-12-14-medium-279-perfect-squares/) |
+| 322 | Coin Change | [Link](https://leetcode.com/problems/coin-change/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/10/20/medium-322-coin-change/) |
+| 494 | Target Sum | [Link](https://leetcode.com/problems/target-sum/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-15-medium-494-target-sum/) |
 | 139 | Word Break | [Link](https://leetcode.com/problems/word-break/) | - |
-| 487 | Max Consecutive Ones II | [Link](https://leetcode.com/problems/max-consecutive-ones-ii/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/12/30/medium-487-max-consecutive-ones-ii/) |
-| 983 | Minimum Cost For Tickets | [Link](https://leetcode.com/problems/minimum-cost-for-tickets/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-983-minimum-cost-for-tickets/) |
-| 2466 | Count Ways To Build Good Strings | [Link](https://leetcode.com/problems/count-ways-to-build-good-strings/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/16/medium-2466-count-ways-to-build-good-strings/) |
-| 32 | Longest Valid Parentheses | [Link](https://leetcode.com/problems/longest-valid-parentheses/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-hard-32-longest-valid-parentheses/) |
-| 91 | Decode Ways | [Link](https://leetcode.com/problems/decode-ways/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/02/09/medium-91-decode-ways/) |
-| 416 | Partition Equal Subset Sum | [Link](https://leetcode.com/problems/partition-equal-subset-sum/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/02/11/medium-416-partition-equal-subset-sum/) |
-| 918 | Maximum Sum Circular Subarray | [Link](https://leetcode.com/problems/maximum-sum-circular-subarray/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/25/medium-918-maximum-sum-circular-subarray/) |
+| 487 | Max Consecutive Ones II | [Link](https://leetcode.com/problems/max-consecutive-ones-ii/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/12/30/medium-487-max-consecutive-ones-ii/) |
+| 983 | Minimum Cost For Tickets | [Link](https://leetcode.com/problems/minimum-cost-for-tickets/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-24-medium-983-minimum-cost-for-tickets/) |
+| 2466 | Count Ways To Build Good Strings | [Link](https://leetcode.com/problems/count-ways-to-build-good-strings/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-16-medium-2466-count-ways-to-build-good-strings/) |
+| 32 | Longest Valid Parentheses | [Link](https://leetcode.com/problems/longest-valid-parentheses/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-24-hard-32-longest-valid-parentheses/) |
+| 91 | Decode Ways | [Link](https://leetcode.com/problems/decode-ways/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/02/09/medium-91-decode-ways/) |
+| 416 | Partition Equal Subset Sum | [Link](https://leetcode.com/problems/partition-equal-subset-sum/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/02/11/medium-416-partition-equal-subset-sum/) |
+| 918 | Maximum Sum Circular Subarray | [Link](https://leetcode.com/problems/maximum-sum-circular-subarray/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/25/medium-918-maximum-sum-circular-subarray/) |
 
 ```
 dp[i] = best answer considering elements 0..i
@@ -287,19 +287,19 @@ dp[i] depends on dp[i-1], dp[i-2], ... (look back at previous states)
 The key insight: iterate items in the outer loop, **capacity in reverse** in the inner loop (to avoid using the same item twice).
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 509 | Fibonacci Number | [Link](https://leetcode.com/problems/fibonacci-number/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-18-easy-509-fibonacci-number/) |
-| 198 | House Robber | [Link](https://leetcode.com/problems/house-robber/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-18-medium-198-house-robber/) |
-| 279 | Perfect Squares | [Link](https://leetcode.com/problems/perfect-squares/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-12-14-medium-279-perfect-squares/) |
-| 322 | Coin Change | [Link](https://leetcode.com/problems/coin-change/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-322-coin-change/) |
-| 494 | Target Sum | [Link](https://leetcode.com/problems/target-sum/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/15/medium-494-target-sum/) |
+| 509 | Fibonacci Number | [Link](https://leetcode.com/problems/fibonacci-number/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-18-easy-509-fibonacci-number/) |
+| 198 | House Robber | [Link](https://leetcode.com/problems/house-robber/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-18-medium-198-house-robber/) |
+| 279 | Perfect Squares | [Link](https://leetcode.com/problems/perfect-squares/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-12-14-medium-279-perfect-squares/) |
+| 322 | Coin Change | [Link](https://leetcode.com/problems/coin-change/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/10/20/medium-322-coin-change/) |
+| 494 | Target Sum | [Link](https://leetcode.com/problems/target-sum/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-15-medium-494-target-sum/) |
 | 139 | Word Break | [Link](https://leetcode.com/problems/word-break/) | - |
-| 487 | Max Consecutive Ones II | [Link](https://leetcode.com/problems/max-consecutive-ones-ii/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/12/30/medium-487-max-consecutive-ones-ii/) |
-| 983 | Minimum Cost For Tickets | [Link](https://leetcode.com/problems/minimum-cost-for-tickets/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-983-minimum-cost-for-tickets/) |
-| 2466 | Count Ways To Build Good Strings | [Link](https://leetcode.com/problems/count-ways-to-build-good-strings/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/16/medium-2466-count-ways-to-build-good-strings/) |
-| 32 | Longest Valid Parentheses | [Link](https://leetcode.com/problems/longest-valid-parentheses/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-hard-32-longest-valid-parentheses/) |
-| 91 | Decode Ways | [Link](https://leetcode.com/problems/decode-ways/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/02/09/medium-91-decode-ways/) |
-| 416 | Partition Equal Subset Sum | [Link](https://leetcode.com/problems/partition-equal-subset-sum/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/02/11/medium-416-partition-equal-subset-sum/) |
-| 918 | Maximum Sum Circular Subarray | [Link](https://leetcode.com/problems/maximum-sum-circular-subarray/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/25/medium-918-maximum-sum-circular-subarray/) |
+| 487 | Max Consecutive Ones II | [Link](https://leetcode.com/problems/max-consecutive-ones-ii/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/12/30/medium-487-max-consecutive-ones-ii/) |
+| 983 | Minimum Cost For Tickets | [Link](https://leetcode.com/problems/minimum-cost-for-tickets/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-24-medium-983-minimum-cost-for-tickets/) |
+| 2466 | Count Ways To Build Good Strings | [Link](https://leetcode.com/problems/count-ways-to-build-good-strings/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-16-medium-2466-count-ways-to-build-good-strings/) |
+| 32 | Longest Valid Parentheses | [Link](https://leetcode.com/problems/longest-valid-parentheses/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-24-hard-32-longest-valid-parentheses/) |
+| 91 | Decode Ways | [Link](https://leetcode.com/problems/decode-ways/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/02/09/medium-91-decode-ways/) |
+| 416 | Partition Equal Subset Sum | [Link](https://leetcode.com/problems/partition-equal-subset-sum/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/02/11/medium-416-partition-equal-subset-sum/) |
+| 918 | Maximum Sum Circular Subarray | [Link](https://leetcode.com/problems/maximum-sum-circular-subarray/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/25/medium-918-maximum-sum-circular-subarray/) |
 
 ```
 dp[i] = best answer considering elements 0..i
@@ -324,19 +324,19 @@ dp[i] depends on dp[i-1], dp[i-2], ... (look back at previous states)
 The key insight: iterate items in the outer loop, **capacity in reverse** in the inner loop (to avoid using the same item twice).
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 509 | Fibonacci Number | [Link](https://leetcode.com/problems/fibonacci-number/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-18-easy-509-fibonacci-number/) |
-| 198 | House Robber | [Link](https://leetcode.com/problems/house-robber/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-18-medium-198-house-robber/) |
-| 279 | Perfect Squares | [Link](https://leetcode.com/problems/perfect-squares/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-12-14-medium-279-perfect-squares/) |
-| 322 | Coin Change | [Link](https://leetcode.com/problems/coin-change/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-322-coin-change/) |
-| 494 | Target Sum | [Link](https://leetcode.com/problems/target-sum/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/15/medium-494-target-sum/) |
+| 509 | Fibonacci Number | [Link](https://leetcode.com/problems/fibonacci-number/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-18-easy-509-fibonacci-number/) |
+| 198 | House Robber | [Link](https://leetcode.com/problems/house-robber/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-18-medium-198-house-robber/) |
+| 279 | Perfect Squares | [Link](https://leetcode.com/problems/perfect-squares/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-12-14-medium-279-perfect-squares/) |
+| 322 | Coin Change | [Link](https://leetcode.com/problems/coin-change/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/10/20/medium-322-coin-change/) |
+| 494 | Target Sum | [Link](https://leetcode.com/problems/target-sum/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-15-medium-494-target-sum/) |
 | 139 | Word Break | [Link](https://leetcode.com/problems/word-break/) | - |
-| 487 | Max Consecutive Ones II | [Link](https://leetcode.com/problems/max-consecutive-ones-ii/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/12/30/medium-487-max-consecutive-ones-ii/) |
-| 983 | Minimum Cost For Tickets | [Link](https://leetcode.com/problems/minimum-cost-for-tickets/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-983-minimum-cost-for-tickets/) |
-| 2466 | Count Ways To Build Good Strings | [Link](https://leetcode.com/problems/count-ways-to-build-good-strings/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/16/medium-2466-count-ways-to-build-good-strings/) |
-| 32 | Longest Valid Parentheses | [Link](https://leetcode.com/problems/longest-valid-parentheses/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-hard-32-longest-valid-parentheses/) |
-| 91 | Decode Ways | [Link](https://leetcode.com/problems/decode-ways/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/02/09/medium-91-decode-ways/) |
-| 416 | Partition Equal Subset Sum | [Link](https://leetcode.com/problems/partition-equal-subset-sum/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/02/11/medium-416-partition-equal-subset-sum/) |
-| 918 | Maximum Sum Circular Subarray | [Link](https://leetcode.com/problems/maximum-sum-circular-subarray/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/25/medium-918-maximum-sum-circular-subarray/) |
+| 487 | Max Consecutive Ones II | [Link](https://leetcode.com/problems/max-consecutive-ones-ii/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/12/30/medium-487-max-consecutive-ones-ii/) |
+| 983 | Minimum Cost For Tickets | [Link](https://leetcode.com/problems/minimum-cost-for-tickets/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-24-medium-983-minimum-cost-for-tickets/) |
+| 2466 | Count Ways To Build Good Strings | [Link](https://leetcode.com/problems/count-ways-to-build-good-strings/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-16-medium-2466-count-ways-to-build-good-strings/) |
+| 32 | Longest Valid Parentheses | [Link](https://leetcode.com/problems/longest-valid-parentheses/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-24-hard-32-longest-valid-parentheses/) |
+| 91 | Decode Ways | [Link](https://leetcode.com/problems/decode-ways/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/02/09/medium-91-decode-ways/) |
+| 416 | Partition Equal Subset Sum | [Link](https://leetcode.com/problems/partition-equal-subset-sum/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/02/11/medium-416-partition-equal-subset-sum/) |
+| 918 | Maximum Sum Circular Subarray | [Link](https://leetcode.com/problems/maximum-sum-circular-subarray/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/25/medium-918-maximum-sum-circular-subarray/) |
 
 ```java
 static int knap01(int[] wt, int[] val, int W){
@@ -354,11 +354,11 @@ static int knap01(int[] wt, int[] val, int W){
 | 198 | House Robber | [Link](https://leetcode.com/problems/house-robber/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-18-medium-198-house-robber/) |
 | 279 | Perfect Squares | [Link](https://leetcode.com/problems/perfect-squares/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-12-14-medium-279-perfect-squares/) |
 | 322 | Coin Change | [Link](https://leetcode.com/problems/coin-change/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/10/20/medium-322-coin-change/) |
-| 494 | Target Sum | [Link](https://leetcode.com/problems/target-sum/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/10/15/medium-494-target-sum/) |
+| 494 | Target Sum | [Link](https://leetcode.com/problems/target-sum/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-15-medium-494-target-sum/) |
 | 139 | Word Break | [Link](https://leetcode.com/problems/word-break/) | - |
 | 487 | Max Consecutive Ones II | [Link](https://leetcode.com/problems/max-consecutive-ones-ii/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/12/30/medium-487-max-consecutive-ones-ii/) |
 | 983 | Minimum Cost For Tickets | [Link](https://leetcode.com/problems/minimum-cost-for-tickets/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-24-medium-983-minimum-cost-for-tickets/) |
-| 2466 | Count Ways To Build Good Strings | [Link](https://leetcode.com/problems/count-ways-to-build-good-strings/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/10/16/medium-2466-count-ways-to-build-good-strings/) |
+| 2466 | Count Ways To Build Good Strings | [Link](https://leetcode.com/problems/count-ways-to-build-good-strings/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-16-medium-2466-count-ways-to-build-good-strings/) |
 | 32 | Longest Valid Parentheses | [Link](https://leetcode.com/problems/longest-valid-parentheses/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-24-hard-32-longest-valid-parentheses/) |
 | 91 | Decode Ways | [Link](https://leetcode.com/problems/decode-ways/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/02/09/medium-91-decode-ways/) |
 | 416 | Partition Equal Subset Sum | [Link](https://leetcode.com/problems/partition-equal-subset-sum/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/02/11/medium-416-partition-equal-subset-sum/) |
@@ -442,13 +442,13 @@ dp[i][j] depends on dp[i-1][j] (above), dp[i][j-1] (left), dp[i-1][j-1] (diagona
 </svg>
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 62 | Unique Paths | [Link](https://leetcode.com/problems/unique-paths/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/09/24/medium-62-unique-paths/) |
-| 63 | Unique Paths II | [Link](https://leetcode.com/problems/unique-paths-ii/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/21/medium-63-unique-paths-ii/) |
-| 64 | Minimum Path Sum | [Link](https://leetcode.com/problems/minimum-path-sum/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/10/medium-64-minimum-path-sum/) |
-| 221 | Maximal Square | [Link](https://leetcode.com/problems/maximal-square/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/04/18/medium-221-maximal-square/) |
-| 418 | Sentence Screen Fitting | [Link](https://leetcode.com/problems/sentence-screen-fitting/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/12/31/medium-418-sentence-screen-fitting/) |
-| 568 | Maximum Vacation Days | [Link](https://leetcode.com/problems/maximum-vacation-days/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/12/31/hard-568-maximum-vacation-days/) |
-| 96 | Unique Binary Search Trees | [Link](https://leetcode.com/problems/unique-binary-search-trees/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/03/medium-96-unique-binary-search-trees/) |
+| 62 | Unique Paths | [Link](https://leetcode.com/problems/unique-paths/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-09-24-medium-62-unique-paths/) |
+| 63 | Unique Paths II | [Link](https://leetcode.com/problems/unique-paths-ii/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/21/medium-63-unique-paths-ii/) |
+| 64 | Minimum Path Sum | [Link](https://leetcode.com/problems/minimum-path-sum/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/10/medium-64-minimum-path-sum/) |
+| 221 | Maximal Square | [Link](https://leetcode.com/problems/maximal-square/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/04/18/medium-221-maximal-square/) |
+| 418 | Sentence Screen Fitting | [Link](https://leetcode.com/problems/sentence-screen-fitting/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/12/31/medium-418-sentence-screen-fitting/) |
+| 568 | Maximum Vacation Days | [Link](https://leetcode.com/problems/maximum-vacation-days/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/12/31/hard-568-maximum-vacation-days/) |
+| 96 | Unique Binary Search Trees | [Link](https://leetcode.com/problems/unique-binary-search-trees/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-03-medium-96-unique-binary-search-trees/) |
 
 ```
 dp[i][j] = answer for subproblem ending at cell (i, j)
@@ -461,13 +461,13 @@ dp[i][j] depends on dp[i-1][j] (above), dp[i][j-1] (left), dp[i-1][j-1] (diagona
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 62 | Unique Paths | [Link](https://leetcode.com/problems/unique-paths/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/09/24/medium-62-unique-paths/) |
-| 63 | Unique Paths II | [Link](https://leetcode.com/problems/unique-paths-ii/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/21/medium-63-unique-paths-ii/) |
-| 64 | Minimum Path Sum | [Link](https://leetcode.com/problems/minimum-path-sum/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/10/medium-64-minimum-path-sum/) |
-| 221 | Maximal Square | [Link](https://leetcode.com/problems/maximal-square/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/04/18/medium-221-maximal-square/) |
-| 418 | Sentence Screen Fitting | [Link](https://leetcode.com/problems/sentence-screen-fitting/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/12/31/medium-418-sentence-screen-fitting/) |
-| 568 | Maximum Vacation Days | [Link](https://leetcode.com/problems/maximum-vacation-days/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/12/31/hard-568-maximum-vacation-days/) |
-| 96 | Unique Binary Search Trees | [Link](https://leetcode.com/problems/unique-binary-search-trees/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/03/medium-96-unique-binary-search-trees/) |
+| 62 | Unique Paths | [Link](https://leetcode.com/problems/unique-paths/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-09-24-medium-62-unique-paths/) |
+| 63 | Unique Paths II | [Link](https://leetcode.com/problems/unique-paths-ii/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/21/medium-63-unique-paths-ii/) |
+| 64 | Minimum Path Sum | [Link](https://leetcode.com/problems/minimum-path-sum/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/10/medium-64-minimum-path-sum/) |
+| 221 | Maximal Square | [Link](https://leetcode.com/problems/maximal-square/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/04/18/medium-221-maximal-square/) |
+| 418 | Sentence Screen Fitting | [Link](https://leetcode.com/problems/sentence-screen-fitting/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/12/31/medium-418-sentence-screen-fitting/) |
+| 568 | Maximum Vacation Days | [Link](https://leetcode.com/problems/maximum-vacation-days/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/12/31/hard-568-maximum-vacation-days/) |
+| 96 | Unique Binary Search Trees | [Link](https://leetcode.com/problems/unique-binary-search-trees/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-03-medium-96-unique-binary-search-trees/) |
 
 ```
 dp[i][j] = answer for subproblem ending at cell (i, j)
@@ -480,13 +480,13 @@ dp[i][j] depends on dp[i-1][j] (above), dp[i][j-1] (left), dp[i-1][j-1] (diagona
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 62 | Unique Paths | [Link](https://leetcode.com/problems/unique-paths/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/09/24/medium-62-unique-paths/) |
-| 63 | Unique Paths II | [Link](https://leetcode.com/problems/unique-paths-ii/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/21/medium-63-unique-paths-ii/) |
-| 64 | Minimum Path Sum | [Link](https://leetcode.com/problems/minimum-path-sum/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/10/medium-64-minimum-path-sum/) |
-| 221 | Maximal Square | [Link](https://leetcode.com/problems/maximal-square/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/04/18/medium-221-maximal-square/) |
-| 418 | Sentence Screen Fitting | [Link](https://leetcode.com/problems/sentence-screen-fitting/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/12/31/medium-418-sentence-screen-fitting/) |
-| 568 | Maximum Vacation Days | [Link](https://leetcode.com/problems/maximum-vacation-days/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/12/31/hard-568-maximum-vacation-days/) |
-| 96 | Unique Binary Search Trees | [Link](https://leetcode.com/problems/unique-binary-search-trees/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/03/medium-96-unique-binary-search-trees/) |
+| 62 | Unique Paths | [Link](https://leetcode.com/problems/unique-paths/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-09-24-medium-62-unique-paths/) |
+| 63 | Unique Paths II | [Link](https://leetcode.com/problems/unique-paths-ii/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/21/medium-63-unique-paths-ii/) |
+| 64 | Minimum Path Sum | [Link](https://leetcode.com/problems/minimum-path-sum/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/10/medium-64-minimum-path-sum/) |
+| 221 | Maximal Square | [Link](https://leetcode.com/problems/maximal-square/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/04/18/medium-221-maximal-square/) |
+| 418 | Sentence Screen Fitting | [Link](https://leetcode.com/problems/sentence-screen-fitting/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/12/31/medium-418-sentence-screen-fitting/) |
+| 568 | Maximum Vacation Days | [Link](https://leetcode.com/problems/maximum-vacation-days/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/12/31/hard-568-maximum-vacation-days/) |
+| 96 | Unique Binary Search Trees | [Link](https://leetcode.com/problems/unique-binary-search-trees/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-03-medium-96-unique-binary-search-trees/) |
 
 ```
 dp[i][j] = answer for subproblem ending at cell (i, j)
@@ -499,13 +499,13 @@ dp[i][j] depends on dp[i-1][j] (above), dp[i][j-1] (left), dp[i-1][j-1] (diagona
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 62 | Unique Paths | [Link](https://leetcode.com/problems/unique-paths/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/09/24/medium-62-unique-paths/) |
-| 63 | Unique Paths II | [Link](https://leetcode.com/problems/unique-paths-ii/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/21/medium-63-unique-paths-ii/) |
-| 64 | Minimum Path Sum | [Link](https://leetcode.com/problems/minimum-path-sum/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/10/medium-64-minimum-path-sum/) |
-| 221 | Maximal Square | [Link](https://leetcode.com/problems/maximal-square/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/04/18/medium-221-maximal-square/) |
-| 418 | Sentence Screen Fitting | [Link](https://leetcode.com/problems/sentence-screen-fitting/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/12/31/medium-418-sentence-screen-fitting/) |
-| 568 | Maximum Vacation Days | [Link](https://leetcode.com/problems/maximum-vacation-days/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/12/31/hard-568-maximum-vacation-days/) |
-| 96 | Unique Binary Search Trees | [Link](https://leetcode.com/problems/unique-binary-search-trees/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/03/medium-96-unique-binary-search-trees/) |
+| 62 | Unique Paths | [Link](https://leetcode.com/problems/unique-paths/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-09-24-medium-62-unique-paths/) |
+| 63 | Unique Paths II | [Link](https://leetcode.com/problems/unique-paths-ii/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/21/medium-63-unique-paths-ii/) |
+| 64 | Minimum Path Sum | [Link](https://leetcode.com/problems/minimum-path-sum/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/10/medium-64-minimum-path-sum/) |
+| 221 | Maximal Square | [Link](https://leetcode.com/problems/maximal-square/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/04/18/medium-221-maximal-square/) |
+| 418 | Sentence Screen Fitting | [Link](https://leetcode.com/problems/sentence-screen-fitting/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/12/31/medium-418-sentence-screen-fitting/) |
+| 568 | Maximum Vacation Days | [Link](https://leetcode.com/problems/maximum-vacation-days/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/12/31/hard-568-maximum-vacation-days/) |
+| 96 | Unique Binary Search Trees | [Link](https://leetcode.com/problems/unique-binary-search-trees/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-03-medium-96-unique-binary-search-trees/) |
 
 ```java
 static int uniquePaths(int[][] g){
@@ -523,13 +523,13 @@ static int uniquePaths(int[][] g){
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 62 | Unique Paths | [Link](https://leetcode.com/problems/unique-paths/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/09/24/medium-62-unique-paths/) |
+| 62 | Unique Paths | [Link](https://leetcode.com/problems/unique-paths/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-09-24-medium-62-unique-paths/) |
 | 63 | Unique Paths II | [Link](https://leetcode.com/problems/unique-paths-ii/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/21/medium-63-unique-paths-ii/) |
 | 64 | Minimum Path Sum | [Link](https://leetcode.com/problems/minimum-path-sum/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/10/medium-64-minimum-path-sum/) |
 | 221 | Maximal Square | [Link](https://leetcode.com/problems/maximal-square/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/04/18/medium-221-maximal-square/) |
 | 418 | Sentence Screen Fitting | [Link](https://leetcode.com/problems/sentence-screen-fitting/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/12/31/medium-418-sentence-screen-fitting/) |
 | 568 | Maximum Vacation Days | [Link](https://leetcode.com/problems/maximum-vacation-days/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/12/31/hard-568-maximum-vacation-days/) |
-| 96 | Unique Binary Search Trees | [Link](https://leetcode.com/problems/unique-binary-search-trees/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/10/03/medium-96-unique-binary-search-trees/) |
+| 96 | Unique Binary Search Trees | [Link](https://leetcode.com/problems/unique-binary-search-trees/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-03-medium-96-unique-binary-search-trees/) |
 
 ## LIS (Longest Increasing Subsequence)
 **When to use:** Find the longest subsequence where elements are in strictly increasing order. Also applies to problems reducible to LIS (Russian Doll Envelopes, etc.).
@@ -602,8 +602,8 @@ static int uniquePaths(int[][] g){
 ### Template: Count Number of LIS (LC 673)
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 300 | Longest Increasing Subsequence | [Link](https://leetcode.com/problems/longest-increasing-subsequence/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-300-longest-increasing-subsequence/) |
-| 673 | Number of Longest Increasing Subsequence | [Link](https://leetcode.com/problems/number-of-longest-increasing-subsequence/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/09/medium-673-number-of-longest-increasing-subsequence/) |
+| 300 | Longest Increasing Subsequence | [Link](https://leetcode.com/problems/longest-increasing-subsequence/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-17-medium-300-longest-increasing-subsequence/) |
+| 673 | Number of Longest Increasing Subsequence | [Link](https://leetcode.com/problems/number-of-longest-increasing-subsequence/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/09/medium-673-number-of-longest-increasing-subsequence/) |
 | 354 | Russian Doll Envelopes | [Link](https://leetcode.com/problems/russian-doll-envelopes/) | - |
 | 334 | Increasing Triplet Subsequence | [Link](https://leetcode.com/problems/increasing-triplet-subsequence/) | - |
 
@@ -679,7 +679,7 @@ static int findNumberOfLIS(int[] nums) {
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 300 | Longest Increasing Subsequence | [Link](https://leetcode.com/problems/longest-increasing-subsequence/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/10/17/medium-300-longest-increasing-subsequence/) |
+| 300 | Longest Increasing Subsequence | [Link](https://leetcode.com/problems/longest-increasing-subsequence/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-17-medium-300-longest-increasing-subsequence/) |
 | 673 | Number of Longest Increasing Subsequence | [Link](https://leetcode.com/problems/number-of-longest-increasing-subsequence/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/09/medium-673-number-of-longest-increasing-subsequence/) |
 | 354 | Russian Doll Envelopes | [Link](https://leetcode.com/problems/russian-doll-envelopes/) | - |
 | 334 | Increasing Triplet Subsequence | [Link](https://leetcode.com/problems/increasing-triplet-subsequence/) | - |
@@ -890,7 +890,7 @@ Instead of one DP array, maintain **multiple arrays** -- one for each state. At 
 | 122 | Best Time to Buy and Sell Stock II | [Link](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/) | - |
 | 123 | Best Time to Buy and Sell Stock III | [Link](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii/) | - |
 | 188 | Best Time to Buy and Sell Stock IV | [Link](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iv/) | - |
-| 309 | Best Time to Buy and Sell Stock with Cooldown | [Link](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/20/medium-309-best-time-to-buy-and-sell-stock-with-cooldown/) |
+| 309 | Best Time to Buy and Sell Stock with Cooldown | [Link](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/20/medium-309-best-time-to-buy-and-sell-stock-with-cooldown/) |
 | 714 | Best Time to Buy and Sell Stock with Transaction Fee | [Link](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/) | - |
 
 ```java
@@ -1057,7 +1057,7 @@ static int maxPathSum(TreeNode root) {
 The insight: binary search on the answer (the maximum sum), and use a greedy check.
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 300 | Longest Increasing Subsequence | [Link](https://leetcode.com/problems/longest-increasing-subsequence/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-300-longest-increasing-subsequence/) |
+| 300 | Longest Increasing Subsequence | [Link](https://leetcode.com/problems/longest-increasing-subsequence/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-17-medium-300-longest-increasing-subsequence/) |
 | 410 | Split Array Largest Sum | [Link](https://leetcode.com/problems/split-array-largest-sum/) | - |
 | 875 | Koko Eating Bananas | [Link](https://leetcode.com/problems/koko-eating-bananas/) | - |
 | 1011 | Capacity To Ship Packages | [Link](https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/) | - |
@@ -1119,7 +1119,7 @@ static boolean canSplit(int[] nums, int m, int maxSum) {
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 300 | Longest Increasing Subsequence | [Link](https://leetcode.com/problems/longest-increasing-subsequence/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/10/17/medium-300-longest-increasing-subsequence/) |
+| 300 | Longest Increasing Subsequence | [Link](https://leetcode.com/problems/longest-increasing-subsequence/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-17-medium-300-longest-increasing-subsequence/) |
 | 410 | Split Array Largest Sum | [Link](https://leetcode.com/problems/split-array-largest-sum/) | - |
 | 875 | Koko Eating Bananas | [Link](https://leetcode.com/problems/koko-eating-bananas/) | - |
 | 1011 | Capacity To Ship Packages | [Link](https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/) | - |
@@ -1163,7 +1163,7 @@ static long solveDP(long N){ sN=String.valueOf(N); memset(dp,-1,sizeof dp); retu
 |---|---|---|---|
 | 847 | Shortest Path Visiting All Nodes | [Link](https://leetcode.com/problems/shortest-path-visiting-all-nodes/) | - |
 | 698 | Partition to K Equal Sum Subsets | [Link](https://leetcode.com/problems/partition-to-k-equal-sum-subsets/) | - |
-| 1340 | Jump Game V | [Link](https://leetcode.com/problems/jump-game-v/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/10/hard-1340-jump-game-v/) |
+| 1340 | Jump Game V | [Link](https://leetcode.com/problems/jump-game-v/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/10/hard-1340-jump-game-v/) |
 | 464 | Can I Win | [Link](https://leetcode.com/problems/can-i-win/) | - |
 | 691 | Stickers to Spell Word | [Link](https://leetcode.com/problems/stickers-to-spell-word/) | - |
 
@@ -1189,6 +1189,6 @@ static int tsp(int[][] w){
 - **Data Structures (segment tree, Fenwick):** [Data Structures & Core Algorithms](/posts/2025-10-29-leetcode-templates-data-structures/)
 - **Graph, Search (binary search on answer):** [Graph](/posts/2025-10-29-leetcode-templates-graph/), [Search](/posts/2026-01-20-leetcode-templates-search/)
 - **DFS + Memoization (grid DP):** [DFS](/posts/2025-11-24-leetcode-templates-dfs/)
-- **Beginner's Guide:** [LeetCode Beginner's Guide](/2026/06/25/leetcode-beginners-guide/)
+- **Beginner's Guide:** [LeetCode Beginner's Guide](/blog_leetcode_java/posts/2026-06-25-leetcode-beginners-guide/)
 - **Master index:** [Categories & Templates](/posts/2025-10-29-leetcode-categories-and-templates/)
 {% endraw %}

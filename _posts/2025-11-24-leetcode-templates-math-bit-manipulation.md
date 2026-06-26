@@ -56,16 +56,16 @@ This page collects ready-to-use Java templates for bit manipulation, fast expone
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 29 | Divide Two Integers | [Link](https://leetcode.com/problems/divide-two-integers/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/02/14/medium-29-divide-two-integers/) |
-| 36 | Valid Sudoku | [Link](https://leetcode.com/problems/valid-sudoku/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/02/14/medium-36-valid-sudoku/) |
-| 67 | Add Binary | [Link](https://leetcode.com/problems/add-binary/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-12-11-easy-67-add-binary/) |
+| 29 | Divide Two Integers | [Link](https://leetcode.com/problems/divide-two-integers/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/02/14/medium-29-divide-two-integers/) |
+| 36 | Valid Sudoku | [Link](https://leetcode.com/problems/valid-sudoku/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/02/14/medium-36-valid-sudoku/) |
+| 67 | Add Binary | [Link](https://leetcode.com/problems/add-binary/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-12-11-easy-67-add-binary/) |
 | 191 | Number of 1 Bits | [Link](https://leetcode.com/problems/number-of-1-bits/) | - |
 | 231 | Power of Two | [Link](https://leetcode.com/problems/power-of-two/) | - |
 | 338 | Counting Bits | [Link](https://leetcode.com/problems/counting-bits/) | - |
-| 393 | UTF-8 Validation | [Link](https://leetcode.com/problems/utf-8-validation/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/12/31/medium-393-utf-8-validation/) |
-| 1177 | Can Make Palindrome from Substring | [Link](https://leetcode.com/problems/can-make-palindrome-from-substring/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/01/medium-1177-can-make-palindrome-from-substring/) |
-| 593 | Valid Square | [Link](https://leetcode.com/problems/valid-square/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-12-02-medium-593-valid-square/) |
-| 2571 | Minimum Operations to Reduce an Integer to 0 | [Link](https://leetcode.com/problems/minimum-operations-to-reduce-an-integer-to-0/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/04/20/medium-2571-minimum-operations-to-reduce-an-integer-to-0/) |
+| 393 | UTF-8 Validation | [Link](https://leetcode.com/problems/utf-8-validation/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/12/31/medium-393-utf-8-validation/) |
+| 1177 | Can Make Palindrome from Substring | [Link](https://leetcode.com/problems/can-make-palindrome-from-substring/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/01/medium-1177-can-make-palindrome-from-substring/) |
+| 593 | Valid Square | [Link](https://leetcode.com/problems/valid-square/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-12-02-medium-593-valid-square/) |
+| 2571 | Minimum Operations to Reduce an Integer to 0 | [Link](https://leetcode.com/problems/minimum-operations-to-reduce-an-integer-to-0/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/04/20/medium-2571-minimum-operations-to-reduce-an-integer-to-0/) |
 
 ```java
 // Set bit at position i
@@ -173,10 +173,10 @@ static void swap(int a, int b) {
 |---|---|---|---|
 | 136 | Single Number | [Link](https://leetcode.com/problems/single-number/) | - |
 | 137 | Single Number II | [Link](https://leetcode.com/problems/single-number-ii/) | - |
-| 89 | Gray Code | [Link](https://leetcode.com/problems/gray-code/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/09/25/medium-89-gray-code/) |
-| 389 | Find the Difference | [Link](https://leetcode.com/problems/find-the-difference/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/27/easy-389-find-the-difference/) |
-| 260 | Single Number III | [Link](https://leetcode.com/problems/single-number-iii/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/31/medium-260-single-number-iii/) |
-| 2433 | Find The Original Array of Prefix Xor | [Link](https://leetcode.com/problems/find-the-original-array-of-prefix-xor/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/04/05/medium-2433-find-the-original-array-of-prefix-xor/) |
+| 89 | Gray Code | [Link](https://leetcode.com/problems/gray-code/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-09-25-medium-89-gray-code/) |
+| 389 | Find the Difference | [Link](https://leetcode.com/problems/find-the-difference/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/27/easy-389-find-the-difference/) |
+| 260 | Single Number III | [Link](https://leetcode.com/problems/single-number-iii/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/31/medium-260-single-number-iii/) |
+| 2433 | Find The Original Array of Prefix Xor | [Link](https://leetcode.com/problems/find-the-original-array-of-prefix-xor/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/04/05/medium-2433-find-the-original-array-of-prefix-xor/) |
 
 ```java
 // Single Number (all appear twice except one)
@@ -215,7 +215,7 @@ int[]grayCode(int n) {
 |---|---|---|---|
 | 136 | Single Number | [Link](https://leetcode.com/problems/single-number/) | - |
 | 137 | Single Number II | [Link](https://leetcode.com/problems/single-number-ii/) | - |
-| 89 | Gray Code | [Link](https://leetcode.com/problems/gray-code/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/09/25/medium-89-gray-code/) |
+| 89 | Gray Code | [Link](https://leetcode.com/problems/gray-code/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-09-25-medium-89-gray-code/) |
 | 389 | Find the Difference | [Link](https://leetcode.com/problems/find-the-difference/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/27/easy-389-find-the-difference/) |
 | 260 | Single Number III | [Link](https://leetcode.com/problems/single-number-iii/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/31/medium-260-single-number-iii/) |
 | 2433 | Find The Original Array of Prefix Xor | [Link](https://leetcode.com/problems/find-the-original-array-of-prefix-xor/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/04/05/medium-2433-find-the-original-array-of-prefix-xor/) |
@@ -229,7 +229,7 @@ int[]grayCode(int n) {
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 50 | Pow(x, n) | [Link](https://leetcode.com/problems/powx-n/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/09/25/medium-50-pow-x-n/) |
+| 50 | Pow(x, n) | [Link](https://leetcode.com/problems/powx-n/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-09-25-medium-50-pow-x-n/) |
 
 ```java
 // Fast exponentiation: x^n
@@ -257,7 +257,7 @@ static double myPow(double x, int n) {
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 50 | Pow(x, n) | [Link](https://leetcode.com/problems/powx-n/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/09/25/medium-50-pow-x-n/) |
+| 50 | Pow(x, n) | [Link](https://leetcode.com/problems/powx-n/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-09-25-medium-50-pow-x-n/) |
 
 ## GCD and LCM
 **When to use:** Problems ask for "greatest common divisor", "least common multiple", reducing fractions, or checking divisibility relationships between numbers.
@@ -342,9 +342,9 @@ boolean[]sieveOfEratosthenes(int n) {
 | 172 | Factorial Trailing Zeroes | [Link](https://leetcode.com/problems/factorial-trailing-zeroes/) | - |
 | 7 | Reverse Integer | [Link](https://leetcode.com/problems/reverse-integer/) | - |
 | 9 | Palindrome Number | [Link](https://leetcode.com/problems/palindrome-number/) | - |
-| 279 | Perfect Squares | [Link](https://leetcode.com/problems/perfect-squares/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-12-14-medium-279-perfect-squares/) |
-| 43 | Multiply Strings | [Link](https://leetcode.com/problems/multiply-strings/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/02/17/medium-43-multiply-strings/) |
-| 2539 | Count the Number of Good Subsequences | [Link](https://leetcode.com/problems/count-the-number-of-good-subsequences/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/04/19/hard-2539-count-the-number-of-good-subsequences/) |
+| 279 | Perfect Squares | [Link](https://leetcode.com/problems/perfect-squares/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-12-14-medium-279-perfect-squares/) |
+| 43 | Multiply Strings | [Link](https://leetcode.com/problems/multiply-strings/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/02/17/medium-43-multiply-strings/) |
+| 2539 | Count the Number of Good Subsequences | [Link](https://leetcode.com/problems/count-the-number-of-good-subsequences/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/04/19/hard-2539-count-the-number-of-good-subsequences/) |
 
 ---
 
@@ -384,7 +384,7 @@ static int reverse(int x) {
 | 43 | Multiply Strings | [Link](https://leetcode.com/problems/multiply-strings/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/02/17/medium-43-multiply-strings/) |
 
 ## More templates
-- **Beginner's Guide:** [LeetCode Beginner's Guide](/2026/06/25/leetcode-beginners-guide/)
+- **Beginner's Guide:** [LeetCode Beginner's Guide](/blog_leetcode_java/posts/2026-06-25-leetcode-beginners-guide/)
 - **Math & Geometry:** [Math & Geometry](/posts/2025-10-29-leetcode-templates-math-geometry/)
 - **Advanced (bitwise trie):** [Advanced Techniques](/posts/2025-10-29-leetcode-templates-advanced/)
 - **Master index:** [Categories & Templates](/posts/2025-10-29-leetcode-categories-and-templates/)

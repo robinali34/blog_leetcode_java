@@ -11,7 +11,7 @@ Arrays and strings are the foundation of coding interviews — you'll encounter 
 
 > **This template covers the fundamental patterns for array and string problems.** Sliding window, two pointers, and prefix sum together solve a huge fraction of Medium problems.
 
-- **Beginner's Guide:** [LeetCode Beginner's Guide](/2026/06/25/leetcode-beginners-guide/)
+- **Beginner's Guide:** [LeetCode Beginner's Guide](/blog_leetcode_java/posts/2026-06-25-leetcode-beginners-guide/)
 ## Summary
 | Pattern | Signal Phrases | Time |
 |---|---|---|
@@ -139,14 +139,14 @@ Arrays and strings are the foundation of coding interviews — you'll encounter 
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 3 | Longest Substring Without Repeating Characters | [Link](https://leetcode.com/problems/longest-substring-without-repeating-characters/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/10/medium-3-longest-substring-without-repeating-characters/) |
+| 3 | Longest Substring Without Repeating Characters | [Link](https://leetcode.com/problems/longest-substring-without-repeating-characters/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-09-medium-3-longest-substring-without-repeating-characters/) |
 | 76 | Minimum Window Substring | [Link](https://leetcode.com/problems/minimum-window-substring/) | - |
-| 392 | Is Subsequence | [Link](https://leetcode.com/problems/is-subsequence/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/03/easy-392-is-subsequence/) |
+| 392 | Is Subsequence | [Link](https://leetcode.com/problems/is-subsequence/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/03/easy-392-is-subsequence/) |
 | 424 | Longest Repeating Character Replacement | [Link](https://leetcode.com/problems/longest-repeating-character-replacement/) | - |
-| 616 | Add Bold Tag in String | [Link](https://leetcode.com/problems/add-bold-tag-in-string/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/12/30/medium-616-add-bold-tag-in-string/) |
-| 681 | Next Closest Time | [Link](https://leetcode.com/problems/next-closest-time/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/12/30/medium-681-next-closest-time/) |
-| 713 | Subarray Product Less Than K | [Link](https://leetcode.com/problems/subarray-product-less-than-k/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/21/medium-713-subarray-product-less-than-k/) |
-| 2461 | Maximum Sum of Distinct Subarrays With Length K | [Link](https://leetcode.com/problems/maximum-sum-of-distinct-subarrays-with-length-k/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/04/09/medium-2461-maximum-sum-of-distinct-subarrays-with-length-k/) |
+| 616 | Add Bold Tag in String | [Link](https://leetcode.com/problems/add-bold-tag-in-string/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/12/30/medium-616-add-bold-tag-in-string/) |
+| 681 | Next Closest Time | [Link](https://leetcode.com/problems/next-closest-time/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/12/30/medium-681-next-closest-time/) |
+| 713 | Subarray Product Less Than K | [Link](https://leetcode.com/problems/subarray-product-less-than-k/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/21/medium-713-subarray-product-less-than-k/) |
+| 2461 | Maximum Sum of Distinct Subarrays With Length K | [Link](https://leetcode.com/problems/maximum-sum-of-distinct-subarrays-with-length-k/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/04/09/medium-2461-maximum-sum-of-distinct-subarrays-with-length-k/) |
 
 ```java
 // Variable-size window (e.g., longest substring without repeating)
@@ -166,7 +166,7 @@ static int longestNoRepeat(String s){
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 3 | Longest Substring Without Repeating Characters | [Link](https://leetcode.com/problems/longest-substring-without-repeating-characters/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/10/10/medium-3-longest-substring-without-repeating-characters/) |
+| 3 | Longest Substring Without Repeating Characters | [Link](https://leetcode.com/problems/longest-substring-without-repeating-characters/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-09-medium-3-longest-substring-without-repeating-characters/) |
 | 76 | Minimum Window Substring | [Link](https://leetcode.com/problems/minimum-window-substring/) | - |
 | 392 | Is Subsequence | [Link](https://leetcode.com/problems/is-subsequence/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/03/easy-392-is-subsequence/) |
 | 424 | Longest Repeating Character Replacement | [Link](https://leetcode.com/problems/longest-repeating-character-replacement/) | - |
@@ -228,7 +228,7 @@ static int longestNoRepeat(String s){
 | 15 | 3Sum | [Link](https://leetcode.com/problems/3sum/) | - |
 | 11 | Container With Most Water | [Link](https://leetcode.com/problems/container-with-most-water/) | - |
 | 125 | Valid Palindrome | [Link](https://leetcode.com/problems/valid-palindrome/) | - |
-| 1768 | Merge Strings Alternately | [Link](https://leetcode.com/problems/merge-strings-alternately/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/27/easy-1768-merge-strings-alternately/) |
+| 1768 | Merge Strings Alternately | [Link](https://leetcode.com/problems/merge-strings-alternately/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/27/easy-1768-merge-strings-alternately/) |
 
 ```java
 static boolean twoSumSorted(int[] a, int target){
@@ -256,11 +256,11 @@ static boolean twoSumSorted(int[] a, int target){
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 33 | Search in Rotated Sorted Array | [Link](https://leetcode.com/problems/search-in-rotated-sorted-array/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/09/23/medium-33-search-in-rotated-sorted-array/) |
+| 33 | Search in Rotated Sorted Array | [Link](https://leetcode.com/problems/search-in-rotated-sorted-array/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-09-23-medium-33-search-in-rotated-sorted-array/) |
 | 34 | Find First and Last Position of Element in Sorted Array | [Link](https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/) | - |
 | 162 | Find Peak Element | [Link](https://leetcode.com/problems/find-peak-element/) | - |
 | 875 | Koko Eating Bananas | [Link](https://leetcode.com/problems/koko-eating-bananas/) | - |
-| 1870 | Minimum Speed to Arrive on Time | [Link](https://leetcode.com/problems/minimum-speed-to-arrive-on-time/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/30/medium-1870-minimum-speed-to-arrive-on-time/) |
+| 1870 | Minimum Speed to Arrive on Time | [Link](https://leetcode.com/problems/minimum-speed-to-arrive-on-time/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/30/medium-1870-minimum-speed-to-arrive-on-time/) |
 
 ```java
 static long binsearch(long lo, long hi){ // [lo, hi]
@@ -275,7 +275,7 @@ static long binsearch(long lo, long hi){ // [lo, hi]
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 33 | Search in Rotated Sorted Array | [Link](https://leetcode.com/problems/search-in-rotated-sorted-array/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/09/23/medium-33-search-in-rotated-sorted-array/) |
+| 33 | Search in Rotated Sorted Array | [Link](https://leetcode.com/problems/search-in-rotated-sorted-array/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-09-23-medium-33-search-in-rotated-sorted-array/) |
 | 34 | Find First and Last Position of Element in Sorted Array | [Link](https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/) | - |
 | 162 | Find Peak Element | [Link](https://leetcode.com/problems/find-peak-element/) | - |
 | 875 | Koko Eating Bananas | [Link](https://leetcode.com/problems/koko-eating-bananas/) | - |
@@ -288,15 +288,15 @@ static long binsearch(long lo, long hi){ // [lo, hi]
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 303 | Range Sum Query - Immutable | [Link](https://leetcode.com/problems/range-sum-query-immutable/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/01/easy-303-range-sum-query-immutable/) |
-| 523 | Continuous Subarray Sum | [Link](https://leetcode.com/problems/continuous-subarray-sum/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/04/medium-523-continuous-subarray-sum/) |
+| 303 | Range Sum Query - Immutable | [Link](https://leetcode.com/problems/range-sum-query-immutable/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/01/easy-303-range-sum-query-immutable/) |
+| 523 | Continuous Subarray Sum | [Link](https://leetcode.com/problems/continuous-subarray-sum/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/04/medium-523-continuous-subarray-sum/) |
 | 560 | Subarray Sum Equals K | [Link](https://leetcode.com/problems/subarray-sum-equals-k/) | - |
 | 238 | Product of Array Except Self | [Link](https://leetcode.com/problems/product-of-array-except-self/) | - |
-| 525 | Contiguous Array | [Link](https://leetcode.com/problems/contiguous-array/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-04-medium-525-contiguous-array/) |
-| 1177 | Can Make Palindrome from Substring | [Link](https://leetcode.com/problems/can-make-palindrome-from-substring/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/01/medium-1177-can-make-palindrome-from-substring/) |
+| 525 | Contiguous Array | [Link](https://leetcode.com/problems/contiguous-array/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-04-medium-525-contiguous-array/) |
+| 1177 | Can Make Palindrome from Substring | [Link](https://leetcode.com/problems/can-make-palindrome-from-substring/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/01/medium-1177-can-make-palindrome-from-substring/) |
 | 370 | Range Addition | [Link](https://leetcode.com/problems/range-addition/) | - |
-| 134 | Gas Station | [Link](https://leetcode.com/problems/gas-station/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/22/medium-134-gas-station/) |
-| 2270 | Number of Ways to Split Array | [Link](https://leetcode.com/problems/number-of-ways-to-split-array/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/04/06/medium-2270-number-of-ways-to-split-array/) |
+| 134 | Gas Station | [Link](https://leetcode.com/problems/gas-station/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/22/medium-134-gas-station/) |
+| 2270 | Number of Ways to Split Array | [Link](https://leetcode.com/problems/number-of-ways-to-split-array/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/04/06/medium-2270-number-of-ways-to-split-array/) |
 
 ```java
 int[]prefix(int[] a){
@@ -327,14 +327,14 @@ int[]prefix(int[] a){
 |---|---|---|---|
 | 1 | Two Sum | [Link](https://leetcode.com/problems/two-sum/) | - |
 | 49 | Group Anagrams | [Link](https://leetcode.com/problems/group-anagrams/) | - |
-| 242 | Valid Anagram | [Link](https://leetcode.com/problems/valid-anagram/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/07/easy-242-valid-anagram/) |
-| 217 | Contains Duplicate | [Link](https://leetcode.com/problems/contains-duplicate/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/07/easy-217-contains-duplicate/) |
-| 219 | Contains Duplicate II | [Link](https://leetcode.com/problems/contains-duplicate-ii/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/07/easy-219-contains-duplicate-ii/) |
-| 383 | Ransom Note | [Link](https://leetcode.com/problems/ransom-note/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/07/easy-383-ransom-note/) |
+| 242 | Valid Anagram | [Link](https://leetcode.com/problems/valid-anagram/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/07/easy-242-valid-anagram/) |
+| 217 | Contains Duplicate | [Link](https://leetcode.com/problems/contains-duplicate/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/07/easy-217-contains-duplicate/) |
+| 219 | Contains Duplicate II | [Link](https://leetcode.com/problems/contains-duplicate-ii/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/07/easy-219-contains-duplicate-ii/) |
+| 383 | Ransom Note | [Link](https://leetcode.com/problems/ransom-note/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/07/easy-383-ransom-note/) |
 | 981 | Time Based Key-Value Store | [Link](https://leetcode.com/problems/time-based-key-value-store/) | - |
 | 359 | Logger Rate Limiter | [Link](https://leetcode.com/problems/logger-rate-limiter/) | - |
-| 2365 | Task Scheduler II | [Link](https://leetcode.com/problems/task-scheduler-ii/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/04/10/medium-2365-task-scheduler-ii/) |
-| 2342 | Max Sum of a Pair With Equal Sum of Digits | [Link](https://leetcode.com/problems/max-sum-of-a-pair-with-equal-sum-of-digits/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/04/11/medium-2342-max-sum-of-a-pair-with-equal-sum-of-digits/) |
+| 2365 | Task Scheduler II | [Link](https://leetcode.com/problems/task-scheduler-ii/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/04/10/medium-2365-task-scheduler-ii/) |
+| 2342 | Max Sum of a Pair With Equal Sum of Digits | [Link](https://leetcode.com/problems/max-sum-of-a-pair-with-equal-sum-of-digits/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/04/11/medium-2342-max-sum-of-a-pair-with-equal-sum-of-digits/) |
 
 ```java
 // import java.util.*;
@@ -383,7 +383,7 @@ Use the LPS array during the search
 |---|---|---|---|
 | 28 | Find the Index of the First Occurrence in a String | [Link](https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/) | - |
 | 214 | Shortest Palindrome | [Link](https://leetcode.com/problems/shortest-palindrome/) | - |
-| 686 | Repeated String Match | [Link](https://leetcode.com/problems/repeated-string-match/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/12/30/medium-686-repeated-string-match/) |
+| 686 | Repeated String Match | [Link](https://leetcode.com/problems/repeated-string-match/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/12/30/medium-686-repeated-string-match/) |
 
 ```java
 int[]kmpPi(String s) {
@@ -472,7 +472,7 @@ int[]zfunc(String s) {
 | ID | Title | Link | Solution |
 |---|---|---|---|
 | 187 | Repeated DNA Sequences | [Link](https://leetcode.com/problems/repeated-dna-sequences/) | - |
-| 686 | Repeated String Match | [Link](https://leetcode.com/problems/repeated-string-match/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/12/30/medium-686-repeated-string-match/) |
+| 686 | Repeated String Match | [Link](https://leetcode.com/problems/repeated-string-match/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/12/30/medium-686-repeated-string-match/) |
 | 1044 | Longest Duplicate Substring | [Link](https://leetcode.com/problems/longest-duplicate-substring/) | - |
 
 ```java

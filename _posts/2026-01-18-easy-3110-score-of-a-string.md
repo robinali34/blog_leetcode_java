@@ -189,8 +189,8 @@ The provided solution is already optimal. Alternative approaches would be simila
 
 - [LC 3111: Minimum Rectangles to Cover Points](https://leetcode.com/problems/minimum-rectangles-to-cover-points/) - Similar string/array processing
 - [LC 3112: Minimum Time to Visit Disappearing Nodes](https://leetcode.com/problems/minimum-time-to-visit-disappearing-nodes/) - Graph traversal
-- [LC 13: Roman to Integer](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-24-easy-13-roman-to-integer/) - Character value processing
-- [LC 171: Excel Sheet Column Number](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-24-easy-171-excel-sheet-column-number/) - Character to number conversion
+- [LC 13: Roman to Integer](https://leetcode.com/problems/roman-to-integer/) - Character value processing
+- [LC 171: Excel Sheet Column Number](https://leetcode.com/problems/excel-sheet-column-number/) - Character to number conversion
 
 ---
 

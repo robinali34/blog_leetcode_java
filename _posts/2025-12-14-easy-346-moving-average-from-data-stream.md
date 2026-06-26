@@ -1,8 +1,10 @@
 ---
+
 layout: post
 title: "[Easy] 346. Moving Average from Data Stream"
 date: 2025-12-14 00:00:00 -0800
 categories: leetcode algorithm easy java queue sliding-window design problem-solving
+permalink: /posts/2025-12-14-easy-346-moving-average-from-data-stream/
 ---
 
 {% raw %}

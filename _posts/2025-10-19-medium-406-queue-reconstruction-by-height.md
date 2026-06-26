@@ -1,8 +1,10 @@
 ---
+
 layout: post
 title: "[Medium] 406. Queue Reconstruction by Height"
 date: 2025-10-19 11:16:19 -0700
 categories: leetcode algorithm medium java greedy sorting list problem-solving
+permalink: /posts/2025-10-19-medium-406-queue-reconstruction-by-height/
 ---
 
 # [Medium] 406. Queue Reconstruction by Height

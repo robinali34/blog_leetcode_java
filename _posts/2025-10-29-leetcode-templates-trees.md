@@ -83,13 +83,13 @@ Trees are one of the most frequently tested data structures in coding interviews
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 94 | Binary Tree Inorder Traversal | [Link](https://leetcode.com/problems/binary-tree-inorder-traversal/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/06/easy-94-binary-tree-inorder-traversal/) |
-| 144 | Binary Tree Preorder Traversal | [Link](https://leetcode.com/problems/binary-tree-preorder-traversal/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/06/easy-144-binary-tree-preorder-traversal/) |
-| 145 | Binary Tree Postorder Traversal | [Link](https://leetcode.com/problems/binary-tree-postorder-traversal/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/06/easy-145-binary-tree-postorder-traversal/) |
-| 102 | Binary Tree Level Order Traversal | [Link](https://leetcode.com/problems/binary-tree-level-order-traversal/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/07/medium-102-binary-tree-level-order-traversal/) |
-| 103 | Binary Tree Zigzag Level Order Traversal | [Link](https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/06/medium-103-binary-tree-zigzag-level-order-traversal/) |
-| 429 | N-ary Tree Level Order Traversal | [Link](https://leetcode.com/problems/n-ary-tree-level-order-traversal/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/07/medium-429-n-ary-tree-level-order-traversal/) |
-| 314 | Binary Tree Vertical Order Traversal | [Link](https://leetcode.com/problems/binary-tree-vertical-order-traversal/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-314-binary-tree-vertical-order-traversal/) |
+| 94 | Binary Tree Inorder Traversal | [Link](https://leetcode.com/problems/binary-tree-inorder-traversal/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/06/easy-94-binary-tree-inorder-traversal/) |
+| 144 | Binary Tree Preorder Traversal | [Link](https://leetcode.com/problems/binary-tree-preorder-traversal/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/06/easy-144-binary-tree-preorder-traversal/) |
+| 145 | Binary Tree Postorder Traversal | [Link](https://leetcode.com/problems/binary-tree-postorder-traversal/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/06/easy-145-binary-tree-postorder-traversal/) |
+| 102 | Binary Tree Level Order Traversal | [Link](https://leetcode.com/problems/binary-tree-level-order-traversal/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/07/medium-102-binary-tree-level-order-traversal/) |
+| 103 | Binary Tree Zigzag Level Order Traversal | [Link](https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/06/medium-103-binary-tree-zigzag-level-order-traversal/) |
+| 429 | N-ary Tree Level Order Traversal | [Link](https://leetcode.com/problems/n-ary-tree-level-order-traversal/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/07/medium-429-n-ary-tree-level-order-traversal/) |
+| 314 | Binary Tree Vertical Order Traversal | [Link](https://leetcode.com/problems/binary-tree-vertical-order-traversal/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/10/20/medium-314-binary-tree-vertical-order-traversal/) |
 
 ```java
 // import java.util.*;
@@ -148,10 +148,10 @@ Postorder : left → right → root
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 144 | Binary Tree Preorder Traversal | [Link](https://leetcode.com/problems/binary-tree-preorder-traversal/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/06/easy-144-binary-tree-preorder-traversal/) |
-| 94 | Binary Tree Inorder Traversal | [Link](https://leetcode.com/problems/binary-tree-inorder-traversal/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/06/easy-94-binary-tree-inorder-traversal/) |
-| 145 | Binary Tree Postorder Traversal | [Link](https://leetcode.com/problems/binary-tree-postorder-traversal/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/06/easy-145-binary-tree-postorder-traversal/) |
-| 104 | Maximum Depth of Binary Tree | [Link](https://leetcode.com/problems/maximum-depth-of-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/19/easy-104-maximum-depth-of-binary-tree/) |
+| 144 | Binary Tree Preorder Traversal | [Link](https://leetcode.com/problems/binary-tree-preorder-traversal/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/06/easy-144-binary-tree-preorder-traversal/) |
+| 94 | Binary Tree Inorder Traversal | [Link](https://leetcode.com/problems/binary-tree-inorder-traversal/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/06/easy-94-binary-tree-inorder-traversal/) |
+| 145 | Binary Tree Postorder Traversal | [Link](https://leetcode.com/problems/binary-tree-postorder-traversal/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/06/easy-145-binary-tree-postorder-traversal/) |
+| 104 | Maximum Depth of Binary Tree | [Link](https://leetcode.com/problems/maximum-depth-of-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/19/easy-104-maximum-depth-of-binary-tree/) |
 
 ---
 
@@ -206,11 +206,11 @@ Each recursive call returns information about its subtree. Process children firs
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 104 | Maximum Depth of Binary Tree | [Link](https://leetcode.com/problems/maximum-depth-of-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/19/easy-104-maximum-depth-of-binary-tree/) |
-| 110 | Balanced Binary Tree | [Link](https://leetcode.com/problems/balanced-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/06/easy-110-balanced-binary-tree/) |
-| 543 | Diameter of Binary Tree | [Link](https://leetcode.com/problems/diameter-of-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/06/easy-543-diameter-of-binary-tree/) |
+| 104 | Maximum Depth of Binary Tree | [Link](https://leetcode.com/problems/maximum-depth-of-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/19/easy-104-maximum-depth-of-binary-tree/) |
+| 110 | Balanced Binary Tree | [Link](https://leetcode.com/problems/balanced-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/06/easy-110-balanced-binary-tree/) |
+| 543 | Diameter of Binary Tree | [Link](https://leetcode.com/problems/diameter-of-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/06/easy-543-diameter-of-binary-tree/) |
 | 124 | Binary Tree Maximum Path Sum | [Link](https://leetcode.com/problems/binary-tree-maximum-path-sum/) | - |
-| 1376 | Time Needed to Inform All Employees | [Link](https://leetcode.com/problems/time-needed-to-inform-all-employees/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/17/medium-1376-time-needed-to-inform-all-employees/) |
+| 1376 | Time Needed to Inform All Employees | [Link](https://leetcode.com/problems/time-needed-to-inform-all-employees/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/17/medium-1376-time-needed-to-inform-all-employees/) |
 
 ---
 
@@ -224,9 +224,9 @@ While traversing, update a **global variable** tracking the best result. The rec
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 543 | Diameter of Binary Tree | [Link](https://leetcode.com/problems/diameter-of-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/06/easy-543-diameter-of-binary-tree/) |
+| 543 | Diameter of Binary Tree | [Link](https://leetcode.com/problems/diameter-of-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/06/easy-543-diameter-of-binary-tree/) |
 | 124 | Binary Tree Maximum Path Sum | [Link](https://leetcode.com/problems/binary-tree-maximum-path-sum/) | - |
-| 1448 | Count Good Nodes in Binary Tree | [Link](https://leetcode.com/problems/count-good-nodes-in-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/18/medium-1448-count-good-nodes-in-binary-tree/) |
+| 1448 | Count Good Nodes in Binary Tree | [Link](https://leetcode.com/problems/count-good-nodes-in-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/18/medium-1448-count-good-nodes-in-binary-tree/) |
 
 ---
 
@@ -280,8 +280,8 @@ Maintain a path from root to the current node. **Push → recurse → pop** (bac
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 112 | Path Sum | [Link](https://leetcode.com/problems/path-sum/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/06/easy-112-path-sum/) |
-| 113 | Path Sum II | [Link](https://leetcode.com/problems/path-sum-ii/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/06/medium-113-path-sum-ii/) |
+| 112 | Path Sum | [Link](https://leetcode.com/problems/path-sum/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/19/easy-112-path-sum/) |
+| 113 | Path Sum II | [Link](https://leetcode.com/problems/path-sum-ii/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/06/medium-113-path-sum-ii/) |
 | 257 | Binary Tree Paths | [Link](https://leetcode.com/problems/binary-tree-paths/) | - |
 
 ---
@@ -296,9 +296,9 @@ Traverse the tree **level by level** using a queue. Used for level processing, s
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 102 | Binary Tree Level Order Traversal | [Link](https://leetcode.com/problems/binary-tree-level-order-traversal/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/07/medium-102-binary-tree-level-order-traversal/) |
+| 102 | Binary Tree Level Order Traversal | [Link](https://leetcode.com/problems/binary-tree-level-order-traversal/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/07/medium-102-binary-tree-level-order-traversal/) |
 | 107 | Binary Tree Level Order Traversal II | [Link](https://leetcode.com/problems/binary-tree-level-order-traversal-ii/) | - |
-| 111 | Minimum Depth of Binary Tree | [Link](https://leetcode.com/problems/minimum-depth-of-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/19/easy-111-minimum-depth-of-binary-tree/) |
+| 111 | Minimum Depth of Binary Tree | [Link](https://leetcode.com/problems/minimum-depth-of-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/19/easy-111-minimum-depth-of-binary-tree/) |
 
 ---
 
@@ -352,7 +352,7 @@ Postorder DFS: if both subtrees contain a target, the current node is the LCA.
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 236 | Lowest Common Ancestor of a Binary Tree | [Link](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/19/medium-236-lowest-common-ancestor-of-a-binary-tree/) |
+| 236 | Lowest Common Ancestor of a Binary Tree | [Link](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/19/medium-236-lowest-common-ancestor-of-a-binary-tree/) |
 | 235 | Lowest Common Ancestor of a BST | [Link](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/) | - |
 
 ---
@@ -414,7 +414,7 @@ BST property: `left < root < right`. Inorder traversal produces sorted order. Th
 | 98 | Validate Binary Search Tree | [Link](https://leetcode.com/problems/validate-binary-search-tree/) | - |
 | 230 | Kth Smallest Element in a BST | [Link](https://leetcode.com/problems/kth-smallest-element-in-a-bst/) | - |
 | 235 | Lowest Common Ancestor of a BST | [Link](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/) | - |
-| 894 | All Possible Full Binary Trees | [Link](https://leetcode.com/problems/all-possible-full-binary-trees/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/04/12/medium-894-all-possible-full-binary-trees/) |
+| 894 | All Possible Full Binary Trees | [Link](https://leetcode.com/problems/all-possible-full-binary-trees/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/04/12/medium-894-all-possible-full-binary-trees/) |
 
 ---
 
@@ -446,10 +446,10 @@ Postorder : left → right → root
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 144 | Binary Tree Preorder Traversal | [Link](https://leetcode.com/problems/binary-tree-preorder-traversal/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/06/easy-144-binary-tree-preorder-traversal/) |
-| 94 | Binary Tree Inorder Traversal | [Link](https://leetcode.com/problems/binary-tree-inorder-traversal/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/06/easy-94-binary-tree-inorder-traversal/) |
-| 145 | Binary Tree Postorder Traversal | [Link](https://leetcode.com/problems/binary-tree-postorder-traversal/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/06/easy-145-binary-tree-postorder-traversal/) |
-| 104 | Maximum Depth of Binary Tree | [Link](https://leetcode.com/problems/maximum-depth-of-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/19/easy-104-maximum-depth-of-binary-tree/) |
+| 144 | Binary Tree Preorder Traversal | [Link](https://leetcode.com/problems/binary-tree-preorder-traversal/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/06/easy-144-binary-tree-preorder-traversal/) |
+| 94 | Binary Tree Inorder Traversal | [Link](https://leetcode.com/problems/binary-tree-inorder-traversal/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/06/easy-94-binary-tree-inorder-traversal/) |
+| 145 | Binary Tree Postorder Traversal | [Link](https://leetcode.com/problems/binary-tree-postorder-traversal/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/06/easy-145-binary-tree-postorder-traversal/) |
+| 104 | Maximum Depth of Binary Tree | [Link](https://leetcode.com/problems/maximum-depth-of-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/19/easy-104-maximum-depth-of-binary-tree/) |
 
 ---
 
@@ -465,11 +465,11 @@ Each recursive call returns information about its subtree. Process children firs
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 104 | Maximum Depth of Binary Tree | [Link](https://leetcode.com/problems/maximum-depth-of-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/19/easy-104-maximum-depth-of-binary-tree/) |
-| 110 | Balanced Binary Tree | [Link](https://leetcode.com/problems/balanced-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/06/easy-110-balanced-binary-tree/) |
-| 543 | Diameter of Binary Tree | [Link](https://leetcode.com/problems/diameter-of-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/06/easy-543-diameter-of-binary-tree/) |
+| 104 | Maximum Depth of Binary Tree | [Link](https://leetcode.com/problems/maximum-depth-of-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/19/easy-104-maximum-depth-of-binary-tree/) |
+| 110 | Balanced Binary Tree | [Link](https://leetcode.com/problems/balanced-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/06/easy-110-balanced-binary-tree/) |
+| 543 | Diameter of Binary Tree | [Link](https://leetcode.com/problems/diameter-of-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/06/easy-543-diameter-of-binary-tree/) |
 | 124 | Binary Tree Maximum Path Sum | [Link](https://leetcode.com/problems/binary-tree-maximum-path-sum/) | - |
-| 1376 | Time Needed to Inform All Employees | [Link](https://leetcode.com/problems/time-needed-to-inform-all-employees/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/17/medium-1376-time-needed-to-inform-all-employees/) |
+| 1376 | Time Needed to Inform All Employees | [Link](https://leetcode.com/problems/time-needed-to-inform-all-employees/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/17/medium-1376-time-needed-to-inform-all-employees/) |
 
 ---
 
@@ -483,9 +483,9 @@ While traversing, update a **global variable** tracking the best result. The rec
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 543 | Diameter of Binary Tree | [Link](https://leetcode.com/problems/diameter-of-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/06/easy-543-diameter-of-binary-tree/) |
+| 543 | Diameter of Binary Tree | [Link](https://leetcode.com/problems/diameter-of-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/06/easy-543-diameter-of-binary-tree/) |
 | 124 | Binary Tree Maximum Path Sum | [Link](https://leetcode.com/problems/binary-tree-maximum-path-sum/) | - |
-| 1448 | Count Good Nodes in Binary Tree | [Link](https://leetcode.com/problems/count-good-nodes-in-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/18/medium-1448-count-good-nodes-in-binary-tree/) |
+| 1448 | Count Good Nodes in Binary Tree | [Link](https://leetcode.com/problems/count-good-nodes-in-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/18/medium-1448-count-good-nodes-in-binary-tree/) |
 
 ---
 
@@ -501,8 +501,8 @@ Maintain a path from root to the current node. **Push → recurse → pop** (bac
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 112 | Path Sum | [Link](https://leetcode.com/problems/path-sum/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/06/easy-112-path-sum/) |
-| 113 | Path Sum II | [Link](https://leetcode.com/problems/path-sum-ii/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/06/medium-113-path-sum-ii/) |
+| 112 | Path Sum | [Link](https://leetcode.com/problems/path-sum/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/19/easy-112-path-sum/) |
+| 113 | Path Sum II | [Link](https://leetcode.com/problems/path-sum-ii/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/06/medium-113-path-sum-ii/) |
 | 257 | Binary Tree Paths | [Link](https://leetcode.com/problems/binary-tree-paths/) | - |
 
 ---
@@ -517,9 +517,9 @@ Traverse the tree **level by level** using a queue. Used for level processing, s
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 102 | Binary Tree Level Order Traversal | [Link](https://leetcode.com/problems/binary-tree-level-order-traversal/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/07/medium-102-binary-tree-level-order-traversal/) |
+| 102 | Binary Tree Level Order Traversal | [Link](https://leetcode.com/problems/binary-tree-level-order-traversal/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/07/medium-102-binary-tree-level-order-traversal/) |
 | 107 | Binary Tree Level Order Traversal II | [Link](https://leetcode.com/problems/binary-tree-level-order-traversal-ii/) | - |
-| 111 | Minimum Depth of Binary Tree | [Link](https://leetcode.com/problems/minimum-depth-of-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/19/easy-111-minimum-depth-of-binary-tree/) |
+| 111 | Minimum Depth of Binary Tree | [Link](https://leetcode.com/problems/minimum-depth-of-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/19/easy-111-minimum-depth-of-binary-tree/) |
 
 ---
 
@@ -535,7 +535,7 @@ Postorder DFS: if both subtrees contain a target, the current node is the LCA.
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 236 | Lowest Common Ancestor of a Binary Tree | [Link](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/19/medium-236-lowest-common-ancestor-of-a-binary-tree/) |
+| 236 | Lowest Common Ancestor of a Binary Tree | [Link](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/19/medium-236-lowest-common-ancestor-of-a-binary-tree/) |
 | 235 | Lowest Common Ancestor of a BST | [Link](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/) | - |
 
 ---
@@ -555,7 +555,7 @@ BST property: `left < root < right`. Inorder traversal produces sorted order. Th
 | 98 | Validate Binary Search Tree | [Link](https://leetcode.com/problems/validate-binary-search-tree/) | - |
 | 230 | Kth Smallest Element in a BST | [Link](https://leetcode.com/problems/kth-smallest-element-in-a-bst/) | - |
 | 235 | Lowest Common Ancestor of a BST | [Link](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/) | - |
-| 894 | All Possible Full Binary Trees | [Link](https://leetcode.com/problems/all-possible-full-binary-trees/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/04/12/medium-894-all-possible-full-binary-trees/) |
+| 894 | All Possible Full Binary Trees | [Link](https://leetcode.com/problems/all-possible-full-binary-trees/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/04/12/medium-894-all-possible-full-binary-trees/) |
 
 ---
 
@@ -587,10 +587,10 @@ Postorder : left → right → root
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 144 | Binary Tree Preorder Traversal | [Link](https://leetcode.com/problems/binary-tree-preorder-traversal/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/06/easy-144-binary-tree-preorder-traversal/) |
-| 94 | Binary Tree Inorder Traversal | [Link](https://leetcode.com/problems/binary-tree-inorder-traversal/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/06/easy-94-binary-tree-inorder-traversal/) |
-| 145 | Binary Tree Postorder Traversal | [Link](https://leetcode.com/problems/binary-tree-postorder-traversal/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/06/easy-145-binary-tree-postorder-traversal/) |
-| 104 | Maximum Depth of Binary Tree | [Link](https://leetcode.com/problems/maximum-depth-of-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/19/easy-104-maximum-depth-of-binary-tree/) |
+| 144 | Binary Tree Preorder Traversal | [Link](https://leetcode.com/problems/binary-tree-preorder-traversal/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/06/easy-144-binary-tree-preorder-traversal/) |
+| 94 | Binary Tree Inorder Traversal | [Link](https://leetcode.com/problems/binary-tree-inorder-traversal/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/06/easy-94-binary-tree-inorder-traversal/) |
+| 145 | Binary Tree Postorder Traversal | [Link](https://leetcode.com/problems/binary-tree-postorder-traversal/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/06/easy-145-binary-tree-postorder-traversal/) |
+| 104 | Maximum Depth of Binary Tree | [Link](https://leetcode.com/problems/maximum-depth-of-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/19/easy-104-maximum-depth-of-binary-tree/) |
 
 ---
 
@@ -604,11 +604,11 @@ Each recursive call returns information about its subtree. Process children firs
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 104 | Maximum Depth of Binary Tree | [Link](https://leetcode.com/problems/maximum-depth-of-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/19/easy-104-maximum-depth-of-binary-tree/) |
-| 110 | Balanced Binary Tree | [Link](https://leetcode.com/problems/balanced-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/06/easy-110-balanced-binary-tree/) |
-| 543 | Diameter of Binary Tree | [Link](https://leetcode.com/problems/diameter-of-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/06/easy-543-diameter-of-binary-tree/) |
+| 104 | Maximum Depth of Binary Tree | [Link](https://leetcode.com/problems/maximum-depth-of-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/19/easy-104-maximum-depth-of-binary-tree/) |
+| 110 | Balanced Binary Tree | [Link](https://leetcode.com/problems/balanced-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/06/easy-110-balanced-binary-tree/) |
+| 543 | Diameter of Binary Tree | [Link](https://leetcode.com/problems/diameter-of-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/06/easy-543-diameter-of-binary-tree/) |
 | 124 | Binary Tree Maximum Path Sum | [Link](https://leetcode.com/problems/binary-tree-maximum-path-sum/) | - |
-| 1376 | Time Needed to Inform All Employees | [Link](https://leetcode.com/problems/time-needed-to-inform-all-employees/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/17/medium-1376-time-needed-to-inform-all-employees/) |
+| 1376 | Time Needed to Inform All Employees | [Link](https://leetcode.com/problems/time-needed-to-inform-all-employees/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/17/medium-1376-time-needed-to-inform-all-employees/) |
 
 ---
 
@@ -622,9 +622,9 @@ While traversing, update a **global variable** tracking the best result. The rec
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 543 | Diameter of Binary Tree | [Link](https://leetcode.com/problems/diameter-of-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/06/easy-543-diameter-of-binary-tree/) |
+| 543 | Diameter of Binary Tree | [Link](https://leetcode.com/problems/diameter-of-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/06/easy-543-diameter-of-binary-tree/) |
 | 124 | Binary Tree Maximum Path Sum | [Link](https://leetcode.com/problems/binary-tree-maximum-path-sum/) | - |
-| 1448 | Count Good Nodes in Binary Tree | [Link](https://leetcode.com/problems/count-good-nodes-in-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/18/medium-1448-count-good-nodes-in-binary-tree/) |
+| 1448 | Count Good Nodes in Binary Tree | [Link](https://leetcode.com/problems/count-good-nodes-in-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/18/medium-1448-count-good-nodes-in-binary-tree/) |
 
 ---
 
@@ -638,8 +638,8 @@ Maintain a path from root to the current node. **Push → recurse → pop** (bac
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 112 | Path Sum | [Link](https://leetcode.com/problems/path-sum/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/06/easy-112-path-sum/) |
-| 113 | Path Sum II | [Link](https://leetcode.com/problems/path-sum-ii/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/06/medium-113-path-sum-ii/) |
+| 112 | Path Sum | [Link](https://leetcode.com/problems/path-sum/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/19/easy-112-path-sum/) |
+| 113 | Path Sum II | [Link](https://leetcode.com/problems/path-sum-ii/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/06/medium-113-path-sum-ii/) |
 | 257 | Binary Tree Paths | [Link](https://leetcode.com/problems/binary-tree-paths/) | - |
 
 ---
@@ -654,9 +654,9 @@ Traverse the tree **level by level** using a queue. Used for level processing, s
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 102 | Binary Tree Level Order Traversal | [Link](https://leetcode.com/problems/binary-tree-level-order-traversal/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/07/medium-102-binary-tree-level-order-traversal/) |
+| 102 | Binary Tree Level Order Traversal | [Link](https://leetcode.com/problems/binary-tree-level-order-traversal/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/07/medium-102-binary-tree-level-order-traversal/) |
 | 107 | Binary Tree Level Order Traversal II | [Link](https://leetcode.com/problems/binary-tree-level-order-traversal-ii/) | - |
-| 111 | Minimum Depth of Binary Tree | [Link](https://leetcode.com/problems/minimum-depth-of-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/19/easy-111-minimum-depth-of-binary-tree/) |
+| 111 | Minimum Depth of Binary Tree | [Link](https://leetcode.com/problems/minimum-depth-of-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/19/easy-111-minimum-depth-of-binary-tree/) |
 
 ---
 
@@ -670,7 +670,7 @@ Postorder DFS: if both subtrees contain a target, the current node is the LCA.
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 236 | Lowest Common Ancestor of a Binary Tree | [Link](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/19/medium-236-lowest-common-ancestor-of-a-binary-tree/) |
+| 236 | Lowest Common Ancestor of a Binary Tree | [Link](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/19/medium-236-lowest-common-ancestor-of-a-binary-tree/) |
 | 235 | Lowest Common Ancestor of a BST | [Link](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/) | - |
 
 ---
@@ -688,7 +688,7 @@ BST property: `left < root < right`. Inorder traversal produces sorted order. Th
 | 98 | Validate Binary Search Tree | [Link](https://leetcode.com/problems/validate-binary-search-tree/) | - |
 | 230 | Kth Smallest Element in a BST | [Link](https://leetcode.com/problems/kth-smallest-element-in-a-bst/) | - |
 | 235 | Lowest Common Ancestor of a BST | [Link](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/) | - |
-| 894 | All Possible Full Binary Trees | [Link](https://leetcode.com/problems/all-possible-full-binary-trees/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/04/12/medium-894-all-possible-full-binary-trees/) |
+| 894 | All Possible Full Binary Trees | [Link](https://leetcode.com/problems/all-possible-full-binary-trees/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/04/12/medium-894-all-possible-full-binary-trees/) |
 
 ---
 
@@ -801,7 +801,7 @@ static void dfs(TreeNode node, int[] path, int[][] result) {
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 112 | Path Sum | [Link](https://leetcode.com/problems/path-sum/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/06/easy-112-path-sum/) |
+| 112 | Path Sum | [Link](https://leetcode.com/problems/path-sum/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/19/easy-112-path-sum/) |
 | 113 | Path Sum II | [Link](https://leetcode.com/problems/path-sum-ii/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/06/medium-113-path-sum-ii/) |
 | 257 | Binary Tree Paths | [Link](https://leetcode.com/problems/binary-tree-paths/) | - |
 
@@ -910,28 +910,28 @@ Most tree interview problems are medium difficulty, DFS recursion, postorder rea
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 236 | Lowest Common Ancestor of a Binary Tree | [Link](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/19/medium-236-lowest-common-ancestor-of-a-binary-tree/) |
+| 236 | Lowest Common Ancestor of a Binary Tree | [Link](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/19/medium-236-lowest-common-ancestor-of-a-binary-tree/) |
 | 235 | Lowest Common Ancestor of a BST | [Link](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/) | - |
-| 1650 | Lowest Common Ancestor of a Binary Tree III | [Link](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree-iii/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-1650-lowest-common-ancestor-of-a-binary-tree-iii/) |
-| 270 | Closest Binary Search Tree Value | [Link](https://leetcode.com/problems/closest-binary-search-tree-value/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/12/30/easy-270-closest-binary-search-tree-value/) |
-| 285 | Inorder Successor in BST | [Link](https://leetcode.com/problems/inorder-successor-in-bst/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/12/30/medium-285-inorder-successor-in-bst/) |
-| 426 | Convert Binary Search Tree to Sorted Doubly Linked List | [Link](https://leetcode.com/problems/convert-binary-search-tree-to-sorted-doubly-linked-list/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-10-22-medium-426-convert-binary-search-tree-to-sorted-doubly-linked-list/) |
-| 938 | Range Sum of BST | [Link](https://leetcode.com/problems/range-sum-of-bst/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-easy-938-range-sum-of-bst/) |
-| 100 | Same Tree | [Link](https://leetcode.com/problems/same-tree/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/19/easy-100-same-tree/) |
-| 101 | Symmetric Tree | [Link](https://leetcode.com/problems/symmetric-tree/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/19/easy-101-symmetric-tree/) |
-| 104 | Maximum Depth of Binary Tree | [Link](https://leetcode.com/problems/maximum-depth-of-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/19/easy-104-maximum-depth-of-binary-tree/) |
-| 110 | Balanced Binary Tree | [Link](https://leetcode.com/problems/balanced-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/06/easy-110-balanced-binary-tree/) |
-| 111 | Minimum Depth of Binary Tree | [Link](https://leetcode.com/problems/minimum-depth-of-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/19/easy-111-minimum-depth-of-binary-tree/) |
-| 112 | Path Sum | [Link](https://leetcode.com/problems/path-sum/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/06/easy-112-path-sum/) |
-| 113 | Path Sum II | [Link](https://leetcode.com/problems/path-sum-ii/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/06/medium-113-path-sum-ii/) |
-| 226 | Invert Binary Tree | [Link](https://leetcode.com/problems/invert-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/19/easy-226-invert-binary-tree/) |
-| 543 | Diameter of Binary Tree | [Link](https://leetcode.com/problems/diameter-of-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/03/06/easy-543-diameter-of-binary-tree/) |
-| 437 | Path Sum III | [Link](https://leetcode.com/problems/path-sum-iii/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/19/medium-437-path-sum-iii/) |
-| 129 | Sum Root to Leaf Numbers | [Link](https://leetcode.com/problems/sum-root-to-leaf-numbers/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-129-sum-root-to-leaf-numbers/) |
-| 863 | All Nodes Distance K in Binary Tree | [Link](https://leetcode.com/problems/all-nodes-distance-k-in-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-10-25-medium-863-all-nodes-distance-k-in-binary-tree/) |
-| 545 | Boundary of Binary Tree | [Link](https://leetcode.com/problems/boundary-of-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-10-21-medium-545-boundary-of-binary-tree/) |
-| 993 | Cousins in Binary Tree | [Link](https://leetcode.com/problems/cousins-in-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/07/easy-993-cousins-in-binary-tree/) |
-| 1443 | Minimum Time to Collect All Apples in a Tree | [Link](https://leetcode.com/problems/minimum-time-to-collect-all-apples-in-a-tree/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/20/medium-1443-minimum-time-to-collect-all-apples-in-a-tree/) |
+| 1650 | Lowest Common Ancestor of a Binary Tree III | [Link](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree-iii/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/10/20/medium-1650-lowest-common-ancestor-of-a-binary-tree-iii/) |
+| 270 | Closest Binary Search Tree Value | [Link](https://leetcode.com/problems/closest-binary-search-tree-value/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/12/30/easy-270-closest-binary-search-tree-value/) |
+| 285 | Inorder Successor in BST | [Link](https://leetcode.com/problems/inorder-successor-in-bst/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/12/30/medium-285-inorder-successor-in-bst/) |
+| 426 | Convert Binary Search Tree to Sorted Doubly Linked List | [Link](https://leetcode.com/problems/convert-binary-search-tree-to-sorted-doubly-linked-list/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-22-medium-426-convert-binary-search-tree-to-sorted-doubly-linked-list/) |
+| 938 | Range Sum of BST | [Link](https://leetcode.com/problems/range-sum-of-bst/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-24-easy-938-range-sum-of-bst/) |
+| 100 | Same Tree | [Link](https://leetcode.com/problems/same-tree/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/19/easy-100-same-tree/) |
+| 101 | Symmetric Tree | [Link](https://leetcode.com/problems/symmetric-tree/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/19/easy-101-symmetric-tree/) |
+| 104 | Maximum Depth of Binary Tree | [Link](https://leetcode.com/problems/maximum-depth-of-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/19/easy-104-maximum-depth-of-binary-tree/) |
+| 110 | Balanced Binary Tree | [Link](https://leetcode.com/problems/balanced-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/06/easy-110-balanced-binary-tree/) |
+| 111 | Minimum Depth of Binary Tree | [Link](https://leetcode.com/problems/minimum-depth-of-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/19/easy-111-minimum-depth-of-binary-tree/) |
+| 112 | Path Sum | [Link](https://leetcode.com/problems/path-sum/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/19/easy-112-path-sum/) |
+| 113 | Path Sum II | [Link](https://leetcode.com/problems/path-sum-ii/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/06/medium-113-path-sum-ii/) |
+| 226 | Invert Binary Tree | [Link](https://leetcode.com/problems/invert-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/19/easy-226-invert-binary-tree/) |
+| 543 | Diameter of Binary Tree | [Link](https://leetcode.com/problems/diameter-of-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/06/easy-543-diameter-of-binary-tree/) |
+| 437 | Path Sum III | [Link](https://leetcode.com/problems/path-sum-iii/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-19-medium-437-path-sum-iii/) |
+| 129 | Sum Root to Leaf Numbers | [Link](https://leetcode.com/problems/sum-root-to-leaf-numbers/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-24-medium-129-sum-root-to-leaf-numbers/) |
+| 863 | All Nodes Distance K in Binary Tree | [Link](https://leetcode.com/problems/all-nodes-distance-k-in-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-25-medium-863-all-nodes-distance-k-in-binary-tree/) |
+| 545 | Boundary of Binary Tree | [Link](https://leetcode.com/problems/boundary-of-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-21-medium-545-boundary-of-binary-tree/) |
+| 993 | Cousins in Binary Tree | [Link](https://leetcode.com/problems/cousins-in-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/07/easy-993-cousins-in-binary-tree/) |
+| 1443 | Minimum Time to Collect All Apples in a Tree | [Link](https://leetcode.com/problems/minimum-time-to-collect-all-apples-in-a-tree/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/10/20/medium-1443-minimum-time-to-collect-all-apples-in-a-tree/) |
 
 ```java
 int K = 17; List<Integer> depth = new ArrayList<>(); vector<array<int,K+1>> up;
@@ -955,11 +955,11 @@ static int lca(int a,int b){ if(depth[a]<depth[b]) swap(a,b); a=lift(a, depth[a]
 | 104 | Maximum Depth of Binary Tree | [Link](https://leetcode.com/problems/maximum-depth-of-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/19/easy-104-maximum-depth-of-binary-tree/) |
 | 110 | Balanced Binary Tree | [Link](https://leetcode.com/problems/balanced-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/06/easy-110-balanced-binary-tree/) |
 | 111 | Minimum Depth of Binary Tree | [Link](https://leetcode.com/problems/minimum-depth-of-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/19/easy-111-minimum-depth-of-binary-tree/) |
-| 112 | Path Sum | [Link](https://leetcode.com/problems/path-sum/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/06/easy-112-path-sum/) |
+| 112 | Path Sum | [Link](https://leetcode.com/problems/path-sum/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/19/easy-112-path-sum/) |
 | 113 | Path Sum II | [Link](https://leetcode.com/problems/path-sum-ii/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/06/medium-113-path-sum-ii/) |
 | 226 | Invert Binary Tree | [Link](https://leetcode.com/problems/invert-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/19/easy-226-invert-binary-tree/) |
 | 543 | Diameter of Binary Tree | [Link](https://leetcode.com/problems/diameter-of-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/06/easy-543-diameter-of-binary-tree/) |
-| 437 | Path Sum III | [Link](https://leetcode.com/problems/path-sum-iii/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/10/19/medium-437-path-sum-iii/) |
+| 437 | Path Sum III | [Link](https://leetcode.com/problems/path-sum-iii/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-19-medium-437-path-sum-iii/) |
 | 129 | Sum Root to Leaf Numbers | [Link](https://leetcode.com/problems/sum-root-to-leaf-numbers/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-24-medium-129-sum-root-to-leaf-numbers/) |
 | 863 | All Nodes Distance K in Binary Tree | [Link](https://leetcode.com/problems/all-nodes-distance-k-in-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-25-medium-863-all-nodes-distance-k-in-binary-tree/) |
 | 545 | Boundary of Binary Tree | [Link](https://leetcode.com/problems/boundary-of-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-21-medium-545-boundary-of-binary-tree/) |
@@ -1097,31 +1097,31 @@ Instead of doing a binary search over an index and then a segment tree query ($O
 | ID | Title | Link | Solution |
 |---|---|---|---|
 | 303 | Range Sum Query - Immutable | [Link](https://leetcode.com/problems/range-sum-query-immutable/) | - |
-| 307 | Range Sum Query - Mutable | [Link](https://leetcode.com/problems/range-sum-query-mutable/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/16/medium-307-range-sum-query-mutable/) |
+| 307 | Range Sum Query - Mutable | [Link](https://leetcode.com/problems/range-sum-query-mutable/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/16/medium-307-range-sum-query-mutable/) |
 
 ### Medium
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 307 | Range Sum Query - Mutable | [Link](https://leetcode.com/problems/range-sum-query-mutable/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/16/medium-307-range-sum-query-mutable/) |
+| 307 | Range Sum Query - Mutable | [Link](https://leetcode.com/problems/range-sum-query-mutable/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/16/medium-307-range-sum-query-mutable/) |
 | 308 | Range Sum Query 2D - Mutable | [Link](https://leetcode.com/problems/range-sum-query-2d-mutable/) | - |
 | 715 | Range Module | [Link](https://leetcode.com/problems/range-module/) | - |
-| 729 | My Calendar I | [Link](https://leetcode.com/problems/my-calendar-i/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/17/medium-729-my-calendar-i/) |
+| 729 | My Calendar I | [Link](https://leetcode.com/problems/my-calendar-i/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/17/medium-729-my-calendar-i/) |
 | 731 | My Calendar II | [Link](https://leetcode.com/problems/my-calendar-ii/) | - |
 | 1177 | Can Make Palindrome from Substring | [Link](https://leetcode.com/problems/can-make-palindrome-from-substring/) | - |
 | 1505 | Minimum Possible Integer After at Most K Swaps | [Link](https://leetcode.com/problems/minimum-possible-integer-after-at-most-k-adjacent-swaps-on-digits/) | - |
 | 1649 | Create Sorted Array through Instructions | [Link](https://leetcode.com/problems/create-sorted-array-through-instructions/) | - |
-| 3477 | Number of Unplaced Fruits | [Link](https://leetcode.com/problems/number-of-unplaced-fruits/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/16/medium-3477-number-of-unplaced-fruits/) |
+| 3477 | Number of Unplaced Fruits | [Link](https://leetcode.com/problems/number-of-unplaced-fruits/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/16/medium-3477-number-of-unplaced-fruits/) |
 
 ### Hard
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 218 | The Skyline Problem | [Link](https://leetcode.com/problems/the-skyline-problem/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/05/hard-218-skyline-problem/) |
+| 218 | The Skyline Problem | [Link](https://leetcode.com/problems/the-skyline-problem/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-05-hard-218-skyline-problem/) |
 | 699 | Falling Squares | [Link](https://leetcode.com/problems/falling-squares/) | - |
 | 715 | Range Module | [Link](https://leetcode.com/problems/range-module/) | - |
-| 732 | My Calendar III | [Link](https://leetcode.com/problems/my-calendar-iii/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/18/hard-732-my-calendar-iii/) |
-| 850 | Rectangle Area II | [Link](https://leetcode.com/problems/rectangle-area-ii/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-12-16-hard-850-rectangle-area-ii/) |
+| 732 | My Calendar III | [Link](https://leetcode.com/problems/my-calendar-iii/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/18/hard-732-my-calendar-iii/) |
+| 850 | Rectangle Area II | [Link](https://leetcode.com/problems/rectangle-area-ii/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-12-16-hard-850-rectangle-area-ii/) |
 | 1157 | Online Majority Element In Subarray | [Link](https://leetcode.com/problems/online-majority-element-in-subarray/) | - |
 | 2407 | Longest Increasing Subsequence II | [Link](https://leetcode.com/problems/longest-increasing-subsequence-ii/) | - |
 
@@ -1374,7 +1374,7 @@ static int findFirst(Node node, int l, int r, int x) {
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 218 | The Skyline Problem | [Link](https://leetcode.com/problems/the-skyline-problem/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/10/05/hard-218-skyline-problem/) |
+| 218 | The Skyline Problem | [Link](https://leetcode.com/problems/the-skyline-problem/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-05-hard-218-skyline-problem/) |
 | 699 | Falling Squares | [Link](https://leetcode.com/problems/falling-squares/) | - |
 | 715 | Range Module | [Link](https://leetcode.com/problems/range-module/) | - |
 | 732 | My Calendar III | [Link](https://leetcode.com/problems/my-calendar-iii/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/18/hard-732-my-calendar-iii/) |
@@ -1444,9 +1444,9 @@ Fenwick Tree (also known as Binary Indexed Tree or BIT) is a data structure that
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 307 | Range Sum Query - Mutable | [Link](https://leetcode.com/problems/range-sum-query-mutable/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/16/medium-307-range-sum-query-mutable/) |
+| 307 | Range Sum Query - Mutable | [Link](https://leetcode.com/problems/range-sum-query-mutable/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/16/medium-307-range-sum-query-mutable/) |
 | 308 | Range Sum Query 2D - Mutable | [Link](https://leetcode.com/problems/range-sum-query-2d-mutable/) | - |
-| 315 | Count of Smaller Numbers After Self | [Link](https://leetcode.com/problems/count-of-smaller-numbers-after-self/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/17/hard-315-count-of-smaller-numbers-after-self/) |
+| 315 | Count of Smaller Numbers After Self | [Link](https://leetcode.com/problems/count-of-smaller-numbers-after-self/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/17/hard-315-count-of-smaller-numbers-after-self/) |
 | 327 | Count of Range Sum | [Link](https://leetcode.com/problems/count-of-range-sum/) | - |
 | 493 | Reverse Pairs | [Link](https://leetcode.com/problems/reverse-pairs/) | - |
 | 1649 | Create Sorted Array through Instructions | [Link](https://leetcode.com/problems/create-sorted-array-through-instructions/) | - |
@@ -1640,7 +1640,7 @@ static void dfs2(int u,int h){ headH[u]=h; inH[u]=curT++; if(heavyH[u]!=-1){ dfs
 > Note: HLD is rarely required on LeetCode.
 
 ## More templates
-- **Beginner's Guide:** [LeetCode Beginner's Guide](/2026/06/25/leetcode-beginners-guide/)
+- **Beginner's Guide:** [LeetCode Beginner's Guide](/blog_leetcode_java/posts/2026-06-25-leetcode-beginners-guide/)
 - **Data structures (segment tree, Fenwick, DSU):** [Data Structures & Core Algorithms](/posts/2025-10-29-leetcode-templates-data-structures/)
 - **Graph (BFS, Dijkstra, topo):** [Graph](/posts/2025-10-29-leetcode-templates-graph/)
 - **Search (binary search, 2D):** [Search](/posts/2026-01-20-leetcode-templates-search/)

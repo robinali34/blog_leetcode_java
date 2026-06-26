@@ -1,8 +1,10 @@
 ---
+
 layout: post
 title: "Java Collections Quick Reference for LeetCode"
 date: 2025-09-23 23:33:00 -0000
 categories: leetcode algorithm java data-structures reference cheat-sheet programming java-collections containers iterators algorithms competitive-programming
+permalink: /posts/2025-09-23-java-cheatsheet/
 ---
 
 # Java Collections Quick Reference for LeetCode

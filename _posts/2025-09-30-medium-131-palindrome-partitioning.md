@@ -1,8 +1,10 @@
 ---
+
 layout: post
 title: "[Medium] 131. Palindrome Partitioning"
 date: 2025-09-30 00:00:00 -0000
 categories: leetcode algorithm backtracking data-structures string palindrome recursion medium java partitioning problem-solving
+permalink: /posts/2025-09-30-medium-131-palindrome-partitioning/
 ---
 
 # [Medium] 131. Palindrome Partitioning

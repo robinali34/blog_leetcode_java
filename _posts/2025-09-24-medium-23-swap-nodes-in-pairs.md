@@ -1,8 +1,10 @@
 ---
+
 layout: post
 title: "[Medium] 24. Swap Nodes in Pairs"
 date: 2025-09-24 15:11:00 -0000
 categories: leetcode algorithm linked-list recursive data-structures pointers medium java swap-nodes recursion iterative problem-solving
+permalink: /posts/2025-09-24-medium-23-swap-nodes-in-pairs/
 ---
 
 # [Medium] 24. Swap Nodes in Pairs

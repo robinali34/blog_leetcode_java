@@ -1,8 +1,10 @@
 ---
+
 layout: post
 title: "[Easy] 206. Reverse Linked List"
 date: 2025-11-16 00:00:00 -0800
 categories: leetcode algorithm easy java linked-list recursion iteration problem-solving
+permalink: /posts/2025-11-16-easy-206-reverse-linked-list/
 ---
 
 # [Easy] 206. Reverse Linked List

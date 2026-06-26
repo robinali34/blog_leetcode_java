@@ -1,8 +1,10 @@
 ---
+
 layout: post
 title: "[Medium] 1856. Maximum Sum of Minimum Product"
 date: 2025-10-17 22:36:25 -0700
 categories: leetcode algorithm medium java stack monotonic-stack prefix-sum problem-solving
+permalink: /posts/2025-10-17-medium-1856-maximum-sum-of-minimum-product/
 ---
 
 # [Medium] 1856. Maximum Sum of Minimum Product

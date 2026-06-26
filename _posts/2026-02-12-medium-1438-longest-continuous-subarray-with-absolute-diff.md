@@ -119,5 +119,5 @@ class Solution {
 
 ## Template Reference
 
-- [Monotonic Queue / Sliding Window](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-data-structures/#monotonic-queue)
+- [Monotonic Queue / Sliding Window](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-data-structures/#monotonic-queue/)
 

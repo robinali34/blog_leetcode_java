@@ -1,8 +1,10 @@
 ---
+
 layout: post
 title: "[Medium] 2799. Count Complete Subarrays in an Array"
 date: 2025-10-17 10:09:13 -0700
 categories: leetcode algorithm medium java sliding-window hash-map problem-solving
+permalink: /posts/2025-10-17-medium-2799-count-complete-subarrays-in-an-array/
 ---
 
 # [Medium] 2799. Count Complete Subarrays in an Array

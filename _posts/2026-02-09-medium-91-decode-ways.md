@@ -147,4 +147,4 @@ class Solution {
 
 ## Template Reference
 
-See [Dynamic Programming Templates: 1D DP](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-dp/#1d-dp-knapsacklinear) for more similar patterns.
+See [Dynamic Programming Templates: 1D DP](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-dp/#1d-dp-knapsacklinear/) for more similar patterns.

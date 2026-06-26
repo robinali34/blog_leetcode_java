@@ -3,7 +3,7 @@ layout: post
 title: "[Hard] 315. Count of Smaller Numbers After Self"
 date: 2026-01-15 00:00:00 -0700
 categories: [leetcode, hard, array, binary-search, divide-and-conquer, binary-indexed-tree, segment-tree, merge-sort]
-permalink: /2026/01/15/hard-315-count-of-smaller-numbers-after-self/
+permalink: /2026/01/17/hard-315-count-of-smaller-numbers-after-self/
 tags: [leetcode, hard, array, fenwick-tree, binary-indexed-tree, coordinate-compression, inversion-count]
 ---
 
@@ -347,7 +347,7 @@ Similar to Fenwick Tree but with explicit segment tree structure.
 - [LC 327: Count of Range Sum](https://leetcode.com/problems/count-of-range-sum/) - Similar inversion counting
 - [LC 493: Reverse Pairs](https://leetcode.com/problems/reverse-pairs/) - Count inversions with condition
 - [LC 1649: Create Sorted Array through Instructions](https://leetcode.com/problems/create-sorted-array-through-instructions/) - Fenwick Tree for cost calculation
-- [LC 307: Range Sum Query - Mutable](https://robinali34.github.io/blog_leetcode_java/2026/01/15/medium-307-range-sum-query-mutable/) - Fenwick Tree basics
+- [LC 307: Range Sum Query - Mutable](https://robinali34.github.io/blog_leetcode_java/2026/01/16/medium-307-range-sum-query-mutable/) - Fenwick Tree basics
 
 ---
 

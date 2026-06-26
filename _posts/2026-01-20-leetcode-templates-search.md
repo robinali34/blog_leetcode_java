@@ -194,9 +194,9 @@ Standard: `[0, n-1]`, `left <= right`. Lower/upper bound: `[0, n]`, `left < righ
 | 704 | Binary Search | [Link](https://leetcode.com/problems/binary-search/) | - |
 | 34 | Find First and Last Position | [Link](https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/) | - |
 | 35 | Search Insert Position | [Link](https://leetcode.com/problems/search-insert-position/) | - |
-| 528 | Random Pick with Weight | [Link](https://leetcode.com/problems/random-pick-with-weight/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-528-random-pick-with-weight/) |
-| 300 | Longest Increasing Subsequence | [Link](https://leetcode.com/problems/longest-increasing-subsequence/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-300-longest-increasing-subsequence/) |
-| 673 | Number of Longest Increasing Subsequence | [Link](https://leetcode.com/problems/number-of-longest-increasing-subsequence/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/09/medium-673-number-of-longest-increasing-subsequence/) |
+| 528 | Random Pick with Weight | [Link](https://leetcode.com/problems/random-pick-with-weight/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-24-medium-528-random-pick-with-weight/) |
+| 300 | Longest Increasing Subsequence | [Link](https://leetcode.com/problems/longest-increasing-subsequence/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-17-medium-300-longest-increasing-subsequence/) |
+| 673 | Number of Longest Increasing Subsequence | [Link](https://leetcode.com/problems/number-of-longest-increasing-subsequence/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/09/medium-673-number-of-longest-increasing-subsequence/) |
 
 ```java
 static int bsearch(int[] a, int target) {
@@ -243,7 +243,7 @@ int[]searchRange(int[] nums, int target) {
 | 34 | Find First and Last Position | [Link](https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/) | - |
 | 35 | Search Insert Position | [Link](https://leetcode.com/problems/search-insert-position/) | - |
 | 528 | Random Pick with Weight | [Link](https://leetcode.com/problems/random-pick-with-weight/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-24-medium-528-random-pick-with-weight/) |
-| 300 | Longest Increasing Subsequence | [Link](https://leetcode.com/problems/longest-increasing-subsequence/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/10/17/medium-300-longest-increasing-subsequence/) |
+| 300 | Longest Increasing Subsequence | [Link](https://leetcode.com/problems/longest-increasing-subsequence/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-17-medium-300-longest-increasing-subsequence/) |
 | 673 | Number of Longest Increasing Subsequence | [Link](https://leetcode.com/problems/number-of-longest-increasing-subsequence/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/09/medium-673-number-of-longest-increasing-subsequence/) |
 
 ## Binary search on rotated array
@@ -253,7 +253,7 @@ int[]searchRange(int[] nums, int target) {
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 33 | Search in Rotated Sorted Array | [Link](https://leetcode.com/problems/search-in-rotated-sorted-array/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/09/23/medium-33-search-in-rotated-sorted-array/) |
+| 33 | Search in Rotated Sorted Array | [Link](https://leetcode.com/problems/search-in-rotated-sorted-array/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-09-23-medium-33-search-in-rotated-sorted-array/) |
 | 81 | Search in Rotated Sorted Array II | [Link](https://leetcode.com/problems/search-in-rotated-sorted-array-ii/) | - |
 | 153 | Find Minimum in Rotated Sorted Array | [Link](https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/) | - |
 | 154 | Find Minimum in Rotated Sorted Array II | [Link](https://leetcode.com/problems/find-minimum-in-rotated-sorted-array-ii/) | - |
@@ -288,7 +288,7 @@ static int findMin_rotated(int[] nums) {
 
 | ID | Title | Link | Solution |
 |---|---|---|---|
-| 33 | Search in Rotated Sorted Array | [Link](https://leetcode.com/problems/search-in-rotated-sorted-array/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/09/23/medium-33-search-in-rotated-sorted-array/) |
+| 33 | Search in Rotated Sorted Array | [Link](https://leetcode.com/problems/search-in-rotated-sorted-array/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-09-23-medium-33-search-in-rotated-sorted-array/) |
 | 81 | Search in Rotated Sorted Array II | [Link](https://leetcode.com/problems/search-in-rotated-sorted-array-ii/) | - |
 | 153 | Find Minimum in Rotated Sorted Array | [Link](https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/) | - |
 | 154 | Find Minimum in Rotated Sorted Array II | [Link](https://leetcode.com/problems/find-minimum-in-rotated-sorted-array-ii/) | - |
@@ -379,8 +379,8 @@ Row/col sorted (240): start top-right, move left or down. Fully sorted row-major
 | ID | Title | Link | Solution |
 |---|---|---|---|
 | 74 | Search a 2D Matrix | [Link](https://leetcode.com/problems/search-a-2d-matrix/) | - |
-| 240 | Search a 2D Matrix II | [Link](https://leetcode.com/problems/search-a-2d-matrix-ii/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/07/medium-240-search-a-2d-matrix-ii/) |
-| 270 | Closest Binary Search Tree Value | [Link](https://leetcode.com/problems/closest-binary-search-tree-value/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/12/30/easy-270-closest-binary-search-tree-value/) |
+| 240 | Search a 2D Matrix II | [Link](https://leetcode.com/problems/search-a-2d-matrix-ii/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-06-medium-240-search-a-2d-matrix-ii/) |
+| 270 | Closest Binary Search Tree Value | [Link](https://leetcode.com/problems/closest-binary-search-tree-value/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/12/30/easy-270-closest-binary-search-tree-value/) |
 
 ```java
 static boolean search2D_rc(int[][] mat, int target) {
@@ -411,7 +411,7 @@ static boolean search2D_flat(int[][] mat, int target) {
 | ID | Title | Link | Solution |
 |---|---|---|---|
 | 74 | Search a 2D Matrix | [Link](https://leetcode.com/problems/search-a-2d-matrix/) | - |
-| 240 | Search a 2D Matrix II | [Link](https://leetcode.com/problems/search-a-2d-matrix-ii/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/10/07/medium-240-search-a-2d-matrix-ii/) |
+| 240 | Search a 2D Matrix II | [Link](https://leetcode.com/problems/search-a-2d-matrix-ii/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-06-medium-240-search-a-2d-matrix-ii/) |
 | 270 | Closest Binary Search Tree Value | [Link](https://leetcode.com/problems/closest-binary-search-tree-value/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/12/30/easy-270-closest-binary-search-tree-value/) |
 
 ## Advanced
@@ -438,5 +438,5 @@ static boolean search2D_flat(int[][] mat, int target) {
 - **Data structures (binary search bounds, prefix sum, segment tree, BIT):** [Data Structures & Core Algorithms](/posts/2025-10-29-leetcode-templates-data-structures/)
 - **Graph (BFS, Dijkstra, topo):** [Graph](/posts/2025-10-29-leetcode-templates-graph/)
 - **Master index:** [Categories & Templates](/posts/2025-10-29-leetcode-categories-and-templates/)
-- **Beginner's Guide:** [LeetCode Beginner's Guide](/2026/06/25/leetcode-beginners-guide/)
+- **Beginner's Guide:** [LeetCode Beginner's Guide](/blog_leetcode_java/posts/2026-06-25-leetcode-beginners-guide/)
 {% endraw %}

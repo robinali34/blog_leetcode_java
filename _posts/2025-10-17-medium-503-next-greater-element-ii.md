@@ -1,8 +1,10 @@
 ---
+
 layout: post
 title: "[Medium] 503. Next Greater Element II"
 date: 2025-10-17 11:03:18 -0700
 categories: leetcode algorithm medium java monotonic-stack stack problem-solving
+permalink: /posts/2025-10-17-medium-503-next-greater-element-ii/
 ---
 
 # [Medium] 503. Next Greater Element II

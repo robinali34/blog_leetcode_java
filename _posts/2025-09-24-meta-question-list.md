@@ -1,8 +1,10 @@
 ---
+
 layout: post
 title: "Meta‑Style LeetCode Question List"
 date: 2025-09-24 16:00:00 -0000
 categories: leetcode algorithm meta interview-preparation practice-list faang coding-interview problem-solving competitive-programming data-structures
+permalink: /posts/2025-09-24-meta-question-list/
 ---
 
 # Meta‑Style LeetCode Question List

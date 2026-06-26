@@ -1,8 +1,10 @@
 ---
+
 layout: post
 title: "[Medium] 1570. Dot Product of Two Sparse Vectors"
 date: 2025-10-19 20:05:38 -0700
 categories: leetcode algorithm medium java hash-map data-structure optimization problem-solving
+permalink: /posts/2025-10-19-medium-1570-dot-product-of-two-sparse-vectors/
 ---
 
 # [Medium] 1570. Dot Product of Two Sparse Vectors

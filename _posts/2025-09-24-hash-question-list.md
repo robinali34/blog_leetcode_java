@@ -1,8 +1,10 @@
 ---
+
 layout: post
 title: "Hash Table Mastery List"
 date: 2025-09-24 16:00:00 -0000
 categories: leetcode algorithm hash data-structures interview-preparation practice-list hash-table hash-map problem-solving competitive-programming
+permalink: /posts/2025-09-24-hash-question-list/
 ---
 
 # 🧩 Hash Table Mastery List

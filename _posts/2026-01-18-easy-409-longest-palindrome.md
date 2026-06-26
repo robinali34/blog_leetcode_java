@@ -318,7 +318,7 @@ class Solution {
 
 - [LC 5: Longest Palindromic Substring](https://robinali34.github.io/blog_leetcode_java/2026/01/08/medium-5-longest-palindromic-substring/) - Find longest palindrome substring
 - [LC 125: Valid Palindrome](https://leetcode.com/problems/valid-palindrome/) - Check if string is palindrome
-- [LC 131: Palindrome Partitioning](https://robinali34.github.io/blog_leetcode_java/2025/09/30/medium-131-palindrome-partitioning/) - Partition into palindromes
+- [LC 131: Palindrome Partitioning](https://robinali34.github.io/blog_leetcode_java/posts/2025-09-30-medium-131-palindrome-partitioning/) - Partition into palindromes
 - [LC 647: Palindromic Substrings](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-24-medium-647-palindromic-substrings/) - Count palindromic substrings
 - [LC 1177: Can Make Palindrome from Substring](https://robinali34.github.io/blog_leetcode_java/2026/01/01/medium-1177-can-make-palindrome-from-substring/) - Check if substring can form palindrome
 - [LC 1400: Construct K Palindrome Strings](https://robinali34.github.io/blog_leetcode_java/2026/01/04/medium-1400-construct-k-palindrome-strings/) - Construct multiple palindromes

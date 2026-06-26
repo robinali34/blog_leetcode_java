@@ -1,8 +1,10 @@
 ---
+
 layout: post
 title: "[Medium] 912. Sort an Array"
 date: 2025-10-06 00:00:00 -0000
 categories: leetcode algorithm medium java sorting merge-sort heap-sort counting-sort data-structures divide-conquer problem-solving
+permalink: /posts/2025-10-06-medium-912-sort-an-array/
 ---
 
 # [Medium] 912. Sort an Array

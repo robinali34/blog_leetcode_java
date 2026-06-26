@@ -1,8 +1,10 @@
 ---
+
 layout: post
 title: "[Medium] 240. Search a 2D Matrix II"
 date: 2025-10-07 22:01:10 -0700
 categories: leetcode algorithm medium java binary-search matrix 2d-array divide-conquer search optimization problem-solving
+permalink: /posts/2025-10-06-medium-240-search-a-2d-matrix-ii/
 ---
 
 # [Medium] 240. Search a 2D Matrix II
