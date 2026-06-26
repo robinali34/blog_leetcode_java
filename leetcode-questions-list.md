@@ -54,17 +54,20 @@ See the **All LeetCode Problems** table below for concrete problems in each cate
 11. **Sweep Line** - [template](https://robinali34.github.io/blog_leetcode_java/posts/2025-12-14-leetcode-templates-greedy/)
 12. **Data Structure Design** - [template](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-24-leetcode-templates-data-structure-design/)
 
-## Tips for Problem Solving
+## Guides & References
 
-1. **Identify the Pattern:** Look for common algorithm patterns (DP, sliding window, etc.)
-2. **Start Simple:** Begin with brute force, then optimize
-3. **Use Data Structures:** Choose appropriate DS for the problem
-4. **Consider Edge Cases:** Handle boundary conditions
-5. **Optimize Space/Time:** Trade-offs between complexity and efficiency
+New to LeetCode or Java? Start here. For a curated interview path, see the [NeetCode 150](https://neetcode.io/practice/practice/neetcode150) list (full breakdown in the Beginner's Guide).
+
+| Guide | Description |
+|---|---|
+| [LeetCode Beginner's Guide](/blog_leetcode_java/2026/06/25/leetcode-beginners-guide/) | What LeetCode is, how it works, difficulty levels, Blind 75, **NeetCode 150 full problem list**, and a step-by-step roadmap |
+| [Java Guide](/blog_leetcode_java/java-guide/) | Learn Java for LeetCode — language essentials, collections, patterns, and modern Java features |
+| [LeetCode Templates Index](/blog_leetcode_java/leetcode-templates/) | All algorithm pattern templates with relationship diagram |
+| [NeetCode 150 (official)](https://neetcode.io/practice/practice/neetcode150) | 150 curated problems with progress tracking on NeetCode |
 
 ---
 
-*Last updated: April 20, 2026*
+*Last updated: June 25, 2026*
 *Total problems solved: 313*
 
 ## All LeetCode Problems

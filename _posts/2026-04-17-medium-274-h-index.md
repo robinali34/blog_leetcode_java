@@ -78,13 +78,17 @@ Yes -- since `h` can be at most `n`, we can use counting sort to get $O(n)$.
 
 {% raw %}
 ```java
+import java.util.*;
+
 class Solution {
-        public int hIndex(int[] citations) {
-        sort(citations /* elements of citations */, greater<int>());
-        for (int i = 0; i < citations.size(); ++i) {
-            if (citations[i] < i + 1) return i;
+    public int hIndex(int[] citations) {
+        Integer[] sorted = new Integer[citations.length];
+        for (int i = 0; i < citations.length; i++) sorted[i] = citations[i];
+        Arrays.sort(sorted, Collections.reverseOrder());
+        for (int i = 0; i < sorted.length; i++) {
+            if (sorted[i] < i + 1) return i;
         }
-        return citations.size();
+        return citations.length;
     }
 }
 ```
@@ -97,8 +101,8 @@ If every paper has enough citations, the loop finishes without returning, and `h
 {% raw %}
 ```java
 class Solution {
-        public int hIndex(int[] citations) {
-        int n = citations.size();
+    public int hIndex(int[] citations) {
+        int n = citations.length;
         int[] count = new int[n + 1];
 
         for (int c : citations) {
@@ -106,7 +110,7 @@ class Solution {
         }
 
         int total = 0;
-        for (int h = n; h >= 0; --h) {
+        for (int h = n; h >= 0; h--) {
             total += count[h];
             if (total >= h) return h;
         }
@@ -160,3 +164,8 @@ Scan from h=5:  total=2, 2 >= 5?  no
 - [275. H-Index II](https://leetcode.com/problems/h-index-ii/) -- sorted input, use binary search for $O(\log n)$
 - [287. Find the Duplicate Number](https://leetcode.com/problems/find-the-duplicate-number/) -- counting / pigeonhole
 - [169. Majority Element](https://leetcode.com/problems/majority-element/) -- finding a threshold in an array
+
+## Template Reference
+
+- [Greedy (Sorting + Greedy)](/blog_leetcode_java/posts/2025-12-14-leetcode-templates-greedy/)
+- [Arrays & Strings](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-arrays-strings/)

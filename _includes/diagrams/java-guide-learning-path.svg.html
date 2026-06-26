@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 420" role="img" aria-labelledby="javaPathTitle javaPathDesc" class="template-diagram-svg">
+  <title id="javaPathTitle">Java Learning Path for LeetCode</title>
+  <desc id="javaPathDesc">Recommended progression from language basics to collections, patterns, and template practice.</desc>
+  <defs>
+    <style>
+      .phase { fill: #fff; stroke: #B8B5B0; stroke-width: 1.4; }
+      .phase-active { fill: #E8D5D0; stroke: #8B8680; stroke-width: 1.5; }
+      .title { font: 600 15px ui-sans-serif, system-ui, sans-serif; fill: #5A5752; }
+      .label { font: 600 12px ui-sans-serif, system-ui, sans-serif; fill: #5A5752; }
+      .hint { font: 400 10.5px ui-sans-serif, system-ui, sans-serif; fill: #7A7772; }
+      .arrow { stroke: #9A9792; stroke-width: 1.6; fill: none; marker-end: url(#java-path-arrow); }
+    </style>
+    <marker id="java-path-arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#9A9792"/>
+    </marker>
+  </defs>
+
+  <rect width="980" height="420" fill="#FAF7F2" rx="12"/>
+  <text x="490" y="32" text-anchor="middle" class="title">Java learning path for LeetCode</text>
+  <text x="490" y="52" text-anchor="middle" class="hint">Build foundations first, then collections, then reusable patterns and template practice.</text>
+
+  <rect x="30" y="90" width="160" height="72" class="phase-active" rx="10"/>
+  <text x="110" y="118" text-anchor="middle" class="label">1. Language</text>
+  <text x="110" y="136" text-anchor="middle" class="hint">types · arrays · strings</text>
+  <text x="110" y="150" text-anchor="middle" class="hint">control flow · methods</text>
+
+  <line x1="190" y1="126" x2="218" y2="126" class="arrow"/>
+
+  <rect x="220" y="90" width="160" height="72" class="phase" rx="10"/>
+  <text x="300" y="118" text-anchor="middle" class="label">2. Collections</text>
+  <text x="300" y="136" text-anchor="middle" class="hint">HashMap · Set · Deque</text>
+  <text x="300" y="150" text-anchor="middle" class="hint">PriorityQueue · sort</text>
+
+  <line x1="380" y1="126" x2="408" y2="126" class="arrow"/>
+
+  <rect x="410" y="90" width="160" height="72" class="phase" rx="10"/>
+  <text x="490" y="118" text-anchor="middle" class="label">3. Patterns</text>
+  <text x="490" y="136" text-anchor="middle" class="hint">two pointers · windows</text>
+  <text x="490" y="150" text-anchor="middle" class="hint">BFS · DFS · binary search</text>
+
+  <line x1="570" y1="126" x2="598" y2="126" class="arrow"/>
+
+  <rect x="600" y="90" width="160" height="72" class="phase" rx="10"/>
+  <text x="680" y="118" text-anchor="middle" class="label">4. Templates</text>
+  <text x="680" y="136" text-anchor="middle" class="hint">copy-paste skeletons</text>
+  <text x="680" y="150" text-anchor="middle" class="hint">category families</text>
+
+  <line x1="760" y1="126" x2="788" y2="126" class="arrow"/>
+
+  <rect x="790" y="90" width="160" height="72" class="phase" rx="10"/>
+  <text x="870" y="118" text-anchor="middle" class="label">5. Practice</text>
+  <text x="870" y="136" text-anchor="middle" class="hint">problem walkthroughs</text>
+  <text x="870" y="150" text-anchor="middle" class="hint">interview prep</text>
+
+  <rect x="120" y="220" width="740" height="160" class="phase" rx="10"/>
+  <text x="490" y="248" text-anchor="middle" class="label">Parallel references</text>
+  <text x="160" y="278" class="hint">• Oracle Java 21 API — docs.oracle.com/en/java/javase/21/docs/api/</text>
+  <text x="160" y="298" class="hint">• LeetCode Java environment — use Language dropdown on each problem</text>
+  <text x="160" y="318" class="hint">• Collections Quick Reference — fast API lookup while coding</text>
+  <text x="160" y="338" class="hint">• Modern Java (21→26) — records, pattern switch, List.of when JDK allows</text>
+  <text x="160" y="358" class="hint">• LeetCode Templates — pattern index once basics feel comfortable</text>
+</svg>

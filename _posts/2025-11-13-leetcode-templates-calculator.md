@@ -6,11 +6,8 @@ categories: leetcode templates calculator expression-evaluation
 permalink: /posts/2025-11-13-leetcode-templates-calculator/
 tags: [leetcode, templates, calculator, expression-evaluation, stack]
 ---
-
-Minimal, copy-paste Java for expression evaluation with +, −, ×, ÷ and parentheses. See also [Stack](/blog_leetcode_java/posts/2025-11-13-leetcode-templates-stack/) for RPN and nested expressions.
-
+Minimal, copy-paste Java for expression evaluation with +, −, ×, ÷ and parentheses. See also [Stack](/posts/2025-11-13-leetcode-templates-stack/) for RPN and nested expressions.
 ## Contents
-
 - [Basic Calculator (+, -, parentheses)](#basic-calculator---parentheses)
 - [Basic Calculator II (+, -, *, /)](#basic-calculator-ii---)
 - [Basic Calculator III (All operators + parentheses)](#basic-calculator-iii-all-operators--parentheses)
@@ -18,8 +15,18 @@ Minimal, copy-paste Java for expression evaluation with +, −, ×, ÷ and paren
 - [Comparison Table](#comparison-table)
 
 ## Basic Calculator (+, -, parentheses)
-
 Handles addition, subtraction, and parentheses. Use stack to save state before entering parentheses.
+
+
+
+**Key Points:**
+- Save `result` and `sign` before `(`
+- Apply saved `sign` and add to saved `result` after `)`
+- Track current `sign` for each number
+
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 224 | Basic Calculator | [Link](https://leetcode.com/problems/basic-calculator/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-13-medium-224-basic-calculator/) |
 
 ```java
 // import java.util.*;
@@ -70,8 +77,21 @@ static int calculate(String s) {
 | 224 | Basic Calculator | [Link](https://leetcode.com/problems/basic-calculator/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-13-medium-224-basic-calculator/) |
 
 ## Basic Calculator II (+, -, *, /)
-
 Handles all four operators without parentheses. Evaluate `*` and `/` immediately, defer `+` and `-`.
+
+
+
+**Key Points:**
+- Evaluate `*` and `/` immediately (high precedence)
+- Defer `+` and `-` by pushing to stack
+- Sum all stack elements at the end
+
+**Optimized Version (O(1) space):**
+
+
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 227 | Basic Calculator II | [Link](https://leetcode.com/problems/basic-calculator-ii/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-13-medium-227-basic-calculator-ii/) |
 
 ```java
 // import java.util.*;
@@ -155,8 +175,18 @@ static int calculate(String s) {
 | 227 | Basic Calculator II | [Link](https://leetcode.com/problems/basic-calculator-ii/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-13-medium-227-basic-calculator-ii/) |
 
 ## Basic Calculator III (All operators + parentheses)
-
 Combines all operators with parentheses. Use recursion or stack to handle nesting.
+
+
+
+**Key Points:**
+- Recursion naturally handles nested parentheses
+- Combine stack approach for operators with recursive approach for parentheses
+- Evaluate `*` and `/` immediately, defer `+` and `-`
+
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 772 | Basic Calculator III | [Link](https://leetcode.com/problems/basic-calculator-iii/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-13-hard-772-basic-calculator-iii/) |
 
 ```java
 class Solution {
@@ -219,8 +249,17 @@ class Solution {
 | 772 | Basic Calculator III | [Link](https://leetcode.com/problems/basic-calculator-iii/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-13-hard-772-basic-calculator-iii/) |
 
 ## Common Patterns
-
 ### 1. Number Building
+
+
+### 2. Sign Tracking
+
+
+### 3. Operator Precedence
+
+
+### 4. Parentheses Handling
+
 ```java
 int num = 0;
 for (char c : s.toCharArray()) {
@@ -267,7 +306,6 @@ if(c == '(') {
 ```
 
 ## Comparison Table
-
 | Problem | Operators | Parentheses | Approach | Complexity |
 |---------|-----------|-------------|----------|------------|
 | **224** | `+`, `-` | ✅ | Stack (save state) | O(n) time, O(n) space |
@@ -275,7 +313,6 @@ if(c == '(') {
 | **772** | `+`, `-`, `*`, `/` | ✅ | Recursion + Stack | O(n) time, O(n) space |
 
 ## Key Insights
-
 1. **Operator Precedence**: `*` and `/` have higher precedence than `+` and `-`
 2. **Immediate vs Deferred**: High precedence operators are evaluated immediately
 3. **Parentheses**: Create nested evaluation contexts - use stack or recursion
@@ -283,13 +320,11 @@ if(c == '(') {
 5. **Number Building**: Accumulate digits to form multi-digit numbers
 
 ## Related Problems
-
 - [150. Evaluate Reverse Polish Notation](https://leetcode.com/problems/evaluate-reverse-polish-notation/) - Postfix notation
 - [394. Decode String](https://leetcode.com/problems/decode-string/) - Nested structure processing
 - [71. Simplify Path](https://leetcode.com/problems/simplify-path/) - Path processing with stack
 
 ## Common Mistakes
-
 1. **Forgetting final number**: Not adding `sign * num` at the end
 2. **Wrong operator precedence**: Evaluating `+` before `*`
 3. **Stack order**: Pushing/popping in wrong order for parentheses
@@ -297,8 +332,7 @@ if(c == '(') {
 5. **Number reset**: Not resetting `num` after processing operators
 
 ## More templates
-
-- **Stack (parentheses, RPN, decode string):** [Stack](/blog_leetcode_java/posts/2025-11-13-leetcode-templates-stack/)
-- **Data structures, Graph, Search:** [Data Structures & Core Algorithms](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-data-structures/), [Graph](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-graph/), [Search](/blog_leetcode_java/posts/2026-01-20-leetcode-templates-search/)
-- **Master index:** [Categories & Templates](/blog_leetcode_java/posts/2025-10-29-leetcode-categories-and-templates/)
+- **Stack (parentheses, RPN, decode string):** [Stack](/posts/2025-11-13-leetcode-templates-stack/)
+- **Data structures, Graph, Search:** [Data Structures & Core Algorithms](/posts/2025-10-29-leetcode-templates-data-structures/), [Graph](/posts/2025-10-29-leetcode-templates-graph/), [Search](/posts/2026-01-20-leetcode-templates-search/)
+- **Master index:** [Categories & Templates](/posts/2025-10-29-leetcode-categories-and-templates/)
 

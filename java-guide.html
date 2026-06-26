@@ -1,0 +1,111 @@
+---
+layout: page
+title: Java Guide
+permalink: /java-guide/
+---
+
+<div class="posts-page">
+  <header class="page-header">
+    <h1 class="page-title">Java Guide</h1>
+    <p class="page-description">Introduction, learning path, language basics, and collections reference for solving LeetCode problems in Java</p>
+  </header>
+
+  <section class="guide-intro" style="margin: 1.5rem 0;">
+    <h2>Introduction</h2>
+    <p>This guide is for developers who want to solve algorithm problems in <strong>Java</strong> — whether you are new to the language or switching from C++/Python. It complements the <a href="{{ '/leetcode-templates/' | relative_url }}">LeetCode Templates</a> collection: templates assume you already know <em>which</em> Java APIs to reach for; this guide teaches <em>how</em> Java works and <em>when</em> to use each tool.</p>
+    <p>Official references worth bookmarking:</p>
+    <ul>
+      <li><a href="https://docs.oracle.com/en/java/javase/21/docs/api/" rel="noopener noreferrer">Java SE 21 API documentation</a> — authoritative <code>java.util</code> reference</li>
+      <li><a href="https://docs.oracle.com/en/java/javase/21/language/java-language-changes.html" rel="noopener noreferrer">Java language changes (21+)</a> — records, pattern matching, sequenced collections</li>
+      <li><a href="https://leetcode.com/problemset/" rel="noopener noreferrer">LeetCode problem set</a> — pick <strong>Java</strong> in the language dropdown when submitting</li>
+    </ul>
+  </section>
+
+  <section class="template-diagrams" aria-label="Java learning path">
+    <header class="template-diagrams-header">
+      <h2 class="template-diagrams-title">Learning path</h2>
+      <p class="template-diagrams-desc">A practical order: language → collections → patterns → templates → timed practice.</p>
+    </header>
+    <div class="template-diagram-grid">
+      <figure class="template-diagram-card template-diagram-card-wide">
+        <figcaption>
+          <strong>Five phases</strong>
+          <span>Each phase maps to a section in this guide or a linked resource.</span>
+        </figcaption>
+        {% include diagrams/java-guide-learning-path.svg.html %}
+      </figure>
+    </div>
+    <ol style="margin-top: 1.25rem; line-height: 1.7;">
+      <li><strong>Language</strong> — primitives, arrays, strings, control flow, classes. Start with <a href="{{ '/posts/2026-06-24-java-guide-basics/' | relative_url }}#program-structure">Language Basics</a>.</li>
+      <li><strong>Collections</strong> — <code>HashMap</code>, <code>HashSet</code>, <code>Deque</code>, <code>PriorityQueue</code>. See <a href="{{ '/posts/2026-06-24-java-guide-basics/' | relative_url }}#collections-framework">Collections framework</a> and the <a href="{{ '/posts/2025-09-23-java-cheatsheet/' | relative_url }}">Quick Reference</a>.</li>
+      <li><strong>Patterns</strong> — two pointers, sliding window, BFS/DFS, binary search. Covered in <a href="{{ '/posts/2026-06-24-java-guide-basics/' | relative_url }}#common-leetcode-templates">Common LeetCode templates</a>.</li>
+      <li><strong>Templates</strong> — category-specific copy-paste code. Open the <a href="{{ '/leetcode-templates/' | relative_url }}">LeetCode Templates</a> hub.</li>
+      <li><strong>Practice</strong> — work through problems by difficulty. Use the <a href="{{ '/leetcode-questions-list.html' | relative_url }}">Questions List</a>.</li>
+    </ol>
+  </section>
+
+  <section class="master-link" style="margin: 2rem 0 1.5rem;">
+    <a class="page-link" href="{{ '/posts/2026-06-25-leetcode-beginners-guide/' | relative_url }}">➤ New to LeetCode? Start with the Beginner's Guide</a>
+  </section>
+
+  <section class="master-link" style="margin: 0 0 1.5rem;">
+    <a class="page-link" href="{{ '/posts/2026-06-24-java-guide-basics/' | relative_url }}">➤ View Master: Java Guide — Language Basics</a>
+  </section>
+
+  <div class="posts-list" id="javaGuideList">
+    <article class="post-item">
+      <div class="post-meta">Guide</div>
+      <h2 class="post-title"><a class="post-link" href="{{ '/posts/2026-06-25-leetcode-beginners-guide/' | relative_url }}">LeetCode Beginner's Guide</a></h2>
+      <div class="post-excerpt">
+        <strong>Topics:</strong> What LeetCode is, difficulty levels, constraint cheat sheet, phased roadmap (foundations → patterns → contests), Blind 75, practical tips
+      </div>
+    </article>
+
+    <article class="post-item">
+      <div class="post-meta">Guide</div>
+      <h2 class="post-title"><a class="post-link" href="{{ '/posts/2026-06-24-java-guide-basics/' | relative_url }}">Language Basics</a></h2>
+      <div class="post-excerpt">
+        <strong>Topics:</strong> Program structure, types &amp; variables, arrays, strings, control flow, methods &amp; classes, collections framework, sorting &amp; binary search, ListNode/TreeNode, sample usages, common templates, modern Java (21→26), tips &amp; pitfalls
+      </div>
+    </article>
+
+    <article class="post-item">
+      <div class="post-meta">Reference</div>
+      <h2 class="post-title"><a class="post-link" href="{{ '/posts/2025-09-23-java-cheatsheet/' | relative_url }}">Collections Quick Reference</a></h2>
+      <div class="post-excerpt">
+        <strong>Topics:</strong> Compact API lookup for strings, arrays, ArrayList, HashMap, HashSet, TreeMap, PriorityQueue, Deque, Arrays/Collections utilities — ideal while coding under time pressure
+      </div>
+    </article>
+
+    <article class="post-item">
+      <div class="post-meta">Cross-link</div>
+      <h2 class="post-title"><a class="post-link" href="{{ '/leetcode-templates/' | relative_url }}">LeetCode Templates</a></h2>
+      <div class="post-excerpt">
+        <strong>Topics:</strong> Category collections (graph, DP, heap, trees, etc.) — use after you are comfortable with Java syntax and core collections
+      </div>
+    </article>
+
+    <article class="post-item">
+      <div class="post-meta">Practice</div>
+      <h2 class="post-title"><a class="post-link" href="{{ '/leetcode-questions-list.html' | relative_url }}">LeetCode Questions List</a></h2>
+      <div class="post-excerpt">
+        <strong>Topics:</strong> All solved problems in this blog, organized by difficulty and category — apply what you learn from the guide
+      </div>
+    </article>
+  </div>
+
+  <section class="guide-quick-start" style="margin: 2rem 0;">
+    <h2>Quick start checklist</h2>
+    <ul>
+      <li>Can you declare <code>int[]</code>, iterate with enhanced <code>for</code>, and use <code>String.charAt</code>?</li>
+      <li>Do you know when to use <code>HashMap</code> vs <code>HashSet</code> vs <code>PriorityQueue</code>?</li>
+      <li>Can you write a BFS with <code>Queue</code> and a DFS with <code>Deque</code> as stack?</li>
+      <li>Have you skimmed one template page (e.g. <a href="{{ '/posts/2025-10-29-leetcode-templates-graph/' | relative_url }}">Graph</a>) before attempting graph problems?</li>
+    </ul>
+    <p>If any answer is “not yet,” work through <a href="{{ '/posts/2026-06-24-java-guide-basics/' | relative_url }}">Language Basics</a> first.</p>
+  </section>
+
+  <div class="back-to-home" style="margin-top: 2rem;">
+    <a href="{{ "/" | relative_url }}" class="btn">← Back to Home</a>
+  </div>
+</div>

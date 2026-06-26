@@ -6,22 +6,197 @@ categories: leetcode templates search binary-search
 permalink: /posts/2026-01-20-leetcode-templates-search/
 tags: [leetcode, templates, search, binary-search, divide-and-conquer]
 ---
-
 {% raw %}
-Minimal, copy-paste Java for binary search, rotated arrays, 2D search, and answer-space search. Matches [Data Structures](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-data-structures/#binary-search-bounds) lower/upper bound style.
+This page collects ready-to-use Java templates for every major binary search pattern you'll encounter on LeetCode — from basic sorted-array lookup to rotated arrays, 2D matrices, and "search on the answer" optimization problems. Each section includes the template, a quick "when to use" guide, and a curated problem list so you can drill the pattern immediately. Templates match the [Data Structures](/posts/2025-10-29-leetcode-templates-data-structures/#binary-search-bounds) lower/upper bound style.
+
+> **New to Binary Search?** Binary search cuts the search space in half at each step, giving O(log n) time. The key: you need a *monotonic condition* — some property that's false on one side and true on the other.
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 290" style="max-width:640px;font-family:system-ui,sans-serif;margin:1.5em auto;display:block">
+<style>
+.c{fill:#E8E0D8;stroke:#B8ACA0;stroke-width:1.5}
+.v{font-size:14px;fill:#5A5252;text-anchor:middle;dominant-baseline:central}
+.lb{font-size:11px;font-weight:600;text-anchor:middle}
+.st{font-size:12px;fill:#5A5252;font-weight:600}
+.nt{font-size:11px;fill:#8A7E7E;font-style:italic}
+.lo{fill:#8EA4B8}.hi{fill:#C4A4A4}.mi{fill:#B8A4B8}.fd{fill:#A4B8A4}
+.dm{opacity:.35}
+</style>
+<text x="320" y="18" class="v" font-size="15" font-weight="700">Binary Search: find 15 in [2, 5, 8, 11, 15, 18, 22]</text>
+<text x="10" y="55" class="st">Step 1</text>
+<g transform="translate(80,35)">
+  <rect class="c lo" width="58" height="30" rx="4"/><rect class="c" x="66" width="58" height="30" rx="4"/>
+  <rect class="c" x="132" width="58" height="30" rx="4"/><rect class="c mi" x="198" width="58" height="30" rx="4"/>
+  <rect class="c" x="264" width="58" height="30" rx="4"/><rect class="c" x="330" width="58" height="30" rx="4"/>
+  <rect class="c hi" x="396" width="58" height="30" rx="4"/>
+  <text class="v" x="29" y="15">2</text><text class="v" x="95" y="15">5</text><text class="v" x="161" y="15">8</text>
+  <text class="v" x="227" y="15">11</text><text class="v" x="293" y="15">15</text>
+  <text class="v" x="359" y="15">18</text><text class="v" x="425" y="15">22</text>
+  <text class="lb lo" x="29" y="46">lo</text><text class="lb mi" x="227" y="46">mid</text><text class="lb hi" x="425" y="46">hi</text>
+</g>
+<text x="560" y="55" class="nt">11 &lt; 15 → right</text>
+<text x="10" y="145" class="st">Step 2</text>
+<g transform="translate(80,125)">
+  <rect class="c dm" width="58" height="30" rx="4"/><rect class="c dm" x="66" width="58" height="30" rx="4"/>
+  <rect class="c dm" x="132" width="58" height="30" rx="4"/><rect class="c dm" x="198" width="58" height="30" rx="4"/>
+  <rect class="c lo" x="264" width="58" height="30" rx="4"/><rect class="c mi" x="330" width="58" height="30" rx="4"/>
+  <rect class="c hi" x="396" width="58" height="30" rx="4"/>
+  <text class="v dm" x="29" y="15">2</text><text class="v dm" x="95" y="15">5</text><text class="v dm" x="161" y="15">8</text>
+  <text class="v dm" x="227" y="15">11</text><text class="v" x="293" y="15">15</text>
+  <text class="v" x="359" y="15">18</text><text class="v" x="425" y="15">22</text>
+  <text class="lb lo" x="293" y="46">lo</text><text class="lb mi" x="359" y="46">mid</text><text class="lb hi" x="425" y="46">hi</text>
+</g>
+<text x="560" y="145" class="nt">18 &gt; 15 → left</text>
+<text x="10" y="235" class="st">Step 3</text>
+<g transform="translate(80,215)">
+  <rect class="c dm" width="58" height="30" rx="4"/><rect class="c dm" x="66" width="58" height="30" rx="4"/>
+  <rect class="c dm" x="132" width="58" height="30" rx="4"/><rect class="c dm" x="198" width="58" height="30" rx="4"/>
+  <rect class="c fd" x="264" width="58" height="30" rx="4" stroke="#7A9E7A" stroke-width="2.5"/>
+  <rect class="c dm" x="330" width="58" height="30" rx="4"/><rect class="c dm" x="396" width="58" height="30" rx="4"/>
+  <text class="v dm" x="29" y="15">2</text><text class="v dm" x="95" y="15">5</text><text class="v dm" x="161" y="15">8</text>
+  <text class="v dm" x="227" y="15">11</text><text class="v" x="293" y="15" font-weight="700">15</text>
+  <text class="v dm" x="359" y="15">18</text><text class="v dm" x="425" y="15">22</text>
+  <text class="lb" x="293" y="46" fill="#5A8A5A" font-weight="700">found!</text>
+</g>
+<text x="560" y="235" class="nt">15 = target ✓</text>
+<g transform="translate(140,270)">
+  <rect class="lo" width="12" height="12" rx="2"/><text class="v" x="22" y="6" text-anchor="start" font-size="11">lo</text>
+  <rect class="mi" x="55" width="12" height="12" rx="2"/><text class="v" x="77" y="6" text-anchor="start" font-size="11">mid</text>
+  <rect class="hi" x="120" width="12" height="12" rx="2"/><text class="v" x="142" y="6" text-anchor="start" font-size="11">hi</text>
+  <rect class="fd" x="185" width="12" height="12" rx="2"/><text class="v" x="207" y="6" text-anchor="start" font-size="11">found</text>
+</g>
+</svg>
+## Quick Reference
+| Pattern | Signal Phrases | Key Insight |
+|---|---|---|
+| Basic | "find target in sorted array" | Standard lo/hi convergence |
+| Lower/Upper Bound | "first/last occurrence" | `lo < hi` with half-open range |
+| Rotated Array | "rotated sorted array" | One half is always sorted |
+| Search on Answer | "minimize maximum", "capacity" | Binary search on the answer value |
+| 2D Matrix | "search in matrix" | Treat as 1D or staircase search |
 
 ## Contents
-
 - [Basic binary search](#basic-binary-search)
 - [Binary search on rotated array](#binary-search-on-rotated-array)
 - [Binary search on answer](#binary-search-on-answer)
 - [Search in 2D matrix](#search-in-2d-matrix)
 - [Advanced](#advanced)
+- [Quick Reference](#quick-reference)
 - [More templates](#more-templates)
 
 ## Basic binary search
+**When to use:** You see "find target in sorted array", "first/last occurrence", "search insert position", or need the boundary of a condition in a sorted sequence.
 
-Standard: `[0, n-1]`, `left <= right`. Lower/upper bound: `[0, n]`, `left < right` — same as [Data Structures](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-data-structures/#binary-search-bounds).
+Standard: `[0, n-1]`, `left <= right`. Lower/upper bound: `[0, n]`, `left < right` — same as [Data Structures](/posts/2025-10-29-leetcode-templates-data-structures/#binary-search-bounds).
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 300" style="max-width: 100%; height: auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
+  <text x="370" y="18" text-anchor="middle" font-size="14" font-weight="600" fill="#3A3530">Binary Search: find 23 in [2, 5, 8, 12, 16, 23, 38, 56, 72, 91]</text>
+  <!-- Step 1: lo=0, mid=4, hi=9 -->
+  <text x="30" y="56" font-size="11" font-weight="600" fill="#5A5752">Step 1</text>
+  <g transform="translate(120,36)">
+    <rect width="50" height="28" rx="4" fill="#D4D8E0" stroke="#8B8680" stroke-width="1.5"/>
+    <text x="25" y="18" text-anchor="middle" font-size="12" fill="#3A3530">2</text>
+    <rect x="50" width="50" height="28" rx="4" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1.5"/>
+    <text x="75" y="18" text-anchor="middle" font-size="12" fill="#3A3530">5</text>
+    <rect x="100" width="50" height="28" rx="4" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1.5"/>
+    <text x="125" y="18" text-anchor="middle" font-size="12" fill="#3A3530">8</text>
+    <rect x="150" width="50" height="28" rx="4" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1.5"/>
+    <text x="175" y="18" text-anchor="middle" font-size="12" fill="#3A3530">12</text>
+    <rect x="200" width="50" height="28" rx="4" fill="#E0D8E4" stroke="#A098A8" stroke-width="1.5"/>
+    <text x="225" y="18" text-anchor="middle" font-size="12" fill="#3A3530">16</text>
+    <rect x="250" width="50" height="28" rx="4" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1.5"/>
+    <text x="275" y="18" text-anchor="middle" font-size="12" fill="#3A3530">23</text>
+    <rect x="300" width="50" height="28" rx="4" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1.5"/>
+    <text x="325" y="18" text-anchor="middle" font-size="12" fill="#3A3530">38</text>
+    <rect x="350" width="50" height="28" rx="4" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1.5"/>
+    <text x="375" y="18" text-anchor="middle" font-size="12" fill="#3A3530">56</text>
+    <rect x="400" width="50" height="28" rx="4" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1.5"/>
+    <text x="425" y="18" text-anchor="middle" font-size="12" fill="#3A3530">72</text>
+    <rect x="450" width="50" height="28" rx="4" fill="#E8D5D0" stroke="#B8A5A0" stroke-width="1.5"/>
+    <text x="475" y="18" text-anchor="middle" font-size="12" fill="#3A3530">91</text>
+    <text x="25" y="44" text-anchor="middle" font-size="10" font-weight="600" fill="#7A8EA0">lo</text>
+    <text x="225" y="44" text-anchor="middle" font-size="10" font-weight="600" fill="#9088A0">mid</text>
+    <text x="475" y="44" text-anchor="middle" font-size="10" font-weight="600" fill="#A08888">hi</text>
+  </g>
+  <text x="660" y="56" font-size="10" font-style="italic" fill="#9A9792">16 &lt; 23 → right</text>
+  <!-- Step 2: lo=5, mid=7, hi=9 -->
+  <text x="30" y="146" font-size="11" font-weight="600" fill="#5A5752">Step 2</text>
+  <g transform="translate(120,126)">
+    <rect width="50" height="28" rx="4" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1" opacity="0.35"/>
+    <text x="25" y="18" text-anchor="middle" font-size="12" fill="#3A3530" opacity="0.35">2</text>
+    <rect x="50" width="50" height="28" rx="4" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1" opacity="0.35"/>
+    <text x="75" y="18" text-anchor="middle" font-size="12" fill="#3A3530" opacity="0.35">5</text>
+    <rect x="100" width="50" height="28" rx="4" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1" opacity="0.35"/>
+    <text x="125" y="18" text-anchor="middle" font-size="12" fill="#3A3530" opacity="0.35">8</text>
+    <rect x="150" width="50" height="28" rx="4" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1" opacity="0.35"/>
+    <text x="175" y="18" text-anchor="middle" font-size="12" fill="#3A3530" opacity="0.35">12</text>
+    <rect x="200" width="50" height="28" rx="4" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1" opacity="0.35"/>
+    <text x="225" y="18" text-anchor="middle" font-size="12" fill="#3A3530" opacity="0.35">16</text>
+    <rect x="250" width="50" height="28" rx="4" fill="#D4D8E0" stroke="#8B8680" stroke-width="1.5"/>
+    <text x="275" y="18" text-anchor="middle" font-size="12" fill="#3A3530">23</text>
+    <rect x="300" width="50" height="28" rx="4" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1.5"/>
+    <text x="325" y="18" text-anchor="middle" font-size="12" fill="#3A3530">38</text>
+    <rect x="350" width="50" height="28" rx="4" fill="#E0D8E4" stroke="#A098A8" stroke-width="1.5"/>
+    <text x="375" y="18" text-anchor="middle" font-size="12" fill="#3A3530">56</text>
+    <rect x="400" width="50" height="28" rx="4" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1.5"/>
+    <text x="425" y="18" text-anchor="middle" font-size="12" fill="#3A3530">72</text>
+    <rect x="450" width="50" height="28" rx="4" fill="#E8D5D0" stroke="#B8A5A0" stroke-width="1.5"/>
+    <text x="475" y="18" text-anchor="middle" font-size="12" fill="#3A3530">91</text>
+    <text x="275" y="44" text-anchor="middle" font-size="10" font-weight="600" fill="#7A8EA0">lo</text>
+    <text x="375" y="44" text-anchor="middle" font-size="10" font-weight="600" fill="#9088A0">mid</text>
+    <text x="475" y="44" text-anchor="middle" font-size="10" font-weight="600" fill="#A08888">hi</text>
+  </g>
+  <text x="660" y="146" font-size="10" font-style="italic" fill="#9A9792">56 &gt; 23 → left</text>
+  <!-- Step 3: found at index 5 -->
+  <text x="30" y="236" font-size="11" font-weight="600" fill="#5A5752">Step 3</text>
+  <g transform="translate(120,216)">
+    <rect width="50" height="28" rx="4" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1" opacity="0.35"/>
+    <text x="25" y="18" text-anchor="middle" font-size="12" fill="#3A3530" opacity="0.35">2</text>
+    <rect x="50" width="50" height="28" rx="4" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1" opacity="0.35"/>
+    <text x="75" y="18" text-anchor="middle" font-size="12" fill="#3A3530" opacity="0.35">5</text>
+    <rect x="100" width="50" height="28" rx="4" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1" opacity="0.35"/>
+    <text x="125" y="18" text-anchor="middle" font-size="12" fill="#3A3530" opacity="0.35">8</text>
+    <rect x="150" width="50" height="28" rx="4" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1" opacity="0.35"/>
+    <text x="175" y="18" text-anchor="middle" font-size="12" fill="#3A3530" opacity="0.35">12</text>
+    <rect x="200" width="50" height="28" rx="4" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1" opacity="0.35"/>
+    <text x="225" y="18" text-anchor="middle" font-size="12" fill="#3A3530" opacity="0.35">16</text>
+    <rect x="250" width="50" height="28" rx="4" fill="#C8D5C4" stroke="#7A9A7A" stroke-width="2"/>
+    <text x="275" y="18" text-anchor="middle" font-size="12" font-weight="700" fill="#3A3530">23</text>
+    <rect x="300" width="50" height="28" rx="4" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1" opacity="0.35"/>
+    <text x="325" y="18" text-anchor="middle" font-size="12" fill="#3A3530" opacity="0.35">38</text>
+    <rect x="350" width="50" height="28" rx="4" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1" opacity="0.35"/>
+    <text x="375" y="18" text-anchor="middle" font-size="12" fill="#3A3530" opacity="0.35">56</text>
+    <rect x="400" width="50" height="28" rx="4" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1" opacity="0.35"/>
+    <text x="425" y="18" text-anchor="middle" font-size="12" fill="#3A3530" opacity="0.35">72</text>
+    <rect x="450" width="50" height="28" rx="4" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1" opacity="0.35"/>
+    <text x="475" y="18" text-anchor="middle" font-size="12" fill="#3A3530" opacity="0.35">91</text>
+    <text x="275" y="44" text-anchor="middle" font-size="10" font-weight="700" fill="#5A8A5A">found!</text>
+  </g>
+  <text x="660" y="236" font-size="10" font-style="italic" fill="#9A9792">23 = target ✓</text>
+  <!-- Legend -->
+  <g transform="translate(155,272)">
+    <rect width="12" height="12" rx="2" fill="#D4D8E0" stroke="#8B8680" stroke-width="1"/>
+    <text x="18" y="10" font-size="10" fill="#7A7772">lo</text>
+    <rect x="50" width="12" height="12" rx="2" fill="#E0D8E4" stroke="#A098A8" stroke-width="1"/>
+    <text x="68" y="10" font-size="10" fill="#7A7772">mid</text>
+    <rect x="110" width="12" height="12" rx="2" fill="#E8D5D0" stroke="#B8A5A0" stroke-width="1"/>
+    <text x="128" y="10" font-size="10" fill="#7A7772">hi</text>
+    <rect x="165" width="12" height="12" rx="2" fill="#C8D5C4" stroke="#7A9A7A" stroke-width="1"/>
+    <text x="183" y="10" font-size="10" fill="#7A7772">found</text>
+    <rect x="230" width="12" height="12" rx="2" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1" opacity="0.35"/>
+    <text x="248" y="10" font-size="10" fill="#7A7772">eliminated</text>
+  </g>
+</svg>
+
+
+
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 704 | Binary Search | [Link](https://leetcode.com/problems/binary-search/) | - |
+| 34 | Find First and Last Position | [Link](https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/) | - |
+| 35 | Search Insert Position | [Link](https://leetcode.com/problems/search-insert-position/) | - |
+| 528 | Random Pick with Weight | [Link](https://leetcode.com/problems/random-pick-with-weight/) | [Solution](https://robinali34.github.io/blog_leetcode/posts/2025-11-24-medium-528-random-pick-with-weight/) |
+| 300 | Longest Increasing Subsequence | [Link](https://leetcode.com/problems/longest-increasing-subsequence/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/17/medium-300-longest-increasing-subsequence/) |
+| 673 | Number of Longest Increasing Subsequence | [Link](https://leetcode.com/problems/number-of-longest-increasing-subsequence/) | [Solution](https://robinali34.github.io/blog_leetcode/2026/01/09/medium-673-number-of-longest-increasing-subsequence/) |
 
 ```java
 static int bsearch(int[] a, int target) {
@@ -72,6 +247,16 @@ int[]searchRange(int[] nums, int target) {
 | 673 | Number of Longest Increasing Subsequence | [Link](https://leetcode.com/problems/number-of-longest-increasing-subsequence/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/09/medium-673-number-of-longest-increasing-subsequence/) |
 
 ## Binary search on rotated array
+**When to use:** Problem says "rotated sorted array", or you need to find a target or minimum in an array that was sorted then rotated.
+
+
+
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 33 | Search in Rotated Sorted Array | [Link](https://leetcode.com/problems/search-in-rotated-sorted-array/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/09/23/medium-33-search-in-rotated-sorted-array/) |
+| 81 | Search in Rotated Sorted Array II | [Link](https://leetcode.com/problems/search-in-rotated-sorted-array-ii/) | - |
+| 153 | Find Minimum in Rotated Sorted Array | [Link](https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/) | - |
+| 154 | Find Minimum in Rotated Sorted Array II | [Link](https://leetcode.com/problems/find-minimum-in-rotated-sorted-array-ii/) | - |
 
 ```java
 static int search_rotated(int[] nums, int target) {
@@ -109,8 +294,39 @@ static int findMin_rotated(int[] nums) {
 | 154 | Find Minimum in Rotated Sorted Array II | [Link](https://leetcode.com/problems/find-minimum-in-rotated-sorted-array-ii/) | - |
 
 ## Binary search on answer
+**When to use:** You see "minimize maximum", "maximum minimum", "minimum capacity/speed", or any optimization where you can check feasibility for a given answer value.
 
 Min valid: `lo < hi`, `hi = mid` when valid. Max valid: `lo < hi`, `mid = lo + (hi - lo + 1) / 2`, `lo = mid` when valid.
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 210" style="max-width: 100%; height: auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
+  <text x="350" y="20" text-anchor="middle" font-size="14" font-weight="600" fill="#3A3530">Binary Search on Answer — Find the Feasibility Boundary</text>
+  <!-- Two-region bar -->
+  <rect x="60" y="50" width="260" height="36" rx="0" fill="#E8D5D0" stroke="none"/>
+  <rect x="320" y="50" width="320" height="36" rx="0" fill="#C8D5C4" stroke="none"/>
+  <rect x="60" y="50" width="580" height="36" rx="4" fill="none" stroke="#B8B5B0" stroke-width="1.5"/>
+  <!-- Boundary marker -->
+  <line x1="320" y1="44" x2="320" y2="92" stroke="#3A3530" stroke-width="2" stroke-dasharray="4,3"/>
+  <text x="320" y="106" text-anchor="middle" font-size="11" font-weight="600" fill="#3A3530">answer</text>
+  <!-- Region labels -->
+  <text x="190" y="73" text-anchor="middle" font-size="12" font-weight="600" fill="#8B7570">NOT FEASIBLE</text>
+  <text x="480" y="73" text-anchor="middle" font-size="12" font-weight="600" fill="#5A7A5A">FEASIBLE</text>
+  <!-- Endpoint labels -->
+  <text x="60" y="106" text-anchor="middle" font-size="11" fill="#5A5752">0</text>
+  <text x="640" y="106" text-anchor="middle" font-size="11" fill="#5A5752">N</text>
+  <!-- How it works -->
+  <text x="350" y="138" text-anchor="middle" font-size="11" fill="#5A5752">Binary search narrows the range:</text>
+  <text x="350" y="158" text-anchor="middle" font-size="11" fill="#8B7570">valid(mid) = false → lo = mid + 1 (discard left half)</text>
+  <text x="350" y="176" text-anchor="middle" font-size="11" fill="#5A7A5A">valid(mid) = true → hi = mid (keep mid, search left half)</text>
+  <text x="350" y="200" text-anchor="middle" font-size="10" fill="#9A9792">lo and hi converge to the smallest feasible answer</text>
+</svg>
+
+
+
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 875 | Koko Eating Bananas | [Link](https://leetcode.com/problems/koko-eating-bananas/) | - |
+| 1011 | Capacity To Ship Packages | [Link](https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/) | - |
+| 410 | Split Array Largest Sum | [Link](https://leetcode.com/problems/split-array-largest-sum/) | - |
 
 ```java
 // import java.util.Arrays;
@@ -154,8 +370,17 @@ static int minEatingSpeed(int[] piles, int h) {
 | 410 | Split Array Largest Sum | [Link](https://leetcode.com/problems/split-array-largest-sum/) | - |
 
 ## Search in 2D matrix
+**When to use:** Problem says "search in matrix" or "sorted matrix". Use staircase for row/col sorted matrices, flatten-to-1D for fully sorted row-major layouts.
 
 Row/col sorted (240): start top-right, move left or down. Fully sorted row-major (74): flatten to 1D and binary search.
+
+
+
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 74 | Search a 2D Matrix | [Link](https://leetcode.com/problems/search-a-2d-matrix/) | - |
+| 240 | Search a 2D Matrix II | [Link](https://leetcode.com/problems/search-a-2d-matrix-ii/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/10/07/medium-240-search-a-2d-matrix-ii/) |
+| 270 | Closest Binary Search Tree Value | [Link](https://leetcode.com/problems/closest-binary-search-tree-value/) | [Solution](https://robinali34.github.io/blog_leetcode/2025/12/30/easy-270-closest-binary-search-tree-value/) |
 
 ```java
 static boolean search2D_rc(int[][] mat, int target) {
@@ -190,6 +415,7 @@ static boolean search2D_flat(int[][] mat, int target) {
 | 270 | Closest Binary Search Tree Value | [Link](https://leetcode.com/problems/closest-binary-search-tree-value/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/12/30/easy-270-closest-binary-search-tree-value/) |
 
 ## Advanced
+**When to use:** Standard binary search won't cut it — you need divide-and-conquer counting (inversions, range sums), ternary search on unimodal functions, or exponential search on unbounded arrays.
 
 **Merge sort on prefix sums (327, 315):** Build prefix array, divide-and-conquer merge sort; for each right-half index j count left-half indices i with `prefix[j]-upper <= prefix[i] <= prefix[j]-lower` using two pointers. O(n log n).
 
@@ -199,7 +425,7 @@ static boolean search2D_flat(int[][] mat, int target) {
 
 **Exponential search (702):** Double index until past target, then binary search in `[i/2, min(i,n-1)]`.
 
-**Tree-based:** Segment tree / Fenwick: [Data Structures](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-data-structures/), [Trees](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-trees/) (tree walk, lazy segment, BIT).
+**Tree-based:** Segment tree / Fenwick: [Data Structures](/posts/2025-10-29-leetcode-templates-data-structures/), [Trees](/posts/2025-10-29-leetcode-templates-trees/) (tree walk, lazy segment, BIT).
 
 | ID | Title | Link |
 |----|--------|------|
@@ -209,9 +435,8 @@ static boolean search2D_flat(int[][] mat, int target) {
 | 702 | Search in a Sorted Array of Unknown Size | [Link](https://leetcode.com/problems/search-in-a-sorted-array-of-unknown-size/) |
 
 ## More templates
-
-- **Data structures (binary search bounds, prefix sum, segment tree, BIT):** [Data Structures & Core Algorithms](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-data-structures/)
-- **Graph (BFS, Dijkstra, topo):** [Graph](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-graph/)
-- **Master index:** [Categories & Templates](/blog_leetcode_java/posts/2025-10-29-leetcode-categories-and-templates/)
-
+- **Data structures (binary search bounds, prefix sum, segment tree, BIT):** [Data Structures & Core Algorithms](/posts/2025-10-29-leetcode-templates-data-structures/)
+- **Graph (BFS, Dijkstra, topo):** [Graph](/posts/2025-10-29-leetcode-templates-graph/)
+- **Master index:** [Categories & Templates](/posts/2025-10-29-leetcode-categories-and-templates/)
+- **Beginner's Guide:** [LeetCode Beginner's Guide](/2026/06/25/leetcode-beginners-guide/)
 {% endraw %}

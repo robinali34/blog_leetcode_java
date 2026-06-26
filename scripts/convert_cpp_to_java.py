@@ -137,7 +137,8 @@ def convert_cpp_to_java(code: str) -> str:
     result = re.sub(r"(\w)\s*&\s*,", r"\1,", result)
 
     result = re.sub(r"\bstd::", "", result)
-    result = result.replace("->", ".")
+    # C++ pointer member access only — preserve Java lambda arrows (x -> y)
+    result = re.sub(r"(\w+)\s*->\s*(\w+)", r"\1.\2", result)
 
     # Vector / array initialization patterns
     result = re.sub(

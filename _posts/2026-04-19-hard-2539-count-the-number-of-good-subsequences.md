@@ -75,49 +75,46 @@ $$\binom{n}{k} = \frac{n!}{k! \cdot (n-k)!} = n! \cdot (k!)^{-1} \cdot ((n-k)!)^
 
 {% raw %}
 ```java
-// import java.util.*;
+import java.util.*;
+
 class Solution {
-    public static int MOD = 1e9 + 7;
-        public long modPow(long a, long b) {
+    static final int MOD = 1_000_000_007;
+
+    long modPow(long a, long b) {
         long res = 1;
         while (b > 0) {
-            if (b 1) res = res a % MOD;
-            a = a a % MOD;
+            if ((b & 1) == 1) res = res * a % MOD;
+            a = a * a % MOD;
             b >>= 1;
         }
         return res;
     }
-        public int countGoodSubsequences(String s) {
-        HashMap<char, int> freq = new HashMap<char, int>();
-        for (char c : s.toCharArray()) freq.put(c, freq.getOrDefault(c, 0) + 1);
 
-        int max_f = 0;
-        for (var e : freq.entrySet()) max_f = Math.max(max_f, f);
+    public int countGoodSubsequences(String s) {
+        Map<Character, Integer> freq = new HashMap<>();
+        for (char c : s.toCharArray()) freq.merge(c, 1, Integer::sum);
 
-        long[]fact(max_f + 1, 1), invfact(max_f + 1, 1);
-        for (int i = 1; i <= max_f; i++) {
-            fact.put(i, fact[i - 1] * i % MOD);
-        }
-        invfact.put(max_f, modPow(fact[max_f], MOD - 2));
-        for (int i = max_f - 1; i >= 0; i--) {
-            invfact.put(i, invfact[i + 1] * (i + 1) % MOD);
-        }
+        int maxF = freq.values().stream().mapToInt(Integer::intValue).max().orElse(0);
+        long[] fact = new long[maxF + 1];
+        long[] invFact = new long[maxF + 1];
+        fact[0] = 1;
+        for (int i = 1; i <= maxF; i++) fact[i] = fact[i - 1] * i % MOD;
+        invFact[maxF] = modPow(fact[maxF], MOD - 2);
+        for (int i = maxF - 1; i >= 0; i--) invFact[i] = invFact[i + 1] * (i + 1) % MOD;
 
-        var comb = [&](int n, int k) {
-            return fact[n] % MOD invfact[k] % MOD invfact[n - k] % MOD;
-        }
         long result = 0;
-        for (int k = 1; k <= max_f; k++) {
+        for (int k = 1; k <= maxF; k++) {
             long ways = 1;
-            for (var e : freq.entrySet()) {
+            for (int f : freq.values()) {
                 if (f >= k) {
-                    ways = ways * (1 + comb(f, k)) % MOD;
+                    long comb = fact[f] * invFact[k] % MOD * invFact[f - k] % MOD;
+                    ways = ways * (1 + comb) % MOD;
                 }
             }
             ways = (ways - 1 + MOD) % MOD;
             result = (result + ways) % MOD;
         }
-        return result;
+        return (int) result;
     }
 }
 ```
@@ -132,53 +129,52 @@ When multiple characters share the same frequency, we can group them and use exp
 
 {% raw %}
 ```java
-// import java.util.*;
+import java.util.*;
+
 class Solution {
-    public static int MOD = 1e9 + 7;
-        public long modPow(long a, long b) {
+    static final int MOD = 1_000_000_007;
+
+    long modPow(long a, long b) {
         long res = 1;
         while (b > 0) {
-            if (b 1) res = res a % MOD;
-            a = a a % MOD;
+            if ((b & 1) == 1) res = res * a % MOD;
+            a = a * a % MOD;
             b >>= 1;
         }
         return res;
     }
-        public int countGoodSubsequences(String s) {
-        HashMap<char, int> freq = new HashMap<char, int>();
-        for (char c : s.toCharArray()) freq.put(c, freq.getOrDefault(c, 0) + 1);
 
-        HashMap<Integer, Integer> freqCount = new HashMap<Integer, Integer>();
-        for (var e : freq.entrySet()) freqCount.put(f, freqCount.getOrDefault(f, 0) + 1);
+    public int countGoodSubsequences(String s) {
+        Map<Character, Integer> freq = new HashMap<>();
+        for (char c : s.toCharArray()) freq.merge(c, 1, Integer::sum);
 
-        int max_f = 0;
-        for (var e : freqCount.entrySet()) max_f = Math.max(max_f, f);
+        Map<Integer, Integer> freqCount = new HashMap<>();
+        for (int f : freq.values()) freqCount.merge(f, 1, Integer::sum);
 
-        long[]fact(max_f + 1, 1), invfact(max_f + 1, 1);
-        for (int i = 1; i <= max_f; i++) {
-            fact.put(i, fact[i - 1] * i % MOD);
-        }
-        invfact.put(max_f, modPow(fact[max_f], MOD - 2));
-        for (int i = max_f - 1; i >= 0; i--) {
-            invfact.put(i, invfact[i + 1] * (i + 1) % MOD);
-        }
+        int maxF = freqCount.keySet().stream().mapToInt(Integer::intValue).max().orElse(0);
+        long[] fact = new long[maxF + 1];
+        long[] invFact = new long[maxF + 1];
+        fact[0] = 1;
+        for (int i = 1; i <= maxF; i++) fact[i] = fact[i - 1] * i % MOD;
+        invFact[maxF] = modPow(fact[maxF], MOD - 2);
+        for (int i = maxF - 1; i >= 0; i--) invFact[i] = invFact[i + 1] * (i + 1) % MOD;
 
-        var comb = [&](int n, int k) {
-            return fact[n] % MOD invfact[k] % MOD invfact[n - k] % MOD;
-        }
         long result = 0;
-        for (int k = 1; k <= max_f; k++) {
+        for (int k = 1; k <= maxF; k++) {
             long ways = 1;
             for (var e : freqCount.entrySet()) {
+                int f = e.getKey();
+                int count = e.getValue();
                 if (f >= k) {
-                    long val = (1 + comb(f, k)) % MOD;
-                    ways = ways modPow(val, count) % MOD;
+                    long comb = fact[f] * invFact[k] % MOD * invFact[f - k] % MOD;
+                    long val = (1 + comb) % MOD;
+                    ways = ways * modPow(val, count) % MOD;
                 }
             }
             ways = (ways - 1 + MOD) % MOD;
             result = (result + ways) % MOD;
         }
-        return result;
+        return (int) result;
     }
 }
 ```
@@ -239,3 +235,7 @@ For inputs like `"jjjjjj..."` (single character, frequency $10^4$), a Pascal tab
 - [62. Unique Paths](https://leetcode.com/problems/unique-paths/) -- basic combinatorics $\binom{m+n-2}{m-1}$
 - [1512. Number of Good Pairs](https://leetcode.com/problems/number-of-good-pairs/) -- frequency counting
 - [940. Distinct Subsequences II](https://leetcode.com/problems/distinct-subsequences-ii/) -- subsequence counting with DP
+
+## Template Reference
+
+- [Math & Bit Manipulation](/blog_leetcode_java/posts/2025-11-24-leetcode-templates-math-bit-manipulation/)
