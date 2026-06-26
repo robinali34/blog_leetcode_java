@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 500" role="img" aria-labelledby="javaCollTitle javaCollDesc" class="template-diagram-svg">
+  <title id="javaCollTitle">Java Collections Map</title>
+  <desc id="javaCollDesc">How collection interfaces relate and when to choose each implementation.</desc>
+  <defs>
+    <style>
+      .iface { fill: #D4D8E0; stroke: #8B8680; stroke-width: 1.5; }
+      .impl { fill: #fff; stroke: #B8B5B0; stroke-width: 1.3; }
+      .impl-hot { fill: #E8D5D0; stroke: #8B8680; stroke-width: 1.4; }
+      .title { font: 600 15px ui-sans-serif, system-ui, sans-serif; fill: #5A5752; }
+      .label { font: 500 11px ui-sans-serif, system-ui, sans-serif; fill: #5A5752; }
+      .hint { font: 400 9.5px ui-sans-serif, system-ui, sans-serif; fill: #7A7772; }
+      .link { stroke: #C4C8C0; stroke-width: 1.2; fill: none; }
+    </style>
+  </defs>
+
+  <rect width="920" height="500" fill="#FAF7F2" rx="12"/>
+  <text x="460" y="32" text-anchor="middle" class="title">Collections framework — interfaces and typical picks</text>
+  <text x="460" y="52" text-anchor="middle" class="hint">LeetCode defaults: ArrayList, HashMap, HashSet, ArrayDeque, PriorityQueue</text>
+
+  <!-- interfaces -->
+  <rect x="360" y="72" width="200" height="40" class="iface" rx="8"/>
+  <text x="460" y="97" text-anchor="middle" class="label">Collection / Iterable</text>
+
+  <rect x="120" y="150" width="120" height="36" class="iface" rx="8"/>
+  <text x="180" y="173" text-anchor="middle" class="label">List</text>
+
+  <rect x="400" y="150" width="120" height="36" class="iface" rx="8"/>
+  <text x="460" y="173" text-anchor="middle" class="label">Set</text>
+
+  <rect x="680" y="150" width="120" height="36" class="iface" rx="8"/>
+  <text x="740" y="173" text-anchor="middle" class="label">Queue / Deque</text>
+
+  <rect x="400" y="320" width="120" height="36" class="iface" rx="8"/>
+  <text x="460" y="343" text-anchor="middle" class="label">Map</text>
+
+  <line class="link" x1="420" y1="112" x2="180" y2="150"/>
+  <line class="link" x1="460" y1="112" x2="460" y2="150"/>
+  <line class="link" x1="500" y1="112" x2="740" y2="150"/>
+
+  <!-- List impls -->
+  <rect x="60" y="220" width="130" height="48" class="impl-hot" rx="8"/>
+  <text x="125" y="242" text-anchor="middle" class="label">ArrayList</text>
+  <text x="125" y="258" text-anchor="middle" class="hint">default list</text>
+
+  <rect x="210" y="220" width="130" height="48" class="impl" rx="8"/>
+  <text x="275" y="242" text-anchor="middle" class="label">LinkedList</text>
+  <text x="275" y="258" text-anchor="middle" class="hint">rare; also Queue</text>
+
+  <!-- Set impls -->
+  <rect x="340" y="220" width="120" height="48" class="impl-hot" rx="8"/>
+  <text x="400" y="242" text-anchor="middle" class="label">HashSet</text>
+  <text x="400" y="258" text-anchor="middle" class="hint">O(1) contains</text>
+
+  <rect x="480" y="220" width="120" height="48" class="impl" rx="8"/>
+  <text x="540" y="242" text-anchor="middle" class="label">TreeSet</text>
+  <text x="540" y="258" text-anchor="middle" class="hint">sorted</text>
+
+  <!-- Queue impls -->
+  <rect x="620" y="210" width="130" height="48" class="impl-hot" rx="8"/>
+  <text x="685" y="232" text-anchor="middle" class="label">ArrayDeque</text>
+  <text x="685" y="248" text-anchor="middle" class="hint">stack + queue</text>
+
+  <rect x="770" y="210" width="130" height="48" class="impl-hot" rx="8"/>
+  <text x="835" y="232" text-anchor="middle" class="label">PriorityQueue</text>
+  <text x="835" y="248" text-anchor="middle" class="hint">min-heap default</text>
+
+  <!-- Map impls -->
+  <rect x="300" y="390" width="130" height="48" class="impl-hot" rx="8"/>
+  <text x="365" y="412" text-anchor="middle" class="label">HashMap</text>
+  <text x="365" y="428" text-anchor="middle" class="hint">default map</text>
+
+  <rect x="450" y="390" width="130" height="48" class="impl" rx="8"/>
+  <text x="515" y="412" text-anchor="middle" class="label">TreeMap</text>
+  <text x="515" y="428" text-anchor="middle" class="hint">sorted keys</text>
+
+  <rect x="600" y="390" width="150" height="48" class="impl" rx="8"/>
+  <text x="675" y="412" text-anchor="middle" class="label">LinkedHashMap</text>
+  <text x="675" y="428" text-anchor="middle" class="hint">insertion order</text>
+
+  <line class="link" x1="460" y1="356" x2="365" y2="390"/>
+  <line class="link" x1="460" y1="356" x2="515" y2="390"/>
+  <line class="link" x1="460" y1="356" x2="675" y2="390"/>
+
+  <text x="460" y="478" text-anchor="middle" class="hint">Rule of thumb: start with hash-based structures; switch to tree-based when you need ordering.</text>
+</svg>

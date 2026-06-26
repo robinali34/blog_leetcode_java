@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 560" role="img" aria-labelledby="javaWhyTitle javaWhyDesc" class="template-diagram-svg">
+  <title id="javaWhyTitle">Why Java Features Exist</title>
+  <desc id="javaWhyDesc">Problem needs mapped to Java language and library features.</desc>
+  <defs>
+    <style>
+      .need { fill: #E8D5D0; stroke: #8B8680; stroke-width: 1.5; }
+      .feat { fill: #fff; stroke: #B8B5B0; stroke-width: 1.4; }
+      .core { fill: #D4D8E0; stroke: #8B8680; stroke-width: 1.5; }
+      .title { font: 600 15px ui-sans-serif, system-ui, sans-serif; fill: #5A5752; }
+      .label { font: 500 11.5px ui-sans-serif, system-ui, sans-serif; fill: #5A5752; }
+      .hint { font: 400 10px ui-sans-serif, system-ui, sans-serif; fill: #7A7772; }
+      .arrow { stroke: #9A9792; stroke-width: 1.4; fill: none; marker-end: url(#java-why-arrow); }
+    </style>
+    <marker id="java-why-arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#9A9792"/>
+    </marker>
+  </defs>
+
+  <rect width="980" height="560" fill="#FAF7F2" rx="12"/>
+  <text x="490" y="32" text-anchor="middle" class="title">Why these Java features exist</text>
+  <text x="490" y="52" text-anchor="middle" class="hint">Each API solves a recurring algorithm problem — pick the tool that matches the need.</text>
+
+  <rect x="40" y="78" width="200" height="44" class="core" rx="8"/>
+  <text x="140" y="105" text-anchor="middle" class="label">Algorithm need</text>
+
+  <rect x="740" y="78" width="200" height="44" class="core" rx="8"/>
+  <text x="840" y="105" text-anchor="middle" class="label">Java feature</text>
+
+  <!-- row 1 -->
+  <rect x="40" y="140" width="200" height="52" class="need" rx="8"/>
+  <text x="140" y="162" text-anchor="middle" class="label">O(1) index by position</text>
+  <text x="140" y="178" text-anchor="middle" class="hint">arrays, grids, DP tables</text>
+  <path class="arrow" d="M240 166 L740 166"/>
+  <rect x="740" y="140" width="200" height="52" class="feat" rx="8"/>
+  <text x="840" y="170" text-anchor="middle" class="label">int[] / int[][]</text>
+
+  <!-- row 2 -->
+  <rect x="40" y="210" width="200" height="52" class="need" rx="8"/>
+  <text x="140" y="232" text-anchor="middle" class="label">Grow/shrink at runtime</text>
+  <text x="140" y="248" text-anchor="middle" class="hint">backtracking paths, unknown size</text>
+  <path class="arrow" d="M240 236 L740 236"/>
+  <rect x="740" y="210" width="200" height="52" class="feat" rx="8"/>
+  <text x="840" y="240" text-anchor="middle" class="label">ArrayList / List</text>
+
+  <!-- row 3 -->
+  <rect x="40" y="280" width="200" height="52" class="need" rx="8"/>
+  <text x="140" y="302" text-anchor="middle" class="label">Fast lookup by key</text>
+  <text x="140" y="318" text-anchor="middle" class="hint">complement, frequency, visited</text>
+  <path class="arrow" d="M240 306 L740 306"/>
+  <rect x="740" y="280" width="200" height="52" class="feat" rx="8"/>
+  <text x="840" y="310" text-anchor="middle" class="label">HashMap / HashSet</text>
+
+  <!-- row 4 -->
+  <rect x="40" y="350" width="200" height="52" class="need" rx="8"/>
+  <text x="140" y="372" text-anchor="middle" class="label">Sorted order / next greater</text>
+  <text x="140" y="388" text-anchor="middle" class="hint">scheduling, order statistics</text>
+  <path class="arrow" d="M240 376 L740 376"/>
+  <rect x="740" y="350" width="200" height="52" class="feat" rx="8"/>
+  <text x="840" y="380" text-anchor="middle" class="label">TreeSet / TreeMap</text>
+
+  <!-- row 5 -->
+  <rect x="40" y="420" width="200" height="52" class="need" rx="8"/>
+  <text x="140" y="442" text-anchor="middle" class="label">Always get min / max next</text>
+  <text x="140" y="458" text-anchor="middle" class="hint">k-way merge, Dijkstra</text>
+  <path class="arrow" d="M240 446 L740 446"/>
+  <rect x="740" y="420" width="200" height="52" class="feat" rx="8"/>
+  <text x="840" y="450" text-anchor="middle" class="label">PriorityQueue</text>
+
+  <!-- bottom extras -->
+  <rect x="280" y="490" width="130" height="44" class="need" rx="8"/>
+  <text x="345" y="516" text-anchor="middle" class="label">LIFO / FIFO</text>
+  <rect x="430" y="490" width="120" height="44" class="feat" rx="8"/>
+  <text x="490" y="516" text-anchor="middle" class="label">Deque / Queue</text>
+
+  <rect x="570" y="490" width="130" height="44" class="need" rx="8"/>
+  <text x="635" y="516" text-anchor="middle" class="label">Immutable text</text>
+  <rect x="720" y="490" width="130" height="44" class="feat" rx="8"/>
+  <text x="785" y="516" text-anchor="middle" class="label">String + Builder</text>
+</svg>
