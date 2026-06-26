@@ -123,11 +123,12 @@ This is a classic **BFS (Breadth-First Search)** problem for N-ary trees. The ke
 ### **Solution: BFS with Queue**
 
 ```java
+// import java.util.*;
 /*
 // Definition for a Node.
 class Node {
-    public int val;
-    vector<Node> children;
+        int val;
+    Node[]children;
 
     Node() {}
 
@@ -135,7 +136,7 @@ class Node {
         val = _val;
     }
 
-    Node(int _val, vector<Node> _children) {
+    Node(int _val, Node[]_children) {
         val = _val;
         children = _children;
     }
@@ -144,19 +145,19 @@ class Node {
 
 class Solution {
     public int[][] levelOrder(Node root) {
-        int[][] rtn;
+        List<int[]> rtn = new ArrayList<>();
         if(!root) return rtn;
-        queue<Node> q;
-        q.push(root);
-        while(!q.length == 0) {
-            int[]level;
+        Queue<Node> q = new LinkedList<>();
+        q.offer(root);
+        while(!q.isEmpty()) {
+            List<Integer> level = new ArrayList<>();
             int levelSize = q.size();
             for(int i = 0; i < levelSize; i++) {
-                Node curr = q.getFirst();
-                q.pop();
+                Node curr = q.get(0);
+                q.poll();
                 level.add(curr.val);
                 for(auto child: curr.children) {
-                    q.push(child);
+                    q.offer(child);
                 }
             }
             rtn.add(level);

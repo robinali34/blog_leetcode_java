@@ -74,13 +74,13 @@ This approach uses pointers to track the current vector and element position, cy
 
 ```java
 class ZigzagIterator {
-    public int[][] cache;
+    List<int[]> cache = new ArrayList<>();
     int pVec = 0, pElem = 0;
     int totalNum = 0, outputCount = 0;
     ZigzagIterator(int[] v1, int[] v2) {
         cache.add(v1);
         cache.add(v2);
-        for(auto vec: cache) {
+        for (int vec : cache) {
             totalNum += vec.size();
         }
     }
@@ -104,7 +104,7 @@ class ZigzagIterator {
                 pElem++;
             }
         }
-        throw runtime_error("No more elements");
+        throw runtime_error = new throw("No more elements");
     }
 
     boolean hasNext() {
@@ -113,7 +113,7 @@ class ZigzagIterator {
 }
 /**
  * Your ZigzagIterator object will be instantiated and called as such:
- * ZigzagIterator i(v1, v2);
+ * ZigzagIterator i = new ZigzagIterator(v1, v2);
  * while (i.hasNext()) cout << i.next();
  */
 ```
@@ -139,38 +139,38 @@ This approach uses a queue to store pairs of `(vector_index, element_index)`, ma
 
 ```java
 class ZigzagIterator {
-    public int[][] cache;
+    List<int[]> cache = new ArrayList<>();
     queue<int[]> q;
     ZigzagIterator(int[] v1, int[] v2) {
         cache.add(v1);
         cache.add(v2);
         for(int i = 0; i < (int)cache.size(); i++) {
             if(!cache[i].empty()) {
-                q.push({i, 0});
+                q.offer(new int[] {i, 0});
             }
         }
     }
 
     int next() {
         if (!hasNext()) {
-            throw runtime_error("No more elements");
+            throw runtime_error = new throw("No more elements");
         }
-        auto [vec_index, elem_index] = q.getFirst();
-        q.pop();
+        auto [vec_index, elem_index] = q.get(0);
+        q.poll();
         int next_elem_index = elem_index + 1;
         if(next_elem_index < cache[vec_index].size()) {
-            q.push({vec_index, next_elem_index});
+            q.offer(new int[] {vec_index, next_elem_index});
         }
         return cache[vec_index][elem_index];
     }
 
     boolean hasNext() {
-        return !q.length == 0;
+        return !q.isEmpty();
     }
 }
 /**
  * Your ZigzagIterator object will be instantiated and called as such:
- * ZigzagIterator i(v1, v2);
+ * ZigzagIterator i = new ZigzagIterator(v1, v2);
  * while (i.hasNext()) cout << i.next();
  */
 ```
@@ -245,32 +245,32 @@ The queue-based approach easily extends to handle k vectors:
 
 ```java
 class ZigzagIterator {
-    public int[][] cache;
+    List<int[]> cache = new ArrayList<>();
     queue<int[]> q;
-    ZigzagIterator(int[][]& vectors) {
+    ZigzagIterator(int[][] vectors) {
         cache = vectors;
         for(int i = 0; i < (int)cache.size(); i++) {
             if(!cache[i].empty()) {
-                q.push({i, 0});
+                q.offer(new int[] {i, 0});
             }
         }
     }
 
     int next() {
         if (!hasNext()) {
-            throw runtime_error("No more elements");
+            throw runtime_error = new throw("No more elements");
         }
-        auto [vec_index, elem_index] = q.getFirst();
-        q.pop();
+        auto [vec_index, elem_index] = q.get(0);
+        q.poll();
         int next_elem_index = elem_index + 1;
         if(next_elem_index < cache[vec_index].size()) {
-            q.push({vec_index, next_elem_index});
+            q.offer(new int[] {vec_index, next_elem_index});
         }
         return cache[vec_index][elem_index];
     }
 
     boolean hasNext() {
-        return !q.length == 0;
+        return !q.isEmpty();
     }
 }
 ```

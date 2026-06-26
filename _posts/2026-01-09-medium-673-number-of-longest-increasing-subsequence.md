@@ -122,7 +122,7 @@ This is a follow-up to [LC 300: Longest Increasing Subsequence](https://leetcode
 
 ```java
 class Solution {
-    public int findNumberOfLIS(int[] nums) {
+        public int findNumberOfLIS(int[] nums) {
         int N = nums.length;
         if(N == 0) return 0;
 
@@ -135,7 +135,7 @@ class Solution {
                         dp[i] = dp[j] + 1;
                         cnt[i] = cnt[j];
                     } else if (dp[j] + 1 == dp[i]) {
-                        cnt[i] += cnt[j];
+                        cnt.put(i, cnt.getOrDefault(i, 0) + cnt[j];
                     }
                 }
             }
@@ -365,7 +365,7 @@ This approach uses binary search similar to the patience sorting technique from 
 
 ```java
 class Solution {
-    public int binarySearch(int n, function<boolean(int)> f) {
+        public int binarySearch(int n, function<boolean(int)> f) {
         int l = 0, r = n;
         while (l < r) {
             int mid = (l + r) / 2;
@@ -377,7 +377,7 @@ class Solution {
         }
         return l;
     }
-    int findNumberOfLIS(int[]nums) {
+        public int findNumberOfLIS(int[]nums) {
         int[][] d, cnt;
         for (int v : nums) {
             int i = binarySearch(d.size(), [&](int i) { return d[i].back() >= v; });
@@ -388,13 +388,13 @@ class Solution {
             }
             if (i == d.size()) {
                 d.add({v});
-                cnt.add({0, c});
+                cnt.add(new int[] {0, c});
             } else {
-                d[i].push_back(v);
-                cnt[i].push_back(cnt[i].back() + c);
+                d.computeIfAbsent(i, k -> new ArrayList<>()).add(v);
+                cnt.computeIfAbsent(i, k -> new ArrayList<>()).add(cnt[i].back() + c);
             }
         }
-        return cnt.getLast().back();
+        return cnt.get(cnt.size() - 1).back();
     }
 }
 ```

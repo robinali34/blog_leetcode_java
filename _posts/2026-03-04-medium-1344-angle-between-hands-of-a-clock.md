@@ -76,7 +76,7 @@ answer      = min(165, 360 - 165) = min(165, 195) = 165°
 {% raw %}
 ```java
 class Solution {
-    double angleClock(int hour, int minutes) {
+        public double angleClock(int hour, int minutes) {
         double hourAngle = (hour % 12 + minutes / 60.0) * 30.0;
         double minuteAngle = (minutes % 60) * 6.0;
         double diff = abs(hourAngle - minuteAngle);

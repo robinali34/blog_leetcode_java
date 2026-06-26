@@ -87,25 +87,26 @@ This problem requires efficiently answering multiple range frequency queries. Th
 ## Solution: Hash Map with Binary Search
 
 ```java
+// import java.util.*;
 class RangeFreqQuery {
     RangeFreqQuery(int[] arr) {
-        for(int i = 0; i < (int)arr.length; i++) {
+        for(int i = 0; i < arr.length; i++) {
             freqArray[arr[i]].push_back(i);
         }
     }
 
     int query(int left, int right, int value) {
-        if(!freqArray.contains(value)) return 0;
+        if(!freqArray.containsKey(value)) return 0;
         int[] v = freqArray[value];
-        var itLeft = binary search (lower bound)(v /* elements of v */, left);
+        var itLeft = floorKey(v /* elements of v */, left);
         var itRight = binary search (upper bound)(v /* elements of v */, right);
         return itRight - itLeft;
     }
-    HashMap<Integer, int[]> freqArray;
+    HashMap<Integer, int[]> freqArray = new HashMap<Integer, int[]>();
 }
 /**
  * Your RangeFreqQuery object will be instantiated and called as such:
- * RangeFreqQuery obj = new RangeFreqQuery(arr);
+ * RangeFreqQuery obj = new RangeFreqQuery = new new(arr);
  * int param_1 = obj.query(left,right,value);
  */
 ```
@@ -116,7 +117,7 @@ class RangeFreqQuery {
 
 ```java
 RangeFreqQuery(int[] arr) {
-    for(int i = 0; i < (int)arr.length; i++) {
+    for(int i = 0; i < arr.length; i++) {
         freqArray[arr[i]].push_back(i);
     }
 }
@@ -142,9 +143,9 @@ freqArray[34] = [6, 10]
 
 ```java
 static int query(int left, int right, int value) {
-    if(!freqArray.contains(value)) return 0;
+    if(!freqArray.containsKey(value)) return 0;
     int[] v = freqArray[value];
-    var itLeft = binary search (lower bound)(v /* elements of v */, left);
+    var itLeft = floorKey(v /* elements of v */, left);
     var itRight = binary search (upper bound)(v /* elements of v */, right);
     return itRight - itLeft;
 }

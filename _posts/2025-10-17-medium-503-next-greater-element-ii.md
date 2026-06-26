@@ -101,18 +101,18 @@ Use a monotonic stack to find the next greater element for each position, proces
 ```java
 // import java.util.*;
 class Solution {
-    public int[]nextGreaterElements(int[] nums) {
+    public int[] nextGreaterElements(int[] nums) {
         int n = nums.length;
         Deque<Integer> st = new ArrayDeque<>();
         int[]rtn(n, -1);
 
         for(int i = 2 n + 1; i >= 0; i--) {
             int idx = i % n;
-            while(!st.length == 0 && st.top() <= nums[idx]) {
-                st.pop();
+            while(!st.isEmpty() && st.peek() <= nums[idx]) {
+                st.poll();
             }
-            if(!st.length == 0) rtn[idx] = st.top();
-            st.push(nums[idx]);
+            if(!st.isEmpty()) rtn[idx] = st.peek();
+            st.offer(nums[idx]);
         }
 
         return rtn;
@@ -211,8 +211,8 @@ for(int i = 2 n + 1; i >= 0; i--) {
 
 ### 3. Maintain Monotonic Stack
 ```java
-while(!st.length == 0 && st.top() <= nums[idx]) {
-    st.pop();
+while(!st.isEmpty() && st.peek() <= nums[idx]) {
+    st.poll();
 }
 ```
 
@@ -220,8 +220,8 @@ while(!st.length == 0 && st.top() <= nums[idx]) {
 
 ### 4. Find Next Greater Element
 ```java
-if(!st.length == 0) rtn[idx] = st.top();
-st.push(nums[idx]);
+if(!st.isEmpty()) rtn[idx] = st.peek();
+st.offer(nums[idx]);
 ```
 
 **Purpose:** Set result and push current value to stack.
@@ -231,7 +231,7 @@ st.push(nums[idx]);
 ### Approach 1: Brute Force
 ```java
 class Solution {
-    public int[]nextGreaterElements(int[] nums) {
+    public int[] nextGreaterElements(int[] nums) {
         int n = nums.length;
         int[]res(n, -1);
 
@@ -257,25 +257,25 @@ class Solution {
 ```java
 // import java.util.*;
 class Solution {
-    public int[]nextGreaterElements(int[] nums) {
+    public int[] nextGreaterElements(int[] nums) {
         int n = nums.length;
         int[]res(n, -1);
         Deque<Integer> st = new ArrayDeque<>();
 
         // First pass
         for (int i = 0; i < n; i++) {
-            while (!st.length == 0 && nums[st.top()] < nums[i]) {
-                res[st.top()] = nums[i];
-                st.pop();
+            while (!st.isEmpty() && nums[st.peek()] < nums[i]) {
+                res[st.peek()] = nums[i];
+                st.poll();
             }
-            st.push(i);
+            st.offer(i);
         }
 
         // Second pass for circular
         for (int i = 0; i < n; i++) {
-            while (!st.length == 0 && nums[st.top()] < nums[i]) {
-                res[st.top()] = nums[i];
-                st.pop();
+            while (!st.isEmpty() && nums[st.peek()] < nums[i]) {
+                res[st.peek()] = nums[i];
+                st.poll();
             }
         }
 

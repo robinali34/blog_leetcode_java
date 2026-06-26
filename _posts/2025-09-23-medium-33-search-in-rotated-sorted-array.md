@@ -89,7 +89,7 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 ```java
 class Solution {
-    public int search(int[] nums, int target) {
+        public int search(int[] nums, int target) {
         int left = 0, right = nums.length - 1;
 
         while (left <= right) {
@@ -124,10 +124,10 @@ class Solution {
 
 ## Solution in Python
 
-```java
+```python
 class Solution:
-    public static void search(this, nums: List[int], target: int) . int:
-        left, right = 0, nums.length - 1
+    def search(self, nums: list[int], target: int) -> int:
+        left, right = 0, len(nums) - 1
         
         while left <= right:
             mid = left + (right - left) // 2

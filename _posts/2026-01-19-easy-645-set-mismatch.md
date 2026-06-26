@@ -90,7 +90,7 @@ This problem requires finding both a duplicate and a missing number in an array 
 
 ```java
 class Solution {
-    public int[]findErrorNums(int[] nums) {
+    public int[] findErrorNums(int[] nums) {
         int N = nums.length;
         long x = 0, y = 0;
         for(int i = 1; i <= N; i++) {
@@ -99,7 +99,7 @@ class Solution {
         }
         int missing = (y - x x) / (2 x);
         int duplicate = missing + x;
-        return {duplicate, missing}
+        return new int[] {duplicate, missing}
     }
 }
 ```
@@ -164,7 +164,7 @@ Return: [2, 3] ✓
 
 ```java
 class Solution {
-    public int[]findErrorNums(int[] nums) {
+    public int[] findErrorNums(int[] nums) {
         int duplicate = -1;
         int n = nums.length;
 
@@ -188,7 +188,7 @@ class Solution {
             }
         }
 
-        return {duplicate, missing}
+        return new int[] {duplicate, missing}
     }
 }
 ```
@@ -213,7 +213,7 @@ class Solution {
 
 ```java
 class Solution {
-    public int[]findErrorNums(int[] nums) {
+    public int[] findErrorNums(int[] nums) {
         int n = nums.length;
         int[] count = new int[n + 1];
         int duplicate = -1, missing = -1;
@@ -229,7 +229,7 @@ class Solution {
             else if (count[i] == 0) missing = i;
         }
 
-        return {duplicate, missing}
+        return new int[] {duplicate, missing}
     }
 }
 ```
@@ -243,11 +243,9 @@ class Solution {
 
 ```java
 class Solution {
-    public int[]findErrorNums(int[] nums) {
+    public int[] findErrorNums(int[] nums) {
         int n = nums.length;
-        int xor_all = 0;
-
-        // XOR all numbers in nums and 1..n
+        xor_all = 0; // XOR all numbers in nums and 1..n
         for (int i = 0; i < n; i++) {
             xor_all ^= nums[i];
             xor_all ^= (i + 1);
@@ -275,10 +273,10 @@ class Solution {
         // Determine which is duplicate and which is missing
         for (int num : nums) {
             if (num == xor0) {
-                return {xor0, xor1}
+                return new int[] {xor0, xor1}
             }
         }
-        return {xor1, xor0}
+        return new int[] {xor1, xor0}
     }
 }
 ```

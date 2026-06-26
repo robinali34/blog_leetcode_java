@@ -78,36 +78,19 @@ Use a monotonic deque (double-ended queue) that maintains indices of elements in
 Use a deque (double-ended queue) to maintain indices of elements in decreasing order of their values. This allows O(1) access to the maximum element in the current window.
 
 ```java
-// import java.util.*;
 class Solution {
-    public int[]maxSlidingWindow(int[] nums, int k) {
-        int[]rtn;
-        ArrayDeque<Integer> q = new ArrayDeque<>();
-
-        for(int i = 0; i < nums.length; i++) {
-            // Remove indices outside the current window
-            while(!q.length == 0 && q.getFirst() < i - k + 1) {
-                q.removeFirst();
-            }
-
-            // Remove indices whose values are smaller than current element
-            // (they can never be the maximum)
-            while(!q.length == 0 && nums[q.getLast()] < nums[i]) {
-                q.removeLast();
-            }
-
-            q.add(i);
-
-            // Add maximum when window is complete
-            if(i >= k - 1) {
-                rtn.add(nums[q.getFirst()]);
-            }
+    public int[] maxSlidingWindow(int[] nums, int k) {
+        Deque<Integer> dq = new ArrayDeque<>();
+        int[] result = new int[nums.length - k + 1];
+        for (int i = 0; i < nums.length; i++) {
+            while (!dq.isEmpty() && dq.peekFirst() < i - k + 1) dq.pollFirst();
+            while (!dq.isEmpty() && nums[dq.peekLast()] <= nums[i]) dq.pollLast();
+            dq.offerLast(i);
+            if (i >= k - 1) result[i - k + 1] = nums[dq.peekFirst()];
         }
-
-        return rtn;
+        return result;
     }
-}
-```
+}```
 
 ## How the Algorithm Works
 
@@ -170,7 +153,7 @@ Step 7: [7:7]           (removed 6, max = 7)
 ### 1. Initialize
 ```java
 // import java.util.*;
-int[]rtn;
+List<Integer> rtn = new ArrayList<>();
 ArrayDeque<Integer> q = new ArrayDeque<>();
 ```
 - `rtn`: Result array to store maximums
@@ -178,7 +161,7 @@ ArrayDeque<Integer> q = new ArrayDeque<>();
 
 ### 2. Remove Out-of-Window Indices
 ```java
-while(!q.length == 0 && q.getFirst() < i - k + 1) {
+while(!q.isEmpty() && q.get(0) < i - k + 1) {
     q.removeFirst();
 }
 ```
@@ -187,7 +170,7 @@ while(!q.length == 0 && q.getFirst() < i - k + 1) {
 
 ### 3. Remove Smaller Elements
 ```java
-while(!q.length == 0 && nums[q.getLast()] < nums[i]) {
+while(!q.isEmpty() && nums[q.get(q.size() - 1)] < nums[i]) {
     q.removeLast();
 }
 ```
@@ -204,7 +187,7 @@ q.add(i);
 ### 5. Record Maximum
 ```java
 if(i >= k - 1) {
-    rtn.add(nums[q.getFirst()]);
+    rtn.add(nums[q.get(0)]);
 }
 ```
 - When window is complete (i >= k - 1), add maximum to result
@@ -229,7 +212,7 @@ if(i >= k - 1) {
 
 ```java
 int[]maxSlidingWindow(int[] nums, int k) {
-    int[]rtn;
+    List<Integer> rtn = new ArrayList<>();
     for(int i = 0; i <= nums.length - k; i++) {
         int maxVal = Integer.MIN_VALUE;
         for(int j = i; j < i + k; j++) {
@@ -248,19 +231,19 @@ int[]maxSlidingWindow(int[] nums, int k) {
 
 ```java
 int[]maxSlidingWindow(int[] nums, int k) {
-    int[]rtn;
-    priority_queue<int[]> pq;  // {value, index}
+    List<Integer> rtn = new ArrayList<>();
+    PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> Integer.compare(a[0], b[0]));  // new int[] {value, index}
 
     for(int i = 0; i < nums.length; i++) {
-        pq.push({nums[i], i});
+        pq.offer({nums[i], i});
 
         // Remove elements outside window
-        while(pq.top().second <= i - k) {
-            pq.pop();
+        while(pq.peek().second <= i - k) {
+            pq.poll();
         }
 
         if(i >= k - 1) {
-            rtn.add(pq.top().first);
+            rtn.add(pq.peek().first);
         }
     }
     return rtn;
@@ -273,21 +256,19 @@ int[]maxSlidingWindow(int[] nums, int k) {
 ### Approach 3: Using Multiset
 
 ```java
-int[]maxSlidingWindow(int[] nums, int k) {
-    int[]rtn;
-    multiset<int> window;
-
-    for(int i = 0; i < nums.length; i++) {
-        window.add(nums[i]);
-
-        if(i >= k - 1) {
-            rtn.add(*window.rbegin());  // Maximum element
-            window.remove(window.find(nums[i - k + 1]));  // Remove leftmost
+class Solution {
+    public int[] maxSlidingWindow(int[] nums, int k) {
+        Deque<Integer> dq = new ArrayDeque<>();
+        int[] result = new int[nums.length - k + 1];
+        for (int i = 0; i < nums.length; i++) {
+            while (!dq.isEmpty() && dq.peekFirst() < i - k + 1) dq.pollFirst();
+            while (!dq.isEmpty() && nums[dq.peekLast()] <= nums[i]) dq.pollLast();
+            dq.offerLast(i);
+            if (i >= k - 1) result[i - k + 1] = nums[dq.peekFirst()];
         }
+        return result;
     }
-    return rtn;
-}
-```
+}```
 
 **Time Complexity:** O(n log k) - Multiset operations  
 **Space Complexity:** O(k)

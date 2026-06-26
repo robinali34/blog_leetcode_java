@@ -89,66 +89,39 @@ This solution uses Union-Find with path compression and union by weight to maint
 
 ```java
 class Solution {
-    unordered_map<String, String[]> weights;
-
-    public String[] find(String node) {
-        if(!weights.contains(node)) {
-            weights[node] = {node, 1.0}
+    public double[] calcEquation(List<List<String>> equations, double[] values,
+                                 List<List<String>> queries) {
+        Map<String, Map<String, Double>> graph = new HashMap<>();
+        for (int i = 0; i < equations.size(); i++) {
+            String a = equations.get(i).get(0), b = equations.get(i).get(1);
+            graph.computeIfAbsent(a, k -> new HashMap<>()).put(b, values[i]);
+            graph.computeIfAbsent(b, k -> new HashMap<>()).put(a, 1.0 / values[i]);
         }
-        var entry = weights[node];
-        if(entry.first != node) {
-            var parentEntry = find(entry.first);
-            weights[node] = {
-                parentEntry.first,
-                entry.second parentEntry.second
+        double[] result = new double[queries.size()];
+        for (int i = 0; i < queries.size(); i++) {
+            String s = queries.get(i).get(0), t = queries.get(i).get(1);
+            if (!graph.containsKey(s) || !graph.containsKey(t)) result[i] = -1.0;
+            else {
+                Set<String> seen = new HashSet<>();
+                result[i] = dfs(graph, s, t, 1.0, seen);
             }
         }
-        return weights[node];
+        return result;
     }
 
-    void unite(String dividend, String divisor, double value) {
-        var dividendEntry = find(dividend);
-        var divisorEntry = find(divisor);
-
-        String dividendRoot = dividendEntry.first;
-        String divisorRoot = divisorEntry.first;
-
-        if(dividendRoot != divisorRoot) {
-            weights[dividendRoot] = {
-                divisorRoot,
-                divisorEntry.second value / dividendEntry.second
+    private double dfs(Map<String, Map<String, Double>> g, String cur, String target,
+                       double prod, Set<String> seen) {
+        if (cur.equals(target)) return prod;
+        seen.add(cur);
+        for (var e : g.get(cur).entrySet()) {
+            if (!seen.contains(e.getKey())) {
+                double res = dfs(g, e.getKey(), target, prod * e.getValue(), seen);
+                if (res != -1.0) return res;
             }
         }
+        return -1.0;
     }
-    double[]calcEquation(vector<String[]>& equations, double[] values, vector<String[]>& queries) {
-        for(int i = 0; i < equations.size(); i++) {
-            String dividend = equations[i][0];
-            String divisor = equations[i][1];
-            double value = values[i];
-            unite(dividend, divisor, value);
-        }
-
-        double[]rtn;
-        for (auto query: queries) {
-            String dividend = query[0];
-            String divisor = query[1];
-            if(!weights.contains(dividend) || !weights.contains(divisor)) {
-                rtn.add(-1.0);
-                continue;
-            }
-
-            var dividendEntry = find(dividend);
-            var divisorEntry = find(divisor);
-            if(dividendEntry.first != divisorEntry.first) {
-                rtn.add(-1.0);
-            } else {
-                rtn.add(dividendEntry.second / divisorEntry.second);
-            }
-        }
-        return rtn;
-    }
-}
-```
+}```
 
 ### How Solution 1 Works
 
@@ -186,21 +159,20 @@ Build a graph and use DFS to find paths between variables.
 ```java
 // import java.util.*;
 class Solution {
-    double[]calcEquation(vector<String[]>& equations, double[] values, vector<String[]>& queries) {
-        unordered_map<String, vector<String[]>> graph;
+    double[]calcEquation(List<List<String>>& equations, double[] values, List<List<String>>& queries) {
+        unordered_map<String, List<List<String>>> graph;
 
-        // Build graph
-        for(int i = 0; i < equations.size(); i++) {
-            public String a = equations[i][0];
+        // Build graph for = new graph(int i = 0; i < equations.size(); i++) {
+        String a = equations[i][0];
             String b = equations[i][1];
             double val = values[i];
 
-            graph[a].push_back({b, val});
-            graph[b].push_back({a, 1.0 / val});
+            graph.computeIfAbsent(a, k.new ArrayList<>()).add(new int[] new int[] new int[] {b, val});
+            graph.computeIfAbsent(b, k.new ArrayList<>()).add({a, 1.0 / val});
         }
 
-        double[]result;
-        for(auto query : queries) {
+        List<Double> result = new ArrayList<>();
+        for (int query : queries) {
             String start = query[0];
             String end = query[1];
 
@@ -216,7 +188,7 @@ class Solution {
 
         return result;
     }
-    double dfs(String curr, String target, unordered_map<String, vector<String[]>>& graph,
+        public double dfs(String curr, String target, unordered_map<String, List<List<String>>>& graph,
                HashSet<String>& visited, double product) {
         if(curr == target) {
             return product;
@@ -224,7 +196,7 @@ class Solution {
 
         visited.add(curr);
 
-        for(auto& [neighbor, weight] : graph[curr]) {
+        for (int[] edge : graph.get(curr)) {
             if(visited.find(neighbor) == visited.iterator()) {
                 double result = dfs(neighbor, target, graph, visited, product weight);
                 if(result != -1.0) {

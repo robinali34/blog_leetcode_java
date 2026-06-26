@@ -49,11 +49,11 @@ Use two pointers `i` and `j` to walk through both strings simultaneously. In eac
 {% raw %}
 ```java
 class Solution {
-    public String mergeAlternately(String word1, String word2) {
+        public String mergeAlternately(String word1, String word2) {
         int m = word1.size(), n = word2.size();
         int i = 0, j = 0;
         String rtn;
-        rtn.reserve(m + n);
+        
 
         while (i < m || j < n) {
             if (i < m) {

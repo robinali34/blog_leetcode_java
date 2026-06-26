@@ -95,14 +95,14 @@ This is a classic **greedy interval scheduling** problem. The key insight is to 
 
 ```java
 class Solution {
-    public int eraseOverlapIntervals(int[][]& intervals) {
+        public int eraseOverlapIntervals(int[][] intervals) {
         sort(intervals /* elements of intervals */, [](auto a, auto b){
             return a[1] < b[1];
         });
 
         int remove = 0;
         int end = Integer.MIN_VALUE;
-        for(auto interval: intervals){
+        for (int interval : intervals){
             if(interval[0] < end) {
                 remove++;
             } else {

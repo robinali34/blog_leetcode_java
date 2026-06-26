@@ -108,17 +108,17 @@ Use a monotonic stack to maintain lexicographically smallest result while ensuri
 ```java
 // import java.util.*;
 class Solution {
-    public String removeDuplicateLetters(String s) {
+        public String removeDuplicateLetters(String s) {
         int[] count = new int[26];
-        boolean[] visited = new boolean[26];
+        public boolean[] visited = new boolean[26];
         Deque<char> st = new ArrayDeque<>();
 
         // Count frequency of each character
-        for(char c : s) {
+        for (char c : s.toCharArray()) {
             count[c - 'a']++;
         }
 
-        for(char c : s) {
+        for (char c : s.toCharArray()) {
             count[c - 'a']--;
 
             // Skip if already in result
@@ -127,19 +127,19 @@ class Solution {
             // Remove characters that are:
             // 1. Greater than current character
             // 2. Will appear again later
-            while(!st.length == 0 && st.top() > c && count[st.top() - 'a'] > 0) {
-                visited[st.top() - 'a'] = false;
-                st.pop();
+            while(!st.isEmpty() && st.peek() > c && count[st.peek() - 'a'] > 0) {
+                visited[st.peek() - 'a'] = false;
+                st.poll();
             }
 
-            st.push(c);
+            st.offer(c);
             visited[c - 'a'] = true;
         }
 
         String result;
-        while(!st.length == 0) {
-            result = st.top() + result;
-            st.pop();
+        while(!st.isEmpty()) {
+            result = st.peek() + result;
+            st.poll();
         }
 
         return result;
@@ -190,7 +190,7 @@ class Solution {
 
 ### Core Logic:
 ```java
-for(char c : s) {
+for (char c : s.toCharArray()) {
     count[c - 'a']--;
 
     // Skip if already in result
@@ -199,12 +199,12 @@ for(char c : s) {
     // Remove characters that are:
     // 1. Greater than current character
     // 2. Will appear again later
-    while(!st.length == 0 && st.top() > c && count[st.top() - 'a'] > 0) {
-        visited[st.top() - 'a'] = false;
-        st.pop();
+    while(!st.isEmpty() && st.peek() > c && count[st.peek() - 'a'] > 0) {
+        visited[st.peek() - 'a'] = false;
+        st.poll();
     }
 
-    st.push(c);
+    st.offer(c);
     visited[c - 'a'] = true;
 }
 ```
@@ -275,20 +275,19 @@ Where n is the length of the string.
 ### Approach 1: Recursive with Backtracking
 ```java
 class Solution {
-    public String removeDuplicateLetters(String s) {
+        public String removeDuplicateLetters(String s) {
         if(s.length == 0) return "";
 
         int[] count = new int[26];
-        for(char c : s) count[c - 'a']++;
-
+        for (char c : s.toCharArray()) count[c - 'a']++;
         int pos = 0;
         for(int i = 0; i < s.length(); i++) {
-            if(s[i] < s[pos]) pos = i;
-            if(--count[s[i] - 'a'] == 0) break;
+            if(s.charAt(i) < s.charAt(pos)) pos = i;
+            if(--count[s.charAt(i) - 'a'] == 0) break;
         }
 
-        char c = s[pos];
-        String remaining = s.substr(pos + 1);
+        char c = s.charAt(pos);
+        String remaining = s.substring(pos + 1);
         for(char ch : remaining) {
             if(ch == c) ch = ' ';
         }
@@ -307,11 +306,11 @@ class Solution {
 // import java.util.Arrays;
 // import java.util.Collections;
 class Solution {
-    public String removeDuplicateLetters(String s) {
-        TreeSet<char> seen;
+        public String removeDuplicateLetters(String s) {
+        TreeSet<char> seen = new TreeSet<>();
         String result;
 
-        for(char c : s) {
+        for (char c : s.toCharArray()) {
             if(seen.find(c) == seen.iterator()) {
                 seen.add(c);
                 result += c;

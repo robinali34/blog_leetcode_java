@@ -105,21 +105,20 @@ Both approaches achieve O(log n) time complexity by reducing the problem size by
 
 ```java
 class Solution {
-    double myPow(double x, int n) {
-        public long N = n;
-        if (n < 0) {
-            x = 1/x;
+    public double myPow(double x, int n) {
+        long N = n;
+        if (N < 0) {
+            x = 1 / x;
             N = -N;
         }
-        return myPower(x, N);
+        double ans = 1, cur = x;
+        for (long i = N; i > 0; i /= 2) {
+            if ((i & 1) == 1) ans *= cur;
+            cur *= cur;
+        }
+        return ans;
     }
-    double myPower(double x, long n) {
-        if(n == 0) return 1.0;
-        double half = myPower(x, n / 2);
-        return (n % 2 == 0) ? half half : half half * x;
-    }
-}
-```
+}```
 
 **Time Complexity:** O(log n) - Each recursive call reduces n by half
 **Space Complexity:** O(log n) - Recursion stack depth
@@ -128,17 +127,17 @@ class Solution {
 
 ```java
 class Solution {
-    double myPow(double x, int n) {
+        public double myPow(double x, int n) {
         return myPow(x, (long) n);
     }
-    double myPow(double x, long n) {
+        public double myPow(double x, long n) {
         if(n == 0) return 1.0;
         if(n < 0) {
             n = -n;
             x = 1 / x;
         }
         double rtn = 1;
-        while(n) {
+        while (n > 0) {
             if (n % 2 == 1) {
                 rtn *= x;
                 n -= 1;

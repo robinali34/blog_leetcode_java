@@ -81,26 +81,26 @@ class DSU {
         if (px == py) return false;
         if (rank[px] < rank[py]) swap(px, py);
         parent[py] = px;
-        rank[px] += rank[py];
+        rank.put(px, rank.getOrDefault(px, 0) + rank[py];
         return true;
     }
     int[]parent, rank;
 }
 class Solution {
-    public String smallestStringWithSwaps(String s, int[][]& pairs) {
+        public String smallestStringWithSwaps(String s, int[][] pairs) {
         int n = s.size();
-        DSU dsu(n);
+        DSU dsu = new DSU(n);
 
-        for (auto p : pairs) dsu.unite(p[0], p[1]);
+        for (int p : pairs) dsu.unite(p[0], p[1]);
 
-        HashMap<Integer, int[]> groups;
+        HashMap<Integer, int[]> groups = new HashMap<Integer, int[]>();
         for (int i = 0; i < n; i++)
-            groups[dsu.find(i)].push_back(i);
+            groups.computeIfAbsent(dsu.find(i), k -> new ArrayList<>()).add(i);
 
         String res = s;
-        for (auto& [parent, idxs] : groups) {
+        for (var e : groups.entrySet()) {
             String chars = "";
-            for (int i : idxs) chars += s[i];
+            for (int i : idxs) chars += s.charAt(i);
             Arrays.sort(chars);
             Arrays.sort(idxs);
             for (int i = 0; i < (int)idxs.size(); i++)

@@ -78,7 +78,7 @@ This solution uses backtracking to try all possible ways to split the string int
 ```java
 class Solution {
     // Check if a segment is valid using String.substring for efficiency
-    public boolean isValid(String.substring segment) {
+        public boolean isValid(String.substring segment) {
         int len = segment.length();
 
         // Single digit is always valid (0-9)
@@ -97,7 +97,7 @@ class Solution {
         return false;  // len > 3 is invalid
     }
 
-    void backtrack(
+    public void backtrack(
         String.substring s,
         int start,
         int[] dots,
@@ -113,19 +113,19 @@ class Solution {
 
         // Base case: we have 3 dots, check if remaining segment is valid
         if (dots.size() == 3) {
-            var lastSegment = s.substr(start);
+            var lastSegment = s.substring(start);
             if (isValid(lastSegment)) {
                 // Build IP address efficiently
                 String ip;
-                ip.reserve(s.length() + 3);  // Reserve space for dots
+                + 3);  // Reserve space for dots
 
                 int last = 0;
                 for (int dot : dots) {
-                    ip.append(s.substr(last, dot));
+                    ip.append(s.substring(last, dot));
                     last += dot;
                     ip.append(".");
                 }
-                ip.append(s.substr(start));
+                ip.append(s.substring(start));
                 result.add(move(ip));
             }
             return;
@@ -134,7 +134,7 @@ class Solution {
         // Try segments of length 1, 2, or 3
         for (int curr = 1; curr <= 3 && curr <= remainingLen; curr++) {
             dots.add(curr);
-            var segment = s.substr(start, curr);
+            var segment = s.substring(start, curr);
             if (isValid(segment)) {
                 backtrack(s, start + curr, dots, result);
             }
@@ -142,12 +142,12 @@ class Solution {
         }
     }
     String[]restoreIpAddresses(String s) {
-        int[]dots;
-        dots.reserve(3);  // At most 3 dots
+        List<Integer> dots = new ArrayList<>();
+          // At most 3 dots
         String[]result;
 
         // Use String.substring to avoid copying
-        String.substring sv(s);
+        String.substring sv = new substring(s);
         backtrack(sv, 0, dots, result);
 
         return result;
@@ -159,7 +159,7 @@ class Solution {
 
 ```java
 class Solution {
-    public boolean isValid(String.substring segment) {
+        public boolean isValid(String.substring segment) {
         int len = segment.length();
         if (len == 1) return true;
         if (segment[0] == '0') return false;
@@ -167,7 +167,7 @@ class Solution {
         return len == 3 && segment <= "255";
     }
 
-    void backtrack(
+    public void backtrack(
         String.substring s,
         int start,
         int[] segments,
@@ -181,20 +181,20 @@ class Solution {
         }
 
         if (segments.size() == 3) {
-            var lastSegment = s.substr(start);
+            var lastSegment = s.substring(start);
             if (isValid(lastSegment)) {
                 // Build IP more efficiently by pre-calculating size
                 String ip;
                 int totalLen = s.length() + 3;
-                ip.reserve(totalLen);
+                
 
                 int pos = 0;
                 for (int segLen : segments) {
-                    ip.append(s.substr(pos, segLen));
+                    ip.append(s.substring(pos, segLen));
                     pos += segLen;
                     ip += '.';
                 }
-                ip.append(s.substr(start));
+                ip.append(s.substring(start));
                 result.add(move(ip));
             }
             return;
@@ -202,15 +202,15 @@ class Solution {
 
         for (int len = 1; len <= 3 && len <= remainingLen; len++) {
             segments.add(len);
-            if (isValid(s.substr(start, len))) {
+            if (isValid(s.substring(start, len))) {
                 backtrack(s, start + len, segments, result);
             }
             segments.removeLast();
         }
     }
     String[]restoreIpAddresses(String s) {
-        int[]segments;
-        segments.reserve(3);
+        List<Integer> segments = new ArrayList<>();
+        
         String[]result;
 
         backtrack(String.substring(s), 0, segments, result);
@@ -288,7 +288,7 @@ static void backtrack(String.substring s, int start, int[] segments, ...) {
 
     // Try segments of length 1, 2, 3
     for (int len = 1; len <= 3; ++len) {
-        if (isValid(s.substr(start, len))) {
+        if (isValid(s.substring(start, len))) {
             backtrack(s, start + len, segments, result);
         }
     }

@@ -87,7 +87,7 @@ Answer: [3, 5] ✓
 {% raw %}
 ```java
 class Solution {
-    public int[]singleNumber(int[] nums) {
+    public int[] singleNumber(int[] nums) {
         int x = 0;
         for (int num : nums) x ^= num;
         int diff = x & (-x);
@@ -96,7 +96,7 @@ class Solution {
             if (num diff) a ^= num;
             else b ^= num;
         }
-        return {a, b}
+        return new int[] {a, b}
     }
 }
 ```

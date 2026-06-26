@@ -115,12 +115,10 @@ This problem requires validating UTF-8 encoding by checking bit patterns. UTF-8 
 class Solution {
     public static int MASK1 = 1 << 7;
     public static int MASK2 = MASK1 + (1 << 6);
-
-    public boolean isValid(int num) {
+        public boolean isValid(int num) {
         return (num MASK2) == MASK1;
     }
-
-    int getBytes(int num) {
+        public int getBytes(int num) {
         if((num MASK1) == 0) return 1;
         int n = 0, mask = MASK1;
         while ((num mask) != 0) {
@@ -130,7 +128,7 @@ class Solution {
         }
         return n >=2 ? n : -1;
     }
-    boolean validUtf8(int[] data) {
+        public boolean validUtf8(int[] data) {
         int M = data.size();
         int idx = 0;
         while(idx < M) {

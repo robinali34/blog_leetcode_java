@@ -87,7 +87,7 @@ This problem requires removing all occurrences of `val` from the array **in-plac
 
 ```java
 class Solution {
-    public int removeElement(int[] nums, int val) {
+        public int removeElement(int[] nums, int val) {
         int last = 0;
         for(int curr = 0; curr < nums.length; curr++) {
             if(nums[curr] != val) {
@@ -200,7 +200,7 @@ Result: return 5, nums = [0,1,3,0,4,_,_,_] ✓
 
 ```java
 class Solution {
-    public int removeElement(int[] nums, int val) {
+        public int removeElement(int[] nums, int val) {
         int left = 0, right = nums.length;
         while(left < right) {
             if(nums[left] == val) {
@@ -230,7 +230,7 @@ class Solution {
 
 ```java
 class Solution {
-    public int removeElement(int[] nums, int val) {
+        public int removeElement(int[] nums, int val) {
         var it = remove(nums /* elements of nums */, val);
         return distance(nums.iterator(), it);
     }

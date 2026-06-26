@@ -111,6 +111,7 @@ This problem requires designing a data structure that supports efficient inserti
 ## Solution 1: Binary Search with Custom Implementation
 
 ```java
+// import java.util.*;
 class TimeMap {
     TimeMap() {
 
@@ -121,7 +122,7 @@ class TimeMap {
     }
 
     String get(String key, int timestamp) {
-        if(!cache.contains(key)) return "";
+        if(!cache.containsKey(key)) return "";
 
         String rtn = "";
         var values = cache[key];
@@ -161,6 +162,7 @@ class TimeMap {
 ## Solution 2: Using `Collections.binarySearch()`
 
 ```java
+// import java.util.*;
 class TimeMap {
     TimeMap() {
 
@@ -171,16 +173,16 @@ class TimeMap {
     }
 
     String get(String key, int timestamp) {
-        if(!cache.contains(key)) return "";
+        if(!cache.containsKey(key)) return "";
 
         var values = cache[key];
-        var it = binary search (lower bound)(values /* elements of values */, timestamp,
+        var it = floorKey(values /* elements of values */, timestamp,
                             [](int[]& p, int ts) {
-            return p.first < ts;
+            return p[0] < ts;
         });
 
-        if(it != values.iterator() && it.first == timestamp) {
-            return it.second;
+        if(it != values.iterator() && it[0] == timestamp) {
+            return it[1];
         }
         if(it == values.iterator()) return "";
         return prev(it).second;
@@ -207,6 +209,7 @@ class TimeMap {
 ## Solution 3: Using binary search (upper bound)
 
 ```java
+// import java.util.*;
 class TimeMap {
     TimeMap() {
 
@@ -217,12 +220,12 @@ class TimeMap {
     }
 
     String get(String key, int timestamp) {
-        if(!cache.contains(key)) return "";
+        if(!cache.containsKey(key)) return "";
 
         var values = cache[key];
         var it = binary search (upper bound)(values /* elements of values */, timestamp,
                             [](int ts, int[]& p) {
-            return ts < p.first;
+            return ts < p[0];
         });
 
         if(it == values.iterator()) return "";

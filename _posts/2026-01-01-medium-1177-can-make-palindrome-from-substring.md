@@ -100,14 +100,14 @@ This problem requires checking if a substring can be rearranged and have at most
 
 ```java
 class Solution {
-    public boolean[]canMakePaliQueries(String s, int[][]& queries) {
+    public boolean[]canMakePaliQueries(String s, int[][] queries) {
         int N = s.size();
         int[]count(N + 1);
         for(int i = 0; i < N; i++) {
-            count[i + 1] = count[i] ^ (1 << (s[i] - 'a'));
+            count[i + 1] = count[i] ^ (1 << (s.charAt(i) - 'a'));
         }
         boolean[]rtn;
-        for(auto query : queries) {
+        for (int query : queries) {
             int left = query[0], right = query[1], k = query[2];
             int bits = 0, x = count[right + 1] ^ count[left];
             while(x > 0) {

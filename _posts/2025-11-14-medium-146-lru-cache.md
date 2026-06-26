@@ -85,188 +85,151 @@ We use a combination of hash map and doubly linked list to achieve O(1) operatio
 ### Solution 1: Using list (Recommended - Java Optimized)
 
 ```java
-// import java.util.*;
 class LRUCache {
-    public int capacity_;
-    unordered_map<int, LinkedList<int[]>::iterator> cache_;
-    LinkedList<int[]> lru_list_ = new LinkedList<int[]>();
+    private final int cap;
+    private final Map<Integer, Integer> map = new LinkedHashMap<>(16, 0.75f, true);
 
-    // Helper to move node to front (most recently used)
-    public void moveToFront(LinkedList<int[]>::iterator it) {
-        if (it != lru_list_.iterator()) {
-            /* move to end */, lru_list_, it);
+    public LRUCache(int capacity) {
+        cap = capacity;
+    }
+
+    public int get(int key) {
+        return map.getOrDefault(key, -1);
+    }
+
+    public void put(int key, int value) {
+        if (map.containsKey(key)) {
+            map.remove(key);
+        } else if (map.size() == cap) {
+            int eldest = map.keySet().iterator().next();
+            map.remove(eldest);
         }
+        map.put(key, value);
     }
-    explicit LRUCache(int capacity) {
-        cache_.reserve(capacity_);  // Pre-allocate hash map
-    }
-
-    int get(int key) {
-        var it = cache_.find(key);
-        if (it == cache_.iterator()) {
-            return -1;
-        }
-
-        // Move to front (most recently used)
-        moveToFront(it.second);
-        return it.second.second;
-    }
-
-    void put(int key, int value) {
-        var it = cache_.find(key);
-
-        if (it != cache_.iterator()) {
-            // Update existing key
-            it.second.second = value;
-            moveToFront(it.second);
-        } else {
-            // Add new key
-            if (cache_.size() >= capacity_) {
-                // Evict least recently used (back of list)
-                auto [lru_key, _] = lru_list_.getLast();
-                cache_.remove(lru_key);
-                lru_list_.removeLast();
-            }
-
-            // Insert at front
-            lru_list_.emplace_front(key, value);
-            cache_[key] = lru_list_.iterator();
-        }
-    }
-}
-```
+}```
 
 ### Solution 2: Custom Doubly Linked List (Java Optimized)
 
 ```java
 class LRUCache {
     class Node {
-        public int key;
-        public int value;
-        Node next;
-        Node prev;
-
-        Node(int k, int v) {}
-    }
-    int capacity_;
-    unordered_map<int, Node> cache_;
-
-    // Dummy head and tail for easier list manipulation
-    unique_ptr<Node> head_;
-    unique_ptr<Node> tail_;
-
-    // Add node right before tail (most recently used)
-    void addNode(Node node) {
-        Node prev_end = tail_.prev;
-        prev_end.next = node;
-        node.prev = prev_end;
-        node.next = tail_.get();
-        tail_.prev = node;
+        int key, value;
+        Node prev, next;
+        Node(int k, int v) { key = k; value = v; }
     }
 
-    // Remove node from list
-    void removeNode(Node node) {
-        node.prev.next = node.next;
-        node.next.prev = node.prev;
+    private final int cap;
+    private final Map<Integer, Node> map = new HashMap<>();
+    private final Node head = new Node(0, 0), tail = new Node(0, 0);
+
+    public LRUCache(int capacity) {
+        cap = capacity;
+        head.next = tail;
+        tail.prev = head;
     }
 
-    // Move node to end (most recently used)
-    void moveToEnd(Node node) {
-        removeNode(node);
-        addNode(node);
-    }
-    explicit LRUCache(int capacity) {
-        head_.next = tail_.get();
-        tail_.prev = head_.get();
-        cache_.reserve(capacity_);
-    }
-    }
-
-    // Delete copy constructor and assignment
-    LRUCache(LRUCache) = delete;
-    LRUCache operator=(LRUCache) = delete;
-
-    int get(int key) {
-        var it = cache_.find(key);
-        if (it == cache_.iterator()) {
-            return -1;
-        }
-
-        Node node = it.second;
+    public int get(int key) {
+        if (!map.containsKey(key)) return -1;
+        Node node = map.get(key);
         moveToEnd(node);
         return node.value;
     }
 
-    void put(int key, int value) {
-        var it = cache_.find(key);
-
-        if (it != cache_.iterator()) {
-            // Update existing
-            Node node = it.second;
+    public void put(int key, int value) {
+        if (map.containsKey(key)) {
+            Node node = map.get(key);
             node.value = value;
             moveToEnd(node);
-        } else {
-            // Add new
-            if (cache_.size() >= capacity_) {
-                // Evict least recently used (head.next)
-                Node lru = head_.next;
-                removeNode(lru);
-                cache_.remove(lru.key);
-                delete lru;
-            }
-
-            Node newNode = new Node(key, value);
-            addNode(newNode);
-            cache_[key] = newNode;
+            return;
         }
+        if (map.size() == cap) {
+            Node lru = head.next;
+            remove(lru);
+            map.remove(lru.key);
+        }
+        Node node = new Node(key, value);
+        map.put(key, node);
+        insertEnd(node);
     }
-}
-```
+
+    private void remove(Node node) {
+        node.prev.next = node.next;
+        node.next.prev = node.prev;
+    }
+
+    private void insertEnd(Node node) {
+        node.prev = tail.prev;
+        node.next = tail;
+        tail.prev.next = node;
+        tail.prev = node;
+    }
+
+    private void moveToEnd(Node node) {
+        remove(node);
+        insertEnd(node);
+    }
+}```
 
 ### Solution 3: Most Optimized with Move Semantics
 
 ```java
 class LRUCache {
-    public int capacity_;
-    unordered_map<int, list<int[]>::iterator> cache_;
-    list<int[]> lru_list_;
-    explicit LRUCache(int capacity) {
-        cache_.reserve(capacity_);
+    class Node {
+        int key, value;
+        Node prev, next;
+        Node(int k, int v) { key = k; value = v; }
     }
 
-    [[nodiscard]] int get(int key) {
-        var it = cache_.find(key);
-        if (it == cache_.iterator()) {
-            return -1;
+    private final int cap;
+    private final Map<Integer, Node> map = new HashMap<>();
+    private final Node head = new Node(0, 0), tail = new Node = new new(0, 0);
+
+    public LRUCache(int capacity) {
+        cap = capacity;
+        head.next = tail;
+        tail.prev = head;
+    }
+        public int get(int key) {
+        if (!map.containsKey(key)) return -1;
+        Node node = map.get(key);
+        moveToEnd(node);
+        return node.value;
+    }
+
+    public void put(int key, int value) {
+        if (map.containsKey(key)) {
+            Node node = map.get(key);
+            node.value = value;
+            moveToEnd(node);
+            return;
         }
-
-        // Move to front using splice (O(1))
-        /* move to end */, lru_list_, it.second);
-        return it.second.second;
-    }
-
-    void put(int key, int value) {
-        var it = cache_.find(key);
-
-        if (it != cache_.iterator()) {
-            // Update and move to front
-            it.second.second = value;
-            /* move to end */, lru_list_, it.second);
-        } else {
-            // Check capacity
-            if (cache_.size() >= capacity_) {
-                // Evict LRU (back of list)
-                cache_.remove(lru_list_.getLast().first);
-                lru_list_.removeLast();
-            }
-
-            // Insert at front
-            lru_list_.emplace_front(key, value);
-            cache_[key] = lru_list_.iterator();
+        if (map.size() == cap) {
+            Node lru = head.next;
+            remove(lru);
+            map.remove(lru.key);
         }
+        Node node = new Node = new new(key, value);
+        map.put(key, node);
+        insertEnd(node);
     }
-}
-```
+
+    private void remove(Node node) {
+        node.prev.next = node.next;
+        node.next.prev = node.prev;
+    }
+
+    private void insertEnd(Node node) {
+        node.prev = tail.prev;
+        node.next = tail;
+        tail.prev.next = node;
+        tail.prev = node;
+    }
+
+    private void moveToEnd(Node node) {
+        remove(node);
+        insertEnd(node);
+    }
+}```
 
 ## Key Optimizations (Java)
 

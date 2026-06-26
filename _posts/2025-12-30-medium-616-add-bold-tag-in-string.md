@@ -89,14 +89,14 @@ This problem requires identifying all substrings in `s` that match any word in `
 
 ```java
 class Solution {
-    public String addBoldTag(String s, String[] words) {
+        public String addBoldTag(String s, String[] words) {
         int n = s.size();
         if(n == 0) return "";
         boolean[] mask = new boolean[n];
         for(int i = 0; i < n; i++) {
             for(String word: words) {
                 int word_len = word.size();
-                if(i + word_len <= n && s.substr(i, word_len) == word) {
+                if(i + word_len <= n && s.substring(i, word_len) == word) {
                     for(int j = i; j < i + word_len; j++)
                         mask[j] = true;
                 }
@@ -107,7 +107,7 @@ class Solution {
             if(mask[i] == true && (i == 0 || mask[i - 1] == false)) {
                 res += "<b>";
             }
-            res.add(s[i]);
+            res.add(s.charAt(i));
             if(mask[i] == true && (i == n - 1 || mask[i+1] == false)) {
                 res += "</b>";
             }
@@ -232,7 +232,7 @@ if(mask[i] == true && (i == n - 1 || mask[i+1] == false))
 
 For each position, we check all words:
 ```java
-if(i + word_len <= n && s.substr(i, word_len) == word)
+if(i + word_len <= n && s.substring(i, word_len) == word)
 ```
 - Bounds check: `i + word_len <= n`
 - Substring comparison: `s.substr(i, word_len) == word`

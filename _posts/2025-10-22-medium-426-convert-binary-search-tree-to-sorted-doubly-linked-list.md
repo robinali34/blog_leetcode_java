@@ -95,7 +95,7 @@ class Solution {
         return first;
     }
     Node first = null, *last = null;
-    void inorder(Node node) {
+    public void inorder(Node node) {
         if(node) {
             inorder(node.left);
             if(last) {
@@ -134,7 +134,7 @@ class Solution {
         tail.right = head;
         return head;
     }
-    void inorder(Node node, Node& head, Node& tail) {
+    public void inorder(Node node, Node head, Node tail) {
         if(!node) return;
 
         inorder(node.left, head, tail);
@@ -164,23 +164,24 @@ class Solution {
 **Space Complexity:** O(h)
 
 ```java
+// import java.util.*;
 class Solution {
     Node treeToDoublyList(Node root) {
         if(!root) return null;
 
-        stack<Node> stk;
+        Deque<Node> stk = new ArrayDeque<>();
         Node first = null;
         Node last = null;
         Node curr = root;
 
-        while(curr || !stk.length == 0) {
-            while(curr) {
-                stk.push(curr);
+        while(curr || !stk.isEmpty()) {
+            while (curr > 0) {
+                stk.offer(curr);
                 curr = curr.left;
             }
 
-            curr = stk.top();
-            stk.pop();
+            curr = stk.peek();
+            stk.poll();
 
             if(!first) {
                 first = curr;

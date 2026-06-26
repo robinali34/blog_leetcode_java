@@ -93,7 +93,7 @@ This problem requires finding a peak element in O(log n) time, which strongly su
 
 ```java
 class Solution {
-    public int findPeakElement(int[] nums) {
+        public int findPeakElement(int[] nums) {
         int left = 0, right = nums.length - 1;
         while(left < right) {
             int mid = left + (right - left) / 2;

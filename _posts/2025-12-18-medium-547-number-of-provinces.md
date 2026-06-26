@@ -76,19 +76,19 @@ This solution uses Union-Find to group connected cities into provinces.
 
 ```java
 class Solution {
-    public int find(int[] parent, int index) {
+        public int find(int[] parent, int index) {
         if(parent[index] != index) {
             parent[index] = find(parent, parent[index]);
         }
         return parent[index];
     }
 
-    void unite(int[] parent, int index1, int index2) {
+    public void unite(int[] parent, int index1, int index2) {
         parent[find(parent, index1)] = find(parent, index2);
     }
-    int findCircleNum(int[][]& isConnected) {
+        public int findCircleNum(int[][] isConnected) {
         int cnt = isConnected.size();
-        int[]parent(cnt);
+        int[] parent = new int[cnt];
 
         // Initialize: each city is its own parent
         for(int i = 0; i < cnt; i++) {
@@ -134,7 +134,7 @@ Use DFS to explore all cities in a province.
 
 ```java
 class Solution {
-    public void dfs(int[][]& isConnected, boolean[] visited, int city) {
+    public void dfs(int[][] isConnected, boolean[] visited, int city) {
         visited[city] = true;
         for(int j = 0; j < isConnected.size(); j++) {
             if(isConnected[city][j] == 1 && !visited[j]) {
@@ -142,7 +142,7 @@ class Solution {
             }
         }
     }
-    int findCircleNum(int[][]& isConnected) {
+        public int findCircleNum(int[][] isConnected) {
         int n = isConnected.size();
         boolean[] visited = new boolean[n];
         int provinces = 0;
@@ -175,7 +175,7 @@ Use BFS instead of DFS for iterative exploration.
 ```java
 // import java.util.*;
 class Solution {
-    public int findCircleNum(int[][]& isConnected) {
+        public int findCircleNum(int[][] isConnected) {
         int n = isConnected.size();
         boolean[] visited = new boolean[n];
         int provinces = 0;
@@ -183,17 +183,17 @@ class Solution {
         for(int i = 0; i < n; i++) {
             if(!visited[i]) {
                 Queue<Integer> q = new LinkedList<>();
-                q.push(i);
+                q.offer(i);
                 visited[i] = true;
 
-                while(!q.length == 0) {
-                    int city = q.getFirst();
-                    q.pop();
+                while(!q.isEmpty()) {
+                    int city = q.get(0);
+                    q.poll();
 
                     for(int j = 0; j < n; j++) {
                         if(isConnected[city][j] == 1 && !visited[j]) {
                             visited[j] = true;
-                            q.push(j);
+                            q.offer(j);
                         }
                     }
                 }

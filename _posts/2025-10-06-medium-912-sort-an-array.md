@@ -94,12 +94,12 @@ Merge sort is a divide-and-conquer algorithm that divides the array into two hal
 
 ```java
 class Solution {
-    public int[]sortArray(int[] nums) {
-        int[]cache(nums.length);
+    public int[] sortArray(int[] nums) {
+        public int[] cache(nums.length);
         mergeSort(nums, 0, nums.length - 1, cache);
         return nums;
     }
-    void merge(int[] arr, int left, int pivot, int right, int[] cache){
+    public void merge(int[] arr, int left, int pivot, int right, int[] cache){
         int start1 = left;
         int start2 = pivot + 1;
         int n1 = pivot - left + 1;
@@ -139,7 +139,7 @@ class Solution {
         }
     }
 
-    void mergeSort(int[] arr, int left, int right, int[] cache) {
+    public void mergeSort(int[] arr, int left, int right, int[] cache) {
         if(left >= right) return;
         int pivot = left + (right - left) / 2;
         mergeSort(arr, left, pivot, cache);
@@ -179,12 +179,12 @@ class Solution {
 
         // If largest is not root, swap and heapify
         if(largest != i) {
-            swap(arr[i], arr[largest]);
+            swap(arr, i, largest);
             heapify(arr, n, largest);
         }
     }
 
-    void heapSort(int[] arr) {
+    public void heapSort(int[] arr) {
         int n = arr.length;
 
         // Build max heap
@@ -194,8 +194,7 @@ class Solution {
 
         // Extract elements from heap one by one
         for(int i = n - 1; i >= 0; i--) {
-            swap(arr[0], arr[i]);  // Move max to end
-            heapify(arr, i, 0);    // Heapify reduced heap
+            swap(arr, 0, i);  // Move max to end heapify = new end(arr, i, 0);    // Heapify reduced heap
         }
     }
     int[]sortArray(int[] nums) {
@@ -229,7 +228,7 @@ class Solution {
         int maxVal = Arrays.stream(arr).Math.max().getAsInt();
 
         // Count frequency of each element
-        for(auto val: arr) counts.put(val, counts.getOrDefault(val, 0) + 1);
+        for (int val : arr) counts.put(val, counts.getOrDefault(val, 0) + 1);
 
         // Reconstruct sorted array
         int idx = 0;

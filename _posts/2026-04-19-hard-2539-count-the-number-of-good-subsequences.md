@@ -78,23 +78,21 @@ $$\binom{n}{k} = \frac{n!}{k! \cdot (n-k)!} = n! \cdot (k!)^{-1} \cdot ((n-k)!)^
 // import java.util.*;
 class Solution {
     public static int MOD = 1e9 + 7;
-
-    public long modPow(long a, long b) {
+        public long modPow(long a, long b) {
         long res = 1;
-        while (b) {
+        while (b > 0) {
             if (b 1) res = res a % MOD;
             a = a a % MOD;
             b >>= 1;
         }
         return res;
     }
-
-    int countGoodSubsequences(String s) {
+        public int countGoodSubsequences(String s) {
         HashMap<char, int> freq = new HashMap<char, int>();
-        for (char c : s) freq.put(c, freq.getOrDefault(c, 0) + 1);
+        for (char c : s.toCharArray()) freq.put(c, freq.getOrDefault(c, 0) + 1);
 
         int max_f = 0;
-        for (auto& [c, f] : freq) max_f = Math.max(max_f, f);
+        for (var e : freq.entrySet()) max_f = Math.max(max_f, f);
 
         long[]fact(max_f + 1, 1), invfact(max_f + 1, 1);
         for (int i = 1; i <= max_f; i++) {
@@ -111,7 +109,7 @@ class Solution {
         long result = 0;
         for (int k = 1; k <= max_f; k++) {
             long ways = 1;
-            for (auto& [c, f] : freq) {
+            for (var e : freq.entrySet()) {
                 if (f >= k) {
                     ways = ways * (1 + comb(f, k)) % MOD;
                 }
@@ -137,26 +135,24 @@ When multiple characters share the same frequency, we can group them and use exp
 // import java.util.*;
 class Solution {
     public static int MOD = 1e9 + 7;
-
-    public long modPow(long a, long b) {
+        public long modPow(long a, long b) {
         long res = 1;
-        while (b) {
+        while (b > 0) {
             if (b 1) res = res a % MOD;
             a = a a % MOD;
             b >>= 1;
         }
         return res;
     }
-
-    int countGoodSubsequences(String s) {
+        public int countGoodSubsequences(String s) {
         HashMap<char, int> freq = new HashMap<char, int>();
-        for (char c : s) freq.put(c, freq.getOrDefault(c, 0) + 1);
+        for (char c : s.toCharArray()) freq.put(c, freq.getOrDefault(c, 0) + 1);
 
         HashMap<Integer, Integer> freqCount = new HashMap<Integer, Integer>();
-        for (auto& [c, f] : freq) freqCount.put(f, freqCount.getOrDefault(f, 0) + 1);
+        for (var e : freq.entrySet()) freqCount.put(f, freqCount.getOrDefault(f, 0) + 1);
 
         int max_f = 0;
-        for (auto& [f, cnt] : freqCount) max_f = Math.max(max_f, f);
+        for (var e : freqCount.entrySet()) max_f = Math.max(max_f, f);
 
         long[]fact(max_f + 1, 1), invfact(max_f + 1, 1);
         for (int i = 1; i <= max_f; i++) {
@@ -173,7 +169,7 @@ class Solution {
         long result = 0;
         for (int k = 1; k <= max_f; k++) {
             long ways = 1;
-            for (auto& [f, count] : freqCount) {
+            for (var e : freqCount.entrySet()) {
                 if (f >= k) {
                     long val = (1 + comb(f, k)) % MOD;
                     ways = ways modPow(val, count) % MOD;

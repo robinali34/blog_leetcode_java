@@ -102,40 +102,42 @@ This problem requires finding the **number of shortest paths** from node `0` to 
 
 ```java
 class Solution {
-    public int countPaths(int n, int[][]& roads) {
-        int MOD = 1e9 + 7;
-        vector<List<int[]>> adjList(n);
-        for(auto road: roads) {
-            int startNode = road[0], endNode = road[1], travelTime = road[2];
-            adjList[startNode].emplace_back(endNode, travelTime);
-            adjList[endNode].emplace_back(startNode, travelTime);
-        }
-        priority_queue<long[], vector<long[]>, greater<>> minHeap;
-        long[]shortestTime(n, Long.MAX_VALUE);
-        int[] pathCount = new int[n];
-        shortestTime[0] = 0;
-        pathCount[0] = 1;
-        minHeap.emplace(0, 0);
-        while(!minHeap.length == 0) {
-            auto [currTime, currNode] = minHeap.top();
-            minHeap.pop();
+    private static final int MOD = 1_000_000_007;
 
-            if(currTime > shortestTime[currNode]) continue;
-            for(auto& [neighborNode, roadTime]: adjList[currNode]) {
-                if(currTime + roadTime < shortestTime[neighborNode]) {
-                    shortestTime[neighborNode] = currTime + roadTime;
-                    pathCount[neighborNode] = pathCount[currNode];
-                    minHeap.emplace(shortestTime[neighborNode], neighborNode);
-                }
-                else if (currTime + roadTime == shortestTime[neighborNode]) {
-                    pathCount[neighborNode] = (pathCount[neighborNode] + pathCount[currNode]) % MOD;
+    public int countPaths(int n, int[][] roads) {
+        List<List<long[]>> g = new ArrayList<>();
+        for (int i = 0; i < n; i++) g.add(new ArrayList<>());
+        for (int[] r : roads) {
+            g.get(r[0]).add(new long[] {r[1], r[2]});
+            g.get(r[1]).add(new long[] {r[0], r[2]});
+        }
+        long[] dist = new long[n];
+        long[] ways = new long[n];
+        Arrays.fill(dist, Long.MAX_VALUE);
+        dist[0] = 0;
+        ways[0] = 1;
+        PriorityQueue<long[]> pq = new PriorityQueue<>((a, b) -> Long.compare(a[0], b[0]));
+        pq.offer(new long[] {0, 0});
+        while (!pq.isEmpty()) {
+            long[] cur = pq.poll();
+            long d = cur[0];
+            int u = (int) cur[1];
+            if (d > dist[u]) continue;
+            for (long[] e : g.get(u)) {
+                int v = (int) e[0];
+                long w = e[1];
+                if (dist[u] + w < dist[v]) {
+                    dist[v] = dist[u] + w;
+                    ways[v] = ways[u];
+                    pq.offer(new long[] {dist[v], v});
+                } else if (dist[u] + w == dist[v]) {
+                    ways[v] = (ways[v] + ways[u]) % MOD;
                 }
             }
         }
-        return pathCount[n - 1];
+        return (int) ways[n - 1];
     }
-}
-```
+}```
 
 ### **Algorithm Explanation:**
 
@@ -216,6 +218,7 @@ Result: 4 ways to reach node 6 with shortest time 7
 Here's the general template for Dijkstra's algorithm with path counting:
 
 ```java
+// import java.util.*;
 static int countShortestPaths(int n, vector<List<int[]>>& adjList, int start, int end) {
     int MOD = 1e9 + 7;
     long INF = Long.MAX_VALUE;
@@ -225,22 +228,22 @@ static int countShortestPaths(int n, vector<List<int[]>>& adjList, int start, in
     int[] pathCount = new int[n];
 
     // Priority queue: (distance, node)
-    priority_queue<long[], vector<long[]>, greater<>> pq;
+    priority_queue<long[], List<List<long>>, greater<>> pq;
 
     // Initialize start node
     dist[start] = 0;
     pathCount[start] = 1;
     pq.emplace(0, start);
 
-    while (!pq.length == 0) {
-        auto [currDist, currNode] = pq.top();
-        pq.pop();
+    while (!pq.isEmpty()) {
+        int[] currDistpair = pq.peek(); int currDist = currDistpair[0]; int currNode = currDistpair[1];
+        pq.poll();
 
         // Skip if outdated (already found shorter path)
         if (currDist > dist[currNode]) continue;
 
         // Explore neighbors
-        for (auto& [neighbor, weight] : adjList[currNode]) {
+        for (int[] edge : adjList.get(currNode)) {
             long newDist = currDist + weight;
 
             // Found shorter path: update distance and reset count

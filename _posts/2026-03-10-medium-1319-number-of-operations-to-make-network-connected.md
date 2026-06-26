@@ -87,18 +87,18 @@ class DSU {
         if (px == py) return false;
         if (rank[px] < rank[py]) swap(px, py);
         parent[py] = px;
-        rank[px] += rank[py];
+        rank.put(px, rank.getOrDefault(px, 0) + rank[py];
         return true;
     }
     int[]parent, rank;
 }
 class Solution {
-    public int makeConnected(int n, int[][]& connections) {
+        public int makeConnected(int n, int[][] connections) {
         if ((int)connections.size() < n - 1) return -1;
 
-        DSU dsu(n);
+        DSU dsu = new DSU(n);
         int components = n;
-        for (auto c : connections) {
+        for (int c : connections) {
             if (dsu.unite(c[0], c[1])) components--;
         }
         return components - 1;

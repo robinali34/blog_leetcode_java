@@ -134,12 +134,12 @@ class MyCircularQueue {
     boolean isFull() {
         return size == cap;
     }
-    int[]q;
+    List<Integer> q = new ArrayList<>();
     int head, tail, size, cap;
 }
 /**
  * Your MyCircularQueue object will be instantiated and called as such:
- * MyCircularQueue obj = new MyCircularQueue(k);
+ * MyCircularQueue obj = new MyCircularQueue = new new(k);
  * boolean param_1 = obj.enQueue(value);
  * boolean param_2 = obj.deQueue();
  * int param_3 = obj.Front();
@@ -235,7 +235,7 @@ class MyCircularQueue {
 
     boolean enQueue(int value) {
         if(cnt == cap) return false;
-        Node nextNode = new Node(value);
+        Node nextNode = new Node = new new(value);
         if(cnt == 0) {
             head = tail = nextNode;
         } else {
@@ -272,7 +272,7 @@ class MyCircularQueue {
         return cnt == cap;
     }
     class Node {
-        public int val;
+        int val;
         Node next;
         Node(int v) { this.val = v; this.next = null; }
     }
@@ -281,7 +281,7 @@ class MyCircularQueue {
 }
 /**
  * Your MyCircularQueue object will be instantiated and called as such:
- * MyCircularQueue obj = new MyCircularQueue(k);
+ * MyCircularQueue obj = new MyCircularQueue = new new(k);
  * boolean param_1 = obj.enQueue(value);
  * boolean param_2 = obj.deQueue();
  * int param_3 = obj.Front();

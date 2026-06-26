@@ -97,18 +97,18 @@ This problem requires finding the next greater element for each position in the 
 ```java
 // import java.util.*;
 class Solution {
-    public int[]dailyTemperatures(int[] temperatures) {
+    public int[] dailyTemperatures(int[] temperatures) {
         int n = temperatures.size();
         int[] rtn = new int[n];
         Deque<Integer> s = new ArrayDeque<>();
 
         for(int i = 0; i < n; i++) {
-            while(!s.length == 0 && temperatures[i] > temperatures[s.top()]) {
-                int prev = s.top();
-                s.pop();
+            while(!s.isEmpty() && temperatures[i] > temperatures[s.peek()]) {
+                int prev = s.peek();
+                s.poll();
                 rtn[prev] = i - prev;
             }
-            s.push(i);
+            s.offer(i);
         }
         return rtn;
     }
@@ -154,7 +154,7 @@ Result: [1,1,4,2,1,1,0,0]
 
 ```java
 class Solution {
-    public int[]dailyTemperatures(int[] temperatures) {
+    public int[] dailyTemperatures(int[] temperatures) {
         int N = temperatures.size();
         int[] rtn = new int[N];
         for(int i = N - 2; i >= 0; i--) {

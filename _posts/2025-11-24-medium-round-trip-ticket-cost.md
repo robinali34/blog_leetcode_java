@@ -223,7 +223,7 @@ returnTrip: {4,  5,  3}
 ### Step 1: Precompute Minimum Return Prices
 
 ```java
-int[]minReturn(n);
+int[] minReturn = new int[n];
 minReturn[n - 1] = returnTrip[n - 1];
 
 for (int i = n - 2; i >= 0; --i) {
@@ -526,7 +526,7 @@ static void testMinimizeRoundTripCost() {
         {{{8, 4, 2}, {5, 3, 6}}, 5},
         {{{1, 2, 3}, {10, 9, 8}}, 9},
     }
-    for (auto& [input, expected] : testCases) {
+    for (var e : testCases.entrySet()) {
         auto& [outbound, returnTrip] = input;
         int result = minimizeRoundTripCost(outbound, returnTrip);
         assert(result == expected && "Test case failed");

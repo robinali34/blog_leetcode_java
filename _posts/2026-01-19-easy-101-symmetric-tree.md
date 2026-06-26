@@ -100,11 +100,11 @@ This problem requires checking if a binary tree is symmetric (mirror of itself).
  * }
  */
 class Solution {
-    public boolean isSymmetric(TreeNode root) {
+        public boolean isSymmetric(TreeNode root) {
         if(!root) return true;
-        return isMirror(root.left, root.right);
+        return isMirror = new return(root.left, root.right);
     }
-    boolean isMirror(TreeNode a, TreeNode b) {
+        public boolean isMirror(TreeNode a, TreeNode b) {
         if(!a && !b) return true;
         if(!a || !b) return false;
         if(a.val != b.val) return false;
@@ -247,12 +247,11 @@ isSymmetric(1):
 
 ```java
 class Solution {
-    public boolean isSymmetric(TreeNode root) {
+        public boolean isSymmetric(TreeNode root) {
         if (!root) return true;
-        return isMirror(root.left, root.right);
+        return isMirror = new return(root.left, root.right);
     }
-
-    boolean isMirror(TreeNode a, TreeNode b) {
+        public boolean isMirror(TreeNode a, TreeNode b) {
         if (!a && !b) return true;
         if (!a || !b) return false;
         return a.val == b.val &&
@@ -270,22 +269,22 @@ class Solution {
 
 ```java
 class Solution {
-    public boolean isSymmetric(TreeNode root) {
+        public boolean isSymmetric(TreeNode root) {
         if (!root) return true;
 
-        stack<pair<TreeNode, TreeNode>> st;
-        st.push({root.left, root.right});
+        stack<TreeNode[]> st;
+        st.offer({root.left, root.right});
 
-        while (!st.length == 0) {
-            auto [a, b] = st.top();
-            st.pop();
+        while (!st.isEmpty()) {
+            int[] apair = st.peek(); int a = apair[0]; int b = apair[1];
+            st.poll();
 
             if (!a && !b) continue;
             if (!a || !b) return false;
             if (a.val != b.val) return false;
 
-            st.push({a.right, b.left});
-            st.push({a.left, b.right});
+            st.offer({a.right, b.left});
+            st.offer({a.left, b.right});
         }
 
         return true;
@@ -301,22 +300,22 @@ class Solution {
 
 ```java
 class Solution {
-    public boolean isSymmetric(TreeNode root) {
+        public boolean isSymmetric(TreeNode root) {
         if (!root) return true;
 
-        queue<pair<TreeNode, TreeNode>> q;
-        q.push({root.left, root.right});
+        queue<TreeNode[]> q;
+        q.offer({root.left, root.right});
 
-        while (!q.length == 0) {
-            auto [a, b] = q.getFirst();
-            q.pop();
+        while (!q.isEmpty()) {
+            auto [a, b] = q.get(0);
+            q.poll();
 
             if (!a && !b) continue;
             if (!a || !b) return false;
             if (a.val != b.val) return false;
 
-            q.push({a.left, b.right});
-            q.push({a.right, b.left});
+            q.offer({a.left, b.right});
+            q.offer({a.right, b.left});
         }
 
         return true;

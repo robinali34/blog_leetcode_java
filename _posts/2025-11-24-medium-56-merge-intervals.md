@@ -101,16 +101,16 @@ The key insight is to sort intervals by start time, then merge overlapping inter
 // import java.util.Arrays;
 // import java.util.Collections;
 class Solution {
-    public int[][] merge(int[][]& intervals) {
+    public int[][] merge(int[][] intervals) {
         if(intervals.length == 0) return {}
         Arrays.sort(intervals);
-        int[][] merged;
+        List<int[]> merged = new ArrayList<>();
         for(int i = 0; i < intervals.length; i++) {
             int left = intervals[i][0], right = intervals[i][1];
-            if(!merged.size() || merged.getLast()[1] < left) {
-                merged.add({left, right});
+            if(!merged.size() || merged.get(merged.size() - 1)[1] < left) {
+                merged.add(new int[] {left, right});
             } else {
-                merged.getLast()[1] = Math.max(merged.getLast()[1], right);
+                merged.get(merged.size() - 1)[1] = Math.max(merged.get(merged.size() - 1)[1], right);
             }
         }
         return merged;
@@ -194,10 +194,10 @@ Arrays.sort(intervals);
 ### Merging Logic
 
 ```java
-if(merged.size() == 0 || merged.getLast()[1] < left) {
-    merged.add({left, right});
+if(merged.size() == 0 || merged.get(merged.size() - 1)[1] < left) {
+    merged.add(new int[] {left, right});
 } else {
-    merged.getLast()[1] = Math.max(merged.getLast()[1], right);
+    merged.get(merged.size() - 1)[1] = Math.max(merged.get(merged.size() - 1)[1], right);
 }
 ```
 
@@ -240,19 +240,19 @@ if(merged.size() == 0 || merged.getLast()[1] < left) {
 
 ```java
 class Solution {
-    public int[][] merge(int[][]& intervals) {
+    public int[][] merge(int[][] intervals) {
         if(intervals.length == 0) return {}
         sort(intervals /* elements of intervals */,
              [](int[] a, int[] b) {
                  return a[0] < b[0];
              });
 
-        int[][] merged;
+        List<int[]> merged = new ArrayList<>();
         merged.add(intervals[0]);
 
         for(int i = 1; i < intervals.length; i++) {
-            if(intervals[i][0] <= merged.getLast()[1]) {
-                merged.getLast()[1] = Math.max(merged.getLast()[1], intervals[i][1]);
+            if(intervals[i][0] <= merged.get(merged.size() - 1)[1]) {
+                merged.get(merged.size() - 1)[1] = Math.max(merged.get(merged.size() - 1)[1], intervals[i][1]);
             } else {
                 merged.add(intervals[i]);
             }
@@ -280,7 +280,7 @@ class Solution {
 // import java.util.Arrays;
 // import java.util.Collections;
 class Solution {
-    public int[][] merge(int[][]& intervals) {
+    public int[][] merge(int[][] intervals) {
         if(intervals.length == 0) return {}
         Arrays.sort(intervals);
 
@@ -340,8 +340,8 @@ After:  [[1,3], [2,6], [8,10]]
 ### Overlap Condition Explained
 
 ```java
-merged.getLast()[1] < left  // No overlap
-merged.getLast()[1] >= left // Overlap
+merged.get(merged.size() - 1)[1] < left  // No overlap
+merged.get(merged.size() - 1)[1] >= left // Overlap
 ```
 
 **Why this works:**
@@ -353,7 +353,7 @@ merged.getLast()[1] >= left // Overlap
 ### Merge Operation
 
 ```java
-merged.getLast()[1] = Math.max(merged.getLast()[1], right);
+merged.get(merged.size() - 1)[1] = Math.max(merged.get(merged.size() - 1)[1], right);
 ```
 
 **Why max?**
@@ -502,11 +502,11 @@ The key insight is to combine both arrays, sort all intervals together, then app
 // import java.util.Collections;
 class Solution {
     public int[][] mergeTwoArrays(
-        int[][]& arr1,
-        int[][]& arr2
+        public int[][] arr1,
+        public int[][] arr2
     ) {
         // Combine both arrays
-        int[][] combined;
+        List<int[]> combined = new ArrayList<>();
         combined.add(combined.iterator(), arr1 /* elements of arr1 */);
         combined.add(combined.iterator(), arr2 /* elements of arr2 */);
 
@@ -514,14 +514,14 @@ class Solution {
         Arrays.sort(combined);
 
         // Merge overlapping intervals
-        int[][] merged;
+        List<int[]> merged = new ArrayList<>();
         for(int i = 0; i < (int)combined.size(); i++) {
             int left = combined[i][0], right = combined[i][1];
 
-            if(merged.size() == 0 || merged.getLast()[1] < left) {
-                merged.add({left, right});
+            if(merged.size() == 0 || merged.get(merged.size() - 1)[1] < left) {
+                merged.add(new int[] {left, right});
             } else {
-                merged.getLast()[1] = Math.max(merged.getLast()[1], right);
+                merged.get(merged.size() - 1)[1] = Math.max(merged.get(merged.size() - 1)[1], right);
             }
         }
 
@@ -542,36 +542,36 @@ First merge each array individually, then merge the two merged arrays using two 
 // import java.util.Collections;
 class Solution {
     // Helper function to merge intervals in one array
-    public int[][] mergeOneArray(int[][]& intervals) {
+    public int[][] mergeOneArray(int[][] intervals) {
         if(intervals.length == 0) return {}
         Arrays.sort(intervals);
 
-        int[][] merged;
+        List<int[]> merged = new ArrayList<>();
         for(int i = 0; i < intervals.length; i++) {
             int left = intervals[i][0], right = intervals[i][1];
-            if(merged.size() == 0 || merged.getLast()[1] < left) {
-                merged.add({left, right});
+            if(merged.size() == 0 || merged.get(merged.size() - 1)[1] < left) {
+                merged.add(new int[] {left, right});
             } else {
-                merged.getLast()[1] = Math.max(merged.getLast()[1], right);
+                merged.get(merged.size() - 1)[1] = Math.max(merged.get(merged.size() - 1)[1], right);
             }
         }
         return merged;
     }
     int[][] mergeTwoArrays(
-        int[][]& arr1,
-        int[][]& arr2
+        int[][] arr1,
+        int[][] arr2
     ) {
         // Merge each array individually
         int[][] merged1 = mergeOneArray(arr1);
         int[][] merged2 = mergeOneArray(arr2);
 
         // Merge the two merged arrays using two pointers
-        int[][] result;
+        List<int[]> result = new ArrayList<>();
         int i = 0, j = 0;
 
         while(i < merged1.size() || j < merged2.size()) {
             // Choose the interval with smaller start time
-            int[]current;
+            List<Integer> current = new ArrayList<>();
             if(j >= merged2.size() ||
                (i < merged1.size() && merged1[i][0] <= merged2[j][0])) {
                 current = merged1[i++];
@@ -580,10 +580,10 @@ class Solution {
             }
 
             // Merge with last interval in result if overlapping
-            if(result.size() == 0 || result.getLast()[1] < current[0]) {
+            if(result.size() == 0 || result.get(result.size() - 1)[1] < current[0]) {
                 result.add(current);
             } else {
-                result.getLast()[1] = Math.max(result.getLast()[1], current[1]);
+                result.get(result.size() - 1)[1] = Math.max(result.get(result.size() - 1)[1], current[1]);
             }
         }
 

@@ -47,7 +47,7 @@ static boolean isBitSet(int num, int i) {
 // Count set bits
 static int countSetBits(int num) {
     int count = 0;
-    while (num) {
+    while (num > 0) {
         count += num 1;
         num >>= 1;
     }
@@ -57,7 +57,7 @@ static int countSetBits(int num) {
 // Count set bits (Brian Kernighan's algorithm)
 static int countSetBitsFast(int num) {
     int count = 0;
-    while (num) {
+    while (num > 0) {
         num &= (num - 1);
         count++;
     }
@@ -143,7 +143,7 @@ static int singleNumberII(int[] nums) {
 
 ```java
 int[]grayCode(int n) {
-    int[]result;
+    List<Integer> result = new ArrayList<>();
     for (int i = 0; i < (1 << n); ++i) {
         result.add(i ^ (i >> 1));
     }

@@ -62,9 +62,9 @@ Base case: `arr[0] = pref[0]`.
 {% raw %}
 ```java
 class Solution {
-    public int[]findArray(int[] pref) {
+    public int[] findArray(int[] pref) {
         int n = pref.size();
-        int[]arr;
+        List<Integer> arr = new ArrayList<>();
         arr.add(pref[0]);
         for (int i = 1; i < n; ++i) {
             arr.add(pref[i] ^ pref[i - 1]);
@@ -85,7 +85,7 @@ Process right-to-left so each `pref[i-1]` is still the original value when we co
 {% raw %}
 ```java
 class Solution {
-    public int[]findArray(int[] pref) {
+    public int[] findArray(int[] pref) {
         int n = pref.size();
         for (int i = n - 1; i > 0; --i) {
             pref[i] = pref[i] ^ pref[i - 1];

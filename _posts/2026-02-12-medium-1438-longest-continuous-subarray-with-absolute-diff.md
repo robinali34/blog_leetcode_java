@@ -63,8 +63,8 @@ Two common sliding-window techniques:
 {% raw %}
 ```java
 class Solution {
-    public int longestSubarray(int[] nums, int limit) {
-        multiset<int> ms;
+        public int longestSubarray(int[] nums, int limit) {
+        TreeMap<Integer, Integer> ms;
         int left = 0, rtn = 0;
         for (int right = 0; right < nums.length; right++) {
             ms.add(nums[right]);
@@ -86,22 +86,22 @@ class Solution {
 ```java
 // import java.util.*;
 class Solution {
-    public int longestSubarray(int[] nums, int limit) {
+        public int longestSubarray(int[] nums, int limit) {
         ArrayDeque<Integer> increase, decrease; // store values (or indices)
         int left = 0, rtn = 0;
         for (int right = 0; right < nums.length; right++) {
             int val = nums[right];
             // maintain increasing deque for min
-            while (!increase.length == 0 && increase.getLast() > val) increase.removeLast();
+            while (!increase.isEmpty() && increase.get(increase.size() - 1) > val) increase.removeLast();
             increase.add(val);
             // maintain decreasing deque for max
-            while (!decrease.length == 0 && decrease.getLast() < val) decrease.removeLast();
+            while (!decrease.isEmpty() && decrease.get(decrease.size() - 1) < val) decrease.removeLast();
             decrease.add(val);
 
             // shrink window while invalid
-            while (decrease.getFirst() - increase.getFirst() > limit) {
-                if (nums[left] == decrease.getFirst()) decrease.removeFirst();
-                if (nums[left] == increase.getFirst()) increase.removeFirst();
+            while (decrease.get(0) - increase.get(0) > limit) {
+                if (nums[left] == decrease.get(0)) decrease.removeFirst();
+                if (nums[left] == increase.get(0)) increase.removeFirst();
                 left++;
             }
             rtn = Math.max(rtn, right - left + 1);

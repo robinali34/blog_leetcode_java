@@ -109,7 +109,7 @@ This problem requires checking if two binary trees are identical in both structu
  * }
  */
 class Solution {
-    public boolean isSameTree(TreeNode p, TreeNode q) {
+        public boolean isSameTree(TreeNode p, TreeNode q) {
         if(!p && !q) return true;
         if(!p || !q || p.val != q.val) return false;
         return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
@@ -230,7 +230,7 @@ isSameTree(1, 1):
 
 ```java
 class Solution {
-    public boolean isSameTree(TreeNode p, TreeNode q) {
+        public boolean isSameTree(TreeNode p, TreeNode q) {
         if (!p && !q) return true;
         if (!p || !q) return false;
         if (p.val != q.val) return false;
@@ -249,20 +249,20 @@ class Solution {
 
 ```java
 class Solution {
-    public boolean isSameTree(TreeNode p, TreeNode q) {
-        stack<pair<TreeNode, TreeNode>> st;
-        st.push({p, q});
+        public boolean isSameTree(TreeNode p, TreeNode q) {
+        stack<TreeNode[]> st;
+        st.offer(new int[] {p, q});
 
-        while (!st.length == 0) {
-            auto [node1, node2] = st.top();
-            st.pop();
+        while (!st.isEmpty()) {
+            int[] node1pair = st.peek(); int node1 = node1pair[0]; int node2 = node1pair[1];
+            st.poll();
 
             if (!node1 && !node2) continue;
             if (!node1 || !node2) return false;
             if (node1.val != node2.val) return false;
 
-            st.push({node1.right, node2.right});
-            st.push({node1.left, node2.left});
+            st.offer({node1.right, node2.right});
+            st.offer({node1.left, node2.left});
         }
 
         return true;
@@ -278,20 +278,20 @@ class Solution {
 
 ```java
 class Solution {
-    public boolean isSameTree(TreeNode p, TreeNode q) {
-        queue<pair<TreeNode, TreeNode>> q_nodes;
-        q_nodes.push({p, q});
+        public boolean isSameTree(TreeNode p, TreeNode q) {
+        queue<TreeNode[]> q_nodes;
+        q_nodes.offer(new int[] {p, q});
 
-        while (!q_nodes.length == 0) {
-            auto [node1, node2] = q_nodes.getFirst();
-            q_nodes.pop();
+        while (!q_nodes.isEmpty()) {
+            auto [node1, node2] = q_nodes.get(0);
+            q_nodes.poll();
 
             if (!node1 && !node2) continue;
             if (!node1 || !node2) return false;
             if (node1.val != node2.val) return false;
 
-            q_nodes.push({node1.left, node2.left});
-            q_nodes.push({node1.right, node2.right});
+            q_nodes.offer({node1.left, node2.left});
+            q_nodes.offer({node1.right, node2.right});
         }
 
         return true;

@@ -106,15 +106,15 @@ Single pass over all 81 cells. For each filled cell:
 {% raw %}
 ```java
 class Solution {
-    public boolean isValidSudoku(char[][]& board) {
-        int row[9] = {0}
+        public boolean isValidSudoku(char[][]& board) {
+        int[] row = new int[9] = {0}
         int col[9] = {0}
         int box[9] = {0}
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                if (board[i][j] == '.') continue;
+                if (board[i].charAt(j) == '.') continue;
 
-                int num = board[i][j] - '1';   // 0..8
+                int num = board[i].charAt(j) - '1';   // 0..8
                 int mask = 1 << num;
                 int boxIndex = (i / 3) * 3 + (j / 3);
 

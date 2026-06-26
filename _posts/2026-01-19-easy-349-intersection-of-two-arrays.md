@@ -83,9 +83,9 @@ This problem requires finding common elements between two arrays, with each elem
 ```java
 // import java.util.*;
 class Solution {
-    public int[]intersection(int[] nums1, int[] nums2) {
+    public int[] intersection(int[] nums1, int[] nums2) {
         HashSet<Integer> seen(nums1 /* elements of nums1 */);
-        int[]rtn;
+        List<Integer> rtn = new ArrayList<>();
         for(int num: nums2) {
             if(seen.contains(num)) {
                 rtn.add(num);
@@ -195,11 +195,11 @@ Result: [9, 4] ✓
 // import java.util.Arrays;
 // import java.util.Collections;
 class Solution {
-    public int[]intersection(int[] nums1, int[] nums2) {
+    public int[] intersection(int[] nums1, int[] nums2) {
         Arrays.sort(nums1);
         Arrays.sort(nums2);
 
-        int[]result;
+        List<Integer> result = new ArrayList<>();
         int i = 0, j = 0;
 
         while (i < nums1.size() && j < nums2.size()) {
@@ -209,7 +209,7 @@ class Solution {
                 j++;
             } else {
                 // Found intersection
-                if (result.length == 0 || result.getLast() != nums1[i]) {
+                if (result.length == 0 || result.get(result.size() - 1) != nums1[i]) {
                     result.add(nums1[i]);
                 }
                 i++;
@@ -233,13 +233,13 @@ class Solution {
 
 ```java
 class Solution {
-    public int[]intersection(int[] nums1, int[] nums2) {
+    public int[] intersection(int[] nums1, int[] nums2) {
         boolean present[1001] = {false}
         for (int num : nums1) {
             present[num] = true;
         }
 
-        int[]result;
+        List<Integer> result = new ArrayList<>();
         for (int num : nums2) {
             if (present[num]) {
                 result.add(num);
@@ -264,13 +264,13 @@ class Solution {
 ```java
 // import java.util.*;
 class Solution {
-    public int[]intersection(int[] nums1, int[] nums2) {
+    public int[] intersection(int[] nums1, int[] nums2) {
         HashSet<Integer> set1(nums1 /* elements of nums1 */);
         HashSet<Integer> set2(nums2 /* elements of nums2 */);
 
-        int[]result;
+        List<Integer> result = new ArrayList<>();
         for (int num : set1) {
-            if (set2.count(num)) {
+            if (set2.contains(num)) {
                 result.add(num);
             }
         }

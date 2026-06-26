@@ -102,16 +102,16 @@ This problem requires finding all nodes that do **not** lead to any cycle. A nod
 
 ```java
 class Solution {
-    public int[]eventualSafeNodes(int[][]& graph) {
+    public int[] eventualSafeNodes(int[][] graph) {
         int N = graph.size();
-        int[]color(N);
-        int[]rtn;
+        int[] color = new int[N];
+        List<Integer> rtn = new ArrayList<>();
         for(int i = 0; i < N; i++) {
             if(safe(i, graph, color)) rtn.add(i);
         }
         return rtn;
     }
-    boolean safe(int x, int[][]& graph, int[] color) {
+        public boolean safe(int x, int[][] graph, int[] color) {
         if(color[x] > 0) {
             return color[x] == 2;
         }
@@ -239,12 +239,12 @@ Reverse the graph and use topological sort (Kahn's algorithm) starting from term
 ```java
 // import java.util.*;
 class Solution {
-    public int[]eventualSafeNodes(int[][]& graph) {
+    public int[] eventualSafeNodes(int[][] graph) {
         int N = graph.size();
 
         // Reverse graph: edge v . u means u can reach v in original graph
         int[][] reverseGraph(N);
-        int[]outDegree(N);
+        int[] outDegree = new int[N];
         for(int u = 0; u < N; u++) {
             for(int v: graph[u]) {
                 reverseGraph[v].emplace_back(u);
@@ -256,23 +256,23 @@ class Solution {
         Queue<Integer> q = new LinkedList<>();
         for(int i = 0; i < N; i++) {
             if(outDegree[i] == 0) {
-                q.push(i);
+                q.offer(i);
             }
         }
 
         // Kahn's algorithm on reverse graph
-        while(!q.length == 0) {
-            int safe = q.getFirst();
-            q.pop();
+        while(!q.isEmpty()) {
+            int safe = q.get(0);
+            q.poll();
             for(int prev: reverseGraph[safe]) {
                 if(--outDegree[prev] == 0) {
-                    q.push(prev);
+                    q.offer(prev);
                 }
             }
         }
 
         // Nodes with outDegree == 0 are eventually safe
-        int[]rtn;
+        List<Integer> rtn = new ArrayList<>();
         for(int i = 0; i < N; i++) {
             if(outDegree[i] == 0) {
                 rtn.add(i);

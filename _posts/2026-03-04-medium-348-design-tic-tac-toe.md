@@ -67,8 +67,8 @@ class TicTacToe {
         int curr = player == 1 ? 1 : -1;
         int n = rows.size();
 
-        rows[row] += curr;
-        cols[col] += curr;
+        rows.put(row, rows.getOrDefault(row, 0) + curr;
+        cols.put(col, cols.getOrDefault(col, 0) + curr;
         if (row == col) diagonal += curr;
         if (row == n - col - 1) antiDiagonal += curr;
 

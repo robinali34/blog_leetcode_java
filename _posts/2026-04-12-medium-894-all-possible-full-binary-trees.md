@@ -84,9 +84,9 @@ class Solution {
         for (int i = 1; i < n; i += 2) {
             var leftTree = allPossibleFBT(i);
             var rightTree = allPossibleFBT(n - 1 - i);
-            for (auto l : leftTree) {
-                for (auto r : rightTree) {
-                    TreeNode root = new TreeNode(0);
+            for (int l : leftTree) {
+                for (int r : rightTree) {
+                    TreeNode root = new TreeNode = new new(0);
                     root.left = l;
                     root.right = r;
                     rtn.add(root);

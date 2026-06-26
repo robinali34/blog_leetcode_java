@@ -39,7 +39,7 @@ Greedy approach: Sort by end time, always pick the interval that ends earliest.
 
 ```java
 // Non-overlapping Intervals
-static int eraseOverlapIntervals(int[][]& intervals) {
+static int eraseOverlapIntervals(int[][] intervals) {
     if(intervals.length == 0) return 0;
 
     sort(intervals /* elements of intervals */, [](int[] a, int[] b) {
@@ -66,7 +66,7 @@ Similar to interval scheduling, select maximum number of non-overlapping activit
 
 ```java
 // Maximum number of non-overlapping intervals
-static int maxNonOverlappingIntervals(int[][]& intervals) {
+static int maxNonOverlappingIntervals(int[][] intervals) {
     if(intervals.length == 0) return 0;
 
     sort(intervals /* elements of intervals */, [](int[] a, int[] b) {
@@ -94,8 +94,8 @@ Greedy approach: Sort items by value/weight ratio, take items with highest ratio
 ```java
 // Fractional Knapsack (not a LeetCode problem, but classic greedy)
 class Item {
-    public int value, weight;
-    public double ratio;
+        int value, weight;
+        double ratio;
 }
 double fractionalKnapsack(int W, Item[] items) {
     sort(items /* elements of items */, [](Item a, Item b) {
@@ -105,7 +105,7 @@ double fractionalKnapsack(int W, Item[] items) {
     double totalValue = 0.0;
     int remainingWeight = W;
 
-    for(auto item : items) {
+    for (int item : items) {
         if(remainingWeight >= item.weight) {
             totalValue += item.value;
             remainingWeight -= item.weight;
@@ -140,7 +140,7 @@ static int maxSubArray(int[] nums) {
 // Best Time to Buy and Sell Stock II
 static int maxProfit(int[] prices) {
     int profit = 0;
-    for(int i = 1; i < prices.size(); i++) {
+    for(int i = 1; i < prices.length; i++) {
         if(prices[i] > prices[i-1]) {
             profit += prices[i] - prices[i-1];
         }
@@ -198,7 +198,7 @@ Greedy choices when processing strings, often with character frequency or orderi
 static boolean isSubsequence(String s, String t) {
     int i = 0, j = 0;
     while(i < s.length() && j < t.length()) {
-        if(s[i] == t[j]) {
+        if(s.charAt(i) == t.charAt(j)) {
             i++;
         }
         j++;
@@ -257,7 +257,7 @@ static int findContentChildren(int[] g, int[] s) {
     int count = 0;
 
     while(i < g.length && j < s.size()) {
-        if(s[j] >= g[i]) {
+        if(s.charAt(j) >= g[i]) {
             count++;
             i++;
         }
@@ -278,13 +278,13 @@ static int arrayPairSum(int[] nums) {
 }
 
 // Maximum Units on a Truck - Fractional knapsack style
-static int maximumUnits(int[][]& boxTypes, int truckSize) {
+static int maximumUnits(int[][] boxTypes, int truckSize) {
     sort(boxTypes /* elements of boxTypes */, [](auto u, auto v){
         return u[1] > v[1];  // Sort by units per box (descending)
     });
     int remainSize = truckSize;
     int maximumUnits = 0;
-    for(auto boxType: boxTypes) {
+    for (int boxType : boxTypes) {
         if(remainSize == 0) break;
         int cnt = Math.min(remainSize, boxType[0]);
         maximumUnits += cnt boxType[1];
@@ -307,7 +307,7 @@ static int minCostToMoveChips(int[] position) {
 }
 
 // Two City Scheduling - Sort by cost difference
-static int twoCitySchedCost(int[][]& costs) {
+static int twoCitySchedCost(int[][] costs) {
     sort(costs /* elements of costs */, [](auto u, auto v) {
         return (u[0] - u[1] < v[0] - v[1]);
     });
@@ -336,13 +336,13 @@ int[][] restoreMatrix(int[] rowSum, int[] colSum) {
 }
 
 // Queue Reconstruction by Height
-int[][] reconstructQueue(int[][]& people) {
+int[][] reconstructQueue(int[][] people) {
     sort(people /* elements of people */, [](int[] a, int[] b) {
         return a[0] == b[0] ? a[1] < b[1] : a[0] > b[0];
     });
 
-    int[][] result;
-    for(auto person : people) {
+    List<int[]> result = new ArrayList<>();
+    for (int person : people) {
         result.add(result.iterator() + person[1], person);
     }
 

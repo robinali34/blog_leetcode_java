@@ -101,53 +101,38 @@ A **Trie (Prefix Tree)** is a tree-like data structure where each node represent
 
 ```java
 class Trie {
-    public Trie() { children = new Trie[26]; isWord = false;
+    private final Trie[] children = new Trie[26];
+    private boolean end;
 
-    }
-
-    void insert(String word) {
+    public void insert(String word) {
         Trie node = this;
-        for(char ch: word) {
-            ch -= 'a';
-            if(!node.children[ch]) {
-                node.children[ch] = new Trie();
-            }
-            node = node.children[ch];
+        for (char ch : word.toCharArray()) {
+            int i = ch - 'a';
+            if (node.children[i] == null) node.children[i] = new Trie();
+            node = node.children[i];
         }
-        node.isWord = true;
+        node.end = true;
     }
 
-    boolean search(String word) {
-        Trie node = this.searchPrefix(word);
-        return node != null && node.isWord;
+    public boolean search(String word) {
+        Trie node = find(word);
+        return node != null && node.end;
     }
 
-    boolean startsWith(String prefix) {
-        return this.searchPrefix(prefix) != null;
+    public boolean startsWith(String prefix) {
+        return find(prefix) != null;
     }
-    Trie[] children;
-    boolean isWord;
 
-    Trie searchPrefix(String prefix) {
+    private Trie find(String s) {
         Trie node = this;
-        for(char ch: prefix) {
-            ch -= 'a';
-            if(!node.children[ch]) {
-                return null;
-            }
-            node = node.children[ch];
+        for (char ch : s.toCharArray()) {
+            int i = ch - 'a';
+            if (node.children[i] == null) return null;
+            node = node.children[i];
         }
         return node;
     }
-}
-/**
- * Your Trie object will be instantiated and called as such:
- * Trie obj = new Trie();
- * obj.add(word);
- * boolean param_2 = obj.search(word);
- * boolean param_3 = obj.startsWith(prefix);
- */
-```
+}```
 
 ### Algorithm Explanation:
 
@@ -270,7 +255,7 @@ Step 5: search("app")
 ```java
 class TrieNode {
     TrieNode links[26];
-    public boolean isEnd;
+        boolean isEnd;
     TrieNode() {
         for(int i = 0; i < 26; i++) links[i] = null;
         isEnd = false;
@@ -278,9 +263,9 @@ class TrieNode {
 }
 class Trie {
     public TrieNode root;
-    Trie() { root = new TrieNode(); }
+    public Trie() { root = new TrieNode(); }
     // ... insert, search, startsWith with helper methods
-    void deleteSubtree(TrieNode node) {
+    public void deleteSubtree(TrieNode node) {
         if(!node) return;
         for(int i = 0; i < 26; i++) deleteSubtree(node.links[i]);
         delete node;
@@ -296,7 +281,7 @@ class Trie {
 ```java
 class Trie {
     unordered_map<char, Trie*> children;
-    public boolean isWord;
+        boolean isWord;
     // ... rest of implementation
 }
 ```

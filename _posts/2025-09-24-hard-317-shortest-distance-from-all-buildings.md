@@ -118,13 +118,13 @@ There are three main approaches to solve this problem:
 
 ```java
 class Solution {
-    public int shortestDistance(int[][]& grid) {
+        public int shortestDistance(int[][] grid) {
         int rows = grid.length;
         int cols = grid[0].length;
 
         int totalHouses = 0;
-        for (auto row : grid) {
-            for (auto cell : row) {
+        for (int row : grid) {
+            for (int cell : row) {
                 if (cell == 1) totalHouses++;
             }
         }
@@ -140,10 +140,10 @@ class Solution {
 
         return (minDistance == Integer.MAX_VALUE) ? -1 : minDistance;
     }
-    int bfs(int[][]& grid, int startRow, int startCol, int totalHouses) {
-        constexpr array<int[], 4> directions\{\{
-            \{1, 0\}, \{-1, 0\}, \{0, 1\}, \{0, -1\}
-        \}\}
+        public int bfs(int[][] grid, int startRow, int startCol, int totalHouses) {
+        int[][] directions = new int[][] {
+            new int[] {1, 0}, new int[] {-1, 0}, new int[] {0, 1}, new int[] {0, -1}
+        };
         int rows = grid.length;
         int cols = grid[0].length;
 
@@ -157,12 +157,12 @@ class Solution {
         boolean[][] visited(rows, boolean[](cols, false));
         visited[startRow][startCol] = true;
 
-        while (!q.length == 0 && housesReached != totalHouses) {
+        while (!q.isEmpty() && housesReached != totalHouses) {
             int levelSize = q.size();
 
             for (int i = 0; i < levelSize; ++i) {
-                auto [r, c] = q.getFirst();
-                q.pop();
+                auto [r, c] = q.get(0);
+                q.poll();
 
                 if (grid[r][c] == 1) {
                     distanceSum += steps;
@@ -170,7 +170,7 @@ class Solution {
                     continue;
                 }
 
-                for (auto& [dr, dc] : directions) {
+                for (var e : directions.entrySet()) {
                     int nr = r + dr;
                     int nc = c + dc;
 
@@ -207,10 +207,10 @@ class Solution {
 
 ```java
 class Solution {
-    public int shortestDistance(int[][]& grid) {
+        public int shortestDistance(int[][] grid) {
         int cols = grid[0].length, rows = grid.length;
         int minDisatnce = Integer.MAX_VALUE, totalHouses = 0;
-        vector<vector<array<int, 2>>> distances(rows, vector<array<int, 2>> (cols, {0, 0}));
+        vector<vector<array<int, 2>>> distances(rows, vector<array<int, 2>> (cols, new int[] {0, 0}));
         for(int row = 0; row < rows; row++) {
             for(int col = 0; col < cols; col++) {
                 if(grid[row][col] == 1) {
@@ -228,25 +228,27 @@ class Solution {
         }
         return minDisatnce == Integer.MAX_VALUE ? -1: minDisatnce;
     }
-    void bfs(int[][]& grid, vector<vector<array<int, 2>>>& distance, int row, int col) {
-        constexpr array<int[], 4> dirs = \{\{\{1, 0\}, \{-1, 0\}, \{0, 1\}, \{0, -1\}\}\}
+    public void bfs(int[][] grid, vector<vector<array<int, 2>>>& distance, int row, int col) {
+        int[][] dirs = new int[][] {
+            new int[] {1, 0}, new int[] {-1, 0}, new int[] {0, 1}, new int[] {0, -1}
+        };
         int rows = grid.length, cols = grid[0].length;
         queue<int[]> q;
         q.emplace(row, col);
         boolean[][] vis (rows, boolean[](cols, false));
         vis[row][col] = true;
         int steps = 0;
-        while(!q.length == 0) {
+        while(!q.isEmpty()) {
             for (int i = q.size(); i > 0; i--) {
-                var cur = q.getFirst();
-                q.pop();
-                row = cur.first;
-                col = cur.second;
+                var cur = q.get(0);
+                q.poll();
+                row = cur[0];
+                col = cur[1];
                 if(grid[row][col] == 0) {
                     distance[row][col][0] += steps;
                     distance[row][col][1] += 1;
                 }
-                for(auto& [dr, dc]: dirs) {
+                for (var e : dirs.entrySet()) {
                     int nextRow = row + dr;
                     int nextCol = col + dc;
                     if (nextRow >= 0 && nextCol >= 0 && nextRow < rows && nextCol < cols) {
@@ -270,9 +272,11 @@ class Solution {
 
 ```java
 class Solution {
-    public int shortestDistance(int[][]& grid) {
+        public int shortestDistance(int[][] grid) {
         int rows = grid.length, cols = grid[0].length;
-        constexpr array<int[], 4> dirs = \{\{\{1, 0\}, \{-1, 0\}, \{0, 1\}, \{0, -1\}\}\}
+        int[][] dirs = new int[][] {
+            new int[] {1, 0}, new int[] {-1, 0}, new int[] {0, 1}, new int[] {0, -1}
+        };
         int emptyLandValue =0, minDist = Integer.MAX_VALUE;
         int[][] total = new int[rows][cols];
         for (int row = 0; row < rows; row++) {
@@ -282,14 +286,14 @@ class Solution {
                     queue<int[]> q;
                     q.emplace(row, col);
                     int steps = 0;
-                    while(!q.length == 0) {
+                    while(!q.isEmpty()) {
                         steps++;
                         for(int level = q.size(); level > 0; level--) {
-                            var cur = q.getFirst();
-                            q.pop();
-                            for (auto& [dr, dc]: dirs) {
-                                int nextRow = cur.first + dr;
-                                int nextCol = cur.second + dc;
+                            var cur = q.get(0);
+                            q.poll();
+                            for (var e : dirs.entrySet()) {
+                                int nextRow = cur[0] + dr;
+                                int nextCol = cur[1] + dc;
                                 if(nextRow >= 0 && nextRow < rows && nextCol >= 0 && nextCol < cols
                                 && grid[nextRow][nextCol] == emptyLandValue){
                                     grid[nextRow][nextCol]--;

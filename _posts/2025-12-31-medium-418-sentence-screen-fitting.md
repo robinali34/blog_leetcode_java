@@ -106,7 +106,7 @@ This problem requires fitting a sentence on a screen row by row, where words can
 
 ```java
 class Solution {
-    public int wordsTyping(String[] sentence, int rows, int cols) {
+        public int wordsTyping(String[] sentence, int rows, int cols) {
         int N = sentence.size();
         int[] dp = new int[N];
         int[] next = new int[N];

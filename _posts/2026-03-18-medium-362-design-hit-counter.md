@@ -60,7 +60,7 @@ class HitCounter {
     }
 
     int getHits(int timestamp) {
-        while (!hits.length == 0 && hits.getFirst() <= timestamp - 300) {
+        while (!hits.isEmpty() && hits.get(0) <= timestamp - 300) {
             hits.removeFirst();
         }
         return hits.size();
@@ -87,16 +87,16 @@ class HitCounter {
     HitCounter() {}
 
     void hit(int timestamp) {
-        var it = binary search (lower bound)(cache /* elements of cache */, timestamp);
+        var it = floorKey(cache /* elements of cache */, timestamp);
         cache.add(it, timestamp);
     }
 
     int getHits(int timestamp) {
-        var it_old = binary search (lower bound)(cache /* elements of cache */, timestamp - 300 + 1);
+        var it_old = floorKey(cache /* elements of cache */, timestamp - 300 + 1);
         cache.remove(cache.iterator(), it_old);
         return cache.size();
     }
-    int[]cache;
+    List<Integer> cache = new ArrayList<>();
 }
 ```
 {% endraw %}
@@ -122,11 +122,11 @@ class HitCounter {
     }
 
     int getHits(int timestamp) {
-        var it = hits.binary search (lower bound)(timestamp - 300 + 1);
+        var it = hits.floorKey(timestamp - 300 + 1);
         hits.remove(hits.iterator(), it);
         return hits.size();
     }
-    multiset<int> hits;
+    TreeMap<Integer, Integer> hits;
 }
 ```
 {% endraw %}

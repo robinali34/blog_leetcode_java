@@ -38,12 +38,12 @@ static boolean isValid(String s) {
     HashMap<char, char> map = {
         {'}', '{'}, {']', '['}, {')', '('}
     }
-    for(char c: s) {
+    for (char c : s.toCharArray()) {
         if(c == '{' || c == '[' || c == '(') {
-            st.push(c);
+            st.offer(c);
         } else {
-            if(st.length == 0 || st.top() != map[c]) return false;
-            st.pop();
+            if(st.length == 0 || st.peek() != map[c]) return false;
+            st.poll();
         }
     }
     return st.length == 0;
@@ -66,7 +66,7 @@ static int calculate(String s) {
     Deque<Integer> stk = new ArrayDeque<>();
     int result = 0, num = 0, sign = 1;
 
-    for(char c: s) {
+    for (char c : s.toCharArray()) {
         if(isdigit(c)) {
             num = num 10 + (c - '0');
         } else if(c == '+' || c == '-') {
@@ -74,14 +74,14 @@ static int calculate(String s) {
             sign = (c == '+') ? 1 : -1;
             num = 0;
         } else if(c == '(') {
-            stk.push(result);
-            stk.push(sign);
+            stk.offer(result);
+            stk.offer(sign);
             result = 0;
             sign = 1;
         } else if(c == ')') {
             result += sign num;
-            result *= stk.top(); stk.pop();
-            result += stk.top(); stk.pop();
+            result *= stk.peek(); stk.poll();
+            result += stk.peek(); stk.poll();
             num = 0;
         }
     }
@@ -107,17 +107,17 @@ static String decodeString(String s) {
     String curr = "";
     int k = 0;
 
-    for(char c: s) {
+    for (char c : s.toCharArray()) {
         if(isdigit(c)) {
             k = k 10 + (c - '0');
         } else if(c == '[') {
-            st.push(to_string(k));
-            st.push(curr);
+            st.offer(String.valueOf(k));
+            st.offer(curr);
             curr = "";
             k = 0;
         } else if(c == ']') {
-            String prev = st.top(); st.pop();
-            int count = stoi(st.top()); st.pop();
+            String prev = st.peek(); st.poll();
+            int count = Integer.parseInt(st.peek()); st.poll();
             String temp = "";
             for(int i = 0; i < count; i++) temp += curr;
             curr = prev + temp;
@@ -153,11 +153,11 @@ int[]nextGreater(int[] nums) {
     Deque<Integer> st = new ArrayDeque<>();
 
     for (int i = 0; i < n; i++) {
-        while (!st.length == 0 && nums[st.top()] < nums[i]) {
-            ans[st.top()] = nums[i];
-            st.pop();
+        while (!st.isEmpty() && nums[st.peek()] < nums[i]) {
+            ans[st.peek()] = nums[i];
+            st.poll();
         }
-        st.push(i);
+        st.offer(i);
     }
     return ans;
 }
@@ -185,11 +185,11 @@ int[]nextSmaller(int[] nums) {
     Deque<Integer> st = new ArrayDeque<>();
 
     for (int i = 0; i < n; i++) {
-        while (!st.length == 0 && nums[st.top()] > nums[i]) {
-            ans[st.top()] = nums[i];
-            st.pop();
+        while (!st.isEmpty() && nums[st.peek()] > nums[i]) {
+            ans[st.peek()] = nums[i];
+            st.poll();
         }
-        st.push(i);
+        st.offer(i);
     }
     return ans;
 }
@@ -217,10 +217,10 @@ int[]prevSmaller(int[] nums) {
     Deque<Integer> st = new ArrayDeque<>();
 
     for (int i = 0; i < n; i++) {
-        while (!st.length == 0 && nums[st.top()] >= nums[i])
-            st.pop();
-        if (!st.length == 0) ans[i] = st.top();
-        st.push(i);
+        while (!st.isEmpty() && nums[st.peek()] >= nums[i])
+            st.poll();
+        if (!st.isEmpty()) ans[i] = st.peek();
+        st.offer(i);
     }
     return ans;
 }
@@ -247,12 +247,12 @@ static int largestRectangleArea(int[] heights) {
 
     for (int i = 0; i <= n; i++) {
         int h = (i == n) ? 0 : heights[i];
-        while (!st.length == 0 && heights[st.top()] > h) {
-            int height = heights[st.top()]; st.pop();
-            int width = st.length == 0 ? i : i - st.top() - 1;
+        while (!st.isEmpty() && heights[st.peek()] > h) {
+            int height = heights[st.peek()]; st.poll();
+            int width = st.length == 0 ? i : i - st.peek() - 1;
             ans = Math.max(ans, height width);
         }
-        st.push(i);
+        st.offer(i);
     }
     return ans;
 }
@@ -272,7 +272,7 @@ Convert each row of a binary matrix into a histogram of heights, then run the hi
 ```java
 static int maximalRectangle(char[][]& matrix) {
     if (matrix.length == 0) return 0;
-    int m = matrix.size(), n = matrix[0].length, ans = 0;
+    int m = matrix.length, n = matrix[0].length, ans = 0;
     int[] heights = new int[n];
 
     for (int i = 0; i < m; i++) {
@@ -298,14 +298,14 @@ Maintain a **monotonic decreasing deque** of indices for sliding window maximum.
 // import java.util.*;
 int[]maxSlidingWindow(int[] nums, int k) {
     ArrayDeque<Integer> dq = new ArrayDeque<>();
-    int[]ans;
+    List<Integer> ans = new ArrayList<>();
 
     for (int i = 0; i < nums.length; i++) {
-        while (!dq.length == 0 && nums[dq.getLast()] <= nums[i])
+        while (!dq.isEmpty() && nums[dq.get(dq.size() - 1)] <= nums[i])
             dq.removeLast();
         dq.add(i);
-        if (dq.getFirst() <= i - k) dq.removeFirst();
-        if (i >= k - 1) ans.add(nums[dq.getFirst()]);
+        if (dq.get(0) <= i - k) dq.removeFirst();
+        if (i >= k - 1) ans.add(nums[dq.get(0)]);
     }
     return ans;
 }
@@ -325,7 +325,7 @@ Use the stack to maintain an optimal ordering. While the stack top is worse than
 static String removeKdigits(String num, int k) {
     String st;
     for (char c : num) {
-        while (k > 0 && !st.length == 0 && st.getLast() > c) {
+        while (k > 0 && !st.isEmpty() && st.get(st.size() - 1) > c) {
             st.removeLast();
             k--;
         }
@@ -336,7 +336,7 @@ static String removeKdigits(String num, int k) {
     // strip leading zeros
     int start = 0;
     while (start < (int)st.size() && st[start] == '0') start++;
-    String ans = st.substr(start);
+    String ans = st.substring(start);
     return ans.length == 0 ? "0" : ans;
 }
 ```
@@ -361,11 +361,11 @@ static int shortestSubarray(int[] nums, int k) {
 
     ArrayDeque<Integer> dq = new ArrayDeque<>();
     for (int i = 0; i <= n; i++) {
-        while (!dq.length == 0 && pre[i] - pre[dq.getFirst()] >= k) {
-            ans = Math.min(ans, i - dq.getFirst());
+        while (!dq.isEmpty() && pre[i] - pre[dq.get(0)] >= k) {
+            ans = Math.min(ans, i - dq.get(0));
             dq.removeFirst();
         }
-        while (!dq.length == 0 && pre[dq.getLast()] >= pre[i])
+        while (!dq.isEmpty() && pre[dq.get(dq.size() - 1)] >= pre[i])
             dq.removeLast();
         dq.add(i);
     }
@@ -398,22 +398,22 @@ Use stack to save and restore state when processing nested or hierarchical struc
 ```java
 // Example: Tracking function call stack
 static void processLogs(String[] logs) {
-    stack<int[]> st;  // {function_id, start_time}
+    stack<int[]> st;  // new int[] {function_id, start_time}
     int[] result = new int[n];
 
     for(String log: logs) {
         // Parse log entry
         if(isStart) {
-            st.push({id, time});
+            st.offer(new int[] {id, time});
         } else {
-            auto [funcId, startTime] = st.top();
-            st.pop();
+            int[] funcIdpair = st.peek(); int funcId = funcIdpair[0]; int startTime = funcIdpair[1];
+            st.poll();
             int duration = time - startTime + 1;
-            result[funcId] += duration;
+            result.put(funcId, result.getOrDefault(funcId, 0) + duration;
 
             // Subtract from parent if exists
-            if(!st.length == 0) {
-                result[st.top().first] -= duration;
+            if(!st.isEmpty()) {
+                result[st.peek().first] -= duration;
             }
         }
     }
@@ -434,13 +434,13 @@ Maintaining extra information (like minimums or frequencies) alongside the prima
 class MinStack {
     Deque<Integer> stk, minStk;
     public void push(int val) {
-        stk.push(val);
-        if (minStk.length == 0) minStk.push(val);
-        else minStk.push(Math.min(minStk.top(), val));
+        stk.offer(val);
+        if (minStk.length == 0) minStk.offer(val);
+        else minStk.offer(Math.min(minStk.peek(), val));
     }
-    void pop() { stk.pop(); minStk.pop(); }
-    int top() { return stk.top(); }
-    int getMin() { return minStk.top(); }
+    public void pop() { stk.poll(); minStk.poll(); }
+        public int top() { return stk.peek(); }
+        public int getMin() { return minStk.peek(); }
 }
 ```
 

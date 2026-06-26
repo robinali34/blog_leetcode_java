@@ -75,7 +75,7 @@ totalGain = 0 ≥ 0 → return rtn = 3 ✓
 {% raw %}
 ```java
 class Solution {
-    public int canCompleteCircuit(int[] gas, int[] cost) {
+        public int canCompleteCircuit(int[] gas, int[] cost) {
         int currGain = 0, totalGain = 0, rtn = 0;
         for (int i = 0; i < gas.size(); ++i) {
             totalGain += gas[i] - cost[i];

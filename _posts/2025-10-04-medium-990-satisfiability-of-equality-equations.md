@@ -119,7 +119,7 @@ The key insight is that variables connected by equality equations must have the 
 
 ```java
 class UnionFind{
-    int[]parent;
+    List<Integer> parent = new ArrayList<>();
     UnionFind() {
         parent.resize(26);
         iota(parent /* elements of parent */, 0);
@@ -137,11 +137,11 @@ class UnionFind{
     }
 }
 class Solution {
-    public boolean equationsPossible(String[] equations) {
+        public boolean equationsPossible(String[] equations) {
         UnionFind uf;
         for(String str: equations) {
             if(str[1] == '=') {
-                int idx1 = str[0] - 'a';
+        int idx1 = str[0] - 'a';
                 int idx2 = str[3] - 'a';
                 uf.unite(idx1, idx2);
             }
@@ -173,17 +173,17 @@ class Solution {
 
 ```java
 class Solution {
-    public boolean equationsPossible(String[] equations) {
+        public boolean equationsPossible(String[] equations) {
         constexpr int SIZE = 26;
-        int[][] graph(SIZE);
-        int[]color(SIZE, -1);
+        public int[][] graph(SIZE);
+        public int[] color(SIZE, -1);
 
         for(String eqn : equations) {
             if(eqn[1] == '=') {
                 int x = eqn[0] - 'a';
                 int y = eqn[3] - 'a';
-                graph[x].push_back(y);
-                graph[y].push_back(x);
+                graph.computeIfAbsent(x, k -> new ArrayList<>()).add(y);
+                graph.computeIfAbsent(y, k -> new ArrayList<>()).add(x);
             }
         }
         function<void(int,int)> dfs = [&](int node, int c) {
@@ -226,7 +226,7 @@ class Solution {
 ```java
 class Solution {
     static constexpr int SIZE = 26;
-    public void dfs(int node, int id, int[][]& adjacency, int[] component) {
+    public void dfs(int node, int id, int[][] adjacency, int[] component) {
         component[node] = id;
         for(int neighbor: adjacency[node]) {
             if(component[neighbor] == -1) {
@@ -234,15 +234,15 @@ class Solution {
             }
         }
     }
-    boolean equationsPossible(String[] equations) {
+        public boolean equationsPossible(String[] equations) {
         int[][] adjacency(SIZE);
         int[]component(SIZE, -1);
         for(String eq: equations) {
             if(eq[1] == '=') {
                 int x = eq[0] - 'a';
                 int y = eq[3] - 'a';
-                adjacency[x].push_back(y);
-                adjacency[y].push_back(x);
+                adjacency.computeIfAbsent(x, k -> new ArrayList<>()).add(y);
+                adjacency.computeIfAbsent(y, k -> new ArrayList<>()).add(x);
             }
         }
 

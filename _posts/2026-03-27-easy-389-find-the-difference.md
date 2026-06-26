@@ -47,7 +47,7 @@ XOR is the cleanest: `a ^ a = 0` and `0 ^ a = a`, so every matched pair cancels.
 ```java
 class Solution {
     char findTheDifference(String s, String t) {
-        public int rtn = 0;
+        int rtn = 0;
         for (char ch : s) {
             rtn ^= ch;
         }
@@ -69,7 +69,7 @@ class Solution {
 ```java
 class Solution {
     char findTheDifference(String s, String t) {
-        public int sum = 0;
+        int sum = 0;
         for (char ch : t) sum += ch;
         for (char ch : s) sum -= ch;
         return sum;
@@ -87,7 +87,7 @@ class Solution {
 ```java
 class Solution {
     char findTheDifference(String s, String t) {
-        public int freq[26] = {}
+        int[] freq = new int[26] = {}
         for (char ch : s) freq[ch - 'a']++;
         for (char ch : t) freq[ch - 'a']--;
         for (int i = 0; i < 26; i++) {

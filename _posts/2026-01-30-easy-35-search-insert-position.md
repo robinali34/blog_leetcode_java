@@ -98,7 +98,7 @@ This problem is essentially finding the **lower bound** of the target value in a
 
 ```java
 class Solution {
-    public int searchInsert(int[] nums, int target) {
+        public int searchInsert(int[] nums, int target) {
         int left = 0, right = nums.length;
         while(left < right) {
             int mid = left + (right - left) / 2;

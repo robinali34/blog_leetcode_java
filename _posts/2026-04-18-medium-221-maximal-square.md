@@ -102,9 +102,9 @@ Max value = 2, so answer = $2^2 = 4$.
 {% raw %}
 ```java
 class Solution {
-    public int maximalSquare(char[][]& matrix) {
+        public int maximalSquare(char[][]& matrix) {
         if (matrix.length == 0) return 0;
-        int rows = matrix.size();
+        int rows = matrix.length;
         int cols = matrix[0].length;
 
         int[][] dp = new int[rows][cols];
@@ -141,9 +141,9 @@ Since each row only depends on the current and previous row, we can use a single
 {% raw %}
 ```java
 class Solution {
-    public int maximalSquare(char[][]& matrix) {
+        public int maximalSquare(char[][]& matrix) {
         if (matrix.length == 0) return 0;
-        int rows = matrix.size();
+        int rows = matrix.length;
         int cols = matrix[0].length;
 
         int[] dp = new int[cols];

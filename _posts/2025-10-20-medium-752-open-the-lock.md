@@ -133,26 +133,26 @@ This is a **shortest path problem** that can be solved using **BFS**. We need to
 ```java
 // import java.util.*;
 class Solution {
-    public int openLock(String[] deadends, String target) {
+        public int openLock(String[] deadends, String target) {
         HashSet<String> deads (deadends /* elements of deadends */);
         HashSet<String> visited = new HashSet<String>();
         if(deads.contains("0000")) return -1;
         Queue<String> q = new LinkedList<>();
-        q.push("0000");
+        q.offer("0000");
         visited.add("0000");
         int steps = 0;
-        while(!q.length == 0) {
+        while(!q.isEmpty()) {
             int size = q.size();
             while(size--) {
-                String curr = q.getFirst();
-                q.pop();
+                String curr = q.get(0);
+                q.poll();
                 if(curr == target) return steps;
                 for(int i = 0; i < 4; i++) {
                     for(int dir = -1; dir <=1; dir+=2) {
                         String next = curr;
                         next[i] = (curr[i] - '0' + dir + 10) % 10 + '0';
-                        if(!deads.contains(next) && !visited.contains(next)) {
-                            q.push(next);
+                        if(!deads.containsKey(next) && !visited.containsKey(next)) {
+                            q.offer(next);
                             visited.add(next);
                         }
                     }
@@ -230,7 +230,7 @@ next[i] = (curr[i] - '0' + dir + 10) % 10 + '0';
 ```java
 // import java.util.*;
 class Solution {
-    public int openLock(String[] deadends, String target) {
+        public int openLock(String[] deadends, String target) {
         HashSet<String> deads(deadends /* elements of deadends */);
         if(deads.contains("0000") || deads.contains(target)) return -1;
 
@@ -239,7 +239,7 @@ class Solution {
         end.add(target);
         int steps = 0;
 
-        while(!begin.length == 0 && !end.length == 0) {
+        while(!begin.isEmpty() && !end.isEmpty()) {
             if(begin.size() > end.size()) swap(begin, end);
 
             HashSet<String> next = new HashSet<String>();
@@ -252,7 +252,7 @@ class Solution {
                     for(int dir = -1; dir <= 1; dir += 2) {
                         String next_state = curr;
                         next_state[i] = (curr[i] - '0' + dir + 10) % 10 + '0';
-                        if(!deads.contains(next_state) && !visited.contains(next_state)) {
+                        if(!deads.containsKey(next_state) && !visited.containsKey(next_state)) {
                             next.add(next_state);
                         }
                     }

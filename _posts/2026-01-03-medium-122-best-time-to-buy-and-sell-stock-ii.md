@@ -99,10 +99,10 @@ This is a **greedy algorithm** problem. The key insight is that we can capture a
 
 ```java
 class Solution {
-    public int maxProfit(int[] prices) {
-        if(prices.size() == 0) return 0;
+        public int maxProfit(int[] prices) {
+        if(prices.length == 0) return 0;
         int maxProfit = 0, lastPrice = prices[0];
-        for(int i = 1; i < (int)prices.size(); i++) {
+        for(int i = 1; i < prices.length; i++) {
             maxProfit += Math.max(0, prices[i] - prices[i - 1]);
         }
         return maxProfit;

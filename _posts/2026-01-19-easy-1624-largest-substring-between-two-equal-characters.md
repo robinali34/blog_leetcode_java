@@ -106,17 +106,17 @@ This problem requires finding the maximum distance between two occurrences of th
 ```java
 // import java.util.*;
 class Solution {
-    public int maxLengthBetweenEqualCharacters(String s) {
+        public int maxLengthBetweenEqualCharacters(String s) {
         HashMap<char, int> LeftIdx, RightIdx;
         int maxLen = -1;
         for(int i = 0; i < s.length(); i++) {
-            if(!LeftIdx.contains(s[i])) {
-                LeftIdx[s[i]] = i;
+            if(!LeftIdx.containsKey(s.charAt(i))) {
+                LeftIdx[s.charAt(i)] = i;
             } else {
-                RightIdx[s[i]] = i;
+                RightIdx[s.charAt(i)] = i;
             }
         }
-        for(auto& [c, idx]: RightIdx) {
+        for (var e : RightIdx.entrySet()) {
             maxLen = Math.max(maxLen, RightIdx[c] - LeftIdx[c] - 1);
         }
         return maxLen;
@@ -227,11 +227,11 @@ Return: 4 ✓
 
 ```java
 class Solution {
-    public int maxLengthBetweenEqualCharacters(String s) {
-        int[]first(26, -1);
+        public int maxLengthBetweenEqualCharacters(String s) {
+        public int[] first(26, -1);
         int maxLen = -1;
         for(int i = 0; i < s.length(); i++) {
-            int c = s[i] - 'a';
+            int c = s.charAt(i) - 'a';
             if(first[c] == -1) {
                 first[c] = i;
             } else {
@@ -251,16 +251,16 @@ class Solution {
 ```java
 // import java.util.*;
 class Solution {
-    public int maxLengthBetweenEqualCharacters(String s) {
+        public int maxLengthBetweenEqualCharacters(String s) {
         HashMap<char, int> lastIdx = new HashMap<char, int>();
         for(int i = 0; i < s.length(); i++) {
-            lastIdx[s[i]] = i;
+            lastIdx[s.charAt(i)] = i;
         }
 
         int maxLen = -1;
         for(int i = 0; i < s.length(); i++) {
-            if(lastIdx[s[i]] != i) {
-                maxLen = Math.max(maxLen, lastIdx[s[i]] - i - 1);
+            if(lastIdx[s.charAt(i)] != i) {
+                maxLen = Math.max(maxLen, lastIdx[s.charAt(i)] - i - 1);
             }
         }
         return maxLen;

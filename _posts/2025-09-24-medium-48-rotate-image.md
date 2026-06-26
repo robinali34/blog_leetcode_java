@@ -99,20 +99,24 @@ There are two main approaches to solve this problem:
 
 ```java
 class Solution {
-    public void rotate(int[][]& matrix) {
-        int n = matrix.size();
-        for(int i = 0; i < (n+1)/2; i++) {
-            for (int j = 0; j< n/2; j++) {
-                int temp = matrix[i][j];
-                matrix[i][j] = matrix[n - 1 - j][i];
-                matrix[n - 1 - j][i] = matrix[n - 1 - i][n - 1 - j];
-                matrix[n - 1 - i][n - 1 - j] = matrix[j][n - 1 - i];
-                matrix[j][n - 1 - i] = temp;
+    public void rotate(int[][] matrix) {
+        int n = matrix.length;
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
+                int tmp = matrix[i][j];
+                matrix[i][j] = matrix[j][i];
+                matrix[j][i] = tmp;
+            }
+        }
+        for (int[] row : matrix) {
+            for (int l = 0, r = row.length - 1; l < r; l++, r--) {
+                int tmp = row[l];
+                row[l] = row[r];
+                row[r] = tmp;
             }
         }
     }
-}
-```
+}```
 
 ## Solution 2: Transpose + Reflect
 
@@ -121,12 +125,12 @@ class Solution {
 
 ```java
 class Solution {
-    public void rotate(int[][]& matrix) {
+    public void rotate(int[][] matrix) {
         transpose(matrix);
         reflect(matrix);
     }
-    void transpose(int[][]& matrix) {
-        int n = matrix.size();
+    public void transpose(int[][] matrix) {
+        int n = matrix.length;
         for (int i = 0; i < n; i++){
             for (int j = i + 1; j < n; j++) {
                 swap(matrix[j][i], matrix[i][j]);
@@ -134,8 +138,8 @@ class Solution {
         }
     }
 
-    void reflect(int[][]& matrix) {
-        for (auto row : matrix) {
+    public void reflect(int[][] matrix) {
+        for (int row : matrix) {
             reverse(row /* elements of row */);
         }
     }

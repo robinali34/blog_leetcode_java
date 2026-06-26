@@ -123,16 +123,16 @@ This problem requires finding the next greater element for each element in `nums
 ```java
 // import java.util.*;
 class Solution {
-    public int[]nextGreaterElement(int[] nums1, int[] nums2) {
+    public int[] nextGreaterElement(int[] nums1, int[] nums2) {
         HashMap<Integer, Integer> hashmap = new HashMap<Integer, Integer>();
         Deque<Integer> stk = new ArrayDeque<>();
         for(int i = nums2.size() - 1; i >= 0; i--) {
-            int num = nums2[i];
-            while(!stk.length == 0 && num >= stk.top()) {
-                stk.pop();
+        int num = nums2[i];
+            while(!stk.isEmpty() && num >= stk.peek()) {
+                stk.poll();
             }
-            hashmap.put(num, stk.length == 0? -1 : stk.top());
-            stk.push(num);
+            hashmap.put(num, stk.length == 0? -1 : stk.peek());
+            stk.offer(num);
         }
         int[]rtn(nums1.size());
         for(int i = 0; i < (int)nums1.size(); i++) {
@@ -275,17 +275,17 @@ int[]nextGreaterElement(int[] nums) {
     // Traverse from right to left
     for(int i = n - 1; i >= 0; i--) {
         // Pop elements that can't be next greater
-        while(!stk.length == 0 && nums[i] >= stk.top()) {
-            stk.pop();
+        while(!stk.isEmpty() && nums[i] >= stk.peek()) {
+            stk.poll();
         }
 
         // Top of stack is next greater element
-        if(!stk.length == 0) {
-            result[i] = stk.top();
+        if(!stk.isEmpty()) {
+            result[i] = stk.peek();
         }
 
         // Push current element
-        stk.push(nums[i]);
+        stk.offer(nums[i]);
     }
 
     return result;

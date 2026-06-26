@@ -47,243 +47,144 @@ A **heap** (priority queue) is a complete binary tree that satisfies the heap pr
 Min heap keeps the smallest element at the top.
 
 ```java
-// Min heap (smallest element at top) - using greater<>
-priority_queue<int, int[], greater<int>> minHeap;
-
-// Min heap using `PriorityQueue` with comparator
-priority_queue<int, int[], greater<>> minHeap2;
-
-// Min heap using lambda comparator (decltype required)
-var minCmp = [](int a, int b) { return a > b; }
-priority_queue<int, int[], decltype(minCmp)> minHeap3(minCmp);
-
-// Note: decltype is REQUIRED for lambdas because each lambda has a unique type
-// You cannot use: priority_queue<int, int[], [](auto a, auto b) { return a > b; }>  // ❌ Invalid
+// Min heap (smallest element at top)
+PriorityQueue<Integer> minHeap = new PriorityQueue<>();
 
 // Basic operations
-minHeap.push(5);
-minHeap.push(2);
-minHeap.push(8);
-minHeap.push(1);
+minHeap.offer(5);
+minHeap.offer(2);
+minHeap.offer(8);
+minHeap.offer(1);
 
-minHeap.top();    // Returns 1 (smallest)
-minHeap.pop();    // Removes 1
-minHeap.top();    // Returns 2 (next smallest)
+minHeap.peek();    // Returns 1 (smallest)
+minHeap.poll();    // Removes 1
+minHeap.peek();    // Returns 2 (next smallest)
 ```
 
 ### Example: Find K Smallest Elements
 
 ```java
-int[]findKSmallest(int[] nums, int k) {
-    priority_queue<int, int[], greater<int>> minHeap;
-
-    for(int num : nums) {
-        minHeap.push(num);
+int[] findKSmallest(int[] nums, int k) {
+    PriorityQueue<Integer> minHeap = new PriorityQueue<>();
+    for (int num : nums) minHeap.offer(num);
+    int[] result = new int[k];
+    for (int i = 0; i < k && !minHeap.isEmpty(); i++) {
+        result[i] = minHeap.poll();
     }
-
-    int[]result;
-    for(int i = 0; i < k && !minHeap.length == 0; i++) {
-        result.add(minHeap.top());
-        minHeap.pop();
-    }
-
     return result;
 }
 ```
 
 ## Max Heap
 
-Max heap keeps the largest element at the top (default in Java).
+Max heap keeps the largest element at the top (default in C++; use `Comparator.reverseOrder()` in Java).
 
 ```java
-// import java.util.*;
+// Max heap (largest element at top)
+PriorityQueue<Integer> maxHeap = new PriorityQueue<>(Comparator.reverseOrder());
 
-// Max heap (largest element at top) - default
-PriorityQueue<Integer> maxHeap = new PriorityQueue<Integer>();
+maxHeap.offer(5);
+maxHeap.offer(2);
+maxHeap.offer(8);
+maxHeap.offer(1);
 
-// Max heap explicitly using less<> (default comparator)
-priority_queue<int, int[], less<int>> maxHeap2;
-
-// Max heap using lambda comparator (decltype required)
-var maxCmp = [](int a, int b) { return a < b; }
-priority_queue<int, int[], decltype(maxCmp)> maxHeap3(maxCmp);
-
-// Note: decltype is REQUIRED for lambdas because each lambda has a unique type
-// You cannot use: priority_queue<int, int[], [](auto a, auto b) { return a < b; }>  // ❌ Invalid
-
-// Basic operations
-maxHeap.push(5);
-maxHeap.push(2);
-maxHeap.push(8);
-maxHeap.push(1);
-
-maxHeap.top();    // Returns 8 (largest)
-maxHeap.pop();    // Removes 8
-maxHeap.top();    // Returns 5 (next largest)
+maxHeap.peek();    // Returns 8 (largest)
+maxHeap.poll();    // Removes 8
+maxHeap.peek();    // Returns 5 (next largest)
 ```
 
 ### Example: Find K Largest Elements
 
 ```java
-// import java.util.*;
-int[]findKLargest(int[] nums, int k) {
-    PriorityQueue<Integer> maxHeap = new PriorityQueue<Integer>();
-
-    for(int num : nums) {
-        maxHeap.push(num);
+int[] findKLargest(int[] nums, int k) {
+    PriorityQueue<Integer> maxHeap = new PriorityQueue<>(Comparator.reverseOrder());
+    for (int num : nums) maxHeap.offer(num);
+    int[] result = new int[k];
+    for (int i = 0; i < k && !maxHeap.isEmpty(); i++) {
+        result[i] = maxHeap.poll();
     }
-
-    int[]result;
-    for(int i = 0; i < k && !maxHeap.length == 0; i++) {
-        result.add(maxHeap.top());
-        maxHeap.pop();
-    }
-
     return result;
 }
 ```
 
 ## Custom Comparators
 
-### Using Struct
+### Pair Comparator
 
 ```java
-// Custom comparator for pairs: min heap by second element
-class Compare {
-    boolean operator()(int[]& a, int[]& b) {
-        return a.second > b.second; // Min heap (smaller second element on top)
-    }
-}
-priority_queue<int[], List<int[]>, Compare> pq;
-
-// Example: {value, frequency} - keep element with smallest frequency on top
-pq.push({1, 5});
-pq.push({2, 3});
-pq.push({3, 7});
-pq.top(); // Returns {2, 3} (smallest frequency)
-```
-
-```java
-// Custom class with comparator: min heap by cost
-class Node {
-    public int cost;
-    public int id;
-}
-class Compare {
-    boolean operator()(Node a, Node b) {
-        return a.cost > b.cost; // Min heap (smaller cost on top)
-    }
-}
-priority_queue<Node, Node[], Compare> pq;
-
-// Example usage
-pq.push({10, 1}); // cost 10, id 1
-pq.push({5, 2});  // cost 5, id 2
-pq.push({15, 3}); // cost 15, id 3
-pq.top(); // Returns {5, 2} (smallest cost)
-```
-
-### Using Lambda
-
-```java
-// Min heap by distance (for Dijkstra's algorithm)
-var distCmp = [](int[]& a, int[]& b) {
-    return a.first > b.first; // {distance, node} - min heap by distance
-}
-priority_queue<int[], List<int[]>, decltype(distCmp)> pq(distCmp);
-
-// Example usage
-pq.push({10, 0}); // distance 10 to node 0
-pq.push({5, 1});  // distance 5 to node 1
-pq.top(); // Returns {5, 1} (smallest distance)
+// Min heap by second element (frequency)
+PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> Integer.compare(a[1], b[1]));
+pq.offer(new int[] {1, 5});
+pq.offer(new int[] {2, 3});
+pq.offer(new int[] {3, 7});
+pq.peek(); // {2, 3}
 ```
 
 ### Custom Object Comparator
 
 ```java
-// Custom object with comparator
-class Point {
-    public int x, y;
-    int dist() { return x x + y y; }
+record Node(int cost, int id) {}
+PriorityQueue<Node> pq = new PriorityQueue<>(Comparator.comparingInt(n -> n.cost));
+pq.offer(new Node(10, 1));
+pq.offer(new Node(5, 2));
+pq.peek(); // Node(5, 2)
+```
+
+### Distance Comparator (Dijkstra)
+
+```java
+PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> Integer.compare(a[0], b[0]));
+pq.offer(new int[] {10, 0});
+pq.offer(new int[] {5, 1});
+pq.peek(); // {5, 1}
+```
+
+### Point Comparator
+
+```java
+record Point(int x, int y) {
+    int distSq() { return x * x + y * y; }
 }
-class PointCompare {
-    boolean operator()(Point a, Point b) {
-        return a.dist() > b.dist(); // Min heap by distance
-    }
-}
-priority_queue<Point, Point[], PointCompare> pq;
+PriorityQueue<Point> pq = new PriorityQueue<>(Comparator.comparingInt(Point::distSq));
 ```
 
 ## Common Patterns
 
 ### Pattern 1: Maintain K Elements
 
-Keep only K elements in heap, remove smallest/largest when size exceeds K.
-
 ```java
-// Keep K largest elements
-priority_queue<int, int[], greater<int>> minHeap; // Min heap to keep K largest
-
-for(int num : nums) {
-    minHeap.push(num);
-    if(minHeap.size() > k) {
-        minHeap.pop(); // Remove smallest
-    }
+PriorityQueue<Integer> minHeap = new PriorityQueue<>();
+for (int num : nums) {
+    minHeap.offer(num);
+    if (minHeap.size() > k) minHeap.poll();
 }
-// Now minHeap contains K largest elements
 ```
 
 ### Pattern 2: Frequency-Based
 
-Use heap with frequency counts.
-
 ```java
-// import java.util.*;
-// Top K frequent elements
-HashMap<Integer, Integer> freq = new HashMap<Integer, Integer>();
-for(int num : nums) freq.put(num, freq.getOrDefault(num, 0) + 1);
-
-priority_queue<int[], List<int[]>, greater<int[]>> minHeap;
-// {frequency, element} - min heap by frequency
-
-for(auto& [num, count] : freq) {
-    minHeap.push({count, num});
-    if(minHeap.size() > k) {
-        minHeap.pop();
-    }
+Map<Integer, Integer> freq = new HashMap<>();
+for (int num : nums) freq.put(num, freq.getOrDefault(num, 0) + 1);
+PriorityQueue<int[]> minHeap = new PriorityQueue<>((a, b) -> Integer.compare(a[0], b[0]));
+for (var e : freq.entrySet()) {
+    minHeap.offer(new int[] {e.getValue(), e.getKey()});
+    if (minHeap.size() > k) minHeap.poll();
 }
 ```
 
 ## K-way Merge
 
-Merge K sorted lists/arrays using a min heap.
-
 ```java
-// Merge K sorted lists
-ListNode mergeKLists(ListNode[]& lists) {
-    var cmp = [](ListNode a, ListNode b) {
-        return a.val > b.val; // Min heap by value
-    }
-    priority_queue<ListNode, ListNode[], decltype(cmp)> pq(cmp);
-
-    // Push first node of each list
-    for(ListNode list : lists) {
-        if(list) pq.push(list);
-    }
-
-    ListNode dummy = new ListNode(0);
-    ListNode cur = dummy;
-
-    while(!pq.length == 0) {
-        ListNode node = pq.top();
-        pq.pop();
+ListNode mergeKLists(ListNode[] lists) {
+    PriorityQueue<ListNode> pq = new PriorityQueue<>(Comparator.comparingInt(n -> n.val));
+    for (ListNode head : lists) if (head != null) pq.offer(head);
+    ListNode dummy = new ListNode(0), cur = dummy;
+    while (!pq.isEmpty()) {
+        ListNode node = pq.poll();
         cur.next = node;
         cur = cur.next;
-        if(node.next) {
-            pq.push(node.next);
-        }
+        if (node.next != null) pq.offer(node.next);
     }
-
     return dummy.next;
 }
 ```
@@ -291,30 +192,22 @@ ListNode mergeKLists(ListNode[]& lists) {
 ### K-way Merge for Arrays
 
 ```java
-// Merge K sorted arrays
-int[]mergeKSortedArrays(int[][]& arrays) {
-    using T = tuple<int, int, int>; // {value, array_index, position}
-    priority_queue<T, T[], greater<T>> pq;
-
-    // Push first element of each array
-    for(int i = 0; i < arrays.size(); i++) {
-        if(!arrays[i].empty()) {
-            pq.push({arrays[i][0], i, 0});
+int[] mergeKSortedArrays(int[][] arrays) {
+    record Entry(int val, int arrIdx, int pos) {}
+    PriorityQueue<Entry> pq = new PriorityQueue<>(Comparator.comparingInt(e -> e.val));
+    for (int i = 0; i < arrays.length; i++) {
+        if (arrays[i].length > 0) pq.offer(new Entry(arrays[i][0], i, 0));
+    }
+    List<Integer> result = new ArrayList<>();
+    while (!pq.isEmpty()) {
+        Entry e = pq.poll();
+        result.add(e.val);
+        int next = e.pos + 1;
+        if (next < arrays[e.arrIdx].length) {
+            pq.offer(new Entry(arrays[e.arrIdx][next], e.arrIdx, next));
         }
     }
-
-    int[]result;
-    while(!pq.length == 0) {
-        auto [val, arrIdx, pos] = pq.top();
-        pq.pop();
-        result.add(val);
-
-        if(pos + 1 < arrays[arrIdx].size()) {
-            pq.push({arrays[arrIdx][pos + 1], arrIdx, pos + 1});
-        }
-    }
-
-    return result;
+    return result.stream().mapToInt(Integer::intValue).toArray();
 }
 ```
 
@@ -323,27 +216,16 @@ int[]mergeKSortedArrays(int[][]& arrays) {
 ### Top K Frequent Elements
 
 ```java
-// import java.util.*;
-int[]topKFrequent(int[] nums, int k) {
-    HashMap<Integer, Integer> freq = new HashMap<Integer, Integer>();
-    for(int num : nums) freq.put(num, freq.getOrDefault(num, 0) + 1);
-
-    // Min heap: {frequency, element}
-    priority_queue<int[], List<int[]>, greater<int[]>> minHeap;
-
-    for(auto& [num, count] : freq) {
-        minHeap.push({count, num});
-        if(minHeap.size() > k) {
-            minHeap.pop(); // Remove element with smallest frequency
-        }
+int[] topKFrequent(int[] nums, int k) {
+    Map<Integer, Integer> freq = new HashMap<>();
+    for (int num : nums) freq.put(num, freq.getOrDefault(num, 0) + 1);
+    PriorityQueue<int[]> minHeap = new PriorityQueue<>((a, b) -> Integer.compare(a[0], b[0]));
+    for (var e : freq.entrySet()) {
+        minHeap.offer(new int[] {e.getValue(), e.getKey()});
+        if (minHeap.size() > k) minHeap.poll();
     }
-
-    int[]result;
-    while(!minHeap.length == 0) {
-        result.add(minHeap.top().second);
-        minHeap.pop();
-    }
-
+    int[] result = new int[k];
+    for (int i = k - 1; i >= 0; i--) result[i] = minHeap.poll()[1];
     return result;
 }
 ```
@@ -351,27 +233,18 @@ int[]topKFrequent(int[] nums, int k) {
 ### K Closest Points to Origin
 
 ```java
-int[][] kClosest(int[][]& points, int k) {
-    var distCmp = [](int[] a, int[] b) {
-        int distA = a[0]*a[0] + a[1]*a[1];
-        int distB = b[0]*b[0] + b[1]*b[1];
-        return distA < distB; // Max heap (larger distance on top)
+int[][] kClosest(int[][] points, int k) {
+    PriorityQueue<int[]> maxHeap = new PriorityQueue<>((a, b) -> {
+        int da = a[0] * a[0] + a[1] * a[1];
+        int db = b[0] * b[0] + b[1] * b[1];
+        return Integer.compare(db, da);
+    });
+    for (int[] p : points) {
+        maxHeap.offer(p);
+        if (maxHeap.size() > k) maxHeap.poll();
     }
-    priority_queue<int[], int[][], decltype(distCmp)> maxHeap(distCmp);
-
-    for(auto point : points) {
-        maxHeap.push(point);
-        if(maxHeap.size() > k) {
-            maxHeap.pop(); // Remove point with largest distance
-        }
-    }
-
-    int[][] result;
-    while(!maxHeap.length == 0) {
-        result.add(maxHeap.top());
-        maxHeap.pop();
-    }
-
+    int[][] result = new int[k][2];
+    for (int i = k - 1; i >= 0; i--) result[i] = maxHeap.poll();
     return result;
 }
 ```
@@ -380,77 +253,58 @@ int[][] kClosest(int[][]& points, int k) {
 
 **Solution 1: Min Heap (O(n log k))**
 
-Keep a min heap of size k. The top element will be the kth largest.
-
 ```java
 class Solution {
     public int findKthLargest(int[] nums, int k) {
-        priority_queue<int, int[], greater<>> minHeap;
-        for(int num: nums) {
-            minHeap.push(num);
-            if(minHeap.size() > k) minHeap.pop();
+        PriorityQueue<Integer> minHeap = new PriorityQueue<>();
+        for (int num : nums) {
+            minHeap.offer(num);
+            if (minHeap.size() > k) minHeap.poll();
         }
-        return minHeap.top();
+        return minHeap.peek();
     }
 }
 ```
 
-**Solution 2: QuickSelect (O(n) average, O(n²) worst case)**
-
-Use partition-based selection algorithm.
+**Solution 2: QuickSelect (O(n) average)**
 
 ```java
 class Solution {
     public int findKthLargest(int[] nums, int k) {
-        int N = nums.length;
-        return quickSelect(nums, 0, N - 1, N - k);
+        return quickSelect = new return(nums, 0, nums.length - 1, nums.length - k);
     }
-    int quickSelect(int[] nums, int l, int r, int k) {
-        if(l == r) return nums[k];
+
+    private int quickSelect(int[] nums, int l, int r, int k) {
+        if (l == r) return nums[k];
         int pivot = nums[l], i = l - 1, j = r + 1;
-        while(i < j) {
-            do i++; while(nums[i] < pivot);
-            do j--; while(nums[j] > pivot);
-            if(i < j)
-                swap(nums[i], nums[j]);
+        while (i < j) {
+            while (nums[++i] < pivot);
+            while (nums[--j] > pivot);
+            if (i < j) { int t = nums[i]; nums[i] = nums[j]; nums[j] = t; }
         }
-        if(k <= j) return quickSelect(nums, l, j, k);
-        else return quickSelect(nums, j + 1, r, k);
+        if (k <= j) return quickSelect = new return(nums, l, j, k);
+        return quickSelect = new return(nums, j + 1, r, k);
     }
 }
 ```
-
-**Comparison:**
-- **Heap**: O(n log k) time, O(k) space - Simple and efficient for small k
-- **QuickSelect**: O(n) average time, O(n²) worst case, O(1) space - Better for large k
 
 ## Two Heaps
-
-Maintain two heaps to find median or balance elements.
 
 ### Find Median from Data Stream
 
 ```java
-// import java.util.*;
 class MedianFinder {
-    PriorityQueue<Integer> maxHeap = new PriorityQueue<Integer>(); // Lower half (max heap)
-    priority_queue<int, int[], greater<int>> minHeap; // Upper half (min heap)
-    void addNum(int num) {
-        maxHeap.push(num);
-        minHeap.push(maxHeap.top());
-        maxHeap.pop();
+    private final PriorityQueue<Integer> lo = new PriorityQueue<>(Comparator.reverseOrder());
+    private final PriorityQueue<Integer> hi = new PriorityQueue<>();
 
-        if(maxHeap.size() < minHeap.size()) {
-            maxHeap.push(minHeap.top());
-            minHeap.pop();
-        }
+    public void addNum(int num) {
+        lo.offer(num);
+        hi.offer(lo.poll());
+        if (lo.size() < hi.size()) lo.offer(hi.poll());
     }
 
-    double findMedian() {
-        if(maxHeap.size() > minHeap.size()) {
-            return maxHeap.top();
-        }
-        return (maxHeap.top() + minHeap.top()) / 2.0;
+    public double findMedian() {
+        return lo.size() > hi.size() ? lo.peek() : (lo.peek() + hi.peek()) / 2.0;
     }
 }
 ```
@@ -458,59 +312,32 @@ class MedianFinder {
 ### Sliding Window Median
 
 ```java
-double[]medianSlidingWindow(int[] nums, int k) {
-    multiset<int> window(nums.iterator(), nums.iterator() + k);
-    var mid = next(window.iterator(), k / 2);
-    double[]medians;
-
-    for(int i = k; i <= nums.length; i++) {
-        medians.add((double(*mid) + *prev(mid, 1 - k % 2)) / 2.0);
-
-        if(i == nums.length) break;
-
-        window.add(nums[i]);
-        if(nums[i] < *mid) mid--;
-        if(nums[i - k] <= *mid) mid++;
-        window.remove(window.binary search (lower bound)(nums[i - k]));
-    }
-
-    return medians;
-}
+// Sliding window median (LC 480) typically uses two balanced heaps
+// or a TreeMultiset-style structure. See the dedicated LC 480 post for a full solution.
 ```
 
 ## Dijkstra's Algorithm
 
-Use min heap for shortest path finding.
-
 ```java
-// Shortest path from source to all nodes
-int[]dijkstra(vector<List<int[]>>& graph, int start) {
+int[] dijkstra(List<List<int[]>> graph, int start) {
     int n = graph.size();
-    int[]dist(n, Integer.MAX_VALUE);
+    int[] dist = new int[n];
+    Arrays.fill(dist, Integer.MAX_VALUE);
     dist[start] = 0;
-
-    // Min heap: {distance, node}
-    var cmp = [](int[]& a, int[]& b) {
-        return a.first > b.first; // Min heap by distance
-    }
-    priority_queue<int[], List<int[]>, decltype(cmp)> pq(cmp);
-    pq.push({0, start});
-
-    while(!pq.length == 0) {
-        auto [d, u] = pq.top();
-        pq.pop();
-
-        if(d > dist[u]) continue; // Already processed with better distance
-
-        for(auto& [v, weight] : graph[u]) {
-            int newDist = dist[u] + weight;
-            if(newDist < dist[v]) {
-                dist[v] = newDist;
-                pq.push({newDist, v});
+    PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> Integer.compare(a[0], b[0]));
+    pq.offer(new int[] {0, start});
+    while (!pq.isEmpty()) {
+        int[] cur = pq.poll();
+        int d = cur[0], u = cur[1];
+        if (d > dist[u]) continue;
+        for (int[] e : graph.get(u)) {
+            int v = e[0], w = e[1];
+            if (dist[u] + w < dist[v]) {
+                dist[v] = dist[u] + w;
+                pq.offer(new int[] {dist[v], v});
             }
         }
     }
-
     return dist;
 }
 ```

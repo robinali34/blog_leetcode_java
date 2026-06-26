@@ -94,9 +94,9 @@ This problem simulates a single-server queue system where customers arrive and w
 
 ```java
 class Solution {
-    double averageWaitingTime(int[][]& customers) {
-        public long t = 0, totalTime = 0;
-        for(auto c: customers) {
+        public double averageWaitingTime(int[][] customers) {
+        long t = 0, totalTime = 0;
+        for (int c : customers) {
             int arrival = c[0], order = c[1];
             if(t > arrival) {
                 totalTime += t - arrival;
@@ -168,9 +168,9 @@ Average: (2 + 6 + 7) / 3 = 5.0 ✓
 
 ```java
 class Solution {
-    double averageWaitingTime(int[][]& customers) {
-        public long t = 0, totalTime = 0;
-        for(auto c: customers) {
+        public double averageWaitingTime(int[][] customers) {
+        long t = 0, totalTime = 0;
+        for (int c : customers) {
             int arrival = c[0], order = c[1];
             t = Math.max(t, (long)arrival) + order;
             totalTime += t - arrival;

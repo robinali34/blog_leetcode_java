@@ -84,20 +84,21 @@ We can solve this problem using two approaches:
 **Key Insight:** Elements on the same diagonal have the same sum of row and column indices (`row + col`). We can group all elements by this diagonal index, then iterate through diagonals in ascending order.
 
 ```java
+// import java.util.*;
 class Solution {
-    public int[]findDiagonalOrder(int[][]& nums) {
-        HashMap<Integer, int[]> groups;
+    public int[] findDiagonalOrder(int[][] nums) {
+        HashMap<Integer, int[]> groups = new HashMap<Integer, int[]>();
 
         // Traverse from bottom to top to maintain diagonal order
         for (int row = nums.length - 1; row >= 0; row--) {
             for (int col = 0; col < (int)nums[row].size(); col++) {
-                int diagonal = row + col;
-                groups[diagonal].push_back(nums[row][col]);
+        int diagonal = row + col;
+                groups.computeIfAbsent(diagonal, k -> new ArrayList<>()).add(nums[row][col]);
             }
         }
 
-        int[]rtn;
-        rtn.reserve(nums.length * nums[0].length);
+        List<Integer> rtn = new ArrayList<>();
+        
 
         // Process diagonals in order (0, 1, 2, ...)
         int curr = 0;
@@ -131,26 +132,26 @@ class Solution {
 
 ```java
 class Solution {
-    public int[]findDiagonalOrder(int[][]& nums) {
+    public int[] findDiagonalOrder(int[][] nums) {
         queue<int[]> q;
-        q.push({0, 0});
-        int[]rtn;
-        rtn.reserve(nums.length * nums[0].length);
+        q.offer(new int[] {0, 0});
+        List<Integer> rtn = new ArrayList<>();
+        
 
-        while (!q.length == 0) {
-            auto [row, col] = q.getFirst();
-            q.pop();
+        while (!q.isEmpty()) {
+            auto [row, col] = q.get(0);
+            q.poll();
 
             rtn.add(nums[row][col]);
 
             // If in first column, add cell below
             if (col == 0 && row + 1 < nums.length) {
-                q.push({row + 1, col});
+                q.offer({row + 1, col});
             }
 
             // Add cell to the right
             if (col + 1 < (int)nums[row].size()) {
-                q.push({row, col + 1});
+                q.offer({row, col + 1});
             }
         }
 

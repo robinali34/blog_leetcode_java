@@ -84,7 +84,7 @@ Pair lists and merge them in rounds, halving the count each time. This avoids th
 ```java
 class Solution {
     public ListNode mergeTwo(ListNode a, ListNode b) {
-        ListNode dummy(0);
+        ListNode dummy = new ListNode(0);
         ListNode tail = &dummy;
 
         while (a && b) {
@@ -102,7 +102,7 @@ class Solution {
         return dummy.next;
     }
 
-    ListNode mergeKLists(ListNode[]& lists) {
+    public ListNode mergeKLists(ListNode[] lists) {
         if (lists.length == 0) return null;
 
         int n = lists.size();
@@ -142,29 +142,27 @@ The heap always holds at most one node per list, so each push/pop is $O(\log k)$
 {% raw %}
 ```java
 class Solution {
-    public ListNode mergeKLists(ListNode[]& lists) {
-        ListNode dummy(0);
+    public ListNode mergeKLists(ListNode[] lists) {
+        ListNode dummy = new ListNode(0);
         ListNode tail = &dummy;
-        priority_queue<ListNode, ListNode[], Compare> pq;
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> Integer.compare(a[0], b[0]));
 
-        for (auto l : lists) {
-            if (l) pq.push(l);
+        for (int l : lists) {
+            if (l) pq.offer(l);
         }
 
-        while (!pq.length == 0) {
-            ListNode cur = pq.top();
-            pq.pop();
+        while (!pq.isEmpty()) {
+            ListNode cur = pq.peek();
+            pq.poll();
             tail.next = cur;
             tail = tail.next;
-            if (cur.next) pq.push(cur.next);
+            if (cur.next) pq.offer(cur.next);
         }
 
         return dummy.next;
     }
     class Compare {
-        boolean operator()(ListNode a, ListNode b) {
-            return a.val > b.val;
-        }
+        public 
     }
 }
 ```

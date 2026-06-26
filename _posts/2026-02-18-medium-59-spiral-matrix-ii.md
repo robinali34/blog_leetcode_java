@@ -78,7 +78,7 @@ Iterate over layers from `0` to `(n+1)/2 - 1`. For each layer, fill the four sid
 ```java
 class Solution {
     public int[][] generateMatrix(int n) {
-        int[][] rtn(n, int[](n));
+        public int[][] rtn(n, int[](n));
         int cnt = 1;
 
         for (int layer = 0; layer < (n + 1) / 2; layer++) {
@@ -113,7 +113,7 @@ Instead of explicit layer logic, use direction vectors and rotate when hitting a
 class Solution {
     public int[][] generateMatrix(int n) {
         int[][] mat = new int[n][n];
-        int dirs[4][2] = {{0,1},{1,0},{0,-1},{-1,0}}
+        int[] dirs = new int[4][2] = {new int[] {0, 1},new int[] {1, 0},{0,-1},{-1,0}}
         int d = 0, r = 0, c = 0;
 
         for (int num = 1; num <= n n; num++) {

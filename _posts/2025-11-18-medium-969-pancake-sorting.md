@@ -97,17 +97,16 @@ class Solution {
             i++;
         }
     }
-
-    int find(int[] arr, int target) {
-        for(int i = 0; i < (int)arr.length; i++) {
+        public int find(int[] arr, int target) {
+        for(int i = 0; i < arr.length; i++) {
             if(arr[i] == target) return i;
         }
         return -1;
     }
     int[]pancakeSort(int[] arr) {
-        int[]rtn;
+        List<Integer> rtn = new ArrayList<>();
 
-        for(int valueToSort = (int)arr.length; valueToSort > 0; valueToSort--) {
+        for(int valueToSort = arr.length; valueToSort > 0; valueToSort--) {
             int idx = find(arr, valueToSort);
 
             if(idx == valueToSort - 1) continue;
@@ -195,7 +194,7 @@ Final: [1, 2, 3, 4] ✓
 
 ```java
 int[]pancakeSort(int[] arr) {
-    int[]rtn;
+    List<Integer> rtn = new ArrayList<>();
 
     // Process from largest to smallest value
     for(int valueToSort = arr.length; valueToSort > 0; valueToSort--) {
@@ -207,13 +206,11 @@ int[]pancakeSort(int[] arr) {
 
         // Step 1: Bring to front (if not already there)
         if(idx !) {
-            rtn.add(idx + 1);  // k is 1-indexed
-            flip(arr, idx + 1);      // Reverse first (idx+1) elements
+            rtn.add(idx + 1);  // k is 1-indexed flip = new indexed(arr, idx + 1);      // Reverse first (idx+1) elements
         }
 
         // Step 2: Move to correct position
-        rtn.add(valueToSort);  // k = valueToSort
-        flip(arr, valueToSort);      // Reverse first valueToSort elements
+        rtn.add(valueToSort);  // k = valueToSort flip = new valueToSort(arr, valueToSort);      // Reverse first valueToSort elements
     }
 
     return rtn;
@@ -227,7 +224,7 @@ int[]pancakeSort(int[] arr) {
 static void flip(int[] subarr, int k) {
     int i = 0;
     while(i < k / 2) {
-        swap(subarr[i], subarr[k - i - 1]);
+        swap(subarr, i, k - i - 1);
         i++;
     }
 }
@@ -264,12 +261,12 @@ Linear search to find the index of target value.
 
 ```java
 class Solution {
-    public int[]pancakeSort(int[] arr) {
-        int[]result;
+    public int[] pancakeSort(int[] arr) {
+        List<Integer> result = new ArrayList<>();
 
         for(int size = arr.length; size > 1; size--) {
             // Find index of maximum in unsorted portion
-            int maxIdx = max_element(arr.iterator(), arr.iterator() + size) - arr.iterator();
+        int maxIdx = max_element(arr.iterator(), arr.iterator() + size) - arr.iterator();
 
             if(maxIdx == size - 1) continue;  // Already in place
 
@@ -305,8 +302,8 @@ Instead of linear search, maintain a position map:
 
 ```java
 class Solution {
-    public int[]pancakeSort(int[] arr) {
-        int[]result;
+    public int[] pancakeSort(int[] arr) {
+        List<Integer> result = new ArrayList<>();
         int n = arr.length;
 
         // Create position map: value . index
@@ -331,9 +328,9 @@ class Solution {
 
         return result;
     }
-    void flip(int[] arr, int k, int[] pos) {
+    public void flip(int[] arr, int k, int[] pos) {
         for(int i = 0; i < k / 2; i++) {
-            swap(arr[i], arr[k - 1 - i]);
+            swap(arr, i, k - 1 - i);
             pos[arr[i]] = i;
             pos[arr[k - 1 - i]] = k - 1 - i;
         }
@@ -365,7 +362,7 @@ class Solution {
 static void flip(int[] subarr, int k) {
     int i = 0;
     while(i < k / 2) {
-        swap(subarr[i], subarr[k - i - 1]);
+        swap(subarr, i, k - i - 1);
         i++;
     }
 }

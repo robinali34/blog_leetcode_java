@@ -93,11 +93,11 @@ This is a straightforward **simulation** problem. We need to:
 
 ```java
 class Solution {
-    public int prefixCount(String[] words, String pref) {
+        public int prefixCount(String[] words, String pref) {
         int cnt = 0;
         int prel = pref.length();
-        for(auto word: words) {
-            if(word.substr(0, prel) == pref) {
+        for (int word : words) {
+            if(word.substring(0, prel) == pref) {
                 cnt++;
             }
         }
@@ -178,14 +178,14 @@ Return: 2
 
 ```java
 class Solution {
-    public int prefixCount(String[] words, String pref) {
+        public int prefixCount(String[] words, String pref) {
         int cnt = 0;
         int prel = pref.length();
-        for(auto word: words) {
+        for (int word : words) {
             if(word.length() < prel) continue;
             boolean match = true;
             for(int i = 0; i < prel; i++) {
-                if(word[i] != pref[i]) {
+                if(word.charAt(i) != pref[i]) {
                     match = false;
                     break;
                 }
@@ -204,9 +204,9 @@ class Solution {
 
 ```java
 class Solution {
-    public int prefixCount(String[] words, String pref) {
+        public int prefixCount(String[] words, String pref) {
         int cnt = 0;
-        for(auto word: words) {
+        for (int word : words) {
             if(word.find(pref) == 0) {
                 cnt++;
             }
@@ -223,9 +223,9 @@ class Solution {
 
 ```java
 class Solution {
-    public int prefixCount(String[] words, String pref) {
+        public int prefixCount(String[] words, String pref) {
         int cnt = 0;
-        for(auto word: words) {
+        for (int word : words) {
             if(word.starts_with(pref)) {
                 cnt++;
             }

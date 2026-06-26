@@ -115,15 +115,15 @@ The library approach works the same as LC 46 because `next_permutation()` automa
 // import java.util.Collections;
 class Solution {
     public int[][] permuteUnique(int[] nums) {
-        int[][] rtn;
+        List<int[]> rtn = new ArrayList<>();
         Arrays.sort(nums);  // Sort to group duplicates
-        boolean[]used(nums.length, false);
-        int[]current;
+        public boolean[]used(nums.length, false);
+        List<Integer> current = new ArrayList<>();
         permuteUnique(nums, used, current, rtn);
         return rtn;
     }
-    void permuteUnique(int[] nums, boolean[] used,
-                       int[] current, int[][]& rtn) {
+    public void permuteUnique(int[] nums, boolean[] used,
+                       int[] current, int[][] rtn) {
         if(current.size() == nums.length) {
             rtn.add(current);
             return;
@@ -152,7 +152,7 @@ class Solution {
 // import java.util.Collections;
 class Solution {
     public int[][] permuteUnique(int[] nums) {
-        int[][] rtn;
+        List<int[]> rtn = new ArrayList<>();
         Arrays.sort(nums);
         do{
             rtn.add(nums);
@@ -170,16 +170,15 @@ The swapping approach from LC 46 doesn't work well for duplicates because:
 
 ```java
 // PROBLEMATIC: Swapping approach for duplicates
-static void permuteUnique(int[] nums, int idx, int[][]& rtn) {
+static void permuteUnique(int[] nums, int idx, int[][] rtn) {
     if(idx == nums.length) {
         rtn.add(nums);
         return;
     }
     for(int i = idx; i < nums.length; i++) {
-        if(i > idx && nums[i] == nums[idx]) continue;  // Still problematic
-        swap(nums[idx], nums[i]);
+        if(i > idx && nums[i] == nums[idx]) continue;  // Still problematic swap = new problematic(nums, idx, i);
         permuteUnique(nums, idx + 1, rtn);
-        swap(nums[idx], nums[i]);
+        swap(nums, idx, i);
     }
 }
 ```
@@ -193,7 +192,7 @@ static void permuteUnique(int[] nums, int idx, int[][]& rtn) {
 
 ```java
 // CORRECT: Using current array
-int[]current;  // Build permutation incrementally
+List<Integer> current = new ArrayList<>();  // Build permutation incrementally
 boolean[]used(nums.length, false);  // Track used elements
 ```
 
@@ -270,7 +269,7 @@ if(i > 0 && nums[i] == nums[i-1] && !used[i-1]) continue;
 // import java.util.Arrays;
 // import java.util.Collections;
 int[][] permuteUnique(int[] nums) {
-    int[][] rtn;
+    List<int[]> rtn = new ArrayList<>();
     Arrays.sort(nums);
     do{
         rtn.add(nums);  // Directly use nums
@@ -291,23 +290,23 @@ int[][] permuteUnique(int[] nums) {
 ```java
 class Solution {
     public int[][] permuteUnique(int[] nums) {
-        int[][] result;
+        List<int[]> result = new ArrayList<>();
         permute(nums, 0, result);
 
         // Remove duplicates using set
         set<int[]> unique_perms(result /* elements of result */);
         return int[][](unique_perms /* elements of unique_perms */);
     }
-    void permute(int[] nums, int idx, int[][]& result) {
+    public void permute(int[] nums, int idx, int[][] result) {
         if(idx == nums.length) {
             result.add(nums);
             return;
         }
 
         for(int i = idx; i < nums.length; i++) {
-            swap(nums[idx], nums[i]);
+            swap(nums, idx, i);
             permute(nums, idx + 1, result);
-            swap(nums[idx], nums[i]);
+            swap(nums, idx, i);
         }
     }
 }
@@ -378,7 +377,7 @@ return [[1,1,2], [1,2,1], [2,1,1]]
 // import java.util.Collections;
 class Solution {
     public int[][] permuteUnique(int[] nums) {
-        int[][] result;
+        List<int[]> result = new ArrayList<>();
         permute(nums, 0, result);
 
         // Method 1: Using set (automatic sorting)
@@ -394,16 +393,16 @@ class Solution {
         // result.remove(unique(result /* elements of result */), result.iterator());
         // return result;
     }
-    void permute(int[] nums, int idx, int[][]& result) {
+    public void permute(int[] nums, int idx, int[][] result) {
         if(idx == nums.length) {
             result.add(nums);
             return;
         }
 
         for(int i = idx; i < nums.length; i++) {
-            swap(nums[idx], nums[i]);
+            swap(nums, idx, i);
             permute(nums, idx + 1, result);
-            swap(nums[idx], nums[i]);
+            swap(nums, idx, i);
         }
     }
 }
@@ -418,23 +417,23 @@ class Solution {
 ```java
 class Solution {
     public int[][] permuteUnique(int[] nums) {
-        int[][] result;
+        List<int[]> result = new ArrayList<>();
         permute(nums, 0, result);
 
         // Remove duplicates using set
         set<int[]> unique_perms(result /* elements of result */);
         return int[][](unique_perms /* elements of unique_perms */);
     }
-    void permute(int[] nums, int idx, int[][]& result) {
+    public void permute(int[] nums, int idx, int[][] result) {
         if(idx == nums.length) {
             result.add(nums);
             return;
         }
 
         for(int i = idx; i < nums.length; i++) {
-            swap(nums[idx], nums[i]);
+            swap(nums, idx, i);
             permute(nums, idx + 1, result);
-            swap(nums[idx], nums[i]);
+            swap(nums, idx, i);
         }
     }
 }
@@ -445,7 +444,7 @@ class Solution {
 ```java
 class Solution {
     public int[][] permuteUnique(int[] nums) {
-        int[][] result;
+        List<int[]> result = new ArrayList<>();
         permute(nums, 0, result);
 
         // Remove duplicates using unordered_set with custom hash
@@ -464,16 +463,16 @@ class Solution {
             return hash;
         }
     }
-    void permute(int[] nums, int idx, int[][]& result) {
+    public void permute(int[] nums, int idx, int[][] result) {
         if(idx == nums.length) {
             result.add(nums);
             return;
         }
 
         for(int i = idx; i < nums.length; i++) {
-            swap(nums[idx], nums[i]);
+            swap(nums, idx, i);
             permute(nums, idx + 1, result);
-            swap(nums[idx], nums[i]);
+            swap(nums, idx, i);
         }
     }
 }
@@ -487,7 +486,7 @@ class Solution {
 // Method 1: Using unordered_set (requires custom hash)
 class Solution {
     public int[][] permuteUnique(int[] nums) {
-        int[][] result;
+        List<int[]> result = new ArrayList<>();
         permute(nums, 0, result);
 
         unordered_set<int[], VectorHash> unique_perms(result /* elements of result */);
@@ -505,23 +504,23 @@ class Solution {
             return hash;
         }
     }
-    void permute(int[] nums, int idx, int[][]& result) {
+    public void permute(int[] nums, int idx, int[][] result) {
         if(idx == nums.length) {
             result.add(nums);
             return;
         }
 
         for(int i = idx; i < nums.length; i++) {
-            swap(nums[idx], nums[i]);
+            swap(nums, idx, i);
             permute(nums, idx + 1, result);
-            swap(nums[idx], nums[i]);
+            swap(nums, idx, i);
         }
     }
 }
 // Method 2: Manual deduplication
 class Solution {
     public int[][] permuteUnique(int[] nums) {
-        int[][] result;
+        List<int[]> result = new ArrayList<>();
         permute(nums, 0, result);
 
         // Sort and remove consecutive duplicates
@@ -529,16 +528,16 @@ class Solution {
         result.remove(unique(result /* elements of result */), result.iterator());
         return result;
     }
-    void permute(int[] nums, int idx, int[][]& result) {
+    public void permute(int[] nums, int idx, int[][] result) {
         if(idx == nums.length) {
             result.add(nums);
             return;
         }
 
         for(int i = idx; i < nums.length; i++) {
-            swap(nums[idx], nums[i]);
+            swap(nums, idx, i);
             permute(nums, idx + 1, result);
-            swap(nums[idx], nums[i]);
+            swap(nums, idx, i);
         }
     }
 }
@@ -808,23 +807,23 @@ The skip condition `if(i > 0 && nums[i] == nums[i-1] && !used[i-1]) continue;` e
 ```java
 class Solution {
     public int[][] permuteUnique(int[] nums) {
-        int[][] result;
+        List<int[]> result = new ArrayList<>();
         permute(nums, 0, result);
 
         // Remove duplicates using set
         set<int[]> unique_perms(result /* elements of result */);
         return int[][](unique_perms /* elements of unique_perms */);
     }
-    void permute(int[] nums, int idx, int[][]& result) {
+    public void permute(int[] nums, int idx, int[][] result) {
         if(idx == nums.length) {
             result.add(nums);
             return;
         }
 
         for(int i = idx; i < nums.length; i++) {
-            swap(nums[idx], nums[i]);
+            swap(nums, idx, i);
             permute(nums, idx + 1, result);
-            swap(nums[idx], nums[i]);
+            swap(nums, idx, i);
         }
     }
 }
@@ -835,7 +834,7 @@ class Solution {
 // import java.util.*;
 class Solution {
     public int[][] permuteUnique(int[] nums) {
-        int[][] result;
+        List<int[]> result = new ArrayList<>();
         HashMap<Integer, Integer> freq = new HashMap<Integer, Integer>();
 
         // Count frequency of each number
@@ -843,24 +842,24 @@ class Solution {
             freq.put(num, freq.getOrDefault(num, 0) + 1);
         }
 
-        int[]current;
+        List<Integer> current = new ArrayList<>();
         backtrack(freq, current, result, nums.length);
         return result;
     }
-    void backtrack(HashMap<Integer, Integer>& freq, int[] current,
-                   int[][]& result, int target_size) {
+    public void backtrack(HashMap<Integer, Integer>& freq, int[] current,
+                   int[][] result, int target_size) {
         if(current.size() == target_size) {
             result.add(current);
             return;
         }
 
-        for(auto pair : freq) {
-            if(pair.second > 0) {
-                pair.second--;
-                current.add(pair.first);
+        for (int pair : freq) {
+            if(pair[1] > 0) {
+                pair[1]--;
+                current.add(pair[0]);
                 backtrack(freq, current, result, target_size);
                 current.removeLast();
-                pair.second++;
+                pair[1]++;
             }
         }
     }

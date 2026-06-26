@@ -106,12 +106,12 @@ This problem requires maximizing vacation days over `k` weeks by choosing which 
 
 ```java
 class Solution {
-    public int maxVacationDays(int[][]& flights, int[][]& days) {
+        public int maxVacationDays(int[][] flights, int[][] days) {
         if(days.size() == 0 || flights.size() == 0) return 0;
         int N = flights.size(), M = days[0].length;
-        int[]dp(N);
+        int[] dp = new int[N];
         for(int week = M - 1; week >= 0; week--) {
-            int[]temp(N);
+            int[] temp = new int[N];
             for(int cur_city = 0; cur_city < N; cur_city++) {
                 temp[cur_city] = days[cur_city][week] + dp[cur_city];
                 for(int dest_city = 0; dest_city < N; dest_city++) {

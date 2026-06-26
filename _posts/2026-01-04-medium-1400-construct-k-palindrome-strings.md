@@ -96,7 +96,7 @@ This is a **greedy algorithm** problem with a key mathematical insight about pal
 
 ```java
 class Solution {
-    public boolean canConstruct(String s, int k) {
+        public boolean canConstruct(String s, int k) {
         int right = s.length();
         int occ[26] = {0}
         for(char ch: s) {

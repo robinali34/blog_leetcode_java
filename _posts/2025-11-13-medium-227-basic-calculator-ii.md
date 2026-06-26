@@ -110,7 +110,7 @@ Use a stack to store numbers. When encountering `+` or `-`, push the number (wit
 ```java
 // import java.util.*;
 class Solution {
-    public int calculate(String s) {
+        public int calculate(String s) {
         int len = s.length();
         if(len == 0) return 0;
 
@@ -119,7 +119,7 @@ class Solution {
         int curr = 0;
 
         for(int i = 0; i < len; i++) {
-            char ch = s[i];
+            char ch = s.charAt(i);
 
             if(isdigit(ch)) {
                 curr = (curr 10) + (ch - '0');
@@ -127,17 +127,17 @@ class Solution {
 
             if (!isdigit(ch) && !isspace(ch) || i == len - 1) {
                 if(operation == '-') {
-                    stk.push(-curr);
+                    stk.offer(-curr);
                 } else if(operation == '+') {
-                    stk.push(curr);
+                    stk.offer(curr);
                 } else if(operation == '*') {
-                    int stkTop = stk.top();
-                    stk.pop();
-                    stk.push(stkTop curr);
+                    int stkTop = stk.peek();
+                    stk.poll();
+                    stk.offer(stkTop curr);
                 } else if(operation == '/') {
-                    int stkTop = stk.top();
-                    stk.pop();
-                    stk.push(stkTop / curr);
+                    int stkTop = stk.peek();
+                    stk.poll();
+                    stk.offer(stkTop / curr);
                 }
 
                 operation = ch;
@@ -146,9 +146,9 @@ class Solution {
         }
 
         int rtn = 0;
-        while(!stk.length == 0) {
-            rtn += stk.top();
-            stk.pop();
+        while(!stk.isEmpty()) {
+            rtn += stk.peek();
+            stk.poll();
         }
 
         return rtn;
@@ -165,7 +165,7 @@ Instead of using a stack, use variables to track the last value and current resu
 
 ```java
 class Solution {
-    public int calculate(String s) {
+        public int calculate(String s) {
         int len = s.length();
         if (len == 0) return 0;
 
@@ -173,7 +173,7 @@ class Solution {
         char sign = '+';
 
         for(int i = 0; i < len; i++) {
-            char ch = s[i];
+            char ch = s.charAt(i);
 
             if(isdigit(ch)) {
                 curr = (curr 10) + (ch - '0');
@@ -344,17 +344,17 @@ if(isdigit(ch)) {
 ```java
 if (!isdigit(ch) && !isspace(ch) || i == len - 1) {
     if(operation == '-') {
-        stk.push(-curr);  // Push negative for subtraction
+        stk.offer(-curr);  // Push negative for subtraction
     } else if(operation == '+') {
-        stk.push(curr);
+        stk.offer(curr);
     } else if(operation == '*') {
-        int stkTop = stk.top();
-        stk.pop();
-        stk.push(stkTop curr);  // Immediate evaluation
+        int stkTop = stk.peek();
+        stk.poll();
+        stk.offer(stkTop curr);  // Immediate evaluation
     } else if(operation == '/') {
-        int stkTop = stk.top();
-        stk.pop();
-        stk.push(stkTop / curr);  // Immediate evaluation
+        int stkTop = stk.peek();
+        stk.poll();
+        stk.offer(stkTop / curr);  // Immediate evaluation
     }
     operation = ch;
     curr = 0;
@@ -364,9 +364,9 @@ if (!isdigit(ch) && !isspace(ch) || i == len - 1) {
 #### 3. Sum Stack
 ```java
 int rtn = 0;
-while(!stk.length == 0) {
-    rtn += stk.top();
-    stk.pop();
+while(!stk.isEmpty()) {
+    rtn += stk.peek();
+    stk.poll();
 }
 ```
 

@@ -115,27 +115,18 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 Use a stack to track opening brackets. When encountering a closing bracket, check if it matches the most recent opening bracket. If stack is empty at the end, all brackets are matched.
 
 ```java
-// import java.util.*;
 class Solution {
     public boolean isValid(String s) {
-        Deque<char> st = new ArrayDeque<>();
-        HashMap<char, char> map = {
-            {'}', '{'},
-            {']', '['},
-            {')', '('}
+        Deque<Character> stack = new ArrayDeque<>();
+        for (char ch : s.toCharArray()) {
+            if (ch == '(') stack.push(')');
+            else if (ch == '[') stack.push(']');
+            else if (ch == '{') stack.push('}');
+            else if (stack.isEmpty() || stack.pop() != ch) return false;
         }
-        for(char c: s) {
-            if(c == '{' || c == '[' || c == '(') {
-                st.push(c);
-            } else {
-                if(st.length == 0 || st.top() != map[c]) return false;
-                st.pop();
-            }
-        }
-        return st.length == 0;
+        return stack.isEmpty();
     }
-}
-```
+}```
 
 ## How the Algorithm Works
 
@@ -230,7 +221,7 @@ HashMap<char, char> map = {
 ### 2. Process Opening Brackets
 ```java
 if(c == '{' || c == '[' || c == '(') {
-    st.push(c);
+    st.offer(c);
 }
 ```
 - Push opening brackets onto stack
@@ -239,8 +230,8 @@ if(c == '{' || c == '[' || c == '(') {
 ### 3. Process Closing Brackets
 ```java
 else {
-    if(st.length == 0 || st.top() != map[c]) return false;
-    st.pop();
+    if(st.length == 0 || st.peek() != map[c]) return false;
+    st.poll();
 }
 ```
 - **Check if stack is empty**: No opening bracket to match
@@ -270,14 +261,14 @@ return st.length == 0;
 static boolean isValid(String s) {
     Deque<char> st = new ArrayDeque<>();
 
-    for(char c: s) {
+    for (char c : s.toCharArray()) {
         if(c == '(' || c == '[' || c == '{') {
-            st.push(c);
+            st.offer(c);
         } else {
             if(st.length == 0) return false;
 
-            char top = st.top();
-            st.pop();
+            char top = st.peek();
+            st.poll();
 
             if((c == ')' && top != '(') ||
                (c == ']' && top != '[') ||
@@ -300,13 +291,13 @@ static boolean isValid(String s) {
 static boolean isValid(String s) {
     String stack = "";
 
-    for(char c: s) {
+    for (char c : s.toCharArray()) {
         if(c == '(' || c == '[' || c == '{') {
             stack += c;
         } else {
             if(stack.length == 0) return false;
 
-            char last = stack.getLast();
+            char last = stack.get(stack.size() - 1);
             stack.removeLast();
 
             if((c == ')' && last != '(') ||
@@ -332,7 +323,7 @@ static boolean isValid(String s) {
 // Only works for single bracket type like "()"
 static boolean isValid(String s) {
     int count = 0;
-    for(char c: s) {
+    for (char c : s.toCharArray()) {
         if(c == '(') count++;
         else count--;
         if(count < 0) return false;
@@ -481,8 +472,8 @@ For very large strings, consider using a string as stack (if your use case allow
 The hash map lookup is very fast, but explicit checks might be slightly faster due to branch prediction:
 ```java
 if(c == ')') {
-    if(st.length == 0 || st.top() != '(') return false;
-    st.pop();
+    if(st.length == 0 || st.peek() != '(') return false;
+    st.poll();
 }
 ```
 
@@ -533,7 +524,7 @@ HashMap<char, char> map = {
 }
 // Check also includes '<'
 if(c == '{' || c == '[' || c == '(' || c == '<') {
-    st.push(c);
+    st.offer(c);
 }
 ```
 

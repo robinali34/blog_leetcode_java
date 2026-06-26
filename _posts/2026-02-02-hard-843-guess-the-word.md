@@ -98,14 +98,14 @@ This is an interactive problem that requires an elimination strategy. The key in
  * // This is the Master's API interface.
  * // You should not implement it, or speculate about its implementation class Master {
  *   public:
- *     int guess(String word);
+ *     int guess = new int(String word);
  * }
  */
 class Solution {
     public void findSecretWord(String[] words, Master master) {
         HashSet<String> cand(words /* elements of words */);
-        while(!cand.length == 0 ){
-            String guess = *cand.iterator();
+        while(!cand.isEmpty() ){
+        String guess = *cand.iterator();
             int matches = master.guess(guess);
             if(matches == 6)
                 return;
@@ -116,7 +116,7 @@ class Solution {
             }
         }
     }
-    int match(String a, String b) {
+        public int match(String a, String b) {
         int cnt = 0;
         for(int i = 0; i < 6; i++) {
             cnt += (a[i] == b[i]);
@@ -258,10 +258,10 @@ A more sophisticated approach is to pick the word that minimizes the maximum num
 // import java.util.Collections;
 class Solution {
     public void findSecretWord(String[] words, Master master) {
-        String[]cand = words;
-        while(!cand.length == 0) {
+        public String[]cand = words;
+        while(!cand.isEmpty()) {
             // Pick word that minimizes maximum remaining candidates
-            String guess = cand[0];
+        String guess = cand[0];
             int minMax = cand.size();
             for(String word : cand) {
                 int[] count = new int[7];
@@ -288,7 +288,7 @@ class Solution {
             cand = newCand;
         }
     }
-    int match(String a, String b) {
+        public int match(String a, String b) {
         int cnt = 0;
         for(int i = 0; i < 6; i++) {
             cnt += (a[i] == b[i]);

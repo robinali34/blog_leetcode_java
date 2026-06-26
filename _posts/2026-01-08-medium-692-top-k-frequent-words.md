@@ -118,25 +118,25 @@ This problem is similar to [LC 347: Top K Frequent Elements](https://leetcode.co
 ### **Solution: Hash Map + Custom Sorting**
 
 ```java
-// import java.util.*;
 class Solution {
-    public String[]topKFrequent(String[] words, int k) {
-        HashMap<String, int> cnt = new HashMap<String, int>();
-        for(auto word: words) {
-            cnt.put(word, cnt.getOrDefault(word, 0) + 1);
-        }
-        String[]rtn;
-        for(auto& [key, value]: cnt) {
-            rtn.add(key);
-        }
-        sort(rtn /* elements of rtn */, [&](String a, String b){
-            return cnt.put(a, = cnt[b]? a < b : cnt[a] > cnt[b]);
+    public List<String> topKFrequent(String[] words, int k) {
+        Map<String, Integer> freq = new HashMap<>();
+        for (String w : words) freq.put(w, freq.getOrDefault(w, 0) + 1);
+        PriorityQueue<String> pq = new PriorityQueue<>((a, b) -> {
+            int fa = freq.get(a), fb = freq.get(b);
+            if (fa != fb) return Integer.compare(fa, fb);
+            return b.compareTo(a);
         });
-        rtn.remove(rtn.iterator() + k, rtn.iterator());
-        return rtn;
+        for (String w : freq.keySet()) {
+            pq.offer(w);
+            if (pq.size() > k) pq.poll();
+        }
+        List<String> result = new ArrayList<>();
+        while (!pq.isEmpty()) result.add(pq.poll());
+        Collections.reverse(result);
+        return result;
     }
-}
-```
+}```
 
 ### **Algorithm Explanation:**
 
@@ -220,33 +220,25 @@ return rtn;
 For cases where k is much smaller than the number of unique words, a min heap approach would be more efficient:
 
 ```java
-// import java.util.*;
 class Solution {
-    public String[]topKFrequent(String[] words, int k) {
-        HashMap<String, int> cnt = new HashMap<String, int>();
-        for(auto word: words) {
-            cnt.put(word, cnt.getOrDefault(word, 0) + 1);
+    public List<String> topKFrequent(String[] words, int k) {
+        Map<String, Integer> freq = new HashMap<>();
+        for (String w : words) freq.put(w, freq.getOrDefault(w, 0) + 1);
+        PriorityQueue<String> pq = new PriorityQueue<>((a, b) -> {
+            int fa = freq.get(a), fb = freq.get(b);
+            if (fa != fb) return Integer.compare(fa, fb);
+            return b.compareTo(a);
+        });
+        for (String w : freq.keySet()) {
+            pq.offer(w);
+            if (pq.size() > k) pq.poll();
         }
-
-        var cmp = [&](String a, String b) {
-            return cnt.put(a, = cnt[b] ? a > b : cnt[a] < cnt[b]);
-        }
-        priority_queue<String, String[], decltype(cmp)> pq(cmp);
-        for(auto& [word, freq]: cnt) {
-            pq.push(word);
-            if(pq.size() > k) pq.pop();
-        }
-
-        String[]rtn;
-        while(!pq.length == 0) {
-            rtn.add(pq.top());
-            pq.pop();
-        }
-        reverse(rtn /* elements of rtn */);
-        return rtn;
+        List<String> result = new ArrayList<>();
+        while (!pq.isEmpty()) result.add(pq.poll());
+        Collections.reverse(result);
+        return result;
     }
-}
-```
+}```
 
 **Time Complexity:** O(n + m log k) where m is unique words  
 **Space Complexity:** O(m + k)
@@ -256,36 +248,25 @@ class Solution {
 Similar to LC 347, but requires additional sorting within each bucket:
 
 ```java
-// import java.util.*;
 class Solution {
-    public String[]topKFrequent(String[] words, int k) {
-        HashMap<String, int> cnt = new HashMap<String, int>();
-        for(auto word: words) {
-            cnt.put(word, cnt.getOrDefault(word, 0) + 1);
+    public List<String> topKFrequent(String[] words, int k) {
+        Map<String, Integer> freq = new HashMap<>();
+        for (String w : words) freq.put(w, freq.getOrDefault(w, 0) + 1);
+        PriorityQueue<String> pq = new PriorityQueue<>((a, b) -> {
+            int fa = freq.get(a), fb = freq.get(b);
+            if (fa != fb) return Integer.compare(fa, fb);
+            return b.compareTo(a);
+        });
+        for (String w : freq.keySet()) {
+            pq.offer(w);
+            if (pq.size() > k) pq.poll();
         }
-
-        int maxFreq = 0;
-        for(auto& [word, freq]: cnt) {
-            maxFreq = Math.max(maxFreq, freq);
-        }
-
-        vector<String[]> buckets(maxFreq + 1);
-        for(auto& [word, freq]: cnt) {
-            buckets[freq].push_back(word);
-        }
-
-        String[]rtn;
-        for(int i = maxFreq; i >= 1 && rtn.size() < k; i--) {
-            sort(buckets[i].begin(), buckets[i].end());
-            for(auto word: buckets[i]) {
-                rtn.add(word);
-                if(rtn.size() == k) break;
-            }
-        }
-        return rtn;
+        List<String> result = new ArrayList<>();
+        while (!pq.isEmpty()) result.add(pq.poll());
+        Collections.reverse(result);
+        return result;
     }
-}
-```
+}```
 
 **Time Complexity:** O(n + m log m) in worst case  
 **Space Complexity:** O(m)

@@ -124,8 +124,9 @@ This is a classic **backtracking with constraint satisfaction** problem. The key
 ### **Solution: Backtracking with Optimized Constraint Checking**
 
 ```java
+// import java.util.*;
 class Solution {
-    vector<String[]> solveNQueens(int n) {
+    public List<List<String>> solveNQueens(int n) {
         size = n;
         board.assign(n, String(n, '.'));
         col.assign(n, false);
@@ -136,10 +137,10 @@ class Solution {
     }
     int size;
     String[]board;
-    vector<String[]> rtn;
+    List<List<String>> rtn = new ArrayList<>();
     boolean[]col, diag, anti;
 
-    void dfs(int row) {
+    public void dfs(int row) {
         if(row == size) {
             rtn.add(board);
             return;
@@ -149,9 +150,9 @@ class Solution {
             int a = row + c;
             if(col[c] || diag[d] || anti[a]) continue;
             col[c] = diag[d] = anti[a] = true;
-            board[row][c] = 'Q';
+            board[row].charAt(c) = 'Q';
             dfs(row + 1);
-            board[row][c] = '.';
+            board[row].charAt(c) = '.';
             col[c] = diag[d] = anti[a] = false;
         }
     }
@@ -304,39 +305,39 @@ Final: When row=4, add board to result
 ### **Approach 2: Check Board Each Time (Less Efficient)**
 
 ```java
+// import java.util.*;
 class Solution {
-    vector<String[]> solveNQueens(int n) {
+    public List<List<String>> solveNQueens(int n) {
         public String[]board(n, String(n, '.'));
-        vector<String[]> result;
+        List<List<String>> result = new ArrayList<>();
         dfs(board, 0, n, result);
         return result;
     }
-    void dfs(String[] board, int row, int n, vector<String[]>& result) {
+    public void dfs(String[] board, int row, int n, List<List<String>>& result) {
         if(row == n) {
             result.add(board);
             return;
         }
         for(int col = 0; col < n; col++) {
             if(isValid(board, row, col, n)) {
-                board[row][col] = 'Q';
+                board[row].charAt(col) = 'Q';
                 dfs(board, row + 1, n, result);
-                board[row][col] = '.';
+                board[row].charAt(col) = '.';
             }
         }
     }
-
-    boolean isValid(String[] board, int row, int col, int n) {
+        public boolean isValid(String[] board, int row, int col, int n) {
         // Check column above
         for(int i = 0; i < row; i++) {
-            if(board[i][col] == 'Q') return false;
+            if(board[i].charAt(col) == 'Q') return false;
         }
         // Check diagonal \
         for(int i = row - 1, j = col - 1; i >= 0 && j >= 0; i--, j--) {
-            if(board[i][j] == 'Q') return false;
+            if(board[i].charAt(j) == 'Q') return false;
         }
         // Check diagonal /
         for(int i = row - 1, j = col + 1; i >= 0 && j < n; i--, j++) {
-            if(board[i][j] == 'Q') return false;
+            if(board[i].charAt(j) == 'Q') return false;
         }
         return true;
     }

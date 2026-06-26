@@ -84,7 +84,7 @@ This solution uses BFS starting from all rotten oranges simultaneously. A specia
 
 ```java
 class Solution {
-    public int orangesRotting(int[][]& grid) {
+        public int orangesRotting(int[][] grid) {
         queue<int[]> cache;
         int freshOranges = 0;
         int ROWS = grid.length, COLS = grid[0].length;
@@ -93,37 +93,37 @@ class Solution {
         for (int r = 0; r < ROWS; r++) {
             for (int c = 0; c < COLS; c++) {
                 if(grid[r][c] == 2) {
-                    cache.push({r, c});
+                    cache.offer(new int[] {r, c});
                 } else if(grid[r][c] == 1) {
                     freshOranges++;
                 }
             }
         }
         // Add level separator
-        cache.push({-1, -1});
+        cache.offer({-1, -1});
 
         int minutesElapsed = -1;
-        int dirs[4][2] = {{-1, 0}, {1, 0}, {0, 1}, {0, -1}}
-        while(!cache.length == 0) {
-            auto [row, col] = cache.getFirst();
-            cache.pop();
+        int dirs[4][2] = {{-1, 0}, new int[] {1, 0}, new int[] {0, 1}, {0, -1}}
+        while(!cache.isEmpty()) {
+            auto [row, col] = cache.get(0);
+            cache.poll();
 
             if(row == -1) {
                 // Level separator encountered
                 minutesElapsed++;
-                if(!cache.length == 0) {
+                if(!cache.isEmpty()) {
                     // Add separator for next level
-                    cache.push({-1, -1});
+                    cache.offer({-1, -1});
                 }
             } else {
                 // Process current rotten orange
-                for(auto d: dirs) {
+                for (int d : dirs) {
                     int nr = row + d[0];
                     int nc = col + d[1];
                     if(nr >= 0 && nr < ROWS && nc >= 0 && nc < COLS && grid[nr][nc] == 1) {
                         grid[nr][nc] = 2;  // Mark as rotten
                         freshOranges--;
-                        cache.push({nr, nc});
+                        cache.offer(new int[] {nr, nc});
                     }
                 }
             }
@@ -166,16 +166,16 @@ This approach processes each level explicitly by tracking queue size.
 
 ```java
 class Solution {
-    public int orangesRotting(int[][]& grid) {
+        public int orangesRotting(int[][] grid) {
         queue<int[]> q;
         int freshOranges = 0;
         int ROWS = grid.length, COLS = grid[0].length;
-        int dirs[4][2] = {{-1, 0}, {1, 0}, {0, 1}, {0, -1}}
+        int dirs[4][2] = {{-1, 0}, new int[] {1, 0}, new int[] {0, 1}, {0, -1}}
         // Find all rotten oranges and count fresh oranges
         for (int r = 0; r < ROWS; r++) {
             for (int c = 0; c < COLS; c++) {
                 if(grid[r][c] == 2) {
-                    q.push({r, c});
+                    q.offer(new int[] {r, c});
                 } else if(grid[r][c] == 1) {
                     freshOranges++;
                 }
@@ -183,19 +183,19 @@ class Solution {
         }
 
         int minutes = 0;
-        while(!q.length == 0 && freshOranges > 0) {
+        while(!q.isEmpty() && freshOranges > 0) {
             int levelSize = q.size();
             for(int i = 0; i < levelSize; i++) {
-                auto [row, col] = q.getFirst();
-                q.pop();
+                auto [row, col] = q.get(0);
+                q.poll();
 
-                for(auto d: dirs) {
+                for (int d : dirs) {
                     int nr = row + d[0];
                     int nc = col + d[1];
                     if(nr >= 0 && nr < ROWS && nc >= 0 && nc < COLS && grid[nr][nc] == 1) {
                         grid[nr][nc] = 2;
                         freshOranges--;
-                        q.push({nr, nc});
+                        q.offer(new int[] {nr, nc});
                     }
                 }
             }
@@ -222,17 +222,17 @@ This approach maintains a separate distance/time array to track when each orange
 
 ```java
 class Solution {
-    public int orangesRotting(int[][]& grid) {
+        public int orangesRotting(int[][] grid) {
         int ROWS = grid.length, COLS = grid[0].length;
         queue<int[]> q;
         int[][] time(ROWS, int[](COLS, -1));
         int freshOranges = 0;
-        int dirs[4][2] = {{-1, 0}, {1, 0}, {0, 1}, {0, -1}}
+        int dirs[4][2] = {{-1, 0}, new int[] {1, 0}, new int[] {0, 1}, {0, -1}}
         // Initialize: add rotten oranges to queue
         for (int r = 0; r < ROWS; r++) {
             for (int c = 0; c < COLS; c++) {
                 if(grid[r][c] == 2) {
-                    q.push({r, c});
+                    q.offer(new int[] {r, c});
                     time[r][c] = 0;
                 } else if(grid[r][c] == 1) {
                     freshOranges++;
@@ -241,11 +241,11 @@ class Solution {
         }
 
         int maxTime = 0;
-        while(!q.length == 0) {
-            auto [row, col] = q.getFirst();
-            q.pop();
+        while(!q.isEmpty()) {
+            auto [row, col] = q.get(0);
+            q.poll();
 
-            for(auto d: dirs) {
+            for (int d : dirs) {
                 int nr = row + d[0];
                 int nc = col + d[1];
                 if(nr >= 0 && nr < ROWS && nc >= 0 && nc < COLS &&
@@ -254,7 +254,7 @@ class Solution {
                     maxTime = Math.max(maxTime, time[nr][nc]);
                     grid[nr][nc] = 2;
                     freshOranges--;
-                    q.push({nr, nc});
+                    q.offer(new int[] {nr, nc});
                 }
             }
         }

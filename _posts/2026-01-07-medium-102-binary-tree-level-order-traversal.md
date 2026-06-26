@@ -126,6 +126,7 @@ This is a classic **BFS (Breadth-First Search)** problem. The key insight is to:
 ### **Solution: BFS with Queue**
 
 ```java
+// import java.util.*;
 /**
  * Definition for a binary tree node.
  * class TreeNode {
@@ -139,20 +140,20 @@ This is a classic **BFS (Breadth-First Search)** problem. The key insight is to:
  */
 class Solution {
     public int[][] levelOrder(TreeNode root) {
-        int[][] rtn;
+        List<int[]> rtn = new ArrayList<>();
         if(!root) return rtn;
-        queue<TreeNode> q;
-        q.push(root);
-        while(!q.length == 0) {
-            int levelSize = q.size();
-            int[]level;
-            level.reserve(levelSize);
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(root);
+        while(!q.isEmpty()) {
+        int levelSize = q.size();
+            List<Integer> level = new ArrayList<>();
+            
             for(int i = 0; i < levelSize; i++) {
-                TreeNode curr = q.getFirst();
-                q.pop();
+                TreeNode curr = q.get(0);
+                q.poll();
                 level.add(curr.val);
-                if(curr.left) q.push(curr.left);
-                if(curr.right) q.push(curr.right);
+                if(curr.left) q.offer(curr.left);
+                if(curr.right) q.offer(curr.right);
             }
             rtn.add(level);
         }

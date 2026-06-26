@@ -110,7 +110,7 @@ class Solution {
         preorder(node.left, currNum, rootToLeaf);
         preorder(node.right, currNum, rootToLeaf);
     }
-    int sumNumbers(TreeNode root) {
+        public int sumNumbers(TreeNode root) {
         int rootToLeaf = 0;
         preorder(root, 0, rootToLeaf);
         return rootToLeaf;
@@ -144,7 +144,7 @@ Morris traversal allows us to traverse the tree without using a stack or recursi
  * }
  */
 class Solution {
-    public int sumNumbers(TreeNode root) {
+        public int sumNumbers(TreeNode root) {
         int rootToLeaf = 0, currNum = 0;
         int steps;
         TreeNode predecessor;
@@ -416,16 +416,16 @@ else {
 
 ```java
 class Solution {
-    public int sumNumbers(TreeNode root) {
+        public int sumNumbers(TreeNode root) {
         if(root == null) return 0;
 
-        stack<pair<TreeNode, int>> stk;
-        stk.push({root, 0});
+        stack<TreeNode[]> stk;
+        stk.offer(new int[] {root, 0});
         int totalSum = 0;
 
-        while(!stk.length == 0) {
-            auto [node, prevSum] = stk.top();
-            stk.pop();
+        while(!stk.isEmpty()) {
+            int[] nodepair = stk.peek(); int node = nodepair[0]; int prevSum = nodepair[1];
+            stk.poll();
 
             int sum = prevSum 10 + node.val;
 
@@ -433,10 +433,10 @@ class Solution {
                 totalSum += sum;
             } else {
                 if(node.right != null) {
-                    stk.push({node.right, sum});
+                    stk.offer({node.right, sum});
                 }
                 if(node.left != null) {
-                    stk.push({node.left, sum});
+                    stk.offer({node.left, sum});
                 }
             }
         }
@@ -461,16 +461,16 @@ class Solution {
 
 ```java
 class Solution {
-    public int sumNumbers(TreeNode root) {
+        public int sumNumbers(TreeNode root) {
         if(root == null) return 0;
 
-        queue<pair<TreeNode, int>> q;
-        q.push({root, 0});
+        queue<TreeNode[]> q;
+        q.offer(new int[] {root, 0});
         int totalSum = 0;
 
-        while(!q.length == 0) {
-            auto [node, prevSum] = q.getFirst();
-            q.pop();
+        while(!q.isEmpty()) {
+            auto [node, prevSum] = q.get(0);
+            q.poll();
 
             int sum = prevSum 10 + node.val;
 
@@ -478,10 +478,10 @@ class Solution {
                 totalSum += sum;
             } else {
                 if(node.left != null) {
-                    q.push({node.left, sum});
+                    q.offer({node.left, sum});
                 }
                 if(node.right != null) {
-                    q.push({node.right, sum});
+                    q.offer({node.right, sum});
                 }
             }
         }

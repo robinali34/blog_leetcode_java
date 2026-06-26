@@ -110,7 +110,7 @@ Use a stack to handle parentheses. When encountering `(`, push current result an
 ```java
 // import java.util.*;
 class Solution {
-    public int calculate(String s) {
+        public int calculate(String s) {
         int len = s.length();
         if(len == 0) return 0;
 
@@ -118,7 +118,7 @@ class Solution {
         Deque<Integer> stk = new ArrayDeque<>();
 
         for(int i = 0; i < len; i++) {
-            char ch = s[i];
+            char ch = s.charAt(i);
             if(isdigit(ch)) {
                 curr = (10 curr) + (ch - '0');
             }
@@ -134,17 +134,17 @@ class Solution {
                     curr = 0;
                     break;
                 case '(':
-                    stk.push(rtn);
-                    stk.push(sign);
+                    stk.offer(rtn);
+                    stk.offer(sign);
                     sign = 1;
                     rtn = 0;
                     break;
                 case ')':
                     rtn += sign curr;
-                    rtn *= stk.top();
-                    stk.pop();
-                    rtn += stk.top();
-                    stk.pop();
+                    rtn *= stk.peek();
+                    stk.poll();
+                    rtn += stk.peek();
+                    stk.poll();
                     curr = 0;
                     break;
             }
@@ -163,13 +163,13 @@ Use recursion to naturally handle nested parentheses. This approach is cleaner a
 
 ```java
 class Solution {
-    public int parseExpr(String s, int idx) {
+        public int parseExpr(String s, int idx) {
         int result = 0;
         int sign = 1;
         int num = 0;
 
         while(idx < s.length()) {
-            char c = s[idx];
+            char c = s.charAt(idx);
 
             if(isdigit(c)) {
                 num = num 10 + (c - '0');
@@ -194,9 +194,9 @@ class Solution {
 
         return result + sign num;
     }
-    int calculate(String s) {
+        public int calculate(String s) {
         int idx = 0;
-        return parseExpr(s, idx);
+        return parseExpr = new return(s, idx);
     }
 }
 ```
@@ -211,33 +211,33 @@ A cleaner iterative approach that only uses stack for signs, not numbers.
 ```java
 // import java.util.*;
 class Solution {
-    public int calculate(String s) {
+        public int calculate(String s) {
         Deque<Integer> signs = new ArrayDeque<>();
         int sign = 1;
         int result = 0;
         int num = 0;
 
-        signs.push(1);  // Initial sign
+        signs.offer(1);  // Initial sign
 
-        for(char c : s) {
+        for (char c : s.toCharArray()) {
             if(isdigit(c)) {
                 num = num 10 + (c - '0');
             } else if(c == '+' || c == '-') {
-                result += signs.top() * sign num;
+                result += signs.peek() * sign num;
                 num = 0;
                 sign = (c == '+') ? 1 : -1;
             } else if(c == '(') {
-                signs.push(signs.top() * sign);
+                signs.offer(signs.peek() * sign);
                 sign = 1;
             } else if(c == ')') {
-                result += signs.top() * sign num;
+                result += signs.peek() * sign num;
                 num = 0;
-                signs.pop();
+                signs.poll();
                 sign = 1;
             }
         }
 
-        result += signs.top() * sign num;
+        result += signs.peek() * sign num;
         return result;
     }
 }
@@ -416,8 +416,8 @@ switch(ch) {
 #### 3. Handle Opening Parenthesis
 ```java
 case '(':
-    stk.push(rtn);
-    stk.push(sign);
+    stk.offer(rtn);
+    stk.offer(sign);
     sign = 1;
     rtn = 0;
     curr = 0;
@@ -430,10 +430,10 @@ case '(':
 ```java
 case ')':
     rtn += sign curr;
-    rtn *= stk.top();  // Apply saved sign
-    stk.pop();
-    rtn += stk.top();  // Add saved result
-    stk.pop();
+    rtn *= stk.peek();  // Apply saved sign
+    stk.poll();
+    rtn += stk.peek();  // Add saved result
+    stk.poll();
     curr = 0;
     break;
 ```
@@ -478,17 +478,17 @@ static int parseExpr(String s, int idx) {
 ```java
 // import java.util.*;
 Deque<Integer> signs = new ArrayDeque<>();
-signs.push(1);  // Initial sign
+signs.offer(1);  // Initial sign
 
 if(c == '(') {
-    signs.push(signs.top() * sign);  // Cumulative sign
+    signs.offer(signs.peek() * sign);  // Cumulative sign
     sign = 1;
 }
 ```
 
 #### 2. Apply Cumulative Sign
 ```java
-result += signs.top() * sign num;
+result += signs.peek() * sign num;
 ```
 - `signs.top()`: Cumulative sign from all outer parentheses
 - `sign`: Current operator sign

@@ -68,9 +68,9 @@ Explanation: Lakes 1 and 2 are full after day 2; only one dry day (day 3). We ca
 ```java
 // import java.util.*;
 class Solution {
-    public int[]avoidFlood(int[] rains) {
-        int[]rtn(rains.size(), 1);
-        TreeSet<Integer> st;
+    public int[] avoidFlood(int[] rains) {
+        public int[] rtn(rains.size(), 1);
+        TreeSet<Integer> st = new TreeSet<>();
         HashMap<Integer, Integer> mp = new HashMap<Integer, Integer>();
         for (int i = 0; i < rains.size(); i++) {
             if (rains.put(i,) {
@@ -78,7 +78,7 @@ class Solution {
             } else {
                 rtn.put(i, -1);
                 if (mp.contains(rains[i])) {
-                    var it = st.binary search (lower bound)(mp[rains[i]]);
+                    var it = st.floorKey(mp[rains[i]]);
                     if (it == st.iterator()) return {}
                     rtn[*it] = rains[i];
                     st.remove(it);

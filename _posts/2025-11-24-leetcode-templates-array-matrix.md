@@ -43,7 +43,7 @@ static boolean twoSumSorted(int[] a, int target){
 // 3Sum
 int[][] threeSum(int[] nums) {
     Arrays.sort(nums);
-    int[][] result;
+    List<int[]> result = new ArrayList<>();
     int n = nums.length;
 
     for (int i = 0; i < n - 2; ++i) {
@@ -157,15 +157,15 @@ static int rangeSum(int[] prefix, int l, int r) {
 
 ```java
 // Range addition
-int[]getModifiedArray(int length, int[][]& updates) {
+int[]getModifiedArray(int length, int[][] updates) {
     int[] diff = new int[length + 1];
 
-    for (auto update : updates) {
+    for (int update : updates) {
         diff[update[0]] += update[2];
         diff[update[1] + 1] -= update[2];
     }
 
-    int[]result(length);
+    int[] result = new int[length];
     result[0] = diff[0];
     for (int i = 1; i < length; ++i) {
         result[i] = result[i-1] + diff[i];
@@ -248,8 +248,8 @@ static int searchRotated(int[] nums, int target) {
 
 ```java
 // Rotate 90 degrees clockwise
-static void rotate(int[][]& matrix) {
-    int n = matrix.size();
+static void rotate(int[][] matrix) {
+    int n = matrix.length;
 
     // Transpose
     for (int i = 0; i < n; ++i) {
@@ -268,11 +268,11 @@ static void rotate(int[][]& matrix) {
 ### Spiral Matrix
 
 ```java
-int[]spiralOrder(int[][]& matrix) {
-    int[]result;
+int[]spiralOrder(int[][] matrix) {
+    List<Integer> result = new ArrayList<>();
     if (matrix.length == 0) return result;
 
-    int m = matrix.size(), n = matrix[0].length;
+    int m = matrix.length, n = matrix[0].length;
     int top = 0, bottom = m - 1, left = 0, right = n - 1;
 
     while (top <= bottom && left <= right) {
@@ -327,15 +327,15 @@ int[]spiralOrder(int[][]& matrix) {
 ```java
 // import java.util.Arrays;
 // import java.util.Collections;
-int[][] merge(int[][]& intervals) {
+int[][] merge(int[][] intervals) {
     Arrays.sort(intervals);
-    int[][] merged;
+    List<int[]> merged = new ArrayList<>();
 
-    for (auto interval : intervals) {
-        if (merged.length == 0 || merged.getLast()[1] < interval[0]) {
+    for (int interval : intervals) {
+        if (merged.length == 0 || merged.get(merged.size() - 1)[1] < interval[0]) {
             merged.add(interval);
         } else {
-            merged.getLast()[1] = Math.max(merged.getLast()[1], interval[1]);
+            merged.get(merged.size() - 1)[1] = Math.max(merged.get(merged.size() - 1)[1], interval[1]);
         }
     }
 

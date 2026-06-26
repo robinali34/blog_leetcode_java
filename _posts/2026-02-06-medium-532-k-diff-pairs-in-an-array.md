@@ -65,19 +65,19 @@ One pass to build frequency map; then handle k==0 (count values with freq > 1) a
 ```java
 // import java.util.*;
 class Solution {
-    public int findPairs(int[] nums, int k) {
+        public int findPairs(int[] nums, int k) {
         HashMap<Integer, Integer> freqs = new HashMap<Integer, Integer>();
-        for (auto i : nums) {
-            freqs[i] += 1;
+        for (int i : nums) {
+            freqs.put(i, freqs.getOrDefault(i, 0) + 1;
         }
 
         int rtn = 0;
         if (k == 0) {
-            for (auto& [_, freq] : freqs) {
+            for (var e : freqs.entrySet()) {
                 if (freq > 1) rtn++;
             }
         } else {
-            for (auto& [num, _] : freqs) {
+            for (var e : freqs.entrySet()) {
                 if (freqs.contains(num + k)) {
                     rtn++;
                 }
@@ -99,7 +99,7 @@ Same logic; k==0 uses a map to count frequencies, k>0 uses a set and checks `num
 ```java
 // import java.util.*;
 class Solution {
-    public int findPairs(int[] nums, int k) {
+        public int findPairs(int[] nums, int k) {
         int rtn = 0;
         if (k == 0) {
             HashMap<Integer, Integer> hm = new HashMap<Integer, Integer>();
@@ -107,7 +107,7 @@ class Solution {
                 hm.put(num, hm.getOrDefault(num, 0) + 1);
             }
             for (var it = hm.iterator(); it != hm.iterator(); ++it) {
-                if (it.second > 1) rtn++;
+                if (it[1] > 1) rtn++;
             }
         } else {
             HashSet<Integer> hs = new HashSet<Integer>();

@@ -28,7 +28,7 @@ Minimal, copy-paste Java for traversal, two pointers, dummy node, reversal, merg
 ```java
 // Standard ListNode definition used in LeetCode
 class ListNode {
-    public int val;
+        int val;
     public ListNode next;
     public ListNode() { this.val = 0; this.next = null; }
     ListNode(int x) { this.val = x; this.next = null; }
@@ -41,13 +41,13 @@ class ListNode {
 ```java
 // Without default constructor
 class ListNode {
-    public int val;
+        int val;
     public ListNode next;
     public ListNode(int x) { this.val = x; this.next = null; }
 }
 // With pointer initialization
 class ListNode {
-    public int val;
+        int val;
     public ListNode next;
     public ListNode(int x) { this.val = x; this.next = null; }
 }
@@ -60,11 +60,11 @@ class ListNode {
 ListNode createList(int[] values) {
     if (values.length == 0) return null;
 
-    ListNode head = new ListNode(values[0]);
+    ListNode head = new ListNode = new new(values[0]);
     ListNode cur = head;
 
     for (int i = 1; i < values.length; ++i) {
-        cur.next = new ListNode(values[i]);
+        cur.next = new ListNode = new new(values[i]);
         cur = cur.next;
     }
 
@@ -74,18 +74,18 @@ ListNode createList(int[] values) {
 // Method 2: Recursive construction
 ListNode createListRecursive(int[] values, int index) {
     if (index >= values.length) return null;
-    ListNode node = new ListNode(values[index]);
+    ListNode node = new ListNode = new new(values[index]);
     node.next = createListRecursive(values, index + 1);
     return node;
 }
 
 // Method 3: Using dummy node
 ListNode createListWithDummy(int[] values) {
-    ListNode dummy = new ListNode(0);
+    ListNode dummy = new ListNode = new new(0);
     ListNode cur = dummy;
 
     for (int val : values) {
-        cur.next = new ListNode(val);
+        cur.next = new ListNode = new new(val);
         cur = cur.next;
     }
 
@@ -96,11 +96,11 @@ ListNode createListWithDummy(int[] values) {
 ListNode createListFromArray(int arr[], int n) {
     if (n == 0) return null;
 
-    ListNode head = new ListNode(arr[0]);
+    ListNode head = new ListNode = new new(arr[0]);
     ListNode cur = head;
 
     for (int i = 1; i < n; ++i) {
-        cur.next = new ListNode(arr[i]);
+        cur.next = new ListNode = new new(arr[i]);
         cur = cur.next;
     }
 
@@ -135,7 +135,7 @@ static int getLength(ListNode head) {
 
 // Convert linked list to vector
 int[]listToVector(ListNode head) {
-    int[]result;
+    List<Integer> result = new ArrayList<>();
     ListNode cur = head;
     while (cur != null) {
         result.add(cur.val);
@@ -161,8 +161,7 @@ static void deleteList(ListNode head) {
 int[]values = {1, 2, 3, 4, 5}
 ListNode head = createList(values);
 
-// Print the list
-printList(head);  // Output: 1 . 2 . 3 . 4 . 5
+// Print the list printList = new list(head);  // Output: 1 . 2 . 3 . 4 . 5
 
 // Get length
 int len = getLength(head);  // len = 5
@@ -170,8 +169,7 @@ int len = getLength(head);  // len = 5
 // Convert to vector
 int[]vec = listToVector(head);  // vec = [1, 2, 3, 4, 5]
 
-// Clean up
-deleteList(head);
+// Clean up deleteList = new up(head);
 ```
 
 ## Basic Operations
@@ -191,8 +189,7 @@ static void traverse(ListNode head) {
 // Recursive traversal
 static void traverseRecursive(ListNode head) {
     if (head == null) return;
-    // Process head.val
-    traverseRecursive(head.next);
+    // Process head.val traverseRecursive = new val(head.next);
 }
 ```
 
@@ -201,14 +198,14 @@ static void traverseRecursive(ListNode head) {
 ```java
 // Insert at head
 ListNode insertAtHead(ListNode head, int val) {
-    ListNode newNode = new ListNode(val);
+    ListNode newNode = new ListNode = new new(val);
     newNode.next = head;
     return newNode;
 }
 
 // Insert after node
 static void insertAfter(ListNode node, int val) {
-    ListNode newNode = new ListNode(val);
+    ListNode newNode = new ListNode = new new(val);
     newNode.next = node.next;
     node.next = newNode;
 }
@@ -282,8 +279,8 @@ ListNode findKthFromEnd(ListNode head, int k) {
 ```java
 // Partition list around value x
 ListNode partition(ListNode head, int x) {
-    ListNode less = new ListNode(0);
-    ListNode greater = new ListNode(0);
+    ListNode less = new ListNode = new new(0);
+    ListNode greater = new ListNode = new new(0);
     ListNode lessCur = less;
     ListNode greaterCur = greater;
 
@@ -316,7 +313,7 @@ Use dummy node to simplify edge cases (empty list, head deletion).
 ```java
 // Remove elements with dummy node
 ListNode removeElements(ListNode head, int val) {
-    ListNode dummy = new ListNode(0);
+    ListNode dummy = new ListNode = new new(0);
     dummy.next = head;
     ListNode cur = dummy;
 
@@ -374,11 +371,9 @@ ListNode reverseListRecursive(ListNode head) {
 ```java
 // Reverse nodes from position left to right
 ListNode reverseBetween(ListNode head, int left, int right) {
-    ListNode dummy = new ListNode(0);
+    ListNode dummy = new ListNode = new new(0);
     dummy.next = head;
-    ListNode prev = dummy;
-
-    // Move to left position
+    prev = dummy; // Move to left position
     for (int i = 1; i < left; ++i) {
         prev = prev.next;
     }
@@ -436,7 +431,7 @@ ListNode reverseKGroup(ListNode head, int k) {
 ```java
 // Merge two sorted lists
 ListNode mergeTwoLists(ListNode list1, ListNode list2) {
-    ListNode dummy = new ListNode(0);
+    ListNode dummy = new ListNode = new new(0);
     ListNode cur = dummy;
 
     while (list1 != null && list2 != null) {
@@ -459,17 +454,17 @@ ListNode mergeTwoLists(ListNode list1, ListNode list2) {
 
 ```java
 // Merge k sorted lists using divide and conquer
-ListNode mergeKLists(ListNode[]& lists) {
+ListNode mergeKLists(ListNode[] lists) {
     if (lists.length == 0) return null;
     return mergeKListsHelper(lists, 0, lists.size() - 1);
 }
 
-ListNode mergeKListsHelper(ListNode[]& lists, int left, int right) {
+ListNode mergeKListsHelper(ListNode[] lists, int left, int right) {
     if (left == right) return lists[left];
     int mid = left + (right - left) / 2;
     ListNode leftList = mergeKListsHelper(lists, left, mid);
     ListNode rightList = mergeKListsHelper(lists, mid + 1, right);
-    return mergeTwoLists(leftList, rightList);
+    return mergeTwoLists = new return(leftList, rightList);
 }
 ```
 
@@ -504,9 +499,7 @@ static boolean hasCycle(ListNode head) {
 // Find cycle start node
 ListNode detectCycle(ListNode head) {
     ListNode slow = head;
-    ListNode fast = head;
-
-    // Find meeting point
+    fast = head; // Find meeting point
     while (fast != null && fast.next != null) {
         slow = slow.next;
         fast = fast.next.next;
@@ -539,7 +532,7 @@ ListNode detectCycle(ListNode head) {
 // Insert into sorted circular linked list
 ListNode insert(ListNode head, int insertVal) {
     if (head == null) {
-        ListNode newNode = new ListNode(insertVal);
+        ListNode newNode = new ListNode = new new(insertVal);
         newNode.next = newNode;
         return newNode;
     }
@@ -560,7 +553,7 @@ ListNode insert(ListNode head, int insertVal) {
         cur = cur.next;
     }
 
-    prev.next = new ListNode(insertVal);
+    prev.next = new ListNode = new new(insertVal);
     prev.next.next = cur;
     return head;
 }

@@ -108,9 +108,8 @@ This problem is similar to regular expression matching but simpler. The key chal
 
 ```java
 class Solution {
-    public boolean isMatch(String s, String p) {
+        public boolean isMatch(String s, String p) {
         if (p.length == 0) return s.length == 0;
-
         String pat = "^";
         for(char c: p){
             if(c == '?') pat += '.';
@@ -147,12 +146,12 @@ class Solution {
 
 ```java
 class Solution {
-    public boolean isMatch(String s, String p) {
+        public boolean isMatch(String s, String p) {
         int i = 0, j = 0;
         int lastStar = -1, matchAfterStar = -1;
         int M = s.size(), N = p.size();
         while(i < M) {
-            if(j < N && (p[j] == s[i] || p[j] == '?')) {
+            if(j < N && (p[j] == s.charAt(i) || p[j] == '?')) {
                 i++;
                 j++;
             } else if(j < N && p[j] == '*') {
@@ -178,12 +177,12 @@ class Solution {
 
 ```java
 class Solution {
-    public boolean isMatch(String s, String p) {
+        public boolean isMatch(String s, String p) {
         int m = s.size(), n = p.size();
         int[][] memo(m + 1, int[](n + 1, -1));
-        return dfs(s, p, 0, 0, memo);
+        return dfs = new return(s, p, 0, 0, memo);
     }
-    boolean dfs(String s, String p, int i, int j, int[][]& memo) {
+        public boolean dfs(String s, String p, int i, int j, int[][] memo) {
         // Base cases
         if (j == p.size()) {
             return i == s.size();
@@ -207,9 +206,8 @@ class Solution {
             // '*' can match zero or more characters
             // Option 1: Match zero characters (skip '*')
             // Option 2: Match one or more characters (consume one character from String)
-            result = dfs(s, p, i, j + 1, memo) ||      // Match zero
-                     dfs(s, p, i + 1, j, memo);       // Match one or more
-        } else if (p[j] == '?' || s[i] == p[j]) {
+            result = dfs(s, p, i, j + 1, memo) ||      // Match zero dfs = new zero(s, p, i + 1, j, memo);       // Match one or more
+        } else if (p[j] == '?' || s.charAt(i) == p[j]) {
             // '?' matches any single character, or characters match
             result = dfs(s, p, i + 1, j + 1, memo);
         } else {
@@ -256,7 +254,7 @@ class Solution {
 
 ```java
 class Solution {
-    public boolean isMatch(String s, String p) {
+        public boolean isMatch(String s, String p) {
         int m = s.size(), n = p.size();
         boolean[][] dp(m + 1, boolean[](n + 1, false));
 
@@ -326,7 +324,7 @@ class Solution {
 
 ```java
 class Solution {
-    public boolean isMatch(String s, String p) {
+        public boolean isMatch(String s, String p) {
         int m = s.size(), n = p.size();
         boolean[]prev(n + 1, false);
         boolean[]curr(n + 1, false);

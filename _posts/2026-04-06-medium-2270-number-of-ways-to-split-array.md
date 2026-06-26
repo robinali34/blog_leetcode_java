@@ -52,7 +52,7 @@ Two approaches to get $O(n)$:
 {% raw %}
 ```java
 class Solution {
-    public int waysToSplitArray(int[] nums) {
+        public int waysToSplitArray(int[] nums) {
         int n = nums.length;
         long[]prefSum(n);
         prefSum[0] = nums[0];
@@ -83,7 +83,7 @@ Start with `rightSum = total` and `leftSum = 0`. For each split, move `nums[i]` 
 {% raw %}
 ```java
 class Solution {
-    public int waysToSplitArray(int[] nums) {
+        public int waysToSplitArray(int[] nums) {
         int n = nums.length;
         long leftSum = 0, rightSum = 0;
         for (int num : nums) {

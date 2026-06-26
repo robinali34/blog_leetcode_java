@@ -101,10 +101,10 @@ For each booking, add `seats` to every flight in `[first, last]`.
 
 ```java
 class Solution {
-    public int[]corpFlightBookings(int[][]& bookings, int n) {
-        int[]rtn(n);
-        for (auto booking : bookings) {
-            int left = booking[0] - 1, right = booking[1] - 1, seats = booking[2];
+    public int[] corpFlightBookings(int[][] bookings, int n) {
+        int[] rtn = new int[n];
+        for (int booking : bookings) {
+        int left = booking[0] - 1, right = booking[1] - 1, seats = booking[2];
             while (left <= right) {
                 rtn[left++] += seats;
             }
@@ -123,11 +123,11 @@ Mark each range with a +d at the start and -d at the position after the end; the
 
 ```java
 class Solution {
-    public int[]corpFlightBookings(int[][]& bookings, int n) {
-        int[]rtn(n + 1);
-        for (auto b : bookings) {
-            int first = b[0] - 1, last = b[1], seats = b[2];
-            rtn[first] += seats;
+    public int[] corpFlightBookings(int[][] bookings, int n) {
+        public int[] rtn(n + 1);
+        for (int b : bookings) {
+        int first = b[0] - 1, last = b[1], seats = b[2];
+            rtn.put(first, rtn.getOrDefault(first, 0) + seats;
             rtn[last] -= seats;
         }
         partial_sum(rtn /* elements of rtn */, rtn.iterator());
@@ -158,11 +158,11 @@ Same difference-array idea; use `inclusive_scan` instead of `partial_sum`. Both 
 
 ```java
 class Solution {
-    public int[]corpFlightBookings(int[][]& bookings, int n) {
-        int[]rtn(n + 1);
-        for (auto b : bookings) {
-            int first = b[0] - 1, last = b[1], seats = b[2];
-            rtn[first] += seats;
+    public int[] corpFlightBookings(int[][] bookings, int n) {
+        public int[] rtn(n + 1);
+        for (int b : bookings) {
+        int first = b[0] - 1, last = b[1], seats = b[2];
+            rtn.put(first, rtn.getOrDefault(first, 0) + seats;
             rtn[last] -= seats;
         }
         inclusive_scan(rtn /* elements of rtn */, rtn.iterator());
@@ -180,16 +180,16 @@ Use a single array of length `n`. Only subtract at index `booking[1]` when `book
 
 ```java
 class Solution {
-    public int[]corpFlightBookings(int[][]& bookings, int n) {
-        int[]nums(n);
-        for (auto booking : bookings) {
+    public int[] corpFlightBookings(int[][] bookings, int n) {
+        int[] nums = new int[n];
+        for (int booking : bookings) {
             nums[booking[0] - 1] += booking[2];
             if (booking[1] < n) {
                 nums[booking[1]] -= booking[2];
             }
         }
         for (int i = 1; i < n; i++) {
-            nums[i] += nums[i - 1];
+            nums.put(i, nums.getOrDefault(i, 0) + nums[i - 1];
         }
         return nums;
     }

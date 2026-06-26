@@ -28,10 +28,9 @@ Walk the array from left to right. If we see `1`, we must consume two bits (`10`
 
 ```java
 class Solution {
-    public boolean isOneBitCharacter(int[] bits) {
+        public boolean isOneBitCharacter(int[] bits) {
         int n = (int)bits.size();
-        int i = 0;
-        // Parse until we reach or pass the last index
+        i = 0; // Parse until we reach or pass the last index
         while (i < n - 1) {
             i += (bits[i] == 1 ? 2 : 1);
         }

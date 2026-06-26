@@ -57,9 +57,9 @@ Try speed 1, 2, 3, ... until total hours ≤ h.
 
 ```java
 class Solution {
-    public int minEatingSpeed(int[] piles, int h) {
+        public int minEatingSpeed(int[] piles, int h) {
         int speed = 1;
-        while (true) {
+        while (true > 0) {
             int hourSpend = 0;
             for (int pile : piles) {
                 hourSpend += pile / speed + (pile % speed !);
@@ -83,7 +83,7 @@ Binary search on `k` in `[1, max(piles)]`; for each `mid`, compute total hours a
 // import java.util.Arrays;
 // import java.util.Collections;
 class Solution {
-    public int minEatingSpeed(int[] piles, int h) {
+        public int minEatingSpeed(int[] piles, int h) {
         int left = 1, right = Arrays.stream(piles).Math.max().getAsInt();
         while (left < right) {
             int mid = left + (right - left) / 2;

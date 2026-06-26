@@ -59,7 +59,7 @@ Precompute prefix sums of meeting durations, then for each window of `k` consecu
 
 ```java
 class Solution {
-    public int maxFreeTime(int eventTime, int k, int[] startTime, int[] endTime) {
+        public int maxFreeTime(int eventTime, int k, int[] startTime, int[] endTime) {
         int n = startTime.size(), rtn = 0;
         int[]sum(n + 1);
         for (int i = 0; i < n; i++) {
@@ -84,7 +84,7 @@ Same formula; maintain the total duration of the current `k` meetings with a run
 
 ```java
 class Solution {
-    public int maxFreeTime(int eventTime, int k, int[] startTime, int[] endTime) {
+        public int maxFreeTime(int eventTime, int k, int[] startTime, int[] endTime) {
         int n = startTime.size(), rtn = 0, t = 0;
         int[]sum(n + 1);
         for (int i = 0; i < n; i++) {

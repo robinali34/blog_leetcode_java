@@ -128,62 +128,54 @@ This problem is asking whether we can complete all courses given their prerequis
 ### **Solution 1: Topological Sort (Kahn's Algorithm)**
 
 ```java
-// import java.util.*;
 class Solution {
-    public boolean canFinish(int numCourses, int[][]& prerequisites) {
-        int[] indegree = new int[numCourses];
-        int[][] adj(numCourses);
-
-        for(auto p : prerequisites) {
-            adj[p[1]].push_back(p[0]);
-            indegree[p[0]]++;
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+        List<List<Integer>> graph = new ArrayList<>();
+        int[] indeg = new int[numCourses];
+        for (int i = 0; i < numCourses; i++) graph.add(new ArrayList<>());
+        for (int[] p : prerequisites) {
+            graph.get(p[1]).add(p[0]);
+            indeg[p[0]]++;
         }
-        Queue<Integer> q = new LinkedList<>();
-        for(int i = 0; i < numCourses; i++) {
-            if(indegree[i] == 0) q.push(i);
-        }
-        int count = 0;
-        while(!q.length == 0) {
-            int course = q.getFirst();
-            q.pop();
-            count++;
-            for(int next: adj[course]) {
-                if(--indegree[next] == 0) q.push(next);
+        ArrayDeque<Integer> q = new ArrayDeque<>();
+        for (int i = 0; i < numCourses; i++) if (indeg[i] == 0) q.offer(i);
+        int seen = 0;
+        while (!q.isEmpty()) {
+            int u = q.poll();
+            seen++;
+            for (int v : graph.get(u)) {
+                if (--indeg[v] == 0) q.offer(v);
             }
         }
-        return count == numCourses;
+        return seen == numCourses;
     }
-}
-```
+}```
 
 ### **Solution 2: DFS Cycle Detection**
 
 ```java
 class Solution {
-    public boolean canFinish(int numCourses, int[][]& prerequisites) {
-        int[][] adj(numCourses);
-        for(auto p: prerequisites) {
-            adj[p[1]].push_back(p[0]);
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+        List<List<Integer>> graph = new ArrayList<>();
+        int[] indeg = new int[numCourses];
+        for (int i = 0; i < numCourses; i++) graph.add(new ArrayList<>());
+        for (int[] p : prerequisites) {
+            graph.get(p[1]).add(p[0]);
+            indeg[p[0]]++;
         }
-        // 0: unvisited, 1: visiting, 2: visited
-        int[] state = new int[numCourses];
-        for(int i = 0; i < numCourses; i++) {
-            if(hasCycle(i, adj, state)) return false;
+        ArrayDeque<Integer> q = new ArrayDeque<>();
+        for (int i = 0; i < numCourses; i++) if (indeg[i] == 0) q.offer(i);
+        int seen = 0;
+        while (!q.isEmpty()) {
+            int u = q.poll();
+            seen++;
+            for (int v : graph.get(u)) {
+                if (--indeg[v] == 0) q.offer(v);
+            }
         }
-        return true;
+        return seen == numCourses;
     }
-    boolean hasCycle(int node, int[][]& adj, int[] state) {
-        if(state[node] == 1) return true; // found a cycle
-        if(state[node] == 2) return false;
-        state[node] = 1;
-        for(int neighbor: adj[node]) {
-            if(hasCycle(neighbor, adj, state)) return true;
-        }
-        state[node] = 2;
-        return false;
-    }
-}
-```
+}```
 
 ### **Algorithm Explanation:**
 
@@ -271,9 +263,9 @@ DFS Cycle Detection:
 ```java
 // import java.util.*;
 class Solution {
-    public boolean canFinish(int numCourses, int[][]& prerequisites) {
-        int[][] adj(numCourses);
-        for(auto p: prerequisites) {
+        public boolean canFinish(int numCourses, int[][] prerequisites) {
+        public int[][] adj(numCourses);
+        for (int p : prerequisites) {
             adj[p[1]].push_back(p[0]);
         }
 
@@ -282,11 +274,11 @@ class Solution {
 
         for(int i = 0; i < numCourses; i++) {
             if(state[i] == 0) {
-                stk.push(i);
-                while(!stk.length == 0) {
-                    int node = stk.top();
+                stk.offer(i);
+                while(!stk.isEmpty()) {
+                    int node = stk.peek();
                     if(state[node] == 2) {
-                        stk.pop();
+                        stk.poll();
                         continue;
                     }
                     if(state[node] == 1) return false; // cycle detected
@@ -294,14 +286,14 @@ class Solution {
                     state[node] = 1; // visiting
                     for(int neighbor: adj[node]) {
                         if(state[neighbor] == 0) {
-                            stk.push(neighbor);
+                            stk.offer(neighbor);
                         } else if(state[neighbor] == 1) {
                             return false; // cycle detected
                         }
                     }
-                    if(stk.top() == node) {
+                    if(stk.peek() == node) {
                         state[node] = 2; // visited
-                        stk.pop();
+                        stk.poll();
                     }
                 }
             }

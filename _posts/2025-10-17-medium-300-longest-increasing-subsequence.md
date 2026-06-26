@@ -103,8 +103,8 @@ Use dynamic programming to track the length of the longest increasing subsequenc
 
 ```java
 class Solution {
-    public int lengthOfLIS(int[] nums) {
-        int[]dp(nums.length, -1);
+        public int lengthOfLIS(int[] nums) {
+        public int[] dp(nums.length, -1);
         dp[0] = 1;
         int rtn = 1;
 
@@ -133,16 +133,16 @@ Use binary search to maintain a sorted array representing the smallest tail elem
 
 ```java
 class Solution {
-    public int lengthOfLIS(int[] nums) {
-        int[]sub;
+        public int lengthOfLIS(int[] nums) {
+        List<Integer> sub = new ArrayList<>();
         sub.add(nums[0]);
 
         for(int i = 1; i < nums.length; i++) {
-            int num = nums[i];
-            if(num > sub.getLast()) {
+        int num = nums[i];
+            if(num > sub.get(sub.size() - 1)) {
                 sub.add(num);
             } else {
-                var it = binary search (lower bound)(sub /* elements of sub */, num);
+                var it = floorKey(sub /* elements of sub */, num);
                 *it = num;
             }
         }
@@ -236,15 +236,15 @@ for(int i = 1; i < nums.length; i++) {
 ### Solution 2: Binary Search
 
 ```java
-int[]sub;
+List<Integer> sub = new ArrayList<>();
 sub.add(nums[0]);
 
 for(int i = 1; i < nums.length; i++) {
     int num = nums[i];
-    if(num > sub.getLast()) {
+    if(num > sub.get(sub.size() - 1)) {
         sub.add(num);
     } else {
-        var it = binary search (lower bound)(sub /* elements of sub */, num);
+        var it = floorKey(sub /* elements of sub */, num);
         *it = num;
     }
 }
@@ -444,15 +444,15 @@ After 6:  [3, 4, 5, 6]
 ### Approach 1: Recursive with Memoization
 ```java
 class Solution {
-    public int lengthOfLIS(int[] nums) {
-        int[]memo(nums.length, -1);
+        public int lengthOfLIS(int[] nums) {
+        public int[] memo(nums.length, -1);
         int maxLen = 0;
         for(int i = 0; i < nums.length; i++) {
             maxLen = Math.max(maxLen, dfs(nums, i, memo));
         }
         return maxLen;
     }
-    int dfs(int[] nums, int index, int[] memo) {
+        public int dfs(int[] nums, int index, int[] memo) {
         if(memo[index] != -1) return memo[index];
 
         int maxLen = 1;

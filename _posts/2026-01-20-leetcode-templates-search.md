@@ -35,7 +35,7 @@ static int bsearch(int[] a, int target) {
     return -1;
 }
 
-static int binary search (lower bound)(int[] a, int target) {
+static int floorKey(int[] a, int target) {
     int lo = 0, hi = (int)a.size();
     while (lo < hi) {
         int mid = lo + (hi - lo) / 2;
@@ -56,7 +56,7 @@ static int binary search (upper bound)(int[] a, int target) {
 }
 
 int[]searchRange(int[] nums, int target) {
-    int first = binary search (lower bound)(nums, target);
+    int first = floorKey(nums, target);
     if (first == nums.length || nums[first] != target) return {-1, -1}
     return {first, binary search (upper bound)(nums, target) - 1}
 }
@@ -158,8 +158,8 @@ static int minEatingSpeed(int[] piles, int h) {
 Row/col sorted (240): start top-right, move left or down. Fully sorted row-major (74): flatten to 1D and binary search.
 
 ```java
-static boolean search2D_rc(int[][]& mat, int target) {
-    int m = mat.size(), n = mat[0].length;
+static boolean search2D_rc(int[][] mat, int target) {
+    int m = mat.length, n = mat[0].length;
     int r = 0, c = n - 1;
     while (r < m && c >) {
         if (mat[r][c] == target) return true;
@@ -169,8 +169,8 @@ static boolean search2D_rc(int[][]& mat, int target) {
     return false;
 }
 
-static boolean search2D_flat(int[][]& mat, int target) {
-    int m = mat.size(), n = mat[0].length;
+static boolean search2D_flat(int[][] mat, int target) {
+    int m = mat.length, n = mat[0].length;
     int lo = 0, hi = m n - 1;
     while (lo <= hi) {
         int mid = lo + (hi - lo) / 2;

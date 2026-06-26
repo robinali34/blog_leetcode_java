@@ -59,12 +59,12 @@ The recursive solution is trivial. Interviewers often follow up with "can you do
 {% raw %}
 ```java
 class Solution {
-    public int[]preorderTraversal(TreeNode root) {
-        int[]rtn;
+    public int[] preorderTraversal(TreeNode root) {
+        List<Integer> rtn = new ArrayList<>();
         preorder(root, rtn);
         return rtn;
     }
-    void preorder(TreeNode node, int[] rtn) {
+    public void preorder(TreeNode node, int[] rtn) {
         if (!node) return;
         rtn.add(node.val);
         preorder(node.left, rtn);
@@ -83,18 +83,19 @@ Push right child first, then left, so left is processed first (LIFO).
 
 {% raw %}
 ```java
+// import java.util.*;
 class Solution {
-    public int[]preorderTraversal(TreeNode root) {
+    public int[] preorderTraversal(TreeNode root) {
         if (!root) return {}
-        int[]rtn;
-        stack<TreeNode> st;
-        st.push(root);
+        List<Integer> rtn = new ArrayList<>();
+        Deque<TreeNode> st = new ArrayDeque<>();
+        st.offer(root);
 
-        while (!st.length == 0) {
-            TreeNode node = st.top(); st.pop();
+        while (!st.isEmpty()) {
+            TreeNode node = st.peek(); st.poll();
             rtn.add(node.val);
-            if (node.right) st.push(node.right);
-            if (node.left) st.push(node.left);
+            if (node.right) st.offer(node.right);
+            if (node.left) st.offer(node.left);
         }
 
         return rtn;
@@ -113,11 +114,11 @@ Use the tree's null pointers to thread back to ancestors, avoiding a stack entir
 {% raw %}
 ```java
 class Solution {
-    public int[]preorderTraversal(TreeNode root) {
-        int[]rtn;
+    public int[] preorderTraversal(TreeNode root) {
+        List<Integer> rtn = new ArrayList<>();
         TreeNode cur = root;
 
-        while (cur) {
+        while (cur > 0) {
             if (!cur.left) {
                 rtn.add(cur.val);
                 cur = cur.right;

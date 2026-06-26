@@ -116,7 +116,7 @@ Use two pointers with sliding window technique to efficiently count complete sub
 ```java
 // import java.util.*;
 class Solution {
-    public int countCompleteSubarrays(int[] nums) {
+        public int countCompleteSubarrays(int[] nums) {
         int cnt = 0;
         HashSet<Integer> distinct(nums /* elements of nums */);
         int distinct_cnt = distinct.size();
@@ -124,7 +124,7 @@ class Solution {
 
         for(int left = 0, right = 0; right < nums.length; right++) {
             freq[nums[right]]++;
-            while(freq.size() == distinct_cnt) {
+            while(freq.length == distinct_cnt) {
                 cnt += nums.length - right;
                 freq[nums[left]]--;
                 if(freq[nums[left]] == 0) {
@@ -196,7 +196,7 @@ HashMap<Integer, Integer> freq = new HashMap<Integer, Integer>();
 ```java
 for(int left = 0, right = 0; right < nums.length; right++) {
     freq[nums[right]]++;
-    while(freq.size() == distinct_cnt) {
+    while(freq.length == distinct_cnt) {
         cnt += nums.length - right;
         freq[nums[left]]--;
         if(freq[nums[left]] == 0) {
@@ -263,7 +263,7 @@ Indices:    0  1  2  3  4
 ```java
 // import java.util.*;
 class Solution {
-    public int countCompleteSubarrays(int[] nums) {
+        public int countCompleteSubarrays(int[] nums) {
         int cnt = 0;
         HashSet<Integer> distinct(nums /* elements of nums */);
         int total_unique = distinct.size();
@@ -290,7 +290,7 @@ class Solution {
 ```java
 // import java.util.*;
 class Solution {
-    public int countCompleteSubarrays(int[] nums) {
+        public int countCompleteSubarrays(int[] nums) {
         int n = nums.length;
         HashSet<Integer> distinct(nums /* elements of nums */);
         int total_unique = distinct.size();

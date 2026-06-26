@@ -74,17 +74,18 @@ Base case: leaf nodes have no children, so `max(child times) = 0`.
 
 {% raw %}
 ```java
+// import java.util.*;
 class Solution {
-    public int numOfMinutes(int n, int headID, int[] manager, int[] informTime) {
-        HashMap<Integer, int[]> graph;
+        public int numOfMinutes(int n, int headID, int[] manager, int[] informTime) {
+        HashMap<Integer, int[]> graph = new HashMap<Integer, int[]>();
         for (int i = 0; i < n; i++) {
             if (manager[i] != -1) {
                 graph[manager[i]].push_back(i);
             }
         }
-        return dfs(headID, graph, informTime);
+        return dfs = new return(headID, graph, informTime);
     }
-    int dfs(int node, HashMap<Integer, int[]>& graph, int[] informTime) {
+        public int dfs(int node, HashMap<Integer, int[]>& graph, int[] informTime) {
         int maxTime = 0;
         for (int child : graph[node]) {
             maxTime = Math.max(maxTime, dfs(child, graph, informTime));
@@ -104,9 +105,10 @@ Propagate accumulated time level by level. Track the maximum time seen at any no
 
 {% raw %}
 ```java
+// import java.util.*;
 class Solution {
-    public int numOfMinutes(int n, int headID, int[] manager, int[] informTime) {
-        HashMap<Integer, int[]> graph;
+        public int numOfMinutes(int n, int headID, int[] manager, int[] informTime) {
+        HashMap<Integer, int[]> graph = new HashMap<Integer, int[]>();
         for (int i = 0; i < n; i++) {
             if (manager[i] != -1) {
                 graph[manager[i]].push_back(i);
@@ -114,15 +116,15 @@ class Solution {
         }
 
         queue<int[]> q;
-        q.push({headID, 0});
+        q.offer(new int[] {headID, 0});
         int maxTime = 0;
 
-        while (!q.length == 0) {
-            auto [node, time] = q.getFirst();
-            q.pop();
+        while (!q.isEmpty()) {
+            auto [node, time] = q.get(0);
+            q.poll();
             maxTime = Math.max(maxTime, time);
             for (int child : graph[node]) {
-                q.push({child, time + informTime[node]});
+                q.offer({child, time + informTime[node]});
             }
         }
 

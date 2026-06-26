@@ -137,9 +137,9 @@ The solution involves:
 class Solution {
     public String[]crawl(String startUrl, HtmlParser htmlParser) {
         StUrl = getStartUrl(startUrl);
-        q.push(startUrl);
+        q.offer(startUrl);
         var eUrl = [&]() {
-            while(true) {
+            while (true > 0) {
                 mtxq.lock();
                 if(!q.size()) {
                     mtxq.unlock();
@@ -147,11 +147,11 @@ class Solution {
                     mtxq.lock();
                     if(!q.size()) {mtxq.unlock(); return;}
                 }
-                String t=q.getFirst();
-                q.pop();
+                String t=q.get(0);
+                q.poll();
                 if(getStartUrl(t)!=StUrl) {mtxq.unlock(); continue;}
                 mtxm.lock();
-                if(m.count(t)) {mtxm.unlock();mtxq.unlock(); continue;}
+                if(m.contains(t)) {mtxm.unlock();mtxq.unlock(); continue;}
                 m[t] = true;
                 mtxa.lock();
                 rtn.add(t);
@@ -160,13 +160,13 @@ class Solution {
                 mtxq.unlock();
                 String[]vec(htmlParser.getUrls(t));
                 mtxq.lock();
-                for(auto s:vec) {q.push(s);}
+                for (int s : vec) {q.offer(s);}
                 mtxq.unlock();
             }
             return;
         }
         while(n--) pool.add(thread(eUrl));
-        for(auto t:pool) t.join();
+        for (int t : pool) t.join();
         return rtn;
     }
     String[]rtn;
@@ -176,11 +176,10 @@ class Solution {
     int n = thread::hardware_concurrency();
     thread[]pool;
     Queue<String> q = new LinkedList<>();
-
-    String getStartUrl(String s){
+        public String getStartUrl(String s){
         int t = 3;
         String rtn="";
-        for (char c: s){
+        for (char c : s.toCharArray()){
             if(c== '/') t--;
             if(!t) return rtn;
             rtn.add(c);
@@ -196,6 +195,7 @@ class Solution {
 **Space Complexity:** O(n) for storing visited URLs and results
 
 ```java
+// import java.util.*;
 from threading import Lock
 from concurrent.futures import ThreadPoolExecutor, wait, FIRST_COMPLETED
 
@@ -203,30 +203,20 @@ class Solution:
     public static void crawl(this, startUrl: str, htmlParser: 'HtmlParser') . List[str]:
         public static void host(u: str) . str:
             return u.split('/')[2]
-        
+
         base = host(startUrl)
         visited = set([startUrl])
         lock = Lock()
 
         public static void worker(url: str) . List[str]:
             next_urls = []
-            for u in htmlParser.getUrls(url):
-                if host(u) == base:
-                    with lock:
-                        if u in visited:
-                            continue
-                        visited.add(u)
-                    next_urls.append(u)
-            return next_urls
-        
-        with ThreadPoolExecutor(max_workers=32) as ex:
-            pending = {ex.submit(worker, startUrl)}
+            for u in htmlParser.getUrls(url) {ex.submit(worker, startUrl)}
             while pending:
                 done, pending = wait(pending, return_when=FIRST_COMPLETED)
                 for fut in done:
                     for nxt in fut.result():
                         pending.add(ex.submit(worker, nxt))
-        
+
         return list(visited)
 ```
 

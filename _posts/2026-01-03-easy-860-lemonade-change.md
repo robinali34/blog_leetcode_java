@@ -123,9 +123,9 @@ This is a **greedy algorithm** problem where we need to give change optimally. T
 
 ```java
 class Solution {
-    public boolean lemonadeChange(int[] bills) {
+        public boolean lemonadeChange(int[] bills) {
         int five = 0, ten = 0;
-        for(auto bill: bills) {
+        for (int bill : bills) {
             if(bill == 5) {
                 five++;
             } else if(bill == 10) {

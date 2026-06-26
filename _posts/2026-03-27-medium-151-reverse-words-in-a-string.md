@@ -63,29 +63,29 @@ For an $O(1)$ extra space solution:
 ```java
 // import java.util.*;
 class Solution {
-    public String reverseWords(String s) {
+        public String reverseWords(String s) {
         int left = 0, right = s.size() - 1;
-        while (left <= right && s[left] == ' ') ++left;
-        while (left <= right && s[right] == ' ') --right;
+        while (left <= right && s.charAt(left) == ' ') ++left;
+        while (left <= right && s.charAt(right) == ' ') --right;
 
         ArrayDeque<String> d = new ArrayDeque<>();
         String word;
         while (left <= right) {
-            if (s[left] == ' ' && !word.length == 0) {
+            if (s.charAt(left) == ' ' && !word.isEmpty()) {
                 d.push_front(word);
                 word.clear();
-            } else if (s[left] != ' ') {
-                word += s[left];
+            } else if (s.charAt(left) != ' ') {
+                word += s.charAt(left);
             }
             ++left;
         }
         d.push_front(word);
 
         String rtn;
-        while (!d.length == 0) {
-            rtn += d.getFirst();
+        while (!d.isEmpty()) {
+            rtn += d.get(0);
             d.removeFirst();
-            if (!d.length == 0) rtn += " ";
+            if (!d.isEmpty()) rtn += " ";
         }
         return rtn;
     }
@@ -101,16 +101,15 @@ class Solution {
 {% raw %}
 ```java
 class Solution {
-    public String reverseWords(String s) {
+        public String reverseWords(String s) {
         reverse(s /* elements of s */);
-
         int n = s.size();
         int write = 0;
         for (int i = 0; i < n; i++) {
-            if (s[i] != ' ') {
+            if (s.charAt(i) != ' ') {
                 if (write !) s[write++] = ' ';
                 int j = i;
-                while (j < n && s[j] != ' ') s[write++] = s[j++];
+                while (j < n && s.charAt(j) != ' ') s[write++] = s[j++];
                 reverse(s.iterator() + write - (j - i), s.iterator() + write);
                 i = j;
             }

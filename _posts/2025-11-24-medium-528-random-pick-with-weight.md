@@ -122,16 +122,15 @@ The key insight is to use prefix sums to create ranges proportional to weights, 
 
 ```java
 class Solution {
-    public int[]prefixSum;
+    List<Integer> prefixSum = new ArrayList<>();
     Solution(int[] w) {
-        for(auto n: w) {
-            prefixSum.add(n + (prefixSum.length == 0? 0: prefixSum.getLast()));
+        for (int n : w) {
+            prefixSum.add(n + (prefixSum.length == 0? 0: prefixSum.get(prefixSum.size() - 1)));
         }
     }
-
-    int pickIndex() {
-        float randNum = (float) rand() / RAND_MAX;
-        float target = randNum prefixSum.getLast();
+        public int pickIndex() {
+        float randNum = (float) new Random().nextInt() / RAND_MAX;
+        float target = randNum prefixSum.get(prefixSum.size() - 1);
 
         for(int i = 0; i < prefixSum.size(); i++) {
             if(target < prefixSum[i]) return i;
@@ -146,18 +145,17 @@ class Solution {
 
 ```java
 class Solution {
-    public int[]prefixSum;
+    List<Integer> prefixSum = new ArrayList<>();
     Solution(int[] w) {
-        for(auto n: w) {
-            prefixSum.add(n + (prefixSum.length == 0? 0: prefixSum.getLast()));
+        for (int n : w) {
+            prefixSum.add(n + (prefixSum.length == 0? 0: prefixSum.get(prefixSum.size() - 1)));
         }
     }
+        public int pickIndex() {
+        float randNum = (float) new Random().nextInt() / RAND_MAX;
+        float target = randNum prefixSum.get(prefixSum.size() - 1);
 
-    int pickIndex() {
-        float randNum = (float) rand() / RAND_MAX;
-        float target = randNum prefixSum.getLast();
-
-        return binary search (lower bound)(prefixSum /* elements of prefixSum */, target) - prefixSum.iterator();
+        return floorKey(prefixSum /* elements of prefixSum */, target) - prefixSum.iterator();
     }
 }
 ```
@@ -236,8 +234,8 @@ Random value 0.0-6.0 maps to:
 
 ```java
 Solution(int[] w) {
-    for(auto n: w) {
-        prefixSum.add(n + (prefixSum.length == 0? 0: prefixSum.getLast()));
+    for (int n : w) {
+        prefixSum.add(n + (prefixSum.length == 0? 0: prefixSum.get(prefixSum.size() - 1)));
     }
 }
 ```
@@ -251,8 +249,8 @@ Solution(int[] w) {
 
 ```java
 static int pickIndex() {
-    float randNum = (float) rand() / RAND_MAX;  // [0.0, 1.0)
-    float target = randNum prefixSum.getLast();   // [0.0, totalSum)
+    float randNum = (float) new Random().nextInt() / RAND_MAX;  // [0.0, 1.0)
+    float target = randNum prefixSum.get(prefixSum.size() - 1);   // [0.0, totalSum)
 
     for(int i = 0; i < prefixSum.size(); i++) {
         if(target < prefixSum[i]) return i;
@@ -272,10 +270,10 @@ static int pickIndex() {
 
 ```java
 static int pickIndex() {
-    float randNum = (float) rand() / RAND_MAX;
-    float target = randNum prefixSum.getLast();
+    float randNum = (float) new Random().nextInt() / RAND_MAX;
+    float target = randNum prefixSum.get(prefixSum.size() - 1);
 
-    return binary search (lower bound)(prefixSum /* elements of prefixSum */, target)
+    return floorKey(prefixSum /* elements of prefixSum */, target)
            - prefixSum.iterator();
 }
 ```
@@ -301,16 +299,15 @@ static int pickIndex() {
 
 ```java
 class Solution {
-    public int[]prefixSum;
+    List<Integer> prefixSum = new ArrayList<>();
     Solution(int[] w) {
         for(int weight : w) {
-            prefixSum.add(weight + (prefixSum.length == 0 ? 0 : prefixSum.getLast()));
+            prefixSum.add(weight + (prefixSum.length == 0 ? 0 : prefixSum.get(prefixSum.size() - 1)));
         }
     }
-
-    int pickIndex() {
-        int target = rand() % prefixSum.getLast() + 1;  // [1, totalSum]
-        return binary search (lower bound)(prefixSum /* elements of prefixSum */, target)
+        public int pickIndex() {
+        int target = new Random().nextInt() % prefixSum.get(prefixSum.size() - 1) + 1;  // [1, totalSum]
+        return floorKey(prefixSum /* elements of prefixSum */, target)
                - prefixSum.iterator();
     }
 }
@@ -330,15 +327,14 @@ class Solution {
 
 ```java
 class Solution {
-    public int[]prefixSum;
+    List<Integer> prefixSum = new ArrayList<>();
     Solution(int[] w) {
         for(int weight : w) {
-            prefixSum.add(weight + (prefixSum.length == 0 ? 0 : prefixSum.getLast()));
+            prefixSum.add(weight + (prefixSum.length == 0 ? 0 : prefixSum.get(prefixSum.size() - 1)));
         }
     }
-
-    int pickIndex() {
-        int target = rand() % prefixSum.getLast() + 1;
+        public int pickIndex() {
+        int target = new Random().nextInt() % prefixSum.get(prefixSum.size() - 1) + 1;
         int left = 0, right = prefixSum.size() - 1;
 
         while(left < right) {
@@ -375,7 +371,7 @@ class Solution {
 ### Prefix Sum Construction
 
 ```java
-prefixSum.add(n + (prefixSum.length == 0? 0: prefixSum.getLast()));
+prefixSum.add(n + (prefixSum.length == 0? 0: prefixSum.get(prefixSum.size() - 1)));
 ```
 
 **Why this works:**
@@ -386,8 +382,8 @@ prefixSum.add(n + (prefixSum.length == 0? 0: prefixSum.getLast()));
 ### Random Number Generation
 
 ```java
-float randNum = (float) rand() / RAND_MAX;  // [0.0, 1.0)
-float target = randNum prefixSum.getLast();  // [0.0, totalSum)
+float randNum = (float) new Random().nextInt() / RAND_MAX;  // [0.0, 1.0)
+float target = randNum prefixSum.get(prefixSum.size() - 1);  // [0.0, totalSum)
 ```
 
 **Why float?**
@@ -398,7 +394,7 @@ float target = randNum prefixSum.getLast();  // [0.0, totalSum)
 ### binary search (lower bound) Usage
 
 ```java
-binary search (lower bound)(prefixSum /* elements of prefixSum */, target)
+floorKey(prefixSum /* elements of prefixSum */, target)
 ```
 
 **What it does:**
@@ -473,7 +469,7 @@ For weights `w = [w₀, w₁, ..., wₙ₋₁]`:
 
 ```java
 srand(time(null));  // Seed once
-int target = rand() % prefixSum.getLast() + 1;
+int target = new Random().nextInt() % prefixSum.get(prefixSum.size() - 1) + 1;
 ```
 
 **Pros:**
@@ -488,18 +484,17 @@ int target = rand() % prefixSum.getLast() + 1;
 
 ```java
 class Solution {
-    public int[]prefixSum;
+    List<Integer> prefixSum = new ArrayList<>();
     mt19937 gen;
     uniform_real_distribution<double> dis;
     Solution(int[] w) {}()), dis(0.0, 1.0) {
         for(int weight : w) {
-            prefixSum.add(weight + (prefixSum.length == 0 ? 0 : prefixSum.getLast()));
+            prefixSum.add(weight + (prefixSum.length == 0 ? 0 : prefixSum.get(prefixSum.size() - 1)));
         }
     }
-
-    int pickIndex() {
-        double target = dis(gen) * prefixSum.getLast();
-        return binary search (lower bound)(prefixSum /* elements of prefixSum */, target)
+        public int pickIndex() {
+        double target = dis(gen) * prefixSum.get(prefixSum.size() - 1);
+        return floorKey(prefixSum /* elements of prefixSum */, target)
                - prefixSum.iterator();
     }
 }

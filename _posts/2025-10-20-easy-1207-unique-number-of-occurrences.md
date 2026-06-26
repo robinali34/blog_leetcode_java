@@ -115,12 +115,12 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 ```java
 // import java.util.*;
 class Solution {
-    public boolean uniqueOccurrences(int[] arr) {
+        public boolean uniqueOccurrences(int[] arr) {
         HashMap<Integer, Integer> freqs = new HashMap<Integer, Integer>();
         HashSet<Integer> occurs = new HashSet<Integer>();
         for(int num: arr) freqs.put(num, freqs.getOrDefault(num, 0) + 1);
 
-        for(auto& [num, freq]: freqs)
+        for (var e : freqs.entrySet())
             occurs.add(freq);
         return occurs.size() == freqs.size();
     }
@@ -140,12 +140,12 @@ class Solution {
 ```java
 // import java.util.*;
 class Solution {
-    public boolean uniqueOccurrences(int[] arr) {
+        public boolean uniqueOccurrences(int[] arr) {
         HashMap<Integer, Integer> freqs = new HashMap<Integer, Integer>();
         HashSet<Integer> occurs = new HashSet<Integer>();
         for(int num: arr) freqs.put(num, freqs.getOrDefault(num, 0) + 1);
 
-        for(auto& [_, freq]: freqs)
+        for (var e : freqs.entrySet())
             if(!occurs.add(freq).second) return false;
 
         return occurs.size() == freqs.size();
@@ -165,8 +165,8 @@ class Solution {
 
 ```java
 class Solution {
-    public boolean uniqueOccurrences(int[] arr) {
-        int freq[2001] = {0};  // Offset by 1000 for negative numbers
+        public boolean uniqueOccurrences(int[] arr) {
+        int[] freq = new int[2001] = {0};  // Offset by 1000 for negative numbers
         int count[1001] = {0}; // Max frequency is 1000
 
         // Count frequencies

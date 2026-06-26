@@ -79,13 +79,13 @@ This solution uses a sweep line algorithm with coordinate compression to handle 
 // import java.util.Arrays;
 // import java.util.Collections;
 class Solution {
-    public int rectangleArea(int[][]& rectangles) {
+        public int rectangleArea(int[][] rectangles) {
         int OPEN = 1, CLOSE = -1, MOD = 1E9 + 7;
 
-        int[]xCoords;
+        List<Integer> xCoords = new ArrayList<>();
         vector<array<int, 4>> events; // {y, type, x1, x2}
 
-        for(auto rec : rectangles) {
+        for (int rec : rectangles) {
             xCoords.add(rec[0]);
             xCoords.add(rec[2]);
             events.add({rec[1], OPEN, rec[0], rec[2]});
@@ -112,7 +112,7 @@ class Solution {
         long rtn = 0;
         int curY = events[0][0];
 
-        for(auto e: events) {
+        for (int e : events) {
             int y = e[0], type = e[1], x1 = e[2], x2 = e[3];
 
             // Calculate total covered length
@@ -128,7 +128,7 @@ class Solution {
             // Update coverage counts
             int idx1 = xIdx[x1], idx2 = xIdx[x2];
             for(int i = idx1; i < idx2; i++) {
-                count[i] += type;
+                count.put(i, count.getOrDefault(i, 0) + type;
             }
 
             curY = y;
@@ -174,15 +174,15 @@ This solution uses a segment tree for O(log n) range updates and queries, signif
 ```java
 // import java.util.*;
 class Solution {
-    public int[]xCoords;
-    int[]counts;      // Coverage count at each node
-    long[]total; // Total covered length in range
+    List<Integer> xCoords = new ArrayList<>();
+    List<Integer> counts = new ArrayList<>();      // Coverage count at each node
+    public long[]total; // Total covered length in range
 
-    void update(int node, int lo, int hi, int left, int right, int delta) {
+    public void update(int node, int lo, int hi, int left, int right, int delta) {
         if(right <= lo || hi <= left) return;  // No overlap
 
         if(left <= lo && hi <= right) {
-            counts[node] += delta;
+            counts.put(node, counts.getOrDefault(node, 0) + delta;
         } else {
             int mid = (lo + hi) / 2;
             update(2 node, lo, mid, left, right, delta);
@@ -198,13 +198,13 @@ class Solution {
             total[node] = total[2 node] + total[2 node + 1];
         }
     }
-    int rectangleArea(int[][]& rectangles) {
+        public int rectangleArea(int[][] rectangles) {
         int OPEN = 1, CLOSE = -1, MOD = 1E9 + 7;
 
-        TreeSet<Integer> xSet;
+        TreeSet<Integer> xSet = new TreeSet<>();
         vector<array<int, 4>> events;
 
-        for(auto rec: rectangles) {
+        for (int rec : rectangles) {
             xSet.add(rec[0]);
             xSet.add(rec[2]);
             events.add({rec[1], OPEN, rec[0], rec[2]});
@@ -230,14 +230,13 @@ class Solution {
         long rtn = 0;
         int curY = events[0][0];
 
-        for(auto e: events) {
+        for (int e : events) {
             auto [y, type, x1, x2] = e;
 
             // Add area since last event
             rtn = (rtn + total[1] * (y - curY)) % MOD;
 
-            // Update segment tree
-            update(1, 0, n - 1, xIdx[x1], xIdx[x2], type);
+            // Update segment tree update = new tree(1, 0, n - 1, xIdx[x1], xIdx[x2], type);
 
             curY = y;
         }

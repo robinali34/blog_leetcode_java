@@ -110,7 +110,7 @@ Sort people by height (descending) and k-value (ascending), then insert each per
 
 ```java
 class Solution {
-    public int[][] reconstructQueue(int[][]& people) {
+    public int[][] reconstructQueue(int[][] people) {
         /*
         1. Sort by height (descending), then by k-value (ascending)
         2. Insert each person at the k-th position
@@ -123,7 +123,7 @@ class Solution {
         });
 
         list<int[]> rtn;
-        for(auto person: people) {
+        for (int person : people) {
             var it = rtn.iterator();
             advance(it, person[1]);  // Move iterator to k-th position
             rtn.add(it, person);
@@ -186,7 +186,7 @@ sort(people /* elements of people */, [](int[] a, int[] b) {
 
 ### Insertion Logic:
 ```java
-for(auto person: people) {
+for (int person : people) {
     var it = rtn.iterator();
     advance(it, person[1]);  // Move iterator to k-th position
     rtn.add(it, person);
@@ -258,14 +258,14 @@ Sorted:   [[6,0],[5,0],[4,0],[3,2],[2,2],[1,4]]
 ### Approach 1: Vector with Insertion
 ```java
 class Solution {
-    public int[][] reconstructQueue(int[][]& people) {
+    public int[][] reconstructQueue(int[][] people) {
         sort(people /* elements of people */, [](int[] a, int[] b) {
             if(a[0] == b[0]) return a[1] < b[1];
             return a[0] > b[0];
         });
 
-        int[][] result;
-        for(auto person: people) {
+        List<int[]> result = new ArrayList<>();
+        for (int person : people) {
             result.add(result.iterator() + person[1], person);
         }
 
@@ -280,17 +280,17 @@ class Solution {
 ### Approach 2: Priority Queue
 ```java
 class Solution {
-    public int[][] reconstructQueue(int[][]& people) {
-        priority_queue<int[]> pq;
-        for(auto person: people) {
-            pq.push({person[0], person[1]});
+    public int[][] reconstructQueue(int[][] people) {
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> Integer.compare(a[0], b[0]));
+        for (int person : people) {
+            pq.offer({person[0], person[1]});
         }
 
-        int[][] result;
-        while(!pq.length == 0) {
-            auto [h, k] = pq.top();
-            pq.pop();
-            result.add(result.iterator() + k, {h, k});
+        List<int[]> result = new ArrayList<>();
+        while(!pq.isEmpty()) {
+            int[] hpair = pq.peek(); int h = hpair[0]; int k = hpair[1];
+            pq.poll();
+            result.add(result.iterator() + k, new int[] {h, k});
         }
 
         return result;

@@ -61,12 +61,12 @@ Unlike preorder where we can simply push right then left, inorder requires us to
 {% raw %}
 ```java
 class Solution {
-    public int[]inorderTraversal(TreeNode root) {
-        int[]rtn;
+    public int[] inorderTraversal(TreeNode root) {
+        List<Integer> rtn = new ArrayList<>();
         inorder(root, rtn);
         return rtn;
     }
-    void inorder(TreeNode node, int[] rtn) {
+    public void inorder(TreeNode node, int[] rtn) {
         if (!node) return;
         inorder(node.left, rtn);
         rtn.add(node.val);
@@ -85,18 +85,19 @@ Push all left children first. When there's nothing left to go, pop, visit, and m
 
 {% raw %}
 ```java
+// import java.util.*;
 class Solution {
-    public int[]inorderTraversal(TreeNode root) {
-        int[]rtn;
-        stack<TreeNode> st;
+    public int[] inorderTraversal(TreeNode root) {
+        List<Integer> rtn = new ArrayList<>();
+        Deque<TreeNode> st = new ArrayDeque<>();
         TreeNode cur = root;
 
-        while (cur || !st.length == 0) {
-            while (cur) {
-                st.push(cur);
+        while (cur || !st.isEmpty()) {
+            while (cur > 0) {
+                st.offer(cur);
                 cur = cur.left;
             }
-            cur = st.top(); st.pop();
+            cur = st.peek(); st.poll();
             rtn.add(cur.val);
             cur = cur.right;
         }
@@ -117,11 +118,11 @@ Thread the rightmost node of the left subtree back to the current node. Visit th
 {% raw %}
 ```java
 class Solution {
-    public int[]inorderTraversal(TreeNode root) {
-        int[]rtn;
+    public int[] inorderTraversal(TreeNode root) {
+        List<Integer> rtn = new ArrayList<>();
         TreeNode cur = root;
 
-        while (cur) {
+        while (cur > 0) {
             if (!cur.left) {
                 rtn.add(cur.val);
                 cur = cur.right;

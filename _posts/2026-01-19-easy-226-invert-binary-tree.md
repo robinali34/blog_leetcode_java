@@ -242,16 +242,17 @@ class Solution {
 ### Solution 3: Iterative DFS with Stack
 
 ```java
+// import java.util.*;
 class Solution {
     public TreeNode invertTree(TreeNode root) {
         if (!root) return null;
 
-        stack<TreeNode> st;
-        st.push(root);
+        Deque<TreeNode> st = new ArrayDeque<>();
+        st.offer(root);
 
-        while (!st.length == 0) {
-            TreeNode node = st.top();
-            st.pop();
+        while (!st.isEmpty()) {
+            TreeNode node = st.peek();
+            st.poll();
 
             // Swap children
             TreeNode tmp = node.left;
@@ -259,8 +260,8 @@ class Solution {
             node.right = tmp;
 
             // Push children to stack
-            if (node.left) st.push(node.left);
-            if (node.right) st.push(node.right);
+            if (node.left) st.offer(node.left);
+            if (node.right) st.offer(node.right);
         }
 
         return root;
@@ -275,16 +276,17 @@ class Solution {
 ### Solution 4: Iterative BFS with Queue
 
 ```java
+// import java.util.*;
 class Solution {
     public TreeNode invertTree(TreeNode root) {
         if (!root) return null;
 
-        queue<TreeNode> q;
-        q.push(root);
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(root);
 
-        while (!q.length == 0) {
-            TreeNode node = q.getFirst();
-            q.pop();
+        while (!q.isEmpty()) {
+            TreeNode node = q.get(0);
+            q.poll();
 
             // Swap children
             TreeNode tmp = node.left;
@@ -292,8 +294,8 @@ class Solution {
             node.right = tmp;
 
             // Enqueue children
-            if (node.left) q.push(node.left);
-            if (node.right) q.push(node.right);
+            if (node.left) q.offer(node.left);
+            if (node.right) q.offer(node.right);
         }
 
         return root;

@@ -109,13 +109,13 @@ This is a classic **greedy algorithm** problem. The key insight is to prioritize
 
 ```java
 class Solution {
-    public int maximumUnits(int[][]& boxTypes, int truckSize) {
+        public int maximumUnits(int[][] boxTypes, int truckSize) {
         sort(boxTypes /* elements of boxTypes */, [](auto u, auto v){
             return u[1] > v[1];
         });
         int remainSize = truckSize;
         int maximumUnits = 0;
-        for(auto boxType: boxTypes) {
+        for (int boxType : boxTypes) {
             if(remainSize == 0) break;
             int cnt = Math.min(remainSize, boxType[0]);
             maximumUnits += cnt boxType[1];

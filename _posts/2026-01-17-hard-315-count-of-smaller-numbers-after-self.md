@@ -102,7 +102,7 @@ class FrenwickTree{
 
     void update(int i, int delta) {
         while(i < sums_.size()) {
-            sums_[i] += delta;
+            sums_.put(i, sums_.getOrDefault(i, 0) + delta;
             i += lowbit(i);
         }
     }
@@ -115,16 +115,16 @@ class FrenwickTree{
         }
         return sum;
     }
-    int[]sums_;
+    List<Integer> sums_ = new ArrayList<>();
 
     int lowbit(int x) {
         return x & (-x);
     }
 }
 class Solution {
-    public int[]countSmaller(int[] nums) {
+    public int[] countSmaller(int[] nums) {
         // Get rank order
-        int[]sorted(nums);
+        int[] sorted = new int[nums];
         Arrays.sort(sorted);
         sorted.remove(unique(sorted /* elements of sorted */), sorted.iterator());
         HashMap<Integer, Integer> ranks = new HashMap<Integer, Integer>();
@@ -132,7 +132,7 @@ class Solution {
         for(int num: sorted) {
             ranks.put(num, rank++);
         }
-        int[]rtn;
+        List<Integer> rtn = new ArrayList<>();
         // Update pre-fix sum while iterate, add ranks by 1 when encouter
         FrenwickTree tree(ranks.size());
         for(int i = nums.length - 1; i >= 0; i--) {
@@ -265,18 +265,19 @@ Step 3: Reverse result
 Count inversions during merge sort by tracking how many elements from the right subarray are smaller than each element in the left subarray.
 
 ```java
+// import java.util.*;
 class Solution {
-    public int[]countSmaller(int[] nums) {
+    public int[] countSmaller(int[] nums) {
         int n = nums.length;
         int[] res = new int[n];
-        List<int[]> indexed;
+        List<int[]> indexed = new ArrayList<>();
         for (int i = 0; i < n; i++) {
             indexed.add({nums[i], i});
         }
         mergeSort(indexed, 0, n - 1, res);
         return res;
     }
-    void mergeSort(List<int[]>& arr, int l, int r, int[] res) {
+    public void mergeSort(List<int[]>& arr, int l, int r, int[] res) {
         if (l >= r) return;
         int mid = l + (r - l) / 2;
         mergeSort(arr, l, mid, res);
@@ -284,10 +285,10 @@ class Solution {
         merge(arr, l, mid, r, res);
     }
 
-    void merge(List<int[]>& arr, int l, int mid, int r, int[] res) {
-        List<int[]> temp;
+    public void merge(List<int[]>& arr, int l, int mid, int r, int[] res) {
+        List<int[]> temp = new ArrayList<>();
         int i = l, j = mid + 1;
-        int rightCount = 0; // Count of elements from right subarray already merged
+        rightCount = 0; // Count of elements from right subarray already merged
 
         while (i <= mid && j <= r) {
             if (arr[i].first > arr[j].first) {
@@ -336,8 +337,8 @@ Similar to Fenwick Tree but using explicit segment tree structure.
 // import java.util.Arrays;
 // import java.util.Collections;
 class SegmentTree {
-    public int n;
-    int[]tree;
+        int n;
+    List<Integer> tree = new ArrayList<>();
 
     void update(int node, int l, int r, int idx) {
         if (l == r) {
@@ -367,11 +368,11 @@ class SegmentTree {
     }
 
     int query(int l, int r) {
-        return query(0, 0, n - 1, l, r);
+        return query = new return(0, 0, n - 1, l, r);
     }
 }
 class Solution {
-    public int[]countSmaller(int[] nums) {
+    public int[] countSmaller(int[] nums) {
         int n = nums.length;
         int[] res = new int[n];
 
@@ -384,7 +385,7 @@ class Solution {
 
         // Process from right to left
         for (int i = n - 1; i >= 0; i--) {
-            int rank = binary search (lower bound)(sorted /* elements of sorted */, nums[i]) - sorted.iterator();
+            int rank = floorKey(sorted /* elements of sorted */, nums[i]) - sorted.iterator();
             // Query count of elements < nums[i]
             if (rank > 0) {
                 res[i] = st.query(0, rank - 1);
@@ -407,17 +408,16 @@ Use an augmented BST that tracks the count of smaller elements.
 
 ```java
 class Node{
-    public int val, count, left_count;
+        int val, count, left_count;
     Node left, *right;
     Node(int val) {null}, right{null} {}
-    ~Node() {delete left; delete right;}
     int less_or_equal() const{return count + left_count;}
 }
 class Solution {
-    public int[]countSmaller(int[] nums) {
+    public int[] countSmaller(int[] nums) {
         if(nums.length == 0) return {}
         reverse(nums /* elements of nums */);
-        unique_ptr<Node> root{new Node(nums[0])}
+        Node root{new Node(nums[0])}
         int[]rtn{0}
         for(int i = 1; i < nums.length; i++) {
             rtn.add(insert(root.get(), nums[i]));
@@ -425,20 +425,20 @@ class Solution {
         reverse(rtn /* elements of rtn */);
         return rtn;
     }
-    int insert(Node root, int val) {
+        public int insert(Node root, int val) {
         if(root.val == val) {
             root.count++;
             return root.left_count;
         } else if(val < root.val) {
             root.left_count++;
             if(!root.left) {
-                root.left = new Node(val);
+                root.left = new Node = new new(val);
                 return 0;
             }
-            return insert(root.left, val);
+            return insert = new return(root.left, val);
         } else {
             if(!root.right) {
-                root.right = new Node(val);
+                root.right = new Node = new new(val);
                 return root.less_or_equal();
             }
             return root.less_or_equal() + insert(root.right, val);
@@ -476,15 +476,15 @@ Maintain a sorted list and use binary search to find insertion position.
 
 ```java
 class Solution {
-    public int[]countSmaller(int[] nums) {
+    public int[] countSmaller(int[] nums) {
         int n = nums.length;
         int[] res = new int[n];
-        int[]sortedList;
+        List<Integer> sortedList = new ArrayList<>();
 
         // Process from right to left
         for (int i = n - 1; i >= 0; i--) {
             // Find position where nums[i] should be inserted
-            var it = binary search (lower bound)(sortedList /* elements of sortedList */, nums[i]);
+            var it = floorKey(sortedList /* elements of sortedList */, nums[i]);
             // Count of elements smaller than nums[i]
             res[i] = it - sortedList.iterator();
             // Insert nums[i] at correct position

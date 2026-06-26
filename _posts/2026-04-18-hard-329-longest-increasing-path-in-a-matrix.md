@@ -80,9 +80,9 @@ Think of the grid as a **DAG**: draw an edge `u → v` whenever `matrix[v] > mat
 {% raw %}
 ```java
 class Solution {
-    public int longestIncreasingPath(int[][]& matrix) {
+        public int longestIncreasingPath(int[][] matrix) {
         if (matrix.length == 0) return 0;
-        int rows = matrix.size();
+        int rows = matrix.length;
         int cols = matrix[0].length;
         int[][] dp = new int[rows][cols];
         int result = 0;
@@ -94,14 +94,14 @@ class Solution {
         }
         return result;
     }
-    int dirs[4][2] = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}}
-    int dfs(int[][]& matrix, int[][]& dp, int r, int c) {
+    int dirs[4][2] = {new int[] {0, 1}, new int[] {1, 0}, {0, -1}, {-1, 0}}
+        public int dfs(int[][] matrix, int[][] dp, int r, int c) {
         if (dp[r][c] !) return dp[r][c];
-        int rows = matrix.size();
+        int rows = matrix.length;
         int cols = matrix[0].length;
         int maxLen = 1;
 
-        for (auto d : dirs) {
+        for (int d : dirs) {
             int nr = r + d[0];
             int nc = c + d[1];
             if (nr >= 0 && nr < rows && nc >= 0 && nc < cols &&
@@ -129,16 +129,16 @@ Once `dp[r][c]` is computed, every future call that reaches `(r, c)` returns imm
 {% raw %}
 ```java
 class Solution {
-    public int longestIncreasingPath(int[][]& matrix) {
+        public int longestIncreasingPath(int[][] matrix) {
         if (matrix.length == 0) return 0;
-        int rows = matrix.size();
+        int rows = matrix.length;
         int cols = matrix[0].length;
 
         int[][] indegree = new int[rows][cols];
-        int dirs[4][2] = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}}
+        int dirs[4][2] = {new int[] {1, 0}, {-1, 0}, new int[] {0, 1}, {0, -1}}
         for (int r = 0; r < rows; ++r) {
             for (int c = 0; c < cols; ++c) {
-                for (auto d : dirs) {
+                for (int d : dirs) {
                     int nr = r + d[0];
                     int nc = c + d[1];
                     if (nr >= 0 && nr < rows && nc >= 0 && nc < cols &&
@@ -153,25 +153,25 @@ class Solution {
         for (int r = 0; r < rows; ++r) {
             for (int c = 0; c < cols; ++c) {
                 if (indegree[r][c] == 0) {
-                    q.push({r, c});
+                    q.offer(new int[] {r, c});
                 }
             }
         }
 
         int pathLen = 0;
-        while (!q.length == 0) {
+        while (!q.isEmpty()) {
             int size = q.size();
             pathLen++;
             for (int i = 0; i < size; ++i) {
-                auto [r, c] = q.getFirst();
-                q.pop();
-                for (auto d : dirs) {
+                auto [r, c] = q.get(0);
+                q.poll();
+                for (int d : dirs) {
                     int nr = r + d[0];
                     int nc = c + d[1];
                     if (nr >= 0 && nr < rows && nc >= 0 && nc < cols &&
                         matrix[nr][nc] > matrix[r][c]) {
                         if (--indegree[nr][nc] == 0) {
-                            q.push({nr, nc});
+                            q.offer(new int[] {nr, nc});
                         }
                     }
                 }

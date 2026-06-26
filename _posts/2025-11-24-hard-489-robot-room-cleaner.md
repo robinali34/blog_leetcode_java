@@ -130,10 +130,10 @@ This solution uses DFS backtracking with a visited set to track cleaned cells. T
  */
 
 class Solution {
-    public int[][] dirs = \{\{-1, 0\}, \{0, 1\}, \{1, 0\}, \{0, -1\}\}
+    int[][] dirs = {/* */{-1, 0\}, \{0, 1\}, \{1, 0\}, \{0, -1}}
     set<int[]> visited;
 
-    void goBack(Robot robot) {
+    public void goBack(Robot robot) {
         robot.turnRight();
         robot.turnRight();
         robot.move();
@@ -141,8 +141,8 @@ class Solution {
         robot.turnRight();
     }
 
-    void backtrack(Robot robot, int x, int y, int d) {
-        visited.add({x, y});
+    public void backtrack(Robot robot, int x, int y, int d) {
+        visited.add(new int[] {x, y});
         robot.clean();
 
         for(int i = 0; i < 4; i++) {
@@ -150,14 +150,14 @@ class Solution {
             int nx = x + dirs[new_d][0];
             int ny = y + dirs[new_d][1];
 
-            if(!visited.count({nx, ny}) && robot.move()) {
+            if(!visited.contains(new int[] {nx, ny}) && robot.move()) {
                 backtrack(robot, nx, ny, new_d);
                 goBack(robot);
             }
             robot.turnRight();
         }
     }
-    void cleanRoom(Robot robot) {
+    public void cleanRoom(Robot robot) {
         backtrack(robot, 0, 0, 0);
     }
 }
@@ -223,7 +223,7 @@ Robot Path (starting at 1,3):
 ### Direction Management
 
 ```java
-int[][] dirs = \{\{-1, 0\}, \{0, 1\}, \{1, 0\}, \{0, -1\}\}
+int[][] dirs = {/* */{-1, 0\}, \{0, 1\}, \{1, 0\}, \{0, -1}}
 // Index: 0=up, 1=right, 2=down, 3=left
 
 int new_d = (d + i) % 4;  // Relative direction
@@ -241,7 +241,7 @@ int ny = y + dirs[new_d][1];
 ```java
 static void backtrack(Robot robot, int x, int y, int d) {
     // Mark current cell as visited and clean
-    visited.add({x, y});
+    visited.add(new int[] {x, y});
     robot.clean();
 
     // Try all 4 directions
@@ -251,11 +251,9 @@ static void backtrack(Robot robot, int x, int y, int d) {
         int ny = y + dirs[new_d][1];
 
         // If not visited and can move
-        if(!visited.count({nx, ny}) && robot.move()) {
-            // Explore recursively
-            backtrack(robot, nx, ny, new_d);
-            // Return to current position
-            goBack(robot);
+        if(!visited.contains(new int[] {nx, ny}) && robot.move()) {
+            // Explore recursively backtrack = new recursively(robot, nx, ny, new_d);
+            // Return to current position goBack = new position(robot);
         }
         // Turn right to try next direction
         robot.turnRight();
@@ -301,8 +299,8 @@ More explicit direction management:
 ```java
 class Solution {
     set<int[]> visited;
-    public int[][] dirs = \{\{-1,0\}, \{0,1\}, \{1,0\}, \{0,-1\}\}
-    void goBack(Robot robot) {
+    int[][] dirs = {/* */{-1,0\}, \{0,1\}, \{1,0\}, \{0,-1}}
+    public void goBack(Robot robot) {
         robot.turnRight();
         robot.turnRight();
         robot.move();
@@ -310,8 +308,8 @@ class Solution {
         robot.turnRight();
     }
 
-    void dfs(Robot robot, int x, int y, int dir) {
-        visited.add({x, y});
+    public void dfs(Robot robot, int x, int y, int dir) {
+        visited.add(new int[] {x, y});
         robot.clean();
 
         for(int i = 0; i < 4; i++) {
@@ -319,14 +317,14 @@ class Solution {
             int nx = x + dirs[newDir][0];
             int ny = y + dirs[newDir][1];
 
-            if(visited.find({nx, ny}) == visited.iterator() && robot.move()) {
+            if(visited.find(new int[] {nx, ny}) == visited.iterator() && robot.move()) {
                 dfs(robot, nx, ny, newDir);
                 goBack(robot);
             }
             robot.turnRight();
         }
     }
-    void cleanRoom(Robot robot) {
+    public void cleanRoom(Robot robot) {
         dfs(robot, 0, 0, 0);
     }
 }
@@ -344,7 +342,7 @@ class Solution {
 ### Direction Array
 
 ```java
-int[][] dirs = \{\{-1, 0\}, \{0, 1\}, \{1, 0\}, \{0, -1\}\}
+int[][] dirs = {/* */{-1, 0\}, \{0, 1\}, \{1, 0\}, \{0, -1}}
 //                    Index:   0        1       2        3
 //                  Meaning:  up     right   down     left
 ```

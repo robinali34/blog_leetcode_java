@@ -111,17 +111,17 @@ This is a **dynamic programming with memoization** problem. The key insight is t
 
 ```java
 class Solution {
-    public int maxJumps(int[] arr, int d) {
+        public int maxJumps(int[] arr, int d) {
         int N = arr.length;
         dp.resize(N, -1);
         for(int i = 0; i < N; i++) {
             dfs(arr, i, d);
         }
-        return max_element(dp /* elements of dp */);
+        return max_element = new return(dp /* elements of dp */);
     }
-    int[]dp;
+    List<Integer> dp = new ArrayList<>();
 
-    void dfs(int[] arr, int id, int d) {
+    public void dfs(int[] arr, int id, int d) {
         if(dp[id] != -1) {
             return;
         }

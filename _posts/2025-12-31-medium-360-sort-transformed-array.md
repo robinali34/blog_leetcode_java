@@ -105,12 +105,12 @@ This problem requires applying a quadratic function to each element and returnin
 
 ```java
 class Solution {
-    public int[]sortTransformedArray(int[] nums, int a, int b, int c) {
+    public int[] sortTransformedArray(int[] nums, int a, int b, int c) {
         if(nums.length == 0) return {}
         int N = nums.length;
         int[] rtn = new int[N];
         var fn = [&](auto x) {
-            return a x * x + b x + c;
+            return a x x + b x + c;
         }
         int i = 0, j = N - 1;
         int index = a >= 0 ? N - 1: 0;

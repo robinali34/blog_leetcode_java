@@ -98,6 +98,7 @@ This problem is a variation of **level-order traversal** (BFS) where we alternat
 ### **Solution: BFS with Deque and Direction Toggle**
 
 ```java
+// import java.util.*;
 /**
  * Definition for a binary tree node.
  * class TreeNode {
@@ -111,18 +112,18 @@ This problem is a variation of **level-order traversal** (BFS) where we alternat
  */
 class Solution {
     public int[][] zigzagLevelOrder(TreeNode root) {
-        int[][] rtn;
+        List<int[]> rtn = new ArrayList<>();
         if(root == null) return rtn;
 
-        deque<TreeNode> queue;
+        ArrayDeque<TreeNode> queue = new ArrayDeque<>();
         queue.add(root);
         boolean leftToRight = true;
 
-        while(!queue.length == 0) {
+        while(!queue.isEmpty()) {
             int size = queue.size();
-            int[]level;
+            List<Integer> level = new ArrayList<>();
             for(int i = 0; i < size; i++) {
-                TreeNode curr = queue.getFirst();
+                TreeNode curr = queue.get(0);
                 queue.removeFirst();
                 if(leftToRight) {
                     level.add(curr.val);
@@ -219,27 +220,28 @@ Level 2 (leftToRight = true):
 Instead of inserting at the beginning, we can pre-allocate the level vector and calculate the index:
 
 ```java
+// import java.util.*;
 int[][] zigzagLevelOrder(TreeNode root) {
-    int[][] result;
+    List<int[]> result = new ArrayList<>();
     if (!root) return result;
 
-    queue<TreeNode> q;
-    q.push(root);
+    Queue<TreeNode> q = new LinkedList<>();
+    q.offer(root);
     boolean leftToRight = true;
 
-    while (!q.length == 0) {
+    while (!q.isEmpty()) {
         int size = q.size();
-        int[]level(size);
+        int[] level = new int[size];
 
         for (int i = 0; i < size; ++i) {
-            TreeNode node = q.getFirst();
-            q.pop();
+            TreeNode node = q.get(0);
+            q.poll();
 
             int index = leftToRight ? i : size - 1 - i;
             level[index] = node.val;
 
-            if (node.left) q.push(node.left);
-            if (node.right) q.push(node.right);
+            if (node.left) q.offer(node.left);
+            if (node.right) q.offer(node.right);
         }
 
         result.add(level);

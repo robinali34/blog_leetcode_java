@@ -70,7 +70,7 @@ If `k <= 1`, no product of positive integers can be strictly less than `k`, so r
 {% raw %}
 ```java
 class Solution {
-    public int numSubarrayProductLessThanK(int[] nums, int k) {
+        public int numSubarrayProductLessThanK(int[] nums, int k) {
         if (k <= 1) return 0;
         int n = nums.length;
         long currProd = 1;

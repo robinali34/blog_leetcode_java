@@ -73,12 +73,12 @@ Max diameter = 3 ✓
 {% raw %}
 ```java
 class Solution {
-    public int diameterOfBinaryTree(TreeNode root) {
+        public int diameterOfBinaryTree(TreeNode root) {
         int diameter = 0;
         getLongestPath(root, diameter);
         return diameter;
     }
-    int getLongestPath(TreeNode node, int diameter) {
+        public int getLongestPath(TreeNode node, int diameter) {
         if (!node) return -1;
         int leftPath = getLongestPath(node.left, diameter);
         int rightPath = getLongestPath(node.right, diameter);

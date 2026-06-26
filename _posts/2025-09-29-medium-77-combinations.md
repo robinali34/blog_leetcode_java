@@ -112,12 +112,12 @@ The solution uses backtracking (DFS) with the following strategy:
 ```java
 class Solution {
     public int[][] combine(int n, int k) {
-        int[][] rtn;
-        int[]path;
+        List<int[]> rtn = new ArrayList<>();
+        List<Integer> path = new ArrayList<>();
         dfs(n, k, rtn, path, 1);
         return rtn;
     }
-    void dfs(int n, int k, int[][] & rtn, int[] path, int first_num) {
+    public void dfs(int n, int k, int[][] rtn, int[] path, int first_num) {
         if(path.size() == k) {
             rtn.add(path);
             return;
@@ -188,11 +188,9 @@ static void backtrack(parameters) {
     }
 
     for (choice in choices) {
-        // Make choice
-        make_choice(choice);
+        // Make choice make_choice = new choice(choice);
 
-        // Recurse
-        backtrack(updated_parameters);
+        // Recurse backtrack = new Recurse(updated_parameters);
 
         // Undo choice (backtrack)
         undo_choice(choice);
@@ -205,14 +203,14 @@ static void backtrack(parameters) {
 ### Iterative Solution
 ```java
 int[][] combine(int n, int k) {
-    int[][] result;
-    int[]combination(k);
+    List<int[]> result = new ArrayList<>();
+    int[] combination = new int[k];
 
     for (int i = 0; i < k; i++) {
         combination[i] = i + 1;
     }
 
-    while (true) {
+    while (true > 0) {
         result.add(combination);
 
         int i = k - 1;
@@ -235,8 +233,8 @@ int[][] combine(int n, int k) {
 ### Mathematical Approach (Using Next Permutation)
 ```java
 int[][] combine(int n, int k) {
-    int[][] result;
-    int[]combination(k);
+    List<int[]> result = new ArrayList<>();
+    int[] combination = new int[k];
 
     // Initialize with first k numbers
     for (int i = 0; i < k; i++) {
@@ -255,7 +253,7 @@ int[][] combine(int n, int k) {
 
 ### Early Termination
 ```java
-static void dfs(int n, int k, int[][]& result, int[] path, int start) {
+static void dfs(int n, int k, int[][] result, int[] path, int start) {
     // Early termination: not enough numbers left
     if (path.size() + (n - start + 1) < k) {
         return;

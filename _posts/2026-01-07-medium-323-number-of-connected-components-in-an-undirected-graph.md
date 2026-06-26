@@ -97,41 +97,26 @@ This problem requires counting the number of **connected components** in an undi
 ### **Solution 1: BFS (Breadth-First Search)**
 
 ```java
-// import java.util.*;
 class Solution {
-    public int countComponents(int n, int[][]& edges) {
-        int[][] adj(n);
-        for(auto edge: edges) {
-            adj[edge[0]].push_back(edge[1]);
-            adj[edge[1]].push_back(edge[0]);
-        }
-        int rtn = 0;
-        boolean[]visited(n);
-        for(int i = 0; i < n; i++) {
-            if(!visited[i]) {
-                bfs(adj, i, visited);
-                rtn++;
+    public int countComponents(int n, int[][] edges) {
+        int[] parent = new int[n];
+        for (int i = 0; i < n; i++) parent[i] = i;
+        int comps = n;
+        for (int[] e : edges) {
+            int a = find(parent, e[0]), b = find(parent, e[1]);
+            if (a != b) {
+                parent[a] = b;
+                comps--;
             }
         }
-        return rtn;
+        return comps;
     }
-    void bfs(int[][]& adj, int u, boolean[] visited) {
-        Queue<Integer> q = new LinkedList<>();
-        q.push(u);
-        visited[u] = true;
-        while(!q.length == 0) {
-            int curr = q.getFirst();
-            q.pop();
-            for(int successor: adj[curr]) {
-                if(!visited[successor]) {
-                    q.push(successor);
-                    visited[successor] = true;
-                }
-            }
-        }
+
+    private int find(int[] p, int x) {
+        if (p[x] != x) p[x] = find(p, p[x]);
+        return p[x];
     }
-}
-```
+}```
 
 ### **Algorithm Explanation:**
 
@@ -222,9 +207,9 @@ Result: 2 components
 
 ```java
 class Solution {
-    public int countComponents(int n, int[][]& edges) {
-        int[][] adj(n);
-        for(auto edge: edges) {
+        public int countComponents(int n, int[][] edges) {
+        public int[][] adj(n);
+        for (int edge : edges) {
             adj[edge[0]].push_back(edge[1]);
             adj[edge[1]].push_back(edge[0]);
         }
@@ -238,7 +223,7 @@ class Solution {
         }
         return rtn;
     }
-    void dfs(int[][]& adj, int u, boolean[] visited) {
+    public void dfs(int[][] adj, int u, boolean[] visited) {
         visited[u] = true;
         for(int v: adj[u]) {
             if(!visited[v]) {
@@ -266,11 +251,11 @@ class Solution {
 
 ```java
 class Solution {
-    public int countComponents(int n, int[][]& edges) {
-        int[]parent(n);
+        public int countComponents(int n, int[][] edges) {
+        int[] parent = new int[n];
         iota(parent /* elements of parent */, 0);
 
-        for(auto edge: edges) {
+        for (int edge : edges) {
             unite(parent, edge[0], edge[1]);
         }
 
@@ -280,14 +265,14 @@ class Solution {
         }
         return rtn;
     }
-    int find(int[] parent, int x) {
+        public int find(int[] parent, int x) {
         if(parent[x] != x) {
             parent[x] = find(parent, parent[x]);
         }
         return parent[x];
     }
 
-    void unite(int[] parent, int a, int b) {
+    public void unite(int[] parent, int a, int b) {
         parent[find(parent, a)] = find(parent, b);
     }
 }

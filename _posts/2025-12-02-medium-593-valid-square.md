@@ -104,7 +104,7 @@ Additionally, we must check that no two points are the same (distance = 0).
 // import java.util.*;
 
 class Solution {
-    public boolean validSquare(int[] p1, int[] p2, int[] p3, int[] p4) {
+        public boolean validSquare(int[] p1, int[] p2, int[] p3, int[] p4) {
         HashSet<Integer> distances = new HashSet<Integer>();
 
         int[][] points = {p1, p2, p3, p4}
@@ -215,7 +215,7 @@ A more rigorous approach would also verify that `diagonal² = 2 × side²`:
 ```java
 // import java.util.*;
 class Solution {
-    public boolean validSquare(int[] p1, int[] p2, int[] p3, int[] p4) {
+        public boolean validSquare(int[] p1, int[] p2, int[] p3, int[] p4) {
         HashMap<Integer, Integer> distCount = new HashMap<Integer, Integer>();
         int[][] points = {p1, p2, p3, p4}
         for(int i = 0; i < 4; i++) {
@@ -232,7 +232,7 @@ class Solution {
         if(distCount.size() != 2) return false;
 
         int side = 0, diagonal = 0;
-        for(auto& [dist, count] : distCount) {
+        for (var e : distCount.entrySet()) {
             if(count == 4) side = dist;
             else if(count == 2) diagonal = dist;
             else return false;

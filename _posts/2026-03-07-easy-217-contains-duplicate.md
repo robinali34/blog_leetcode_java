@@ -53,7 +53,7 @@ Insert elements and check for duplicates in one pass. Early exit on first duplic
 ```java
 // import java.util.*;
 class Solution {
-    public boolean containsDuplicate(int[] nums) {
+        public boolean containsDuplicate(int[] nums) {
         HashSet<Integer> seen = new HashSet<Integer>();
         for (int n : nums) {
             if (seen.contains(n)) return true;
@@ -76,7 +76,7 @@ Same idea but tracks counts. Slightly more than needed here, but useful when the
 ```java
 // import java.util.*;
 class Solution {
-    public boolean containsDuplicate(int[] nums) {
+        public boolean containsDuplicate(int[] nums) {
         HashMap<Integer, Integer> mp = new HashMap<Integer, Integer>();
         for (int num : nums) {
             mp.put(num, mp.getOrDefault(num, 0) + 1);
@@ -100,7 +100,7 @@ Sort first, then duplicates become adjacent.
 // import java.util.Arrays;
 // import java.util.Collections;
 class Solution {
-    public boolean containsDuplicate(int[] nums) {
+        public boolean containsDuplicate(int[] nums) {
         Arrays.sort(nums);
         for (int i = 1; i < nums.length; i++) {
             if (nums[i] == nums[i - 1]) return true;
@@ -122,7 +122,7 @@ Build a set and compare sizes. Clean but no early exit.
 ```java
 // import java.util.stream.*;
 class Solution {
-    public boolean containsDuplicate(int[] nums) {
+        public boolean containsDuplicate(int[] nums) {
         return IntStream.of(nums).distinct().count() != nums.length;
     }
 }

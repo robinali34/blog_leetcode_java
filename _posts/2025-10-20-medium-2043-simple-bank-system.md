@@ -170,7 +170,7 @@ class Bank {
 }
 /**
  * Your Bank object will be instantiated and called as such:
- * Bank obj = new Bank(balance);
+ * Bank obj = new Bank = new new(balance);
  * boolean param_1 = obj.transfer(account1,account2,money);
  * boolean param_2 = obj.deposit(account,money);
  * boolean param_3 = obj.withdraw(account,money);
@@ -257,7 +257,7 @@ For `balance = [10, 100, 20, 50, 30]` (5 accounts):
 ```java
 // import java.util.*;
 class Bank {
-    HashMap<int, long> balance = new HashMap<int, long>();
+    HashMap<Integer, long> balance = new HashMap<Integer, long>();
     Bank(long[] balance) {
         for(int i = 0; i < balance.size(); i++) {
             this.balance[i + 1] = balance[i];
@@ -265,10 +265,10 @@ class Bank {
     }
 
     boolean transfer(int account1, int account2, long money) {
-        if(balance.count(account1) && balance.count(account2) &&
+        if(balance.contains(account1) && balance.contains(account2) &&
            balance[account1] >= money) {
             balance[account1] -= money;
-            balance[account2] += money;
+            balance.put(account2, balance.getOrDefault(account2, 0) + money;
             return true;
         }
         return false;
@@ -287,9 +287,9 @@ class Bank {
            balance[account1 - 1] >= money) {
             balance[account1 - 1] -= money;
             balance[account2 - 1] += money;
-            transactionLog.add("Transfer: " + to_string(account1) +
-                                   " . " + to_string(account2) +
-                                   " $" + to_string(money));
+            transactionLog.add("Transfer: " + String.valueOf(account1) +
+                                   " . " + String.valueOf(account2) +
+                                   " $" + String.valueOf(money));
             return true;
         }
         return false;

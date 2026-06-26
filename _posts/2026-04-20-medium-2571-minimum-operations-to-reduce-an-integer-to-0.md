@@ -73,7 +73,7 @@ Each add/subtract counts as one operation. Shifting doesn't count (we're just mo
 {% raw %}
 ```java
 class Solution {
-    public int minOperations(int n) {
+        public int minOperations(int n) {
         int ops = 0;
         while (n > 0) {
             if ((n 1) == 0) {
@@ -133,28 +133,28 @@ BFS explores all reachable states layer by layer, guaranteeing the shortest path
 ```java
 // import java.util.*;
 class Solution {
-    public int minOperations(int n) {
+        public int minOperations(int n) {
         if (n == 0) return 0;
 
         HashSet<Integer> visited = new HashSet<Integer>();
         Queue<Integer> q = new LinkedList<>();
-        q.push(n);
+        q.offer(n);
         visited.add(n);
         int ops = 0;
 
-        while (!q.length == 0) {
+        while (!q.isEmpty()) {
             int size = q.size();
             ops++;
             for (int i = 0; i < size; ++i) {
-                int cur = q.getFirst();
-                q.pop();
+                int cur = q.get(0);
+                q.poll();
 
                 for (int p = 1; p <= 1 << 17; p <<= 1) {
                     for (int next : {cur + p, cur - p}) {
                         if (next == 0) return ops;
-                        if (next > 0 && next < (1 << 18) && !visited.count(next)) {
+                        if (next > 0 && next < (1 << 18) && !visited.contains(next)) {
                             visited.add(next);
-                            q.push(next);
+                            q.offer(next);
                         }
                     }
                 }

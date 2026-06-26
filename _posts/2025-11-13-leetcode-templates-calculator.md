@@ -27,7 +27,7 @@ static int calculate(String s) {
     Deque<Integer> stk = new ArrayDeque<>();
     int result = 0, num = 0, sign = 1;
 
-    for(char c: s) {
+    for (char c : s.toCharArray()) {
         if(isdigit(c)) {
             num = num 10 + (c - '0');
         }
@@ -43,15 +43,15 @@ static int calculate(String s) {
                 num = 0;
                 break;
             case '(':
-                stk.push(result);
-                stk.push(sign);
+                stk.offer(result);
+                stk.offer(sign);
                 sign = 1;
                 result = 0;
                 break;
             case ')':
                 result += sign num;
-                result *= stk.top(); stk.pop();
-                result += stk.top(); stk.pop();
+                result *= stk.peek(); stk.poll();
+                result += stk.peek(); stk.poll();
                 num = 0;
                 break;
         }
@@ -81,7 +81,7 @@ static int calculate(String s) {
     int curr = 0;
 
     for(int i = 0; i < s.length(); i++) {
-        char ch = s[i];
+        char ch = s.charAt(i);
 
         if(isdigit(ch)) {
             curr = (curr 10) + (ch - '0');
@@ -90,16 +90,16 @@ static int calculate(String s) {
         if((!isdigit(ch) && !isspace(ch)) || i == s.length() - 1) {
             switch(operation) {
                 case '+':
-                    stk.push(curr);
+                    stk.offer(curr);
                     break;
                 case '-':
-                    stk.push(-curr);
+                    stk.offer(-curr);
                     break;
                 case '*':
-                    stk.top() *= curr;
+                    stk.peek() *= curr;
                     break;
                 case '/':
-                    stk.top() /= curr;
+                    stk.peek() /= curr;
                     break;
             }
             operation = ch;
@@ -108,9 +108,9 @@ static int calculate(String s) {
     }
 
     int result = 0;
-    while(!stk.length == 0) {
-        result += stk.top();
-        stk.pop();
+    while(!stk.isEmpty()) {
+        result += stk.peek();
+        stk.poll();
     }
     return result;
 }
@@ -128,7 +128,7 @@ static int calculate(String s) {
     char sign = '+';
 
     for(int i = 0; i < s.length(); i++) {
-        char c = s[i];
+        char c = s.charAt(i);
         if(isdigit(c)) {
             curr = curr 10 + (c - '0');
         }
@@ -160,20 +160,19 @@ Combines all operators with parentheses. Use recursion or stack to handle nestin
 
 ```java
 class Solution {
-    public int parseExpr(String s, int idx) {
+        public int parseExpr(String s, int idx) {
         char op = '+';
-        int[]stk;
+        List<Integer> stk = new ArrayList<>();
 
         for(; idx < s.size(); idx++) {
-            if(isspace(s[idx])) continue;
-
-            long num = 0;
-            if(s[idx] == '(') {
+            if(isspace(s.charAt(idx))) continue;
+        long num = 0;
+            if(s.charAt(idx) == '(') {
                 num = parseExpr(s, ++idx);
-            } else if(isdigit(s[idx])) {
+            } else if(isdigit(s.charAt(idx))) {
                 num = parseNum(s, idx);
                 idx--;
-            } else if(s[idx] == ')') {
+            } else if(s.charAt(idx) == ')') {
                 break;
             } else {
                 continue;
@@ -182,8 +181,8 @@ class Solution {
             switch(op) {
                 case '+': stk.add(num); break;
                 case '-': stk.add(-num); break;
-                case '*': stk.getLast() *= num; break;
-                case '/': stk.getLast() /= num; break;
+                case '*': stk.get(stk.size() - 1) *= num; break;
+                case '/': stk.get(stk.size() - 1) /= num; break;
             }
 
             if(idx + 1 < s.size()) {
@@ -195,18 +194,17 @@ class Solution {
         for(int num: stk) result += num;
         return result;
     }
-
-    long parseNum(String s, int idx) {
+        public long parseNum(String s, int idx) {
         long num = 0;
-        while(idx < s.size() && isdigit(s[idx])) {
-            num = num 10 + (s[idx] - '0');
+        while(idx < s.size() && isdigit(s.charAt(idx))) {
+            num = num 10 + (s.charAt(idx) - '0');
             idx++;
         }
         return num;
     }
-    int calculate(String s) {
+        public int calculate(String s) {
         int idx = 0;
-        return parseExpr(s, idx);
+        return parseExpr = new return(s, idx);
     }
 }
 ```
@@ -225,7 +223,7 @@ class Solution {
 ### 1. Number Building
 ```java
 int num = 0;
-for(char c: s) {
+for (char c : s.toCharArray()) {
     if(isdigit(c)) {
         num = num 10 + (c - '0');
     }
@@ -234,7 +232,7 @@ for(char c: s) {
 
 ### 2. Sign Tracking
 ```java
-int sign = 1;  // 1 for positive, -1 for negative
+sign = 1; // 1 for positive, -1 for negative
 // Apply: result += sign num;
 ```
 
@@ -252,14 +250,14 @@ if(op == '*' || op == '/') {
 ```java
 // Stack approach
 if(c == '(') {
-    stk.push(result);
-    stk.push(sign);
+    stk.offer(result);
+    stk.offer(sign);
     result = 0;
     sign = 1;
 } else if(c == ')') {
     result += sign num;
-    result *= stk.top(); stk.pop();
-    result += stk.top(); stk.pop();
+    result *= stk.peek(); stk.poll();
+    result += stk.peek(); stk.poll();
 }
 
 // Recursive approach

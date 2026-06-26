@@ -90,7 +90,7 @@ This problem is a classic application of the prefix sum technique combined with 
 ```java
 // import java.util.*;
 class Solution {
-    public int subarraySum(int[] nums, int k) {
+        public int subarraySum(int[] nums, int k) {
         int cnt = 0, sum = 0;
         HashMap<Integer, Integer> prefixSum = new HashMap<Integer, Integer>();
         prefixSum.put(0, 1);

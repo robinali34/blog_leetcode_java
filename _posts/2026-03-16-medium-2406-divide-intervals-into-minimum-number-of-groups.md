@@ -80,17 +80,17 @@ Intervals are **inclusive**: `[1,5]` and `[5,10]` share the point 5, so they ove
 // import java.util.Arrays;
 // import java.util.Collections;
 class Solution {
-    public int minGroups(int[][]& intervals) {
+        public int minGroups(int[][] intervals) {
         Arrays.sort(intervals);
-        priority_queue<int, int[], greater<int>> pq;
+        PriorityQueue<Integer> pq;
 
-        for (auto interval : intervals) {
-            int start = interval[0];
+        for (int interval : intervals) {
+        int start = interval[0];
             int end = interval[1];
-            if (!pq.length == 0 && pq.top() < start) {
-                pq.pop();
+            if (!pq.isEmpty() && pq.peek() < start) {
+                pq.poll();
             }
-            pq.push(end);
+            pq.offer(end);
         }
 
         return pq.size();
@@ -117,9 +117,9 @@ Sort events by time, sweep through, and track the running count. The peak = mini
 // import java.util.Arrays;
 // import java.util.Collections;
 class Solution {
-    public int minGroups(int[][]& intervals) {
-        List<int[]> events;
-        for (auto interval : intervals) {
+        public int minGroups(int[][] intervals) {
+        List<int[]> events = new ArrayList<>();
+        for (int interval : intervals) {
             events.add({interval[0], 1});
             events.add({interval[1] + 1, -1});
         }
@@ -127,7 +127,7 @@ class Solution {
 
         int curr = 0;
         int maxOverlap = 0;
-        for (auto& [time, val] : events) {
+        for (var e : events.entrySet()) {
             curr += val;
             maxOverlap = Math.max(maxOverlap, curr);
         }

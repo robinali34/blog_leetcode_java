@@ -119,9 +119,9 @@ Search each row using binary search.
 
 ```java
 class Solution {
-    public boolean searchMatrix(int[][]& matrix, int target) {
+        public boolean searchMatrix(int[][] matrix, int target) {
         if(matrix.length == 0 || matrix[0].empty()) return false;
-        int rows = matrix.size(), cols = matrix[0].length;
+        int rows = matrix.length, cols = matrix[0].length;
 
         for(int i = 0; i < rows; i++) {
             int left = 0, right = cols - 1;
@@ -156,14 +156,11 @@ Use divide and conquer by eliminating regions based on the middle column.
 
 ```java
 class Solution {
-    public boolean searchMatrix(int[][]& matrix, int target, int top, int left, int bottom, int right) {
+        public boolean searchMatrix(int[][] matrix, int target, int top, int left, int bottom, int right) {
         if(top > bottom || left > right) return false;
         if(target < matrix[top][left] || target > matrix[bottom][right]) return false;
-
         int midCol = left + (right - left) / 2;
-        int row = top;
-
-        // Find the last row where matrix[row][midCol] <= target
+        row = top; // Find the last row where matrix[row][midCol] <= target
         while(row <= bottom && matrix[row][midCol] <= target) {
             if(matrix[row][midCol] == target) return true;
             row++;
@@ -173,9 +170,9 @@ class Solution {
         return searchMatrix(matrix, target, top, midCol + 1, row - 1, right) ||
                searchMatrix(matrix, target, row, left, bottom, midCol - 1);
     }
-    boolean searchMatrix(int[][]& matrix, int target) {
+        public boolean searchMatrix(int[][] matrix, int target) {
         if(matrix.length == 0 || matrix[0].empty()) return false;
-        return searchMatrix(matrix, target, 0, 0, matrix.size() - 1, matrix[0].length - 1);
+        return searchMatrix = new return(matrix, target, 0, 0, matrix.length - 1, matrix[0].length - 1);
     }
 }
 ```
@@ -195,9 +192,9 @@ Start from top-right corner and eliminate row or column at each step.
 
 ```java
 class Solution {
-    public boolean searchMatrix(int[][]& matrix, int target) {
+        public boolean searchMatrix(int[][] matrix, int target) {
         if(matrix.length == 0 || matrix[0].empty()) return false;
-        int rows = matrix.size(), cols = matrix[0].length;
+        int rows = matrix.length, cols = matrix[0].length;
         int row = 0, col = cols - 1;
 
         while(row < rows && col >) {

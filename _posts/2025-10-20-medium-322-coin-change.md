@@ -156,10 +156,9 @@ Recursively explore all possible coin combinations.
 
 ```java
 class Solution {
-    public int coinChange(int[] coins, int amount) {
+        public int coinChange(int[] coins, int amount) {
         if (amount == 0) return 0;
         if (amount < 0) return -1;
-
         int minCoins = Integer.MAX_VALUE;
         for (int coin : coins) {
             int result = coinChange(coins, amount - coin);
@@ -184,13 +183,11 @@ Add memoization to cache results and avoid recomputation.
 
 ```java
 class Solution {
-    public int[]memo;
-
-    int dfs(int[] coins, int amount) {
+    List<Integer> memo = new ArrayList<>();
+        public int dfs(int[] coins, int amount) {
         if (amount == 0) return 0;
         if (amount < 0) return -1;
         if (memo[amount] != -1) return memo[amount];
-
         int minCoins = Integer.MAX_VALUE;
         for (int coin : coins) {
             int result = dfs(coins, amount - coin);
@@ -202,9 +199,9 @@ class Solution {
         memo[amount] = (minCoins == Integer.MAX_VALUE) ? -1 : minCoins;
         return memo[amount];
     }
-    int coinChange(int[] coins, int amount) {
+        public int coinChange(int[] coins, int amount) {
         memo.assign(amount + 1, -1);
-        return dfs(coins, amount);
+        return dfs = new return(coins, amount);
     }
 }
 ```
@@ -215,8 +212,8 @@ class Solution {
 
 ```java
 class Solution {
-    public int coinChange(int[] coins, int amount) {
-        int[]dp(amount + 1, amount + 1);
+        public int coinChange(int[] coins, int amount) {
+        public int[] dp(amount + 1, amount + 1);
         dp[0] = 0;
         for(int i = 1; i <= amount; i++) {
             for(int j = 0; j < (int)coins.size(); j++) {
@@ -309,12 +306,12 @@ Result: dp[6] = 2 (coins: 3 + 3)
 ### **Top-Down DP (Memoization)**
 ```java
 class Solution {
-    public int coinChange(int[] coins, int amount) {
-        int[]memo(amount + 1, -1);
+        public int coinChange(int[] coins, int amount) {
+        public int[] memo(amount + 1, -1);
         int result = dfs(coins, amount, memo);
         return result == Integer.MAX_VALUE ? -1 : result;
     }
-    int dfs(int[] coins, int amount, int[] memo) {
+        public int dfs(int[] coins, int amount, int[] memo) {
         if (amount == 0) return 0;
         if (amount < 0) return Integer.MAX_VALUE;
         if (memo[amount] != -1) return memo[amount];

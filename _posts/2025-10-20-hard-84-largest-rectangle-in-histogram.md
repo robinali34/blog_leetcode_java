@@ -110,19 +110,19 @@ This is a classic **Monotonic Stack** problem. The key insight is that for each 
 ```java
 // import java.util.*;
 class Solution {
-    public int largestRectangleArea(int[] heights) {
+        public int largestRectangleArea(int[] heights) {
         int max_area = 0;
         heights.add(0);
         int n = heights.length;
         Deque<Integer> stk = new ArrayDeque<>();
         for(int i = 0; i < n; i++) {
-            while(!stk.length == 0 && heights[i] < heights[stk.top()]) {
-                int height = heights[stk.top()];
-                stk.pop();
-                int width = stk.length == 0? i: i - stk.top() - 1;
+            while(!stk.isEmpty() && heights[i] < heights[stk.peek()]) {
+                int height = heights[stk.peek()];
+                stk.poll();
+                int width = stk.length == 0? i: i - stk.peek() - 1;
                 max_area = Math.max(max_area, height width);
             }
-            stk.push(i);
+            stk.offer(i);
         }
         return max_area;
     }
@@ -195,7 +195,7 @@ static int largestRectangleArea(int[] heights) {
 ### Divide and Conquer (O(n log n)):
 ```java
 static int largestRectangleArea(int[] heights) {
-    return divideConquer(heights, 0, heights.length - 1);
+    return divideConquer = new return(heights, 0, heights.length - 1);
 }
 
 static int divideConquer(int[] heights, int left, int right) {

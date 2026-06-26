@@ -108,11 +108,11 @@ Use DFS from Pacific and Atlantic ocean boundaries to find all cells that can re
 
 ```java
 class Solution {
-    public int m, n;
-    public int[][] dirs = {&#123;0, 1&#125;, &#123;0, -1&#125;, &#123;1, 0&#125;, &#123;-1, 0&#125;}
-    void dfs(int[][]& heights, boolean[][]& visited, int row, int col) {
+        int m, n;
+    int[][] dirs = {&#123;0, 1&#125;, &#123;0, -1&#125;, &#123;1, 0&#125;, &#123;-1, 0&#125;}
+    public void dfs(int[][] heights, boolean[][]& visited, int row, int col) {
         visited[row][col] = true;
-        for(auto dir: dirs) {
+        for (int dir : dirs) {
             int newRow = row + dir[0], newCol = col + dir[1];
             if(newRow < 0 || newRow >= m || newCol < 0 || newCol >= n) continue;
             if(visited[newRow][newCol] || heights[row][col] > heights[newRow][newCol]) continue;
@@ -120,7 +120,7 @@ class Solution {
             dfs(heights, visited, newRow, newCol);
         }
     }
-    int[][] pacificAtlantic(int[][]& heights) {
+    int[][] pacificAtlantic(int[][] heights) {
         m = heights.length, n = heights[0].length;
         boolean[][] pacific(m, boolean[](n, false));
         boolean[][] atlantic(m, boolean[](n, false));
@@ -134,11 +134,11 @@ class Solution {
         for(int j = n - 1; j >= 0; j--) dfs(heights, atlantic, m - 1, j);
 
         // Find cells that can reach both oceans
-        int[][] rtn;
+        List<int[]> rtn = new ArrayList<>();
         for(int i = 0; i < m; i++) {
             for(int j = 0; j < n; j++) {
                 if(pacific[i][j] && atlantic[i][j]) {
-                    rtn.add({i, j});
+                    rtn.add(new int[] {i, j});
                 }
             }
         }
@@ -215,9 +215,9 @@ Atlantic reachable cells:
 
 ### DFS Function:
 ```java
-static void dfs(int[][]& heights, boolean[][]& visited, int row, int col) {
+static void dfs(int[][] heights, boolean[][]& visited, int row, int col) {
     visited[row][col] = true;
-    for(auto dir: dirs) {
+    for (int dir : dirs) {
         int newRow = row + dir[0], newCol = col + dir[1];
         if(newRow < 0 || newRow >= m || newCol < 0 || newCol >= n) continue;
         if(visited[newRow][newCol] || heights[row][col] > heights[newRow][newCol]) continue;
@@ -321,23 +321,23 @@ Where m and n are the dimensions of the grid.
 ### Approach 1: BFS from Boundaries
 ```java
 class Solution {
-    public int[][] dirs = {&#123;0, 1&#125;, &#123;0, -1&#125;, &#123;1, 0&#125;, &#123;-1, 0&#125;}
-    void bfs(int[][]& heights, boolean[][]& visited, queue<int[]>& q) {
-        while(!q.length == 0) {
-            auto [row, col] = q.getFirst();
-            q.pop();
+    int[][] dirs = {&#123;0, 1&#125;, &#123;0, -1&#125;, &#123;1, 0&#125;, &#123;-1, 0&#125;}
+    public void bfs(int[][] heights, boolean[][]& visited, queue<int[]>& q) {
+        while(!q.isEmpty()) {
+            auto [row, col] = q.get(0);
+            q.poll();
 
-            for(auto dir: dirs) {
+            for (int dir : dirs) {
                 int newRow = row + dir[0], newCol = col + dir[1];
                 if(newRow < 0 || newRow >= heights.length || newCol < 0 || newCol >= heights[0].length) continue;
                 if(visited[newRow][newCol] || heights[row][col] > heights[newRow][newCol]) continue;
 
                 visited[newRow][newCol] = true;
-                q.push({newRow, newCol});
+                q.offer(new int[] {newRow, newCol});
             }
         }
     }
-    int[][] pacificAtlantic(int[][]& heights) {
+    int[][] pacificAtlantic(int[][] heights) {
         int m = heights.length, n = heights[0].length;
         boolean[][] pacific(m, boolean[](n, false));
         boolean[][] atlantic(m, boolean[](n, false));
@@ -346,32 +346,32 @@ class Solution {
 
         // Add Pacific boundaries
         for(int i = 0; i < m; i++) {
-            pacificQ.push({i, 0});
+            pacificQ.offer(new int[] {i, 0});
             pacific[i][0] = true;
         }
         for(int j = 0; j < n; j++) {
-            pacificQ.push({0, j});
+            pacificQ.offer(new int[] {0, j});
             pacific[0][j] = true;
         }
 
         // Add Atlantic boundaries
         for(int i = 0; i < m; i++) {
-            atlanticQ.push({i, n-1});
+            atlanticQ.offer({i, n-1});
             atlantic[i][n-1] = true;
         }
         for(int j = 0; j < n; j++) {
-            atlanticQ.push({m-1, j});
+            atlanticQ.offer({m-1, j});
             atlantic[m-1][j] = true;
         }
 
         bfs(heights, pacific, pacificQ);
         bfs(heights, atlantic, atlanticQ);
 
-        int[][] result;
+        List<int[]> result = new ArrayList<>();
         for(int i = 0; i < m; i++) {
             for(int j = 0; j < n; j++) {
                 if(pacific[i][j] && atlantic[i][j]) {
-                    result.add({i, j});
+                    result.add(new int[] {i, j});
                 }
             }
         }
@@ -386,17 +386,16 @@ class Solution {
 ### Approach 2: Union-Find
 ```java
 class Solution {
-    public int[]parent;
-    int[]rank;
-
-    int find(int x) {
+    List<Integer> parent = new ArrayList<>();
+    List<Integer> rank = new ArrayList<>();
+        public int find(int x) {
         if(parent[x] != x) {
             parent[x] = find(parent[x]);
         }
         return parent[x];
     }
 
-    void unite(int x, int y) {
+    public void unite(int x, int y) {
         int px = find(x), py = find(y);
         if(px == py) return;
 
@@ -409,7 +408,7 @@ class Solution {
             rank.put(px, rank.getOrDefault(px, 0) + 1);
         }
     }
-    int[][] pacificAtlantic(int[][]& heights) {
+    int[][] pacificAtlantic(int[][] heights) {
         int m = heights.length, n = heights[0].length;
         int total = m n;
         parent.resize(total);
@@ -430,7 +429,7 @@ class Solution {
         }
 
         // Find cells that can reach both oceans
-        int[][] result;
+        List<int[]> result = new ArrayList<>();
         for(int i = 0; i < m; i++) {
             for(int j = 0; j < n; j++) {
                 int curr = i n + j;
@@ -465,7 +464,7 @@ class Solution {
                 }
 
                 if(canReachPacific && canReachAtlantic) {
-                    result.add({i, j});
+                    result.add(new int[] {i, j});
                 }
             }
         }

@@ -82,19 +82,19 @@ Step 2: queue = ["AAACGGTA"]
 ```java
 // import java.util.*;
 class Solution {
-    public int minMutation(String startGene, String endGene, String[] bank) {
+        public int minMutation(String startGene, String endGene, String[] bank) {
         HashSet<String> bankSet(bank /* elements of bank */);
-        if (!bankSet.contains(endGene)) return -1;
+        if (!bankSet.containsKey(endGene)) return -1;
 
         Queue<String> q = new LinkedList<>();
-        q.push(startGene);
+        q.offer(startGene);
         int steps = 0;
         char[]genes = {'A', 'C', 'G', 'T'}
-        while (!q.length == 0) {
+        while (!q.isEmpty()) {
             int size = q.size();
             for (int i = 0; i < size; i++) {
-                String curr = q.getFirst();
-                q.pop();
+                String curr = q.get(0);
+                q.poll();
                 if (curr == endGene) return steps;
 
                 for (int j = 0; j < curr.size(); j++) {
@@ -103,7 +103,7 @@ class Solution {
                         if (org == g) continue;
                         curr[j] = g;
                         if (bankSet.contains(curr)) {
-                            q.push(curr);
+                            q.offer(curr);
                             bankSet.remove(curr);
                         }
                     }

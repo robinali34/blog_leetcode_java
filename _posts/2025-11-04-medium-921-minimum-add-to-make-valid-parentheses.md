@@ -86,7 +86,7 @@ Use counters to track unmatched opening and closing parentheses. When we see a c
 
 ```java
 class Solution {
-    public int minAddToMakeValid(String s) {
+        public int minAddToMakeValid(String s) {
         int left = 0, right = 0;
         for(char ch: s) {
             if(ch == '(') {
@@ -221,14 +221,14 @@ static int minAddToMakeValid(String s) {
     Deque<char> st = new ArrayDeque<>();
     int minAdd = 0;
 
-    for(char c: s) {
+    for (char c : s.toCharArray()) {
         if(c == '(') {
-            st.push(c);
+            st.offer(c);
         } else {
             if(st.length == 0) {
                 minAdd++;  // Need to add '('
             } else {
-                st.pop();  // Match found
+                st.poll();  // Match found
             }
         }
     }
@@ -248,14 +248,14 @@ static int minAddToMakeValid(String s) {
     Deque<char> st = new ArrayDeque<>();
     int right = 0;
 
-    for(char c: s) {
+    for (char c : s.toCharArray()) {
         if(c == '(') {
-            st.push(c);
+            st.offer(c);
         } else {
             if(st.length == 0) {
                 right++;  // Need to add '('
             } else {
-                st.pop();  // Match found
+                st.poll();  // Match found
             }
         }
     }
@@ -482,18 +482,18 @@ static int minAddToMakeValid(String s) {
     Deque<char> st = new ArrayDeque<>();
     int minAdd = 0;
 
-    for(char c: s) {
+    for (char c : s.toCharArray()) {
         if(c == '(' || c == '[' || c == '{') {
-            st.push(c);
+            st.offer(c);
         } else {
             if(st.length == 0) {
                 minAdd++;  // Need to add opening
             } else {
-                char top = st.top();
+                char top = st.peek();
                 if((c == ')' && top == '(') ||
                    (c == ']' && top == '[') ||
                    (c == '}' && top == '{')) {
-                    st.pop();
+                    st.poll();
                 } else {
                     minAdd++;  // Mismatch, need to add opening
                 }

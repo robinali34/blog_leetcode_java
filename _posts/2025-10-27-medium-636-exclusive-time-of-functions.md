@@ -138,15 +138,13 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 ```java
 class Solution {
-    public int[]exclusiveTime(int n, String[] logs) {
+    public int[] exclusiveTime(int n, String[] logs) {
         int[] rtn = new int[n];
-        stack<int[]> st;  // {function_id, start_time}
+        stack<int[]> st;  // new int[] {function_id, start_time}
 
         for(String log: logs) {
             int id = 0, time = 0;
-            boolean isStart = false;
-
-            // Parse function ID
+            isStart = false; // Parse function ID
             int i = 0;
             while(log[i] != ':') {
                 id = id 10 + (log[i] - '0');
@@ -170,17 +168,17 @@ class Solution {
 
             if(isStart) {
                 // Push function to stack
-                st.push({id, time});
+                st.offer(new int[] {id, time});
             } else {
                 // Pop and calculate duration
-                auto [funcId, startTime] = st.top();
-                st.pop();
+                int[] funcIdpair = st.peek(); int funcId = funcIdpair[0]; int startTime = funcIdpair[1];
+                st.poll();
                 int duration = time - startTime + 1;  // +1 to include end timestamp
-                rtn[funcId] += duration;
+                rtn.put(funcId, rtn.getOrDefault(funcId, 0) + duration;
 
                 // Subtract from parent function
-                if(!st.length == 0) {
-                    rtn[st.top().first] -= duration;
+                if(!st.isEmpty()) {
+                    rtn[st.peek().first] -= duration;
                 }
             }
         }
@@ -195,36 +193,33 @@ class Solution {
 
 ```java
 class Solution {
-    public int[]exclusiveTime(int n, String[] logs) {
+    public int[] exclusiveTime(int n, String[] logs) {
         int[] rtn = new int[n];
         stack<int[]> st;
 
         for(String log: logs) {
-            stringstream ss(log);
-            String token;
+            stringstream ss = new stringstream(log);
+        String token;
 
-            // Parse ID
-            getline(ss, token, ':');
-            int id = stoi(token);
+            // Parse ID getline = new ID(ss, token, ':');
+            int id = Integer.parseInt(token);
 
-            // Parse action
-            getline(ss, token, ':');
+            // Parse action getline = new action(ss, token, ':');
             boolean isStart = (token == "start");
 
-            // Parse timestamp
-            getline(ss, token, ':');
-            int time = stoi(token);
+            // Parse timestamp getline = new timestamp(ss, token, ':');
+            int time = Integer.parseInt(token);
 
             if(isStart) {
-                st.push({id, time});
+                st.offer(new int[] {id, time});
             } else {
-                auto [funcId, startTime] = st.top();
-                st.pop();
+                int[] funcIdpair = st.peek(); int funcId = funcIdpair[0]; int startTime = funcIdpair[1];
+                st.poll();
                 int duration = time - startTime + 1;
-                rtn[funcId] += duration;
+                rtn.put(funcId, rtn.getOrDefault(funcId, 0) + duration;
 
-                if(!st.length == 0) {
-                    rtn[st.top().first] -= duration;
+                if(!st.isEmpty()) {
+                    rtn[st.peek().first] -= duration;
                 }
             }
         }
@@ -240,33 +235,32 @@ class Solution {
 ```java
 // import java.util.*;
 class Solution {
-    public int[]exclusiveTime(int n, String[] logs) {
+    public int[] exclusiveTime(int n, String[] logs) {
         int[] rtn = new int[n];
         Deque<Integer> st = new ArrayDeque<>();  // Only store function IDs
-
         int prevTime = 0;
         for(String log: logs) {
-            stringstream ss(log);
+            stringstream ss = new stringstream(log);
             String token;
 
             getline(ss, token, ':');
-            int id = stoi(token);
+            int id = Integer.parseInt(token);
 
             getline(ss, token, ':');
             boolean isStart = (token == "start");
 
             getline(ss, token, ':');
-            int time = stoi(token);
+            int time = Integer.parseInt(token);
 
             if(isStart) {
-                if(!st.length == 0) {
-                    rtn[st.top()] += time - prevTime;
+                if(!st.isEmpty()) {
+                    rtn[st.peek()] += time - prevTime;
                 }
-                st.push(id);
+                st.offer(id);
                 prevTime = time;
             } else {
-                rtn[st.top()] += time - prevTime + 1;
-                st.pop();
+                rtn[st.peek()] += time - prevTime + 1;
+                st.poll();
                 prevTime = time + 1;
             }
         }
@@ -322,19 +316,19 @@ if(log[i + 1] == 's') isStart = true;
 ```java
 // Start event: push function onto stack
 if(isStart) {
-    st.push({id, time});
+    st.offer(new int[] {id, time});
 }
 
 // End event: pop and calculate
 else {
-    auto [funcId, startTime] = st.top();
-    st.pop();
+    int[] funcIdpair = st.peek(); int funcId = funcIdpair[0]; int startTime = funcIdpair[1];
+    st.poll();
     int duration = time - startTime + 1;
-    rtn[funcId] += duration;
+    rtn.put(funcId, rtn.getOrDefault(funcId, 0) + duration;
 
     // Subtract from parent
-    if(!st.length == 0) {
-        rtn[st.top().first] -= duration;
+    if(!st.isEmpty()) {
+        rtn[st.peek().first] -= duration;
     }
 }
 ```

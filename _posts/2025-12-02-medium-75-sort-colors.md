@@ -79,12 +79,12 @@ class Solution {
 
         for(int i = 0; i <= p2; i++) {
             while(i <= p2 && nums[i] == 2) {
-                swap(nums[i], nums[p2]);
+                swap(nums, i, p2);
                 p2--;
             }
 
             if(nums[i] == 0) {
-                swap(nums[i], nums[p0]);
+                swap(nums, i, p0);
                 p0++;
             }
         }
@@ -182,7 +182,7 @@ For this specific problem (only 3 values), we could use counting sort:
 ```java
 class Solution {
     public void sortColors(int[] nums) {
-        int count[3] = {0}
+        int[] count = new int[3] = {0}
         for(int num : nums) count.put(num, count.getOrDefault(num, 0) + 1);
 
         int idx = 0;
@@ -248,7 +248,7 @@ class Solution {
             if(nums[p2] == 2) {
                 p2--;
             } else if(nums[p0] == 2) {
-                swap(nums[p0], nums[p2]);
+                swap(nums, p0, p2);
                 p2--;
             } else {
                 p0++;
@@ -259,7 +259,7 @@ class Solution {
         p0 = 0;
         for(int i = 0; i <= p2; i++) {
             if(nums[i] == 0) {
-                swap(nums[i], nums[p0]);
+                swap(nums, i, p0);
                 p0++;
             }
         }
@@ -280,14 +280,12 @@ class Solution {
 
         while(i <= right) {
             if(nums[i] == 0) {
-                // Move 0 to front
-                swap(nums[i], nums[left]);
+                // Move 0 to front swap = new front(nums, i, left);
                 left++;
                 i++;
             } else if(nums[i] == 2) {
                 // Move 2 to end, but don't increment i
-                // because swapped element needs to be checked
-                swap(nums[i], nums[right]);
+                // because swapped element needs to be checked swap = new checked(nums, i, right);
                 right--;
             } else {
                 // nums[i] == 1, leave it

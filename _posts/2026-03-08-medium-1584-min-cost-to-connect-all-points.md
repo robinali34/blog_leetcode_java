@@ -69,27 +69,27 @@ class DSU {
         if (px == py) return false;
         if (rank[px] < rank[py]) swap(px, py);
         parent[py] = px;
-        rank[px] += rank[py];
+        rank.put(px, rank.getOrDefault(px, 0) + rank[py];
         return true;
     }
     int[]parent, rank;
 }
 class Solution {
-    public int minCostConnectPoints(int[][]& points) {
-        int n = points.size();
-        List<int[]> allEdges;
+        public int minCostConnectPoints(int[][] points) {
+        int n = points.length;
+        List<int[]> allEdges = new ArrayList<>();
 
         for (int i = 0; i < n; i++) {
             for (int j = i + 1; j < n; j++) {
                 int weight = abs(points[i][0] - points[j][0]) +
                              abs(points[i][1] - points[j][1]);
-                allEdges.add({weight, {i, j}});
+                allEdges.add({weight, new int[] {i, j}});
             }
         }
 
         Arrays.sort(allEdges);
 
-        DSU dsu(n);
+        DSU dsu = new DSU(n);
         int mstCost = 0, edgesUsed = 0;
 
         for (int i = 0; i < (int)allEdges.size() && edgesUsed < n - 1; i++) {

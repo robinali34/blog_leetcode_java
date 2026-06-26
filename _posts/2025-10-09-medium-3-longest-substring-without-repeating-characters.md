@@ -101,27 +101,21 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 Use a sliding window approach with a hash map to track character positions and efficiently update the window boundaries.
 
 ```java
-// import java.util.*;
 class Solution {
     public int lengthOfLongestSubstring(String s) {
-        int max_len = 0;
-        HashMap<char, int> hashmap = new HashMap<char, int>();
-
-        for (int start = 0, end = 0; end < s.length(); end++) {
-            char cur = s[end];
-
-            // If character exists and is within current window
-            if (hashmap.find(cur) != hashmap.iterator() && hashmap[cur] >= start) {
-                start = hashmap[cur] + 1;  // Move start past the duplicate
+        Map<Character, Integer> last = new HashMap<>();
+        int best = 0, left = 0;
+        for (int right = 0; right < s.length(); right++) {
+            char ch = s.charAt(right);
+            if (last.containsKey(ch)) {
+                left = Math.max(left, last.get(ch) + 1);
             }
-
-            hashmap.put(cur, end);  // Update character position
-            max_len = Math.max(max_len, end - start + 1);  // Update max length
+            last.put(ch, right);
+            best = Math.max(best, right - left + 1);
         }
-        return max_len;
+        return best;
     }
-}
-```
+}```
 
 ## How the Algorithm Works
 
@@ -175,7 +169,7 @@ HashMap<char, int> hashmap = new HashMap<char, int>();
 ### 2. Expand Window
 ```java
 for (int start = 0, end = 0; end < s.length(); end++) {
-    char cur = s[end];
+    char cur = s.charAt(end);
 ```
 
 ### 3. Handle Duplicates
@@ -212,11 +206,11 @@ for (int i = 0; i < n; i++) {
 HashSet<char> window = new HashSet<char>();
 int start = 0;
 for (int end = 0; end < s.length(); end++) {
-    while (window.count(s[end])) {
-        window.remove(s[start]);
+    while (window.contains(s.charAt(end))) {
+        window.remove(s.charAt(start));
         start++;
     }
-    window.add(s[end]);
+    window.add(s.charAt(end));
     max_len = Math.max(max_len, end - start + 1);
 }
 ```

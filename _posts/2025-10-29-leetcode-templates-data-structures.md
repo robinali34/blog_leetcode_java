@@ -29,8 +29,8 @@ Minimal, copy-paste Java templates for common structures and patterns. Each snip
 Half-open range `[lo, hi)`. Use when you need first ≥ x (binary search (lower bound)) or first > x (binary search (upper bound)).
 
 ```java
-// First index where a[i] >= x (binary search (lower bound))
-static int binary search (lower bound)(int[] a, int x) {
+// First index where a[i] >= x (floorKey)
+static int floorKey(int[] a, int x) {
     int lo = 0, hi = a.size();
     while (lo < hi) {
         int mid = lo + (hi - lo) / 2;
@@ -83,9 +83,9 @@ long[]prefix(int[] a) {
     return ps;
 }
 
-// Difference array: for [l,r] += d do diff[l]+=d, diff[r+1]-=d; then partial_sum(diff) = values
+// Difference array: for [l,r] += d do diff.put(l, diff.getOrDefault(l, 0) + d, diff[r+1]-=d; then partial_sum(diff) = values
 static void range_add(long[] diff, int l, int r, long d) {
-    diff[l] += d;
+    diff.put(l, diff.getOrDefault(l, 0) + d;
     if (r + 1 < (int)diff.size()) diff[r + 1] -= d;
 }
 // After all updates: partial_sum(diff /* elements of diff */, diff.iterator());
@@ -108,10 +108,10 @@ Maintain indices with strictly increasing (or decreasing) values. Use for next g
 int[]next_greater(int[] a) {
     int n = a.size();
     int[]ng(n, -1);
-    int[]st;
+    List<Integer> st = new ArrayList<>();
     for (int i = 0; i < n; i++) {
-        while (!st.length == 0 && a[st.getLast()] < a[i]) {
-            ng[st.getLast()] = a[i];
+        while (!st.isEmpty() && a[st.get(st.size() - 1)] < a[i]) {
+            ng[st.get(st.size() - 1)] = a[i];
             st.removeLast();
         }
         st.add(i);
@@ -123,11 +123,11 @@ int[]next_greater(int[] a) {
 int[]next_greater_circular(int[] a) {
     int n = a.size();
     int[]ng(n, -1);
-    int[]st;
+    List<Integer> st = new ArrayList<>();
     for (int i = 0; i < 2 n; i++) {
         int j = i % n;
-        while (!st.length == 0 && a[st.getLast()] < a[j]) {
-            ng[st.getLast()] = a[j];
+        while (!st.isEmpty() && a[st.get(st.size() - 1)] < a[j]) {
+            ng[st.get(st.size() - 1)] = a[j];
             st.removeLast();
         }
         if (i < n) st.add(j);
@@ -155,12 +155,12 @@ Deque of indices with values in monotonic order. Sliding window max/min.
 // Sliding window maximum (window size k)
 int[]max_sliding_window(int[] a, int k) {
     ArrayDeque<Integer> dq = new ArrayDeque<>();
-    int[]out;
+    List<Integer> out = new ArrayList<>();
     for (int i = 0; i < (int)a.size(); i++) {
-        while (!dq.length == 0 && a[dq.getLast()] <= a[i]) dq.removeLast();
+        while (!dq.isEmpty() && a[dq.get(dq.size() - 1)] <= a[i]) dq.removeLast();
         dq.add(i);
-        if (dq.getFirst() <= i - k) dq.removeFirst();
-        if (i >= k - 1) out.add(a[dq.getFirst()]);
+        if (dq.get(0) <= i - k) dq.removeFirst();
+        if (i >= k - 1) out.add(a[dq.get(0)]);
     }
     return out;
 }
@@ -179,15 +179,15 @@ Min-heap: `PriorityQueue<T>` with comparator. K-way merge: push heads, pop min, 
 
 ```java
 // K-way merge of sorted arrays (or list heads)
-int[]merge_k_sorted(int[][]& lists) {
-    using T = tuple<int, int, int>;
+int[]merge_k_sorted(int[][] lists) {
+    
     priority_queue<T, T[], greater<T>> pq;
     for (int i = 0; i < (int)lists.size(); i++)
         if (!lists[i].empty()) pq.emplace(lists[i][0], i, 0);
-    int[]out;
-    while (!pq.length == 0) {
-        auto [v, i, j] = pq.top();
-        pq.pop();
+    List<Integer> out = new ArrayList<>();
+    while (!pq.isEmpty()) {
+        auto [v, i, j] = pq.peek();
+        pq.poll();
         out.add(v);
         if (j + 1 < (int)lists[i].size()) pq.emplace(lists[i][j + 1], i, j + 1);
     }
@@ -237,27 +237,27 @@ Fixed alphabet (e.g. 26). Insert and search in O(|s|).
 ```java
 class Trie {
     class Node {
-        public int nxt[26];
-        public boolean end = false;
+        int[] nxt = new int[26];
+        boolean end = false;
         Node() { memset(nxt, -1, sizeof nxt); }
     }
     Node[]t{1}
-    void insert(String s) {
+    public void insert(String s) {
         int u = 0;
-        for (char c : s) {
+        for (char c : s.toCharArray()) {
             int i = c - 'a';
-            if (t[u].nxt[i] == -1) { t[u].nxt[i] = t.size(); t.add(); }
-            u = t[u].nxt[i];
+            if (t.charAt(u).nxt[i] == -1) { t.charAt(u).nxt[i] = t.size(); t.add(); }
+            u = t.charAt(u).nxt[i];
         }
-        t[u].end = true;
+        t.charAt(u).end = true;
     }
-    boolean search(String s) {
+        public boolean search(String s) {
         int u = 0;
-        for (char c : s) {
-            u = t[u].nxt[c - 'a'];
+        for (char c : s.toCharArray()) {
+            u = t.charAt(u).nxt[c - 'a'];
             if (u == -1) return false;
         }
-        return t[u].end;
+        return t.charAt(u).end;
     }
 }
 ```
@@ -276,14 +276,14 @@ class Trie {
 
 ```java
 class SegTree {
-    public int n;
+        int n;
     long[]st;
     SegTree(int n) {}
     void upd(int i, int l, int r, int p, long v) {
         if (l == r) { st[i] = v; return; }
         int m = (l + r) / 2;
         if (p <= m) upd(2 i, l, m, p, v);
-        else upd(2 i + 1, m + 1, r, p, v);
+        else upd = new else(2 i + 1, m + 1, r, p, v);
         st[i] = st[2 i] + st[2 i + 1];
     }
     long qry(int i, int l, int r, int ql, int qr) {
@@ -293,7 +293,7 @@ class SegTree {
         return qry(2 i, l, m, ql, qr) + qry(2 i + 1, m + 1, r, ql, qr);
     }
     void upd(int p, long v) { upd(1, 0, n - 1, p, v); }
-    long qry(int ql, int qr) { return qry(1, 0, n - 1, ql, qr); }
+    long qry(int ql, int qr) { return qry = new return(1, 0, n - 1, ql, qr); }
 }
 ```
 
@@ -310,11 +310,11 @@ class SegTree {
 
 ```java
 class BIT {
-    public int n;
+        int n;
     long[]f;
     BIT(int n) {}
     void add(int i, long v) {
-        for (; i <= n; i += i & -i) f[i] += v;
+        for (; i <= n; i += i & -i) f.put(i, f.getOrDefault(i, 0) + v;
     }
     long sum(int i) {
         long s = 0;
@@ -339,8 +339,8 @@ O(n log n) build, O(1) range min/max. Idempotent only (min, max, gcd). 0-indexed
 
 ```java
 class SparseTable {
-    public int[][] st;
-    int[]lg;
+    List<int[]> st = new ArrayList<>();
+    List<Integer> lg = new ArrayList<>();
     int op(int a, int b) { return Math.min(a, b); } // or max
     SparseTable(int[] a) {
         int n = a.size();

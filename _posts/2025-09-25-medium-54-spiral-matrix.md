@@ -95,46 +95,27 @@ There are two main approaches to solve this problem:
 
 ```java
 class Solution {
-    public int[]spiralOrder(int[][]& matrix) {
-        int[]rtn;
-        int rows = matrix.size(), cols = matrix[0].length;
-        int up = 0, left = 0, right = cols - 1, down = rows - 1;
-
-        while(rtn.size() < rows cols) {
-            // Traverse right along top row
-            for(int col = left; col <= right; col++) {
-                rtn.add(matrix[up][col]);
-            }
-
-            // Traverse down along right column
-            for(int row = up + 1; row <= down; row++) {
-                rtn.add(matrix[row][right]);
-            }
-
-            // Traverse left along bottom row (if not same as top)
-            if(up != down) {
-                for (int col = right - 1; col >= left; col--) {
-                    rtn.add(matrix[down][col]);
-                }
-            }
-
-            // Traverse up along left column (if not same as right)
-            if(left != right) {
-                for(int row = down - 1; row > up; row--) {
-                    rtn.add(matrix[row][left]);
-                }
-            }
-
-            // Move boundaries inward
-            left++;
+    public List<Integer> spiralOrder(int[][] matrix) {
+        List<Integer> result = new ArrayList<>();
+        if (matrix.length == 0) return result;
+        int top = 0, bottom = matrix.length - 1, left = 0, right = matrix[0].length - 1;
+        while (top <= bottom && left <= right) {
+            for (int j = left; j <= right; j++) result.add(matrix[top][j]);
+            top++;
+            for (int i = top; i <= bottom; i++) result.add(matrix[i][right]);
             right--;
-            up++;
-            down--;
+            if (top <= bottom) {
+                for (int j = right; j >= left; j--) result.add(matrix[bottom][j]);
+                bottom--;
+            }
+            if (left <= right) {
+                for (int i = bottom; i >= top; i--) result.add(matrix[i][left]);
+                left++;
+            }
         }
-        return rtn;
+        return result;
     }
-}
-```
+}```
 
 **Time Complexity:** O(m × n) - Visit each cell exactly once
 **Space Complexity:** O(1) - Only using variables for boundaries
@@ -144,12 +125,12 @@ class Solution {
 {% raw %}
 ```java
 class Solution {
-    public int[]spiralOrder(int[][]& matrix) {
-        if(matrix.size() == 0 || matrix[0].length == 0) return {}
-        int ROWS = matrix.size(), COLS = matrix[0].length;
+    public int[] spiralOrder(int[][] matrix) {
+        if(matrix.length == 0 || matrix[0].length == 0) return {}
+        int ROWS = matrix.length, COLS = matrix[0].length;
         boolean[][] visited(ROWS, boolean[](COLS, false));
         int TOTAL = ROWS COLS;
-        int[]order(TOTAL);
+        int[] order = new int[TOTAL];
 
         int row = 0, col = 0;
         int dirIdx = 0;
@@ -165,7 +146,7 @@ class Solution {
         }
         return order;
     }
-    int[][] DIRS = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}}
+    int[][] DIRS = {new int[] {0, 1}, new int[] {1, 0}, {0, -1}, {-1, 0}}
 }
 ```
 {% endraw %}

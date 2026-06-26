@@ -131,25 +131,25 @@ class TicTacToe {
 
     int move(int row, int col, int player) {
         if(player == 1)
-            board[row][col] = 'X';
+            board[row].charAt(col) = 'X';
         else
-            board[row][col] = 'O';
+            board[row].charAt(col) = 'O';
         if(win(player)) return player;
         return 0;
     }
-    int[][] board;
+    List<int[]> board = new ArrayList<>();
 
     boolean win(int player){
         char ch;
         if(player == 1) ch = 'X';
         else ch = 'O';
-        int n = board.size();
+        int n = board.length;
 
         // Check rows
         for(int i = 0; i < n; i++) {
             int cnt = 0;
             for(int j = 0; j < n; j++) {
-                if(board[i][j] == ch) cnt++;
+                if(board[i].charAt(j) == ch) cnt++;
             }
             if(cnt == n) return true;
         }
@@ -158,7 +158,7 @@ class TicTacToe {
         for(int i = 0; i < n; i++) {
             int cnt = 0;
             for(int j = 0; j < n; j++) {
-                if(board[j][i] == ch) cnt++;
+                if(board[j].charAt(i) == ch) cnt++;
             }
             if(cnt == n) return true;
         }
@@ -166,7 +166,7 @@ class TicTacToe {
         // Check main diagonal
         int cnt = 0;
         for(int i = 0; i < n; i++) {
-            if(board[i][i] == ch) cnt++;
+            if(board[i].charAt(i) == ch) cnt++;
         }
         if(cnt == n) return true;
 
@@ -203,8 +203,8 @@ class TicTacToe {
         int curr = player == 1 ? 1 : -1;
         int n = rows.size();
 
-        rows[row] += curr;
-        cols[col] += curr;
+        rows.put(row, rows.getOrDefault(row, 0) + curr;
+        cols.put(col, cols.getOrDefault(col, 0) + curr;
         if(row == col) diagonal += curr;
         if(row == n - col - 1) antiDiagonal += curr;
 
@@ -241,8 +241,8 @@ class TicTacToe {
 ### Counter Update Logic
 ```java
 int curr = player == 1 ? 1 : -1;  // Player encoding
-rows[row] += curr;                 // Update row count
-cols[col] += curr;                 // Update column count
+rows.put(row, rows.getOrDefault(row, 0) + curr;                 // Update row count
+cols.put(col, cols.getOrDefault(col, 0) + curr;                 // Update column count
 if(row == col) diagonal += curr;   // Main diagonal
 if(row == n - col - 1) antiDiagonal += curr;  // Anti-diagonal
 ```

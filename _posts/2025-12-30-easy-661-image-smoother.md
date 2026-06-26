@@ -119,7 +119,7 @@ This problem requires applying a 3×3 smoothing filter to each cell in the image
 
 ```java
 class Solution {
-    public int[][] imageSmoother(int[][]& img) {
+    public int[][] imageSmoother(int[][] img) {
         int m = img.size(), n = img[0].length;
         int[][] rtn(m, int[](n));
         for(int i = 0; i < m; i++) {

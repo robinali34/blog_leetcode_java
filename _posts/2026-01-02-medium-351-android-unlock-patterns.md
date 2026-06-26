@@ -105,7 +105,7 @@ This problem requires counting all valid unlock patterns of length between `m` a
 
 ```java
 class Solution {
-    public int numberOfPatterns(int m, int n) {
+        public int numberOfPatterns(int m, int n) {
         used.resize(9, false);
         int rtn = 0;
         for(int len = m; len <= n; len++) {
@@ -115,8 +115,7 @@ class Solution {
         return rtn;
     }
     boolean[]used;
-
-    boolean isValid(int idx, int last) {
+        public boolean isValid(int idx, int last) {
         if(used[idx]) return false;
         if(last == -1) return true;
         if((idx + last) % 2 == 1) return true;
@@ -125,8 +124,7 @@ class Solution {
         if((idx % 3 != last % 3) && (idx / 3 != last / 3)) return true;
         return used[mid];
     }
-
-    int claPatterns(int last, int len) {
+        public int claPatterns(int last, int len) {
         if(len == 0) return 1;
         int sum = 0;
         for(int i = 0; i < 9; i++) {
@@ -373,9 +371,9 @@ Since the grid is symmetric, we can count patterns starting from symmetric posit
 // Center (4) is unique
 
 int count = 0;
-count += 4 countFrom(0, len);  // corners
-count += 4 countFrom(1, len);  // edges
-count += 1 countFrom(4, len);  // center
+count += 4 countFrom = new 4(0, len);  // corners
+count += 4 countFrom = new 4(1, len);  // edges
+count += 1 countFrom = new 1(4, len);  // center
 ```
 
 This reduces computation by ~4x for corners and edges.

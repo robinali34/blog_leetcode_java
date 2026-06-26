@@ -88,7 +88,7 @@ static int solve(String s){
     int[] cnt = new int[256];
     int dup = 0, best = 0;
     for (int l = 0, r = 0; r < (int)s.size(); ++r){
-        dup += (++cnt[(int char)s[r]] == 2);
+        dup += (++cnt[(int char)s.charAt(r)] == 2);
         while (dup > 0){
             dup -= (--cnt[(int char)s[l++]] == 1);
         }
@@ -195,11 +195,11 @@ Examples: 1 Two Sum; 49 Group Anagrams; 981 Time Based Key-Value Store; 359 Logg
 ```java
 // Next Greater Element (circular if needed)
 int[]nextGreater(int[] a){
-    int n = a.size(); int[]ans(n, -1); int[]st;
+    int n = a.size(); int[]ans(n, -1); List<Integer> st = new ArrayList<>();
     for (int i = 0; i < 2 n; ++i){
         int idx = i % n;
-        while (!st.length == 0 && a[st.getLast()] < a[idx]){
-            ans[st.getLast()] = a[idx]; st.removeLast();
+        while (!st.isEmpty() && a[st.get(st.size() - 1)] < a[idx]){
+            ans[st.get(st.size() - 1)] = a[idx]; st.removeLast();
         }
         if (i < n) st.add(idx);
     }
@@ -232,15 +232,15 @@ Examples: 739 Daily Temperatures; 84 Largest Rectangle in Histogram; 239 Sliding
 static int bfsGrid(String[] g, int[] s, int[] t){
     int m=g.length, n=g[0].length;
     queue<int[]> q; int[][] dist(m, int[](n, -1));
-    int dirs[4][2] = \{\{1,0\},\{-1,0\},\{0,1\},\{0,-1\}\}
-    q.push(s); dist[s.first][s.second] = 0;
-    while(!q.length == 0){
-        auto [x,y] = q.getFirst(); q.pop();
+    int dirs[4][2] = {{1,0\},\{-1,0\},\{0,1\},\{0,-1}}
+    q.offer(s); dist[s.charAt(0)][s.charAt(1)] = 0;
+    while(!q.isEmpty()){
+        auto [x,y] = q.get(0); q.poll();
         if (new int[] {x, y} == t) return dist[x][y];
-        for (auto d: dirs){
+        for (int d : dirs){
             int nx=x+d[0], ny=y+d[1];
             if (nx>=0&&nx<m&&ny>=0&&ny<n && g[nx][ny] != '#' && dist[nx][ny]==-1){
-                dist[nx][ny] = dist[x][y] + 1; q.push({nx,ny});
+                dist[nx][ny] = dist[x][y] + 1; q.offer(new int[] {nx, ny});
             }
         }
     }
@@ -264,7 +264,7 @@ Generate all permutations of distinct elements.
 
 ```java
 // Permutations without duplicates
-static void backtrack(int[] nums, int[] cur, boolean[] used, int[][]& res){
+static void backtrack(int[] nums, int[] cur, boolean[] used, int[][] res){
     if (cur.size() == nums.length){
         res.add(cur);
         return;
@@ -282,7 +282,7 @@ static void backtrack(int[] nums, int[] cur, boolean[] used, int[][]& res){
 
 ```java
 // Permutations with duplicates (avoid duplicates by sorting + skip used duplicates)
-static void backtrack(int[] nums, int[] cur, boolean[] used, int[][]& res){
+static void backtrack(int[] nums, int[] cur, boolean[] used, int[][] res){
     if (cur.size() == nums.length){
         res.add(cur);
         return;
@@ -309,7 +309,7 @@ Generate all combinations of k elements from n elements.
 
 ```java
 // Combinations C(n, k)
-static void backtrack(int start, int n, int k, int[] cur, int[][]& res){
+static void backtrack(int start, int n, int k, int[] cur, int[][] res){
     if (cur.size() == k){
         res.add(cur);
         return;
@@ -332,7 +332,7 @@ Generate all subsets (power set) of an array.
 
 ```java
 // Subsets without duplicates
-static void backtrack(int start, int[] nums, int[] cur, int[][]& res){
+static void backtrack(int start, int[] nums, int[] cur, int[][] res){
     res.add(cur);  // Add current subset
     for (int i = start; i < nums.length; ++i){
         cur.add(nums[i]);
@@ -344,7 +344,7 @@ static void backtrack(int start, int[] nums, int[] cur, int[][]& res){
 
 ```java
 // Subsets with duplicates (sort first, skip duplicates at same level)
-static void backtrack(int start, int[] nums, int[] cur, int[][]& res){
+static void backtrack(int start, int[] nums, int[] cur, int[][] res){
     res.add(cur);
     for (int i = start; i < nums.length; ++i){
         if (i > start && nums[i] == nums[i-1]) continue;  // Skip duplicates
@@ -366,7 +366,7 @@ Find all combinations that sum to target, elements can be reused.
 
 ```java
 // Combination Sum (can reuse same element)
-static void backtrack(int start, int[] candidates, int target, int[] cur, int[][]& res){
+static void backtrack(int start, int[] candidates, int target, int[] cur, int[][] res){
     if (target == 0){
         res.add(cur);
         return;
@@ -382,7 +382,7 @@ static void backtrack(int start, int[] candidates, int target, int[] cur, int[][
 
 ```java
 // Combination Sum II (each element used once, duplicates exist)
-static void backtrack(int start, int[] candidates, int target, int[] cur, int[][]& res){
+static void backtrack(int start, int[] candidates, int target, int[] cur, int[][] res){
     if (target == 0){
         res.add(cur);
         return;
@@ -411,18 +411,18 @@ Backtrack on 2D grid with constraints.
 // Word Search: find if word exists in grid
 static boolean dfs(char[][]& board, int i, int j, String word, int idx){
     if (idx == (int)word.size()) return true;
-    if (i < 0 || i >= (int)board.size() || j < 0 || j >= (int)board[0].length) return false;
-    if (board[i][j] != word[idx]) return false;
+    if (i < 0 || i >= board.length || j < 0 || j >= (int)board[0].length) return false;
+    if (board[i].charAt(j) != word.charAt(idx)) return false;
 
-    char temp = board[i][j];
-    board[i][j] = '#';  // Mark as visited
+    char temp = board[i].charAt(j);
+    board[i].charAt(j) = '#';  // Mark as visited
 
-    int dirs[4][2] = \{\{0,1\}, \{0,-1\}, \{1,0\}, \{-1,0\}\}
-    for (auto d : dirs){
+    int dirs[4][2] = {{0,1\}, \{0,-1\}, \{1,0\}, \{-1,0}}
+    for (int d : dirs){
         if (dfs(board, i+d[0], j+d[1], word, idx+1)) return true;
     }
 
-    board[i][j] = temp;  // Backtrack
+    board[i].charAt(j) = temp;  // Backtrack
     return false;
 }
 ```
@@ -437,30 +437,31 @@ static boolean dfs(char[][]& board, int i, int j, String word, int idx){
 Backtracking with complex constraints.
 
 ```java
+// import java.util.*;
 // N-Queens: place n queens on n×n board
-static void backtrack(int row, int n, String[] board, vector<String[]>& res){
+static void backtrack(int row, int n, String[] board, List<List<String>>& res){
     if (row == n){
         res.add(board);
         return;
     }
     for (int col = 0; col < n; ++col){
         if (isValid(board, row, col, n)){
-            board[row][col] = 'Q';
+            board[row].charAt(col) = 'Q';
             backtrack(row+1, n, board, res);
-            board[row][col] = '.';
+            board[row].charAt(col) = '.';
         }
     }
 }
 
 static boolean isValid(String[] board, int row, int col, int n){
     // Check column
-    for (int i = 0; i < row; ++i) if (board[i][col] == 'Q') return false;
+    for (int i = 0; i < row; ++i) if (board[i].charAt(col) == 'Q') return false;
     // Check diagonal \
     for (int i = row-1, j = col-1; i >= 0 && j >= 0; --i, --j)
-        if (board[i][j] == 'Q') return false;
+        if (board[i].charAt(j) == 'Q') return false;
     // Check diagonal /
     for (int i = row-1, j = col+1; i >= 0 && j < n; --i, ++j)
-        if (board[i][j] == 'Q') return false;
+        if (board[i].charAt(j) == 'Q') return false;
     return true;
 }
 ```
@@ -476,15 +477,16 @@ static boolean isValid(String[] board, int row, int col, int n){
 Partition string into palindromic substrings.
 
 ```java
+// import java.util.*;
 // Palindrome Partitioning
-static void backtrack(int start, String s, String[] cur, vector<String[]>& res){
+static void backtrack(int start, String s, String[] cur, List<List<String>>& res){
     if (start == (int)s.size()){
         res.add(cur);
         return;
     }
     for (int end = start; end < (int)s.size(); ++end){
         if (isPalindrome(s, start, end)){
-            cur.add(s.substr(start, end-start+1));
+            cur.add(s.substring(start, end-start+1));
             backtrack(end+1, s, cur, res);
             cur.removeLast();
         }
@@ -534,11 +536,12 @@ static void backtrack(state, constraints, current_solution, results){
 
 // Inorder (iterative)
 ```java
+// import java.util.*;
 int[]inorder(TreeNode root){
-    int[]ans; stack<TreeNode> st; var cur = root;
-    while (cur || !st.length == 0){
-        while (cur){ st.push(cur); cur = cur.left; }
-        cur = st.top(); st.pop(); ans.add(cur.val); cur = cur.right;
+    List<Integer> ans = new ArrayList<>(); Deque<TreeNode> st = new ArrayDeque<>(); var cur = root;
+    while (cur || !st.isEmpty()){
+        while (cur > 0) { st.offer(cur); cur = cur.left; }
+        cur = st.peek(); st.poll(); ans.add(cur.val); cur = cur.right;
     }
     return ans;
 }
@@ -546,12 +549,13 @@ int[]inorder(TreeNode root){
 
 // Level-order (BFS)
 ```java
+// import java.util.*;
 int[][] levelOrder(TreeNode root){
-    int[][] res; if(!root) return res; queue<TreeNode> q; q.push(root);
-    while(!q.length == 0){
+    List<int[]> res = new ArrayList<>(); if(!root) return res; Queue<TreeNode> q = new LinkedList<>(); q.offer(root);
+    while(!q.isEmpty()){
         int sz=q.size(); res.add();
-        while(sz--){ var u =q.getFirst(); q.pop(); res.getLast().push_back(u.val);
-            if(u.left) q.push(u.left); if(u.right) q.push(u.right);
+        while(sz--){ var u =q.get(0); q.poll(); res.get(res.size() - 1).push_back(u.val);
+            if(u.left) q.offer(u.left); if(u.right) q.offer(u.right);
         }
     }
     return res;
@@ -561,11 +565,11 @@ int[][] levelOrder(TreeNode root){
 ## LCA (Binary Lifting)
 
 ```java
-int K = 17; // adjust for n (e.g., 17 for n<=1e5)
-int[]depth;
+K = 17; // adjust for n (e.g., 17 for n<=1e5)
+List<Integer> depth = new ArrayList<>();
 vector<array<int, K+1>> up;
 
-static void dfsLift(int u, int p, int[][]& g){
+static void dfsLift(int u, int p, int[][] g){
     up[u][0] = p;
     for(int k=1;k<=K;++k)
         up[u][k] = (up[u][k-1] < 0) ? -1 : up[ up[u][k-1] ][k-1];
@@ -608,7 +612,7 @@ int szH[N], parH[N], depH[N], heavyH[N], headH[N], inH[N], curT=0;
 int dfs1(int u, int p){
     parH[u]=p; depH[u]=(p==-1?0:depH[p]+1); szH[u]=1; heavyH[u]=-1; int best=0;
     for(int v: gH[u]) if(v!=p){
-        int s = dfs1(v,u); szH[u]+=s;
+        int s = dfs1(v,u); szH.put(u, szH.getOrDefault(u, 0) + s;
         if (s > best){ best=s; heavyH[u]=v; }
     }
     return szH[u];
@@ -625,7 +629,7 @@ void dfs2(int u, int h){
 // Example segment tree over values on nodes (mapped by inH[])
 class Seg{ int n; long[]st; Seg(int n) {}
     void upd(int p,long v,int i,int l,int r){ if(l==r){ st[i]=v; return; }
-        int m=(l+r)/2; if(p<=m) upd(p,v,2 i,l,m); else upd(p,v,2 i+1,m+1,r);
+        int m=(l+r)/2; if(p<=m) upd(p,v,2 i,l,m); else upd = new else(p,v,2 i+1,m+1,r);
         st[i]=st[2 i]+st[2 i+1]; }
     long qry(int ql,int qr,int i,int l,int r){ if(qr<l||r<ql) return 0; if(ql<=l&&r<=qr) return st[i];
         int m=(l+r)/2; return qry(ql,qr,2 i,l,m)+qry(ql,qr,2 i+1,m+1,r); }
@@ -667,13 +671,13 @@ class DSU{
 ## Heap / K-way Merge
 
 ```java
-int[]mergeK(int[][]& lists){
-    using T = tuple<int,int,int>; // val, list idx, pos
+int[]mergeK(int[][] lists){
+     // val, list idx, pos
     priority_queue<T, T[], greater<T>> pq;
     for (int i=0;i<(int)lists.size();++i) if (!lists[i].empty()) pq.emplace(lists[i][0], i, 0);
-    int[]out;
-    while(!pq.length == 0){
-        auto [v,i,j]=pq.top(); pq.pop(); out.add(v);
+    List<Integer> out = new ArrayList<>();
+    while(!pq.isEmpty()){
+        auto [v,i,j]=pq.peek(); pq.poll(); out.add(v);
         if (j+1 < (int)lists[i].size()) pq.emplace(lists[i][j+1], i, j+1);
     }
     return out;
@@ -689,12 +693,12 @@ int[]mergeK(int[][]& lists){
 
 ```java
 // import java.util.*;
-int[]topoKahn(int n, int[][]& g){
-    int[]indeg(n); for(int u=0;u<n;++u) for(int v:g[u]) ++indeg[v];
-    Queue<Integer> q = new LinkedList<>(); for(int i=0;i<n;++i) if(!indeg[i]) q.push(i);
-    int[]order;
-    while(!q.length == 0){ int u=q.getFirst(); q.pop(); order.add(u);
-        for(int v:g[u]) if(--indeg[v]==0) q.push(v);
+int[]topoKahn(int n, int[][] g){
+    int[] indeg = new int[n]; for(int u=0;u<n;++u) for(int v:g[u]) ++indeg[v];
+    Queue<Integer> q = new LinkedList<>(); for(int i=0;i<n;++i) if(!indeg[i]) q.offer(i);
+    List<Integer> order = new ArrayList<>();
+    while(!q.isEmpty()){ int u=q.get(0); q.poll(); order.add(u);
+        for(int v:g[u]) if(--indeg[v]==0) q.offer(v);
     }
     if ((int)order.size()!=n) order.clear();
     return order;
@@ -710,13 +714,14 @@ int[]topoKahn(int n, int[][]& g){
 ## Dijkstra (Shortest Path with Weights ≥ 0)
 
 ```java
+// import java.util.*;
 long[]dijkstra(int n, vector<List<int[]>>& g, int s){
     long INF = (1LL<<60);
     long[]dist(n, INF); dist[s]=0;
-    using P=long[]; priority_queue<P, P[], greater<P>> pq; pq.push({0,s});
-    while(!pq.length == 0){
-        auto [d,u]=pq.top(); pq.pop(); if(d!=dist[u]) continue;
-        for(auto [v,w]: g[u]) if(dist[v]>d+w){ dist[v]=d+w; pq.push({dist[v],v}); }
+    using P=long[]; priority_queue<P, P[], greater<P>> pq; pq.offer(new int[] {0, s});
+    while(!pq.isEmpty()){
+        int[] dpair = pq.peek(); int d = dpair[0]; int u = dpair[1]; pq.poll(); if(d!=dist[u]) continue;
+        for(auto [v,w]: g[u]) if(dist[v]>d+w){ dist[v]=d+w; pq.offer({dist[v],v}); }
     }
     return dist;
 }
@@ -832,13 +837,13 @@ long[]dijkstra(int n, vector<List<int[]>>& g, int s){
 ```java
 // Tarjan's algorithm: O(N+M) to label each node with SCC id
 class TarjanSCC {
-    public int n, timer = 0, compCnt = 0;
-    public int[][] g;
+        int n, timer = 0, compCnt = 0;
+    List<int[]> g = new ArrayList<>();
     int[]tin, low, comp, st;
     char[]in;
 
     TarjanSCC(int n) {}
-    void addEdge(int u, int v) { g[u].push_back(v); }
+    void addEdge(int u, int v) { g.computeIfAbsent(u, k -> new ArrayList<>()).add(v); }
 
     void dfs(int u) {
         tin[u] = low[u] = timer++;
@@ -849,7 +854,7 @@ class TarjanSCC {
         }
         if (low[u] == tin[u]) {
             for (;;) {
-                int v = st.getLast(); st.removeLast(); in[v] = 0; comp[v] = compCnt;
+                int v = st.get(st.size() - 1); st.removeLast(); in[v] = 0; comp[v] = compCnt;
                 if (v == u) break;
             }
             ++compCnt;
@@ -881,11 +886,12 @@ class TarjanSCC {
 | 621 | Task Scheduler | https://leetcode.com/problems/task-scheduler/ |
 
 ```java
+// import java.util.*;
 // Interval scheduling: select max non-overlapping
 static int schedule(List<int[]>& iv){
-    sort(iv /* elements of iv */, [](auto a, auto b){return a.second<b.second;});
+    sort(iv /* elements of iv */, [](auto a, auto b){return a[1]<b[1];});
     int cnt=0, end=-1e9;
-    for (auto& [s,e]: iv){ if (s>=end){ ++cnt; end=e; } }
+    for (var e : iv.entrySet()){ if (s>=end){ ++cnt; end=e; } }
     return cnt;
 }
 ```

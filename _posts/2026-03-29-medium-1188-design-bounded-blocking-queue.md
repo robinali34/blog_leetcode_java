@@ -78,7 +78,7 @@ class BoundedBlockingQueue {
     void enqueue(int element) {
         empty.acquire();
         lock.acquire();
-        q.push(element);
+        q.offer(element);
         lock.release();
         full.release();
     }
@@ -86,8 +86,8 @@ class BoundedBlockingQueue {
     int dequeue() {
         full.acquire();
         lock.acquire();
-        int rtn = q.getFirst();
-        q.pop();
+        int rtn = q.get(0);
+        q.poll();
         lock.release();
         empty.release();
         return rtn;
@@ -123,32 +123,32 @@ class BoundedBlockingQueue {
     BoundedBlockingQueue(int capacity) {}
 
     void enqueue(int element) {
-        
+
         notFull.wait(lock, [&]() {
             return q.size() < capacity;
         });
-        q.push(element);
+        q.offer(element);
         notEmpty.notify_one();
     }
 
     int dequeue() {
-        
+
         notEmpty.wait(lock, [&]() {
-            return !q.length == 0;
+            return !q.isEmpty();
         });
-        int val = q.getFirst();
-        q.pop();
+        int val = q.get(0);
+        q.poll();
         notFull.notify_one();
         return val;
     }
 
     int size() {
-        
+
         return q.size();
     }
     Queue<Integer> q = new LinkedList<>();
     int capacity;
-    ReentrantLock lock = new ReentrantLock();
+    ReentrantLock lock = new ReentrantLock() = new ReentrantLock() = new ReentrantLock();
     Condition notFull;
     Condition notEmpty;
 }

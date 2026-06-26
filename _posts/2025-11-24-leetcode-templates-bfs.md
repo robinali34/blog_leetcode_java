@@ -26,16 +26,16 @@ Breadth-First Search explores nodes level by level using a queue.
 ```java
 // import java.util.*;
 // BFS on graph (adjacency list)
-static void bfs(int[][]& graph, int start) {
+static void bfs(int[][] graph, int start) {
     Queue<Integer> q = new LinkedList<>();
     boolean[]visited(graph.size(), false);
 
-    q.push(start);
+    q.offer(start);
     visited[start] = true;
 
-    while (!q.length == 0) {
-        int node = q.getFirst();
-        q.pop();
+    while (!q.isEmpty()) {
+        int node = q.get(0);
+        q.poll();
 
         // Process node
         cout << node << " ";
@@ -44,7 +44,7 @@ static void bfs(int[][]& graph, int start) {
         for (int neighbor : graph[node]) {
             if (!visited[neighbor]) {
                 visited[neighbor] = true;
-                q.push(neighbor);
+                q.offer(neighbor);
             }
         }
     }
@@ -60,29 +60,30 @@ static void bfs(int[][]& graph, int start) {
 BFS for 2D grid problems (4-directional or 8-directional).
 
 ```java
+// import java.util.*;
 // BFS on 2D grid (4-directional)
 static int bfsGrid(char[][]& grid, int[] start, int[] target) {
     int m = grid.length, n = grid[0].length;
     queue<int[]> q;
     int[][] dist(m, int[](n, -1));
-    List<int[]> dirs = \{\{0,1\}, \{0,-1\}, \{1,0\}, \{-1,0\}\}
-    q.push(start);
-    dist[start.first][start.second] = 0;
+    List<int[]> dirs = {{0,1\}, \{0,-1\}, \{1,0\}, \{-1,0}}
+    q.offer(start);
+    dist[start[0]][start[1]] = 0;
 
-    while (!q.length == 0) {
-        auto [x, y] = q.getFirst();
-        q.pop();
+    while (!q.isEmpty()) {
+        auto [x, y] = q.get(0);
+        q.poll();
 
         if (new int[] {x, y} == target) {
             return dist[x][y];
         }
 
-        for (auto& [dx, dy] : dirs) {
+        for (var e : dirs.entrySet()) {
             int nx = x + dx, ny = y + dy;
             if (nx >= 0 && nx < m && ny >= 0 && ny < n &&
                 grid[nx][ny] != '#' && dist[nx][ny] == -1) {
                 dist[nx][ny] = dist[x][y] + 1;
-                q.push({nx, ny});
+                q.offer(new int[] {nx, ny});
             }
         }
     }
@@ -94,25 +95,25 @@ static int bfsGrid(char[][]& grid, int[] start, int[] target) {
 static int numIslands(char[][]& grid) {
     int m = grid.length, n = grid[0].length;
     int count = 0;
-    List<int[]> dirs = \{\{0,1\}, \{0,-1\}, \{1,0\}, \{-1,0\}\}
+    List<int[]> dirs = {{0,1\}, \{0,-1\}, \{1,0\}, \{-1,0}}
     for (int i = 0; i < m; ++i) {
         for (int j = 0; j < n; ++j) {
             if (grid[i][j] == '1') {
                 count++;
                 queue<int[]> q;
-                q.push({i, j});
+                q.offer(new int[] {i, j});
                 grid[i][j] = '0';
 
-                while (!q.length == 0) {
-                    auto [x, y] = q.getFirst();
-                    q.pop();
+                while (!q.isEmpty()) {
+                    auto [x, y] = q.get(0);
+                    q.poll();
 
-                    for (auto& [dx, dy] : dirs) {
+                    for (var e : dirs.entrySet()) {
                         int nx = x + dx, ny = y + dy;
                         if (nx >= 0 && nx < m && ny >= 0 && ny < n &&
                             grid[nx][ny] == '1') {
                             grid[nx][ny] = '0';
-                            q.push({nx, ny});
+                            q.offer(new int[] {nx, ny});
                         }
                     }
                 }
@@ -134,31 +135,32 @@ static int numIslands(char[][]& grid) {
 Start BFS from multiple sources simultaneously.
 
 ```java
+// import java.util.*;
 // Multi-source BFS (e.g., 01 Matrix)
-int[][] updateMatrix(int[][]& mat) {
-    int m = mat.size(), n = mat[0].length;
+int[][] updateMatrix(int[][] mat) {
+    int m = mat.length, n = mat[0].length;
     queue<int[]> q;
     int[][] dist(m, int[](n, -1));
-    List<int[]> dirs = \{\{0,1\}, \{0,-1\}, \{1,0\}, \{-1,0\}\}
+    List<int[]> dirs = {{0,1\}, \{0,-1\}, \{1,0\}, \{-1,0}}
     // Add all zeros as starting points
     for (int i = 0; i < m; ++i) {
         for (int j = 0; j < n; ++j) {
             if (mat[i][j] == 0) {
-                q.push({i, j});
+                q.offer(new int[] {i, j});
                 dist[i][j] = 0;
             }
         }
     }
 
-    while (!q.length == 0) {
-        auto [x, y] = q.getFirst();
-        q.pop();
+    while (!q.isEmpty()) {
+        auto [x, y] = q.get(0);
+        q.poll();
 
-        for (auto& [dx, dy] : dirs) {
+        for (var e : dirs.entrySet()) {
             int nx = x + dx, ny = y + dy;
             if (nx >= 0 && nx < m && ny >= 0 && ny < n && dist[nx][ny] == -1) {
                 dist[nx][ny] = dist[x][y] + 1;
-                q.push({nx, ny});
+                q.offer(new int[] {nx, ny});
             }
         }
     }
@@ -181,16 +183,16 @@ BFS finds shortest path in unweighted graphs.
 ```java
 // import java.util.*;
 // Shortest path in unweighted graph
-static int shortestPath(int[][]& graph, int start, int target) {
+static int shortestPath(int[][] graph, int start, int target) {
     Queue<Integer> q = new LinkedList<>();
     int[]dist(graph.size(), -1);
 
-    q.push(start);
+    q.offer(start);
     dist[start] = 0;
 
-    while (!q.length == 0) {
-        int node = q.getFirst();
-        q.pop();
+    while (!q.isEmpty()) {
+        int node = q.get(0);
+        q.poll();
 
         if (node == target) {
             return dist[node];
@@ -199,7 +201,7 @@ static int shortestPath(int[][]& graph, int start, int target) {
         for (int neighbor : graph[node]) {
             if (dist[neighbor] == -1) {
                 dist[neighbor] = dist[node] + 1;
-                q.push(neighbor);
+                q.offer(neighbor);
             }
         }
     }
@@ -220,25 +222,26 @@ static int shortestPath(int[][]& graph, int start, int target) {
 BFS for tree level-order traversal.
 
 ```java
+// import java.util.*;
 // Binary Tree Level Order Traversal
 int[][] levelOrder(TreeNode root) {
-    int[][] result;
+    List<int[]> result = new ArrayList<>();
     if (!root) return result;
 
-    queue<TreeNode> q;
-    q.push(root);
+    Queue<TreeNode> q = new LinkedList<>();
+    q.offer(root);
 
-    while (!q.length == 0) {
+    while (!q.isEmpty()) {
         int size = q.size();
-        int[]level;
+        List<Integer> level = new ArrayList<>();
 
         for (int i = 0; i < size; ++i) {
-            TreeNode node = q.getFirst();
-            q.pop();
+            TreeNode node = q.get(0);
+            q.poll();
             level.add(node.val);
 
-            if (node.left) q.push(node.left);
-            if (node.right) q.push(node.right);
+            if (node.left) q.offer(node.left);
+            if (node.right) q.offer(node.right);
         }
 
         result.add(level);
@@ -249,26 +252,26 @@ int[][] levelOrder(TreeNode root) {
 
 // Zigzag Level Order Traversal
 int[][] zigzagLevelOrder(TreeNode root) {
-    int[][] result;
+    List<int[]> result = new ArrayList<>();
     if (!root) return result;
 
-    queue<TreeNode> q;
-    q.push(root);
+    Queue<TreeNode> q = new LinkedList<>();
+    q.offer(root);
     boolean leftToRight = true;
 
-    while (!q.length == 0) {
+    while (!q.isEmpty()) {
         int size = q.size();
-        int[]level(size);
+        int[] level = new int[size];
 
         for (int i = 0; i < size; ++i) {
-            TreeNode node = q.getFirst();
-            q.pop();
+            TreeNode node = q.get(0);
+            q.poll();
 
             int index = leftToRight ? i : size - 1 - i;
             level[index] = node.val;
 
-            if (node.left) q.push(node.left);
-            if (node.right) q.push(node.right);
+            if (node.left) q.offer(node.left);
+            if (node.right) q.offer(node.right);
         }
 
         result.add(level);
@@ -293,31 +296,32 @@ int[][] zigzagLevelOrder(TreeNode root) {
 BFS when state includes more than just position.
 
 ```java
+// import java.util.*;
 // BFS with state (e.g., Shortest Path with Obstacle Elimination)
-static int shortestPath(int[][]& grid, int k) {
+static int shortestPath(int[][] grid, int k) {
     int m = grid.length, n = grid[0].length;
     vector<boolean[][]> visited(m, boolean[][](n, boolean[](k + 1, false)));
     queue<int[]> q; // {x, y, obstacles_eliminated, steps}
 
-    q.push({0, 0, 0, 0});
+    q.offer({0, 0, 0, 0});
     visited[0][0][0] = true;
-    List<int[]> dirs = \{\{0,1\}, \{0,-1\}, \{1,0\}, \{-1,0\}\}
-    while (!q.length == 0) {
-        var state = q.getFirst();
-        q.pop();
+    List<int[]> dirs = {{0,1\}, \{0,-1\}, \{1,0\}, \{-1,0}}
+    while (!q.isEmpty()) {
+        var state = q.get(0);
+        q.poll();
         int x = state[0], y = state[1], obstacles = state[2], steps = state[3];
 
         if (x == m - 1 && y == n - 1) {
             return steps;
         }
 
-        for (auto& [dx, dy] : dirs) {
+        for (var e : dirs.entrySet()) {
             int nx = x + dx, ny = y + dy;
             if (nx >= 0 && nx < m && ny >= 0 && ny < n) {
                 int newObstacles = obstacles + grid[nx][ny];
                 if (newObstacles <= k && !visited[nx][ny][newObstacles]) {
                     visited[nx][ny][newObstacles] = true;
-                    q.push({nx, ny, newObstacles, steps + 1});
+                    q.offer({nx, ny, newObstacles, steps + 1});
                 }
             }
         }

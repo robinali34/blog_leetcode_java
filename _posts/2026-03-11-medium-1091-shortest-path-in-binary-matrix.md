@@ -61,8 +61,9 @@ Unlike typical grid BFS (4 directions), this problem allows diagonal movement. T
 
 {% raw %}
 ```java
+// import java.util.*;
 class Solution {
-    public int shortestPathBinaryMatrix(int[][]& grid) {
+        public int shortestPathBinaryMatrix(int[][] grid) {
         int n = grid.length;
         if (grid[0][0] != 0 || grid[n - 1][n - 1] != 0) return -1;
 
@@ -71,9 +72,9 @@ class Solution {
         boolean[][] visited(n, boolean[](n, false));
         visited[0][0] = true;
 
-        while (!q.length == 0) {
-            auto [row, col, dist] = q.getFirst();
-            q.pop();
+        while (!q.isEmpty()) {
+            auto [row, col, dist] = q.get(0);
+            q.poll();
 
             if (row == n - 1 && col == n - 1) return dist;
 
@@ -86,12 +87,12 @@ class Solution {
         return -1;
     }
     List<int[]> dirs = {
-        {-1,-1},{-1,0},{-1,1},{0,-1},{0,1},{1,-1},{1,0},{1,1}
+        {-1,-1},{-1,0},{-1,1},{0,-1},new int[] {0, 1},{1,-1},new int[] {1, 0},new int[] {1, 1}
     }
-    List<int[]> getNeighbors(int row, int col,
-                                         int[][]& grid) {
-        List<int[]> neighbours;
-        for (auto& [dr, dc] : dirs) {
+    public List<int[]> getNeighbors(int row, int col,
+                                         int[][] grid) {
+        List<int[]> neighbours = new ArrayList<>();
+        for (var e : dirs.entrySet()) {
             int nr = row + dr, nc = col + dc;
             if (nr < 0 || nr >= grid.length ||
                 nc < 0 || nc >= (int)grid[0].length ||

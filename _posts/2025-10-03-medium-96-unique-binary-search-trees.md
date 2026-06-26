@@ -103,10 +103,10 @@ The key insight is that the number of unique BSTs follows the Catalan number seq
 
 ```java
 class Solution {
-    public int numTrees(int n) {
-        int[]cache(n + 1, 1);
+        public int numTrees(int n) {
+        public int[] cache(n + 1, 1);
         for(int i = 2; i <= n; i++) {
-            int sum = 0;
+        int sum = 0;
             for(int j = 1; j <= i; j++) {
                 int left = j - 1;
                 int right = i - j;
@@ -126,13 +126,13 @@ class Solution {
 
 ```java
 class Solution {
-    public int numTrees(int n) {
+        public int numTrees(int n) {
         int[] cache = new int[n + 1];
         cache[0] = 1;
         cache[1] = 1;
         for(int i = 2; i <= n; i++) {
             for(int j = 1; j <= i; j++) {
-                cache[i] += cache[j - 1] * cache[i - j];
+                cache.put(i, cache.getOrDefault(i, 0) + cache[j - 1] * cache[i - j];
             }
         }
         return cache[n];
@@ -147,7 +147,7 @@ class Solution {
 
 ```java
 class Solution {
-    public int numTrees(int n) {
+        public int numTrees(int n) {
         long rtn = 1;
         for(int i = 0; i < n; i++) {
             rtn = rtn 2 * (2 i + 1) / (i + 2);

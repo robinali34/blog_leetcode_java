@@ -94,14 +94,21 @@ Since we're finding the distance to the origin `(0, 0)`, we can simplify the dis
 
 ```java
 class Solution {
-    public int[][] kClosest(int[][]& points, int k) {
-        sort(points /* elements of points */, [](int[] a, int[] b){
-            return (a[0] * a[0] + a[1] * a[1]) < (b[0] * b[0] + b[1] * b[1]);
+    public int[][] kClosest(int[][] points, int k) {
+        PriorityQueue<int[]> maxHeap = new PriorityQueue<>((a, b) -> {
+            int da = a[0] * a[0] + a[1] * a[1];
+            int db = b[0] * b[0] + b[1] * b[1];
+            return Integer.compare(db, da);
         });
-        return int[][](points.iterator(), points.iterator() + k);
+        for (int[] p : points) {
+            maxHeap.offer(p);
+            if (maxHeap.size() > k) maxHeap.poll();
+        }
+        int[][] result = new int[k][2];
+        for (int i = k - 1; i >= 0; i--) result[i] = maxHeap.poll();
+        return result;
     }
-}
-```
+}```
 
 ### Approach 2: Max Heap
 
@@ -115,23 +122,23 @@ class Solution {
 
 ```java
 class Solution {
-    public int[][] kClosest(int[][]& points, int k) {
+    public int[][] kClosest(int[][] points, int k) {
         priority_queue<pair<int, int[]>> maxHeap;
 
-        for(auto point : points) {
-            int dist = point[0] * point[0] + point[1] * point[1];
+        for (int point : points) {
+        int dist = point[0] * point[0] + point[1] * point[1];
             if(maxHeap.size() < k) {
-                maxHeap.push({dist, point});
-            } else if(dist < maxHeap.top().first) {
-                maxHeap.pop();
-                maxHeap.push({dist, point});
+                maxHeap.offer(new int[] new int[] new int[] {dist, point});
+            } else if(dist < maxHeap.peek().first) {
+                maxHeap.poll();
+                maxHeap.offer(new int[] new int[] new int[] {dist, point});
             }
         }
 
-        int[][] result;
-        while(!maxHeap.length == 0) {
-            result.add(maxHeap.top().second);
-            maxHeap.pop();
+        List<int[]> result = new ArrayList<>();
+        while(!maxHeap.isEmpty()) {
+            result.add(maxHeap.peek().second);
+            maxHeap.poll();
         }
         return result;
     }
@@ -150,8 +157,8 @@ class Solution {
 
 ```java
 class Solution {
-    public int[][] kClosest(int[][]& points, int k) {
-        int left = 0, right = points.size() - 1;
+    public int[][] kClosest(int[][] points, int k) {
+        int left = 0, right = points.length - 1;
 
         while(left <= right) {
             int pivotIndex = partition(points, left, right);
@@ -162,21 +169,20 @@ class Solution {
 
         return int[][](points.iterator(), points.iterator() + k);
     }
-    int partition(int[][]& points, int left, int right) {
+        public int partition(int[][] points, int left, int right) {
         int pivotDist = getDistance(points[right]);
         int i = left;
 
         for(int j = left; j < right; j++) {
             if(getDistance(points[j]) <= pivotDist) {
-                swap(points[i], points[j]);
+                swap(points, i, j);
                 i++;
             }
         }
-        swap(points[i], points[right]);
+        swap(points, i, right);
         return i;
     }
-
-    int getDistance(int[] point) {
+        public int getDistance(int[] point) {
         return point[0] * point[0] + point[1] * point[1];
     }
 }

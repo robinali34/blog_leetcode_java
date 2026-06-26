@@ -49,13 +49,13 @@ The expected optimal solution. Since characters are lowercase letters, a 26-elem
 {% raw %}
 ```java
 class Solution {
-    public boolean isAnagram(String s, String t) {
+        public boolean isAnagram(String s, String t) {
         if (s.size() != t.size()) return false;
 
-        int count[26] = {0}
+        int[] count = new int[26] = {0}
         for (int i = 0; i < (int)s.size(); i++) {
-            count[s[i] - 'a']++;
-            count[t[i] - 'a']--;
+            count[s.charAt(i) - 'a']++;
+            count[t.charAt(i) - 'a']--;
         }
 
         for (int c : count) {
@@ -76,9 +76,9 @@ class Solution {
 {% raw %}
 ```java
 class Solution {
-    public boolean isAnagram(String s, String t) {
-        int cnt[26] = {}
-        for (char c : s) cnt[c - 'a']++;
+        public boolean isAnagram(String s, String t) {
+        int[] cnt = new int[26] = {}
+        for (char c : s.toCharArray()) cnt[c - 'a']++;
         for (char c : t) if (--cnt[c - 'a'] < 0) return false;
         return s.size() == t.size();
     }
@@ -94,12 +94,12 @@ Generalizes to Unicode characters. Use a map instead of a fixed array.
 ```java
 // import java.util.*;
 class Solution {
-    public boolean isAnagram(String s, String t) {
+        public boolean isAnagram(String s, String t) {
         if (s.size() != t.size()) return false;
 
         HashMap<char, int> freq = new HashMap<char, int>();
 
-        for (char c : s) freq.put(c, freq.getOrDefault(c, 0) + 1);
+        for (char c : s.toCharArray()) freq.put(c, freq.getOrDefault(c, 0) + 1);
         for (char c : t) {
             if (--freq[c] < 0) return false;
         }
@@ -122,7 +122,7 @@ Sort both strings and compare directly. Simplest to write but slowest.
 // import java.util.Arrays;
 // import java.util.Collections;
 class Solution {
-    public boolean isAnagram(String s, String t) {
+        public boolean isAnagram(String s, String t) {
         Arrays.sort(s);
         Arrays.sort(t);
         return s == t;

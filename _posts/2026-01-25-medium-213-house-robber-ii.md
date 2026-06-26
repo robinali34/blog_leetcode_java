@@ -131,7 +131,7 @@ class Solution {
 Cycle: rtn Math.max(robLinear(0.. N - 2), robLinear(1,.. N - 1))
 dp[i] = Math.max(dp[i-2] + nums[i], dp[i - 1])
 */
-    public int rob(int[] nums) {
+        public int rob(int[] nums) {
         int N = nums.length;
         if(N == 1) return nums[0];
         return Math.max(
@@ -139,7 +139,7 @@ dp[i] = Math.max(dp[i-2] + nums[i], dp[i - 1])
             rob(nums, 1, N - 1)
         );
     }
-    int rob(int[] nums, int l, int r) {
+        public int rob(int[] nums, int l, int r) {
         int prev2 = 0, prev1 = 0;
         for(int i = l; i <= r; i++) {
             int curr = Math.max(prev2 + nums[i], prev1);
@@ -299,7 +299,7 @@ Result: max(case1, case2)
 
 ```java
 class Solution {
-    public int rob(int[] nums) {
+        public int rob(int[] nums) {
         int n = nums.length;
         if(n == 1) return nums[0];
         if(n == 2) return Math.max(nums[0], nums[1]);
@@ -309,7 +309,7 @@ class Solution {
             robLinear(nums, 1, n - 1)
         );
     }
-    int robLinear(int[] nums, int start, int end) {
+        public int robLinear(int[] nums, int start, int end) {
         int[]dp(end - start + 1);
         dp[0] = nums[start];
         dp[1] = Math.max(nums[start], nums[start + 1]);

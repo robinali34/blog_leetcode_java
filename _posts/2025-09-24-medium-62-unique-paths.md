@@ -119,16 +119,14 @@ The solution uses dynamic programming with the following key insights:
 ```java
 class Solution {
     public int uniquePaths(int m, int n) {
-        int[][] dp(m, int[](n, 1));
-        for (int row = 1; row < m; row++) {
-            for (int col = 1; col < n; col++) {
-                dp[row][col] = dp[row][col - 1] + dp[row - 1][col];
-            }
+        int[] dp = new int[n];
+        Arrays.fill(dp, 1);
+        for (int i = 1; i < m; i++) {
+            for (int j = 1; j < n; j++) dp[j] += dp[j - 1];
         }
-        return dp[m- 1][n -1];
+        return dp[n - 1];
     }
-}
-```
+}```
 
 ## Step-by-Step Example
 
@@ -182,7 +180,7 @@ static int uniquePaths(int m, int n) {
     int[] dp = new int[n];
     for (int i = 1; i < m; i++) {
         for (int j = 1; j < n; j++) {
-            dp[j] += dp[j-1];
+            dp.put(j, dp.getOrDefault(j, 0) + dp[j-1];
         }
     }
     return dp[n-1];

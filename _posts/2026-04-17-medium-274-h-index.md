@@ -79,7 +79,7 @@ Yes -- since `h` can be at most `n`, we can use counting sort to get $O(n)$.
 {% raw %}
 ```java
 class Solution {
-    public int hIndex(int[] citations) {
+        public int hIndex(int[] citations) {
         sort(citations /* elements of citations */, greater<int>());
         for (int i = 0; i < citations.size(); ++i) {
             if (citations[i] < i + 1) return i;
@@ -97,7 +97,7 @@ If every paper has enough citations, the loop finishes without returning, and `h
 {% raw %}
 ```java
 class Solution {
-    public int hIndex(int[] citations) {
+        public int hIndex(int[] citations) {
         int n = citations.size();
         int[] count = new int[n + 1];
 

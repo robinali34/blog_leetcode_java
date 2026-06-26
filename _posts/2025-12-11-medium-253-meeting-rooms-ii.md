@@ -92,21 +92,21 @@ This approach uses a min-heap to track the end times of meetings currently using
 
 ```java
 class Solution {
-    public int minMeetingRooms(int[][]& intervals) {
+        public int minMeetingRooms(int[][] intervals) {
         if (intervals.length == 0) return 0;
 
         sort(intervals /* elements of intervals */, [](int[] a, int[] b){
             return a[0] < b[0];
         });
 
-        priority_queue<int, int[], greater<int>> allocator;
-        allocator.push(intervals[0][1]);
+        PriorityQueue<Integer> allocator;
+        allocator.offer(intervals[0][1]);
 
         for(int i = 1; i < intervals.length; i++) {
-            if(intervals[i][0] >= allocator.top()) {
-                allocator.pop();
+            if(intervals[i][0] >= allocator.peek()) {
+                allocator.poll();
             }
-            allocator.push(intervals[i][1]);
+            allocator.offer(intervals[i][1]);
         }
 
         return allocator.size();
@@ -141,11 +141,11 @@ This approach separates start and end times, then uses two pointers to simulate 
 // import java.util.Arrays;
 // import java.util.Collections;
 class Solution {
-    public int minMeetingRooms(int[][]& intervals) {
+        public int minMeetingRooms(int[][] intervals) {
         if (intervals.length == 0) return 0;
 
-        int[]start(intervals.length);
-        int[]end(intervals.length);
+        public int[] start(intervals.length);
+        public int[] end(intervals.length);
 
         for(int i = 0; i < intervals.length; i++) {
             start[i] = intervals[i][0];
@@ -196,14 +196,13 @@ This approach uses bucket sort to create a timeline array. For each interval, we
 
 ```java
 class Solution {
-    public int minMeetingRooms(int[][]& intervals) {
+        public int minMeetingRooms(int[][] intervals) {
         if (intervals.length == 0) return 0;
-
         int MAX_TIME = 1000000;
         int[] timeline = new int[MAX_TIME + 1];
 
         // Mark start and end times
-        for(auto interval : intervals) {
+        for (int interval : intervals) {
             timeline[interval[0]]++;  // Meeting starts
             timeline[interval[1]]--;  // Meeting ends
         }
@@ -257,19 +256,19 @@ If the time range is large but meetings are sparse, we can use a map instead:
 ```java
 // import java.util.*;
 class Solution {
-    public int minMeetingRooms(int[][]& intervals) {
+        public int minMeetingRooms(int[][] intervals) {
         if (intervals.length == 0) return 0;
 
-        TreeMap<Integer, Integer> timeline;
+        TreeMap<Integer, Integer> timeline = new TreeMap<>();
 
-        for(auto interval : intervals) {
+        for (int interval : intervals) {
             timeline[interval[0]]++;  // Meeting starts
             timeline[interval[1]]--;  // Meeting ends
         }
 
         int maxRooms = 0;
         int currentRooms = 0;
-        for(auto& [time, change] : timeline) {
+        for (var e : timeline.entrySet()) {
             currentRooms += change;
             maxRooms = Math.max(maxRooms, currentRooms);
         }

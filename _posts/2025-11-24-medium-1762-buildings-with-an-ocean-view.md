@@ -95,9 +95,9 @@ The simplest and most efficient approach: iterate from right to left, tracking t
 
 ```java
 class Solution {
-    public int[]findBuildings(int[] heights) {
+    public int[] findBuildings(int[] heights) {
         int n = heights.length;
-        int[]rtn;
+        List<Integer> rtn = new ArrayList<>();
         int maxHeight = -1;
 
         for (int curr = n - 1; curr >= 0; curr--) {
@@ -135,15 +135,15 @@ Uses a monotonic stack to maintain buildings in decreasing order of height.
 ```java
 // import java.util.*;
 class Solution {
-    public int[]findBuildings(int[] heights) {
+    public int[] findBuildings(int[] heights) {
         int n = heights.length;
-        int[]rtn;
+        List<Integer> rtn = new ArrayList<>();
         Deque<Integer> stk = new ArrayDeque<>();
 
         for (int curr = n - 1; curr >= 0; curr--) {
             // Remove buildings that are shorter than current
-            while (!stk.length == 0 && heights[stk.top()] < heights[curr]) {
-                stk.pop();
+            while (!stk.isEmpty() && heights[stk.peek()] < heights[curr]) {
+                stk.poll();
             }
 
             // If stack is empty, current building has ocean view
@@ -151,7 +151,7 @@ class Solution {
                 rtn.add(curr);
             }
 
-            stk.push(curr);
+            stk.offer(curr);
         }
 
         reverse(rtn /* elements of rtn */);
@@ -251,9 +251,9 @@ After reverse: rtn = [3]
 ### Solution 1: Simple Greedy
 
 ```java
-int[]findBuildings(int[] heights) {
+int[] findBuildings(int[] heights) {
     int n = heights.length;
-    int[]rtn;
+    List<Integer> rtn = new ArrayList<>();
     int maxHeight = -1;
 
     for (int curr = n - 1; curr >= 0; curr--) {
@@ -278,21 +278,21 @@ int[]findBuildings(int[] heights) {
 
 ```java
 // import java.util.*;
-int[]findBuildings(int[] heights) {
+int[] findBuildings(int[] heights) {
     int n = heights.length;
-    int[]rtn;
+    List<Integer> rtn = new ArrayList<>();
     Deque<Integer> stk = new ArrayDeque<>();
 
     for (int curr = n - 1; curr >= 0; curr--) {
-        while (!stk.length == 0 && heights[stk.top()] < heights[curr]) {
-            stk.pop();
+        while (!stk.isEmpty() && heights[stk.peek()] < heights[curr]) {
+            stk.poll();
         }
 
         if (stk.length == 0) {
             rtn.add(curr);
         }
 
-        stk.push(curr);
+        stk.offer(curr);
     }
 
     reverse(rtn /* elements of rtn */);

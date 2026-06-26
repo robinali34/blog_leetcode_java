@@ -99,9 +99,10 @@ This is a classic **backtracking with DFS** problem on a 2D grid. The key insigh
 ### **Solution: Backtracking with DFS**
 
 ```java
+// import java.util.*;
 class Solution {
-    public boolean exist(char[][]& board, String word) {
-        rows = board.size();
+        public boolean exist(char[][]& board, String word) {
+        rows = board.length;
         cols = board[0].length;
         for(int r = 0; r < rows; r++) {
             for(int c = 0; c < cols; c++) {
@@ -111,18 +112,18 @@ class Solution {
         return false;
     }
     int rows, cols;
-    List<int[]> dirs = \{\{0, 1\}, \{0, -1\}, \{1, 0\}, \{-1, 0\}\}
-    boolean backtrack(char[][]& board, String word, int row, int col, int idx) {
+    List<int[]> dirs = {/* */{0, 1\}, \{0, -1\}, \{1, 0\}, \{-1, 0}}
+        public boolean backtrack(char[][]& board, String word, int row, int col, int idx) {
         if(idx == word.length()) return true;
-        if(row < 0 || row >= rows || col < 0 || col >= cols || board[row][col] != word[idx]) {
+        if(row < 0 || row >= rows || col < 0 || col >= cols || board[row].charAt(col) != word.charAt(idx)) {
             return false;
         }
 
-        board[row][col] = '#';
-        for(auto& [dr, dc]: dirs) {
+        board[row].charAt(col) = '#';
+        for (var e : dirs.entrySet()) {
             if(backtrack(board, word, row + dr, col + dc, idx + 1)) return true;
         }
-        board[row][col] = word[idx];
+        board[row].charAt(col) = word.charAt(idx);
         return false;
     }
 }
@@ -262,9 +263,10 @@ No path found from (0,0). Try other starting positions...
 ### **Approach 2: Using Visited Array**
 
 ```java
+// import java.util.*;
 class Solution {
-    public boolean exist(char[][]& board, String word) {
-        int m = board.size(), n = board[0].length;
+        public boolean exist(char[][]& board, String word) {
+        int m = board.length, n = board[0].length;
         boolean[][] visited(m, boolean[](n, false));
 
         for(int i = 0; i < m; i++) {
@@ -274,14 +276,14 @@ class Solution {
         }
         return false;
     }
-    boolean dfs(char[][]& board, String word, int i, int j, int idx, boolean[][]& visited) {
+        public boolean dfs(char[][]& board, String word, int i, int j, int idx, boolean[][]& visited) {
         if(idx == word.length()) return true;
-        if(i < 0 || i >= board.size() || j < 0 || j >= board[0].length) return false;
-        if(visited[i][j] || board[i][j] != word[idx]) return false;
+        if(i < 0 || i >= board.length || j < 0 || j >= board[0].length) return false;
+        if(visited[i][j] || board[i].charAt(j) != word.charAt(idx)) return false;
 
         visited[i][j] = true;
-        List<int[]> dirs = \{\{0,1\}, \{0,-1\}, \{1,0\}, \{-1,0\}\}
-        for(auto& [dr, dc]: dirs) {
+        List<int[]> dirs = {/* */{0,1\}, \{0,-1\}, \{1,0\}, \{-1,0}}
+        for (var e : dirs.entrySet()) {
             if(dfs(board, word, i + dr, j + dc, idx + 1, visited)) return true;
         }
         visited[i][j] = false;

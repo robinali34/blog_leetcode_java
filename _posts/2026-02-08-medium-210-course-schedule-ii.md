@@ -56,13 +56,14 @@ This is **topological sort** on a directed graph: edge `(bi, ai)` means `bi` mus
 ## Solution 1: DFS with Three-State Coloring
 
 ```java
+// import java.util.*;
 class Solution {
-    public int[]findOrder(int numCourses, int[][]& prerequisites) {
-        int[][] adj(numCourses);
+    public int[] findOrder(int numCourses, int[][] prerequisites) {
+        public int[][] adj(numCourses);
         int[] color = new int[numCourses]; // 0: unvisited, 1: visiting, 2: visited
-        int[]order;
+        List<Integer> order = new ArrayList<>();
         boolean valid = true;
-        for (auto p : prerequisites) {
+        for (int p : prerequisites) {
             adj[p[1]].emplace_back(p[0]);
         }
         for (int i = 0; i < numCourses; i++) {
@@ -72,7 +73,7 @@ class Solution {
         reverse(order /* elements of order */);
         return order;
     }
-    void dfs(int u, int[][]& adj, int[] color, int[] order, boolean valid) {
+    public void dfs(int u, int[][] adj, int[] color, int[] order, boolean valid) {
         color[u] = 1;
         for (int v : adj[u]) {
             if (color[v] == 0) {
@@ -98,27 +99,27 @@ class Solution {
 ```java
 // import java.util.*;
 class Solution {
-    public int[]findOrder(int numCourses, int[][]& prerequisites) {
-        int[][] adj(numCourses);
+    public int[] findOrder(int numCourses, int[][] prerequisites) {
+        public int[][] adj(numCourses);
         int[] indegree = new int[numCourses];
         Queue<Integer> q = new LinkedList<>();
-        int[]order;
+        List<Integer> order = new ArrayList<>();
 
-        for (auto p : prerequisites) {
+        for (int p : prerequisites) {
             adj[p[1]].emplace_back(p[0]);
             indegree[p[0]]++;
         }
 
         for (int i = 0; i < numCourses; i++) {
-            if (indegree[i] == 0) q.push(i);
+            if (indegree[i] == 0) q.offer(i);
         }
 
-        while (!q.length == 0) {
-            int u = q.getFirst();
-            q.pop();
+        while (!q.isEmpty()) {
+            int u = q.get(0);
+            q.poll();
             order.add(u);
             for (int v : adj[u]) {
-                if (--indegree[v] == 0) q.push(v);
+                if (--indegree[v] == 0) q.offer(v);
             }
         }
         return order.size() == numCourses ? order : int[]{}

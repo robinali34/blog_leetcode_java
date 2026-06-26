@@ -118,54 +118,23 @@ This problem requires finding the edge that creates a cycle in an undirected gra
 ### **Solution: DSU with Union by Rank**
 
 ```java
-class DSU{
-    int[]parent;
-    int[]rank;
-    DSU(int n) {
-        parent.resize(n);
-        rank.resize(n, 0);
-        for(int i = 0; i < n; i++) {
-            parent[i] = i;
-        }
-    }
-
-    int find(int x) {
-        if(parent[x] != x) {
-            parent[x] = find(parent[x]);
-        }
-        return parent[x];
-    }
-
-    boolean unite(int x, int y) {
-        x = find(x);
-        y = find(y);
-        if(x == y) return false;
-
-        if(rank[x] < rank[y]) {
-            parent[x] = y;
-        } else if(rank[x] > rank[y]) {
-            parent[y] = x;
-        } else {
-            parent[y] = x;
-            rank.put(x, rank.getOrDefault(x, 0) + 1);
-        }
-        return true;
-    }
-}
 class Solution {
-    public int[]findRedundantConnection(int[][]& edges) {
-        int n = edges.size();
-        DSU dsu(n);
-
-        for(auto edge: edges) {
-            if(!dsu.unite(edge[0] - 1, edge[1] - 1)) {
-                return edge;
-            }
+    public int[] findRedundantConnection(int[][] edges) {
+        int[] parent = new int[edges.length + 1];
+        for (int i = 0; i < parent.length; i++) parent[i] = i;
+        for (int[] e : edges) {
+            int a = find(parent, e[0]), b = find(parent, e[1]);
+            if (a == b) return e;
+            parent[a] = b;
         }
-        return {}
+        return new int[0];
     }
-}
-```
+
+    private int find(int[] p, int x) {
+        if (p[x] != x) p[x] = find(p, p[x]);
+        return p[x];
+    }
+}```
 
 ### **Algorithm Explanation:**
 
@@ -222,11 +191,11 @@ Edge [2,3]: unite(1, 2)
 ```java
 // import java.util.*;
 class Solution {
-    public int cycleStart = -1;
-    void dfs(int src, boolean[] visited, vector<List<int[]>> adjList, int[] parent) {
+        int cycleStart = -1;
+    public void dfs(int src, boolean[] visited, vector<List<int[]>> adjList, int[] parent) {
         visited[src] = true;
-        for(auto p : adjList[src]) {
-            int adj = p.first;
+        for (char p : adjList[src].toCharArray()) {
+            int adj = p[0];
             if(!visited[adj]) {
                 parent[adj] = src;
                 dfs(adj, visited, adjList, parent);
@@ -236,16 +205,16 @@ class Solution {
             }
         }
     }
-    int[]findRedundantConnection(int[][]& edges) {
-        int n = edges.size();
+    public int[] findRedundantConnection(int[][] edges) {
+        int n = edges.length;
         boolean[] visited = new boolean[n];
         int[]parent(n, -1);
         vector<List<int[]>> adjList(n);
-        for(auto edge: edges) {
+        for (int edge : edges) {
             int u = edge[0] - 1;
             int v = edge[1] - 1;
-            adjList[u].push_back({v, 0});
-            adjList[v].push_back({u, 0});
+            adjList.computeIfAbsent(u, k.new ArrayList<>()).add(new int[] new int[] new int[] {v, 0});
+            adjList.computeIfAbsent(v, k.new ArrayList<>()).add(new int[] new int[] new int[] {u, 0});
         }
         dfs(0, visited, adjList, parent);
         HashMap<Integer, Integer> cycleNode = new HashMap<Integer, Integer>();
@@ -254,7 +223,7 @@ class Solution {
             cycleNode.put(node, 1);
             node = parent[node];
         } while (node != cycleStart);
-        for(int i = edges.size() - 1; i >= 0; i--) {
+        for(int i = edges.length - 1; i >= 0; i--) {
             if(cycleNode[edges[i][0] - 1] &&
             cycleNode[edges[i][1] - 1]) {
                 return edges[i];
@@ -322,8 +291,8 @@ Here's the general template for Union-Find (DSU) with union by rank:
 
 ```java
 class DSU {
-    int[]parent;
-    int[]rank;
+    List<Integer> parent = new ArrayList<>();
+    List<Integer> rank = new ArrayList<>();
     DSU(int n) {
         parent.resize(n);
         rank.resize(n, 0);

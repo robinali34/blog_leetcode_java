@@ -97,10 +97,10 @@ This is a straightforward **simulation** problem. We need to:
 
 ```java
 class Solution {
-    public int scoreOfString(String s) {
+        public int scoreOfString(String s) {
         int sum = 0;
         for(int i = 0; i < s.length() - 1; i++) {
-            sum += abs(s[i] - s[i + 1]);
+            sum += abs(s.charAt(i) - s[i + 1]);
         }
         return sum;
     }
@@ -173,10 +173,10 @@ Return: 13 ✓
 
 ```java
 class Solution {
-    public int scoreOfString(String s) {
+        public int scoreOfString(String s) {
         int sum = 0;
         for(int i = 0; i < s.length() - 1; i++) {
-            sum += abs(s[i] - s[i + 1]);
+            sum += abs(s.charAt(i) - s[i + 1]);
         }
         return sum;
     }

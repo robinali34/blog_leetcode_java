@@ -39,7 +39,7 @@ Generate all permutations of distinct elements.
 
 ```java
 // Permutations without duplicates
-static void backtrack(int[] nums, int[] cur, boolean[] used, int[][]& res){
+static void backtrack(int[] nums, int[] cur, boolean[] used, int[][] res){
     if (cur.size() == nums.length){
         res.add(cur);
         return;
@@ -63,7 +63,7 @@ Avoid duplicates by sorting first, then skipping duplicates at the same level wh
 // import java.util.Arrays;
 // import java.util.Collections;
 // Permutations with duplicates (avoid duplicates by sorting + skip used duplicates)
-static void backtrack(int[] nums, int[] cur, boolean[] used, int[][]& res){
+static void backtrack(int[] nums, int[] cur, boolean[] used, int[][] res){
     if (cur.size() == nums.length){
         res.add(cur);
         return;
@@ -82,8 +82,8 @@ static void backtrack(int[] nums, int[] cur, boolean[] used, int[][]& res){
 // Call with sorted array
 int[][] permuteUnique(int[] nums) {
     Arrays.sort(nums);
-    int[][] res;
-    int[]cur;
+    List<int[]> res = new ArrayList<>();
+    List<Integer> cur = new ArrayList<>();
     boolean[]used(nums.length, false);
     backtrack(nums, cur, used, res);
     return res;
@@ -101,7 +101,7 @@ Generate all combinations of k elements from n elements. Order doesn't matter, s
 
 ```java
 // Combinations C(n, k)
-static void backtrack(int start, int n, int k, int[] cur, int[][]& res){
+static void backtrack(int start, int n, int k, int[] cur, int[][] res){
     if (cur.size() == k){
         res.add(cur);
         return;
@@ -130,7 +130,7 @@ Generate all subsets (power set) of an array. This includes the empty set and th
 
 ```java
 // Subsets without duplicates
-static void backtrack(int start, int[] nums, int[] cur, int[][]& res){
+static void backtrack(int start, int[] nums, int[] cur, int[][] res){
     res.add(cur);  // Add current subset (including empty set)
     for (int i = start; i < nums.length; ++i){
         cur.add(nums[i]);
@@ -148,7 +148,7 @@ Sort first, then skip duplicates at the same level.
 // import java.util.Arrays;
 // import java.util.Collections;
 // Subsets with duplicates (sort first, skip duplicates at same level)
-static void backtrack(int start, int[] nums, int[] cur, int[][]& res){
+static void backtrack(int start, int[] nums, int[] cur, int[][] res){
     res.add(cur);
     for (int i = start; i < nums.length; ++i){
         // Skip duplicates at the same level
@@ -162,8 +162,8 @@ static void backtrack(int start, int[] nums, int[] cur, int[][]& res){
 // Call with sorted array
 int[][] subsetsWithDup(int[] nums) {
     Arrays.sort(nums);
-    int[][] res;
-    int[]cur;
+    List<int[]> res = new ArrayList<>();
+    List<Integer> cur = new ArrayList<>();
     backtrack(0, nums, cur, res);
     return res;
 }
@@ -182,7 +182,7 @@ Find all combinations that sum to target. Elements can be reused or used once de
 
 ```java
 // Combination Sum (can reuse same element)
-static void backtrack(int start, int[] candidates, int target, int[] cur, int[][]& res){
+static void backtrack(int start, int[] candidates, int target, int[] cur, int[][] res){
     if (target == 0){
         res.add(cur);
         return;
@@ -204,7 +204,7 @@ static void backtrack(int start, int[] candidates, int target, int[] cur, int[][
 // import java.util.Arrays;
 // import java.util.Collections;
 // Combination Sum II (each element used once, duplicates exist)
-static void backtrack(int start, int[] candidates, int target, int[] cur, int[][]& res){
+static void backtrack(int start, int[] candidates, int target, int[] cur, int[][] res){
     if (target == 0){
         res.add(cur);
         return;
@@ -215,8 +215,7 @@ static void backtrack(int start, int[] candidates, int target, int[] cur, int[][
         // Skip duplicates at the same level
         if (i > start && candidates[i] == candidates[i-1]) continue;
         cur.add(candidates[i]);
-        // No reuse: start=i+1
-        backtrack(i+1, candidates, target - candidates[i], cur, res);
+        // No reuse: start=i+1 backtrack = new 1(i+1, candidates, target - candidates[i], cur, res);
         cur.removeLast();
     }
 }
@@ -224,8 +223,8 @@ static void backtrack(int start, int[] candidates, int target, int[] cur, int[][
 // Call with sorted array
 int[][] combinationSum2(int[] candidates, int target) {
     Arrays.sort(candidates);
-    int[][] res;
-    int[]cur;
+    List<int[]> res = new ArrayList<>();
+    List<Integer> cur = new ArrayList<>();
     backtrack(0, candidates, target, cur, res);
     return res;
 }
@@ -235,7 +234,7 @@ int[][] combinationSum2(int[] candidates, int target) {
 
 ```java
 // Combination Sum III: choose k numbers from 1-9 that sum to n
-static void backtrack(int start, int k, int n, int[] cur, int[][]& res){
+static void backtrack(int start, int k, int n, int[] cur, int[][] res){
     if (cur.size() == k && n == 0){
         res.add(cur);
         return;
@@ -266,23 +265,23 @@ Backtrack on 2D grid with constraints. Mark cells as visited during exploration,
 // Word Search: find if word exists in grid
 static boolean dfs(char[][]& board, int i, int j, String word, int idx){
     if (idx == (int)word.size()) return true;
-    if (i < 0 || i >= (int)board.size() || j < 0 || j >= (int)board[0].length) return false;
-    if (board[i][j] != word[idx]) return false;
+    if (i < 0 || i >= board.length || j < 0 || j >= (int)board[0].length) return false;
+    if (board[i].charAt(j) != word.charAt(idx)) return false;
 
-    char temp = board[i][j];
-    board[i][j] = '#';  // Mark as visited
+    char temp = board[i].charAt(j);
+    board[i].charAt(j) = '#';  // Mark as visited
 
-    int dirs[4][2] = \{\{0,1\}, \{0,-1\}, \{1,0\}, \{-1,0\}\}
-    for (auto d : dirs){
+    int dirs[4][2] = {{0,1\}, \{0,-1\}, \{1,0\}, \{-1,0}}
+    for (int d : dirs){
         if (dfs(board, i+d[0], j+d[1], word, idx+1)) return true;
     }
 
-    board[i][j] = temp;  // Backtrack: restore original value
+    board[i].charAt(j) = temp;  // Backtrack: restore original value
     return false;
 }
 
 static boolean exist(char[][]& board, String word) {
-    for (int i = 0; i < (int)board.size(); ++i){
+    for (int i = 0; i < board.length; ++i){
         for (int j = 0; j < (int)board[0].length; ++j){
             if (dfs(board, i, j, word, 0)) return true;
         }
@@ -311,17 +310,18 @@ Backtracking with complex constraints. Validate each move before placing.
 ### N-Queens
 
 ```java
+// import java.util.*;
 // N-Queens: place n queens on n×n board
-static void backtrack(int row, int n, String[] board, vector<String[]>& res){
+static void backtrack(int row, int n, String[] board, List<List<String>>& res){
     if (row == n){
         res.add(board);
         return;
     }
     for (int col = 0; col < n; ++col){
         if (isValid(board, row, col, n)){
-            board[row][col] = 'Q';
+            board[row].charAt(col) = 'Q';
             backtrack(row+1, n, board, res);
-            board[row][col] = '.';  // Backtrack
+            board[row].charAt(col) = '.';  // Backtrack
         }
     }
 }
@@ -329,15 +329,15 @@ static void backtrack(int row, int n, String[] board, vector<String[]>& res){
 static boolean isValid(String[] board, int row, int col, int n){
     // Check column above
     for (int i = 0; i < row; ++i)
-        if (board[i][col] == 'Q') return false;
+        if (board[i].charAt(col) == 'Q') return false;
 
     // Check diagonal \ (top-left to bottom-right)
     for (int i = row-1, j = col-1; i >= 0 && j >= 0; --i, --j)
-        if (board[i][j] == 'Q') return false;
+        if (board[i].charAt(j) == 'Q') return false;
 
     // Check diagonal / (top-right to bottom-left)
     for (int i = row-1, j = col+1; i >= 0 && j < n; --i, ++j)
-        if (board[i][j] == 'Q') return false;
+        if (board[i].charAt(j) == 'Q') return false;
 
     return true;
 }
@@ -350,12 +350,12 @@ static boolean isValid(String[] board, int row, int col, int n){
 static boolean solveSudoku(char[][]& board){
     for (int i = 0; i < 9; ++i){
         for (int j = 0; j < 9; ++j){
-            if (board[i][j] == '.'){
+            if (board[i].charAt(j) == '.'){
                 for (char c = '1'; c <= '9'; ++c){
                     if (isValid(board, i, j, c)){
-                        board[i][j] = c;
+                        board[i].charAt(j) = c;
                         if (solveSudoku(board)) return true;
-                        board[i][j] = '.';  // Backtrack
+                        board[i].charAt(j) = '.';  // Backtrack
                     }
                 }
                 return false;  // No valid number found
@@ -368,9 +368,9 @@ static boolean solveSudoku(char[][]& board){
 static boolean isValid(char[][]& board, int row, int col, char c){
     for (int i = 0; i < 9; ++i){
         // Check row
-        if (board[row][i] == c) return false;
+        if (board[row].charAt(i) == c) return false;
         // Check column
-        if (board[i][col] == c) return false;
+        if (board[i].charAt(col) == c) return false;
         // Check 3x3 box
         if (board[3*(row/3) + i/3][3*(col/3) + i%3] == c) return false;
     }
@@ -389,15 +389,16 @@ static boolean isValid(char[][]& board, int row, int col, char c){
 Partition string into palindromic substrings. Check if substring is palindrome before partitioning.
 
 ```java
+// import java.util.*;
 // Palindrome Partitioning
-static void backtrack(int start, String s, String[] cur, vector<String[]>& res){
+static void backtrack(int start, String s, String[] cur, List<List<String>>& res){
     if (start == (int)s.size()){
         res.add(cur);
         return;
     }
     for (int end = start; end < (int)s.size(); ++end){
         if (isPalindrome(s, start, end)){
-            cur.add(s.substr(start, end-start+1));
+            cur.add(s.substring(start, end-start+1));
             backtrack(end+1, s, cur, res);
             cur.removeLast();  // Backtrack
         }
@@ -422,8 +423,8 @@ boolean[][] precomputePalindromes(String s){
     for (int i = n-1; i >= 0; --i){
         for (int j = i; j < n; ++j){
             if (i == j) dp[i][j] = true;
-            else if (j == i+1) dp[i][j] = (s[i] == s[j]);
-            else dp[i][j] = (s[i] == s[j] && dp[i+1][j-1]);
+            else if (j == i+1) dp[i][j] = (s.charAt(i) == s.charAt(j));
+            else dp[i][j] = (s.charAt(i) == s.charAt(j) && dp[i+1][j-1]);
         }
     }
     return dp;
@@ -485,14 +486,11 @@ static void backtrack(state, constraints, current_solution, results){
     for (each candidate in candidates){
         // Pruning: skip invalid candidates early
         if (isValid(candidate, constraints)){
-            // Make move: add candidate to solution
-            makeMove(candidate, current_solution);
+            // Make move: add candidate to solution makeMove = new solution(candidate, current_solution);
 
-            // Recurse: explore further
-            backtrack(updated_state, constraints, current_solution, results);
+            // Recurse: explore further backtrack = new further(updated_state, constraints, current_solution, results);
 
-            // Backtrack: remove candidate to try next option
-            undoMove(candidate, current_solution);
+            // Backtrack: remove candidate to try next option undoMove = new option(candidate, current_solution);
         }
     }
 }

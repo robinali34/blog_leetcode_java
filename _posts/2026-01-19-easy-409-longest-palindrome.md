@@ -99,11 +99,11 @@ This problem asks us to find the longest palindrome we can construct from the gi
 
 ```java
 class Solution {
-    public int longestPalindrome(String s) {
-        int maskl = 0; //[a - z]
-        int maskU = 0; //[A - Z]
+        public int longestPalindrome(String s) {
+        maskl = 0; //[a - z]
+        maskU = 0; //[A - Z]
         int rtn = 0;
-        for(char c: s) {
+        for (char c : s.toCharArray()) {
             if('a' <= c && c <= 'z') {
                 int bit = 1 << (c - 'a');
                 if(maskl bit) {
@@ -208,16 +208,16 @@ Final: maskl = 3 (bits for 'a' and 'b' are set)
 ```java
 // import java.util.*;
 class Solution {
-    public int longestPalindrome(String s) {
+        public int longestPalindrome(String s) {
         HashMap<char, int> count = new HashMap<char, int>();
-        for(char c: s) {
+        for (char c : s.toCharArray()) {
             count.put(c, count.getOrDefault(c, 0) + 1);
         }
 
         int result = 0;
         boolean hasOdd = false;
 
-        for(auto& [ch, freq]: count) {
+        for (var e : count.entrySet()) {
             result += (freq / 2) * 2;  // Add pairs
             if(freq % 2 == 1) {
                 hasOdd = true;
@@ -249,9 +249,9 @@ class Solution {
 
 ```java
 class Solution {
-    public int longestPalindrome(String s) {
-        int count[128] = {};  // ASCII covers all characters
-        for(char c: s) {
+        public int longestPalindrome(String s) {
+        int[] count = new int[128] = {};  // ASCII covers all characters
+        for (char c : s.toCharArray()) {
             count.put(c, count.getOrDefault(c, 0) + 1);
         }
 

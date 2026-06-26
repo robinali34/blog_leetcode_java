@@ -118,18 +118,18 @@ The key insight is to process both encoded arrays simultaneously using two point
 
 ```java
 class Solution {
-    public int[][] findRLEArray(int[][]& encoded1, int[][]& encoded2) {
+    public int[][] findRLEArray(int[][] encoded1, int[][] encoded2) {
         int i = 0, j = 0;
-        int[][] rtn;
+        List<int[]> rtn = new ArrayList<>();
         while(i < (int)encoded1.size() && j < (int)encoded2.size()) {
             int freq = Math.min(encoded1[i][1], encoded2[j][1]);
             int val = encoded1[i][0] * encoded2[j][0];
             encoded1[i][1] -= freq;
             encoded2[j][1] -= freq;
-            if(!rtn.length == 0 && rtn.getLast()[0] == val) {
-                rtn.getLast()[1] += freq;
+            if(!rtn.isEmpty() && rtn.get(rtn.size() - 1)[0] == val) {
+                rtn.get(rtn.size() - 1)[1] += freq;
             } else {
-                rtn.add({val, freq});
+                rtn.add(new int[] {val, freq});
             }
             if(encoded1[i][1] == 0) i++;
             if(encoded2[j][1] == 0) j++;

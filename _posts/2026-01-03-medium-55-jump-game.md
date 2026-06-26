@@ -116,7 +116,7 @@ This is a **greedy algorithm** problem. The key insight is to track the **rightm
 
 ```java
 class Solution {
-    public boolean canJump(int[] nums) {
+        public boolean canJump(int[] nums) {
         int N = nums.length;
         int rightMost = 0;
         for(int i = 0; i < N; i++) {

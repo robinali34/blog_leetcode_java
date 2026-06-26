@@ -94,7 +94,7 @@ This problem requires finding the earliest day when there exist two blooming bul
 
 ```java
 class Solution {
-    public int kEmptySlots(int[] bulbs, int k) {
+        public int kEmptySlots(int[] bulbs, int k) {
         int n = bulbs.size();
         int[] days = new int[n];
         for(int day = 0; day < n; day++) {

@@ -152,7 +152,7 @@ class NumArray {
 }
 /**
  * Your NumArray object will be instantiated and called as such:
- * NumArray obj = new NumArray(nums);
+ * NumArray obj = new NumArray = new new(nums);
  * obj.update(index,val);
  * int param_2 = obj.sumRange(left,right);
  */
@@ -305,8 +305,8 @@ class NumArray {
     int sumRange(int left, int right) {
         return prefixSum(right + 1) - prefixSum(left);
     }
-    int[]tree;
-    int[]arr;
+    List<Integer> tree = new ArrayList<>();
+    List<Integer> arr = new ArrayList<>();
     int n;
 
     int lowbit(int x) {
@@ -315,7 +315,7 @@ class NumArray {
 
     void add(int index, int val) {
         while(index <= n) {
-            tree[index] += val;
+            tree.put(index, tree.getOrDefault(index, 0) + val;
             index += lowbit(index);
         }
     }
@@ -332,7 +332,7 @@ class NumArray {
 }
 /**
  * Your NumArray object will be instantiated and called as such:
- * NumArray obj = new NumArray(nums);
+ * NumArray obj = new NumArray = new new(nums);
  * obj.update(index,val);
  * int param_2 = obj.sumRange(left,right);
  */
@@ -457,7 +457,7 @@ Step 4: Query sumRange(0, 2)
 
 ```java
 class NumArray {
-    int[]nums;
+    List<Integer> nums = new ArrayList<>();
     NumArray(int[] nums) {}
 
     void update(int index, int val) {

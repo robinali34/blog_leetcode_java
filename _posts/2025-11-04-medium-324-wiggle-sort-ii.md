@@ -75,11 +75,11 @@ class Solution {
         int left = 0, right = n - 1, i = 0;
         while(i <= right) {
             if(nums[vi(i)] > median) {
-                swap(nums[vi(left)], nums[vi(i)]);
+                swap(nums, vi(left), vi(i));
                 left++;
                 i++;
             } else if(nums[vi(i)] < median) {
-                swap(nums[vi(i)], nums[vi(right)]);
+                swap(nums, vi(i), vi(right));
                 right--;
             } else {
                 i++;

@@ -92,7 +92,7 @@ class FooBar {
     public void bar(Runnable printBar) {
         for (int i = 0; i < n; i++) {
             synchronized (lock) {
-                while (fooTurn) {
+                while (fooTurn > 0) {
                     try { lock.wait(); } catch (InterruptedException e) { Thread.currentThread().interrupt(); }
                 }
                 printBar.run();
@@ -139,7 +139,7 @@ class FooBar {
     public void bar(Runnable printBar) {
         for (int i = 0; i < n; i++) {
             synchronized (lock) {
-                while (fooTurn) {
+                while (fooTurn > 0) {
                     try { lock.wait(); } catch (InterruptedException e) { Thread.currentThread().interrupt(); }
                 }
                 printBar.run();

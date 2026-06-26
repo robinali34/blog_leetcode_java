@@ -75,18 +75,18 @@ class Solution {
         int n = s.size();
 
         for (int i = 0; i < n; ) {
-            if (s[i] == '{') {
+            if (s.charAt(i) == '{') {
                 char[]curr;
                 i++;
-                while (i < n && s[i] != '}') {
-                    if (isalpha(s[i])) curr.add(s[i]);
+                while (i < n && s.charAt(i) != '}') {
+                    if (isalpha(s.charAt(i))) curr.add(s.charAt(i));
                     i++;
                 }
                 Arrays.sort(curr);
                 groups.add(curr);
                 i++;
             } else {
-                groups.add({s[i]});
+                groups.add({s.charAt(i)});
                 i++;
             }
         }
@@ -96,7 +96,7 @@ class Solution {
         dfs(0, groups, path, rtn);
         return rtn;
     }
-    void dfs(int idx, char[][]& groups, String path, String[] rtn) {
+    public void dfs(int idx, char[][]& groups, String path, String[] rtn) {
         if (idx == (int)groups.size()) {
             rtn.add(path);
             return;

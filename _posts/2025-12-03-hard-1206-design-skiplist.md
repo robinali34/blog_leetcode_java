@@ -124,18 +124,18 @@ int MAX_LEVEL = 32;
 double P_FACTOR = 0.25;
 
 class SkiplistNode {
-    public int val_;
+        int val_;
     vector<SkiplistNode*> forward_;
 
     SkiplistNode(int val, int maxLevel = MAX_LEVEL) {}
 }
 class Skiplist {
     SkiplistNode head_;
-    public int level_;
+        int level_;
 
     int randomLevel() {
         int level = 1;
-        while((rand() / (double)RAND_MAX) < P_FACTOR && level < MAX_LEVEL) {
+        while((new Random().nextInt() / (double)RAND_MAX) < P_FACTOR && level < MAX_LEVEL) {
             level++;
         }
         return level;
@@ -170,7 +170,7 @@ class Skiplist {
 
         int lv = randomLevel();
         level_ = Math.max(level_, lv);
-        SkiplistNode newNode = new SkiplistNode(num, lv);
+        SkiplistNode newNode = new SkiplistNode = new new(num, lv);
 
         for(int i = 0; i < lv; i++) {
             newNode.forward_[i] = update[i].forward_[i];

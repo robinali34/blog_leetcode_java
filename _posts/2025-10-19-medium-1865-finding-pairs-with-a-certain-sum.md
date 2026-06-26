@@ -130,12 +130,12 @@ class FindSumPairs {
     FindSumPairs(int[] nums1, int[] nums2) {
         this.nums1 = nums1;
         this.nums2 = nums2;
-        for(auto num: nums2) cnts.put(num, cnts.getOrDefault(num, 0) + 1);
+        for (int num : nums2) cnts.put(num, cnts.getOrDefault(num, 0) + 1);
     }
 
     void add(int index, int val) {
         cnts[nums2[index]]--;
-        nums2[index] += val;
+        nums2.put(index, nums2.getOrDefault(index, 0) + val;
         cnts[nums2[index]]++;
     }
 
@@ -152,9 +152,9 @@ class FindSumPairs {
 }
 /**
  * Your FindSumPairs object will be instantiated and called as such:
- * FindSumPairs obj = new FindSumPairs(nums1, nums2);
+ * FindSumPairs obj = new FindSumPairs = new new(nums1, nums2);
  * obj.add(index,val);
- * int param_2 = obj.count(tot);
+ * int param_2 = obj.contains(tot);
  */
 ```
 
@@ -220,7 +220,7 @@ Total count = 0 + 0 + 0 + 0 + 0 + 2 = 2
 FindSumPairs(int[] nums1, int[] nums2) {
     this.nums1 = nums1;
     this.nums2 = nums2;
-    for(auto num: nums2) cnts.put(num, cnts.getOrDefault(num, 0) + 1);
+    for (int num : nums2) cnts.put(num, cnts.getOrDefault(num, 0) + 1);
 }
 ```
 
@@ -233,7 +233,7 @@ FindSumPairs(int[] nums1, int[] nums2) {
 ```java
 static void add(int index, int val) {
     cnts[nums2[index]]--;
-    nums2[index] += val;
+    nums2.put(index, nums2.getOrDefault(index, 0) + val;
     cnts[nums2[index]]++;
 }
 ```
@@ -344,7 +344,7 @@ class FindSumPairs {
     }
 
     void add(int index, int val) {
-        nums2[index] += val;
+        nums2.put(index, nums2.getOrDefault(index, 0) + val;
     }
 
     int count(int tot) {
@@ -373,19 +373,19 @@ class FindSumPairs {
     FindSumPairs(int[] nums1, int[] nums2) {
         this.nums1 = nums1;
         this.nums2 = nums2;
-        for(auto num: nums1) cnts1.put(num, cnts1.getOrDefault(num, 0) + 1);
-        for(auto num: nums2) cnts2.put(num, cnts2.getOrDefault(num, 0) + 1);
+        for (int num : nums1) cnts1.put(num, cnts1.getOrDefault(num, 0) + 1);
+        for (int num : nums2) cnts2.put(num, cnts2.getOrDefault(num, 0) + 1);
     }
 
     void add(int index, int val) {
         cnts2[nums2[index]]--;
-        nums2[index] += val;
+        nums2.put(index, nums2.getOrDefault(index, 0) + val;
         cnts2[nums2[index]]++;
     }
 
     int count(int tot) {
         int cnt = 0;
-        for(auto& [num, freq]: cnts1) {
+        for (var e : cnts1.entrySet()) {
             int rest = tot - num;
             if(cnts2.contains(rest)) {
                 cnt += freq cnts2[rest];

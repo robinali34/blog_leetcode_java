@@ -85,45 +85,28 @@ We use a combination of hash map and doubly linked list to achieve O(1) operatio
 ### Solution: Using `LinkedHashMap` move-to-end
 
 ```java
-// import java.util.*;
-
 class LRUCache {
-    LRUCache(int capacity) {
+    private final int cap;
+    private final Map<Integer, Integer> map = new LinkedHashMap<>(16, 0.75f, true);
+
+    public LRUCache(int capacity) {
+        cap = capacity;
     }
 
-    int get(int key) {
-        var it = hashMap_.find(key);
-        if(it != hashMap_.iterator()) {
-            /* move to end */, keyList_, it.second.second);
-            return it.second.first;
-        }
-        return -1;
+    public int get(int key) {
+        return map.getOrDefault(key, -1);
     }
 
-    void put(int key, int value) {
-        if(get(key) != -1) {
-            hashMap_[key].first = value;
-            return;
+    public void put(int key, int value) {
+        if (map.containsKey(key)) {
+            map.remove(key);
+        } else if (map.size() == cap) {
+            int eldest = map.keySet().iterator().next();
+            map.remove(eldest);
         }
-        if(hashMap_.size() >= capacity_) {
-            int removeKey = keyList_.getFirst();
-            keyList_.removeFirst();
-            hashMap_.remove(removeKey);
-        }
-        keyList_.add(key);
-        hashMap_[key] = {value, keyList_.getLast()}
+        map.put(key, value);
     }
-    int capacity_;
-    LinkedList<Integer> keyList_ = new LinkedList<Integer>();
-    unordered_map<int, pair<int, LinkedList<Integer>::iterator>> hashMap_;
-}
-/**
- * Your LRUCache object will be instantiated and called as such:
- * LRUCache obj = new LRUCache(capacity);
- * int param_1 = obj.get(key);
- * obj.put(key,value);
- */
-```
+}```
 
 ### Key Points
 
@@ -141,56 +124,64 @@ class LRUCache {
 Thread-safe version using mutex for concurrent access.
 
 ```java
-// import java.util.*;
-
-class ThreadSafeLRUCache {
-    ThreadSafeLRUCache(int capacity) {
+class LRUCache {
+    class Node {
+        int key, value;
+        Node prev, next;
+        Node(int k, int v) { key = k; value = v; }
     }
 
-    int get(int key) {
-         // Exclusive lock for read+modify
-        var it = hashMap_.find(key);
-        if(it != hashMap_.iterator()) {
-            /* move to end */, keyList_, it.second.second);
-            return it.second.first;
-        }
-        return -1;
+    private final int cap;
+    private final Map<Integer, Node> map = new HashMap<>();
+    private final Node head = new Node(0, 0), tail = new Node(0, 0);
+
+    public LRUCache(int capacity) {
+        cap = capacity;
+        head.next = tail;
+        tail.prev = head;
     }
 
-    void put(int key, int value) {
-         // Exclusive lock for write
-        var it = hashMap_.find(key);
-        if(it != hashMap_.iterator()) {
-            // Key exists, update value and move to end
-            hashMap_[key].first = value;
-            /* move to end */, keyList_, it.second.second);
+    public int get(int key) {
+        if (!map.containsKey(key)) return -1;
+        Node node = map.get(key);
+        moveToEnd(node);
+        return node.value;
+    }
+
+    public void put(int key, int value) {
+        if (map.containsKey(key)) {
+            Node node = map.get(key);
+            node.value = value;
+            moveToEnd(node);
             return;
         }
-        if(hashMap_.size() >= capacity_) {
-            int removeKey = keyList_.getFirst();
-            keyList_.removeFirst();
-            hashMap_.remove(removeKey);
+        if (map.size() == cap) {
+            Node lru = head.next;
+            remove(lru);
+            map.remove(lru.key);
         }
-        keyList_.add(key);
-        hashMap_[key] = {value, keyList_.getLast()}
+        Node node = new Node(key, value);
+        map.put(key, node);
+        insertEnd(node);
     }
 
-    size_t size() {
-        shared_lock<shared_mutex> lock(mtx_);
-        return hashMap_.size();
+    private void remove(Node node) {
+        node.prev.next = node.next;
+        node.next.prev = node.prev;
     }
-    int capacity_;
-    LinkedList<Integer> keyList_ = new LinkedList<Integer>();
-    unordered_map<int, pair<int, LinkedList<Integer>::iterator>> hashMap_;
-    mutable shared_mutex mtx_; // Use shared_mutex for read-write lock
-}
-// Example usage:
-// ThreadSafeLRUCache cache(2);
-// cache.put(1, 1);
-// cache.put(2, 2);
-// int val = cache.get(1); // returns 1
-// cache.put(3, 3); // evicts key 2
-```
+
+    private void insertEnd(Node node) {
+        node.prev = tail.prev;
+        node.next = tail;
+        tail.prev.next = node;
+        tail.prev = node;
+    }
+
+    private void moveToEnd(Node node) {
+        remove(node);
+        insertEnd(node);
+    }
+}```
 
 ### Thread-Safe Implementation Details
 

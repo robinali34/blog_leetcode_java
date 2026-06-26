@@ -61,12 +61,12 @@ A more direct iterative approach uses a `prev` pointer to track whether we're re
 {% raw %}
 ```java
 class Solution {
-    public int[]postorderTraversal(TreeNode root) {
-        int[]rtn;
+    public int[] postorderTraversal(TreeNode root) {
+        List<Integer> rtn = new ArrayList<>();
         postorder(root, rtn);
         return rtn;
     }
-    void postorder(TreeNode node, int[] rtn) {
+    public void postorder(TreeNode node, int[] rtn) {
         if (!node) return;
         postorder(node.left, rtn);
         postorder(node.right, rtn);
@@ -85,18 +85,19 @@ Do **root → right → left** traversal, then reverse the result to get **left 
 
 {% raw %}
 ```java
+// import java.util.*;
 class Solution {
-    public int[]postorderTraversal(TreeNode root) {
+    public int[] postorderTraversal(TreeNode root) {
         if (!root) return {}
-        int[]rtn;
-        stack<TreeNode> st;
-        st.push(root);
+        List<Integer> rtn = new ArrayList<>();
+        Deque<TreeNode> st = new ArrayDeque<>();
+        st.offer(root);
 
-        while (!st.length == 0) {
-            TreeNode node = st.top(); st.pop();
+        while (!st.isEmpty()) {
+            TreeNode node = st.peek(); st.poll();
             rtn.add(node.val);
-            if (node.left) st.push(node.left);
-            if (node.right) st.push(node.right);
+            if (node.left) st.offer(node.left);
+            if (node.right) st.offer(node.right);
         }
 
         reverse(rtn /* elements of rtn */);
@@ -115,22 +116,23 @@ Track the previously visited node. Only visit the current node when its right ch
 
 {% raw %}
 ```java
+// import java.util.*;
 class Solution {
-    public int[]postorderTraversal(TreeNode root) {
-        int[]rtn;
-        stack<TreeNode> st;
+    public int[] postorderTraversal(TreeNode root) {
+        List<Integer> rtn = new ArrayList<>();
+        Deque<TreeNode> st = new ArrayDeque<>();
         TreeNode cur = root;
         TreeNode prev = null;
 
-        while (cur || !st.length == 0) {
-            while (cur) {
-                st.push(cur);
+        while (cur || !st.isEmpty()) {
+            while (cur > 0) {
+                st.offer(cur);
                 cur = cur.left;
             }
-            cur = st.top();
+            cur = st.peek();
             if (!cur.right || cur.right == prev) {
                 rtn.add(cur.val);
-                st.pop();
+                st.poll();
                 prev = cur;
                 cur = null;
             } else {

@@ -48,11 +48,11 @@ Scan for zeros, record their rows and columns, then zero out.
 ```java
 // import java.util.*;
 class Solution {
-    public void setZeroes(int[][]& matrix) {
-        int R = matrix.size();
+    public void setZeroes(int[][] matrix) {
+        int R = matrix.length;
         int C = matrix[0].length;
-        TreeSet<Integer> rows;
-        TreeSet<Integer> cols;
+        TreeSet<Integer> rows = new TreeSet<>();
+        TreeSet<Integer> cols = new TreeSet<>();
 
         for (int i = 0; i < R; ++i) {
             for (int j = 0; j < C; ++j) {
@@ -96,8 +96,8 @@ If we zero them out early, we lose the marker information stored there. The flag
 {% raw %}
 ```java
 class Solution {
-    public void setZeroes(int[][]& matrix) {
-        int R = matrix.size();
+    public void setZeroes(int[][] matrix) {
+        int R = matrix.length;
         int C = matrix[0].length;
 
         boolean firstRowZero = false;

@@ -118,7 +118,7 @@ This problem requires finding the minimum length subarray with sum >= target. Tw
 
 ```java
 class Solution {
-    public int minSubArrayLen(int target, int[] nums) {
+        public int minSubArrayLen(int target, int[] nums) {
         if(nums.length == 0) return 0;
         int N = nums.length;
         int rtn = Integer.MAX_VALUE;
@@ -128,7 +128,7 @@ class Solution {
         }
         for(int i = 1; i <= N; i++) {
             int currTarget = target + sums[i - 1];
-            var it = binary search (lower bound)(sums /* elements of sums */, currTarget);
+            var it = floorKey(sums /* elements of sums */, currTarget);
             if(it != sums.iterator()) {
                 rtn = Math.min(rtn, (int)(it - sums.iterator()) - (i - 1));
             }
@@ -160,7 +160,7 @@ for(int i = 1; i <= N; i++) {
 ```java
 for(int i = 1; i <= N; i++) {
     int currTarget = target + sums[i - 1];
-    var it = binary search (lower bound)(sums /* elements of sums */, currTarget);
+    var it = floorKey(sums /* elements of sums */, currTarget);
     if(it != sums.iterator()) {
         rtn = Math.min(rtn, (int)(it - sums.iterator()) - (i - 1));
     }
@@ -230,7 +230,7 @@ Result: min(4, 4, 3, 3, 2) = 2 ✓
 
 ```java
 class Solution {
-    public int minSubArrayLen(int target, int[] nums) {
+        public int minSubArrayLen(int target, int[] nums) {
         if(nums.length == 0) return 0;
         int N = nums.length;
         int rtn = Integer.MAX_VALUE;

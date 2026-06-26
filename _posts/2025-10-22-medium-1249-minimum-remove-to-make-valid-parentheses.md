@@ -97,22 +97,22 @@ Use two passes: First pass (left to right): track balance, mark excess closing p
 ```java
 // import java.util.*;
 class Solution {
-    public String minRemoveToMakeValid(String s) {
+        public String minRemoveToMakeValid(String s) {
         Deque<Integer> stk = new ArrayDeque<>();
         for(int idx = 0; idx < (int)s.size(); idx++) {
-            if(s[idx] == '(') stk.push(idx);
-            if(s[idx] == ')') {
-                if(!stk.length == 0 && s[stk.top()] == '(') {
-                    stk.pop();
+            if(s.charAt(idx) == '(') stk.offer(idx);
+            if(s.charAt(idx) == ')') {
+                if(!stk.isEmpty() && s[stk.peek()] == '(') {
+                    stk.poll();
                 } else {
-                    stk.push(idx);
+                    stk.offer(idx);
                 }
             }
         }
         String rtn = s;
-        while(!stk.length == 0) {
-            rtn.remove(stk.top(), 1);
-            stk.pop();
+        while(!stk.isEmpty()) {
+            rtn.remove(stk.peek(), 1);
+            stk.poll();
         }
         return rtn;
     }
@@ -131,11 +131,11 @@ class Solution {
 
 ```java
 class Solution {
-    public String minRemoveToMakeValid(String s) {
+        public String minRemoveToMakeValid(String s) {
         // First pass: remove unmatched ')'
         String result = "";
         int balance = 0;
-        for(char c : s) {
+        for (char c : s.toCharArray()) {
             if(c == '(') {
                 balance++;
                 result += c;
@@ -187,34 +187,33 @@ class Solution {
 ```java
 // import java.util.*;
 class Solution {
-    public String minRemoveToMakeValid(String s) {
+        public String minRemoveToMakeValid(String s) {
         HashSet<Integer> to_remove = new HashSet<Integer>();
         Deque<Integer> stk = new ArrayDeque<>();
 
-        // Find unmatched parentheses
-        for(int i = 0; i < s.length(); i++) {
-            if(s[i] == '(') {
-                stk.push(i);
-            } else if(s[i] == ')') {
+        // Find unmatched parentheses for = new parentheses(int i = 0; i < s.length(); i++) {
+            if(s.charAt(i) == '(') {
+                stk.offer(i);
+            } else if(s.charAt(i) == ')') {
                 if(stk.length == 0) {
                     to_remove.add(i);
                 } else {
-                    stk.pop();
+                    stk.poll();
                 }
             }
         }
 
         // Add remaining unmatched '(' to removal set
-        while(!stk.length == 0) {
-            to_remove.add(stk.top());
-            stk.pop();
+        while(!stk.isEmpty()) {
+            to_remove.add(stk.peek());
+            stk.poll();
         }
 
         // Build result String
         String result = "";
         for(int i = 0; i < s.length(); i++) {
             if(to_remove.find(i) == to_remove.iterator()) {
-                result += s[i];
+                result += s.charAt(i);
             }
         }
 
@@ -245,12 +244,12 @@ class Solution {
 ### Stack-Based Approach
 ```java
 // Track indices of unmatched parentheses
-if(s[idx] == '(') stk.push(idx);
-if(s[idx] == ')') {
-    if(!stk.length == 0 && s[stk.top()] == '(') {
-        stk.pop();  // Match found
+if(s.charAt(idx) == '(') stk.offer(idx);
+if(s.charAt(idx) == ')') {
+    if(!stk.isEmpty() && s[stk.peek()] == '(') {
+        stk.poll();  // Match found
     } else {
-        stk.push(idx);  // Unmatched ')'
+        stk.offer(idx);  // Unmatched ')'
     }
 }
 ```
@@ -259,9 +258,9 @@ if(s[idx] == ')') {
 ```java
 // Remove unmatched parentheses from String
 String rtn = s;
-while(!stk.length == 0) {
-    rtn.remove(stk.top(), 1);
-    stk.pop();
+while(!stk.isEmpty()) {
+    rtn.remove(stk.peek(), 1);
+    stk.poll();
 }
 ```
 

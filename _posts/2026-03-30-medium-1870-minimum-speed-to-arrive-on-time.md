@@ -88,8 +88,8 @@ Answer: left = 3 ✓
 {% raw %}
 ```java
 class Solution {
-    public int minSpeedOnTime(int[] dist, double hour) {
-        int n = dist.size();
+        public int minSpeedOnTime(int[] dist, double hour) {
+        int n = dist.length;
         if (hour <= n - 1) return -1;
 
         int left = 1, right = 1e7;
@@ -103,9 +103,9 @@ class Solution {
         }
         return left;
     }
-    boolean can(int[] dist, double hour, int k) {
+        public boolean can(int[] dist, double hour, int k) {
         double t = 0;
-        int n = dist.size();
+        int n = dist.length;
         for (int i = 0; i < n - 1; ++i) {
             t += (dist[i] + k - 1) / k;
         }

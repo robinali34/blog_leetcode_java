@@ -90,7 +90,7 @@ We can use **Dijkstra's Algorithm**. The state in the priority queue will be `{t
 {% raw %}
 ```java
 class Solution {
-    public int minTimeToReach(int[][]& moveTime) {
+        public int minTimeToReach(int[][] moveTime) {
         int n = (int)moveTime.size();
         int m = (int)moveTime[0].length;
 
@@ -103,24 +103,24 @@ class Solution {
         dist[0][0] = 0;
 
         // State: {time, r, c, next_move_cost}
-        // next_move_cost is the cost to travel to the next* neighbor.
+        // next_move_cost is the cost to travel to the next neighbor.
         class State {
-            public long time;
-            public int r, c, w;
+        long time;
+        int r, c, w;
             boolean operator>(State other) { return time > other.time; }
         }
         priority_queue<State, State[], greater<>> pq;
-        pq.push({0, 0, 0, 1}); // Start at (0,0), time 0, next move costs 1
+        pq.offer({0, 0, 0, 1}); // Start at (0,0), time 0, next move costs 1
 
-        int dirs[4][2] = {{0,1}, {0,-1}, {1,0}, {-1,0}}
-        while (!pq.length == 0) {
-            auto [t, r, c, w] = pq.top();
-            pq.pop();
+        int dirs[4][2] = {new int[] {0, 1}, {0,-1}, new int[] {1, 0}, {-1,0}}
+        while (!pq.isEmpty()) {
+            auto [t, r, c, w] = pq.peek();
+            pq.poll();
 
             if (t > dist[r][c]) continue;
             if (r == n - 1 && c == m - 1) return (int)t;
 
-            for (auto d : dirs) {
+            for (int d : dirs) {
                 int nr = r + d[0];
                 int nc = c + d[1];
 
@@ -132,7 +132,7 @@ class Solution {
 
                 if (nt < dist[nr][nc]) {
                     dist[nr][nc] = nt;
-                    pq.push({nt, nr, nc, 3 - w}); // Flip weight: 1.2, 2.1
+                    pq.offer({nt, nr, nc, 3 - w}); // Flip weight: 1.2, 2.1
                 }
             }
         }

@@ -73,7 +73,7 @@ Store the first occurrence index of each prefix remainder. Only update the map i
 ```java
 // import java.util.*;
 class Solution {
-    public boolean checkSubarraySum(int[] nums, int k) {
+        public boolean checkSubarraySum(int[] nums, int k) {
         HashMap<Integer, Integer> mp = new HashMap<Integer, Integer>();
         mp.put(0, -1);
         int sum = 0;
@@ -81,7 +81,7 @@ class Solution {
         for (int i = 0; i < nums.length; i++) {
             sum += nums[i];
             int r = sum % k;
-            if (mp.count(r)) {
+            if (mp.contains(r)) {
                 if (i - mp[r] >= 2) return true;
             } else {
                 mp.put(r, i);
@@ -105,7 +105,7 @@ Insert each remainder one step late, so any match guarantees a gap of at least 2
 ```java
 // import java.util.*;
 class Solution {
-    public boolean checkSubarraySum(int[] nums, int k) {
+        public boolean checkSubarraySum(int[] nums, int k) {
         HashSet<Integer> hashSet = new HashSet<Integer>();
         int sum = 0, prev = 0;
 

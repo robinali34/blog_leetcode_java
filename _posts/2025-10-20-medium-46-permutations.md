@@ -96,19 +96,19 @@ This is a classic **backtracking** problem that requires generating all possible
 ```java
 class Solution {
     public int[][] permute(int[] nums) {
-        int[][] rtn;
+        List<int[]> rtn = new ArrayList<>();
         permute(nums, 0, rtn);
         return rtn;
     }
-    void permute(int[] nums, int idx, int[][]& rtn) {
+    public void permute(int[] nums, int idx, int[][] rtn) {
         if(idx == nums.length) {
             rtn.add(nums);
             return;
         }
         for(int i = idx; i < nums.length; i++) {
-            swap(nums[idx], nums[i]);
+            swap(nums, idx, i);
             permute(nums, idx + 1, rtn);
-            swap(nums[idx], nums[i]);
+            swap(nums, idx, i);
         }
     }
 }
@@ -121,7 +121,7 @@ class Solution {
 // import java.util.Collections;
 class Solution {
     public int[][] permute(int[] nums) {
-        int[][] rtn;
+        List<int[]> rtn = new ArrayList<>();
         Arrays.sort(nums);
         do{
             rtn.add(nums);
@@ -229,14 +229,14 @@ Sorted: [1,2,3]
 ```java
 class Solution {
     public int[][] permute(int[] nums) {
-        int[][] result;
-        int[]current;
+        List<int[]> result = new ArrayList<>();
+        List<Integer> current = new ArrayList<>();
         boolean[]used(nums.length, false);
         backtrack(nums, current, used, result);
         return result;
     }
-    void backtrack(int[] nums, int[] current,
-                   boolean[] used, int[][]& result) {
+    public void backtrack(int[] nums, int[] current,
+                   boolean[] used, int[][] result) {
         if(current.size() == nums.length) {
             result.add(current);
             return;
@@ -259,13 +259,13 @@ class Solution {
 ```java
 class Solution {
     public int[][] permute(int[] nums) {
-        int[][] result;
+        List<int[]> result = new ArrayList<>();
         stack<int[]> stk;
-        stk.push({});
+        stk.offer({});
 
-        while(!stk.length == 0) {
-            int[]current = stk.top();
-            stk.pop();
+        while(!stk.isEmpty()) {
+            int[]current = stk.peek();
+            stk.poll();
 
             if(current.size() == nums.length) {
                 result.add(current);
@@ -276,7 +276,7 @@ class Solution {
                 if(find(current /* elements of current */, num) == current.iterator()) {
                     int[]next = current;
                     next.add(num);
-                    stk.push(next);
+                    stk.offer(next);
                 }
             }
         }

@@ -79,9 +79,9 @@ class Solution {
     public void reverseString(char[] s) {
         int left = 0, right = (int)s.size() - 1;
         while (left < right) {
-            char temp = s[left];
-            s[left] = s[right];
-            s[right] = temp;
+            char temp = s.charAt(left);
+            s.charAt(left) = s.charAt(right);
+            s.charAt(right) = temp;
             ++left;
             --right;
         }

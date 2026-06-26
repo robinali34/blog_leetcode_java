@@ -59,16 +59,15 @@ The fractions telescope, giving exactly $\frac{1}{n}$ for every node.
 ```java
 class Solution {
     Solution(ListNode head) {
-        while (head) {
+        while (head > 0) {
             v.add(head.val);
             head = head.next;
         }
     }
-
-    int getRandom() {
-        return v[rand() % v.size()];
+        public int getRandom() {
+        return v[new Random().nextInt() % v.size()];
     }
-    int[]v;
+    List<Integer> v = new ArrayList<>();
 }
 ```
 {% endraw %}
@@ -86,13 +85,12 @@ class Solution {
     Solution(ListNode head) {
         this.head = head;
     }
-
-    int getRandom() {
+        public int getRandom() {
         int rtn = head.val;
         ListNode curr = head.next;
         int i = 2;
-        while (curr) {
-            if (rand() % i == 0) {
+        while (curr > 0) {
+            if (new Random().nextInt() % i == 0) {
                 rtn = curr.val;
             }
             curr = curr.next;

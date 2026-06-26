@@ -108,7 +108,7 @@ class Solution {
         f(i, j) = 0 if obstacleGrid[i][j] == 1
         f(i, j) = f(i-1, j) + f(i, j-1), if obstacleGrid[i][j] == 0
     */
-    public int uniquePathsWithObstacles(int[][]& obstacleGrid) {
+        public int uniquePathsWithObstacles(int[][] obstacleGrid) {
         int N = obstacleGrid.size(), M = obstacleGrid[0].length;
         int[] dp = new int[M];
         dp[0] = (obstacleGrid[0][0] == 0) ? 1 : 0;
@@ -119,11 +119,11 @@ class Solution {
                     dp[j] = 0;
                 }
                 else if(j > 0) {
-                    dp[j] += dp[j - 1];
+                    dp.put(j, dp.getOrDefault(j, 0) + dp[j - 1];
                 }
             }
         }
-        return dp.getLast();
+        return dp.get(dp.length - 1);
     }
 }
 ```
@@ -185,7 +185,7 @@ Result: 2 paths
 
 ```java
 class Solution {
-    public int uniquePathsWithObstacles(int[][]& obstacleGrid) {
+        public int uniquePathsWithObstacles(int[][] obstacleGrid) {
         int m = obstacleGrid.size(), n = obstacleGrid[0].length;
         int[][] dp = new int[m][n];
 

@@ -137,7 +137,7 @@ class Solution {
         }
         return head;
     }
-    ListNode reverseLinkedList(ListNode head, int k){
+    public ListNode reverseLinkedList(ListNode head, int k){
         ListNode new_head = null;
         ListNode ptr = head;
         while(k > 0) {

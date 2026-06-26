@@ -117,12 +117,12 @@ This is a classic **greedy algorithm** problem. The key insight is to use a gree
 // import java.util.Arrays;
 // import java.util.Collections;
 class Solution {
-    public int findContentChildren(int[] g, int[] s) {
+        public int findContentChildren(int[] g, int[] s) {
         Arrays.sort(g);
         Arrays.sort(s);
         int count = 0, i = 0, j = 0;
         while(i < g.length && j < s.size()){
-            if(s[j] >= g[i]) {
+            if(s.charAt(j) >= g[i]) {
                 count++;
                 i++;
                 j++;
@@ -141,13 +141,13 @@ class Solution {
 // import java.util.Arrays;
 // import java.util.Collections;
 class Solution {
-    public int findContentChildren(int[] g, int[] s) {
+        public int findContentChildren(int[] g, int[] s) {
         Arrays.sort(g);
         Arrays.sort(s);
         int numOfChildren = g.length, numOfCookies = s.size();
         int count = 0;
         for(int i = 0, j = 0; i < numOfChildren && j < numOfCookies; i++, j++) {
-            while(j < numOfCookies && g[i] > s[j]) {
+            while(j < numOfCookies && g[i] > s.charAt(j)) {
                 j++;
             }
             if(j < numOfCookies) {

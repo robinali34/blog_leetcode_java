@@ -88,10 +88,10 @@ This problem requires finding the next closest time (including next day) that ca
 
 ```java
 class Solution {
-    public int getMin(int h, int m) {
+        public int getMin(int h, int m) {
         return h 60 + m;
     }
-    String nextClosestTime(String time) {
+        public String nextClosestTime(String time) {
         int h, m;
         sscanf(time.c_str(), "%d:%d", &h, &m);
         boolean[] con = new boolean[10];

@@ -64,7 +64,7 @@ After replaying all moves, if no winner:
 {% raw %}
 ```java
 class Solution {
-    public String tictactoe(int[][]& moves) {
+        public String tictactoe(int[][] moves) {
         int GRID_SIZE = 3;
         int[] rows = new int[GRID_SIZE], cols(GRID_SIZE, 0);
         int diag = 0, antiDiag = 0;
@@ -73,8 +73,8 @@ class Solution {
             int row = moves[i][0], col = moves[i][1];
 
             int player = (i % 2 == 0) ? 1 : -1;
-            rows[row] += player;
-            cols[col] += player;
+            rows.put(row, rows.getOrDefault(row, 0) + player;
+            cols.put(col, cols.getOrDefault(col, 0) + player;
 
             if (row == col) diag += player;
             if (row == GRID_SIZE - 1 - col) antiDiag += player;

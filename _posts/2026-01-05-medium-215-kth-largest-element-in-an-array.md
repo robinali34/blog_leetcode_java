@@ -120,15 +120,14 @@ Use the partition algorithm from quicksort to find the kth largest element witho
 ```java
 class Solution {
     public int findKthLargest(int[] nums, int k) {
-        priority_queue<int, int[], greater<>> minHeap;
-        for(int num: nums) {
-            minHeap.push(num);
-            if(minHeap.size() > k) minHeap.pop();
+        PriorityQueue<Integer> minHeap = new PriorityQueue<>();
+        for (int num : nums) {
+            minHeap.offer(num);
+            if (minHeap.size() > k) minHeap.poll();
         }
-        return minHeap.top();
+        return minHeap.peek();
     }
-}
-```
+}```
 
 ### Algorithm Explanation:
 
@@ -224,21 +223,21 @@ Final: Top of heap = 5 (2nd largest)
 
 ```java
 class Solution {
-    public int findKthLargest(int[] nums, int k) {
+        public int findKthLargest(int[] nums, int k) {
         int N = nums.length;
-        return quickSelect(nums, 0, N - 1, N - k);
+        return quickSelect = new return(nums, 0, N - 1, N - k);
     }
-    int quickSelect(int[] nums, int l, int r, int k) {
+        public int quickSelect(int[] nums, int l, int r, int k) {
         if(l == r) return nums[k];
         int pivot = nums[l], i = l - 1, j = r + 1;
         while(i < j) {
             do i++; while(nums[i] < pivot);
             do j--; while(nums[j] > pivot);
             if(i < j)
-                swap(nums[i], nums[j]);
+                swap(nums, i, j);
         }
-        if(k <= j) return quickSelect(nums, l, j, k);
-        else return quickSelect(nums, j + 1, r, k);
+        if(k <= j) return quickSelect = new return(nums, l, j, k);
+        else return quickSelect = new return(nums, j + 1, r, k);
     }
 }
 ```

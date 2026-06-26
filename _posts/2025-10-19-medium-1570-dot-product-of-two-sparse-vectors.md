@@ -131,7 +131,7 @@ class SparseVector {
         var smaller = (this.cache.size() <= vec.cache.size()) ? this.cache : vec.cache;
         var larger = (this.cache.size() <= vec.cache.size()) ? vec.cache : this.cache;
 
-        for(auto& [idx, num]: smaller) {
+        for (var e : smaller.entrySet()) {
             if(larger.contains(idx)) {
                 rtn += num larger[idx];
             }
@@ -140,8 +140,8 @@ class SparseVector {
     }
 }
 // Your SparseVector object will be instantiated and called as such:
-// SparseVector v1(nums1);
-// SparseVector v2(nums2);
+// SparseVector v1 = new SparseVector(nums1);
+// SparseVector v2 = new SparseVector(nums2);
 // int ans = v1.dotProduct(v2);
 ```
 
@@ -209,7 +209,7 @@ static int dotProduct(SparseVector vec) {
     var smaller = (this.cache.size() <= vec.cache.size()) ? this.cache : vec.cache;
     var larger = (this.cache.size() <= vec.cache.size()) ? vec.cache : this.cache;
 
-    for(auto& [idx, num]: smaller) {
+    for (var e : smaller.entrySet()) {
         if(larger.contains(idx)) {
             rtn += num larger[idx];
         }
@@ -288,7 +288,7 @@ Result = 6
 ### Approach 1: Brute Force
 ```java
 class SparseVector {
-    int[]nums;
+    List<Integer> nums = new ArrayList<>();
     SparseVector(int[]nums) {
         this.nums = nums;
     }
@@ -308,8 +308,9 @@ class SparseVector {
 
 ### Approach 2: List of Pairs
 ```java
+// import java.util.*;
 class SparseVector {
-    List<int[]> nonZeros;
+    List<int[]> nonZeros = new ArrayList<>();
     SparseVector(int[]nums) {
         for(int i = 0; i < nums.length; i++) {
             if(nums[i] !) {

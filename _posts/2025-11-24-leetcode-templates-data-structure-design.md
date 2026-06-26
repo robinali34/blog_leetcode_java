@@ -29,13 +29,13 @@ Maintain a primary stack for data and an auxiliary stack to track the minimum va
 class MinStack {
     Deque<Integer> stk, minStk;
     public void push(int val) {
-        stk.push(val);
-        if (minStk.length == 0) minStk.push(val);
-        else minStk.push(Math.min(minStk.top(), val));
+        stk.offer(val);
+        if (minStk.length == 0) minStk.offer(val);
+        else minStk.offer(Math.min(minStk.peek(), val));
     }
-    void pop() { stk.pop(); minStk.pop(); }
-    int top() { return stk.top(); }
-    int getMin() { return minStk.top(); }
+    public void pop() { stk.poll(); minStk.poll(); }
+        public int top() { return stk.peek(); }
+        public int getMin() { return minStk.peek(); }
 }
 ```
 
@@ -50,7 +50,7 @@ Least Recently Used cache using hash map + doubly linked list.
 ```java
 // import java.util.*;
 class LRUCache {
-    public int capacity_;
+        int capacity_;
     LinkedList<Integer> keyList_ = new LinkedList<Integer>();
     unordered_map<int, pair<int, LinkedList<Integer>::iterator>> hashMap_;
 
@@ -60,17 +60,16 @@ class LRUCache {
     }
     LRUCache(int capacity) {
     }
-
-    int get(int key) {
+        public int get(int key) {
         var it = hashMap_.find(key);
         if(it != hashMap_.iterator()) {
-            /* move to end */, keyList_, it.second.second);
-            return it.second.first;
+            /* move to end */, keyList_, it[1].second);
+            return it[1][0];
         }
         return -1;
     }
 
-    void put(int key, int value) {
+    public void put(int key, int value) {
         if(get(key) != -1) {
             hashMap_[key].first = value;
             return;
@@ -78,7 +77,7 @@ class LRUCache {
         if(hashMap_.size() < capacity_) {
             insert(key, value);
         } else {
-            int removeKey = keyList_.getFirst();
+            int removeKey = keyList_.get(0);
             keyList_.removeFirst();
             hashMap_.remove(removeKey);
             insert(key, value);
@@ -87,7 +86,7 @@ class LRUCache {
 }
 /**
  * Your LRUCache object will be instantiated and called as such:
- * LRUCache obj = new LRUCache(capacity);
+ * LRUCache obj = new LRUCache = new new(capacity);
  * int param_1 = obj.get(key);
  * obj.put(key,value);
  */
@@ -101,7 +100,7 @@ Thread-safe version using mutex for concurrent access.
 // import java.util.*;
 
 class ThreadSafeLRUCache {
-    public int capacity_;
+        int capacity_;
     LinkedList<Integer> keyList_ = new LinkedList<Integer>();
     unordered_map<int, pair<int, LinkedList<Integer>::iterator>> hashMap_;
     mutable shared_mutex mtx_; // Use shared_mutex for read-write lock
@@ -121,8 +120,8 @@ class ThreadSafeLRUCache {
          // Exclusive lock for read+modify
         var it = hashMap_.find(key);
         if(it != hashMap_.iterator()) {
-            /* move to end */, keyList_, it.second.second);
-            return it.second.first;
+            /* move to end */, keyList_, it[1].second);
+            return it[1][0];
         }
         return -1;
     }
@@ -137,7 +136,7 @@ class ThreadSafeLRUCache {
         if(hashMap_.size() < capacity_) {
             insert(key, value);
         } else {
-            int removeKey = keyList_.getFirst();
+            int removeKey = keyList_.get(0);
             keyList_.removeFirst();
             hashMap_.remove(removeKey);
             insert(key, value);
@@ -150,7 +149,7 @@ class ThreadSafeLRUCache {
     }
 }
 // Example usage:
-// ThreadSafeLRUCache cache(2);
+// ThreadSafeLRUCache cache = new ThreadSafeLRUCache(2);
 // cache.put(1, 1);
 // cache.put(2, 2);
 // int val = cache.get(1); // returns 1
@@ -168,9 +167,9 @@ Least Frequently Used cache.
 ```java
 // import java.util.*;
 class LFUCache {
-    public int capacity, minFreq;
-    HashMap<Integer, int[]> keyValFreq; // key . {value, frequency}
-    HashMap<Integer, LinkedList<Integer>> freqKeys; // frequency . list of keys
+        int capacity, minFreq;
+    HashMap<Integer, int[]> keyValFreq = new HashMap<Integer, int[]>(); // key . new int[] {value, frequency}
+    HashMap<Integer, LinkedList<Integer>> freqKeys = new HashMap<>(); // frequency . list of keys
     unordered_map<int, LinkedList<Integer>::iterator> keyIter; // key . iterator in freqKeys list
 
     void updateFreq(int key) {
@@ -183,7 +182,7 @@ class LFUCache {
 
         freq++;
         keyValFreq[key].second = freq;
-        freqKeys[freq].push_back(key);
+        freqKeys.computeIfAbsent(freq, k.new ArrayList<>()).add(key);
         keyIter.put(key, --freqKeys[freq].end());
     }
     LFUCache(int capacity) {}
@@ -208,8 +207,8 @@ class LFUCache {
                 keyIter.remove(evictKey);
             }
 
-            keyValFreq.put(key, {value, 1});
-            freqKeys[1].push_back(key);
+            keyValFreq.put(key, new int[] {value, 1});
+            freqKeys.computeIfAbsent(1, k.new ArrayList<>()).add(key);
             keyIter.put(key, --freqKeys[1].end());
             minFreq = 1;
         }
@@ -229,7 +228,7 @@ Prefix tree for efficient string operations.
 class Trie {
     class TrieNode {
         vector<TrieNode*> children;
-        public boolean isEnd;
+        boolean isEnd;
         public TrieNode() {}
     }
     TrieNode root;
@@ -237,7 +236,7 @@ class Trie {
         root = new TrieNode();
     }
 
-    void insert(String word) {
+    public void insert(String word) {
         TrieNode node = root;
         for (char c : word) {
             int idx = c - 'a';
@@ -248,8 +247,7 @@ class Trie {
         }
         node.isEnd = true;
     }
-
-    boolean search(String word) {
+        public boolean search(String word) {
         TrieNode node = root;
         for (char c : word) {
             int idx = c - 'a';
@@ -258,8 +256,7 @@ class Trie {
         }
         return node.isEnd;
     }
-
-    boolean startsWith(String prefix) {
+        public boolean startsWith(String prefix) {
         TrieNode node = root;
         for (char c : prefix) {
             int idx = c - 'a';
@@ -279,12 +276,13 @@ class Trie {
 ## Time-based Key-Value Store
 
 ```java
+// import java.util.*;
 class TimeMap {
     unordered_map<String, List<int[]>> store;
     TimeMap() {}
 
     void set(String key, String value, int timestamp) {
-        store[key].push_back({timestamp, value});
+        store.computeIfAbsent(key, k.new ArrayList<>()).add(new int[] {timestamp, value});
     }
 
     String get(String key, int timestamp) {
@@ -321,16 +319,15 @@ class TimeMap {
 
 ```java
 class Solution {
-    public int[]prefixSum;
+    List<Integer> prefixSum = new ArrayList<>();
     Solution(int[] w) {
         prefixSum.add(0);
         for (int weight : w) {
-            prefixSum.add(prefixSum.getLast() + weight);
+            prefixSum.add(prefixSum.get(prefixSum.size() - 1) + weight);
         }
     }
-
-    int pickIndex() {
-        int target = rand() % prefixSum.getLast();
+        public int pickIndex() {
+        int target = new Random().nextInt() % prefixSum.get(prefixSum.size() - 1);
         return binary search (upper bound)(prefixSum /* elements of prefixSum */, target) - prefixSum.iterator() - 1;
     }
 }
@@ -341,15 +338,15 @@ class Solution {
 ```java
 class TicTacToe {
     int[]rows, cols;
-    public int diagonal, antiDiagonal;
-    public int n;
+        int diagonal, antiDiagonal;
+        int n;
     TicTacToe(int n) {}
 
     int move(int row, int col, int player) {
         int add = (player == 1) ? 1 : -1;
 
-        rows[row] += add;
-        cols[col] += add;
+        rows.put(row, rows.getOrDefault(row, 0) + add;
+        cols.put(col, cols.getOrDefault(col, 0) + add;
 
         if (row == col) diagonal += add;
         if (row + col == n - 1) antiDiagonal += add;

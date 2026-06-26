@@ -111,50 +111,50 @@ This problem requires efficiently matching buy and sell orders based on price co
 ```java
 // import java.util.*;
 class Solution {
-    public int getNumberOfBacklogOrders(int[][]& orders) {
+        public int getNumberOfBacklogOrders(int[][] orders) {
         int MOD = 1e9 +7;
-        priority_queue<int[]> buy;
+        PriorityQueue<int[]> buy = new PriorityQueue<>((a, b) -> Integer.compare(a[0], b[0]));
         PriorityQueue<int[]> sell = new PriorityQueue<int[]>();
-        for(auto o: orders) {
+        for (int o : orders) {
             int price = o[0], amount = o[1], type = o[2];
             if(type == 0) {
-                while(amount > 0 && !sell.length == 0 && sell.top().first <= price) {
-                    auto [sellPrice, sellAmount] = sell.top();
-                    sell.pop();
+                while(amount > 0 && !sell.isEmpty() && sell.peek().first <= price) {
+                    int[] sellPricepair = sell.peek(); int sellPrice = sellPricepair[0]; int sellAmount = sellPricepair[1];
+                    sell.poll();
                     int matched = Math.min(amount, sellAmount);
                     amount -= matched;
                     sellAmount -= matched;
                     if (sellAmount > 0) {
-                        sell.push({sellPrice, sellAmount});
+                        sell.offer(new int[] {sellPrice, sellAmount});
                     }
                 }
                 if(amount > 0) {
-                    buy.push({price, amount});
+                    buy.offer(new int[] {price, amount});
                 }
             } else {
-                while(amount > 0 && !buy.length == 0 && buy.top().first >= price) {
-                    auto [buyPrice, buyAmount] = buy.top();
-                    buy.pop();
+                while(amount > 0 && !buy.isEmpty() && buy.peek().first >= price) {
+                    int[] buyPricepair = buy.peek(); int buyPrice = buyPricepair[0]; int buyAmount = buyPricepair[1];
+                    buy.poll();
                     int matched = Math.min(amount, buyAmount);
                     amount -= matched;
                     buyAmount -= matched;
                     if(buyAmount > 0) {
-                        buy.push({buyPrice, buyAmount});
+                        buy.offer(new int[] {buyPrice, buyAmount});
                     }
                 }
                 if(amount > 0) {
-                    sell.push({price, amount});
+                    sell.offer(new int[] {price, amount});
                 }
             }
         }
         long rtn = 0;
-        while(!buy.length == 0) {
-            rtn = (rtn + buy.top().second) % MOD;
-            buy.pop();
+        while(!buy.isEmpty()) {
+            rtn = (rtn + buy.peek().second) % MOD;
+            buy.poll();
         }
-        while(!sell.length == 0) {
-            rtn = (rtn + sell.top().second) % MOD;
-            sell.pop();
+        while(!sell.isEmpty()) {
+            rtn = (rtn + sell.peek().second) % MOD;
+            sell.poll();
         }
         return rtn;
     }
@@ -299,18 +299,14 @@ Result: 5 + 1 = 6 ✓
 
 ```java
 class Order {
-    public int price, amount;
+        int price, amount;
     Order(int p, int a) {}
 }
 // Custom comparators
-var buyCmp = [](Order a, Order b) {
-    return a.price < b.price; // Max heap
-}
-var sellCmp = [](Order a, Order b) {
-    return a.price > b.price; // Min heap
-}
-priority_queue<Order, Order[], decltype(buyCmp)> buy(buyCmp);
-priority_queue<Order, Order[], decltype(sellCmp)> sell(sellCmp);
+
+
+priority_queue<Order, Order[], > buy(buyCmp);
+priority_queue<Order, Order[], > sell(sellCmp);
 ```
 
 **Pros**: More structured, clearer intent  

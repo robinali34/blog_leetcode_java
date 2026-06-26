@@ -95,10 +95,10 @@ This problem requires finding the value in a BST that is closest to a given targ
  * }
  */
 class Solution {
-    public int closerValue(double lower, double upper, double target) {
+        public int closerValue(double lower, double upper, double target) {
         return upper - target >= target - lower? lower : upper;
     }
-    int closestValue(TreeNode root, double target) {
+        public int closestValue(TreeNode root, double target) {
         if(root == null)  return 0;
         if(root.val > target && root.left != null) {
             return closerValue(closestValue(root.left, target), root.val, target);
@@ -317,9 +317,9 @@ Result: 3
 
 ```java
 class Solution {
-    public int closestValue(TreeNode root, double target) {
+        public int closestValue(TreeNode root, double target) {
         int closest = root.val;
-        while (root) {
+        while (root > 0) {
             if (abs(root.val - target) < abs(closest - target)) {
                 closest = root.val;
             }

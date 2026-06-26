@@ -122,7 +122,7 @@ This is a classic **Kadane's Algorithm** problem, which can be solved using eith
 
 ```java
 class Solution {
-    public int maxSubArray(int[] nums) {
+        public int maxSubArray(int[] nums) {
         int maxSum = nums[0], currSum = nums[0];
         for(int i = 1; i < nums.length; i++) {
             currSum = Math.max(nums[i], currSum + nums[i]);
@@ -396,7 +396,7 @@ int[]maxSubArrayIndices(int[] nums) {
         }
     }
 
-    return {start, end};  // Return indices of maximum subarray
+    return new int[] {start, end};  // Return indices of maximum subarray
 }
 ```
 

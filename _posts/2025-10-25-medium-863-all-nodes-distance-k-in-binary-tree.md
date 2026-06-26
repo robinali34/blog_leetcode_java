@@ -99,32 +99,32 @@ Use BFS with parent map: first find the target node and build parent mapping in 
  */
 
 class Solution {
-    public int[]distanceK(TreeNode root, TreeNode target, int k) {
+    public int[] distanceK(TreeNode root, TreeNode target, int k) {
         buildGraph(root, null);
         visited.add(target.val);
         dfs(target.val, 0, k);
         return rtn;
     }
-    HashMap<Integer, int[]> graph;
-    int[]rtn;
+    HashMap<Integer, int[]> graph = new HashMap<Integer, int[]>();
+    List<Integer> rtn = new ArrayList<>();
     HashSet<Integer> visited = new HashSet<Integer>();
 
-    void buildGraph(TreeNode curr, TreeNode parent) {
+    public void buildGraph(TreeNode curr, TreeNode parent) {
         if(curr && parent) {
-            graph[curr.val].push_back(parent.val);
-            graph[parent.val].push_back(curr.val);
+            graph.computeIfAbsent(curr.val, k -> new ArrayList<>()).add(parent.val);
+            graph.computeIfAbsent(parent.val, k -> new ArrayList<>()).add(curr.val);
         }
         if(curr.left) buildGraph(curr.left, curr);
         if(curr.right) buildGraph(curr.right, curr);
     }
 
-    void dfs(int curr, int dist, int K) {
+    public void dfs(int curr, int dist, int K) {
         if(dist == K) {
             rtn.add(curr);
             return;
         }
         for(int neighbor: graph[curr]) {
-            if(!visited.contains(neighbor)) {
+            if(!visited.containsKey(neighbor)) {
                 visited.add(neighbor);
                 dfs(neighbor, dist + 1, K);
             }
@@ -148,6 +148,7 @@ class Solution {
 **Space Complexity:** O(n)
 
 ```java
+// import java.util.*;
 /**
  * Definition for a binary tree node.
  * class TreeNode {
@@ -159,24 +160,24 @@ class Solution {
  */
 
 class Solution {
-    public int[]distanceK(TreeNode root, TreeNode target, int k) {
+    public int[] distanceK(TreeNode root, TreeNode target, int k) {
         addParent(root, null);
-        int[]rtn;
-        unordered_set<TreeNode> visited;
+        List<Integer> rtn = new ArrayList<>();
+        HashSet<TreeNode> visited = new HashSet<TreeNode>();
         dfs(target, k, rtn, visited);
         return rtn;
     }
-    unordered_map<TreeNode, TreeNode> parent;
+    HashMap<TreeNode, TreeNode> parent = new HashMap<TreeNode, TreeNode>();
 
-    void addParent(TreeNode curr, TreeNode parent) {
+    public void addParent(TreeNode curr, TreeNode parent) {
         if(curr) {
-            this.parent[curr] = parent;
+            this.parent.put(curr, parent);
             addParent(curr.left, curr);
             addParent(curr.right, curr);
         }
     }
 
-    void dfs(TreeNode curr, int dist, int[] rtn, unordered_set<TreeNode>& visited) {
+    public void dfs(TreeNode curr, int dist, int[] rtn, HashSet<TreeNode>& visited) {
         if(!curr || visited.contains(curr)) return;
         visited.add(curr);
         if(dist == 0) {
@@ -204,39 +205,39 @@ class Solution {
 ```java
 // import java.util.*;
 class Solution {
-    public int[]distanceK(TreeNode root, TreeNode target, int k) {
+    public int[] distanceK(TreeNode root, TreeNode target, int k) {
         buildGraph(root, null);
-        int[]rtn;
-        queue<int[]> q;  // {node, distance}
+        List<Integer> rtn = new ArrayList<>();
+        queue<int[]> q;  // new int[] {node, distance}
         HashSet<Integer> visited = new HashSet<Integer>();
 
-        q.push({target.val, 0});
+        q.offer({target.val, 0});
         visited.add(target.val);
 
-        while(!q.length == 0) {
-            auto [curr, dist] = q.getFirst();
-            q.pop();
+        while(!q.isEmpty()) {
+            auto [curr, dist] = q.get(0);
+            q.poll();
 
             if(dist == k) {
                 rtn.add(curr);
             } else if(dist < k) {
                 for(int neighbor: graph[curr]) {
-                    if(!visited.contains(neighbor)) {
+                    if(!visited.containsKey(neighbor)) {
                         visited.add(neighbor);
-                        q.push({neighbor, dist + 1});
+                        q.offer({neighbor, dist + 1});
                     }
                 }
             }
         }
         return rtn;
     }
-    HashMap<Integer, int[]> graph;
-    int[]rtn;
+    HashMap<Integer, int[]> graph = new HashMap<Integer, int[]>();
+    List<Integer> rtn = new ArrayList<>();
 
-    void buildGraph(TreeNode curr, TreeNode parent) {
+    public void buildGraph(TreeNode curr, TreeNode parent) {
         if(curr && parent) {
-            graph[curr.val].push_back(parent.val);
-            graph[parent.val].push_back(curr.val);
+            graph.computeIfAbsent(curr.val, k -> new ArrayList<>()).add(parent.val);
+            graph.computeIfAbsent(parent.val, k -> new ArrayList<>()).add(curr.val);
         }
         if(curr.left) buildGraph(curr.left, curr);
         if(curr.right) buildGraph(curr.right, curr);
@@ -267,8 +268,8 @@ class Solution {
 ```java
 // Store bidirectional edges
 if(curr && parent) {
-    graph[curr.val].push_back(parent.val);
-    graph[parent.val].push_back(curr.val);
+    graph.computeIfAbsent(curr.val, k -> new ArrayList<>()).add(parent.val);
+    graph.computeIfAbsent(parent.val, k -> new ArrayList<>()).add(curr.val);
 }
 ```
 
@@ -281,7 +282,7 @@ static void dfs(int curr, int dist, int K) {
     }
     // Recursively explore all neighbors
     for(int neighbor: graph[curr]) {
-        if(!visited.contains(neighbor)) {
+        if(!visited.containsKey(neighbor)) {
             visited.add(neighbor);
             dfs(neighbor, dist + 1, K);
         }
@@ -291,8 +292,7 @@ static void dfs(int curr, int dist, int K) {
 
 ### Three-Directional Search
 ```java
-// Explore: parent, left child, right child
-dfs(parent[curr], dist - 1, rtn, visited);
+// Explore: parent, left child, right child dfs = new child(parent[curr], dist - 1, rtn, visited);
 dfs(curr.left, dist - 1, rtn, visited);
 dfs(curr.right, dist - 1, rtn, visited);
 ```

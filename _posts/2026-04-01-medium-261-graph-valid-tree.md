@@ -57,24 +57,23 @@ Union each edge. If both endpoints already share the same root, we've found a cy
 {% raw %}
 ```java
 class Solution {
-    public boolean validTree(int n, int[][]& edges) {
-        if (edges.size() != n - 1) return false;
-        parent.resize(n);
-        for (int i = 0; i < n; ++i) parent[i] = i;
-        for (auto e : edges) {
-            int pu = find(e[0]), pv = find(e[1]);
-            if (pu == pv) return false;
-            parent[pu] = pv;
+    public boolean validTree(int n, int[][] edges) {
+        if (edges.length != n - 1) return false;
+        int[] parent = new int[n];
+        for (int i = 0; i < n; i++) parent[i] = i;
+        for (int[] e : edges) {
+            int a = find(parent, e[0]), b = find(parent, e[1]);
+            if (a == b) return false;
+            parent[a] = b;
         }
         return true;
     }
-    int[]parent;
-    int find(int x) {
-        if (parent[x] != x) parent[x] = find(parent[x]);
-        return parent[x];
+
+    private int find(int[] p, int x) {
+        if (p[x] != x) p[x] = find(p, p[x]);
+        return p[x];
     }
-}
-```
+}```
 {% endraw %}
 
 **Time**: $O(n \cdot \alpha(n)) \approx O(n)$ -- nearly linear with path compression
@@ -87,10 +86,10 @@ Build an adjacency list and DFS from node 0. Track the parent to avoid false cyc
 {% raw %}
 ```java
 class Solution {
-    public boolean validTree(int n, int[][]& edges) {
-        if (edges.size() != n - 1) return false;
-        int[][] graph(n);
-        for (auto e : edges) {
+        public boolean validTree(int n, int[][] edges) {
+        if (edges.length != n - 1) return false;
+        public int[][] graph(n);
+        for (int e : edges) {
             graph[e[0]].push_back(e[1]);
             graph[e[1]].push_back(e[0]);
         }
@@ -101,7 +100,7 @@ class Solution {
         }
         return true;
     }
-    boolean dfs(int node, int parent, int[][]& graph, boolean[] visited) {
+        public boolean dfs(int node, int parent, int[][] graph, boolean[] visited) {
         visited[node] = true;
         for (int nei : graph[node]) {
             if (!visited[nei]) {

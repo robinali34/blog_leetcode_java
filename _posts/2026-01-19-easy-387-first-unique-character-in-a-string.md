@@ -89,7 +89,7 @@ This problem requires finding the first character that appears exactly once. The
 
 ```java
 class Solution {
-    public int firstUniqChar(String s) {
+        public int firstUniqChar(String s) {
         int once = 0, multi = 0;
         int idx = -1;
         for(char ch : s) {
@@ -100,7 +100,7 @@ class Solution {
         }
 
         for(int i = 0; i < s.length(); i++) {
-            int bit = 1 << (s[i] - 'a');
+            int bit = 1 << (s.charAt(i) - 'a');
             if(once bit) {
                 return i;
             }
@@ -171,12 +171,12 @@ Second Pass:
 
 ```java
 class Solution {
-    public int firstUniqChar(String s) {
+        public int firstUniqChar(String s) {
         int[] cnt = new int[26];
-        int[]idx(26, -1);
+        public int[] idx(26, -1);
         for(int i = 0; i < s.length(); i++) {
             // log first idx
-            int curr = s[i] - 'a';
+            int curr = s.charAt(i) - 'a';
             if(cnt[curr] == 0) {
                 idx[curr] = i;
             }
@@ -294,13 +294,13 @@ Second Pass:
 
 ```java
 class Solution {
-    public int firstUniqChar(String s) {
+        public int firstUniqChar(String s) {
         int[] count = new int[26];
-        for(char c : s) {
+        for (char c : s.toCharArray()) {
             count[c - 'a']++;
         }
         for(int i = 0; i < s.length(); i++) {
-            if(count[s[i] - 'a'] == 1) {
+            if(count[s.charAt(i) - 'a'] == 1) {
                 return i;
             }
         }
@@ -317,13 +317,13 @@ class Solution {
 ```java
 // import java.util.*;
 class Solution {
-    public int firstUniqChar(String s) {
+        public int firstUniqChar(String s) {
         HashMap<char, int> count = new HashMap<char, int>();
-        for(char c : s) {
+        for (char c : s.toCharArray()) {
             count.put(c, count.getOrDefault(c, 0) + 1);
         }
         for(int i = 0; i < s.length(); i++) {
-            if(count[s[i]] == 1) {
+            if(count[s.charAt(i)] == 1) {
                 return i;
             }
         }

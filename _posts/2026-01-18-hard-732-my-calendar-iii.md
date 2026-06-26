@@ -110,13 +110,13 @@ class MyCalendarThree {
         mp[endTime]--;
         int maxBooking = 0;
         int active = 0;
-        for(auto &[time, curr] : mp) {
+        for (var e : mp.entrySet()) {
             active += curr;
             maxBooking = Math.max(maxBooking, active);
         }
         return maxBooking;
     }
-    TreeMap<Integer, Integer> mp;
+    TreeMap<Integer, Integer> mp = new TreeMap<>();
 }
 /**
  * Your MyCalendarThree object will be instantiated and called as such:
@@ -247,12 +247,12 @@ class MyCalendarThree {
     int book(int startTime, int endTime) {
         split(startTime);
         split(endTime);
-        for(var it = starts.find(startTime); it.first < endTime; it++) {
-            maxBooking = Math.max(maxBooking, ++(it.second));
+        for(var it = starts.find(startTime); it[0] < endTime; it++) {
+            maxBooking = Math.max(maxBooking, ++(it[1]));
         }
         return maxBooking;
     }
-    TreeMap<Integer, Integer> starts;
+    TreeMap<Integer, Integer> starts = new TreeMap<>();
     int maxBooking;
 
     void split(int x) {

@@ -114,13 +114,13 @@ Use dynamic programming to track the length of the longest valid parentheses end
 
 ```java
 class Solution {
-    public int longestValidParentheses(String s) {
+        public int longestValidParentheses(String s) {
         int maxCount = 0;
         int len = s.length();
-        int[]dp(len);
+        int[] dp = new int[len];
 
         for (int i = 1; i < len; i++) {
-            if (s[i] == ')') {
+            if (s.charAt(i) == ')') {
                 // Case 1: Pattern "()" - simple match
                 if (s[i - 1] == '(') {
                     dp[i] = (i >= 2 ? dp[i - 2] : 0) + 2;
@@ -155,13 +155,13 @@ Use two passes (left-to-right and right-to-left) to find the longest valid subst
 
 ```java
 class Solution {
-    public int longestValidParentheses(String s) {
+        public int longestValidParentheses(String s) {
         int left = 0, right = 0, maxLen = 0;
         int len = s.length();
 
         // Left to right pass
         for (int i = 0; i < len; i++) {
-            if (s[i] == '(') left++;
+            if (s.charAt(i) == '(') left++;
             else right++;
 
             if (left == right) {
@@ -175,7 +175,7 @@ class Solution {
         // Right to left pass
         left = right = 0;
         for (int i = len - 1; i >= 0; i--) {
-            if (s[i] == '(') left++;
+            if (s.charAt(i) == '(') left++;
             else right++;
 
             if (left == right) {
@@ -329,7 +329,7 @@ else if (i - dp[i - 1] > 0 && s[i - dp[i - 1] - 1] == '(') {
 **Left-to-Right Pass:**
 ```java
 for (int i = 0; i < len; i++) {
-    if (s[i] == '(') left++;
+    if (s.charAt(i) == '(') left++;
     else right++;
 
     if (left == right) {
@@ -346,7 +346,7 @@ for (int i = 0; i < len; i++) {
 **Right-to-Left Pass:**
 ```java
 for (int i = len - 1; i >= 0; i--) {
-    if (s[i] == '(') left++;
+    if (s.charAt(i) == '(') left++;
     else right++;
 
     if (left == right) {
@@ -403,20 +403,20 @@ for (int i = len - 1; i >= 0; i--) {
 ```java
 // import java.util.*;
 class Solution {
-    public int longestValidParentheses(String s) {
+        public int longestValidParentheses(String s) {
         Deque<Integer> stk = new ArrayDeque<>();
-        stk.push(-1);  // Base for calculation
+        stk.offer(-1);  // Base for calculation
         int maxLen = 0;
 
         for (int i = 0; i < s.length(); i++) {
-            if (s[i] == '(') {
-                stk.push(i);
+            if (s.charAt(i) == '(') {
+                stk.offer(i);
             } else {
-                stk.pop();
+                stk.poll();
                 if (stk.length == 0) {
-                    stk.push(i);  // New base
+                    stk.offer(i);  // New base
                 } else {
-                    maxLen = Math.max(maxLen, i - stk.top());
+                    maxLen = Math.max(maxLen, i - stk.peek());
                 }
             }
         }

@@ -88,7 +88,7 @@ We maintain a **monotonic decreasing stack** from right to left.
 ```java
 // import java.util.*;
 class Solution {
-    public int[]canSeePersonsCount(int[] heights) {
+    public int[] canSeePersonsCount(int[] heights) {
         int n = heights.length;
         int[] rtn = new int[n];
         Deque<Integer> st = new ArrayDeque<>();
@@ -96,17 +96,17 @@ class Solution {
         // Iterate from right to left
         for(int i = n - 1; i >= 0; i--) {
             // Person i can see everyone in the stack that is shorter than them
-            while(!st.length == 0 && heights[i] > st.top()) {
-                st.pop();
+            while(!st.isEmpty() && heights[i] > st.peek()) {
+                st.poll();
                 rtn.put(i, rtn.getOrDefault(i, 0) + 1);
             }
             // If there's someone left in the stack, they are taller than person i
             // Person i can see this taller person, but no one beyond them
-            if(!st.length == 0) {
+            if(!st.isEmpty()) {
                 rtn.put(i, rtn.getOrDefault(i, 0) + 1);
             }
             // Push current height to maintain monotonic decreasing stack (from top)
-            st.push(heights[i]);
+            st.offer(heights[i]);
         }
         return rtn;
     }

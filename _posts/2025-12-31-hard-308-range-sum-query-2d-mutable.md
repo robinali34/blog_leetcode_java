@@ -103,15 +103,15 @@ This problem requires efficiently handling both **updates** and **range sum quer
 ```java
 class NumMatrix {
     public int[][] matrix, rowSumArr;
-    public int rowCnt, colCnt;
-    NumMatrix(int[][]& matrix) {
+        int rowCnt, colCnt;
+    NumMatrix(int[][] matrix) {
         this.matrix = matrix;
         if(matrix.length == 0 || matrix[0].empty()) {
             rowCnt = 0;
             colCnt = 0;
             return;
         }
-        rowCnt = matrix.size();
+        rowCnt = matrix.length;
         colCnt = matrix[0].length;
         rowSumArr.assign(rowCnt, int[](colCnt, 0));
         for(int i = 0; i < rowCnt; i++) {

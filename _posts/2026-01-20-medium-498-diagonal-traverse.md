@@ -80,11 +80,11 @@ Whenever the next move would go **out of bounds**, we “bounce” by:
 {% raw %}
 ```java
 class Solution {
-    public int[]findDiagonalOrder(int[][]& mat) {
-        int M = mat.size(), N = mat[0].length;
+    public int[] findDiagonalOrder(int[][] mat) {
+        int M = mat.length, N = mat[0].length;
         int TOTAL = M N;
         int row = 0, col = 0, dirIdx = 0;
-        int[]rtn(TOTAL);
+        int[] rtn = new int[TOTAL];
         for(int i = 0; i < TOTAL; i++) {
             rtn[i] = mat[row][col];
             int nextRow = row + DIRS[dirIdx][0];

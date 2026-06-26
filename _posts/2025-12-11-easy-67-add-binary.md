@@ -93,10 +93,10 @@ This solution ensures the longer string is processed first, and uses a single ca
 
 ```java
 class Solution {
-    public String addBinary(String a, String b) {
+        public String addBinary(String a, String b) {
         int n = a.size(), m = b.size();
         if(n < m)
-            return addBinary(b, a);
+            return addBinary = new return(b, a);
 
         String rtn;
         int carry = 0, j = m - 1;
@@ -143,7 +143,7 @@ This is the more traditional approach that processes both strings simultaneously
 
 ```java
 class Solution {
-    public String addBinary(String a, String b) {
+        public String addBinary(String a, String b) {
         String result;
         int i = a.length() - 1;
         int j = b.length() - 1;
@@ -187,7 +187,7 @@ This approach uses language built-ins to convert, add, and convert back. Not rec
 
 ```java
 class Solution {
-    public String addBinary(String a, String b) {
+        public String addBinary(String a, String b) {
         // Convert binary strings to integers
         long num1 = stoll(a, null, 2);
         long num2 = stoll(b, null, 2);
@@ -221,7 +221,7 @@ A variation that explicitly handles bit operations.
 
 ```java
 class Solution {
-    public String addBinary(String a, String b) {
+        public String addBinary(String a, String b) {
         String result;
         int i = a.size() - 1, j = b.size() - 1;
         int carry = 0;

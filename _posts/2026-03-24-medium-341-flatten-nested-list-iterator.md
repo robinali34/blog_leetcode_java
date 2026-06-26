@@ -96,26 +96,26 @@ hasNext(): stack empty → false
 class NestedIterator {
     NestedIterator(NestedInteger[]nestedList) {
         for (int i = nestedList.size() - 1; i >= 0; --i) {
-            stk.push(nestedList[i]);
+            stk.offer(nestedList[i]);
         }
     }
 
     int next() {
-        int val = stk.top().getInteger();
-        stk.pop();
+        int val = stk.peek().getInteger();
+        stk.poll();
         return val;
     }
 
     boolean hasNext() {
-        while (!stk.length == 0) {
-            NestedInteger curr = stk.top();
+        while (!stk.isEmpty()) {
+            NestedInteger curr = stk.peek();
             if (curr.isInteger()) {
                 return true;
             }
-            stk.pop();
+            stk.poll();
             var lst = curr.getList();
             for (int i = lst.size() - 1; i >= 0; --i) {
-                stk.push(lst[i]);
+                stk.offer(lst[i]);
             }
         }
         return false;

@@ -103,13 +103,13 @@ Use DFS to explore all possible paths starting from each node, checking if the p
 
 ```java
 class Solution {
-    public int dfs(TreeNode node, int targetSum) {
+        public int dfs(TreeNode node, int targetSum) {
         if(!node) return 0;
         int cnt = 0;
         if(targetSum == node.val) cnt++;
         return cnt + dfs(node.left, targetSum - node.val) + dfs(node.right, targetSum - node.val);
     }
-    int pathSum(TreeNode root, int targetSum) {
+        public int pathSum(TreeNode root, int targetSum) {
         if(!root) return 0;
         return dfs(root, targetSum) + pathSum(root.left, targetSum) + pathSum(root.right, targetSum);
     }
@@ -258,7 +258,7 @@ Where n is the number of nodes and h is the height of the tree.
 ```java
 // import java.util.*;
 class Solution {
-    public int dfs(TreeNode node, int targetSum, HashMap<long, int>& prefixSum, long currentSum) {
+        public int dfs(TreeNode node, int targetSum, HashMap<long, int>& prefixSum, long currentSum) {
         if(!node) return 0;
 
         currentSum += node.val;
@@ -271,10 +271,10 @@ class Solution {
         prefixSum[currentSum]--;
         return count;
     }
-    int pathSum(TreeNode root, int targetSum) {
+        public int pathSum(TreeNode root, int targetSum) {
         HashMap<long, int> prefixSum = new HashMap<long, int>();
         prefixSum.put(0, 1);
-        return dfs(root, targetSum, prefixSum, 0);
+        return dfs = new return(root, targetSum, prefixSum, 0);
     }
 }
 ```
@@ -284,27 +284,28 @@ class Solution {
 
 ### Approach 2: Iterative DFS
 ```java
+// import java.util.*;
 class Solution {
-    public int pathSum(TreeNode root, int targetSum) {
+        public int pathSum(TreeNode root, int targetSum) {
         if(!root) return 0;
 
-        stack<TreeNode> stk;
-        stk.push(root);
+        Deque<TreeNode> stk = new ArrayDeque<>();
+        stk.offer(root);
         int count = 0;
 
-        while(!stk.length == 0) {
-            TreeNode node = stk.top();
-            stk.pop();
+        while(!stk.isEmpty()) {
+            TreeNode node = stk.peek();
+            stk.poll();
 
             count += dfs(node, targetSum);
 
-            if(node.left) stk.push(node.left);
-            if(node.right) stk.push(node.right);
+            if(node.left) stk.offer(node.left);
+            if(node.right) stk.offer(node.right);
         }
 
         return count;
     }
-    int dfs(TreeNode node, int targetSum) {
+        public int dfs(TreeNode node, int targetSum) {
         if(!node) return 0;
         int cnt = 0;
         if(targetSum == node.val) cnt++;

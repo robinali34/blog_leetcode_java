@@ -85,21 +85,20 @@ This is a classic 1D dynamic programming problem, similar to the Fibonacci seque
 
 ```java
 class Solution {
-    public int numDecodings(String s) {
-        if(s.length == 0 || s[0] == '0') return 0;
-
+        public int numDecodings(String s) {
+        if(s.length == 0 || s.charAt(0) == '0') return 0;
         int n = s.length();
         int[] dp = new int[n];
         dp[0] = 1;
         for(int i = 1; i < n; i++) {
             // Single char
-            if(s[i] != '0') {
-                dp[i] += dp[i - 1];
+            if(s.charAt(i) != '0') {
+                dp.put(i, dp.getOrDefault(i, 0) + dp[i - 1];
             }
             // Two chars
-            int two_digits = (s[i - 1] - '0') * 10 + (s[i] - '0');
+            int two_digits = (s[i - 1] - '0') * 10 + (s.charAt(i) - '0');
             if(s[i - 1] != '0' && two_digits <= 26) {
-                dp[i] += (i >= 2 ? dp[i - 2] : 1);
+                dp.put(i, dp.getOrDefault(i, 0) + (i >= 2 ? dp[i - 2] : 1);
             }
         }
         return dp[n - 1];
@@ -111,19 +110,17 @@ class Solution {
 
 ```java
 class Solution {
-    public int numDecodings(String s) {
-        if(s.length == 0 || s[0] == '0') return 0;
-
+        public int numDecodings(String s) {
+        if(s.length == 0 || s.charAt(0) == '0') return 0;
         int n = s.length();
         int prev1 = 1, prev2 = 1;
         for(int i = 1; i < n; i++) {
-            int curr = 0;
-            // Single char
-            if(s[i] != '0') {
+            curr = 0; // Single char
+            if(s.charAt(i) != '0') {
                 curr += prev1;
             }
             // Two chars
-            int two_digits = (s[i - 1] - '0') * 10 + (s[i] - '0');
+            int two_digits = (s[i - 1] - '0') * 10 + (s.charAt(i) - '0');
             if(s[i - 1] != '0' && two_digits <= 26) {
                 curr += (i >= 2 ? prev2 : 1);
             }

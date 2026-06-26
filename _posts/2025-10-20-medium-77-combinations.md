@@ -88,12 +88,12 @@ This problem asks for all possible combinations of `k` numbers from `[1, n]`. Si
 ```java
 class Solution {
     public int[][] combine(int n, int k) {
-        int[][] rtn;
-        int[]path;
+        List<int[]> rtn = new ArrayList<>();
+        List<Integer> path = new ArrayList<>();
         dfs(n, k, path, 1, rtn);
         return rtn;
     }
-    void dfs(int n, int k, int[] path, int first_num, int[][]& rtn) {
+    public void dfs(int n, int k, int[] path, int first_num, int[][] rtn) {
         if (path.size() == k) {
             rtn.add(path);
             return;

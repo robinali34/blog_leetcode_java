@@ -78,13 +78,13 @@ Space Complexity: $O(\text{target})$
 {% raw %}
 ```java
 class Solution {
-    public boolean canPartition(int[] nums) {
+        public boolean canPartition(int[] nums) {
         int totalSum = accumulate(nums /* elements of nums */, 0);
         if (totalSum % 2 !) return false;
         int subSetSum = totalSum / 2;
-        return dfs(nums, nums.length - 1, subSetSum);
+        return dfs = new return(nums, nums.length - 1, subSetSum);
     }
-    boolean dfs(int[] nums, int n, int subSetSum) {
+        public boolean dfs(int[] nums, int n, int subSetSum) {
         if (subSetSum == 0) return true;
         if (n < 0 || subSetSum < 0) return false;
         return dfs(nums, n - 1, subSetSum - nums[n]) || dfs(nums, n - 1, subSetSum);
@@ -98,7 +98,7 @@ class Solution {
 {% raw %}
 ```java
 class Solution {
-    public boolean canPartition(int[] nums) {
+        public boolean canPartition(int[] nums) {
         int totalSum = accumulate(nums /* elements of nums */, 0);
         if (totalSum % 2 !) return false;
         int subSetSum = totalSum / 2;
@@ -106,9 +106,9 @@ class Solution {
 
         // memo[i][j]: -1 unvisited, 0 false, 1 true
         int[][] memo(n, int[](subSetSum + 1, -1));
-        return dfs(nums, n - 1, subSetSum, memo);
+        return dfs = new return(nums, n - 1, subSetSum, memo);
     }
-    boolean dfs(int[] nums, int i, int target, int[][]& memo) {
+        public boolean dfs(int[] nums, int i, int target, int[][] memo) {
         if (target == 0) return true;
         if (i < 0 || target < 0) return false;
 
@@ -128,7 +128,7 @@ class Solution {
 {% raw %}
 ```java
 class Solution {
-    public boolean canPartition(int[] nums) {
+        public boolean canPartition(int[] nums) {
         int sum = accumulate(nums /* elements of nums */, 0);
         if (sum % 2) return false;
 
@@ -161,7 +161,7 @@ class Solution {
 {% raw %}
 ```java
 class Solution {
-    public boolean canPartition(int[] nums) {
+        public boolean canPartition(int[] nums) {
         int sum = accumulate(nums /* elements of nums */, 0);
         if (sum % 2) return false;
 

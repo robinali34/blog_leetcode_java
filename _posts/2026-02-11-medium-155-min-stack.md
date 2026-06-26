@@ -79,28 +79,26 @@ class MinStack {
     MinStack() {
     }
 
-    void push(int val) {
-        stk.push(val);
+    public void push(int val) {
+        stk.offer(val);
         // If minStk is empty, the first value is the minimum
         if (minStk.length == 0) {
-            minStk.push(val);
+            minStk.offer(val);
         } else {
             // Push the current minimum (either existing top or new val)
-            minStk.push(Math.min(minStk.top(), val));
+            minStk.offer(Math.min(minStk.peek(), val));
         }
     }
 
-    void pop() {
-        stk.pop();
-        minStk.pop();
+    public void pop() {
+        stk.poll();
+        minStk.poll();
     }
-
-    int top() {
-        return stk.top();
+        public int top() {
+        return stk.peek();
     }
-
-    int getMin() {
-        return minStk.top();
+        public int getMin() {
+        return minStk.peek();
     }
     Deque<Integer> stk = new ArrayDeque<>();
     Deque<Integer> minStk = new ArrayDeque<>();

@@ -98,7 +98,7 @@ Use a single pass with careful edge case handling. Traverse the list looking for
 /*
 // Definition for a Node.
 class Node {
-    public int val;
+        int val;
     Node next;
 
     Node() {}
@@ -119,7 +119,7 @@ class Solution {
     Node insert(Node head, int insertVal) {
         // Empty list case
         if(!head) {
-            Node newNode = new Node(insertVal);
+            Node newNode = new Node = new new(insertVal);
             newNode.next = newNode;
             return newNode;
         }
@@ -141,7 +141,7 @@ class Solution {
             }
 
             if(toInsert) {
-                Node ptr = new Node(insertVal);
+                Node ptr = new Node = new new(insertVal);
                 ptr.next = curr.next;
                 curr.next = ptr;
                 return head;
@@ -150,7 +150,7 @@ class Solution {
         } while(curr != head);
 
         // All values are the same or insert at current position
-        curr.next = new Node(insertVal, curr.next);
+        curr.next = new Node = new new(insertVal, curr.next);
         return head;
     }
 }
@@ -170,7 +170,7 @@ class Solution {
 class Solution {
     Node insert(Node head, int insertVal) {
         if(!head) {
-            Node newNode = new Node(insertVal);
+            Node newNode = new Node = new new(insertVal);
             newNode.next = newNode;
             return newNode;
         }
@@ -188,7 +188,7 @@ class Solution {
 
         // Insert at the end if value is too large
         if(insertVal >= maxNode.val || insertVal <= maxNode.next.val) {
-            Node newNode = new Node(insertVal, maxNode.next);
+            Node newNode = new Node = new new(insertVal, maxNode.next);
             maxNode.next = newNode;
             return head;
         }
@@ -199,7 +199,7 @@ class Solution {
             curr = curr.next;
         }
 
-        Node newNode = new Node(insertVal, curr.next);
+        Node newNode = new Node = new new(insertVal, curr.next);
         curr.next = newNode;
         return head;
     }
@@ -213,7 +213,7 @@ class Solution {
 ```java
 class Solution {
     Node insert(Node head, int insertVal) {
-        Node newNode = new Node(insertVal);
+        Node newNode = new Node = new new(insertVal);
 
         // Empty list
         if(!head) {
@@ -270,7 +270,7 @@ When curr = 4, curr->next = 1:
 ### Empty List Handling
 ```java
 if(!head) {
-    Node newNode = new Node(insertVal);
+    Node newNode = new Node = new new(insertVal);
     newNode.next = newNode;  // Self-referencing
     return newNode;
 }
@@ -280,7 +280,7 @@ if(!head) {
 ```java
 // Insert between curr and curr.next
 if(curr.val <= insertVal && curr.next.val >= insertVal) {
-    Node newNode = new Node(insertVal, curr.next);
+    Node newNode = new Node = new new(insertVal, curr.next);
     curr.next = newNode;
     return head;
 }

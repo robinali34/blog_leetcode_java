@@ -89,7 +89,7 @@ This problem is a classic application of the prefix sum technique combined with 
 
 ```java
 class Solution {
-    public int maxSubArrayLen(int[] nums, int k) {
+        public int maxSubArrayLen(int[] nums, int k) {
         int max_len = 0;
         for(int i = 0; i < nums.length; i++) {
             int sum = 0;
@@ -128,7 +128,7 @@ class Solution {
 ```java
 // import java.util.*;
 class Solution {
-    public int maxSubArrayLen(int[] nums, int k) {
+        public int maxSubArrayLen(int[] nums, int k) {
         long prefixSum = 0;
         int maxLen = 0;
         int N = nums.length;
@@ -142,7 +142,7 @@ class Solution {
             if(cache.contains(prefixSum - k)) {
                 maxLen = Math.max(maxLen, i - cache[prefixSum - k]);
             }
-            if(!cache.contains(prefixSum)) {
+            if(!cache.containsKey(prefixSum)) {
                 cache.put(prefixSum, i);
             }
         }

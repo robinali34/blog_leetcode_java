@@ -121,7 +121,7 @@ class Solution {
         reverse(nums, 0, k - 1);
         reverse(nums, k, N - 1);
     }
-    void reverse(int[] nums, int start, int end) {
+    public void reverse(int[] nums, int start, int end) {
         while(start < end) {
             int tmp = nums[start];
             nums[start] = nums[end];

@@ -102,11 +102,11 @@ This solution uses **Legendre's three-square theorem** and **Lagrange's four-squ
 
 ```java
 class Solution {
-    public boolean isSquare(int n) {
+        public boolean isSquare(int n) {
         int sq = (int) sqrt(n);
         return n == sq sq;
     }
-    int numSquares(int n) {
+        public int numSquares(int n) {
         // Reduce n by removing factors of 4
         while(n % 4 == 0) {
             n /= 4;
@@ -174,12 +174,12 @@ Bottom-up DP approach similar to coin change problem.
 
 ```java
 class Solution {
-    public int numSquares(int n) {
-        int[]dp(n + 1, Integer.MAX_VALUE);
+        public int numSquares(int n) {
+        public int[] dp(n + 1, Integer.MAX_VALUE);
         dp[0] = 0;
 
         // Generate all perfect squares up to n
-        int[]squares;
+        List<Integer> squares = new ArrayList<>();
         for(int i = 1; i i <= n; i++) {
             squares.add(i i);
         }
@@ -231,21 +231,21 @@ Treat as a graph problem where we find the shortest path from `n` to `0`.
 ```java
 // import java.util.*;
 class Solution {
-    public int numSquares(int n) {
+        public int numSquares(int n) {
         Queue<Integer> q = new LinkedList<>();
         HashSet<Integer> visited = new HashSet<Integer>();
 
-        q.push(n);
+        q.offer(n);
         visited.add(n);
         int level = 0;
 
-        while(!q.length == 0) {
+        while(!q.isEmpty()) {
             int size = q.size();
             level++;
 
             while(size--) {
-                int curr = q.getFirst();
-                q.pop();
+                int curr = q.get(0);
+                q.poll();
 
                 // Try subtracting each perfect square
                 for(int i = 1; i i <= curr; i++) {
@@ -257,7 +257,7 @@ class Solution {
 
                     if(visited.find(next) == visited.iterator()) {
                         visited.add(next);
-                        q.push(next);
+                        q.offer(next);
                     }
                 }
             }
@@ -291,11 +291,11 @@ Pre-compute perfect squares and use static array for better performance.
 
 ```java
 class Solution {
-    public int numSquares(int n) {
+        public int numSquares(int n) {
         static int[] dp = new int[1];
 
         while(dp.length <= n) {
-            int m = dp.length;
+        int m = dp.length;
             int minSquares = Integer.MAX_VALUE;
 
             for(int i = 1; i i <= m; i++) {

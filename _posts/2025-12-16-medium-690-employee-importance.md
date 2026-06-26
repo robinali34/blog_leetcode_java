@@ -79,35 +79,20 @@ Use DFS with a hash map for employee lookup. Create a hash map from employee ID 
 **Space Complexity:** O(n) - Hash map + recursion stack
 
 ```java
-/*
-// Definition for Employee.
-class Employee {
-    public int id;
-    public int importance;
-    int[]subordinates;
-}
-*/
-
 class Solution {
-    unordered_map<int, Employee*> emap;
+    public int getImportance(List<Employee> employees, int id) {
+        Map<Integer, Employee> map = new HashMap<>();
+        for (Employee e : employees) map.put(e.id, e);
+        return dfs(map, id);
+    }
 
-    public int dfs(int id) {
-        Employee employee = emap[id];
-        int rtn = employee.importance;
-        for(int subid: employee.subordinates) {
-            rtn += dfs(subid);
-        }
-        return rtn;
+    private int dfs(Map<Integer, Employee> map, int id) {
+        Employee e = map.get(id);
+        int sum = e.importance;
+        for (int sub : e.subordinates) sum += dfs(map, sub);
+        return sum;
     }
-    int getImportance(vector<Employee*> employees, int id) {
-        emap.clear();
-        for(auto e: employees) {
-            emap[e.id] = e;
-        }
-        return dfs(id);
-    }
-}
-```
+}```
 
 ### How Solution 1 Works
 
@@ -126,25 +111,25 @@ class Solution {
 ```java
 // import java.util.*;
 class Solution {
-    public int getImportance(vector<Employee*> employees, int id) {
+        public int getImportance(vector<Employee*> employees, int id) {
         unordered_map<int, Employee*> emap;
-        for(auto e: employees) {
+        for (int e : employees) {
             emap[e.id] = e;
         }
 
         int total = 0;
         Queue<Integer> q = new LinkedList<>();
-        q.push(id);
+        q.offer(id);
 
-        while(!q.length == 0) {
-            int currId = q.getFirst();
-            q.pop();
+        while(!q.isEmpty()) {
+            int currId = q.get(0);
+            q.poll();
 
             Employee emp = emap[currId];
             total += emp.importance;
 
             for(int subId : emp.subordinates) {
-                q.push(subId);
+                q.offer(subId);
             }
         }
 

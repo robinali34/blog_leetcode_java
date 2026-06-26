@@ -92,10 +92,11 @@ This problem requires finding the **longest path in a DAG (Directed Acyclic Grap
 ## Solution: DFS with Memoization
 
 ```java
+// import java.util.*;
 class Solution {
-    public int minimumSemesters(int n, int[][]& relations) {
-        int[][] graph(n + 1);
-        for(auto relation: relations) {
+        public int minimumSemesters(int n, int[][] relations) {
+        public List<List<Integer>> graph = new ArrayList<>(n + 1);
+        for (int relation : relations) {
             graph[relation[0]].push_back(relation[1]);
         }
 
@@ -108,13 +109,13 @@ class Solution {
         }
         return maxLen;
     }
-    int dfs(int node, int[][]& graph, int[] visited) {
+        public int dfs(int node, int[][] graph, int[] visited) {
         if(visited[node] !) {
             return visited[node];
         }
         visited[node] = -1;
         int maxLen = 1;
-        for(auto endNode : graph[node]) {
+        for (char endNode : graph[node].toCharArray()) {
             int len = dfs(endNode, graph, visited);
             if(len == -1) return -1;
             maxLen = Math.max(maxLen, len + 1);
@@ -130,8 +131,9 @@ class Solution {
 #### **Step 1: Build Graph**
 
 ```java
-int[][] graph(n + 1);
-for(auto relation: relations) {
+// import java.util.*;
+List<List<Integer>> graph = new ArrayList<>(n + 1);
+for (int relation : relations) {
     graph[relation[0]].push_back(relation[1]);
 }
 ```
@@ -156,13 +158,13 @@ for(int node = 1; node < n + 1; node++) {
 #### **Step 3: DFS with Memoization**
 
 ```java
-static int dfs(int node, int[][]& graph, int[] visited) {
+static int dfs(int node, int[][] graph, int[] visited) {
     if(visited[node] !) {
         return visited[node];
     }
     visited[node] = -1;
     int maxLen = 1;
-    for(auto endNode : graph[node]) {
+    for (char endNode : graph[node].toCharArray()) {
         int len = dfs(endNode, graph, visited);
         if(len == -1) return -1;
         maxLen = Math.max(maxLen, len + 1);
@@ -314,11 +316,11 @@ Result: return -1 ✓
 ```java
 // import java.util.*;
 class Solution {
-    public int minimumSemesters(int n, int[][]& relations) {
-        int[][] graph(n + 1);
+        public int minimumSemesters(int n, int[][] relations) {
+        public List<List<Integer>> graph = new ArrayList<>(n + 1);
         int[] indegree = new int[n + 1];
 
-        for(auto relation: relations) {
+        for (int relation : relations) {
             graph[relation[0]].push_back(relation[1]);
             indegree[relation[1]]++;
         }
@@ -326,25 +328,25 @@ class Solution {
         Queue<Integer> q = new LinkedList<>();
         for(int i = 1; i <= n; i++) {
             if(indegree[i] == 0) {
-                q.push(i);
+                q.offer(i);
             }
         }
 
         int semesters = 0;
         int coursesTaken = 0;
 
-        while(!q.length == 0) {
+        while(!q.isEmpty()) {
             semesters++;
             int size = q.size();
             for(int i = 0; i < size; i++) {
-                int node = q.getFirst();
-                q.pop();
+                int node = q.get(0);
+                q.poll();
                 coursesTaken++;
 
                 for(int neighbor: graph[node]) {
                     indegree[neighbor]--;
                     if(indegree[neighbor] == 0) {
-                        q.push(neighbor);
+                        q.offer(neighbor);
                     }
                 }
             }

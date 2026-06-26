@@ -106,21 +106,22 @@ Uses stack for counts but `s.erase()` which is inefficient.
 ## Solution 1: Vector of Pairs (Recommended)
 
 ```java
+// import java.util.*;
 class Solution {
-    public String removeDuplicates(String s, int k) {
-        List<int[]> counts;
+        public String removeDuplicates(String s, int k) {
+        List<int[]> counts = new ArrayList<>();
 
         for(int i = 0; i < (int)s.size(); i++) {
-            if(counts.length == 0 || s[i] != counts.getLast().second) {
-                counts.add({1, s[i]});
-            } else if(++counts.getLast().first == k) {
+            if(counts.length == 0 || s.charAt(i) != counts.get(counts.size() - 1).second) {
+                counts.add({1, s.charAt(i)});
+            } else if(++counts.get(counts.size() - 1).first == k) {
                 counts.removeLast();
             }
         }
 
         s = "";
-        for(auto p: counts) {
-            s += String(p.first, p.second);
+        for (int p : counts) {
+            s += String(p[0], p[1]);
         }
 
         return s;
@@ -133,22 +134,22 @@ class Solution {
 ```java
 // import java.util.*;
 class Solution {
-    public String removeDuplicates(String s, int k) {
+        public String removeDuplicates(String s, int k) {
         int left = 0;
         Deque<Integer> stk = new ArrayDeque<>();
 
         for(int right = 0; right < (int)s.size(); right++, left++) {
-            s[left] = s[right];
+            s.charAt(left) = s.charAt(right);
 
-            if(left == 0 || s[left] != s[left - 1]) {
-                stk.push(1);
-            } else if(++stk.top() == k) {
-                stk.pop();
+            if(left == 0 || s.charAt(left) != s[left - 1]) {
+                stk.offer(1);
+            } else if(++stk.peek() == k) {
+                stk.poll();
                 left -= k;
             }
         }
 
-        return s.substr(0, left);
+        return s.substring(0, left);
     }
 }
 ```
@@ -158,14 +159,14 @@ class Solution {
 ```java
 // import java.util.*;
 class Solution {
-    public String removeDuplicates(String s, int k) {
+        public String removeDuplicates(String s, int k) {
         Deque<Integer> stk = new ArrayDeque<>();
 
         for(int i = 0; i < (int)s.size(); i++) {
-            if(i == 0 || s[i] != s[i - 1]) {
-                stk.push(1);
-            } else if(++stk.top() == k) {
-                stk.pop();
+            if(i == 0 || s.charAt(i) != s[i - 1]) {
+                stk.offer(1);
+            } else if(++stk.peek() == k) {
+                stk.poll();
                 s.remove(i - k + 1, k);
                 i = i - k;
             }
@@ -304,20 +305,21 @@ Actually, I think there might be an off-by-one issue. Let me document what the c
 ### Solution 1: Vector of Pairs
 
 ```java
-List<int[]> counts;
+// import java.util.*;
+List<int[]> counts = new ArrayList<>();
 
 for(int i = 0; i < s.size(); i++) {
-    if(counts.length == 0 || s[i] != counts.getLast().second) {
-        counts.add({1, s[i]});  // New sequence
-    } else if(++counts.getLast().first == k) {
+    if(counts.length == 0 || s.charAt(i) != counts.get(counts.size() - 1).second) {
+        counts.add({1, s.charAt(i)});  // New sequence
+    } else if(++counts.get(counts.size() - 1).first == k) {
         counts.removeLast();  // Remove k-length sequence
     }
 }
 
 // Reconstruct String
 s = "";
-for(auto p: counts) {
-    s += String(p.first, p.second);
+for (int p : counts) {
+    s += String(p[0], p[1]);
 }
 ```
 
@@ -331,21 +333,19 @@ for(auto p: counts) {
 
 ```java
 // import java.util.*;
-int left = 0;  // Write pointer
-Deque<Integer> stk = new ArrayDeque<>();  // Count stack
+left = 0; // Write pointer
+Deque<Integer> stk = new ArrayDeque<>();  // Count stack for = new stack(int right = 0; right < s.size(); right++, left++) {
+    s.charAt(left) = s.charAt(right);  // Write current character
 
-for(int right = 0; right < s.size(); right++, left++) {
-    s[left] = s[right];  // Write current character
-
-    if(left == 0 || s[left] != s[left - 1]) {
-        stk.push(1);  // New sequence
-    } else if(++stk.top() == k) {
-        stk.pop();  // Remove k-length sequence
+    if(left == 0 || s.charAt(left) != s[left - 1]) {
+        stk.offer(1);  // New sequence
+    } else if(++stk.peek() == k) {
+        stk.poll();  // Remove k-length sequence
         left -= k;  // Move write pointer back
     }
 }
 
-return s.substr(0, left);
+return s.substring(0, left);
 ```
 
 **Key Points:**
@@ -375,8 +375,8 @@ return s.substr(0, left);
 ### Why Vector of Pairs Works
 
 ```java
-if(counts.length == 0 || s[i] != counts.getLast().second) {
-    counts.add({1, s[i]});
+if(counts.length == 0 || s.charAt(i) != counts.get(counts.size() - 1).second) {
+    counts.add({1, s.charAt(i)});
 }
 ```
 

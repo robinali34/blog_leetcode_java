@@ -107,28 +107,24 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 **Space Complexity:** O(n)
 
 ```java
-// import java.util.*;
 class Solution {
-    public int[]topKFrequent(int[] nums, int k) {
-        HashMap<Integer, Integer> freq = new HashMap<Integer, Integer>();
-        for(auto num: nums) freq.put(num, freq.getOrDefault(num, 0) + 1);
-
-        int n = nums.length;
-        int[][] buckets(n + 1);
-        for(auto& [num, count]: freq) {
-            buckets[count].push_back(num);
-        }
-        int[]rtn;
-        for(int i = n; i >= 0 && rtn.size() < k; i--) {
-            for(int num: buckets[i]) {
-                rtn.add(num);
-                if(rtn.size() == k) break;
+    public int[] topKFrequent(int[] nums, int k) {
+        Map<Integer, Integer> freq = new HashMap<>();
+        for (int num : nums) freq.put(num, freq.getOrDefault(num, 0) + 1);
+        List<List<Integer>> buckets = new ArrayList<>();
+        for (int i = 0; i <= nums.length; i++) buckets.add(new ArrayList<>());
+        for (var e : freq.entrySet()) buckets.get(e.getValue()).add(e.getKey());
+        int[] result = new int[k];
+        int idx = 0;
+        for (int i = buckets.size() - 1; i >= 0 && idx < k; i--) {
+            for (int num : buckets.get(i)) {
+                result[idx++] = num;
+                if (idx == k) return result;
             }
         }
-        return rtn;
+        return result;
     }
-}
-```
+}```
 
 ### Approach 2: Quickselect
 
@@ -142,53 +138,46 @@ class Solution {
 **Space Complexity:** O(n)
 
 ```java
-// import java.util.*;
 class Solution {
-    public int[]topKFrequent(int[] nums, int k) {
-        for(int n : nums) {
-            count_map[n] += 1;
-        }
-        int n = count_map.size();
-        for(int[] p: count_map) {
-            unique.add(p.first);
-        }
-        quickselect(0, n - 1, n - k);
-        int[]top_k_frequent(k);
-        copy(unique.iterator() + n - k, unique.iterator(), top_k_frequent.iterator());
-        return top_k_frequent;
+    public int[] topKFrequent(int[] nums, int k) {
+        Map<Integer, Integer> freq = new HashMap<>();
+        for (int num : nums) freq.put(num, freq.getOrDefault(num, 0) + 1);
+        List<Integer> unique = new ArrayList<>(freq.keySet());
+        quickselect(unique, freq, 0, unique.size() - 1, unique.size() - k);
+        int[] result = new int[k];
+        for (int i = 0; i < k; i++) result[i] = unique.get(unique.size() - k + i);
+        return result;
     }
-    int[]unique;
-    TreeMap<Integer, Integer> count_map;
 
-    int partition(int left, int right, int pivot) {
-        int pivot_freq = count_map[unique[pivot]];
-        swap(unique[pivot], unique[right]);
+    private void quickselect(List<Integer> arr, Map<Integer, Integer> freq, int l, int r, int k) {
+        if (l >= r) return;
+        int pivot = l + new Random().nextInt(r - l + 1);
+        int p = partition(arr, freq, l, r, pivot);
+        if (p == k) return;
+        if (k < p) quickselect(arr, freq, l, p - 1, k);
+        else quickselect(arr, freq, p + 1, r, k);
+    }
 
-        int store_idx = left;
-        for(int i = left; i < right; i++) {
-            if(count_map[unique[i]] < pivot_freq) {
-                swap(unique[store_idx], unique[i]);
-                store_idx += 1;
+    private int partition(List<Integer> arr, Map<Integer, Integer> freq, int l, int r, int pivotIdx) {
+        int pivotFreq = freq.get(arr.get(pivotIdx));
+        swap(arr, pivotIdx, r);
+        int store = l;
+        for (int i = l; i < r; i++) {
+            if (freq.get(arr.get(i)) < pivotFreq) {
+                swap(arr, store, i);
+                store++;
             }
         }
-        swap(unique[right], unique[store_idx]);
-        return store_idx;
+        swap(arr, store, r);
+        return store;
     }
 
-    void quickselect(int left, int right, int k_smallest){
-        if(left == right) return;
-        int pivot = left + rand() % (right - left + 1);
-        pivot = partition(left, right, pivot);
-        if(k_smallest == pivot) {
-            return;
-        } else if(k_smallest < pivot) {
-            quickselect(left, pivot - 1, k_smallest);
-        } else {
-            quickselect(pivot + 1, right, k_smallest);
-        }
+    private void swap(List<Integer> arr, int i, int j) {
+        int tmp = arr.get(i);
+        arr.set(i, arr.get(j));
+        arr.set(j, tmp);
     }
-}
-```
+}```
 
 ### Approach 3: Min Heap
 
@@ -202,34 +191,20 @@ class Solution {
 **Space Complexity:** O(n)
 
 ```java
-// import java.util.*;
 class Solution {
-    public int[]topKFrequent(int[] nums, int k) {
-        HashMap<Integer, Integer> freq = new HashMap<Integer, Integer>();
-        for(int num : nums) {
-            freq.put(num, freq.getOrDefault(num, 0) + 1);
+    public int[] topKFrequent(int[] nums, int k) {
+        Map<Integer, Integer> freq = new HashMap<>();
+        for (int num : nums) freq.put(num, freq.getOrDefault(num, 0) + 1);
+        PriorityQueue<int[]> minHeap = new PriorityQueue<>((a, b) -> Integer.compare(a[0], b[0]));
+        for (var e : freq.entrySet()) {
+            minHeap.offer(new int[] {e.getValue(), e.getKey()});
+            if (minHeap.size() > k) minHeap.poll();
         }
-
-        priority_queue<int[], List<int[]>, greater<int[]>> minHeap;
-
-        for(auto& [num, count] : freq) {
-            if(minHeap.size() < k) {
-                minHeap.push({count, num});
-            } else if(count > minHeap.top().first) {
-                minHeap.pop();
-                minHeap.push({count, num});
-            }
-        }
-
-        int[]result;
-        while(!minHeap.length == 0) {
-            result.add(minHeap.top().second);
-            minHeap.pop();
-        }
+        int[] result = new int[k];
+        for (int i = k - 1; i >= 0; i--) result[i] = minHeap.poll()[1];
         return result;
     }
-}
-```
+}```
 
 ### Approach 4: Max Heap
 
@@ -242,28 +217,17 @@ class Solution {
 **Space Complexity:** O(n)
 
 ```java
-// import java.util.*;
 class Solution {
-    public int[]topKFrequent(int[] nums, int k) {
-        HashMap<Integer, Integer> freq = new HashMap<Integer, Integer>();
-        for(int num : nums) {
-            freq.put(num, freq.getOrDefault(num, 0) + 1);
-        }
-
-        priority_queue<int[]> maxHeap;
-        for(auto& [num, count] : freq) {
-            maxHeap.push({count, num});
-        }
-
-        int[]result;
-        for(int i = 0; i < k; i++) {
-            result.add(maxHeap.top().second);
-            maxHeap.pop();
-        }
+    public int[] topKFrequent(int[] nums, int k) {
+        Map<Integer, Integer> freq = new HashMap<>();
+        for (int num : nums) freq.put(num, freq.getOrDefault(num, 0) + 1);
+        PriorityQueue<int[]> maxHeap = new PriorityQueue<>((a, b) -> Integer.compare(b[0], a[0]));
+        for (var e : freq.entrySet()) maxHeap.offer(new int[] {e.getValue(), e.getKey()});
+        int[] result = new int[k];
+        for (int i = 0; i < k; i++) result[i] = maxHeap.poll()[1];
         return result;
     }
-}
-```
+}```
 
 ## Complexity Analysis
 

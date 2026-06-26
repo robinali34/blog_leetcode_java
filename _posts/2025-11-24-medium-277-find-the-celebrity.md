@@ -81,10 +81,10 @@ The key insight is to use a two-pass approach:
 
 ```java
 // Forward declaration of the knows API
-boolean knows(int a, int b);
+boolean knows = new boolean(int a, int b);
 
 class Solution {
-    public int findCelebrity(int n) {
+        public int findCelebrity(int n) {
         // First pass: find candidate
         int candidate = 0;
         for (int i = 1; i < n; i++) {
@@ -230,11 +230,9 @@ for (int i = 0; i < n; i++) {
 
 ```java
 class Solution {
-    public int findCelebrity(int n) {
+        public int findCelebrity(int n) {
         for (int i = 0; i < n; i++) {
-            boolean isCelebrity = true;
-
-            // Check if i knows anyone
+        isCelebrity = true; // Check if i knows anyone
             for (int j = 0; j < n; j++) {
                 if (i != j && knows(i, j)) {
                     isCelebrity = false;
@@ -314,9 +312,7 @@ The current solution can be slightly optimized:
 
 ```java
 static int findCelebrity(int n) {
-    int candidate = 0;
-
-    // First pass: find candidate
+    candidate = 0; // First pass: find candidate
     for (int i = 1; i < n; i++) {
         if (knows(candidate, i)) {
             candidate = i;

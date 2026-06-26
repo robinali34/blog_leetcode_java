@@ -115,34 +115,27 @@ The solution uses a stack-based approach:
 **Space Complexity:** O(n) - Stack can hold up to n/2 operands
 
 ```java
-// import java.util.*;
 class Solution {
     public int evalRPN(String[] tokens) {
         Deque<Integer> stk = new ArrayDeque<>();
-        HashSet<String> ops = {"+", "-", "*", "/"}
-        int n = tokens.size();
-        for (auto token : tokens) {
-            if (!ops.count(token)){
-                stk.push(stoi(token));
+        Set<String> ops = Set.of("+", "-", "*", "/");
+        for (String token : tokens) {
+            if (!ops.contains(token)) {
+                stk.push(Integer.parseInt(token));
             } else {
-                int num2 = stk.top();
-                stk.pop();
-                int num1 = stk.top();
-                stk.pop();
-                int rtn = 0;
-                switch (token[0]) {
-                    case '+': rtn = num1 + num2; break;
-                    case '-': rtn = num1 - num2; break;
-                    case '*': rtn = num1 num2; break;
-                    case '/': rtn = num1 / num2; break;
+                int b = stk.pop();
+                int a = stk.pop();
+                switch (token) {
+                    case "+" -> stk.push(a + b);
+                    case "-" -> stk.push(a - b);
+                    case "*" -> stk.push(a * b);
+                    case "/" -> stk.push(a / b);
                 }
-                stk.push(rtn);
             }
         }
-        return stk.top();
+        return stk.pop();
     }
-}
-```
+}```
 
 ## Solution 2: Using Vector as Stack
 
@@ -150,30 +143,29 @@ class Solution {
 **Space Complexity:** O(n) - Vector can hold up to n/2 operands
 
 ```java
-// import java.util.*;
 class Solution {
     public int evalRPN(String[] tokens) {
-        int n = tokens.size();
-        int[]stk((n + 1) / 2);
-        int idx = -1;
-        HashSet<String> ops = {"+", "-", "*", "/"}
-        for (auto token : tokens) {
-            if (token.length() > 1 || !ops.count(token)){
-                idx++;
-                stk[idx] = stoi(token);
+        int[] stk = new int[(tokens.length + 1) / 2];
+        int top = -1;
+        for (String token : tokens) {
+            if (token.charAt(0) == '+' || token.charAt(0) == '-' ||
+                token.charAt(0) == '*' || token.charAt(0) == '/') {
+                int b = stk[top--];
+                int a = stk[top--];
+                int val = switch (token) {
+                    case "+" -> a + b;
+                    case "-" -> a - b;
+                    case "*" -> a * b;
+                    default -> a / b;
+                };
+                stk[++top] = val;
             } else {
-                switch (token[0]) {
-                    case '+': idx--; stk[idx] += stk[idx + 1]; break;
-                    case '-': idx--; stk[idx] -= stk[idx + 1]; break;
-                    case '*': idx--; stk[idx] *= stk[idx + 1]; break;
-                    case '/': idx--; stk[idx] /= stk[idx + 1]; break;
-                }
+                stk[++top] = Integer.parseInt(token);
             }
         }
-        return stk[idx];
+        return stk[0];
     }
-}
-```
+}```
 
 ## Step-by-Step Example
 

@@ -103,7 +103,7 @@ This is a **greedy algorithm** problem with a key mathematical insight. The cruc
 
 ```java
 class Solution {
-    public int minCostToMoveChips(int[] position) {
+        public int minCostToMoveChips(int[] position) {
         int even = 0, odd = 0;
         for(int pos : position) {
             if(pos % 2 == 0) {

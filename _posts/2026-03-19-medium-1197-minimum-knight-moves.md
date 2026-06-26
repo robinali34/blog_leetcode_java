@@ -66,29 +66,30 @@ Allowing coordinates down to `-1` (not `-2` or beyond) is sufficient because aft
 
 {% raw %}
 ```java
+// import java.util.*;
 class Solution {
-    public int minKnightMoves(int x, int y) {
+        public int minKnightMoves(int x, int y) {
         x = abs(x);
         y = abs(y);
-        List<int[]> dirs = {{2, 1}, {1, 2}, {-1, 2}, {-2, 1},
+        List<int[]> dirs = {new int[] {2, 1}, new int[] {1, 2}, {-1, 2}, {-2, 1},
                                         {-2, -1}, {-1, -2}, {1, -2}, {2, -1}}
         queue<int[]> q;
-        q.push({0, 0});
+        q.offer(new int[] {0, 0});
         map<int[], int> visited;
-        visited[{0, 0}] = 0;
+        visited[new int[] {0, 0}] = 0;
 
-        while (!q.length == 0) {
-            auto [curX, curY] = q.getFirst();
-            q.pop();
-            int steps = visited[{curX, curY}];
+        while (!q.isEmpty()) {
+            auto [curX, curY] = q.get(0);
+            q.poll();
+            int steps = visited[new int[] {curX, curY}];
             if (curX == x && curY == y) return steps;
 
-            for (auto& [dx, dy] : dirs) {
+            for (var e : dirs.entrySet()) {
                 int nx = curX + dx;
                 int ny = curY + dy;
-                if (nx >= -1 && ny >= -1 && visited.find({nx, ny}) == visited.iterator()) {
-                    visited[{nx, ny}] = steps + 1;
-                    q.push({nx, ny});
+                if (nx >= -1 && ny >= -1 && visited.find(new int[] {nx, ny}) == visited.iterator()) {
+                    visited[new int[] {nx, ny}] = steps + 1;
+                    q.offer(new int[] {nx, ny});
                 }
             }
         }

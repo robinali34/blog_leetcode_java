@@ -80,10 +80,10 @@ This solution uses BFS starting from all gates simultaneously. Since BFS guarant
 
 ```java
 class Solution {
-    public int EMPTY = Integer.MAX_VALUE;
+        int EMPTY = Integer.MAX_VALUE;
     int GATE = 0;
-    public int dirs[4][2] = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}}
-    void wallsAndGates(int[][]& rooms) {
+    int[] dirs = new int[4][2] = {new int[] {1, 0}, {-1, 0}, new int[] {0, 1}, {0, -1}}
+    public void wallsAndGates(int[][] rooms) {
         int ROWS = rooms.size(), COLS = rooms[0].length;
         if(ROWS == 0 || COLS == 0) return;
 
@@ -93,17 +93,17 @@ class Solution {
         for(int row = 0; row < ROWS; row++) {
             for(int col = 0; col < COLS; col++) {
                 if(rooms[row][col] == GATE) {
-                    q.push({row, col});
+                    q.offer(new int[] {row, col});
                 }
             }
         }
 
         // BFS from all gates simultaneously
-        while(!q.length == 0) {
-            auto [row, col] = q.getFirst();
-            q.pop();
+        while(!q.isEmpty()) {
+            auto [row, col] = q.get(0);
+            q.poll();
 
-            for(auto dir: dirs) {
+            for (int dir : dirs) {
                 int nrow = row + dir[0];
                 int ncol = col + dir[1];
 
@@ -115,7 +115,7 @@ class Solution {
 
                 // Update distance and add to queue
                 rooms[nrow][ncol] = rooms[row][col] + 1;
-                q.push({nrow, ncol});
+                q.offer(new int[] {nrow, ncol});
             }
         }
     }
@@ -155,10 +155,10 @@ DFS approach starting from each gate. Less efficient because it may revisit cell
 
 ```java
 class Solution {
-    public int EMPTY = Integer.MAX_VALUE;
+        int EMPTY = Integer.MAX_VALUE;
     int GATE = 0;
-    public int dirs[4][2] = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}}
-    void dfs(int[][]& rooms, int row, int col, int distance) {
+    int[] dirs = new int[4][2] = {new int[] {1, 0}, {-1, 0}, new int[] {0, 1}, {0, -1}}
+    public void dfs(int[][] rooms, int row, int col, int distance) {
         if(row < 0 || row >= rooms.size() || col < 0 || col >= rooms[0].length ||
            rooms[row][col] < distance) {
             return;
@@ -166,11 +166,11 @@ class Solution {
 
         rooms[row][col] = distance;
 
-        for(auto dir: dirs) {
+        for (int dir : dirs) {
             dfs(rooms, row + dir[0], col + dir[1], distance + 1);
         }
     }
-    void wallsAndGates(int[][]& rooms) {
+    public void wallsAndGates(int[][] rooms) {
         int ROWS = rooms.size(), COLS = rooms[0].length;
         if(ROWS == 0 || COLS == 0) return;
 

@@ -116,26 +116,27 @@ This is a shortest path problem with time constraints. We need to find the minim
 ### Solution 1: Using long long with LLONG_MAX
 
 ```java
+// import java.util.*;
 class Solution {
-    public int[]minimumTime(int n, int[][]& edges, int[] disappear) {
+    public int[] minimumTime(int n, int[][] edges, int[] disappear) {
         if(disappear[0] == 0) return int[](n, -1);
 
         vector<List<int[]>> adjs(n);
-        for(auto e: edges) {
-            int u = e[0], v = e[1], d = e[2];
+        for (int e : edges) {
+        int u = e[0], v = e[1], d = e[2];
             adjs[u].emplace_back(v, d);
             adjs[v].emplace_back(u, d);
         }
 
         long[]dist(n, Long.MAX_VALUE);
-        priority_queue<long[], vector<long[]>, greater<>> pq;
+        priority_queue<long[], List<List<long>>, greater<>> pq;
         dist[0] = 0;
-        pq.emplace({0, 0});
-        while(!pq.length == 0) {
-            auto [t, u] = pq.top(); pq.pop();
+        pq.emplace(new int[] {0, 0});
+        while(!pq.isEmpty()) {
+            int[] tpair = pq.peek(); int t = tpair[0]; int u = tpair[1]; pq.poll();
             if(t > dist[u]) continue;
             if(t >= disappear[u]) continue;
-            for(auto& [v, w]: adjs[u]) {
+            for (int[] edge : adjs.get(u)) {
                 long nt = t + w;
                 if(dist[v] > nt && nt < disappear[v]) {
                     dist[v] = nt;
@@ -164,10 +165,10 @@ class Solution {
 ```java
 // import java.util.*;
 class Solution {
-    public int[]minimumTime(int n, int[][]& edges, int[] disappear) {
+    public int[] minimumTime(int n, int[][] edges, int[] disappear) {
         vector<List<int[]>> adj(n);
-        for(auto e: edges) {
-            int u = e[0], v = e[1], w = e[2];
+        for (int e : edges) {
+        int u = e[0], v = e[1], w = e[2];
             adj[u].emplace_back(v, w);
             adj[v].emplace_back(u, w);
         }
@@ -175,11 +176,11 @@ class Solution {
         dis[0] = 0;
         PriorityQueue<int[]> pq = new PriorityQueue<int[]>();
         pq.emplace(0, 0);
-        while(!pq.length == 0) {
-            auto [du, u] = pq.top();
-            pq.pop();
+        while(!pq.isEmpty()) {
+            int[] dupair = pq.peek(); int du = dupair[0]; int u = dupair[1];
+            pq.poll();
             if(dis[u] != -1 && du > dis[u]) continue;
-            for(auto& [v, w]: adj[u]) {
+            for (int[] edge : adj.get(u)) {
                 int nd = du + w;
                 if(nd < disappear[v] && (dis[v] == -1 || nd < dis[v])) {
                     dis[v] = nd;

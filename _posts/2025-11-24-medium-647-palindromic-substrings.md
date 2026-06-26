@@ -114,17 +114,17 @@ We iterate through each position and expand outward from both possible centers, 
 
 ```java
 class Solution {
-    public int countPalindromesAroundCenter(String s, int low, int high) {
+        public int countPalindromesAroundCenter(String s, int low, int high) {
         int count = 0;
         while (low >= 0 && high < (int)s.size()) {
-            if (s[low] != s[high]) break;
+            if (s.charAt(low) != s.charAt(high)) break;
             low--;
             high++;
             count++;
         }
         return count;
     }
-    int countSubstrings(String s) {
+        public int countSubstrings(String s) {
         int count = 0;
         for (int i = 0; i < (int)s.size(); i++) {
             // Count odd-length palindromes (center at i)
@@ -211,7 +211,7 @@ Final count: 2 + 3 + 1 = 6
 static int countPalindromesAroundCenter(String s, int low, int high) {
     int count = 0;
     while (low >= 0 && high < (int)s.size()) {
-        if (s[low] != s[high]) break;
+        if (s.charAt(low) != s.charAt(high)) break;
         low--;
         high++;
         count++;
@@ -271,12 +271,10 @@ Use DP table `dp[i][j]` to track if substring `s[i..j]` is a palindrome.
 
 ```java
 class Solution {
-    public int countSubstrings(String s) {
+        public int countSubstrings(String s) {
         int n = s.size();
         boolean[][] dp(n, boolean[](n, false));
-        int count = 0;
-
-        // Every single character is a palindrome
+        count = 0; // Every single character is a palindrome
         for (int i = 0; i < n; i++) {
             dp[i][i] = true;
             count++;
@@ -284,7 +282,7 @@ class Solution {
 
         // Check for palindromes of length 2
         for (int i = 0; i < n - 1; i++) {
-            if (s[i] == s[i + 1]) {
+            if (s.charAt(i) == s[i + 1]) {
                 dp[i][i + 1] = true;
                 count++;
             }
@@ -294,7 +292,7 @@ class Solution {
         for (int len = 3; len <= n; len++) {
             for (int i = 0; i <= n - len; i++) {
                 int j = i + len - 1;
-                if (s[i] == s[j] && dp[i + 1][j - 1]) {
+                if (s.charAt(i) == s.charAt(j) && dp[i + 1][j - 1]) {
                     dp[i][j] = true;
                     count++;
                 }

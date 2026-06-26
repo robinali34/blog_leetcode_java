@@ -106,7 +106,7 @@ This problem requires counting the number of subarray sums that fall within a gi
 
 ```java
 class Solution {
-    public int countRangeSum(int[] nums, int lower, int upper) {
+        public int countRangeSum(int[] nums, int lower, int upper) {
         int n = nums.length;
         long[]prefix(n + 1, 0);
 
@@ -115,9 +115,9 @@ class Solution {
             prefix[i + 1] = prefix[i] + nums[i];
 
         long[]temp(n + 1);
-        return divide(prefix, 0, n, lower, upper, temp);
+        return divide = new return(prefix, 0, n, lower, upper, temp);
     }
-    int divide(long[] prefix, int left, int right,
+        public int divide(long[] prefix, int left, int right,
                int lower, int upper, long[] temp) {
         if (left >= right) return 0;
 
@@ -132,8 +132,7 @@ class Solution {
 
         return count;
     }
-
-    int countCross(long[] prefix, int left, int mid, int right,
+        public int countCross(long[] prefix, int left, int mid, int right,
                    int lower, int upper) {
         int count = 0;
         int wl = left, wr = left;
@@ -150,7 +149,7 @@ class Solution {
         return count;
     }
 
-    void merge(long[] prefix, int left, int mid, int right,
+    public void merge(long[] prefix, int left, int mid, int right,
                long[] temp) {
         int i = left, j = mid + 1, k = left;
 
@@ -208,8 +207,8 @@ class Solution {
 
 ```java
 class Node {
-    public long start, end;
-    public int cnt;
+        long start, end;
+        int cnt;
     Node left, *right;
     Node(long start, long end) {
         left = right = null;
@@ -222,26 +221,26 @@ pre[j] - upper <= pre[i] <= pre[j] - lower
 Fenwick Tree (Binary Indexed Tree)
 Segment Tree with dynamic allocation - reduce allocations, no delete needed
 */
-    public int countRangeSum(int[] nums, int lower, int upper) {
+        public int countRangeSum(int[] nums, int lower, int upper) {
         int N = nums.length;
         long[]presum(N + 1, 0);
         for(int i = 0; i < N; i++) {
             presum[i + 1] = presum[i] + nums[i];
         }
         long mn = Long.MAX_VALUE, mx = Long.MIN_VALUE;
-        for(auto x: presum) {
+        for (int x : presum) {
             mn = Math.min({mn, x, x - upper});
             mx = Math.max({mx, x, x - lower});
         }
-        Node root(mn, mx);
+        Node root = new Node(mn, mx);
         int rtn = 0;
-        for(auto x: presum) {
+        for (int x : presum) {
             rtn += query(&root, x - upper, x - lower);
             add(&root, x);
         }
         return rtn;
     }
-    int query(Node node, long l, long r) {
+        public int query(Node node, long l, long r) {
         if(!node) return 0;
         if(l > node.end || r < node.start) return 0;
         if(l <= node.start && node.end <= r) return node.cnt;
@@ -250,18 +249,18 @@ Segment Tree with dynamic allocation - reduce allocations, no delete needed
 
     // node is not null
     // add pos [start, end]
-    void add(Node node, long pos){
+    public void add(Node node, long pos){
         node.cnt++;
         if(node.start == node.end) return;
         long mid = (node.start + node.end) >> 1;
         if(pos <= mid) {
             if(!node.left) {
-                node.left = new Node(node.start, mid);
+                node.left = new Node = new new(node.start, mid);
             }
             add(node.left, pos);
         } else {
             if(!node.right) {
-                node.right = new Node(mid+1, node.end);
+                node.right = new Node = new new(mid+1, node.end);
             }
             add(node.right, pos);
         }

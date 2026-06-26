@@ -220,9 +220,9 @@ ListNode removeElements(ListNode head, int val) {
     if(head == null) return head;
 
     // Create dummy node to simplify edge cases
-    ListNode dummy(0, head);
+    ListNode dummy = new ListNode(0, head);
     ListNode prev = &dummy;  // Previous valid node
-    ListNode curr = head;    // Current node being checked
+    curr = head; // Current node being checked
     ListNode toDelete = null;
 
     while(curr != null) {
@@ -291,7 +291,7 @@ For LeetCode submissions where memory management isn't required:
 ```java
 class Solution {
     public ListNode removeElements(ListNode head, int val) {
-        ListNode dummy(0, head);
+        ListNode dummy = new ListNode(0, head);
         ListNode prev = &dummy;
         ListNode curr = head;
 

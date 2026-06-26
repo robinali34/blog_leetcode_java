@@ -84,13 +84,13 @@ The key insight is to leverage BST properties to prune branches that cannot cont
  * }
  */
 class Solution {
-    public int rangeSumBST(TreeNode root, int low, int high) {
+        public int rangeSumBST(TreeNode root, int low, int high) {
         if(root == null) return 0;
 
         if(root.val > high) {
-            return rangeSumBST(root.left, low, high);
+            return rangeSumBST = new return(root.left, low, high);
         } else if(root.val < low) {
-            return rangeSumBST(root.right, low, high);
+            return rangeSumBST = new return(root.right, low, high);
         }
 
         return root.val + rangeSumBST(root.left, low, high) + rangeSumBST(root.right, low, high);
@@ -188,7 +188,7 @@ if(root == null) return 0;
 
 ```java
 if(root.val > high) {
-    return rangeSumBST(root.left, low, high);
+    return rangeSumBST = new return(root.left, low, high);
 }
 ```
 
@@ -196,7 +196,7 @@ if(root.val > high) {
 
 ```java
 else if(root.val < low) {
-    return rangeSumBST(root.right, low, high);
+    return rangeSumBST = new return(root.right, low, high);
 }
 ```
 
@@ -228,28 +228,29 @@ return root.val + rangeSumBST(root.left, low, high) + rangeSumBST(root.right, lo
 **Space Complexity:** O(h)
 
 ```java
+// import java.util.*;
 class Solution {
-    public int rangeSumBST(TreeNode root, int low, int high) {
+        public int rangeSumBST(TreeNode root, int low, int high) {
         if(root == null) return 0;
 
-        stack<TreeNode> stk;
-        stk.push(root);
+        Deque<TreeNode> stk = new ArrayDeque<>();
+        stk.offer(root);
         int sum = 0;
 
-        while(!stk.length == 0) {
-            TreeNode node = stk.top();
-            stk.pop();
+        while(!stk.isEmpty()) {
+            TreeNode node = stk.peek();
+            stk.poll();
 
             if(node == null) continue;
 
             if(node.val > high) {
-                stk.push(node.left);
+                stk.offer(node.left);
             } else if(node.val < low) {
-                stk.push(node.right);
+                stk.offer(node.right);
             } else {
                 sum += node.val;
-                stk.push(node.left);
-                stk.push(node.right);
+                stk.offer(node.left);
+                stk.offer(node.right);
             }
         }
 
@@ -273,9 +274,8 @@ class Solution {
 
 ```java
 class Solution {
-    public int rangeSumBST(TreeNode root, int low, int high) {
+        public int rangeSumBST(TreeNode root, int low, int high) {
         if(root == null) return 0;
-
         int sum = 0;
         if(root.val >= low && root.val <= high) {
             sum += root.val;

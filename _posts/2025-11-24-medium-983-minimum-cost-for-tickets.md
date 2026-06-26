@@ -94,8 +94,8 @@ The key insight is to use dynamic programming to track the minimum cost to trave
 ```java
 // import java.util.*;
 class Solution {
-    public int mincostTickets(int[] days, int[] costs) {
-        int lastDay = days.getLast();
+        public int mincostTickets(int[] days, int[] costs) {
+        int lastDay = days.get(days.size() - 1);
         int[] dp = new int[lastDay + 1];
         HashSet<Integer> travelDays(days /* elements of days */);
 
@@ -218,7 +218,7 @@ Total: $11
 
 ```java
 // import java.util.*;
-int lastDay = days.getLast();
+int lastDay = days.get(days.size() - 1);
 int[] dp = new int[lastDay + 1];
 HashSet<Integer> travelDays(days /* elements of days */);
 ```
@@ -266,9 +266,9 @@ for (int i = 1; i <= lastDay; ++i) {
 
 ```java
 class Solution {
-    public int[]days, costs, memo;
-    public int durations[3] = {1, 7, 30}
-    int dp(int i) {
+    public int[] days, costs, memo;
+    int[] durations = new int[3] = {1, 7, 30}
+        public int dp(int i) {
         if (i >= days.size()) return 0;
         if (memo[i] != -1) return memo[i];
 
@@ -283,11 +283,11 @@ class Solution {
 
         return memo[i];
     }
-    int mincostTickets(int[] days, int[] costs) {
+        public int mincostTickets(int[] days, int[] costs) {
         this.days = days;
         this.costs = costs;
         memo.assign(days.size(), -1);
-        return dp(0);
+        return dp = new return(0);
     }
 }
 ```

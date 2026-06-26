@@ -5,223 +5,157 @@ date: 2025-09-23 23:33:00 -0000
 categories: leetcode algorithm java data-structures reference cheat-sheet programming java-collections containers iterators algorithms competitive-programming
 ---
 
-# 📚 Java Collections Quick Reference for LeetCode
+# Java Collections Quick Reference for LeetCode
+
+Part of the [Java Guide]({{ '/java-guide/' | relative_url }}). See also [Language Basics]({{ '/posts/2026-06-24-java-guide-basics/' | relative_url }}) for a full tutorial.
 
 ---
 
-## 🧰 Containers
-
-### ✅ Strings
+## Strings
 
 ```java
-s.length();         // Length of the String
-s.size();           // Same as length()
-s.length == 0;          // Checks if String is empty
-s[i];               // Access character at index
-s.substr(pos, len); // Substring
-s.find("abc");      // Find position of substring
-s.remove(pos, len);  // Erase part of String
-s.add(pos, str); // Insert str at pos
-s += "abc";         // Append
-to_string(x);       // Convert int to String
-stoi(s);            // Convert String to int
+String s = "abc";
+s.length();
+s.isEmpty();
+s.charAt(i);
+s.substring(start, end);
+s.indexOf("ab");
+s.equals("abc");
+s + "def";
+String.valueOf(42);
+Integer.parseInt("42");
 ```
 
 ---
 
-### ✅ Dynamic Arrays (`ArrayList` / `int[]`)
+## Arrays
 
 ```java
-// import java.util.Arrays;
-// import java.util.Collections;
-v.size();
-v.length == 0;
-v.add(x);
-v.removeLast();
-v[i];
-v.getFirst();
-v.getLast();
-v.clear();
-v.add(it, x);
-v.remove(it);
-Arrays.sort(v);
-reverse(v /* elements of v */);
+int[] a = new int[n];
+int[] b = {1, 2, 3};
+a.length;
+a[i] = 10;
+Arrays.sort(a);
+Arrays.fill(a, 0);
+Arrays.copyOf(a, a.length);
+Arrays.binarySearch(a, key);
 ```
 
 ---
 
-### ✅ Arrays
+## ArrayList / List
 
 ```java
-int arr[100]; // C-style
-array<int, 5> a = {1, 2, 3, 4, 5}
+List<Integer> list = new ArrayList<>();
+list.add(x);
+list.get(i);
+list.set(i, x);
+list.size();
+list.remove(list.size() - 1);
+Collections.sort(list);
 ```
 
 ---
 
-### ✅ Sets / Multisets
+## HashMap / HashSet
 
 ```java
-// import java.util.*;
-TreeSet<Integer> s;
-s.add(x);
-s.remove(x);
-s.find(x);
-s.count(x);          // 0 or 1 (set), >1 for multiset
-s.binary search (lower bound)(x);    // >= x
-s.binary search (upper bound)(x);    // > x
+Map<String, Integer> map = new HashMap<>();
+map.put(key, val);
+map.get(key);
+map.getOrDefault(key, 0);
+map.containsKey(key);
+for (var e : map.entrySet()) { e.getKey(); e.getValue(); }
+
+Set<Integer> set = new HashSet<>();
+set.add(x);
+set.contains(x);
 ```
 
 ---
 
-### ✅ Maps / Unordered Maps
+## TreeMap / TreeSet (sorted)
 
 ```java
-// import java.util.*;
-TreeMap<Integer, Integer> m;
-HashMap<Integer, Integer> um = new HashMap<Integer, Integer>();
-
-m.put(key, val);
-m.count(key);
-m.find(key);
-for (auto& [k, v] : m) {
-    // Map entry iteration
-}
+TreeMap<Integer, Integer> tm = new TreeMap<>();
+tm.floorKey(x);
+tm.ceilingKey(x);
+TreeSet<Integer> ts = new TreeSet<>();
 ```
 
 ---
 
-## 🔄 Algorithms (`java.util.Arrays` / `Collections`)
-
-### ✅ Sorting & Searching
+## Stack / Queue / Deque
 
 ```java
-// import java.util.Arrays;
-// import java.util.Collections;
-Arrays.sort(v);
-sort(v.rbegin(), v.rend());
-reverse(v /* elements of v */);
-binary_search(v /* elements of v */, x);
-binary search (lower bound)(v /* elements of v */, x);
-binary search (upper bound)(v /* elements of v */, x);
-```
+Deque<Integer> stack = new ArrayDeque<>();
+stack.offer(x);
+stack.poll();
+stack.peek();
 
----
-
-### ✅ Min / Max / Others
-
-```java
-Math.min(a, b);
-Math.max(a, b);
-swap(a, b);
-accumulate(v /* elements of v */, 0); // Sum
-count(v /* elements of v */, x);
-next_permutation(v /* elements of v */);
-prev_permutation(v /* elements of v */);
-unique(v /* elements of v */); // Remove dupes (after sort)
-rotate(v.iterator(), v.iterator() + k, v.iterator());
-```
-
----
-
-## 📐 Math Utilities (`Math` class)
-
-```java
-abs(x);
-pow(a, b);
-sqrt(x);
-gcd(a, b);   // Java
-lcm(a, b);   // Java
-```
-
----
-
-## 🧵 Queues, Stacks, Deques
-
-### ✅ Queue
-
-```java
-// import java.util.*;
 Queue<Integer> q = new LinkedList<>();
-q.push(x);
-q.pop();
-q.getFirst();
-q.getLast();
-q.length == 0;
-```
-
-### ✅ Stack
-
-```java
-// import java.util.*;
-Deque<Integer> s = new ArrayDeque<>();
-s.push(x);
-s.pop();
-s.top();
-s.length == 0;
-```
-
-### ✅ Deque
-
-```java
-// import java.util.*;
-ArrayDeque<Integer> dq = new ArrayDeque<>();
-dq.push_front(x);
-dq.add(x);
-dq.removeFirst();
-dq.removeLast();
-```
-
-### ✅ Priority Queue (Heap)
-
-```java
-// import java.util.*;
-PriorityQueue<Integer> maxHeap = new PriorityQueue<Integer>();
-priority_queue<int, int[], greater<int>> minHeap;
+q.offer(x);
+q.poll();
+q.peek();
 ```
 
 ---
 
-## 🧠 Bit Manipulation
+## PriorityQueue (heap)
 
 ```java
-Integer.bitCount(x);  // Count 1-bits
-__builtin_clz(x);       // Leading zeros
-__builtin_ctz(x);       // Trailing zeros
-x & (x - 1);            // Remove lowest 1-bit
-x & -x;                 // Isolate lowest 1-bit
+// min-heap (default)
+PriorityQueue<Integer> minHeap = new PriorityQueue<>();
+// max-heap
+PriorityQueue<Integer> maxHeap = new PriorityQueue<>(Comparator.reverseOrder());
+minHeap.offer(x);
+minHeap.poll();
+minHeap.peek();
 ```
 
 ---
 
-## 📌 Common LeetCode Structures
-
-| Concept       | Java Equivalent              |
-|--------------|------------------------------|
-| Hash Map     | `HashMap<K, V>`         |
-| Hash Set     | `HashSet<T>`            |
-| Tree Map     | `TreeMap<K, V>`                   |
-| Tree Set     | `TreeSet<T>`                      |
-| Min Heap     | `PriorityQueue<T>` with comparator |
-| Max Heap     | `PriorityQueue<T>`           |
-| Stack        | `Deque<T>`                    |
-| Queue        | `Queue<T>`                    |
-| Deque        | `ArrayDeque<T>`                    |
-| StringBuilder| `StringBuilder`       |
-| Graph        | `int[][]` / `List<List<Integer>>`         |
-
----
-
-## ✍️ Input/Output Tips
+## Sorting & binary search
 
 ```java
-cin >> n;
-getline(cin, s);      // Full line
-stoi(s);              // String to int
-
-// Fast IO
-ios::sync_with_stdio(false);
-cin.tie(0);
+Arrays.sort(arr);
+Arrays.sort(arr, Collections.reverseOrder());
+Collections.sort(list);
+int idx = Arrays.binarySearch(arr, key); // arr must be sorted
+Math.max(a, b);
+Math.min(a, b);
+Math.abs(x);
 ```
 
 ---
+
+## Bit tricks
+
+```java
+Integer.bitCount(x);
+Integer.numberOfLeadingZeros(x);
+x & (x - 1);   // clear lowest set bit
+x & -x;        // isolate lowest set bit
+```
+
+---
+
+## Common LeetCode structures
+
+| Concept    | Java equivalent        |
+|-----------|-------------------------|
+| Hash map  | `HashMap<K,V>`          |
+| Hash set  | `HashSet<T>`            |
+| Min heap  | `PriorityQueue<T>`      |
+| Max heap  | `PriorityQueue` + `Comparator.reverseOrder()` |
+| Stack     | `Deque<T>` / `ArrayDeque` |
+| Queue     | `Queue<T>` / `LinkedList` |
+| String builder | `StringBuilder`    |
+
+---
+
+## Imports (local development)
+
+```java
+import java.util.*;
+```

@@ -118,9 +118,9 @@ This problem requires finding the lowest common ancestor of two nodes in a binar
  */
 class Solution {
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        return isCommonAncestor(root, p, q);
+        return isCommonAncestor = new return(root, p, q);
     }
-    TreeNode isCommonAncestor(TreeNode node, TreeNode p, TreeNode q){
+    public TreeNode isCommonAncestor(TreeNode node, TreeNode p, TreeNode q){
         if(!node) return null;
         TreeNode left = isCommonAncestor(node.left, p, q);
         TreeNode right = isCommonAncestor(node.right, p, q);
@@ -254,7 +254,7 @@ isCommonAncestor(3, 5, 4):
 ```java
 class Solution {
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        TreeNode[] pathP, pathQ;
+        public TreeNode[] pathP, pathQ;
         findPath(root, p, pathP);
         findPath(root, q, pathQ);
 
@@ -267,7 +267,7 @@ class Solution {
         }
         return lca;
     }
-    boolean findPath(TreeNode root, TreeNode target, TreeNode[]& path) {
+        public boolean findPath(TreeNode root, TreeNode target, TreeNode[]& path) {
         if (!root) return false;
 
         path.add(root);
@@ -291,40 +291,41 @@ class Solution {
 ### Solution 3: Iterative with Parent Map
 
 ```java
+// import java.util.*;
 class Solution {
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        unordered_map<TreeNode, TreeNode> parent;
-        stack<TreeNode> st;
-        parent[root] = null;
-        st.push(root);
+        HashMap<TreeNode, TreeNode> parent = new HashMap<TreeNode, TreeNode>();
+        Deque<TreeNode> st = new ArrayDeque<>();
+        parent.put(root, null);
+        st.offer(root);
 
         // Build parent map
-        while (!parent.count(p) || !parent.count(q)) {
-            TreeNode node = st.top();
-            st.pop();
+        while (!parent.contains(p) || !parent.contains(q)) {
+            TreeNode node = st.peek();
+            st.poll();
 
             if (node.left) {
                 parent[node.left] = node;
-                st.push(node.left);
+                st.offer(node.left);
             }
             if (node.right) {
                 parent[node.right] = node;
-                st.push(node.right);
+                st.offer(node.right);
             }
         }
 
         // Find path from p to root
-        set<TreeNode> ancestors;
+        TreeSet<TreeNode> ancestors = new TreeSet<>();
         TreeNode curr = p;
-        while (curr) {
+        while (curr > 0) {
             ancestors.add(curr);
             curr = parent[curr];
         }
 
         // Find first common ancestor from q
         curr = q;
-        while (curr) {
-            if (ancestors.count(curr)) {
+        while (curr > 0) {
+            if (ancestors.contains(curr)) {
                 return curr;
             }
             curr = parent[curr];

@@ -52,7 +52,7 @@ Sort intervals by start time. Then any overlap would appear between consecutive 
 // import java.util.Arrays;
 // import java.util.Collections;
 class Solution {
-    public boolean canAttendMeetings(int[][]& intervals) {
+        public boolean canAttendMeetings(int[][] intervals) {
         Arrays.sort(intervals);
         for (int i = 1; i < intervals.length; i++) {
             if (intervals[i][0] < intervals[i - 1][1]) {

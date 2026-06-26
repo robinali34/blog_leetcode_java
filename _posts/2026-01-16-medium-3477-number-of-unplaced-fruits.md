@@ -107,8 +107,8 @@ This is a **greedy matching** problem where we need to find the leftmost availab
 
 ```java
 class SegmentTree {
-    public int n;
-    int[]tree;
+        int n;
+    List<Integer> tree = new ArrayList<>();
 
     SegmentTree(int[] baskets) {
         n = baskets.size();
@@ -134,7 +134,7 @@ class SegmentTree {
         int mid = (l + r) / 2;
         int left = query(node 2, l, mid, val);
         if (left != -1) return left;
-        return query(node 2+1, mid+1, r, val);
+        return query = new return(node 2+1, mid+1, r, val);
     }
 
     void update(int node, int l, int r, int idx) {
@@ -143,15 +143,15 @@ class SegmentTree {
         } else {
             int mid = (l + r) / 2;
             if (idx <= mid) update(node 2, l, mid, idx);
-            else update(node 2+1, mid+1, r, idx);
+            else update = new else(node 2+1, mid+1, r, idx);
             tree[node] = Math.max(tree[node 2], tree[node 2+1]);
         }
     }
 }
 class Solution {
-    public int numOfUnplacedFruits(int[] fruits, int[] baskets) {
+        public int numOfUnplacedFruits(int[] fruits, int[] baskets) {
         int n = baskets.size();
-        SegmentTree st(baskets);
+        SegmentTree st = new SegmentTree(baskets);
         int unplaced = 0;
 
         for (int f : fruits) {
@@ -291,7 +291,7 @@ Simple approach for small inputs:
 
 ```java
 class Solution {
-    public int numOfUnplacedFruits(int[] fruits, int[] baskets) {
+        public int numOfUnplacedFruits(int[] fruits, int[] baskets) {
         int n = baskets.size();
         boolean[] used = new boolean[n];
         int unplaced = 0;

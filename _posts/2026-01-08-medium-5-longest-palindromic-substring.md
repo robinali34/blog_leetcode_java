@@ -97,7 +97,7 @@ Uses preprocessing to transform the string and then uses symmetry properties to 
 
 ```java
 class Solution {
-    public String longestPalindrome(String s) {
+        public String longestPalindrome(String s) {
         int N = s.size();
         if(N < 2) return s;
         int start = 0, maxLen = 1;
@@ -105,11 +105,11 @@ class Solution {
             expandAroundCenter(s, i, i, start, maxLen);
             expandAroundCenter(s, i, i + 1, start, maxLen);
         }
-        return s.substr(start, maxLen);
+        return s.substring(start, maxLen);
     }
-    void expandAroundCenter(String s, int left, int right, int start, int maxLen) {
+    public void expandAroundCenter(String s, int left, int right, int start, int maxLen) {
         int N = s.size();
-        while(left >=0 && right < N && s[left] == s[right]) {
+        while(left >=0 && right < N && s.charAt(left) == s.charAt(right)) {
             int len = right - left + 1;
             if(len > maxLen) {
                 start = left;
@@ -186,16 +186,16 @@ Result: s.substr(0, 3) = "bab"
 
 ```java
 class Solution {
-    public String preprocess(String s) {
+        public String preprocess(String s) {
         String t = "^";
-        for (char c : s) {
+        for (char c : s.toCharArray()) {
             t += "#";
             t += c;
         }
         t += "#$";
         return t;
     }
-    String longestPalindrome(String s) {
+        public String longestPalindrome(String s) {
         if (s.length == 0) return "";
 
         String t = preprocess(s);
@@ -231,7 +231,7 @@ class Solution {
         }
 
         int start = (centerIndex - maxLen) / 2;
-        return s.substr(start, maxLen);
+        return s.substring(start, maxLen);
     }
 }
 ```

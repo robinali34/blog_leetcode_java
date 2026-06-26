@@ -158,17 +158,17 @@ Store all intervals in an unsorted list and linearly scan for operations.
 // import java.util.Arrays;
 // import java.util.Collections;
 class RangeModule {
-    List<int[]> intervals;
+    List<int[]> intervals = new ArrayList<>();
 
     void mergeIntervals() {
         if (intervals.length == 0) return;
         Arrays.sort(intervals);
-        List<int[]> merged;
+        List<int[]> merged = new ArrayList<>();
         merged.add(intervals[0]);
 
         for (int i = 1; i < intervals.length; i++) {
-            if (merged.getLast().second >= intervals[i].first) {
-                merged.getLast().second = Math.max(merged.getLast().second, intervals[i].second);
+            if (merged.get(merged.size() - 1).second >= intervals[i].first) {
+                merged.get(merged.size() - 1).second = Math.max(merged.get(merged.size() - 1).second, intervals[i].second);
             } else {
                 merged.add(intervals[i]);
             }
@@ -180,25 +180,25 @@ class RangeModule {
     }
 
     void addRange(int left, int right) {
-        intervals.add({left, right});
+        intervals.add(new int[] {left, right});
         mergeIntervals();  // O(n log n) + O(n)
     }
 
     boolean queryRange(int left, int right) {
-        for (auto& [l, r] : intervals) {
+        for (var e : intervals.entrySet()) {
             if (l <= left && right <= r) return true;
         }
         return false;
     }
 
     void removeRange(int left, int right) {
-        List<int[]> newIntervals;
-        for (auto& [l, r] : intervals) {
+        List<int[]> newIntervals = new ArrayList<>();
+        for (var e : intervals.entrySet()) {
             if (r <= left || l >= right) {
-                newIntervals.add({l, r});
+                newIntervals.add(new int[] {l, r});
             } else {
-                if (l < left) newIntervals.add({l, left});
-                if (r > right) newIntervals.add({right, r});
+                if (l < left) newIntervals.add(new int[] {l, left});
+                if (r > right) newIntervals.add(new int[] {right, r});
             }
         }
         intervals = newIntervals;
@@ -216,8 +216,9 @@ class RangeModule {
 Maintain sorted intervals using a vector with binary search for finding positions.
 
 ```java
+// import java.util.*;
 class RangeModule {
-    List<int[]> intervals;  // Kept sorted
+    List<int[]> intervals = new ArrayList<>();  // Kept sorted
 
     int findInsertPos(int left) {
         int low = 0, high = intervals.length;
@@ -237,7 +238,7 @@ class RangeModule {
 
     void addRange(int left, int right) {
         int pos = findInsertPos(left);  // O(log n)
-        intervals.add(intervals.iterator() + pos, {left, right});  // O(n)
+        intervals.add(intervals.iterator() + pos, new int[] {left, right});  // O(n)
         // Merge overlapping intervals - O(n)
         mergeIntervals();
     }
@@ -246,32 +247,32 @@ class RangeModule {
         int pos = findInsertPos(left);  // O(log n)
         if (pos > 0) {
             var prev = intervals[pos - 1];
-            if (prev.first <= left && right <= prev.second) return true;
+            if (prev[0] <= left && right <= prev[1]) return true;
         }
         return false;
     }
 
     void removeRange(int left, int right) {
         // Find and remove/split intervals - O(n)
-        List<int[]> newIntervals;
-        for (auto& [l, r] : intervals) {
+        List<int[]> newIntervals = new ArrayList<>();
+        for (var e : intervals.entrySet()) {
             if (r <= left || l >= right) {
-                newIntervals.add({l, r});
+                newIntervals.add(new int[] {l, r});
             } else {
-                if (l < left) newIntervals.add({l, left});
-                if (r > right) newIntervals.add({right, r});
+                if (l < left) newIntervals.add(new int[] {l, left});
+                if (r > right) newIntervals.add(new int[] {right, r});
             }
         }
         intervals = newIntervals;
     }
     void mergeIntervals() {
         if (intervals.length == 0) return;
-        List<int[]> merged;
+        List<int[]> merged = new ArrayList<>();
         merged.add(intervals[0]);
 
         for (int i = 1; i < intervals.length; i++) {
-            if (merged.getLast().second >= intervals[i].first) {
-                merged.getLast().second = Math.max(merged.getLast().second, intervals[i].second);
+            if (merged.get(merged.size() - 1).second >= intervals[i].first) {
+                merged.get(merged.size() - 1).second = Math.max(merged.get(merged.size() - 1).second, intervals[i].second);
             } else {
                 merged.add(intervals[i]);
             }
@@ -288,7 +289,7 @@ class RangeModule {
 ```java
 // import java.util.*;
 class RangeModule {
-    TreeMap<Integer, Integer> intervals;
+    TreeMap<Integer, Integer> intervals = new TreeMap<>();
     RangeModule() {
 
     }
@@ -297,14 +298,14 @@ class RangeModule {
         var it = intervals.binary search (upper bound)(left);
         if(it != intervals.iterator()) {
             var start = prev(it);
-            if(start.second >= right) return;
-            if(start.second >= left) {
-                left = start.first;
+            if(start[1] >= right) return;
+            if(start[1] >= left) {
+                left = start[0];
                 intervals.remove(start);
             }
         }
-        while(it != intervals.iterator() && it.first <= right) {
-            right = Math.max(right, it.second);
+        while(it != intervals.iterator() && it[0] <= right) {
+            right = Math.max(right, it[1]);
             it = intervals.remove(it);
         }
         intervals.put(left, right);
@@ -314,37 +315,37 @@ class RangeModule {
         var it = intervals.binary search (upper bound)(left);
         if(it == intervals.iterator()) return false;
         it = prev(it);
-        return right <= it.second;
+        return right <= it[1];
     }
 
     void removeRange(int left, int right) {
         var it = intervals.binary search (upper bound)(left);
         if(it != intervals.iterator()) {
             var start = prev(it);
-            if(start.second >= right) {
-                int ri = start.second;
-                if(start.first == left) {
+            if(start[1] >= right) {
+                int ri = start[1];
+                if(start[0] == left) {
                     intervals.remove(start);
                 } else {
-                    start.second = left;
+                    start[1] = left;
                 }
                 if(right != ri) {
                     intervals.put(right, ri);
                 }
                 return;
-            } else if(start.second > left) {
-                if(start.first == left) {
+            } else if(start[1] > left) {
+                if(start[0] == left) {
                     intervals.remove(start);
                 } else {
-                    start.second = left;
+                    start[1] = left;
                 }
             }
         }
-        while(it != intervals.iterator() && it.first < right) {
-            if(it.second <= right) {
+        while(it != intervals.iterator() && it[0] < right) {
+            if(it[1] <= right) {
                 it = intervals.remove(it);
             } else {
-                intervals.put(right, it.second);
+                intervals.put(right, it[1]);
                 intervals.remove(it);
                 break;
             }

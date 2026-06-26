@@ -78,26 +78,26 @@ This solution uses a queue to maintain the sliding window and a running sum to c
 // import java.util.*;
 class MovingAverage {
     Queue<Integer> q = new LinkedList<>();
-    public int windowSize;
-    public long windowSum;
+        int windowSize;
+        long windowSum;
     MovingAverage(int size) {
         windowSize = size;
         windowSum = 0;
     }
 
     double next(int val) {
-        q.push(val);
+        q.offer(val);
         windowSum += val;
         if(q.size() > windowSize) {
-            windowSum -= q.getFirst();
-            q.pop();
+            windowSum -= q.get(0);
+            q.poll();
         }
         return (double) windowSum / q.size();
     }
 }
 /**
  * Your MovingAverage object will be instantiated and called as such:
- * MovingAverage obj = new MovingAverage(size);
+ * MovingAverage obj = new MovingAverage = new new(size);
  * double param_1 = obj.next(val);
  */
 ```
@@ -135,11 +135,11 @@ Use a circular array to store window elements, avoiding queue overhead.
 
 ```java
 class MovingAverage {
-    int[]window;
-    public int windowSize;
-    public int count;
-    public int head;
-    public long windowSum;
+    List<Integer> window = new ArrayList<>();
+        int windowSize;
+        int count;
+        int head;
+        long windowSum;
     MovingAverage(int size) {
         windowSize = size;
         window.resize(size);
@@ -188,8 +188,8 @@ Similar to Solution 1 but using deque for potential future extensions.
 // import java.util.*;
 class MovingAverage {
     ArrayDeque<Integer> dq = new ArrayDeque<>();
-    public int windowSize;
-    public long windowSum;
+        int windowSize;
+        long windowSum;
     MovingAverage(int size) {
         windowSize = size;
         windowSum = 0;
@@ -199,7 +199,7 @@ class MovingAverage {
         dq.add(val);
         windowSum += val;
         if(dq.size() > windowSize) {
-            windowSum -= dq.getFirst();
+            windowSum -= dq.get(0);
             dq.removeFirst();
         }
         return (double) windowSum / dq.size();

@@ -119,7 +119,7 @@ This is a **greedy algorithm** problem. The key insight is that to maximize the 
 // import java.util.Arrays;
 // import java.util.Collections;
 class Solution {
-    public int arrayPairSum(int[] nums) {
+        public int arrayPairSum(int[] nums) {
         Arrays.sort(nums);
         int sum = 0;
         for(int i = 0; i < nums.length; i += 2) {

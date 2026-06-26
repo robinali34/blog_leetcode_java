@@ -92,7 +92,7 @@ The key challenge is that with negative numbers, a simple sliding window approac
 ```java
 // import java.util.*;
 class Solution {
-    public int shortestSubarray(int[] nums, int k) {
+        public int shortestSubarray(int[] nums, int k) {
         if(nums.length == 0) return -1;
         int N = nums.length;
         long[]preSum(N + 1);
@@ -103,11 +103,11 @@ class Solution {
         ArrayDeque<Integer> q = new ArrayDeque<>();
         for(int i = 0; i <= N; i++) {
             long curSum = preSum[i];
-            while(!q.length == 0 && curSum - preSum[q.getFirst()] >= k) {
-                rtn = Math.min(rtn, i - q.getFirst());
+            while(!q.isEmpty() && curSum - preSum[q.get(0)] >= k) {
+                rtn = Math.min(rtn, i - q.get(0));
                 q.removeFirst();
             }
-            while(!q.length == 0 && preSum[q.getLast()] >= curSum) {
+            while(!q.isEmpty() && preSum[q.get(q.size() - 1)] >= curSum) {
                 q.removeLast();
             }
             q.add(i);
@@ -145,13 +145,13 @@ for(int i = 0; i <= N; i++) {
     long curSum = preSum[i];
 
     // Check if we can form a valid subarray ending at i
-    while(!q.length == 0 && curSum - preSum[q.getFirst()] >= k) {
-        rtn = Math.min(rtn, i - q.getFirst());
+    while(!q.isEmpty() && curSum - preSum[q.get(0)] >= k) {
+        rtn = Math.min(rtn, i - q.get(0));
         q.removeFirst();
     }
 
     // Maintain monotonic property: remove larger prefix sums
-    while(!q.length == 0 && preSum[q.getLast()] >= curSum) {
+    while(!q.isEmpty() && preSum[q.get(q.size() - 1)] >= curSum) {
         q.removeLast();
     }
 

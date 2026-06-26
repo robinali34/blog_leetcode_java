@@ -54,7 +54,7 @@ Track the most recent index of each value. If we see the same value again and th
 ```java
 // import java.util.*;
 class Solution {
-    public boolean containsNearbyDuplicate(int[] nums, int k) {
+        public boolean containsNearbyDuplicate(int[] nums, int k) {
         HashMap<Integer, Integer> lastIdx = new HashMap<Integer, Integer>();
         for (int i = 0; i < nums.length; i++) {
             if (lastIdx.contains(nums[i]) && i - lastIdx[nums[i]] <= k)
@@ -78,7 +78,7 @@ Maintain a set of size at most `k`. As the window slides forward, remove the ele
 ```java
 // import java.util.*;
 class Solution {
-    public boolean containsNearbyDuplicate(int[] nums, int k) {
+        public boolean containsNearbyDuplicate(int[] nums, int k) {
         HashSet<Integer> window = new HashSet<Integer>();
         for (int i = 0; i < nums.length; i++) {
             if (window.contains(nums[i])) return true;

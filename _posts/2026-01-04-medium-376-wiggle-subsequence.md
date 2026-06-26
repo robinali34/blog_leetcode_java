@@ -100,7 +100,7 @@ This is a **greedy algorithm** problem. The key insight is to count the number o
 
 ```java
 class Solution {
-    public int wiggleMaxLength(int[] nums) {
+        public int wiggleMaxLength(int[] nums) {
         int N = nums.length;
         if(N < 2) return N;
 

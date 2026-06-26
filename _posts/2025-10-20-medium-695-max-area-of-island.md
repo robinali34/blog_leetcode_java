@@ -116,18 +116,18 @@ This is a classic **Connected Components** problem that can be solved using **De
 
 ```java
 class Solution {
-    public int[][] dirs = {&#123;0, -1&#125;, &#123;0, 1&#125;, &#123;1, 0&#125;, &#123;-1, 0&#125;}
-    int dfs(int[][]& grid, int r, int c) {
+    int[][] dirs = {&#123;0, -1&#125;, &#123;0, 1&#125;, &#123;1, 0&#125;, &#123;-1, 0&#125;}
+        public int dfs(int[][] grid, int r, int c) {
         if(r < 0 || r >= grid.length || c < 0 || c >= (int)grid[0].length
            || grid[r][c] == 0) return 0;
         grid[r][c] = 0;
         int rtn = 1;
-        for(auto dir: dirs) {
+        for (int dir : dirs) {
             rtn += dfs(grid, r + dir[0], c + dir[1]);
         }
         return rtn;
     }
-    int maxAreaOfIsland(int[][]& grid) {
+        public int maxAreaOfIsland(int[][] grid) {
         int rtn = 0;
         for(int r = 0; r < grid.length; r++) {
             for(int c = 0; c < (int)grid[0].length; c++) {
@@ -185,24 +185,24 @@ For a simple grid `[[1,1],[1,0]]`:
 
 ### BFS Approach:
 ```java
-static int bfs(int[][]& grid, int r, int c) {
+static int bfs(int[][] grid, int r, int c) {
     queue<int[]> q;
-    q.push({r, c});
+    q.offer(new int[] {r, c});
     grid[r][c] = 0;
     int area = 0;
 
-    while(!q.length == 0) {
-        auto [row, col] = q.getFirst();
-        q.pop();
+    while(!q.isEmpty()) {
+        auto [row, col] = q.get(0);
+        q.poll();
         area++;
 
-        for(auto dir: dirs) {
+        for (int dir : dirs) {
             int newR = row + dir[0], newC = col + dir[1];
             if(newR >= 0 && newR < grid.length &&
                newC >= 0 && newC < grid[0].length &&
                grid[newR][newC] == 1) {
                 grid[newR][newC] = 0;
-                q.push({newR, newC});
+                q.offer(new int[] {newR, newC});
             }
         }
     }

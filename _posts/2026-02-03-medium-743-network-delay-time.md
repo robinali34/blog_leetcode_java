@@ -101,54 +101,36 @@ This is a classic shortest path problem. We need to find the shortest distance f
 ## Solution 1: Dijkstra's Algorithm with Adjacency Matrix
 
 ```java
-// import java.util.Arrays;
-// import java.util.Collections;
 class Solution {
-    public int networkDelayTime(int[][]& times, int n, int k) {
-        // Build adjacency matrix
-        // Initialize with "infinity" (Long.MAX_VALUE)
-        long[][] adj(n, long[](n, Long.MAX_VALUE));
-        for(auto t : times) {
-            int u = t[0]-1, v = t[1]-1, w = t[2];
-            adj[u][v] = w;  // edge from u to v
-        }
-
-        // Distance array
-        long[]dist(n, Long.MAX_VALUE);
-        dist[k-1] = 0;
-
-        // Visited array
-        boolean[] visited = new boolean[n];
-
-        // Dijkstra main loop (without priority queue)
-        for(int i = 0; i < n; i++) {
-            // Pick the unvisited node with the smallest distance
-            long minDist = Long.MAX_VALUE;
-            int u = -1;
-            for(int j = 0; j < n; j++) {
-                if(!visited[j] && dist[j] < minDist) {
-                    minDist = dist[j];
-                    u = j;
-                }
-            }
-
-            if(u == -1) break; // all remaining nodes are unreachable
-            visited[u] = true;
-
-            // Relax neighbors
-            for(int v = 0; v < n; v++) {
-                if(adj[u][v] != Long.MAX_VALUE && dist[u] + adj[u][v] < dist[v]) {
-                    dist[v] = dist[u] + adj[u][v];
+    public int networkDelayTime(int[][] times, int n, int k) {
+        List<List<int[]>> graph = new ArrayList<>();
+        for (int i = 0; i <= n; i++) graph.add(new ArrayList<>());
+        for (int[] t : times) graph.get(t[0]).add(new int[] {t[1], t[2]});
+        int[] dist = new int[n + 1];
+        Arrays.fill(dist, Integer.MAX_VALUE);
+        dist[k] = 0;
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> Integer.compare(a[0], b[0]));
+        pq.offer(new int[] {0, k});
+        while (!pq.isEmpty()) {
+            int[] cur = pq.poll();
+            int d = cur[0], u = cur[1];
+            if (d > dist[u]) continue;
+            for (int[] e : graph.get(u)) {
+                int v = e[0], w = e[1];
+                if (dist[u] + w < dist[v]) {
+                    dist[v] = dist[u] + w;
+                    pq.offer(new int[] {dist[v], v});
                 }
             }
         }
-
-        // Get the maximum distance
-        long ans = Arrays.stream(dist).Math.max().getAsInt();
-        return ans == Long.MAX_VALUE ? -1 : (int)ans;
+        int ans = 0;
+        for (int i = 1; i <= n; i++) {
+            if (dist[i] == Integer.MAX_VALUE) return -1;
+            ans = Math.max(ans, dist[i]);
+        }
+        return ans;
     }
-}
-```
+}```
 
 ### Algorithm Breakdown:
 
@@ -183,35 +165,36 @@ This solution uses BFS with a regular queue. While BFS doesn't guarantee shortes
 **Note:** This approach is less efficient than Dijkstra's algorithm but is simpler to implement and works correctly for this problem.
 
 ```java
-// import java.util.*;
-// import java.util.Arrays;
-// import java.util.Collections;
 class Solution {
-    public int networkDelayTime(int[][]& times, int n, int k) {
-        vector<List<int[]>> adj(n);
-        for(auto t: times) adj[t[0] - 1].emplace_back(t[1] - 1, t[2]);
-
-        long[]dist(n, Long.MAX_VALUE);
-        dist[k - 1] = 0;
-        Queue<Integer> q = new LinkedList<>();
-        q.push(k - 1);
-        while(!q.length == 0) {
-            int node = q.getFirst();
-            q.pop();
-            for(auto next: adj[node]) {
-                int to = next.first;
-                long d = dist[node] + next.second;
-                if (d < dist[to]) {
-                    dist[to] = d;
-                    q.emplace(to);
+        public int networkDelayTime(int[][] times, int n, int k) {
+        List<List<int[]>> graph = new ArrayList<>();
+        for (int i = 0; i <= n; i++) graph.add(new ArrayList<>());
+        for (int[] t : times) graph.get(t.charAt(0)).add(new int[] {t.charAt(1), t.charAt(2)});
+        int[] dist = new int[n + 1];
+        Arrays.fill(dist, Integer.MAX_VALUE);
+        dist[k] = 0;
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> Integer.compare(a[0], b[0]));
+        pq.offer(new int[] {0, k});
+        while (!pq.isEmpty()) {
+            int[] cur = pq.poll();
+            int d = cur[0], u = cur[1];
+            if (d > dist[u]) continue;
+            for (int[] e : graph.get(u)) {
+                int v = e[0], w = e[1];
+                if (dist[u] + w < dist[v]) {
+                    dist[v] = dist[u] + w;
+                    pq.offer(new int[] {dist[v], v});
                 }
             }
         }
-        long rtn = Arrays.stream(dist).Math.max().getAsInt();
-        return rtn == Long.MAX_VALUE ? -1 : (int)rtn;
+        int ans = 0;
+        for (int i = 1; i <= n; i++) {
+            if (dist[i] == Integer.MAX_VALUE) return -1;
+            ans = Math.max(ans, dist[i]);
+        }
+        return ans;
     }
-}
-```
+}```
 
 ### Why This Works:
 
@@ -230,38 +213,36 @@ class Solution {
 **This is the optimal implementation!** This solution uses Dijkstra's algorithm with a min-heap (priority queue with `greater<>` comparator) and is the best practical approach for this problem.
 
 ```java
-// import java.util.Arrays;
-// import java.util.Collections;
 class Solution {
-    public int networkDelayTime(int[][]& times, int n, int k) {
-        vector<List<int[]>> adj(n);
-        for(auto t: times) adj[t[0] - 1].emplace_back(t[1] - 1, t[2]);
-
-        long[]dist(n, Long.MAX_VALUE);
-        dist[k - 1] = 0;
-        // Min-heap: priority_queue with greater<> comparator
-        priority_queue<long[], vector<long[]>, greater<>> q;
-        q.emplace(0, k - 1);
-        while(!q.length == 0) {
-            var node = q.top();
-            q.pop();
-            long time = node.first;
-            int x = node.second;
-            if(dist[x] < time) continue; // Skip outdated entries (lazy deletion)
-            for(auto next: adj[x]) {
-                int y = next.first;
-                long d = dist[x] + next.second;
-                if(d < dist[y]) {
-                    dist[y] = d;
-                    q.emplace(d, y);
+    public int networkDelayTime(int[][] times, int n, int k) {
+        List<List<int[]>> graph = new ArrayList<>();
+        for (int i = 0; i <= n; i++) graph.add(new ArrayList<>());
+        for (int[] t : times) graph.get(t[0]).add(new int[] {t[1], t[2]});
+        int[] dist = new int[n + 1];
+        Arrays.fill(dist, Integer.MAX_VALUE);
+        dist[k] = 0;
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> Integer.compare(a[0], b[0]));
+        pq.offer(new int[] {0, k});
+        while (!pq.isEmpty()) {
+            int[] cur = pq.poll();
+            int d = cur[0], u = cur[1];
+            if (d > dist[u]) continue;
+            for (int[] e : graph.get(u)) {
+                int v = e[0], w = e[1];
+                if (dist[u] + w < dist[v]) {
+                    dist[v] = dist[u] + w;
+                    pq.offer(new int[] {dist[v], v});
                 }
             }
         }
-        long rtn = Arrays.stream(dist).Math.max().getAsInt();
-        return rtn == Long.MAX_VALUE ? -1 : (int)rtn;
+        int ans = 0;
+        for (int i = 1; i <= n; i++) {
+            if (dist[i] == Integer.MAX_VALUE) return -1;
+            ans = Math.max(ans, dist[i]);
+        }
+        return ans;
     }
-}
-```
+}```
 
 ### Algorithm Breakdown:
 

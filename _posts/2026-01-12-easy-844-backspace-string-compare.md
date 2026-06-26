@@ -129,7 +129,7 @@ The two-pointer approach is more space-efficient and processes strings in revers
 
 ```java
 class Solution {
-    public boolean backspaceCompare(String s, String t) {
+        public boolean backspaceCompare(String s, String t) {
         // 1. String construct: ab#c backwards construct: ca
         // Request: O(n) time O(1) space . in space update.
         // 2. backwars, 2 pointers: if # move 2 backwards,  then compare
@@ -137,16 +137,16 @@ class Solution {
         int skipS = 0, skipT = 0;
         while(i >= 0 || j >= 0) {
             while(i >) {
-                if(s[i] == '#') {skipS++; i--;}
+                if(s.charAt(i) == '#') {skipS++; i--;}
                 else if(skipS > 0) {skipS--; i--;}
                 else break;
             }
             while(j >) {
-                if(t[j] == '#') {skipT++; j--;}
+                if(t.charAt(j) == '#') {skipT++; j--;}
                 else if(skipT > 0) {skipT--; j--;}
                 else break;
             }
-            if(i >= 0 && j>= 0 && s[i] != t[j]) return false;
+            if(i >= 0 && j>= 0 && s.charAt(i) != t.charAt(j)) return false;
             i--;
             j--;
         }
@@ -244,14 +244,14 @@ Return: i == j → -1 == -1 → true
 
 ```java
 class Solution {
-    public boolean backspaceCompare(String s, String t) {
+        public boolean backspaceCompare(String s, String t) {
         return buildString(s) == buildString(t);
     }
-    String buildString(String str) {
+        public String buildString(String str) {
         String result;
         for(char c : str) {
             if(c == '#') {
-                if(!result.length == 0) {
+                if(!result.isEmpty()) {
                     result.removeLast();
                 }
             } else {

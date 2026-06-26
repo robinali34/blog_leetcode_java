@@ -26,10 +26,10 @@ Minimal, copy-paste Java for BFS queue, monotonic queue, priority queue, circula
 
 // Standard queue operations
 Queue<Integer> q = new LinkedList<>();
-q.push(1);        // Enqueue
-q.getFirst();        // Peek front
-q.getLast();         // Peek back
-q.pop();          // Dequeue
+q.offer(1);        // Enqueue
+q.get(0);        // Peek front
+q.get(q.size() - 1);         // Peek back
+q.poll();          // Dequeue
 q.length == 0;        // Check if empty
 q.size();         // Get size
 ```
@@ -41,24 +41,24 @@ q.size();         // Get size
 class MyQueue {
     Deque<Integer> input, output;
     void push(int x) {
-        input.push(x);
+        input.offer(x);
     }
 
     int pop() {
         peek();
-        int val = output.top();
-        output.pop();
+        int val = output.peek();
+        output.poll();
         return val;
     }
 
     int peek() {
         if (output.length == 0) {
-            while (!input.length == 0) {
-                output.push(input.top());
-                input.pop();
+            while (!input.isEmpty()) {
+                output.offer(input.peek());
+                input.poll();
             }
         }
-        return output.top();
+        return output.peek();
     }
 
     boolean empty() {
@@ -78,21 +78,21 @@ Queue is essential for Breadth-First Search (level-order traversal).
 ```java
 // import java.util.*;
 // BFS on graph
-static void bfs(int[][]& graph, int start) {
+static void bfs(int[][] graph, int start) {
     Queue<Integer> q = new LinkedList<>();
     boolean[]visited(graph.size(), false);
-    q.push(start);
+    q.offer(start);
     visited[start] = true;
 
-    while (!q.length == 0) {
-        int node = q.getFirst();
-        q.pop();
+    while (!q.isEmpty()) {
+        int node = q.get(0);
+        q.poll();
         // Process node
 
         for (int neighbor : graph[node]) {
             if (!visited[neighbor]) {
                 visited[neighbor] = true;
-                q.push(neighbor);
+                q.offer(neighbor);
             }
         }
     }
@@ -100,23 +100,23 @@ static void bfs(int[][]& graph, int start) {
 
 // Level-order traversal (BFS on tree)
 int[][] levelOrder(TreeNode root) {
-    int[][] result;
+    List<int[]> result = new ArrayList<>();
     if (!root) return result;
 
-    queue<TreeNode> q;
-    q.push(root);
+    Queue<TreeNode> q = new LinkedList<>();
+    q.offer(root);
 
-    while (!q.length == 0) {
+    while (!q.isEmpty()) {
         int size = q.size();
-        int[]level;
+        List<Integer> level = new ArrayList<>();
 
         for (int i = 0; i < size; ++i) {
-            TreeNode node = q.getFirst();
-            q.pop();
+            TreeNode node = q.get(0);
+            q.poll();
             level.add(node.val);
 
-            if (node.left) q.push(node.left);
-            if (node.right) q.push(node.right);
+            if (node.left) q.offer(node.left);
+            if (node.right) q.offer(node.right);
         }
 
         result.add(level);
@@ -142,32 +142,32 @@ class MonotonicQueue {
     ArrayDeque<Integer> dq = new ArrayDeque<>();
     void push(int val) {
         // Remove elements smaller than val
-        while (!dq.length == 0 && dq.getLast() < val) {
+        while (!dq.isEmpty() && dq.get(dq.size() - 1) < val) {
             dq.removeLast();
         }
         dq.add(val);
     }
 
     void pop(int val) {
-        if (!dq.length == 0 && dq.getFirst() == val) {
+        if (!dq.isEmpty() && dq.get(0) == val) {
             dq.removeFirst();
         }
     }
 
     int Math.max() {
-        return dq.getFirst();
+        return dq.get(0);
     }
 }
 // Sliding Window Maximum
 int[]maxSlidingWindow(int[] nums, int k) {
     MonotonicQueue mq;
-    int[]result;
+    List<Integer> result = new ArrayList<>();
 
     for (int i = 0; i < nums.length; ++i) {
         if (i < k - 1) {
-            mq.push(nums[i]);
+            mq.offer(nums[i]);
         } else {
-            mq.push(nums[i]);
+            mq.offer(nums[i]);
             result.add(mq.Math.max());
             mq.pop(nums[i - k + 1]);
         }
@@ -193,50 +193,45 @@ Priority queue (heap) for maintaining order.
 PriorityQueue<Integer> maxHeap = new PriorityQueue<Integer>();
 
 // Min heap
-priority_queue<int, int[], greater<int>> minHeap;
+PriorityQueue<Integer> minHeap;
 
 // Custom comparator using class
 class Compare {
-    boolean operator()(int[]& a, int[]& b) {
-        return a.second > b.second; // Min heap by second element
-    }
+    
 }
-priority_queue<int[], List<int[]>, Compare> pq;
+PriorityQueue<int[]> pq;
 
 // Custom comparator using lambda operator
-var cmp = [](int[]& a, int[]& b) {
-    return a.second > b.second; // Min heap by second element
-}
-priority_queue<int[], List<int[]>, decltype(cmp)> pq(cmp);
+
+PriorityQueue<int[]> pq(cmp);
 
 // Lambda example: Min heap by distance (for Dijkstra's algorithm)
-var distCmp = [](int[]& a, int[]& b) {
-    return a.first > b.first; // {distance, node} - min heap by distance
+ - min heap by distance
 }
-priority_queue<int[], List<int[]>, decltype(distCmp)> pq(distCmp);
+PriorityQueue<int[]> pq(distCmp);
 ```
 
 ### K-way Merge
 
 ```java
 // Merge k sorted lists using priority queue
-ListNode mergeKLists(ListNode[]& lists) {
-    var cmp = [](ListNode a, ListNode b) { return a.val > b.val; }
-    priority_queue<ListNode, ListNode[], decltype(cmp)> pq(cmp);
+ListNode mergeKLists(ListNode[] lists) {
+    
+    priority_queue<ListNode, ListNode[], > pq(cmp);
 
     for (ListNode list : lists) {
-        if (list) pq.push(list);
+        if (list) pq.offer(list);
     }
 
-    ListNode dummy = new ListNode(0);
+    ListNode dummy = new ListNode = new new(0);
     ListNode cur = dummy;
 
-    while (!pq.length == 0) {
-        ListNode node = pq.top();
-        pq.pop();
+    while (!pq.isEmpty()) {
+        ListNode node = pq.peek();
+        pq.poll();
         cur.next = node;
         cur = cur.next;
-        if (node.next) pq.push(node.next);
+        if (node.next) pq.offer(node.next);
     }
 
     return dummy.next;
@@ -252,17 +247,17 @@ int[]topKFrequent(int[] nums, int k) {
     HashMap<Integer, Integer> freq = new HashMap<Integer, Integer>();
     for (int num : nums) freq.put(num, freq.getOrDefault(num, 0) + 1);
 
-    priority_queue<int[], List<int[]>, greater<int[]>> pq;
+    PriorityQueue<int[]> pq;
 
-    for (auto& [num, count] : freq) {
-        pq.push({count, num});
-        if (pq.size() > k) pq.pop();
+    for (var e : freq.entrySet()) {
+        pq.offer(new int[] {count, num});
+        if (pq.size() > k) pq.poll();
     }
 
-    int[]result;
-    while (!pq.length == 0) {
-        result.add(pq.top().second);
-        pq.pop();
+    List<Integer> result = new ArrayList<>();
+    while (!pq.isEmpty()) {
+        result.add(pq.peek().second);
+        pq.poll();
     }
 
     return result;
@@ -290,8 +285,8 @@ int[]topKFrequent(int[] nums, int k) {
 
 ```java
 class MyCircularQueue {
-    int[]data;
-    public int head, tail, size, capacity;
+    List<Integer> data = new ArrayList<>();
+        int head, tail, size, capacity;
     MyCircularQueue(int k) {}
 
     boolean enQueue(int value) {
@@ -341,8 +336,8 @@ dq.push_front(1);  // Add to front
 dq.add(2);   // Add to back
 dq.removeFirst();     // Remove from front
 dq.removeLast();      // Remove from back
-dq.getFirst();         // Access front
-dq.getLast();          // Access back
+dq.get(0);         // Access front
+dq.get(dq.size() - 1);          // Access back
 ```
 
 ### Sliding Window with Deque
@@ -352,23 +347,23 @@ dq.getLast();          // Access back
 // Sliding window maximum using deque
 int[]maxSlidingWindow(int[] nums, int k) {
     ArrayDeque<Integer> dq = new ArrayDeque<>();
-    int[]result;
+    List<Integer> result = new ArrayList<>();
 
     for (int i = 0; i < nums.length; ++i) {
         // Remove indices outside window
-        while (!dq.length == 0 && dq.getFirst() <= i - k) {
+        while (!dq.isEmpty() && dq.get(0) <= i - k) {
             dq.removeFirst();
         }
 
         // Remove indices with smaller values
-        while (!dq.length == 0 && nums[dq.getLast()] <= nums[i]) {
+        while (!dq.isEmpty() && nums[dq.get(dq.size() - 1)] <= nums[i]) {
             dq.removeLast();
         }
 
         dq.add(i);
 
         if (i >= k - 1) {
-            result.add(nums[dq.getFirst()]);
+            result.add(nums[dq.get(0)]);
         }
     }
 
@@ -389,11 +384,11 @@ class FrontMiddleBackQueue {
     void rebalance() {
         // Maintain: front_cache.size() <= back_cache.size() <= front_cache.size() + 1
         while(front_cache.size() > back_cache.size()) {
-            back_cache.push_front(front_cache.getLast());
+            back_cache.push_front(front_cache.get(front_cache.size() - 1));
             front_cache.removeLast();
         }
         while(back_cache.size() > front_cache.size() + 1) {
-            front_cache.add(back_cache.getFirst());
+            front_cache.add(back_cache.get(0));
             back_cache.removeFirst();
         }
     }
@@ -405,11 +400,11 @@ class FrontMiddleBackQueue {
     int popMiddle() {
         if(front_cache.length == 0 && back_cache.length == 0) return -1;
         if(front_cache.size() == back_cache.size()) {
-            int val = front_cache.getLast();
+            int val = front_cache.get(front_cache.size() - 1);
             front_cache.removeLast();
             return val;
         } else {
-            int val = back_cache.getFirst();
+            int val = back_cache.get(0);
             back_cache.removeFirst();
             return val;
         }

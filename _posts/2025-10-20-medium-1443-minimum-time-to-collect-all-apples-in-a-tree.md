@@ -125,22 +125,22 @@ This problem can be solved using either **DFS** or **BFS** approaches. The key i
 
 ```java
 class Solution {
-    public int dfs(int[][]& adj, boolean[] hasApple, int node, int parent) {
+        public int dfs(int[][] adj, boolean[] hasApple, int node, int parent) {
         int totalTime = 0;
-        for(auto child: adj[node]) {
+        for (char child : adj[node].toCharArray()) {
             if(child == parent) continue;
             int childTime = dfs(adj, hasApple, child, node);
             if(childTime > 0 || hasApple[child]) totalTime += childTime + 2;
         }
         return totalTime;
     }
-    int minTime(int n, int[][]& edges, boolean[] hasApple) {
+        public int minTime(int n, int[][] edges, boolean[] hasApple) {
         int[][] adj(n);
-        for(auto edge: edges) {
+        for (int edge : edges) {
             adj[edge[0]].push_back(edge[1]);
             adj[edge[1]].push_back(edge[0]);
         }
-        return dfs(adj, hasApple, 0, -1);
+        return dfs = new return(adj, hasApple, 0, -1);
     }
 }
 ```
@@ -150,26 +150,26 @@ class Solution {
 ```java
 // import java.util.*;
 class Solution {
-    public int minTime(int n, int[][]& edges, boolean[] hasApple) {
-        int[][] adj(n);
-        for(auto e: edges) {
+        public int minTime(int n, int[][] edges, boolean[] hasApple) {
+        public int[][] adj(n);
+        for (int e : edges) {
             adj[e[0]].push_back(e[1]);
             adj[e[1]].push_back(e[0]);
         }
 
         int[]parent(n, -1);
         Queue<Integer> q = new LinkedList<>();
-        q.push(0);
+        q.offer(0);
         boolean[] visited = new boolean[n];
         visited[0] = true;
-        while(!q.length == 0) {
-            int node = q.getFirst();
-            q.pop();
+        while(!q.isEmpty()) {
+            int node = q.get(0);
+            q.poll();
             for(int neighbor : adj[node]) {
                 if(!visited[neighbor]) {
                     visited[neighbor] = true;
                     parent[neighbor] = node;
-                    q.push(neighbor);
+                    q.offer(neighbor);
                 }
             }
         }
@@ -179,7 +179,7 @@ class Solution {
         for(int i = 0; i < n; i++) {
             if(!hasApple[i]) continue;
             int curr = i;
-            while(curr != 0 && !visitedNodes.contains(curr)) {
+            while(curr != 0 && !visitedNodes.containsKey(curr)) {
                 visitedNodes.add(curr);
                 time += 2;
                 curr = parent[curr];
@@ -266,25 +266,25 @@ For `n=7, edges=[[0,1],[0,2],[1,4],[1,5],[2,3],[2,6]], hasApple=[false,false,tru
 
 ### Iterative DFS:
 ```java
-static int minTime(int n, int[][]& edges, boolean[] hasApple) {
+static int minTime(int n, int[][] edges, boolean[] hasApple) {
     int[][] adj(n);
-    for(auto edge: edges) {
+    for (int edge : edges) {
         adj[edge[0]].push_back(edge[1]);
         adj[edge[1]].push_back(edge[0]);
     }
 
-    stack<int[]> stk; // {node, parent}
-    stk.push({0, -1});
+    stack<int[]> stk; // new int[] {node, parent}
+    stk.offer({0, -1});
     int[] subtreeTime = new int[n];
 
-    while(!stk.length == 0) {
-        auto [node, parent] = stk.top();
-        stk.pop();
+    while(!stk.isEmpty()) {
+        int[] nodepair = stk.peek(); int node = nodepair[0]; int parent = nodepair[1];
+        stk.poll();
 
         // Process children
         for(int child : adj[node]) {
             if(child != parent) {
-                stk.push({child, node});
+                stk.offer(new int[] {child, node});
             }
         }
     }

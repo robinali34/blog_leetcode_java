@@ -121,7 +121,7 @@ Use monotonic stack to find the range where each element is minimum, then calcul
 ```java
 // import java.util.*;
 class Solution {
-    public int maxSumMinProduct(int[] nums) {
+        public int maxSumMinProduct(int[] nums) {
         int n = nums.length;
         long[]prefix(n + 1, 0);
 
@@ -136,18 +136,16 @@ class Solution {
         // Find boundaries in single pass
         for(int i = 0; i < n; i++) {
             // Find right boundaries for elements in stack
-            while(!s.length == 0 && nums[s.top()] >= nums[i]) {
-                right[s.top()] = i;
-                s.pop();
+            while(!s.isEmpty() && nums[s.peek()] >= nums[i]) {
+                right[s.peek()] = i;
+                s.poll();
             }
             // Set left boundary for current element
-            if(!s.length == 0) left[i] = s.top();
-            s.push(i);
+            if(!s.isEmpty()) left[i] = s.peek();
+            s.offer(i);
         }
 
-        long maxProduct = 0;
-
-        // Calculate maximum product for each element as minimum
+        maxProduct = 0; // Calculate maximum product for each element as minimum
         for(int i = 0; i < n; i++) {
             long totalSum = prefix[right[i]] - prefix[left[i] + 1];
             maxProduct = Math.max(maxProduct, totalSum nums[i]);
@@ -212,13 +210,13 @@ right = [4, 3, 4, 4]
 ```java
 for(int i = 0; i < n; i++) {
     // Find right boundaries for elements in stack
-    while(!s.length == 0 && nums[s.top()] >= nums[i]) {
-        right[s.top()] = i;
-        s.pop();
+    while(!s.isEmpty() && nums[s.peek()] >= nums[i]) {
+        right[s.peek()] = i;
+        s.poll();
     }
     // Set left boundary for current element
-    if(!s.length == 0) left[i] = s.top();
-    s.push(i);
+    if(!s.isEmpty()) left[i] = s.peek();
+    s.offer(i);
 }
 ```
 
@@ -316,7 +314,7 @@ right = [3, 3, 3, 5, 5]
 ### Approach 1: Brute Force
 ```java
 class Solution {
-    public int maxSumMinProduct(int[] nums) {
+        public int maxSumMinProduct(int[] nums) {
         long maxProduct = 0;
         int n = nums.length;
 
@@ -339,17 +337,16 @@ class Solution {
 ### Approach 2: Divide and Conquer
 ```java
 class Solution {
-    public long maxProduct(int[] nums, int left, int right) {
+        public long maxProduct(int[] nums, int left, int right) {
         if(left > right) return 0;
         if(left == right) return (long)nums[left] * nums[left];
-
         int minIdx = min_element(nums.iterator() + left, nums.iterator() + right + 1) - nums.iterator();
         long sum = accumulate(nums.iterator() + left, nums.iterator() + right + 1, 0LL);
         long product = (long)nums[minIdx] * sum;
 
         return Math.max({product, maxProduct(nums, left, minIdx - 1), maxProduct(nums, minIdx + 1, right)});
     }
-    int maxSumMinProduct(int[] nums) {
+        public int maxSumMinProduct(int[] nums) {
         return (int)(maxProduct(nums, 0, nums.length - 1) % 1000000007);
     }
 }

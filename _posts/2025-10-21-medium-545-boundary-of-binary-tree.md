@@ -106,7 +106,7 @@ The boundary traversal consists of three parts in order:
 
 ```java
 class Solution {
-    public int[]boundaryOfBinaryTree(TreeNode root) {
+    public int[] boundaryOfBinaryTree(TreeNode root) {
         if(!root) return rtn;
         rtn.add(root.val);
         getleft(root.left);
@@ -115,26 +115,26 @@ class Solution {
         getright(root.right);
         return rtn;
     }
-    int[]rtn;
+    List<Integer> rtn = new ArrayList<>();
 
-    void getleft(TreeNode node) {
+    public void getleft(TreeNode node) {
         if(!node || (!node.left && !node.right)) return;
         rtn.add(node.val);
         if(!node.left) getleft(node.right);
-        else getleft(node.left);
+        else getleft = new else(node.left);
     }
 
-    void getleaf(TreeNode node) {
+    public void getleaf(TreeNode node) {
         if(!node) return;
         getleaf(node.left);
         if(!node.left && !node.right) rtn.add(node.val);
         getleaf(node.right);
     }
 
-    void getright(TreeNode node) {
+    public void getright(TreeNode node) {
         if(!node || (!node.left && !node.right)) return;
         if(!node.right) getright(node.left);
-        else getright(node.right);
+        else getright = new else(node.right);
         rtn.add(node.val);
     }
 }
@@ -149,8 +149,8 @@ class Solution {
 
 ```java
 class Solution {
-    public int[]boundaryOfBinaryTree(TreeNode root) {
-        int[]result;
+    public int[] boundaryOfBinaryTree(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
         if(!root) return result;
 
         result.add(root.val);
@@ -158,15 +158,14 @@ class Solution {
         // Get left boundary (excluding root and leaves)
         getLeftBoundary(root.left, result);
 
-        // Get all leaves
-        getLeaves(root, result);
+        // Get all leaves getLeaves = new leaves(root, result);
 
         // Get right boundary (excluding root and leaves)
         getRightBoundary(root.right, result);
 
         return result;
     }
-    void getLeftBoundary(TreeNode node, int[] result) {
+    public void getLeftBoundary(TreeNode node, int[] result) {
         if(!node || (!node.left && !node.right)) return;
 
         result.add(node.val);
@@ -178,7 +177,7 @@ class Solution {
         }
     }
 
-    void getLeaves(TreeNode node, int[] result) {
+    public void getLeaves(TreeNode node, int[] result) {
         if(!node) return;
 
         if(!node.left && !node.right) {
@@ -190,7 +189,7 @@ class Solution {
         getLeaves(node.right, result);
     }
 
-    void getRightBoundary(TreeNode node, int[] result) {
+    public void getRightBoundary(TreeNode node, int[] result) {
         if(!node || (!node.left && !node.right)) return;
 
         if(node.right) {

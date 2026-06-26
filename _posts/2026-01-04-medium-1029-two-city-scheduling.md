@@ -106,7 +106,7 @@ This is a **greedy algorithm** problem with a key mathematical insight. The cruc
 
 ```java
 class Solution {
-    public int twoCitySchedCost(int[][]& costs) {
+        public int twoCitySchedCost(int[][] costs) {
         sort(costs /* elements of costs */, [](auto u, auto v) {
             return (u[0] - u[1] < v[0] - v[1]);
         });

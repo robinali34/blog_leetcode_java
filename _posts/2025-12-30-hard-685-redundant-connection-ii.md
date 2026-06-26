@@ -109,7 +109,7 @@ This problem is the **directed graph** version of LC 684. Unlike the undirected 
 
 ```java
 class UnionFind {
-    int[]ancestor;
+    List<Integer> ancestor = new ArrayList<>();
     UnionFind(int n) {
         ancestor.resize(n);
         for(int i = 0; i < n; i++) {
@@ -126,8 +126,8 @@ class UnionFind {
     }
 }
 class Solution {
-    public int[]findRedundantDirectedConnection(int[][]& edges) {
-        int n = edges.size();
+    public int[] findRedundantDirectedConnection(int[][] edges) {
+        int n = edges.length;
         UnionFind uf = UnionFind(n + 1);
         int[]parent(n + 1);
         for(int i = 1; i <= n; i++) {

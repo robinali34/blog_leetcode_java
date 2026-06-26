@@ -121,53 +121,31 @@ The solution involves checking several conditions:
 ```java
 class Solution {
     public boolean validTicTacToe(String[] board) {
-        int x_cnt = 0, o_cnt = 0;
-        for (int i= 0; i < board.size(); i++) {
-            for (auto c : board[i]) {
-                if (c == 'X') x_cnt++;
-                if (c == 'O') o_cnt++;
+        int x = 0, o = 0;
+        for (String row : board) {
+            for (char c : row.toCharArray()) {
+                if (c == 'X') x++;
+                if (c == 'O') o++;
             }
         }
-        if (x_cnt != o_cnt + 1 && x_cnt != o_cnt) return false;
-        boolean x_win = this.win(board, 'X');
-        boolean o_win = this.win(board, 'O');
-        if (x_win && o_cnt + 1 != x_cnt) return false;
-        if (o_win && o_cnt != x_cnt) return false;
-        if (x_win && o_win) return false;
-        return true;
+        if (x != o && x != o + 1) return false;
+        boolean xWin = win(board, 'X');
+        boolean oWin = win(board, 'O');
+        if (xWin && o != x - 1) return false;
+        if (oWin && o != x) return false;
+        return !(xWin && oWin);
     }
-    boolean win(String[] board, char P) {
-        int n = board.size();
-        int cnt = 0;
-        for (int i = 0; i< n; i++) {
-            cnt = 0;
-            for (int j = 0; j < n; j++) {
-                if(board[i][j]== P) cnt++;
-            }
-            if (cnt == n) return true;
 
-            cnt = 0;
-            for (int j = 0; j < n; j++) {
-                if(board[j][i] == P) cnt++;
-            }
-            if (cnt == n) return true;
+    private boolean win(String[] board, char p) {
+        for (int i = 0; i < 3; i++) {
+            if (board[i].charAt(0) == p && board[i].charAt(1) == p && board[i].charAt(2) == p) return true;
+            if (board[0].charAt(i) == p && board[1].charAt(i) == p && board[2].charAt(i) == p) return true;
         }
-
-        cnt = 0;
-        for (int i = 0; i< n; i++) {
-            if(board[i][i] == P) cnt++;
-        }
-        if (cnt == n) return true;
-
-        cnt = 0;
-        for (int i = n - 1; i >= 0; i--) {
-            if(board[i][n - i - 1] == P) cnt++;
-        }
-        if (cnt == n) return true;
+        if (board[0].charAt(0) == p && board[1].charAt(1) == p && board[2].charAt(2) == p) return true;
+        if (board[0].charAt(2) == p && board[1].charAt(1) == p && board[2].charAt(0) == p) return true;
         return false;
     }
-}
-```
+}```
 
 ## Step-by-Step Example
 

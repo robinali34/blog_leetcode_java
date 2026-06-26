@@ -140,10 +140,10 @@ class FrontMiddleBackQueue {
         if(front_cache.length == 0 && back_cache.length == 0)  return -1;
         int rtn;
         if(front_cache.length == 0) {
-            rtn = back_cache.getFirst();
+            rtn = back_cache.get(0);
             back_cache.removeFirst();
         } else {
-            rtn = front_cache.getFirst();
+            rtn = front_cache.get(0);
             front_cache.removeFirst();
             rebalance();
         }
@@ -154,10 +154,10 @@ class FrontMiddleBackQueue {
         if(front_cache.length == 0 && back_cache.length == 0)  return -1;
         int rtn;
         if(front_cache.size() == back_cache.size()) {
-            rtn = front_cache.getLast();
+            rtn = front_cache.get(front_cache.size() - 1);
             front_cache.removeLast();
         } else {
-            rtn = back_cache.getFirst();
+            rtn = back_cache.get(0);
             back_cache.removeFirst();
         }
         return rtn;
@@ -165,7 +165,7 @@ class FrontMiddleBackQueue {
 
     int popBack() {
         if(front_cache.length == 0 && back_cache.length == 0)  return -1;
-        int rtn = back_cache.getLast();
+        int rtn = back_cache.get(back_cache.size() - 1);
         back_cache.removeLast();
         rebalance();
         return rtn;
@@ -174,11 +174,11 @@ class FrontMiddleBackQueue {
 
     void rebalance() {
         while(front_cache.size() > back_cache.size()) {
-            back_cache.push_front(front_cache.getLast());
+            back_cache.push_front(front_cache.get(front_cache.size() - 1));
             front_cache.removeLast();
         }
         while(back_cache.size() > front_cache.size() + 1) {
-            front_cache.add(back_cache.getFirst());
+            front_cache.add(back_cache.get(0));
             back_cache.removeFirst();
         }
     }
@@ -340,7 +340,7 @@ class FrontMiddleBackQueue {
 
     int popFront() {
         if(dq.length == 0) return -1;
-        int val = dq.getFirst();
+        int val = dq.get(0);
         dq.removeFirst();
         return val;
     }
@@ -355,7 +355,7 @@ class FrontMiddleBackQueue {
 
     int popBack() {
         if(dq.length == 0) return -1;
-        int val = dq.getLast();
+        int val = dq.get(dq.size() - 1);
         dq.removeLast();
         return val;
     }

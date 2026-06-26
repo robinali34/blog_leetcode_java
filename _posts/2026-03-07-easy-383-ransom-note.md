@@ -59,8 +59,8 @@ Since characters are lowercase letters, a 26-element array suffices.
 {% raw %}
 ```java
 class Solution {
-    public boolean canConstruct(String ransomNote, String magazine) {
-        int count[26] = {0}
+        public boolean canConstruct(String ransomNote, String magazine) {
+        int[] count = new int[26] = {0}
         for (char c : magazine)
             count[c - 'a']++;
 
@@ -87,7 +87,7 @@ Generalizes to any character set.
 ```java
 // import java.util.*;
 class Solution {
-    public boolean canConstruct(String ransomNote, String magazine) {
+        public boolean canConstruct(String ransomNote, String magazine) {
         HashMap<char, int> count = new HashMap<char, int>();
 
         for (char c : magazine) count.put(c, count.getOrDefault(c, 0) + 1);

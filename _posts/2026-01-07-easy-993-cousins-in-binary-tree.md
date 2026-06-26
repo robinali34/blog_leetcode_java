@@ -115,18 +115,18 @@ This problem requires checking if two nodes are **cousins**, which means:
  * }
  */
 class Solution {
-    public boolean isCousins(TreeNode root, int x, int y) {
+        public boolean isCousins(TreeNode root, int x, int y) {
         if(!root) return false;
 
-        queue<pair<TreeNode, TreeNode>> q;
-        q.push({root, null});
+        queue<TreeNode[]> q;
+        q.offer(new int[] {root, null});
         TreeNode xParent = null, *yParent = null;
         int xDepth = 1, yDepth = -1, depth = 0;
-        while(!q.length == 0) {
+        while(!q.isEmpty()) {
             int size = q.size();
             for(int i = 0; i < size; i++) {
-                auto [node, parent] = q.getFirst();
-                q.pop();
+                auto [node, parent] = q.get(0);
+                q.poll();
                 if(node.val == x) {
                     xParent = parent;
                     xDepth = depth;
@@ -135,8 +135,8 @@ class Solution {
                     yParent = parent;
                     yDepth = depth;
                 }
-                if(node.left) q.push({node.left, node});
-                if(node.right) q.push({node.right, node});
+                if(node.left) q.offer({node.left, node});
+                if(node.right) q.offer({node.right, node});
             }
             if(xParent && yParent) break;
             depth++;

@@ -92,7 +92,7 @@ This problem requires finding the shortest path from root to any leaf node. The 
  * }
  */
 class Solution {
-    public int minDepth(TreeNode root) {
+        public int minDepth(TreeNode root) {
         if(!root) return 0;
         if(!root.left && !root.right) return 1;
         int minDep = Integer.MAX_VALUE;
@@ -236,7 +236,7 @@ Wait, but the answer should be 5. Let me recalculate:
 
 ```java
 class Solution {
-    public int minDepth(TreeNode root) {
+        public int minDepth(TreeNode root) {
         if (!root) return 0;
 
         // If left subtree is null, only right side matters
@@ -258,20 +258,21 @@ class Solution {
 ### Solution 3: Iterative BFS (Level-order Traversal)
 
 ```java
+// import java.util.*;
 class Solution {
-    public int minDepth(TreeNode root) {
-        queue<TreeNode> q;
-        if(root) q.push(root);
+        public int minDepth(TreeNode root) {
+        Queue<TreeNode> q = new LinkedList<>();
+        if(root) q.offer(root);
         int depth = 0;
-        while(!q.length == 0) {
+        while(!q.isEmpty()) {
             int sz = q.size();
             depth++;
             for(int i = 0; i < sz; i++) {
-                TreeNode curr = q.getFirst();
-                q.pop();
+                TreeNode curr = q.get(0);
+                q.poll();
                 if(!curr.left && !curr.right) return depth;
-                if(curr.left) q.push(curr.left);
-                if(curr.right) q.push(curr.right);
+                if(curr.left) q.offer(curr.left);
+                if(curr.right) q.offer(curr.right);
             }
         }
         return depth;
@@ -323,23 +324,23 @@ Level 2: depth = 2, process [9, 20]
 
 ```java
 class Solution {
-    public int minDepth(TreeNode root) {
+        public int minDepth(TreeNode root) {
         if (!root) return 0;
 
-        stack<pair<TreeNode, int>> st;
-        st.push({root, 1});
+        stack<TreeNode[]> st;
+        st.offer(new int[] {root, 1});
         int minDepth = Integer.MAX_VALUE;
 
-        while (!st.length == 0) {
-            auto [node, depth] = st.top();
-            st.pop();
+        while (!st.isEmpty()) {
+            int[] nodepair = st.peek(); int node = nodepair[0]; int depth = nodepair[1];
+            st.poll();
 
             if (!node.left && !node.right) {
                 minDepth = Math.min(minDepth, depth);
             }
 
-            if (node.right) st.push({node.right, depth + 1});
-            if (node.left) st.push({node.left, depth + 1});
+            if (node.right) st.offer({node.right, depth + 1});
+            if (node.left) st.offer({node.left, depth + 1});
         }
 
         return minDepth;

@@ -92,7 +92,7 @@ Use a simple counter to track consecutive ones. Reset the counter when encounter
 
 ```java
 class Solution {
-    public int findMaxConsecutiveOnes(int[] nums) {
+        public int findMaxConsecutiveOnes(int[] nums) {
         int maxCnt = 0, cnt = 0;
 
         for(int n : nums) {
@@ -199,7 +199,7 @@ While not necessary for this problem, we can use two pointers to explicitly trac
 
 ```java
 class Solution {
-    public int findMaxConsecutiveOnes(int[] nums) {
+        public int findMaxConsecutiveOnes(int[] nums) {
         int maxCnt = 0;
         int left = 0;
 
@@ -223,7 +223,7 @@ class Solution {
 
 ```java
 class Solution {
-    public int findMaxConsecutiveOnes(int[] nums) {
+        public int findMaxConsecutiveOnes(int[] nums) {
         int maxCnt = 0, cnt = 0;
 
         for(int n : nums) {

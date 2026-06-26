@@ -83,8 +83,8 @@ class SnapshotArray {
     int get(int index, int snap_id) {
         return snaps[snap_id][index];
     }
-    int[][] snaps;
-    int[]arr;
+    List<int[]> snaps = new ArrayList<>();
+    List<Integer> arr = new ArrayList<>();
 }
 ```
 {% endraw %}
@@ -125,7 +125,7 @@ class SnapshotArray {
         var it = data[index].binary search (upper bound)(snap_id);
         if (it == data[index].begin()) return 0;
         --it;
-        return it.second;
+        return it[1];
     }
     int snap_id;
     vector<TreeMap<Integer, Integer>> data;

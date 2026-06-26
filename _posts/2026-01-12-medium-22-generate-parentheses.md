@@ -113,29 +113,29 @@ This is a classic **backtracking** problem. The key insight is to build valid pa
 
 ```java
 class Solution {
-    public String[]generateParenthesis(int n) {
-        String[]rtn;
-        backtrack(n, 0, 0, "", rtn);
-        return rtn;
+    public List<String> generateParenthesis(int n) {
+        List<String> result = new ArrayList<>();
+        backtrack(result, new StringBuilder(), 0, 0, n);
+        return result;
     }
-    void backtrack(int n, int open, int close, String path, String[] rtn) {
-        if(path.size() == 2 n) {
-            rtn.add(path);
+
+    private void backtrack(List<String> result, StringBuilder cur, int open, int close, int n) {
+        if (cur.length() == 2 * n) {
+            result.add(cur.toString());
             return;
         }
-        if(open < n) {
-            path.add('(');
-            backtrack(n, open + 1, close, path, rtn);
-            path.removeLast();
+        if (open < n) {
+            cur.append('(');
+            backtrack(result, cur, open + 1, close, n);
+            cur.deleteCharAt(cur.length() - 1);
         }
-        if(close < open) {
-            path.add(')');
-            backtrack(n, open, close + 1, path, rtn);
-            path.removeLast();
+        if (close < open) {
+            cur.append(')');
+            backtrack(result, cur, open, close + 1, n);
+            cur.deleteCharAt(cur.length() - 1);
         }
     }
-}
-```
+}```
 
 ### **Algorithm Explanation:**
 
@@ -272,13 +272,13 @@ This is because:
 class Solution {
     public String[]generateParenthesis(int n) {
         queue<pair<String, int[]>> q;
-        q.push({"", {0, 0}});
+        q.offer({"", new int[] new int[] new int[] {0, 0}});
         String[]result;
 
-        while(!q.length == 0) {
-            auto [path, counts] = q.getFirst();
+        while(!q.isEmpty()) {
+            auto [path, counts] = q.get(0);
             auto [open, close] = counts;
-            q.pop();
+            q.poll();
 
             if(path.size() == 2 n) {
                 result.add(path);
@@ -286,10 +286,10 @@ class Solution {
             }
 
             if(open < n) {
-                q.push({path + "(", {open + 1, close}});
+                q.offer({path + "(", {open + 1, close}});
             }
             if(close < open) {
-                q.push({path + ")", {open, close + 1}});
+                q.offer({path + ")", {open, close + 1}});
             }
         }
 

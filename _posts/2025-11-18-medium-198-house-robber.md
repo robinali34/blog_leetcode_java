@@ -77,11 +77,11 @@ This is a classic dynamic programming problem. The key insight is that for each 
 
 ```java
 class Solution {
-    public int rob(int[] nums) {
+        public int rob(int[] nums) {
         if(nums.length <) return 0;
         if(nums.length == 1) return nums[0];
 
-        int[]dp(nums.length + 1);
+        public int[] dp(nums.length + 1);
         dp[0] = 0;
         dp[1] = nums[0];
 
@@ -197,11 +197,10 @@ Instead of storing the entire DP array, we only need the previous two values:
 
 ```java
 class Solution {
-    public int rob(int[] nums) {
+        public int rob(int[] nums) {
         if(nums.length == 0) return 0;
         if(nums.length == 1) return nums[0];
-
-        int prev2 = 0;        // dp[i-2]
+        prev2 = 0; // dp[i-2]
         int prev1 = nums[0];  // dp[i-1]
 
         for(int i = 1; i < nums.length; i++) {
@@ -233,11 +232,11 @@ Standard 0-indexed approach:
 
 ```java
 class Solution {
-    public int rob(int[] nums) {
+        public int rob(int[] nums) {
         if(nums.length == 0) return 0;
         if(nums.length == 1) return nums[0];
 
-        int[]dp(nums.length);
+        public int[] dp(nums.length);
         dp[0] = nums[0];
         dp[1] = Math.max(nums[0], nums[1]);
 

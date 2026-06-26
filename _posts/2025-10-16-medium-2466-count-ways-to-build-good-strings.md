@@ -106,9 +106,9 @@ Use bottom-up DP to calculate the number of ways to build strings of each length
 
 ```java
 class Solution {
-    public int[]dp;
-    int MOD = 1e9 + 7;
-    int countGoodStrings(int low, int high, int zero, int one) {
+    List<Integer> dp = new ArrayList<>();
+        int MOD = 1e9 + 7;
+        public int countGoodStrings(int low, int high, int zero, int one) {
         dp.resize(high + 1, 0);
         dp[0] = 1;  // Base case: empty String
 
@@ -136,10 +136,9 @@ Use top-down DP with memoization to calculate the number of ways recursively.
 
 ```java
 class Solution {
-    public int[]dp;
-    int MOD = 1e9 + 7;
-
-    int dfs(int zero, int one, int end) {
+    List<Integer> dp = new ArrayList<>();
+        int MOD = 1e9 + 7;
+        public int dfs(int zero, int one, int end) {
         if(dp[end] != -1) return dp[end];
 
         int cnt = 0;
@@ -149,7 +148,7 @@ class Solution {
         dp[end] = cnt;
         return dp[end];
     }
-    int countGoodStrings(int low, int high, int zero, int one) {
+        public int countGoodStrings(int low, int high, int zero, int one) {
         dp.resize(high + 1, -1);
         dp[0] = 1;  // Base case: empty String
 
@@ -324,10 +323,10 @@ Sum = dp[2] + dp[3] = 2 + 3 = 5
 ### Approach 1: Brute Force (DFS)
 ```java
 class Solution {
-    public int countGoodStrings(int low, int high, int zero, int one) {
-        return dfs(0, low, high, zero, one);
+        public int countGoodStrings(int low, int high, int zero, int one) {
+        return dfs = new return(0, low, high, zero, one);
     }
-    int dfs(int len, int low, int high, int zero, int one) {
+        public int dfs(int len, int low, int high, int zero, int one) {
         if (len > high) return 0;
         int count = (len >= low) ? 1 : 0;
         count = (count + dfs(len + zero, low, high, zero, one)) % MOD;
@@ -345,7 +344,7 @@ class Solution {
 ### Approach 2: Mathematical Formula
 ```java
 class Solution {
-    public int countGoodStrings(int low, int high, int zero, int one) {
+        public int countGoodStrings(int low, int high, int zero, int one) {
         int[] dp = new int[high + 1];
         dp[0] = 1;
 

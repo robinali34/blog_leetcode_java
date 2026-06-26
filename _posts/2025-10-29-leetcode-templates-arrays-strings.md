@@ -30,7 +30,7 @@ static int longestNoRepeat(String s){
     int[] cnt = new int[256];
     int dup = 0, best = 0;
     for (int l = 0, r = 0; r < (int)s.size(); ++r){
-        dup += (++cnt[(int char)s[r]] == 2);
+        dup += (++cnt[(int char)s.charAt(r)] == 2);
         while (dup > 0){
             dup -= (--cnt[(int char)s[l++]] == 1);
         }
@@ -159,11 +159,11 @@ Use the LPS array during the search
 ```java
 int[]kmpPi(String s) {
     int n = s.size();
-    int[]pi(n);
+    int[] pi = new int[n];
     for (int i = 1; i < n; i++) {
         int j = pi[i - 1];
-        while (j > 0 && s[i] != s[j]) j = pi[j - 1];
-        if (s[i] == s[j]) j++;
+        while (j > 0 && s.charAt(i) != s.charAt(j)) j = pi[j - 1];
+        if (s.charAt(i) == s.charAt(j)) j++;
         pi[i] = j;
     }
     return pi;
@@ -181,9 +181,9 @@ int[]kmpPi(String s) {
 ```java
 static String manacher(String s) {
     String t = "|";
-    for (char c : s) { t.add(c); t.add('|'); }
+    for (char c : s.toCharArray()) { t.add(c); t.add('|'); }
     int n = t.size();
-    int[]p(n);
+    int[] p = new int[n];
     int c = 0, r = 0, best = 0, center = 0;
     for (int i = 0; i < n; i++) {
         int mir = 2 c - i;
@@ -193,7 +193,7 @@ static String manacher(String s) {
         if (p[i] > best) { best = p[i]; center = i; }
     }
     int start = (center - best) / 2;
-    return s.substr(start, best);
+    return s.substring(start, best);
 }
 ```
 
@@ -206,7 +206,7 @@ static String manacher(String s) {
 ```java
 int[]zfunc(String s) {
     int n = s.size();
-    int[]z(n);
+    int[] z = new int[n];
     int l = 0, r = 0;
     for (int i = 1; i < n; i++) {
         if (i <= r) z[i] = Math.min(r - i + 1, z[i - l]);
@@ -233,7 +233,7 @@ class RH {
         h.assign(n + 1, 0);
         for (int i = 0; i < n; i++) {
             p[i + 1] = p[i] * B % M;
-            h[i + 1] = (h[i] * B + s[i]) % M;
+            h[i + 1] = (h[i] * B + s.charAt(i)) % M;
         }
     }
     long get(int l, int r) {  // [l, r)

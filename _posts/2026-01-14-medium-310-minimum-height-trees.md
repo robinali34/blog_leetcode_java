@@ -98,60 +98,34 @@ This problem requires finding the center(s) of a tree. The key insight is that *
 ### **Solution: Peeling Leaves (Topological Sort)**
 
 ```java
-// import java.util.*;
 class Solution {
-    public int[]findMinHeightTrees(int n, int[][]& edges) {
-        // Essentially it is to find the path with max length, return its central node(s)
-        int[]rtn;
-        if(n == 0) return rtn;
-        if(n == 1) return {0}
-        // Build the adj list
-        int[][] adj(n);
-        int[] inDegree = new int[n];
-
-        for(auto edge: edges) {
-            int u = edge[0], v = edge[1];
-            adj[u].emplace_back(v);
-            adj[v].emplace_back(u);
-            inDegree.put(u, inDegree.getOrDefault(u, 0) + 1);
-            inDegree.put(v, inDegree.getOrDefault(v, 0) + 1);
+    public List<Integer> findMinHeightTrees(int n, int[][] edges) {
+        if (n == 1) return List.of(0);
+        List<Set<Integer>> adj = new ArrayList<>();
+        int[] deg = new int[n];
+        for (int i = 0; i < n; i++) adj.add(new HashSet<>());
+        for (int[] e : edges) {
+            adj.get(e[0]).add(e[1]);
+            adj.get(e[1]).add(e[0]);
+            deg[e[0]]++;
+            deg[e[1]]++;
         }
-
-        // Init leaves
-        Queue<Integer> leaves = new LinkedList<>();
-        for(int i = 0; i < n; i++) {
-            if(inDegree[i] == 1) {
-                leaves.push(i);
-            }
-        }
-
-        // Trim leaves until <= 2 nodes remain
-        int remainingNodes = n;
-        while (remainingNodes > 2) {
-            int leavesSize = leaves.size();
-            remainingNodes -= leavesSize;
-            for(int i = 0; i < leavesSize; i++) {
-                int leaf = leaves.getFirst();
-                leaves.pop();
-                // The leaf has only one neighbor
-                for(int neighbor: adj[leaf]) {
-                    inDegree[neighbor]--;
-                    if(inDegree[neighbor] == 1) {
-                        leaves.push(neighbor);
-                    }
+        ArrayDeque<Integer> q = new ArrayDeque<>();
+        for (int i = 0; i < n; i++) if (deg[i] == 1) q.offer(i);
+        int rem = n;
+        while (rem > 2) {
+            int sz = q.size();
+            rem -= sz;
+            for (int i = 0; i < sz; i++) {
+                int leaf = q.poll();
+                for (int nei : adj.get(leaf)) {
+                    if (--deg[nei] == 1) q.offer(nei);
                 }
             }
         }
-
-        // Remaining nodes are roots of MHTs
-        while(!leaves.length == 0) {
-            rtn.add(leaves.getFirst());
-            leaves.pop();
-        }
-        return rtn;
+        return new ArrayList<>(q);
     }
-}
-```
+}```
 
 ### **Algorithm Explanation:**
 
@@ -307,10 +281,10 @@ Find the longest path (diameter) in the tree, then return the middle node(s).
 ```java
 // import java.util.*;
 class Solution {
-    public int[]findMinHeightTrees(int n, int[][]& edges) {
+    public int[] findMinHeightTrees(int n, int[][] edges) {
         if(n == 1) return {0}
         int[][] adj(n);
-        for(auto e: edges) {
+        for (int e : edges) {
             adj[e[0]].push_back(e[1]);
             adj[e[1]].push_back(e[0]);
         }
@@ -322,7 +296,7 @@ class Solution {
         auto [v, parent] = bfs(adj, u, n);
 
         // Find middle node(s) of diameter
-        int[]path;
+        List<Integer> path = new ArrayList<>();
         int curr = v;
         while(curr != -1) {
             path.add(curr);
@@ -336,27 +310,27 @@ class Solution {
             return {path[len/2]}
         }
     }
-    pair<int, int[]> bfs(int[][]& adj, int start, int n) {
+    pair<int, int[]> bfs(int[][] adj, int start, int n) {
         Queue<Integer> q = new LinkedList<>();
         int[]parent(n, -1);
         boolean[] visited = new boolean[n];
-        q.push(start);
+        q.offer(start);
         visited[start] = true;
         int farthest = start;
 
-        while(!q.length == 0) {
-            int u = q.getFirst();
-            q.pop();
+        while(!q.isEmpty()) {
+            int u = q.get(0);
+            q.poll();
             farthest = u;
             for(int v: adj[u]) {
                 if(!visited[v]) {
                     visited[v] = true;
                     parent[v] = u;
-                    q.push(v);
+                    q.offer(v);
                 }
             }
         }
-        return {farthest, parent}
+        return new int[] new int[] new int[] {farthest, parent}
     }
 }
 ```
@@ -370,10 +344,10 @@ Similar to BFS approach but using DFS to find the diameter. Uses recursion to fi
 
 ```java
 class Solution {
-    public int[]findMinHeightTrees(int n, int[][]& edges) {
+    public int[] findMinHeightTrees(int n, int[][] edges) {
         if(n == 1) return {0}
         int[][] adj(n);
-        for(auto e: edges) {
+        for (int e : edges) {
             adj[e[0]].push_back(e[1]);
             adj[e[1]].push_back(e[0]);
         }
@@ -383,17 +357,13 @@ class Solution {
         int maxDist = 0;
         int[]parent1(n, -1);
         dfs(adj, 0, -1, 0, farthestNode, maxDist, parent1);
-        int u = farthestNode;
-
-        // Second DFS: Find other end and path
+        u = farthestNode; // Second DFS: Find other end and path
         farthestNode = u;
         maxDist = 0;
         int[]parent2(n, -1);
         dfs(adj, u, -1, 0, farthestNode, maxDist, parent2);
-        int v = farthestNode;
-
-        // Reconstruct path from u to v
-        int[]path;
+        v = farthestNode; // Reconstruct path from u to v
+        List<Integer> path = new ArrayList<>();
         int curr = v;
         while(curr != -1) {
             path.add(curr);
@@ -408,7 +378,7 @@ class Solution {
             return {path[len/2]}
         }
     }
-    void dfs(int[][]& adj, int u, int parent, int dist,
+    public void dfs(int[][] adj, int u, int parent, int dist,
              int farthestNode, int maxDist, int[] parentArr) {
         parentArr[u] = parent;
 
@@ -444,16 +414,16 @@ Calculate height of tree when rooted at each node, return nodes with minimum hei
 
 ```java
 class Solution {
-    public int[]findMinHeightTrees(int n, int[][]& edges) {
+    public int[] findMinHeightTrees(int n, int[][] edges) {
         if(n == 1) return {0}
         int[][] adj(n);
-        for(auto e: edges) {
+        for (int e : edges) {
             adj[e[0]].push_back(e[1]);
             adj[e[1]].push_back(e[0]);
         }
 
         int minHeight = Integer.MAX_VALUE;
-        int[]result;
+        List<Integer> result = new ArrayList<>();
 
         // Try each node as root
         for(int root = 0; root < n; root++) {
@@ -468,7 +438,7 @@ class Solution {
 
         return result;
     }
-    int dfs(int[][]& adj, int u, int parent) {
+        public int dfs(int[][] adj, int u, int parent) {
         int maxHeight = 0;
         for(int v: adj[u]) {
             if(v == parent) continue;

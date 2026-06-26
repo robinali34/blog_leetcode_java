@@ -73,10 +73,10 @@ This problem is similar to [LC 207: Course Schedule](https://leetcode.com/proble
 
 ```java
 class Solution {
-    public int[]findOrder(int numCourses, int[][]& prerequisites) {
+    public int[] findOrder(int numCourses, int[][] prerequisites) {
         adj.resize(numCourses);
         visited.resize(numCourses, 0);
-        for(auto info: prerequisites) {
+        for (int info : prerequisites) {
             // Build reverse order, so the DFS path can be directed returned
             adj[info[0]].emplace_back(info[1]);
         }
@@ -89,12 +89,12 @@ class Solution {
         if(!isValid) return{}
         return rtn;
     }
-    int[][] adj;
-    int[]visited;
-    int[]rtn;
+    List<int[]> adj = new ArrayList<>();
+    List<Integer> visited = new ArrayList<>();
+    List<Integer> rtn = new ArrayList<>();
     boolean isValid = true;
 
-    void dfs(int u) {
+    public void dfs(int u) {
         visited[u] = 1;  // Mark as visiting
         for(int v: adj[u]) {
             if(visited[v] == 0) {
@@ -243,11 +243,11 @@ Result: [] (empty array) ✓
 ```java
 // import java.util.*;
 class Solution {
-    public int[]findOrder(int numCourses, int[][]& prerequisites) {
-        int[][] adj(numCourses);
+    public int[] findOrder(int numCourses, int[][] prerequisites) {
+        public int[][] adj(numCourses);
         int[] indegree = new int[numCourses];
 
-        for(auto p: prerequisites) {
+        for (int p : prerequisites) {
             adj[p[1]].push_back(p[0]);
             indegree[p[0]]++;
         }
@@ -255,25 +255,25 @@ class Solution {
         Queue<Integer> q = new LinkedList<>();
         for(int i = 0; i < numCourses; i++) {
             if(indegree[i] == 0) {
-                q.push(i);
+                q.offer(i);
             }
         }
 
-        int[]result;
-        while(!q.length == 0) {
-            int u = q.getFirst();
-            q.pop();
+        List<Integer> result = new ArrayList<>();
+        while(!q.isEmpty()) {
+            int u = q.get(0);
+            q.poll();
             result.add(u);
 
             for(int v: adj[u]) {
                 if(--indegree[v] == 0) {
-                    q.push(v);
+                    q.offer(v);
                 }
             }
         }
 
         if(result.size() != numCourses) {
-            return {};  // Cycle exists
+            return new ArrayList<>();  // Cycle exists
         }
         return result;
     }

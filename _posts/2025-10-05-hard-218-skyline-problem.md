@@ -117,31 +117,31 @@ There are several approaches to solve this problem:
 ```java
 // import java.util.*;
 class Solution {
-    public int[][] getSkyline(int[][]& buildings) {
-        TreeSet<Integer> edgeSet;
-        for(auto building: buildings) {
-            int left = building[0], right = building[1];
+    public int[][] getSkyline(int[][] buildings) {
+        TreeSet<Integer> edgeSet = new TreeSet<>();
+        for (int building : buildings) {
+        int left = building[0], right = building[1];
             edgeSet.add(left);
             edgeSet.add(right);
         }
         int[]edges(edgeSet /* elements of edgeSet */);
-        TreeMap<Integer, Integer> edgeIdxMap;
-        for(int i = 0; i < edges.size(); i++) {
+        TreeMap<Integer, Integer> edgeIdxMap = new TreeMap<>();
+        for(int i = 0; i < edges.length; i++) {
             edgeIdxMap[edges[i]] = i;
         }
-        int[]heights(edges.size());
-        for(auto building :buildings) {
+        int[]heights(edges.length);
+        for (int building : buildings) {
             int left = building[0], right = building[1], height = building[2];
             int leftIdx = edgeIdxMap[left], rightIdx = edgeIdxMap[right];
             for(int idx = leftIdx; idx < rightIdx; idx++) {
                 heights.put(idx, Math.max(heights[idx], height));
             }
         }
-        int[][] rtn;
+        List<int[]> rtn = new ArrayList<>();
         for(int i = 0; i < heights.length; i++) {
             int curHeight = heights[i], curPos = edges[i];
             if(i == 0 || curHeight != heights[i - 1]) {
-                rtn.add({curPos, curHeight});
+                rtn.add(new int[] {curPos, curHeight});
             }
         }
         return rtn;
@@ -163,22 +163,22 @@ class Solution {
 ```java
 // import java.util.*;
 class Solution {
-    public int[][] getSkyline(int[][]& buildings) {
-        List<int[]> pairs;
-        for(auto b: buildings) {
-            int left = b[0], right = b[1], height = b[2];
+    public int[][] getSkyline(int[][] buildings) {
+        List<int[]> pairs = new ArrayList<>();
+        for (int b : buildings) {
+        int left = b[0], right = b[1], height = b[2];
             pairs.add(left, -height);
             pairs.add(right, height);
         }
         sort(pairs /* elements of pairs */, [](int[]& a, int[]& b) {
-            if(a.first != b.first) return a.first < b.first;
-            else return a.second < b.second;
+            if(a[0] != b[0]) return a[0] < b[0];
+            else return a[1] < b[1];
         });
-        int[][] rtn;
-        TreeMap<Integer, Integer> height_map;
+        List<int[]> rtn = new ArrayList<>();
+        TreeMap<Integer, Integer> height_map = new TreeMap<>();
         height_map.put(0, 1);
         int pre = 0;
-        for(auto& [x, h]: pairs) {
+        for (var e : pairs.entrySet()) {
             if(h < 0) height_map[-h]++;
             else {
                 height_map[h]--;
@@ -186,7 +186,7 @@ class Solution {
             }
             int cur = height_map.rbegin().first;
             if(cur != pre) {
-                rtn.add({x, cur});
+                rtn.add(new int[] {x, cur});
                 pre = cur;
             }
         }
@@ -210,31 +210,31 @@ class Solution {
 // import java.util.Arrays;
 // import java.util.Collections;
 class Solution {
-    public int[][] getSkyline(int[][]& buildings) {
-        int[][] edges;
+    public int[][] getSkyline(int[][] buildings) {
+        List<int[]> edges = new ArrayList<>();
         for(int i = 0; i < buildings.size(); i++) {
             edges.add({buildings[i][0], i});
             edges.add({buildings[i][1], i});
         }
         Arrays.sort(edges);
-        priority_queue<int[]> live;
-        int[][] rtn;
+        PriorityQueue<int[]> live = new PriorityQueue<>((a, b) -> Integer.compare(a[0], b[0]));
+        List<int[]> rtn = new ArrayList<>();
         int idx = 0;
-        while(idx < edges.size()) {
+        while(idx < edges.length) {
             int cur = edges[idx][0];
-            while(idx < edges.size() && edges[idx][0] == cur) {
+            while(idx < edges.length && edges[idx][0] == cur) {
                 int b = edges[idx][1];
                 if(buildings[b][0] == cur) {
                     int right = buildings[b][1];
                     int height = buildings[b][2];
-                    live.push({height, right});
+                    live.offer(new int[] {height, right});
                 }
                 idx += 1;
             }
-            while(!live.length == 0 && live.top().second <= cur) live.pop();
-            int curHeight = live.length == 0 ? 0: live.top().first;
+            while(!live.isEmpty() && live.peek().second <= cur) live.poll();
+            int curHeight = live.length == 0 ? 0: live.peek().first;
             if(rtn.length == 0 || rtn[rtn.size() - 1][1] != curHeight) {
-                rtn.add({cur, curHeight});
+                rtn.add(new int[] {cur, curHeight});
             }
         }
         return rtn;
@@ -257,9 +257,9 @@ class Solution {
 ```java
 // import java.util.*;
 class Solution {
-    public int[][] getSkyline(int[][]& buildings) {
-        int[][] edges;
-        for(auto b: buildings) {
+    public int[][] getSkyline(int[][] buildings) {
+        List<int[]> edges = new ArrayList<>();
+        for (int b : buildings) {
             edges.add({b[0], b[2]});
             edges.add({b[1], -b[2]});
         }
@@ -269,23 +269,23 @@ class Solution {
         });
         PriorityQueue<Integer> live = new PriorityQueue<Integer>();
         PriorityQueue<Integer> past = new PriorityQueue<Integer>();
-        int[][] rtn;
+        List<int[]> rtn = new ArrayList<>();
         int idx = 0;
-        while(idx < edges.size()) {
+        while(idx < edges.length) {
             int cur = edges[idx][0];
-            while(idx < edges.size() && edges[idx][0] == cur) {
+            while(idx < edges.length && edges[idx][0] == cur) {
                 int height = edges[idx][1];
-                if(height > 0) live.push(height);
-                else past.push(-height);
+                if(height > 0) live.offer(height);
+                else past.offer(-height);
                 idx += 1;
             }
-            while(!live.length == 0 && !past.length == 0 && live.top() == past.top()) {
-                live.pop();
-                past.pop();
+            while(!live.isEmpty() && !past.isEmpty() && live.peek() == past.peek()) {
+                live.poll();
+                past.poll();
             }
-            int curHeight = live.length == 0 ? 0: live.top();
+            int curHeight = live.length == 0 ? 0: live.peek();
             if(rtn.length == 0 || rtn[rtn.size() - 1][1] != curHeight) {
-                rtn.add({cur, curHeight});
+                rtn.add(new int[] {cur, curHeight});
             }
         }
         return rtn;
@@ -308,12 +308,12 @@ class Solution {
 ```java
 // import java.util.*;
 class UnionFind {
-    int[]root;
+    List<Integer> root = new ArrayList<>();
     UnionFind(int n) {
         iota(root /* elements of root */, 0);
     }
     int find(int x) {
-        if(root[x] != x) return find(root[x]);
+        if(root[x] != x) return find = new return(root[x]);
         return root[x];
     }
     void merge(int x, int y) {
@@ -321,23 +321,23 @@ class UnionFind {
     }
 }
 class Solution {
-    public int[][] getSkyline(int[][]& buildings) {
+    public int[][] getSkyline(int[][] buildings) {
         sort(buildings /* elements of buildings */, [](auto a, auto b) {
             return a[2] > b[2];
         });
-        TreeSet<Integer> edgeSet;
-        for(auto b: buildings) {
+        TreeSet<Integer> edgeSet = new TreeSet<>();
+        for (int b : buildings) {
             edgeSet.add(b[0]);
             edgeSet.add(b[1]);
         }
         int[]edges(edgeSet /* elements of edgeSet */);
         HashMap<Integer, Integer> edgeIdxMap = new HashMap<Integer, Integer>();
-        for(int i = 0; i < edges.size(); i++) {
+        for(int i = 0; i < edges.length; i++) {
             edgeIdxMap[edges[i]] = i;
         }
-        UnionFind uf(edges.size());
-        int[]heights(edges.size());
-        for(auto b: buildings) {
+        UnionFind uf = new UnionFind(edges.length);
+        int[]heights(edges.length);
+        for (int b : buildings) {
             int left = b[0], right = b[1], height = b[2];
             int leftIdx = uf.find(edgeIdxMap[left]);
             int rightIdx = edgeIdxMap[right];
@@ -347,8 +347,8 @@ class Solution {
                 leftIdx = uf.find(++leftIdx);
             }
         }
-        int[][] rtn;
-        for(int i = 0; i < edges.size(); i++) {
+        List<int[]> rtn = new ArrayList<>();
+        for(int i = 0; i < edges.length; i++) {
             if(i == 0 || heights[i] != heights[i - 1]) {
                 rtn.add({edges[i], heights[i]});
             }

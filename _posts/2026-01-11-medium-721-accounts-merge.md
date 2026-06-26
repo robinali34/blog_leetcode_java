@@ -93,86 +93,42 @@ This is a **Union-Find (Disjoint Set Union)** problem. The key insight is that e
 ### **Solution: Union-Find (Disjoint Set Union)**
 
 ```java
-// import java.util.*;
-// import java.util.Arrays;
-// import java.util.Collections;
-class UnionFind {
-    UnionFind(int n) {
-        parent.resize(n);
-        for(int i = 0; i < n; i++) {
-            parent[i] = i;
-        }
-    }
-
-    void unionSet(int idx1, int idx2) {
-        parent[find(idx2)] = find(idx1);
-    }
-
-    int find(int idx) {
-        if(parent[idx] != idx) {
-            parent.put(idx, find(parent[idx]));
-        }
-        return parent[idx];
-    }
-    int[]parent;
-}
 class Solution {
-    vector<String[]> accountsMerge(vector<String[]>& accounts) {
-        HashMap<String, int> emailToIdx = new HashMap<String, int>();
-        HashMap<String, String> emailToName = new HashMap<String, String>();
-
-        // 1: Assign an ID to each unique email
-        public int id = 0;
-        for(auto account: accounts) {
-            String name = account[0];
-            int size = account.size();
-            for(int i = 1; i < size; i++) {
-                String email = account[i];
-                if(!emailToIdx.contains(email)) {
-                    emailToIdx.put(email, id++);
-                    emailToName.put(email, name);
-                }
+    public List<List<String>> accountsMerge(List<List<String>> accounts) {
+        Map<String, String> parent = new HashMap<>();
+        Map<String, String> emailToName = new HashMap<>();
+        for (List<String> acc : accounts) {
+            String name = acc.get(0);
+            for (int i = 1; i < acc.size(); i++) {
+                emailToName.put(acc.get(i), name);
+                if (i == 1) parent.put(acc.get(i), acc.get(i));
+                else union(parent, acc.get(1), acc.get(i));
             }
         }
-
-        // 2: Union emails belonging to the same account
-        UnionFind uf(id);
-        for(auto account: accounts) {
-            String firstEmail = account[1];
-            int firstIdx = emailToIdx[firstEmail];
-            int size = account.size();
-            for(int i = 2; i < size; i++) {
-                String nextEmail = account[i];
-                int nextIndex = emailToIdx[nextEmail];
-                uf.unionSet(firstIdx, nextIndex);
-            }
+        Map<String, TreeSet<String>> groups = new HashMap<>();
+        for (String email : parent.keySet()) {
+            String root = find(parent, email);
+            groups.computeIfAbsent(root, x -> new TreeSet<>()).add(email);
         }
-
-        // 3: Group emails by their root parent
-        unordered_map<int, String[]> idxToEmails;
-        for(auto& [email, _]: emailToIdx) {
-            int idx = uf.find(emailToIdx[email]);
-            String[] account = idxToEmails[idx];;
-            account.add(email);
-            idxToEmails.put(idx, account);
+        List<List<String>> result = new ArrayList<>();
+        for (var e : groups.entrySet()) {
+            List<String> row = new ArrayList<>();
+            row.add(emailToName.get(e.getKey()));
+            row.addAll(e.getValue());
+            result.add(row);
         }
-
-        // 4: Build the merged account list
-        vector<String[]> merged;
-        for(auto& [_, emails]: idxToEmails) {
-            Arrays.sort(emails);
-            String name = emailToName[emails[0]];
-            String[]account;
-            account.add(name);
-            for(auto email:emails) {
-                account.add(email);
-            }
-            merged.add(account);
-        }
-        return merged;
+        return result;
     }
-}
-```
+
+    private String find(Map<String, String> p, String x) {
+        if (!p.get(x).equals(x)) p.put(x, find(p, p.get(x)));
+        return p.get(x);
+    }
+
+    private void union(Map<String, String> p, String a, String b) {
+        p.put(find(p, b), find(p, a));
+    }
+}```
 
 ### **Algorithm Explanation:**
 
@@ -313,13 +269,13 @@ Build a graph where emails are nodes and edges connect emails in the same accoun
 // import java.util.Arrays;
 // import java.util.Collections;
 class Solution {
-    vector<String[]> accountsMerge(vector<String[]>& accounts) {
-        unordered_map<String, String[]> graph;
+    public List<List<String>> accountsMerge(List<List<String>>& accounts) {
+        HashMap<String, List<String>> graph = new HashMap<>();
         HashMap<String, String> emailToName = new HashMap<String, String>();
 
         // Build graph
-        for(auto account: accounts) {
-            public String name = account[0];
+        for (int account : accounts) {
+        String name = account[0];
             for(int i = 1; i < account.size(); i++) {
                 graph[account[1]].push_back(account[i]);
                 graph[account[i]].push_back(account[1]);
@@ -328,11 +284,11 @@ class Solution {
         }
 
         // DFS to find connected components
-        vector<String[]> result;
+        List<List<String>> result = new ArrayList<>();
         HashSet<String> visited = new HashSet<String>();
 
-        for(auto& [email, _]: graph) {
-            if(!visited.count(email)) {
+        for (var e : graph.entrySet()) {
+            if(!visited.containsKey(email)) {
                 String[]component;
                 dfs(graph, email, visited, component);
                 Arrays.sort(component);
@@ -343,13 +299,13 @@ class Solution {
 
         return result;
     }
-    void dfs(unordered_map<String, String[]>& graph,
+    public void dfs(HashMap<String, List<String>>& graph,
              String email, HashSet<String>& visited,
              String[] component) {
         visited.add(email);
         component.add(email);
         for(String neighbor: graph[email]) {
-            if(!visited.count(neighbor)) {
+            if(!visited.containsKey(neighbor)) {
                 dfs(graph, neighbor, visited, component);
             }
         }

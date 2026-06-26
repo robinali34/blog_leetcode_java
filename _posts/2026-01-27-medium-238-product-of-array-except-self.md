@@ -89,10 +89,10 @@ This problem requires computing the product of all elements except the current o
 
 ```java
 class Solution {
-    public int[]productExceptSelf(int[] nums) {
+    public int[] productExceptSelf(int[] nums) {
         int len = nums.length;
         int[] L = new int[len], R(len, 0);
-        int[]answer(len);
+        int[] answer = new int[len];
 
         L[0] = 1;
         for (int i = 1; i < len; i++) {
@@ -210,7 +210,7 @@ We can optimize space by using the output array itself to store left products, t
 
 ```java
 class Solution {
-    public int[]productExceptSelf(int[] nums) {
+    public int[] productExceptSelf(int[] nums) {
         int len = nums.length;
         int[] answer = new int[len];
 

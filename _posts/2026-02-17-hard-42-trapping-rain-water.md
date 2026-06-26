@@ -67,7 +67,7 @@ For each index, scan left and right to find the max height on each side.
 {% raw %}
 ```java
 class Solution {
-    public int trap(int[] height) {
+        public int trap(int[] height) {
         int n = height.size();
         int water = 0;
 
@@ -99,11 +99,11 @@ Precompute `leftMax[i]` and `rightMax[i]` in two linear passes, then compute wat
 {% raw %}
 ```java
 class Solution {
-    public int trap(int[] height) {
+        public int trap(int[] height) {
         int n = height.size();
         if (n == 0) return 0;
 
-        int[]leftMax(n), rightMax(n);
+        int[] leftMax = new int[n], rightMax(n);
         int water = 0;
 
         leftMax[0] = height[0];
@@ -135,7 +135,7 @@ The smaller side always determines the bottleneck. Move the pointer on the small
 {% raw %}
 ```java
 class Solution {
-    public int trap(int[] height) {
+        public int trap(int[] height) {
         int n = height.size();
         if (n == 0) return 0;
 
@@ -176,23 +176,23 @@ Process bars left to right. When a taller bar is found, pop shorter bars from th
 ```java
 // import java.util.*;
 class Solution {
-    public int trap(int[] height) {
+        public int trap(int[] height) {
         int n = height.size();
         int water = 0;
         Deque<Integer> st = new ArrayDeque<>();
 
         for (int i = 0; i < n; i++) {
-            while (!st.length == 0 && height[i] > height[st.top()]) {
-                int top = st.top();
-                st.pop();
+            while (!st.isEmpty() && height[i] > height[st.peek()]) {
+                int top = st.peek();
+                st.poll();
 
                 if (st.length == 0) break;
 
-                int distance = i - st.top() - 1;
-                int boundedHeight = Math.min(height[i], height[st.top()]) - height[top];
+                int distance = i - st.peek() - 1;
+                int boundedHeight = Math.min(height[i], height[st.peek()]) - height[top];
                 water += distance boundedHeight;
             }
-            st.push(i);
+            st.offer(i);
         }
 
         return water;

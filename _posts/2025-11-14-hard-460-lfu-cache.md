@@ -103,175 +103,98 @@ When there's a tie in frequency, we use the least recently used key (front of th
 ### Solution: Optimized Java Version
 
 ```java
-// import java.util.*;
 class LFUCache {
-    // frequency . list of (key, value) pairs (most recent at back)
-    unordered_map<int, LinkedList<int[]>> frequencies_;
+    private final int cap;
+    private int minFreq;
+    private final Map<Integer, Integer> keyToVal = new HashMap<>();
+    private final Map<Integer, Integer> keyToFreq = new HashMap<>();
+    private final Map<Integer, LinkedHashSet<Integer>> freqToKeys = new HashMap<>();
 
-    // key . (frequency, iterator to node in frequencies list)
-    unordered_map<int, pair<int, LinkedList<int[]>::iterator>> cache_;
-
-    public int capacity_;
-    public int min_frequency_;
-
-    // Insert key-value pair with given frequency
-    void insert(int key, int frequency, int value) {
-        frequencies_[frequency].emplace_back(key, value);
-        cache_[key] = {frequency, --frequencies_[frequency].end()}
+    public LFUCache(int capacity) {
+        cap = capacity;
     }
 
-    // Remove key from its current frequency list
-    void removeFromFrequency(int frequency, LinkedList<int[]>::iterator it) {
-        frequencies_[frequency].erase(it);
-        if (frequencies_[frequency].empty()) {
-            frequencies_.remove(frequency);
-            if (min_frequency_ == frequency) {
-                min_frequency_++;
-            }
-        }
-    }
-    explicit LFUCache(int capacity) {
-        cache_.reserve(capacity_);
-        frequencies_.reserve(capacity_);
+    public int get(int key) {
+        if (!keyToVal.containsKey(key)) return -1;
+        bump(key);
+        return keyToVal.get(key);
     }
 
-    int get(int key) {
-        var it = cache_.find(key);
-        if (it == cache_.iterator()) {
-            return -1;
-        }
-
-        // Get current frequency and iterator
-        auto& [freq, iter] = it.second;
-        auto [key_val, value] = *iter;
-
-        // Remove from current frequency list
-        removeFromFrequency(freq, iter);
-
-        // Insert with incremented frequency
-        insert(key, freq + 1, value);
-
-        return value;
-    }
-
-    void put(int key, int value) {
-        if (capacity_ <) {
+    public void put(int key, int value) {
+        if (cap == 0) return;
+        if (keyToVal.containsKey(key)) {
+            keyToVal.put(key, value);
+            bump(key);
             return;
         }
-
-        var it = cache_.find(key);
-
-        if (it != cache_.iterator()) {
-            // Update existing key
-            it.second.second.second = value;  // Update value in place
-            get(key);  // Increment frequency by calling get
-            return;
+        if (keyToVal.size() == cap) {
+            int evict = freqToKeys.get(minFreq).iterator().next();
+            freqToKeys.get(minFreq).remove(evict);
+            keyToVal.remove(evict);
+            keyToFreq.remove(evict);
         }
-
-        // Check capacity
-        if (cache_.size() >= capacity_) {
-            // Evict least frequently used (and least recently used if tie)
-            // min_frequency_ list's front is the LRU item
-            auto [lfu_key, _] = frequencies_[min_frequency_].front();
-            cache_.remove(lfu_key);
-            frequencies_[min_frequency_].pop_front();
-
-            if (frequencies_[min_frequency_].empty()) {
-                frequencies_.remove(min_frequency_);
-            }
-        }
-
-        // Insert new key with frequency 1
-        min_frequency_ = 1;
-        insert(key, 1, value);
+        keyToVal.put(key, value);
+        keyToFreq.put(key, 1);
+        freqToKeys.computeIfAbsent(1, x -> new LinkedHashSet<>()).add(key);
+        minFreq = 1;
     }
-}
-```
+
+    private void bump(int key) {
+        int f = keyToFreq.get(key);
+        freqToKeys.get(f).remove(key);
+        if (freqToKeys.get(f).isEmpty() && f == minFreq) minFreq++;
+        keyToFreq.put(key, f + 1);
+        freqToKeys.computeIfAbsent(f + 1, x -> new LinkedHashSet<>()).add(key);
+    }
+}```
 
 ### Alternative: More Explicit Version
 
 ```java
-// import java.util.*;
 class LFUCache {
-    class Node {
-        public int key;
-        public int value;
-        public int frequency;
-    }
-    // frequency . list of nodes (most recent at back)
-    unordered_map<int, LinkedList<Node>> freq_lists_;
+    private final int cap;
+    private int minFreq;
+    private final Map<Integer, Integer> keyToVal = new HashMap<>();
+    private final Map<Integer, Integer> keyToFreq = new HashMap<>();
+    private final Map<Integer, LinkedHashSet<Integer>> freqToKeys = new HashMap<>();
 
-    // key . iterator in frequency list
-    unordered_map<int, LinkedList<Node>::iterator> cache_;
-
-    int capacity_;
-    int min_freq_;
-
-    void promote(int key) {
-        var node = *cache_[key];
-        int old_freq = node.frequency;
-        int new_freq = old_freq + 1;
-
-        // Remove from old frequency list
-        freq_lists_[old_freq].erase(cache_[key]);
-        if (freq_lists_[old_freq].empty()) {
-            freq_lists_.remove(old_freq);
-            if (min_freq_ == old_freq) {
-                min_freq_++;
-            }
-        }
-
-        // Add to new frequency list
-        freq_lists_[new_freq].emplace_back(node);
-        cache_[key] = --freq_lists_[new_freq].end();
-        cache_[key].frequency = new_freq;
-    }
-    explicit LFUCache(int capacity) {
-        cache_.reserve(capacity_);
-        freq_lists_.reserve(capacity_);
+    public LFUCache(int capacity) {
+        cap = capacity;
     }
 
-    int get(int key) {
-        var it = cache_.find(key);
-        if (it == cache_.iterator()) {
-            return -1;
-        }
-
-        promote(key);
-        return cache_[key].value;
+    public int get(int key) {
+        if (!keyToVal.containsKey(key)) return -1;
+        bump(key);
+        return keyToVal.get(key);
     }
 
-    void put(int key, int value) {
-        if (capacity_ <) return;
-
-        var it = cache_.find(key);
-
-        if (it != cache_.iterator()) {
-            // Update existing
-            it.second.value = value;
-            promote(key);
+    public void put(int key, int value) {
+        if (cap == 0) return;
+        if (keyToVal.containsKey(key)) {
+            keyToVal.put(key, value);
+            bump(key);
             return;
         }
-
-        // Evict if needed
-        if (cache_.size() >= capacity_) {
-            var lfu_list = freq_lists_[min_freq_];
-            int lfu_key = lfu_list.getFirst().key;
-            cache_.remove(lfu_key);
-            lfu_list.removeFirst();
-
-            if (lfu_list.length == 0) {
-                freq_lists_.remove(min_freq_);
-            }
+        if (keyToVal.size() == cap) {
+            int evict = freqToKeys.get(minFreq).iterator().next();
+            freqToKeys.get(minFreq).remove(evict);
+            keyToVal.remove(evict);
+            keyToFreq.remove(evict);
         }
-
-        // Insert new
-        min_freq_ = 1;
-        freq_lists_[1].emplace_back(Node{key, value, 1});
-        cache_[key] = --freq_lists_[1].end();
+        keyToVal.put(key, value);
+        keyToFreq.put(key, 1);
+        freqToKeys.computeIfAbsent(1, x -> new LinkedHashSet<>()).add(key);
+        minFreq = 1;
     }
-}
-```
+
+    private void bump(int key) {
+        int f = keyToFreq.get(key);
+        freqToKeys.get(f).remove(key);
+        if (freqToKeys.get(f).isEmpty() && f == minFreq) minFreq++;
+        keyToFreq.put(key, f + 1);
+        freqToKeys.computeIfAbsent(f + 1, x -> new LinkedHashSet<>()).add(key);
+    }
+}```
 
 ## Key Optimizations (Java)
 

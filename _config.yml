@@ -57,6 +57,7 @@ exclude:
 # Navigation
 header_pages:
   - about.md
+  - java-guide.html
   - leetcode-questions-list.md
   - leetcode-templates.html
 

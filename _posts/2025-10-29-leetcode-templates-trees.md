@@ -30,23 +30,25 @@ Minimal, copy-paste Java for tree traversals, LCA (binary lifting), segment tree
 ## Traversals (iterative)
 
 ```java
+// import java.util.*;
 int[]inorder(TreeNode root){
-    int[]ans; stack<TreeNode> st; var cur = root;
-    while (cur || !st.length == 0){
-        while (cur){ st.push(cur); cur = cur.left; }
-        cur = st.top(); st.pop(); ans.add(cur.val); cur = cur.right;
+    List<Integer> ans = new ArrayList<>(); Deque<TreeNode> st = new ArrayDeque<>(); var cur = root;
+    while (cur || !st.isEmpty()){
+        while (cur > 0) { st.offer(cur); cur = cur.left; }
+        cur = st.peek(); st.poll(); ans.add(cur.val); cur = cur.right;
     }
     return ans;
 }
 ```
 
 ```java
+// import java.util.*;
 int[][] levelOrder(TreeNode root){
-    int[][] res; if(!root) return res; queue<TreeNode> q; q.push(root);
-    while(!q.length == 0){
+    List<int[]> res = new ArrayList<>(); if(!root) return res; Queue<TreeNode> q = new LinkedList<>(); q.offer(root);
+    while(!q.isEmpty()){
         int sz=q.size(); res.add();
-        while(sz--){ var u =q.getFirst(); q.pop(); res.getLast().push_back(u.val);
-            if(u.left) q.push(u.left); if(u.right) q.push(u.right);
+        while(sz--){ var u =q.get(0); q.poll(); res.get(res.size() - 1).push_back(u.val);
+            if(u.left) q.offer(u.left); if(u.right) q.offer(u.right);
         }
     }
     return res;
@@ -82,10 +84,8 @@ Postorder : left → right → root
 ```java
 static void dfs(TreeNode node) {
     if (!node) return;
-    // preorder: process here
-    dfs(node.left);
-    // inorder: process here
-    dfs(node.right);
+    // preorder: process here dfs = new here(node.left);
+    // inorder: process here dfs = new here(node.right);
     // postorder: process here
 }
 ```
@@ -108,7 +108,7 @@ static int dfs(TreeNode node) {
     if (!node) return 0;
     int left = dfs(node.left);
     int right = dfs(node.right);
-    return combine(left, right, node);
+    return combine = new return(left, right, node);
 }
 ```
 
@@ -151,7 +151,7 @@ static int dfs(TreeNode node) {
 Maintain a path from root to the current node. **Push → recurse → pop** (backtracking). Used for returning paths, validating sequences, and path sum collection.
 
 ```java
-static void dfs(TreeNode node, int[] path, int[][]& result) {
+static void dfs(TreeNode node, int[] path, int[][] result) {
     if (!node) return;
     path.add(node.val);
 
@@ -177,20 +177,21 @@ static void dfs(TreeNode node, int[] path, int[][]& result) {
 Traverse the tree **level by level** using a queue. Used for level processing, shortest depth, and breadth exploration.
 
 ```java
+// import java.util.*;
 int[][] levelOrder(TreeNode root) {
-    int[][] result;
+    List<int[]> result = new ArrayList<>();
     if (!root) return result;
-    queue<TreeNode> q;
-    q.push(root);
+    Queue<TreeNode> q = new LinkedList<>();
+    q.offer(root);
 
-    while (!q.length == 0) {
+    while (!q.isEmpty()) {
         int size = q.size();
-        int[]level;
+        List<Integer> level = new ArrayList<>();
         for (int i = 0; i < size; i++) {
-            TreeNode node = q.getFirst(); q.pop();
+            TreeNode node = q.get(0); q.poll();
             level.add(node.val);
-            if (node.left) q.push(node.left);
-            if (node.right) q.push(node.right);
+            if (node.left) q.offer(node.left);
+            if (node.right) q.offer(node.right);
         }
         result.add(level);
     }
@@ -270,8 +271,8 @@ Most tree interview problems are medium difficulty, DFS recursion, postorder rea
 ## LCA (Binary Lifting)
 
 ```java
-int K = 17; int[]depth; vector<array<int,K+1>> up;
-static void dfsLift(int u,int p,int[][]& g){ up[u][0]=p; for(int k=1;k<=K;++k) up[u][k]= up[u][k-1]<0?-1: up[up[u][k-1]][k-1];
+int K = 17; List<Integer> depth = new ArrayList<>(); vector<array<int,K+1>> up;
+static void dfsLift(int u,int p,int[][] g){ up[u][0]=p; for(int k=1;k<=K;++k) up[u][k]= up[u][k-1]<0?-1: up[up[u][k-1]][k-1];
     for(int v:g[u]) if(v!=p){ depth[v]=depth[u]+1; dfsLift(v,u,g);} }
 static int lift(int u,int k){ for(int i=0;i<=K;++i) if(k&(1<<i)) u = (u<0)?-1: up[u][i]; return u; }
 static int lca(int a,int b){ if(depth[a]<depth[b]) swap(a,b); a=lift(a, depth[a]-depth[b]); if(a==b) return a; for(int i=K;i>=0;--i) if(up[a][i]!=up[b][i]){ a=up[a][i]; b=up[b][i]; } return up[a][0]; }
@@ -323,10 +324,10 @@ class SegmentTree {
     }
 
     int query(int left, int right) {
-        return query(1, 0, n - 1, left, right);
+        return query = new return(1, 0, n - 1, left, right);
     }
     int n;
-    int[]tree;
+    List<Integer> tree = new ArrayList<>();
 
     void build(int[] nums, int node, int l, int r) {
         if (l == r) {
@@ -379,7 +380,7 @@ class SegmentTreeLazy {
     }
 
     int query(int left, int right) {
-        return query(1, 0, n - 1, left, right);
+        return query = new return(1, 0, n - 1, left, right);
     }
     int n;
     int[]tree, lazy;
@@ -397,7 +398,7 @@ class SegmentTreeLazy {
 
     void push(int node, int l, int r) {
         if (lazy[node] !) {
-            tree[node] += lazy[node] * (r - l + 1);
+            tree.put(node, tree.getOrDefault(node, 0) + lazy[node] * (r - l + 1);
             if (l != r) {
                 lazy[node 2] += lazy[node];
                 lazy[node 2 + 1] += lazy[node];
@@ -410,7 +411,7 @@ class SegmentTreeLazy {
         push(node, l, r);
         if (qr < l || ql > r) return;
         if (ql <= l && r <= qr) {
-            lazy[node] += val;
+            lazy.put(node, lazy.getOrDefault(node, 0) + val;
             push(node, l, r);
             return;
         }
@@ -448,7 +449,7 @@ class SegmentTree {
     }
 
     T query(int left, int right) {
-        return query(1, 0, n - 1, left, right);
+        return query = new return(1, 0, n - 1, left, right);
     }
     int n;
     T[]tree;
@@ -581,7 +582,7 @@ class FenwickTree {
     void add(int i, int delta) {
         i++; // Convert to 1-indexed
         while (i <= n) {
-            BIT[i] += delta;
+            BIT.put(i, BIT.getOrDefault(i, 0) + delta;
             i += (i & -i); // Move to next node
         }
     }
@@ -602,7 +603,7 @@ class FenwickTree {
         return prefixSum(r) - (l > 0 ? prefixSum(l - 1) : 0);
     }
     int n;
-    int[]BIT;
+    List<Integer> BIT = new ArrayList<>();
 }
 ```
 
@@ -610,14 +611,14 @@ class FenwickTree {
 
 ```java
 class NumArray {
-    int[]BIT;
-    int[]nums;
-    public int n;
+    List<Integer> BIT = new ArrayList<>();
+    List<Integer> nums = new ArrayList<>();
+        int n;
 
     void add(int i, int delta) {
         i++;
         while (i <= n) {
-            BIT[i] += delta;
+            BIT.put(i, BIT.getOrDefault(i, 0) + delta;
             i += (i & -i);
         }
     }
@@ -684,7 +685,7 @@ class FenwickTree2D {
              + prefixSum(r1 - 1, c1 - 1);
     }
     int m, n;
-    int[][] BIT;
+    List<int[]> BIT = new ArrayList<>();
 }
 ```
 
@@ -745,7 +746,7 @@ class FenwickTree2D {
 
 ```java
 int N = 200000; int[]gH[N]; int szH[N], parH[N], depH[N], heavyH[N], headH[N], inH[N], curT=0;
-static int dfs1(int u,int p){ parH[u]=p; depH[u]=(p==-1?0:depH[p]+1); szH[u]=1; heavyH[u]=-1; int best=0; for(int v:gH[u]) if(v!=p){ int s=dfs1(v,u); szH[u]+=s; if(s>best){best=s; heavyH[u]=v;} } return szH[u]; }
+static int dfs1(int u,int p){ parH[u]=p; depH[u]=(p==-1?0:depH[p]+1); szH[u]=1; heavyH[u]=-1; int best=0; for(int v:gH[u]) if(v!=p){ int s=dfs1(v,u); szH.put(u, szH.getOrDefault(u, 0) + s; if(s>best){best=s; heavyH[u]=v;} } return szH[u]; }
 static void dfs2(int u,int h){ headH[u]=h; inH[u]=curT++; if(heavyH[u]!=-1){ dfs2(heavyH[u],h); for(int v:gH[u]) if(v!=parH[u] && v!=heavyH[u]) dfs2(v,v);} }
 ```
 

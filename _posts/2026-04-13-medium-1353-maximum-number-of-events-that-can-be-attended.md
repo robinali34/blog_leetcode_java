@@ -88,21 +88,21 @@ If the heap is empty and there are more events, we jump `day` forward to `events
 // import java.util.Arrays;
 // import java.util.Collections;
 class Solution {
-    public int maxEvents(int[][]& events) {
+        public int maxEvents(int[][] events) {
         Arrays.sort(events);
-        priority_queue<int, int[], greater<int>> pq;
+        PriorityQueue<Integer> pq;
         int n = events.size();
         int i = 0, day = 0, rtn = 0;
 
-        while (i < n || !pq.length == 0) {
+        while (i < n || !pq.isEmpty()) {
             if (pq.length == 0) day = events[i][0];
             while (i < n && events[i][0] <= day) {
-                pq.push(events[i][1]);
+                pq.offer(events[i][1]);
                 i++;
             }
-            while (!pq.length == 0 && pq.top() < day) pq.pop();
-            if (!pq.length == 0) {
-                pq.pop();
+            while (!pq.isEmpty() && pq.peek() < day) pq.poll();
+            if (!pq.isEmpty()) {
+                pq.poll();
                 rtn++;
                 day++;
             }

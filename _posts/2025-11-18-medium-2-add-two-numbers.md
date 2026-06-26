@@ -116,10 +116,10 @@ This solution uses a recursive helper function that processes both lists simulta
  */
 class Solution {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        return addTwoNumbersHelper(l1, l2, 0);
+        return addTwoNumbersHelper = new return(l1, l2, 0);
     }
 
-    ListNode addTwoNumbersHelper(ListNode l1, ListNode l2, int carry) {
+    public ListNode addTwoNumbersHelper(ListNode l1, ListNode l2, int carry) {
         // Base case: if both lists are null and no carry
         if (l1 == null && l2 == null && carry == 0) {
             return null;
@@ -133,7 +133,7 @@ class Solution {
             sum += l2.val;
         }
 
-        ListNode newNode = new ListNode(sum % 10);
+        ListNode newNode = new ListNode = new new(sum % 10);
         newNode.next = addTwoNumbersHelper(
             l1 != null ? l1.next : null,
             l2 != null ? l2.next : null,
@@ -227,7 +227,7 @@ ListNode addTwoNumbersHelper(ListNode l1, ListNode l2, int carry) {
     if (l2 != null) sum += l2.val;
 
     // Create new node with ones digit
-    ListNode newNode = new ListNode(sum % 10);
+    ListNode newNode = new ListNode = new new(sum % 10);
 
     // Recursively process next digits
     newNode.next = addTwoNumbersHelper(
@@ -259,7 +259,7 @@ ListNode addTwoNumbersHelper(ListNode l1, ListNode l2, int carry) {
 ```java
 class Solution {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        ListNode dummy(0);
+        ListNode dummy = new ListNode(0);
         ListNode curr = &dummy;
         int carry = 0;
 
@@ -273,7 +273,7 @@ class Solution {
                 l2 = l2.next;
             }
 
-            curr.next = new ListNode(carry % 10);
+            curr.next = new ListNode = new new(carry % 10);
             carry /= 10;
             curr = curr.next;
         }
@@ -318,7 +318,7 @@ class Solution {
                 l2 = l2.next;
             }
 
-            ListNode newNode = new ListNode(sum % 10);
+            ListNode newNode = new ListNode = new new(sum % 10);
             if (head == null) {
                 head = tail = newNode;
             } else {

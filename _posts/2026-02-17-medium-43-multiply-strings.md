@@ -78,9 +78,8 @@ Multiply each digit pair, accumulate into a result array with carry propagation.
 {% raw %}
 ```java
 class Solution {
-    public String multiply(String num1, String num2) {
+        public String multiply(String num1, String num2) {
         if (num1 == "0" || num2 == "0") return "0";
-
         int n = num1.size();
         int m = num2.size();
         int[]result(n + m, 0);
@@ -98,7 +97,7 @@ class Solution {
         String ans;
         for (int num : result) {
             if (!(ans.length == 0 && num == 0))
-                ans += to_string(num);
+                ans += String.valueOf(num);
         }
 
         return ans.length == 0 ? "0" : ans;

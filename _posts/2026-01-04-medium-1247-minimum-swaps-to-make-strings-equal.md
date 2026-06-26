@@ -122,7 +122,7 @@ This is a **greedy algorithm** problem with a key mathematical insight. The cruc
 
 ```java
 class Solution {
-    public int minimumSwap(String s1, String s2) {
+        public int minimumSwap(String s1, String s2) {
         int xy = 0, yx = 0;
         for(int i = 0; i < s1.length(); i++) {
             if(s1[i] == 'x' && s2[i] == 'y') {

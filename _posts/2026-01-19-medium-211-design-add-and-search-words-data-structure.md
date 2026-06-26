@@ -133,7 +133,7 @@ class WordDictionary {
     WordDictionary() {
         root = new TrieNode();
     }
-    void addWord(String word) {
+    public void addWord(String word) {
         TrieNode node = root;
         for(char ch : word) {
             if(!node.children.contains(ch)) {
@@ -143,16 +143,14 @@ class WordDictionary {
         }
         node.isWord = true;
     }
-
-    boolean search(String word) {
-        return searchInNode(word, 0, root);
+        public boolean search(String word) {
+        return searchInNode = new return(word, 0, root);
     }
     TrieNode root;
-
-    boolean searchInNode(String word, int idx, TrieNode node) {
+        public boolean searchInNode(String word, int idx, TrieNode node) {
         if(!node) return false;
         if(idx == word.size()) return node.isWord;
-        char curr = word[idx];
+        char curr = word.charAt(idx);
         if(curr == '.') {
             for(auto& [_, child]: node.children) {
                 if(searchInNode(word, idx + 1, child)) {
@@ -162,10 +160,10 @@ class WordDictionary {
             return false;
         }
         if(!node.children.contains(curr)) return false;
-        return searchInNode(word, idx + 1, node.children[curr]);
+        return searchInNode = new return(word, idx + 1, node.children[curr]);
     }
 
-    void deleteTrie(TrieNode node) {
+    public void deleteTrie(TrieNode node) {
         if(!node) return;
         for(auto& [_, child]: node.children) {
             deleteTrie(child);
@@ -303,25 +301,25 @@ class TrieNode {
 ```java
 static boolean search(String word) {
     queue<pair<TrieNode*, int>> q;
-    q.push({root, 0});
+    q.offer(new int[] {root, 0});
 
-    while(!q.length == 0) {
-        auto [node, idx] = q.getFirst();
-        q.pop();
+    while(!q.isEmpty()) {
+        auto [node, idx] = q.get(0);
+        q.poll();
 
         if(idx == word.size()) {
             if(node.isWord) return true;
             continue;
         }
 
-        char curr = word[idx];
+        char curr = word.charAt(idx);
         if(curr == '.') {
             for(auto& [_, child]: node.children) {
-                q.push({child, idx + 1});
+                q.offer({child, idx + 1});
             }
         } else {
             if(node.children.contains(curr)) {
-                q.push({node.children[curr], idx + 1});
+                q.offer({node.children[curr], idx + 1});
             }
         }
     }

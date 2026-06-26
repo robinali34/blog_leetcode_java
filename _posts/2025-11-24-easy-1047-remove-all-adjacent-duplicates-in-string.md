@@ -113,10 +113,10 @@ Use two pointers to simulate a stack in-place. `left` acts as the stack pointer,
 
 ```java
 class Solution {
-    public String removeDuplicates(String s) {
+        public String removeDuplicates(String s) {
         String stk;
         for(char ch: s) {
-            if(!stk.length == 0 && stk.getLast() == ch) {
+            if(!stk.isEmpty() && stk.get(stk.size() - 1) == ch) {
                 stk.removeLast();
             } else {
                 stk.add(ch);
@@ -131,16 +131,16 @@ class Solution {
 
 ```java
 class Solution {
-    public String removeDuplicates(String s) {
+        public String removeDuplicates(String s) {
         int left = -1;
         for(int right = 0; right < s.size(); right++) {
-            if(left >= 0 && s[right] == s[left]) {
+            if(left >= 0 && s.charAt(right) == s.charAt(left)) {
                 left--;
                 continue;
             }
-            s[++left] = s[right];
+            s[++left] = s.charAt(right);
         }
-        return s.substr(0, left + 1);
+        return s.substring(0, left + 1);
     }
 }
 ```
@@ -242,7 +242,7 @@ Final: s.substr(0, 2) = "ca"
 ```java
 String stk;
 for(char ch: s) {
-    if(!stk.length == 0 && stk.getLast() == ch) {
+    if(!stk.isEmpty() && stk.get(stk.size() - 1) == ch) {
         stk.removeLast();  // Remove duplicate
     } else {
         stk.add(ch);  // Add character
@@ -262,13 +262,13 @@ return stk;
 ```java
 int left = -1;  // Stack pointer (points to last valid character)
 for(int right = 0; right < s.size(); right++) {
-    if(left >= 0 && s[right] == s[left]) {
+    if(left >= 0 && s.charAt(right) == s.charAt(left)) {
         left--;  // Pop: move stack pointer back
         continue;
     }
-    s[++left] = s[right];  // Push: increment and assign
+    s[++left] = s.charAt(right);  // Push: increment and assign
 }
-return s.substr(0, left + 1);
+return s.substring(0, left + 1);
 ```
 
 **How it works:**
@@ -299,7 +299,7 @@ return s.substr(0, left + 1);
 
 ```java
 String stk;  // Acts as stack
-stk.getLast()    // Top of stack
+stk.get(stk.size() - 1)    // Top of stack
 stk.removeLast() // Pop from stack
 stk.add() // Push to stack
 ```
@@ -334,20 +334,20 @@ int left = -1;  // Points to last valid character (-1 means empty)
 ```java
 // import java.util.*;
 class Solution {
-    public String removeDuplicates(String s) {
+        public String removeDuplicates(String s) {
         Deque<char> stk = new ArrayDeque<>();
         for(char ch: s) {
-            if(!stk.length == 0 && stk.top() == ch) {
-                stk.pop();
+            if(!stk.isEmpty() && stk.peek() == ch) {
+                stk.poll();
             } else {
-                stk.push(ch);
+                stk.offer(ch);
             }
         }
 
         String result;
-        while(!stk.length == 0) {
-            result = stk.top() + result;
-            stk.pop();
+        while(!stk.isEmpty()) {
+            result = stk.peek() + result;
+            stk.poll();
         }
         return result;
     }
@@ -369,10 +369,10 @@ class Solution {
 
 ```java
 class Solution {
-    public String removeDuplicates(String s) {
+        public String removeDuplicates(String s) {
         for(int i = 0; i < (int)s.size() - 1; i++) {
-            if(s[i] == s[i+1]) {
-                return removeDuplicates(s.substr(0, i) + s.substr(i+2));
+            if(s.charAt(i) == s[i+1]) {
+                return removeDuplicates(s.substring(0, i) + s.substring(i+2));
             }
         }
         return s;

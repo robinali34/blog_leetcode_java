@@ -135,23 +135,23 @@ This problem requires traversing a binary tree in **vertical order** (column by 
  */
 class Solution {
     public int[][] verticalOrder(TreeNode root) {
-        int[][] rtn;
+        List<int[]> rtn = new ArrayList<>();
         if(!root) return rtn;
         map<int, int[]> map;
-        queue<pair<TreeNode, int>> q;
-        q.push({root, 0});
-        while(!q.length == 0) {
+        queue<TreeNode[]> q;
+        q.offer(new int[] {root, 0});
+        while(!q.isEmpty()) {
             int size = q.size();
             for(int i = 0; i < (int)q.size(); i++) {
-                TreeNode curr = q.getFirst().first;
-                int dir = q.getFirst().second;
-                q.pop();
-                map[dir].push_back(curr.val);
-                if(curr.left) q.push({curr.left, dir - 1});
-                if(curr.right) q.push({curr.right, dir + 1});
+                TreeNode curr = q.get(0).first;
+                int dir = q.get(0).second;
+                q.poll();
+                map.computeIfAbsent(dir, k -> new ArrayList<>()).add(curr.val);
+                if(curr.left) q.offer({curr.left, dir - 1});
+                if(curr.right) q.offer({curr.right, dir + 1});
             }
         }
-        for(auto& [node, vals]: map) {
+        for (var e : map.entrySet()) {
             rtn.add(vals);
         }
         return rtn;
@@ -232,20 +232,20 @@ class Solution {
         map<int, List<int[]>> map; // column . [(row, val)]
         dfs(root, 0, 0, map);
 
-        int[][] result;
-        for(auto& [col, nodes] : map) {
+        List<int[]> result = new ArrayList<>();
+        for (var e : map.entrySet()) {
             Arrays.sort(nodes); // Sort by row, then by val
-            int[]vals;
-            for(auto& [row, val] : nodes) {
+            List<Integer> vals = new ArrayList<>();
+            for (var e : nodes.entrySet()) {
                 vals.add(val);
             }
             result.add(vals);
         }
         return result;
     }
-    void dfs(TreeNode node, int row, int col, map<int, List<int[]>>& map) {
+    public void dfs(TreeNode node, int row, int col, map<int, List<int[]>>& map) {
         if(!node) return;
-        map[col].push_back({row, node.val});
+        map.computeIfAbsent(col, k -> new ArrayList<>()).add({row, node.val});
         dfs(node.left, row + 1, col - 1, map);
         dfs(node.right, row + 1, col + 1, map);
     }

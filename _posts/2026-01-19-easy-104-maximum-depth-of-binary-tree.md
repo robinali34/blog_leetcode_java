@@ -95,10 +95,10 @@ This problem requires finding the longest path from root to any leaf node. There
  * }
  */
 class Solution {
-    public int maxDepth(TreeNode root) {
-        return dfs(root, 0);
+        public int maxDepth(TreeNode root) {
+        return dfs = new return(root, 0);
     }
-    int dfs(TreeNode node, int maxDepth) {
+        public int dfs(TreeNode node, int maxDepth) {
         if(!node) return maxDepth;
         return Math.max(dfs(node.left, maxDepth + 1), dfs(node.right, maxDepth + 1));
     }
@@ -175,7 +175,7 @@ dfs(3, 0):
 
 ```java
 class Solution {
-    public int maxDepth(TreeNode root) {
+        public int maxDepth(TreeNode root) {
         if (!root) return 0;
         int leftDepth = maxDepth(root.left);
         int rightDepth = maxDepth(root.right);
@@ -194,24 +194,25 @@ class Solution {
 ### Solution 3: Iterative BFS (Level-order Traversal)
 
 ```java
+// import java.util.*;
 class Solution {
-    public int maxDepth(TreeNode root) {
+        public int maxDepth(TreeNode root) {
         if (!root) return 0;
 
-        queue<TreeNode> q;
-        q.push(root);
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(root);
         int depth = 0;
 
-        while (!q.length == 0) {
+        while (!q.isEmpty()) {
             int levelSize = q.size();
             depth++;
 
             for (int i = 0; i < levelSize; i++) {
-                TreeNode node = q.getFirst();
-                q.pop();
+                TreeNode node = q.get(0);
+                q.poll();
 
-                if (node.left) q.push(node.left);
-                if (node.right) q.push(node.right);
+                if (node.left) q.offer(node.left);
+                if (node.right) q.offer(node.right);
             }
         }
 
@@ -234,21 +235,21 @@ class Solution {
 
 ```java
 class Solution {
-    public int maxDepth(TreeNode root) {
+        public int maxDepth(TreeNode root) {
         if (!root) return 0;
 
-        stack<pair<TreeNode, int>> st;
-        st.push({root, 1});
+        stack<TreeNode[]> st;
+        st.offer(new int[] {root, 1});
         int maxDepth = 0;
 
-        while (!st.length == 0) {
-            auto [node, depth] = st.top();
-            st.pop();
+        while (!st.isEmpty()) {
+            int[] nodepair = st.peek(); int node = nodepair[0]; int depth = nodepair[1];
+            st.poll();
 
             maxDepth = Math.max(maxDepth, depth);
 
-            if (node.right) st.push({node.right, depth + 1});
-            if (node.left) st.push({node.left, depth + 1});
+            if (node.right) st.offer({node.right, depth + 1});
+            if (node.left) st.offer({node.left, depth + 1});
         }
 
         return maxDepth;

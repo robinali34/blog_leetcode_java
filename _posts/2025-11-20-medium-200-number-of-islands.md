@@ -83,37 +83,28 @@ This solution uses Depth-First Search to explore each island and marks visited c
 
 ```java
 class Solution {
-    public void dfs(char[][]& grid, int row, int col) {
-        if (row < 0 || col < 0 || row >= grid.length || col >= (int)grid[0].length
-            || grid[row][col] != '1') {
-                return;
-        }
-
-        grid[row][col] = '0';
-
-        dfs(grid, row - 1, col);
-        dfs(grid, row, col - 1);
-        dfs(grid, row + 1, col);
-        dfs(grid, row, col + 1);
-    }
-    int numIslands(char[][]& grid) {
-        if (grid.length == 0 || grid[0].length == 0) return 0;
-
-        int cnt = 0;
-
-        for(int i = 0; i < grid.length; i++) {
-            for(int j = 0; j < (int)grid[0].length; j++) {
-                if(grid[i][j] == '1') {
-                    dfs(grid, i, j);
-                    cnt++;
+    public int numIslands(char[][] grid) {
+        int rows = grid.length, cols = grid[0].length, count = 0;
+        for (int r = 0; r < rows; r++) {
+            for (int c = 0; c < cols; c++) {
+                if (grid[r][c] == '1') {
+                    count++;
+                    dfs(grid, r, c);
                 }
             }
         }
-
-        return cnt;
+        return count;
     }
-}
-```
+
+    private void dfs(char[][] grid, int r, int c) {
+        if (r < 0 || c < 0 || r >= grid.length || c >= grid[0].length || grid[r][c] != '1') return;
+        grid[r][c] = '0';
+        dfs(grid, r + 1, c);
+        dfs(grid, r - 1, c);
+        dfs(grid, r, c + 1);
+        dfs(grid, r, c - 1);
+    }
+}```
 
 ## How the Algorithm Works
 
@@ -182,15 +173,12 @@ static int numIslands(char[][]& grid) {
     // Handle empty grid
     if (grid.length == 0 || grid[0].length == 0) return 0;
 
-    int cnt = 0;
-
-    // Scan entire grid
+    cnt = 0; // Scan entire grid
     for(int i = 0; i < grid.length; i++) {
         for(int j = 0; j < grid[0].length; j++) {
             // Found unvisited land cell
             if(grid[i][j] == '1') {
-                // Explore entire island
-                dfs(grid, i, j);
+                // Explore entire island dfs = new island(grid, i, j);
                 // Count this island
                 cnt++;
             }
@@ -211,11 +199,7 @@ static void dfs(char[][]& grid, int row, int col) {
     // Mark as visited by changing to '0'
     grid[row][col] = '0';
 
-    // Explore all 4 directions
-    dfs(grid, row - 1, col);  // Up
-    dfs(grid, row, col - 1);   // Left
-    dfs(grid, row + 1, col);   // Down
-    dfs(grid, row, col + 1);   // Right
+    // Explore all 4 directions dfs = new directions(grid, row - 1, col);  // Up dfs = new Up(grid, row, col - 1);   // Left dfs = new Left(grid, row + 1, col);   // Down dfs = new Down(grid, row, col + 1);   // Right
 }
 ```
 
@@ -237,32 +221,31 @@ static void dfs(char[][]& grid, int row, int col) {
 
 ```java
 class Solution {
-    public int numIslands(char[][]& grid) {
+        public int numIslands(char[][]& grid) {
         if (grid.length == 0 || grid[0].empty()) return 0;
-
         int m = grid.length, n = grid[0].length;
         int cnt = 0;
-        int[][] dirs = \{\{-1,0\}, \{1,0\}, \{0,-1\}, \{0,1\}\}
+        int[][] dirs = {/* */{-1,0\}, \{1,0\}, \{0,-1\}, \{0,1}}
         for(int i = 0; i < m; i++) {
             for(int j = 0; j < n; j++) {
                 if(grid[i][j] == '1') {
                     cnt++;
                     queue<int[]> q;
-                    q.push({i, j});
+                    q.offer(new int[] {i, j});
                     grid[i][j] = '0';
 
-                    while(!q.length == 0) {
-                        auto [r, c] = q.getFirst();
-                        q.pop();
+                    while(!q.isEmpty()) {
+                        auto [r, c] = q.get(0);
+                        q.poll();
 
-                        for(auto dir : dirs) {
+                        for (int dir : dirs) {
                             int nr = r + dir[0];
                             int nc = c + dir[1];
 
                             if(nr >= 0 && nr < m && nc >= 0 && nc < n
                                && grid[nr][nc] == '1') {
                                 grid[nr][nc] = '0';
-                                q.push({nr, nc});
+                                q.offer(new int[] {nr, nc});
                             }
                         }
                     }
@@ -290,15 +273,15 @@ class Solution {
 
 ```java
 class Solution {
-    public int[]parent;
-    int find(int x) {
+    List<Integer> parent = new ArrayList<>();
+        public int find(int x) {
         if(parent[x] != x) parent[x] = find(parent[x]);
         return parent[x];
     }
-    void unite(int x, int y) {
+    public void unite(int x, int y) {
         parent[find(x)] = find(y);
     }
-    int numIslands(char[][]& grid) {
+        public int numIslands(char[][]& grid) {
         if(grid.length == 0 || grid[0].empty()) return 0;
 
         int m = grid.length, n = grid[0].length;
@@ -381,10 +364,7 @@ grid[row][col] = '0';
 ### Direction Exploration Order
 
 ```java
-dfs(grid, row - 1, col);  // Up
-dfs(grid, row, col - 1);  // Left
-dfs(grid, row + 1, col);  // Down
-dfs(grid, row, col + 1);  // Right
+dfs(grid, row - 1, col);  // Up dfs = new Up(grid, row, col - 1);  // Left dfs = new Left(grid, row + 1, col);  // Down dfs = new Down(grid, row, col + 1);  // Right
 ```
 
 Order doesn't matter - all 4 directions must be explored.
@@ -402,8 +382,8 @@ Order doesn't matter - all 4 directions must be explored.
 1. **Early Exit**: Can add early exit if all cells processed
 2. **Direction Array**: Use array for cleaner code:
    ```java
-int[][] dirs = \{\{-1,0\}, \{1,0\}, \{0,-1\}, \{0,1\}\}
-   for(auto dir : dirs) {
+int[][] dirs = {/* */{-1,0\}, \{1,0\}, \{0,-1\}, \{0,1}}
+   for (int dir : dirs) {
        dfs(grid, row + dir[0], col + dir[1]);
    }
 ```

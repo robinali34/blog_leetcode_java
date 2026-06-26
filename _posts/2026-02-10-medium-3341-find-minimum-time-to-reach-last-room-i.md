@@ -68,7 +68,7 @@ Since this transition cost is nonnegative and depends only on the current best t
 {% raw %}
 ```java
 class Solution {
-    public int minTimeToReach(int[][]& moveTime) {
+        public int minTimeToReach(int[][] moveTime) {
         int n = (int)moveTime.size();
         int m = (int)moveTime[0].length;
 
@@ -79,15 +79,15 @@ class Solution {
         priority_queue<State, State[], greater<>> pq;
         pq.emplace(0, new int[] {0, 0});
 
-        int dirs[4][2] = {{0,1},{0,-1},{1,0},{-1,0}}
-        while (!pq.length == 0) {
-            auto [t, pos] = pq.top();
-            pq.pop();
+        int dirs[4][2] = {new int[] {0, 1},{0,-1},new int[] {1, 0},{-1,0}}
+        while (!pq.isEmpty()) {
+            int[] tpair = pq.peek(); int t = tpair[0]; int pos = tpair[1];
+            pq.poll();
             auto [i, j] = pos;
             if (t != dist[i][j]) continue;
             if (i == n - 1 && j == m - 1) return (int)t;
 
-            for (auto d : dirs) {
+            for (int d : dirs) {
                 int ni = i + d[0], nj = j + d[1];
                 if (ni < 0 || ni >= n || nj < 0 || nj >= m) continue;
                 long nt = Math.max(t, (long)moveTime[ni][nj]) + 1;

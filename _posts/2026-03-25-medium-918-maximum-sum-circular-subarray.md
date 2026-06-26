@@ -95,7 +95,7 @@ maxSum=7 ≥ 0, so answer = max(7, 7-(-3)) = max(7, 10) = 10 ✓
 {% raw %}
 ```java
 class Solution {
-    public int maxSubarraySumCircular(int[] nums) {
+        public int maxSubarraySumCircular(int[] nums) {
         int total = 0;
         int maxSum = nums[0], curMax = 0;
         int minSum = nums[0], curMin = 0;

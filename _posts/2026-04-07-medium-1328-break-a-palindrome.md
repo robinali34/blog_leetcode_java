@@ -84,7 +84,7 @@ To get the **lexicographically smallest** non-palindrome:
 {% raw %}
 ```java
 class Solution {
-    public String breakPalindrome(String palindrome) {
+        public String breakPalindrome(String palindrome) {
         int n = palindrome.size();
         if (n == 1) return "";
 

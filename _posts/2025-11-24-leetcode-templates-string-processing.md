@@ -28,7 +28,7 @@ static int lengthOfLongestSubstring(String s) {
     int dup = 0, best = 0;
 
     for (int l = 0, r = 0; r < s.size(); ++r) {
-        dup += (++cnt[(int char)s[r]] == 2);
+        dup += (++cnt[(int char)s.charAt(r)] == 2);
 
         while (dup > 0) {
             dup -= (--cnt[(int char)s[l++]] == 1);
@@ -55,7 +55,7 @@ static String minWindow(String s, String t) {
 
     while (right < s.size()) {
         char c = s[right++];
-        if (need.count(c)) {
+        if (need.contains(c)) {
             window.put(c, window.getOrDefault(c, 0) + 1);
             if (window.put(c, = need[c]) valid++);
         }
@@ -67,14 +67,14 @@ static String minWindow(String s, String t) {
             }
 
             char d = s[left++];
-            if (need.count(d)) {
+            if (need.contains(d)) {
                 if (window.put(d, = need[d]) valid--);
                 window[d]--;
             }
         }
     }
 
-    return len == Integer.MAX_VALUE ? "" : s.substr(start, len);
+    return len == Integer.MAX_VALUE ? "" : s.substring(start, len);
 }
 ```
 
@@ -93,10 +93,10 @@ static boolean isPalindrome(String s) {
     int left = 0, right = s.size() - 1;
 
     while (left < right) {
-        while (left < right && !isalnum(s[left])) left++;
-        while (left < right && !isalnum(s[right])) right--;
+        while (left < right && !isalnum(s.charAt(left))) left++;
+        while (left < right && !isalnum(s.charAt(right))) right--;
 
-        if (tolower(s[left]) != tolower(s[right])) {
+        if (tolower(s.charAt(left)) != tolower(s.charAt(right))) {
             return false;
         }
         left++;
@@ -113,7 +113,7 @@ static boolean isPalindrome(String s) {
 static void reverseString(char[] s) {
     int left = 0, right = s.size() - 1;
     while (left < right) {
-        swap(s[left++], s[right--]);
+        swap(s, left++, right--);
     }
 }
 ```
@@ -157,14 +157,14 @@ static int kmpSearch(String text, String pattern) {
     int i = 0, j = 0;
 
     while (i < n) {
-        if (text[i] == pattern[j]) {
+        if (text.charAt(i) == pattern[j]) {
             i++;
             j++;
         }
 
         if (j == m) {
             return i - j; // Found at index i - j
-        } else if (i < n && text[i] != pattern[j]) {
+        } else if (i < n && text.charAt(i) != pattern[j]) {
             if (j !) {
                 j = lps[j - 1];
             } else {
@@ -188,17 +188,17 @@ static int kmpSearch(String text, String pattern) {
 ```java
 // import java.util.Arrays;
 // import java.util.Collections;
-vector<String[]> groupAnagrams(String[] strs) {
-    unordered_map<String, String[]> groups;
+List<List<String>> groupAnagrams(String[] strs) {
+    HashMap<String, List<String>> groups = new HashMap<>();
 
     for (String str : strs) {
         String key = str;
         Arrays.sort(key);
-        groups[key].push_back(str);
+        groups.computeIfAbsent(key, k -> new ArrayList<>()).add(str);
     }
 
-    vector<String[]> result;
-    for (auto& [key, values] : groups) {
+    List<List<String>> result = new ArrayList<>();
+    for (var e : groups.entrySet()) {
         result.add(values);
     }
 
@@ -216,11 +216,12 @@ vector<String[]> groupAnagrams(String[] strs) {
 ### Remove Duplicates
 
 ```java
+// import java.util.*;
 // Remove All Adjacent Duplicates
 static String removeDuplicates(String s) {
     String result;
-    for (char c : s) {
-        if (!result.length == 0 && result.getLast() == c) {
+    for (char c : s.toCharArray()) {
+        if (!result.isEmpty() && result.get(result.size() - 1) == c) {
             result.removeLast();
         } else {
             result.add(c);
@@ -231,21 +232,21 @@ static String removeDuplicates(String s) {
 
 // Remove All Adjacent Duplicates II (k duplicates)
 static String removeDuplicates(String s, int k) {
-    vector<char[]> st;
+    List<List<char>> st = new ArrayList<>();
 
-    for (char c : s) {
-        if (!st.length == 0 && st.getLast().first == c) {
-            st.getLast().second++;
-            if (st.getLast().second == k) {
+    for (char c : s.toCharArray()) {
+        if (!st.isEmpty() && st.get(st.size() - 1).first == c) {
+            st.get(st.size() - 1).second++;
+            if (st.get(st.size() - 1).second == k) {
                 st.removeLast();
             }
         } else {
-            st.add({c, 1});
+            st.add(new int[] {c, 1});
         }
     }
 
     String result;
-    for (auto& [c, count] : st) {
+    for (var e : st.entrySet()) {
         result.append(count, c);
     }
 
@@ -266,8 +267,8 @@ static String removeDuplicates(String s, int k) {
 static String runLengthEncode(String s) {
     String result;
     for (int j = 0, k = 0; j < (int)s.size(); j = k) {
-        while (k < (int)s.size() && s[k] == s[j]) k++;
-        result += to_string(k - j) + s[j];
+        while (k < (int)s.size() && s.charAt(k) == s.charAt(j)) k++;
+        result += String.valueOf(k - j) + s.charAt(j);
     }
     return result;
 }
@@ -297,7 +298,7 @@ static boolean validWordAbbreviation(String word, String abbr) {
             }
             i += num;
         } else {
-            if (word[i] != abbr[j]) return false;
+            if (word.charAt(i) != abbr[j]) return false;
             i++;
             j++;
         }
@@ -317,20 +318,20 @@ static String decodeString(String s) {
     String current;
     int num = 0;
 
-    for (char c : s) {
+    for (char c : s.toCharArray()) {
         if (isdigit(c)) {
             num = num 10 + (c - '0');
         } else if (c == '[') {
-            numStack.push(num);
-            strStack.push(current);
+            numStack.offer(num);
+            strStack.offer(current);
             num = 0;
             current = "";
         } else if (c == ']') {
-            int repeat = numStack.top();
-            numStack.pop();
+            int repeat = numStack.peek();
+            numStack.poll();
             String temp = current;
-            current = strStack.top();
-            strStack.pop();
+            current = strStack.peek();
+            strStack.poll();
             while (repeat--) {
                 current += temp;
             }

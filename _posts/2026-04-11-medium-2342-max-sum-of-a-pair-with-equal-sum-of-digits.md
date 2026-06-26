@@ -70,7 +70,7 @@ Max digit sum occurs for `999,999,999` = $9 \times 9 = 81$. An array of size 100
 {% raw %}
 ```java
 class Solution {
-    public int maximumSum(int[] nums) {
+        public int maximumSum(int[] nums) {
         int[] best = new int[100];
         int rtn = -1;
         for (int x : nums) {
@@ -82,9 +82,9 @@ class Solution {
         }
         return rtn;
     }
-    int digitSum(int x) {
+        public int digitSum(int x) {
         int s = 0;
-        while (x) {
+        while (x > 0) {
             s += x % 10;
             x /= 10;
         }

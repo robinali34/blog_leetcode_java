@@ -72,13 +72,13 @@ The push/pop ensures the path is always correct for the current branch.
 ```java
 class Solution {
     public int[][] pathSum(TreeNode root, int targetSum) {
-        int[][] rtn;
-        int[]pathNodes;
+        List<int[]> rtn = new ArrayList<>();
+        List<Integer> pathNodes = new ArrayList<>();
         traversePaths(root, targetSum, pathNodes, rtn);
         return rtn;
     }
-    void traversePaths(TreeNode node, int remainingSum,
-                       int[] pathNodes, int[][]& pathsList) {
+    public void traversePaths(TreeNode node, int remainingSum,
+                       int[] pathNodes, int[][] pathsList) {
         if (!node) return;
 
         remainingSum -= node.val;

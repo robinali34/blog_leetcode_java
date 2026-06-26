@@ -24,7 +24,7 @@ Depth-First Search explores as far as possible before backtracking.
 
 ```java
 // DFS on graph (adjacency list)
-static void dfs(int[][]& graph, int node, boolean[] visited) {
+static void dfs(int[][] graph, int node, boolean[] visited) {
     visited[node] = true;
 
     // Process node
@@ -39,7 +39,7 @@ static void dfs(int[][]& graph, int node, boolean[] visited) {
 }
 
 // DFS with return value
-static boolean dfs(int[][]& graph, int node, int target, boolean[] visited) {
+static boolean dfs(int[][] graph, int node, int target, boolean[] visited) {
     if (node == target) return true;
     visited[node] = true;
 
@@ -62,6 +62,7 @@ static boolean dfs(int[][]& graph, int node, int target, boolean[] visited) {
 DFS for 2D grid problems (connected components, paths).
 
 ```java
+// import java.util.*;
 // DFS on 2D grid (4-directional)
 static void dfsGrid(char[][]& grid, int i, int j) {
     int m = grid.length, n = grid[0].length;
@@ -72,8 +73,7 @@ static void dfsGrid(char[][]& grid, int i, int j) {
 
     grid[i][j] = '0'; // Mark as visited
 
-    // Explore 4 directions
-    dfsGrid(grid, i + 1, j);
+    // Explore 4 directions dfsGrid = new directions(grid, i + 1, j);
     dfsGrid(grid, i - 1, j);
     dfsGrid(grid, i, j + 1);
     dfsGrid(grid, i, j - 1);
@@ -99,20 +99,20 @@ static int numIslands(char[][]& grid) {
 // Word Search
 static boolean dfsWordSearch(char[][]& board, int i, int j, String word, int idx) {
     if (idx == word.size()) return true;
-    if (i < 0 || i >= board.size() || j < 0 || j >= board[0].length) return false;
-    if (board[i][j] != word[idx]) return false;
+    if (i < 0 || i >= board.length || j < 0 || j >= board[0].length) return false;
+    if (board[i].charAt(j) != word.charAt(idx)) return false;
 
-    char temp = board[i][j];
-    board[i][j] = '#'; // Mark as visited
+    char temp = board[i].charAt(j);
+    board[i].charAt(j) = '#'; // Mark as visited
 
-    List<int[]> dirs = \{\{0,1\}, \{0,-1\}, \{1,0\}, \{-1,0\}\}
-    for (auto& [dx, dy] : dirs) {
+    List<int[]> dirs = {{0,1\}, \{0,-1\}, \{1,0\}, \{-1,0}}
+    for (var e : dirs.entrySet()) {
         if (dfsWordSearch(board, i + dx, j + dy, word, idx + 1)) {
             return true;
         }
     }
 
-    board[i][j] = temp; // Backtrack
+    board[i].charAt(j) = temp; // Backtrack
     return false;
 }
 ```
@@ -193,10 +193,11 @@ static int sumNumbers(TreeNode root, int sum) {
 DFS with caching to avoid recomputation.
 
 ```java
+// import java.util.*;
 // DFS with memoization (e.g., Longest Increasing Path)
-static int dfsWithMemo(int[][]& matrix, int i, int j,
-                int[][]& memo, int prev) {
-    int m = matrix.size(), n = matrix[0].length;
+static int dfsWithMemo(int[][] matrix, int i, int j,
+                int[][] memo, int prev) {
+    int m = matrix.length, n = matrix[0].length;
 
     if (i < 0 || i >= m || j < 0 || j >= n || matrix[i][j] <= prev) {
         return 0;
@@ -207,8 +208,8 @@ static int dfsWithMemo(int[][]& matrix, int i, int j,
     }
 
     int result = 1;
-    List<int[]> dirs = \{\{0,1\}, \{0,-1\}, \{1,0\}, \{-1,0\}\}
-    for (auto& [dx, dy] : dirs) {
+    List<int[]> dirs = {{0,1\}, \{0,-1\}, \{1,0\}, \{-1,0}}
+    for (var e : dirs.entrySet()) {
         result = Math.max(result, 1 + dfsWithMemo(matrix, i + dx, j + dy,
                                               memo, matrix[i][j]));
     }
@@ -229,15 +230,15 @@ DFS using stack instead of recursion.
 ```java
 // import java.util.*;
 // Iterative DFS on graph
-static void dfsIterative(int[][]& graph, int start) {
+static void dfsIterative(int[][] graph, int start) {
     Deque<Integer> st = new ArrayDeque<>();
     boolean[]visited(graph.size(), false);
 
-    st.push(start);
+    st.offer(start);
 
-    while (!st.length == 0) {
-        int node = st.top();
-        st.pop();
+    while (!st.isEmpty()) {
+        int node = st.peek();
+        st.poll();
 
         if (visited[node]) continue;
         visited[node] = true;
@@ -248,7 +249,7 @@ static void dfsIterative(int[][]& graph, int start) {
         // Push neighbors in reverse order to maintain order
         for (int i = graph[node].size() - 1; i >= 0; --i) {
             if (!visited[graph[node][i]]) {
-                st.push(graph[node][i]);
+                st.offer(graph[node][i]);
             }
         }
     }
@@ -256,19 +257,19 @@ static void dfsIterative(int[][]& graph, int start) {
 
 // Iterative DFS on tree
 int[]preorderIterative(TreeNode root) {
-    int[]result;
+    List<Integer> result = new ArrayList<>();
     if (!root) return result;
 
-    stack<TreeNode> st;
-    st.push(root);
+    Deque<TreeNode> st = new ArrayDeque<>();
+    st.offer(root);
 
-    while (!st.length == 0) {
-        TreeNode node = st.top();
-        st.pop();
+    while (!st.isEmpty()) {
+        TreeNode node = st.peek();
+        st.poll();
         result.add(node.val);
 
-        if (node.right) st.push(node.right);
-        if (node.left) st.push(node.left);
+        if (node.right) st.offer(node.right);
+        if (node.left) st.offer(node.left);
     }
 
     return result;

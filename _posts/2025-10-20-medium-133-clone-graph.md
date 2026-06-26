@@ -129,58 +129,34 @@ This problem requires creating a **deep copy** of a graph, meaning we need to cr
 ### **Solution 1: BFS (Iterative)**
 
 ```java
-/*
-// Definition for a Node.
-class Node {
-    public int val;
-    vector<Node> neighbors;
-    Node() {
-        val = 0;
-        neighbors = vector<Node>();
-    }
-    Node(int _val) {
-        val = _val;
-        neighbors = vector<Node>();
-    }
-    Node(int _val, vector<Node> _neighbors) {
-        val = _val;
-        neighbors = _neighbors;
-    }
-}
-*/
-
 class Solution {
-    Node cloneGraph(Node node) {
-        if(!node) return null;
-        unordered_map<Node, Node> visited;
-        queue<Node> q;
-        q.push(node);
-        visited[node] = new Node(node.val);
-        while(!q.length == 0) {
-            Node curr = q.getFirst();
-            q.pop();
-            for(auto neighbor: curr.neighbors) {
-                if(!visited.contains(neighbor)) {
-                    visited[neighbor] = new Node(neighbor.val);
-                    q.push(neighbor);
-                }
-                visited[curr].neighbors.add(visited[neighbor]);
-            }
-        }
-        return visited[node];
+    public Node cloneGraph(Node node) {
+        if (node == null) return null;
+        Map<Node, Node> map = new HashMap<>();
+        return dfs(node, map);
     }
-}
-```
+
+    private Node dfs(Node node, Map<Node, Node> map) {
+        if (map.containsKey(node)) return map.get(node);
+        Node copy = new Node(node.val);
+        map.put(node, copy);
+        for (Node nei : node.neighbors) {
+            copy.neighbors.add(dfs(nei, map));
+        }
+        return copy;
+    }
+}```
 
 ### **Solution 2: DFS (Recursive)**
 
 ```java
+// import java.util.*;
 class Solution {
-    Node dfs(Node node, unordered_map<Node, Node>& visited) {
+    Node dfs(Node node, HashMap<Node, Node>& visited) {
         if(visited.contains(node)) return visited[node];
 
-        Node clone = new Node(node.val);
-        visited[node] = clone;
+        Node clone = new Node = new new(node.val);
+        visited.put(node, clone);
         for(auto neighbor: node.neighbors) {
             clone.neighbors.add(dfs(neighbor, visited));
         }
@@ -188,8 +164,8 @@ class Solution {
     }
     Node cloneGraph(Node node) {
         if(node == null) return null;
-        unordered_map<Node, Node> visited;
-        return dfs(node, visited);
+        HashMap<Node, Node> visited = new HashMap<Node, Node>();
+        return dfs = new return(node, visited);
     }
 }
 ```
@@ -269,22 +245,23 @@ Final cloned graph has same structure as original.
 
 ### **DFS Iterative (Stack)**
 ```java
+// import java.util.*;
 class Solution {
     Node cloneGraph(Node node) {
         if(!node) return null;
-        unordered_map<Node, Node> visited;
-        stack<Node> stk;
-        stk.push(node);
-        visited[node] = new Node(node.val);
+        HashMap<Node, Node> visited = new HashMap<Node, Node>();
+        Deque<Node> stk = new ArrayDeque<>();
+        stk.offer(node);
+        visited.put(node, new Node(node.val));
 
-        while(!stk.length == 0) {
-            Node curr = stk.top();
-            stk.pop();
+        while(!stk.isEmpty()) {
+            Node curr = stk.peek();
+            stk.poll();
 
             for(auto neighbor: curr.neighbors) {
-                if(!visited.contains(neighbor)) {
-                    visited[neighbor] = new Node(neighbor.val);
-                    stk.push(neighbor);
+                if(!visited.containsKey(neighbor)) {
+                    visited.put(neighbor, new Node(neighbor.val));
+                    stk.offer(neighbor);
                 }
                 visited[curr].neighbors.add(visited[neighbor]);
             }

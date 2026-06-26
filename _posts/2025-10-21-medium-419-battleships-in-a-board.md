@@ -82,11 +82,11 @@ Count only the top-left cell of each battleship: since battleships don't touch e
 
 ```java
 class Solution {
-    public int countBattleships(char[][]& board) {
+        public int countBattleships(char[][]& board) {
         int count = 0;
-        for(int i = 0; i < (int)board.size(); i++) {
+        for(int i = 0; i < board.length; i++) {
             for(int j = 0; j < (int)board[0].length; j++) {
-                if(board[i][j] == 'X') {
+                if(board[i].charAt(j) == 'X') {
                     if(i > 0 && board[i - 1][j] == 'X') continue;
                     if(j > 0 && board[i][j - 1] == 'X') continue;
                     count++;
@@ -110,14 +110,14 @@ class Solution {
 
 ```java
 class Solution {
-    public int countBattleships(char[][]& board) {
-        int m = board.size(), n = board[0].length;
+        public int countBattleships(char[][]& board) {
+        int m = board.length, n = board[0].length;
         boolean[][] visited(m, boolean[](n, false));
         int count = 0;
 
         for(int i = 0; i < m; i++) {
             for(int j = 0; j < n; j++) {
-                if(board[i][j] == 'X' && !visited[i][j]) {
+                if(board[i].charAt(j) == 'X' && !visited[i][j]) {
                     dfs(board, visited, i, j);
                     count++;
                 }
@@ -125,14 +125,13 @@ class Solution {
         }
         return count;
     }
-    void dfs(char[][]& board, boolean[][]& visited, int i, int j) {
-        if(i < 0 || i >= board.size() || j < 0 || j >= board[0].length ||
-           board[i][j] != 'X' || visited[i][j]) return;
+    public void dfs(char[][]& board, boolean[][]& visited, int i, int j) {
+        if(i < 0 || i >= board.length || j < 0 || j >= board[0].length ||
+           board[i].charAt(j) != 'X' || visited[i][j]) return;
 
         visited[i][j] = true;
 
-        // Explore in all four directions
-        dfs(board, visited, i + 1, j);
+        // Explore in all four directions dfs = new directions(board, visited, i + 1, j);
         dfs(board, visited, i - 1, j);
         dfs(board, visited, i, j + 1);
         dfs(board, visited, i, j - 1);
@@ -152,14 +151,14 @@ class Solution {
 ```java
 // import java.util.*;
 class Solution {
-    public int countBattleships(char[][]& board) {
-        int m = board.size(), n = board[0].length;
-        UnionFind uf(m n);
+        public int countBattleships(char[][]& board) {
+        int m = board.length, n = board[0].length;
+        UnionFind uf = new UnionFind(m n);
         int count = 0;
 
         for(int i = 0; i < m; i++) {
             for(int j = 0; j < n; j++) {
-                if(board[i][j] == 'X') {
+                if(board[i].charAt(j) == 'X') {
                     int curr = i n + j;
                     if(i > 0 && board[i - 1][j] == 'X') {
                         uf.unionSets(curr, (i - 1) * n + j);
@@ -174,7 +173,7 @@ class Solution {
         HashSet<Integer> roots = new HashSet<Integer>();
         for(int i = 0; i < m; i++) {
             for(int j = 0; j < n; j++) {
-                if(board[i][j] == 'X') {
+                if(board[i].charAt(j) == 'X') {
                     roots.add(uf.find(i n + j));
                 }
             }
@@ -187,15 +186,14 @@ class Solution {
         UnionFind(int n) {
             iota(parent /* elements of parent */, 0);
         }
-
-        int find(int x) {
+        public int find(int x) {
             if(parent[x] != x) {
                 parent[x] = find(parent[x]);
             }
             return parent[x];
         }
 
-        void unionSets(int x, int y) {
+        public void unionSets(int x, int y) {
             int px = find(x), py = find(y);
             if(px != py) {
                 if(rank[px] < rank[py]) swap(px, py);

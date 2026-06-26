@@ -88,7 +88,7 @@ Result: 10 → 1 → 13 → 1000000 → 1000001 → 1000002 → 5  ✓
 ```java
 class Solution {
     public ListNode mergeInBetween(ListNode list1, int a, int b, ListNode list2) {
-        ListNode dummy(0);
+        ListNode dummy = new ListNode(0);
         dummy.next = list1;
 
         ListNode prevA = &dummy;

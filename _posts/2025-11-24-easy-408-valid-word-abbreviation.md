@@ -114,7 +114,7 @@ The key insight is to track the current position in the word while parsing the a
 
 ```java
 class Solution {
-    public boolean validWordAbbreviation(String word, String abbr) {
+        public boolean validWordAbbreviation(String word, String abbr) {
         int len = abbr.length(), wordLen = word.length();
         int abbrLen = 0, num = 0;
 
@@ -287,13 +287,13 @@ return abbrLen + num == wordLen;
 
 ```java
 class Solution {
-    public boolean validWordAbbreviation(String word, String abbr) {
+        public boolean validWordAbbreviation(String word, String abbr) {
         int i = 0, j = 0;  // i for word, j for abbr
 
         while(i < word.length() && j < abbr.length()) {
             if(abbr[j] >= 'a' && abbr[j] <= 'z') {
                 // Letter: must match
-                if(word[i] != abbr[j]) {
+                if(word.charAt(i) != abbr[j]) {
                     return false;
                 }
                 i++;

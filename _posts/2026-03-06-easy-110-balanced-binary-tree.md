@@ -68,10 +68,10 @@ The key insight is combining two tasks into one recursive function: **compute he
 {% raw %}
 ```java
 class Solution {
-    public boolean isBalanced(TreeNode root) {
+        public boolean isBalanced(TreeNode root) {
         return getHeight(root) != -1;
     }
-    int getHeight(TreeNode node) {
+        public int getHeight(TreeNode node) {
         if (!node) return 0;
 
         int leftHeight = getHeight(node.left);

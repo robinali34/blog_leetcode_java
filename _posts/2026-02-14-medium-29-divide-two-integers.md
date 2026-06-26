@@ -118,10 +118,9 @@ Each bit of the quotient is determined from most significant to least significan
 {% raw %}
 ```java
 class Solution {
-    public int divide(int dividend, int divisor) {
+        public int divide(int dividend, int divisor) {
         // Handle overflow case
         if (dividend == Integer.MIN_VALUE && divisor == -1) return Integer.MAX_VALUE;
-
         boolean negative = (dividend < 0) ^ (divisor < 0);
         long dvd = llabs((long)dividend);
         long dvs = llabs((long)divisor);
@@ -155,10 +154,9 @@ Instead of iterating over all 32 bits, repeatedly double `divisor` until it exce
 {% raw %}
 ```java
 class Solution {
-    public int divide(int dividend, int divisor) {
+        public int divide(int dividend, int divisor) {
         if (dividend == Integer.MIN_VALUE && divisor == -1)
             return Integer.MAX_VALUE;
-
         boolean negative = (dividend < 0) ^ (divisor < 0);
         long a = llabs((long)dividend);
         long b = llabs((long)divisor);

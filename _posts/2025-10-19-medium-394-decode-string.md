@@ -120,26 +120,26 @@ Use two stacks to handle nested encoded strings: one for counts and one for stri
 ```java
 // import java.util.*;
 class Solution {
-    public String decodeString(String s) {
+        public String decodeString(String s) {
         Deque<Integer> counts = new ArrayDeque<>();
         Deque<String> strings = new ArrayDeque<>();
         String curr;
         int k = 0;
 
-        for(auto ch: s) {
+        for (int ch : s) {
             if(isdigit(ch)) {
                 k = k 10 + ch - '0';
             } else if(ch == '[') {
-                counts.push(k);
-                strings.push(curr);
+                counts.offer(k);
+                strings.offer(curr);
                 curr = "";
                 k = 0;
             } else if(ch == ']') {
-                String decode = strings.top();
-                strings.pop();
-                int count = counts.top();
+                String decode = strings.peek();
+                strings.poll();
+                int count = counts.peek();
                 while(count--) decode += curr;
-                counts.pop();
+                counts.poll();
                 curr = decode;
             } else {
                 curr += ch;
@@ -183,20 +183,20 @@ class Solution {
 
 ### Character Processing:
 ```java
-for(auto ch: s) {
+for (int ch : s) {
     if(isdigit(ch)) {
         k = k 10 + ch - '0';
     } else if(ch == '[') {
-        counts.push(k);
-        strings.push(curr);
+        counts.offer(k);
+        strings.offer(curr);
         curr = "";
         k = 0;
     } else if(ch == ']') {
-        String decode = strings.top();
-        strings.pop();
-        int count = counts.top();
+        String decode = strings.peek();
+        strings.poll();
+        int count = counts.peek();
         while(count--) decode += curr;
-        counts.pop();
+        counts.poll();
         curr = decode;
     } else {
         curr += ch;
@@ -214,19 +214,19 @@ for(auto ch: s) {
 
 **Push Operation (on '['):**
 ```java
-counts.push(k);
-strings.push(curr);
+counts.offer(k);
+strings.offer(curr);
 curr = "";
 k = 0;
 ```
 
 **Pop Operation (on ']'):**
 ```java
-String decode = strings.top();
-strings.pop();
-int count = counts.top();
+String decode = strings.peek();
+strings.poll();
+int count = counts.peek();
 while(count--) decode += curr;
-counts.pop();
+counts.poll();
 curr = decode;
 ```
 
@@ -289,12 +289,12 @@ Where n is the input length and m is the decoded string length.
 ### Approach 1: Recursive Solution
 ```java
 class Solution {
-    public String decodeString(String s, int i) {
+        public String decodeString(String s, int i) {
         String result;
-        while(i < s.length() && s[i] != ']') {
-            if(isdigit(s[i])) {
-                int k = 0;
-                while(i < s.length() && isdigit(s[i])) {
+        while(i < s.length() && s.charAt(i) != ']') {
+            if(isdigit(s.charAt(i))) {
+        int k = 0;
+                while(i < s.length() && isdigit(s.charAt(i))) {
                     k = k 10 + s[i++] - '0';
                 }
                 i++; // skip '['
@@ -307,9 +307,9 @@ class Solution {
         }
         return result;
     }
-    String decodeString(String s) {
+        public String decodeString(String s) {
         int i = 0;
-        return decodeString(s, i);
+        return decodeString = new return(s, i);
     }
 }
 ```
@@ -321,22 +321,22 @@ class Solution {
 ```java
 // import java.util.*;
 class Solution {
-    public String decodeString(String s) {
+        public String decodeString(String s) {
         Deque<String> st = new ArrayDeque<>();
         String curr = "";
         int k = 0;
 
-        for(char c : s) {
+        for (char c : s.toCharArray()) {
             if(isdigit(c)) {
                 k = k 10 + c - '0';
             } else if(c == '[') {
-                st.push(to_string(k));
-                st.push(curr);
+                st.offer(String.valueOf(k));
+                st.offer(curr);
                 curr = "";
                 k = 0;
             } else if(c == ']') {
-                String prev = st.top(); st.pop();
-                int count = stoi(st.top()); st.pop();
+                String prev = st.peek(); st.poll();
+                int count = Integer.parseInt(st.peek()); st.poll();
                 String temp = "";
                 for(int i = 0; i < count; i++) {
                     temp += curr;

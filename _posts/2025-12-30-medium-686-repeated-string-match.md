@@ -194,10 +194,10 @@ new_hash = ((old_hash - s[i] * base^(m-1)) * base + s[i+m]) % mod
 
 ```java
 class Solution {
-    public int strStr(String haystack, String needle) {
+        public int strStr(String haystack, String needle) {
         int n = haystack.size(), m = needle.size();
         if(m == 0) return 0;
-        int[]pi(m);
+        int[] pi = new int[m];
         for(int i = 1, j = 0; i < m; i++) {
             while(j > 0 && needle[i] != needle[j]) {
                 j = pi[j - 1];
@@ -220,7 +220,7 @@ class Solution {
         }
         return -1;
     }
-    int repeatedStringMatch(String a, String b) {
+        public int repeatedStringMatch(String a, String b) {
         int an = a.size(), bn = b.size();
         int idx = strStr(a, b);
         if(idx == -1) return -1;
@@ -288,31 +288,27 @@ repetitions = (8 + 2 - 4 - 1) / 4 + 2 = 5/4 + 2 = 1 + 2 = 3
 
 ```java
 class Solution {
-    public long BASE = 256;
+        long BASE = 256;
     long MOD = 1e9 + 7;
-
-    long computeHash(String s, int start, int len) {
+        public long computeHash(String s, int start, int len) {
         long hash = 0;
         for(int i = 0; i < len; i++) {
             hash = (hash BASE + s[start + i]) % MOD;
         }
         return hash;
     }
-
-    long updateHash(long oldHash, char remove, char add, long power) {
+        public long updateHash(long oldHash, char remove, char add, long power) {
         oldHash = (oldHash - (remove power) % MOD + MOD) % MOD;
         oldHash = (oldHash BASE + add) % MOD;
         return oldHash;
     }
-
-    boolean verifyMatch(String text, int start, String pattern) {
+        public boolean verifyMatch(String text, int start, String pattern) {
         for(int i = 0; i < pattern.size(); i++) {
             if(text[start + i] != pattern[i]) return false;
         }
         return true;
     }
-
-    int rabinKarpSearch(String text, String pattern, boolean circular) {
+        public int rabinKarpSearch(String text, String pattern, boolean circular) {
         int n = text.size(), m = pattern.size();
         if(m == 0) return 0;
         if(n < m) return -1;
@@ -340,7 +336,7 @@ class Solution {
             int removeIdx = (i - 1) % n;
             int addIdx = (i + m - 1) % n;
 
-            textHash = updateHash(textHash, text[removeIdx], text[addIdx], power);
+            textHash = updateHash(textHash, text.charAt(removeIdx), text.charAt(addIdx), power);
 
             if(textHash == patternHash) {
                 int start = i % n;
@@ -352,7 +348,7 @@ class Solution {
 
         return -1;
     }
-    int repeatedStringMatch(String a, String b) {
+        public int repeatedStringMatch(String a, String b) {
         int an = a.size(), bn = b.size();
 
         // Try circular search
@@ -421,11 +417,11 @@ class KMP {
 
         for(int i = 0, j = 0; i < n; i++) {
             // Mismatch: use prefix function to skip
-            while(j > 0 && text[i] != pattern[j]) {
+            while(j > 0 && text.charAt(i) != pattern[j]) {
                 j = pi[j - 1];
             }
             // Match: advance both pointers
-            if(text[i] == pattern[j]) {
+            if(text.charAt(i) == pattern[j]) {
                 j++;
             }
             // Pattern found
@@ -494,7 +490,7 @@ class RabinKarp {
 
         // Check first window
         if(textHash == patternHash) {
-            if(text.substr(0, m) == pattern) return 0;
+            if(text.substring(0, m) == pattern) return 0;
         }
 
         // Rolling hash: slide window
@@ -502,7 +498,7 @@ class RabinKarp {
             textHash = updateHash(textHash, text[i-1], text[i+m-1], power);
 
             if(textHash == patternHash) {
-                if(text.substr(i, m) == pattern) return i;
+                if(text.substring(i, m) == pattern) return i;
             }
         }
 

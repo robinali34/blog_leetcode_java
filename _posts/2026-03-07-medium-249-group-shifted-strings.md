@@ -60,21 +60,22 @@ Use `(str[i] - str[i-1] + 26) % 26` to handle the wrap-around from `z` to `a`.
 
 {% raw %}
 ```java
+// import java.util.*;
 class Solution {
-    vector<String[]> groupStrings(String[] strings) {
-        unordered_map<String, String[]> hm;
+    public List<List<String>> groupStrings(String[] strings) {
+        HashMap<String, List<String>> hm = new HashMap<>();
 
         for (String str : strings) {
-            public String key;
+        String key;
             for (int i = 1; i < (int)str.size(); i++) {
                 int diff = (str[i] - str[i - 1] + 26) % 26;
-                key += to_string(diff) + ",";
+                key += String.valueOf(diff) + ",";
             }
-            hm[key].push_back(str);
+            hm.computeIfAbsent(key, k -> new ArrayList<>()).add(str);
         }
 
-        vector<String[]> rtn;
-        for (auto& [key, strs] : hm)
+        List<List<String>> rtn = new ArrayList<>();
+        for (var e : hm.entrySet())
             rtn.add(strs);
 
         return rtn;

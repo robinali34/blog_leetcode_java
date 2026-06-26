@@ -98,7 +98,7 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 
 ```java
 class ListNode {
-    public int val;
+        int val;
     public ListNode next;
     public ListNode(int x) { this.val = x; this.next = NULL; }
 }
@@ -178,7 +178,7 @@ The iterative approach works by:
  */
 class Solution {
     public ListNode swapPairs(ListNode head) {
-        ListNode dummy(-1); // Stack allocation - automatically destroyed when function returns
+        ListNode dummy = new ListNode(-1); // Stack allocation - automatically destroyed when function returns
         dummy.next = head;
         ListNode pre = &dummy; // Pointer to dummy node's address
         while((head != null) && (head.next != null)) {

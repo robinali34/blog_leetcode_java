@@ -95,9 +95,9 @@ Use a map (ordered map) to store location → delta passenger changes. For each 
 
 ```java
 class Solution {
-    public boolean carPooling(int[][]& trips, int capacity) {
-        int[]timestamp(1001);
-        for(auto trip: trips) {
+        public boolean carPooling(int[][] trips, int capacity) {
+        int[] timestamp = new int[1001];
+        for (int trip : trips) {
             timestamp[trip[1]] += trip[0];  // Pick up passengers
             timestamp[trip[2]] -= trip[0];  // Drop off passengers
         }
@@ -128,10 +128,10 @@ class Solution {
 // import java.util.Arrays;
 // import java.util.Collections;
 class Solution {
-    public boolean carPooling(int[][]& trips, int capacity) {
-        List<int[]> events;  // {location, passenger_change}
+        public boolean carPooling(int[][] trips, int capacity) {
+        List<int[]> events = new ArrayList<>();  // new int[] {location, passenger_change}
 
-        for(auto trip: trips) {
+        for (int trip : trips) {
             events.add({trip[1], trip[0]});   // Pick up
             events.add({trip[2], -trip[0]});  // Drop off
         }
@@ -139,8 +139,8 @@ class Solution {
         Arrays.sort(events);
 
         int usedCapacity = 0;
-        for(auto event: events) {
-            usedCapacity += event.second;
+        for (int event : events) {
+            usedCapacity += event[1];
             if(usedCapacity > capacity) {
                 return false;
             }
@@ -162,24 +162,25 @@ class Solution {
 **Space Complexity:** O(n)
 
 ```java
+// import java.util.*;
 class Solution {
-    public boolean carPooling(int[][]& trips, int capacity) {
+        public boolean carPooling(int[][] trips, int capacity) {
         sort(trips /* elements of trips */, [](int[] a, int[] b) {
             return a[1] < b[1];  // Sort by pickup location
         });
 
-        priority_queue<int[], List<int[]>, greater<int[]>> pq;
+        PriorityQueue<int[]> pq;
         int usedCapacity = 0;
 
-        for(auto trip: trips) {
+        for (int trip : trips) {
             int passengers = trip[0];
             int pickup = trip[1];
             int dropoff = trip[2];
 
             // Drop off passengers who have reached their destination
-            while(!pq.length == 0 && pq.top().first <= pickup) {
-                usedCapacity -= pq.top().second;
-                pq.pop();
+            while(!pq.isEmpty() && pq.peek().first <= pickup) {
+                usedCapacity -= pq.peek().second;
+                pq.poll();
             }
 
             // Pick up new passengers
@@ -189,7 +190,7 @@ class Solution {
             }
 
             // Add drop-off event
-            pq.push({dropoff, passengers});
+            pq.offer(new int[] {dropoff, passengers});
         }
 
         return true;

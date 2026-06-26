@@ -98,21 +98,22 @@ This problem requires constructing word squares where each row and corresponding
 ### **Solution: Backtracking with Trie**
 
 ```java
+// import java.util.*;
 class TrieNode {
     unordered_map<char, shared_ptr<TrieNode>> children;
-    int[]wordList;
+    List<Integer> wordList = new ArrayList<>();
 }
 class Solution {
-    public int N;
+        int N;
     public String[]words;
     shared_ptr<TrieNode> trie;
 
-    void buildTree() {
+    public void buildTree() {
         trie = make_shared<TrieNode>();
         for(int i = 0; i < words.length; i++) {
             shared_ptr<TrieNode> node = trie;
             for(char c: words[i]) {
-                if(!node.children.count(c)) {
+                if(!node.children.contains(c)) {
                     node.children[c] = make_shared<TrieNode>();
                 }
                 node = node.children[c];
@@ -124,7 +125,7 @@ class Solution {
     int[]getWordsWithPrefix(String prefix) {
         shared_ptr<TrieNode> node = trie;
         for(char c: prefix) {
-            if(!node.children.count(c)) {
+            if(!node.children.contains(c)) {
                 return {}
             }
             node = node.children[c];
@@ -132,14 +133,14 @@ class Solution {
         return node.wordList;
     }
 
-    void backtrack(int step, String[] square, vector<String[]>& rtn) {
+    public void backtrack(int step, String[] square, List<List<String>>& rtn) {
         if(step == N) {
             rtn.add(square);
             return;
         }
         String prefix;
         for(String word: square) {
-            prefix += word[step];
+            prefix += word.charAt(step);
         }
         for(int idx: getWordsWithPrefix(prefix)) {
             square.add(words[idx]);
@@ -147,13 +148,13 @@ class Solution {
             square.removeLast();
         }
     }
-    vector<String[]> wordSquares(String[] words) {
+    List<List<String>> wordSquares(String[] words) {
         if(words.length == 0) return {}
         this.words = words;
         this.N = words[0].length;
         buildTree();
 
-        vector<String[]> rtn;
+        List<List<String>> rtn = new ArrayList<>();
         for(String word: words) {
             String[]square{word}
             backtrack(1, square, rtn);
@@ -287,7 +288,8 @@ I think there might be an error in my understanding or the example. Let me assum
 Here's the general backtracking template used in this problem:
 
 ```java
-static void backtrack(int step, String[] square, vector<String[]>& rtn) {
+// import java.util.*;
+static void backtrack(int step, String[] square, List<List<String>>& rtn) {
     // Base case: solution is complete
     if(step == N) {
         rtn.add(square);  // Add complete solution
@@ -305,8 +307,7 @@ static void backtrack(int step, String[] square, vector<String[]>& rtn) {
         // Make move: add candidate to solution
         square.add(words[idx]);
 
-        // Recurse: explore further
-        backtrack(step + 1, square, rtn);
+        // Recurse: explore further backtrack = new further(step + 1, square, rtn);
 
         // Backtrack: remove candidate to try next
         square.removeLast();
@@ -444,7 +445,7 @@ Actually, I realize the prefix building might work differently. Let me check the
 ```java
 String prefix;
 for(String word: square) {
-    prefix += word[step];
+    prefix += word.charAt(step);
 }
 ```
 

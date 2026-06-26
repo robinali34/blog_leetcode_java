@@ -89,11 +89,11 @@ This is a **two-pointer** problem that can be solved with a greedy approach. The
 
 ```java
 class Solution {
-    public boolean isSubsequence(String s, String t) {
+        public boolean isSubsequence(String s, String t) {
         int N = s.length(), M = t.length();
         int i = 0, j = 0;
         while(i < N && j < M) {
-            if(s[i] == t[j]) {
+            if(s.charAt(i) == t.charAt(j)) {
                 i++;
                 j++;
             }
@@ -210,7 +210,7 @@ The two-pointer approach is optimal because:
 
 **Note**: The code increments `j` twice when there's a match (once in the `if` block, once after). This is equivalent to:
 ```java
-if(s[i] == t[j]) {
+if(s.charAt(i) == t.charAt(j)) {
     i++;
 }
 j++;  // Always advance j
@@ -291,13 +291,13 @@ If we need to check many strings `s` against the same `t`, we can optimize:
 // Preprocess t to store character positions
 unordered_map<char, int[]> charPositions;
 for(int i = 0; i < t.length(); i++) {
-    charPositions[t[i]].push_back(i);
+    charPositions.computeIfAbsent(t.charAt(i), k.new ArrayList<>()).add(i);
 }
 
 // For each query s, use binary search
 static boolean isSubsequence(String s, unordered_map<char, int[]>& pos) {
     int prev = -1;
-    for(char c : s) {
+    for (char c : s.toCharArray()) {
         var it = binary search (upper bound)(pos[c].begin(), pos[c].end(), prev);
         if(it == pos[c].end()) return false;
         prev = *it;

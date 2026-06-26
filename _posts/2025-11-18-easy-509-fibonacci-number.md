@@ -111,7 +111,7 @@ This solution uses bottom-up dynamic programming with memoization to avoid recal
 
 ```java
 class Solution {
-    public int fib(int n) {
+        public int fib(int n) {
         int[] cache = new int[n + 1];
 
         if(n <) return 0;
@@ -217,12 +217,11 @@ Only keep track of the last two values instead of the entire array:
 
 ```java
 class Solution {
-    public int fib(int n) {
+        public int fib(int n) {
         if(n <) return 0;
         if(n == 1) return 1;
-
-        int prev2 = 0;  // F(0)
-        int prev1 = 1;  // F(1)
+        prev2 = 0; // F(0)
+        prev1 = 1; // F(1)
 
         for(int i = 2; i <= n; i++) {
             int curr = prev1 + prev2;
@@ -250,11 +249,11 @@ class Solution {
 
 ```java
 class Solution {
-    public int fib(int n) {
-        int[]memo(n + 1, -1);
-        return fibHelper(n, memo);
+        public int fib(int n) {
+        public int[] memo(n + 1, -1);
+        return fibHelper = new return(n, memo);
     }
-    int fibHelper(int n, int[] memo) {
+        public int fibHelper(int n, int[] memo) {
         if(n <) return 0;
         if(n == 1) return 1;
 
@@ -281,7 +280,7 @@ class Solution {
 
 ```java
 class Solution {
-    public int fib(int n) {
+        public int fib(int n) {
         if(n <) return 0;
         if(n == 1) return 1;
         return fib(n - 1) + fib(n - 2);
@@ -303,18 +302,18 @@ Uses matrix exponentiation for logarithmic time complexity:
 
 ```java
 class Solution {
-    public int fib(int n) {
+        public int fib(int n) {
         if(n <) return 0;
         if(n == 1) return 1;
 
         // Matrix: [F(n+1) F(n)  ] = [1 1]^n
         //         [F(n)   F(n-1)]   [1 0]
-        int[][] base = \{\{1, 1\}, \{1, 0\}\}
+        int[][] base = new int[][] {new int[] {1, 1}, new int[] {1, 0}};
         int[][] result = matrixPower(base, n);
 
         return result[0][1];
     }
-    int[][] matrixPower(int[][]& m, int n) {
+    int[][] matrixPower(int[][] m, int n) {
         if(n == 1) return m;
 
         int[][] half = matrixPower(m, n / 2);
@@ -327,7 +326,7 @@ class Solution {
         return result;
     }
 
-    int[][] matrixMultiply(int[][]& a, int[][]& b) {
+    int[][] matrixMultiply(int[][] a, int[][] b) {
         return {
             {a[0][0]*b[0][0] + a[0][1]*b[1][0], a[0][0]*b[0][1] + a[0][1]*b[1][1]},
             {a[1][0]*b[0][0] + a[1][1]*b[1][0], a[1][0]*b[0][1] + a[1][1]*b[1][1]}

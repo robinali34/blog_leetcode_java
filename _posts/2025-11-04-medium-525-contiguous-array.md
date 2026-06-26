@@ -70,7 +70,7 @@ Convert `0` to `-1` and `1` to `+1`, then use prefix sum. When we see a prefix s
 ```java
 // import java.util.*;
 class Solution {
-    public int findMaxLength(int[] nums) {
+        public int findMaxLength(int[] nums) {
         HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
         map.put(0, -1);  // Base case: prefix sum 0 at index -1
         int maxLen = 0, count = 0;

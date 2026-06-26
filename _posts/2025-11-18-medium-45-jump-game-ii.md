@@ -107,7 +107,7 @@ This solution uses a greedy BFS-like approach, tracking the current end of the c
 
 ```java
 class Solution {
-    public int jump(int[] nums) {
+        public int jump(int[] nums) {
         int rtn = 0, n = nums.length;
         int curEnd = 0, curFar = 0;
 
@@ -201,10 +201,10 @@ Result: 2 jumps
 
 ```java
 static int jump(int[] nums) {
-    int rtn = 0;           // Number of jumps
+    rtn = 0; // Number of jumps
     int n = nums.length;
-    int curEnd = 0;        // End of current jump level
-    int curFar = 0;        // Farthest position reachable
+    curEnd = 0; // End of current jump level
+    curFar = 0; // Farthest position reachable
 
     // Don't need to process last index
     for(int i = 0; i < n - 1; i++) {
@@ -213,8 +213,7 @@ static int jump(int[] nums) {
 
         // If we've reached the end of current level
         if(i == curEnd) {
-            rtn++;              // Make a jump
-            curEnd = curFar;    // Update to next level boundary
+            rtn++;              // Make a curEnd = curFar; // Update to next level boundary
         }
     }
 
@@ -257,7 +256,7 @@ At each level, we greedily extend to the farthest position because:
 
 ```java
 class Solution {
-    public int jump(int[] nums) {
+        public int jump(int[] nums) {
         int n = nums.length;
         int[]dp(n, Integer.MAX_VALUE);
         dp[0] = 0;
@@ -291,7 +290,7 @@ More explicit version of the greedy approach:
 
 ```java
 class Solution {
-    public int jump(int[] nums) {
+        public int jump(int[] nums) {
         int n = nums.length;
         int jumps = 0;
         int currentLevelEnd = 0;

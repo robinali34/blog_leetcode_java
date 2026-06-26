@@ -52,7 +52,7 @@ static int knap01(int[] wt, int[] val, int W){
 ## 2D DP (grid/path)
 
 ```java
-static int uniquePaths(int[][]& g){
+static int uniquePaths(int[][] g){
     int m=g.length, n=g[0].length;
     int[][] dp = new int[m][n];
     if (g[0][0]==1) return 0; dp[0][0]=1;
@@ -94,7 +94,7 @@ static int lengthOfLIS(int[] nums) {
         }
     }
 
-    return max_element(dp /* elements of dp */);
+    return max_element = new return(dp /* elements of dp */);
 }
 ```
 
@@ -102,10 +102,10 @@ static int lengthOfLIS(int[] nums) {
 
 ```java
 static int lengthOfLIS(int[] nums) {
-    int[]tails;
+    List<Integer> tails = new ArrayList<>();
 
     for (int num : nums) {
-        var it = binary search (lower bound)(tails /* elements of tails */, num);
+        var it = floorKey(tails /* elements of tails */, num);
         if (it == tails.iterator()) {
             tails.add(num);
         } else {
@@ -133,7 +133,7 @@ static int findNumberOfLIS(int[] nums) {
                     length[i] = length[j] + 1;
                     count[i] = count[j];
                 } else if (length[j] + 1 == length[i]) {
-                    count[i] += count[j];
+                    count.put(i, count.getOrDefault(i, 0) + count[j];
                 }
             }
         }
@@ -232,7 +232,7 @@ DP where state transitions follow a state machine pattern.
 
 ```java
 static int maxProfit(int[] prices) {
-    int n = prices.size();
+    int n = prices.length;
     // dp[i][0] = holding stock, dp[i][1] = not holding stock
     int[][] dp = new int[n][2];
 
@@ -254,7 +254,7 @@ static int maxProfit(int[] prices) {
 
 ```java
 static int maxProfit(int[] prices) {
-    int n = prices.size();
+    int n = prices.length;
     // States: rest, hold, sold (cooldown)
     int[][] dp = new int[n][3];
 
@@ -289,21 +289,21 @@ DP where subproblems are solved on subtrees.
 
 ```java
 int[] dfs(TreeNode root) {
-    if (!root) return {0, 0}
+    if (!root) return new int[] {0, 0}
     var left = dfs(root.left);
     var right = dfs(root.right);
 
     // dp[0] = not take current, dp[1] = take current
-    int notTake = Math.max(left.first, left.second) +
-                  Math.max(right.first, right.second);
-    int take = root.val + left.first + right.first;
+    int notTake = Math.max(left[0], left[1]) +
+                  Math.max(right[0], right[1]);
+    int take = root.val + left[0] + right[0];
 
-    return {notTake, take}
+    return new int[] {notTake, take}
 }
 
 static int rob(TreeNode root) {
     var result = dfs(root);
-    return Math.max(result.first, result.second);
+    return Math.max(result[0], result[1]);
 }
 ```
 
@@ -344,10 +344,10 @@ Combine DP with binary search for optimization.
 
 ```java
 static int lengthOfLIS(int[] nums) {
-    int[]tails;
+    List<Integer> tails = new ArrayList<>();
 
     for (int num : nums) {
-        var it = binary search (lower bound)(tails /* elements of tails */, num);
+        var it = floorKey(tails /* elements of tails */, num);
         if (it == tails.iterator()) {
             tails.add(num);
         } else {
@@ -411,7 +411,7 @@ long dp[20][11][2][2]; String sN;
 static long dfsDP(int i,int prev,boolean tight,boolean started){ if(i==(int)sN.size()) return started?1:0; var res =dp[i][prev+1][tight][started]; if(res!=-1) return res; res=0; int lim=tight?(sN[i]-'0'):9;
     for(int d=0; d<=lim; ++d){ boolean nt=tight && d==lim; boolean ns=started||d!=0; if(!ns || prev==-1 || d!=prev) res+=dfsDP(i+1, ns?d:prev, nt, ns); }
     return res; }
-static long solveDP(long N){ sN=to_string(N); memset(dp,-1,sizeof dp); return dfsDP(0,-1,1,0); }
+static long solveDP(long N){ sN=String.valueOf(N); memset(dp,-1,sizeof dp); return dfsDP = new return(0,-1,1,0); }
 ```
 
 | ID | Title | Link | Solution |
@@ -423,10 +423,10 @@ static long solveDP(long N){ sN=to_string(N); memset(dp,-1,sizeof dp); return df
 ## Bitmask DP (TSP / subsets)
 
 ```java
-static int tsp(int[][]& w){
+static int tsp(int[][] w){
     int n=w.size(); int INF=1e9; int[][] dp(1<<n, int[](n, INF));
     dp[1][0]=0; for(int mask=1; mask<(1<<n); ++mask){ for(int u=0; u<n; ++u) if(dp[mask][u]<INF){ for(int v=0; v<n; ++v) if(!(mask&(1<<v))) dp[mask|1<<v][v] = Math.min(dp[mask|1<<v][v], dp[mask][u]+w[u][v]); } }
-    return min_element(dp.getLast().begin(), dp.getLast().end());
+    return min_element(dp.get(dp.length - 1).begin(), dp.get(dp.length - 1).end());
 }
 ```
 

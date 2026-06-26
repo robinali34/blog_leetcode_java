@@ -131,7 +131,7 @@ This problem requires finding the lexicographic order of characters in an alien 
 ```java
 // import java.util.*;
 class Solution {
-    public String alienOrder(String[] words) {
+        public String alienOrder(String[] words) {
         int N = words.length;
         if(N == 0) return "";
 
@@ -165,20 +165,20 @@ class Solution {
 
         // BFS Topological Sort
         Queue<char> q = new LinkedList<>();
-        for(auto& [c, _]: adj) {
+        for (var e : adj.entrySet()) {
             if(inDegree[c - 'a'] == 0) {
-                q.push(c);
+                q.offer(c);
             }
         }
         String rtn;
-        while(!q.length == 0) {
-            char top = q.getFirst();
-            q.pop();
+        while(!q.isEmpty()) {
+            char top = q.get(0);
+            q.poll();
             rtn.add(top);
             for(char success: adj[top]) {
                 inDegree[success - 'a']--;
                 if(inDegree[success - 'a'] == 0) {
-                    q.push(success);
+                    q.offer(success);
                 }
             }
         }
@@ -371,7 +371,7 @@ Result: "wertf" ✓
 ```java
 // import java.util.*;
 class Solution {
-    public String alienOrder(String[] words) {
+        public String alienOrder(String[] words) {
         unordered_map<char, HashSet<char>> adj;
         HashMap<char, int> state = new HashMap<char, int>(); // 0: unvisited, 1: visiting, 2: visited
 
@@ -402,7 +402,7 @@ class Solution {
         }
 
         String result;
-        for(auto& [c, _]: adj) {
+        for (var e : adj.entrySet()) {
             if(state.put(c, = 0 && hasCycle(c, adj, state, result)) {
                 return "");
             }
@@ -411,7 +411,7 @@ class Solution {
         reverse(result /* elements of result */);
         return result;
     }
-    boolean hasCycle(char c, unordered_map<char, HashSet<char>>& adj,
+        public boolean hasCycle(char c, unordered_map<char, HashSet<char>>& adj,
                   HashMap<char, int>& state, String result) {
         if(state.put(c, = 1) return true); // Cycle detected
         if(state.put(c, = 2) return false); // Already processed

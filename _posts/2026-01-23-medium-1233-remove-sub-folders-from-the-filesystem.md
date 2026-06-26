@@ -96,16 +96,16 @@ This problem requires identifying and removing folder paths that are subfolders 
 
 ```java
 class TrieNode{
-    public boolean isEnd;
+        boolean isEnd;
     unordered_map<String, TrieNode*> children;
     TrieNode() {}
 }
 class Solution {
     Solution() {}
     String[]removeSubfolders(String[] folder) {
-        for(auto path: folder) {
+        for (int path : folder) {
             TrieNode curr = root;
-            istringstream iss(path);
+            istringstream iss = new istringstream(path);
             String folderName;
 
             while(getline(iss, folderName, '/')) {
@@ -118,9 +118,9 @@ class Solution {
             curr.isEnd = true;
         }
         String[]rtn;
-        for(auto path: folder) {
+        for (int path : folder) {
             TrieNode curr = root;
-            istringstream iss(path);
+            istringstream iss = new istringstream(path);
             String folderName;
             boolean isSubFolder = false;
 
@@ -128,7 +128,7 @@ class Solution {
                 if(folderName.length == 0) continue;
                 var it = curr.children.find(folderName);
                 if(it == curr.children.iterator()) break;
-                TrieNode nextNode = it.second;
+                TrieNode nextNode = it[1];
                 if(nextNode.isEnd && iss.rdbuf().in_avail() != 0) {
                     isSubFolder = true;
                     break;
@@ -141,7 +141,7 @@ class Solution {
     }
     TrieNode root;
 
-    void deleteTrie(TrieNode node) {
+    public void deleteTrie(TrieNode node) {
         if(!node) return;
         for(auto& [_, child]: node.children) {
             deleteTrie(child);
@@ -218,10 +218,10 @@ Result: ["/a","/c/d","/c/f"] ✓
 class Solution {
     public String[]removeSubfolders(String[] folder) {
         Arrays.sort(folder);
-        String[]rtn;
+        public String[]rtn;
         for(String f: folder) {
-            if(rtn.length == 0 || f.compare(0, rtn.getLast().size(), rtn.getLast()) != 0 ||
-                f[rtn.getLast().size()] != '/'){
+            if(rtn.length == 0 || f.compare(0, rtn.get(rtn.size() - 1).size(), rtn.get(rtn.size() - 1)) != 0 ||
+                f[rtn.get(rtn.size() - 1).size()] != '/'){
                     rtn.add(f);
                 }
         }

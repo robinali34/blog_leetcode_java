@@ -98,28 +98,28 @@ The solution uses backtracking (DFS) with the following strategy:
 **Space Complexity:** O(n) - For recursion stack and current partition
 
 ```java
+// import java.util.*;
 class Solution {
-    vector<String[]> partition(String s) {
+    public List<List<String>> partition(String s) {
         public String[]cur;
-        vector<String[]> rtn;
+        List<List<String>> rtn = new ArrayList<>();
         dfs(s, 0, cur, rtn);
         return rtn;
     }
-    void dfs(String str, int start, String[] cur, vector<String[]>& rtn) {
+    public void dfs(String str, int start, String[] cur, List<List<String>>& rtn) {
         if(start >= str.length()) rtn.add(cur);
         for (int end = start; end < str.length(); end++) {
             if(isPalindrome(str, start, end)) {
-                cur.add(str.substr(start, end - start + 1));
+                cur.add(str.substring(start, end - start + 1));
                 dfs(str, end + 1, cur, rtn);
                 cur.removeLast();
             }
         }
     }
-
-    boolean isPalindrome(String str, int start, int end) {
-        String copy = str.substr(start, end - start + 1);
+        public boolean isPalindrome(String str, int start, int end) {
+        String copy = str.substring(start, end - start + 1);
         reverse(copy /* elements of copy */);
-        return str.substr(start, end - start + 1) == copy;
+        return str.substring(start, end - start + 1) == copy;
     }
 }
 ```

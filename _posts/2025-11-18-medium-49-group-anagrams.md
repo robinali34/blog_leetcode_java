@@ -78,36 +78,18 @@ The key insight is to use a character frequency count as the hash map key. Strin
 
 ```java
 class Solution {
-    vector<String[]> groupAnagrams(String[] strs) {
-        if(strs.size() == 0) return vector<String[]>();
-
-        unordered_map<String, String[]> hm;
-        public int count[26];
-
-        for(String s: strs) {
-            fill(begin(count), end(count), 0);
-
-            for(char c: s) count[c-'a']++;
-
-            String key = "";
-            for(int i = 0; i < 26; i++) {
-                key += "#";
-                key += to_string(count[i]);
-            }
-
-            if(!hm.contains(key)) hm[key] = String[]();
-            hm[key].push_back(s);
+    public List<List<String>> groupAnagrams(String[] strs) {
+        Map<String, List<String>> groups = new HashMap<>();
+        for (String s : strs) {
+            int[] count = new int[26];
+            for (char c : s.toCharArray()) count[c - 'a']++;
+            StringBuilder key = new StringBuilder();
+            for (int n : count) key.append('#').append(n);
+            groups.computeIfAbsent(key.toString(), x -> new ArrayList<>()).add(s);
         }
-
-        vector<String[]> rtn;
-        for(var itr = hm.iterator(); itr != hm.iterator(); itr++) {
-            rtn.add(itr.second);
-        }
-
-        return rtn;
+        return new ArrayList<>(groups.values());
     }
-}
-```
+}```
 
 ## How the Algorithm Works
 
@@ -168,38 +150,38 @@ Groups: ["eat","tea","ate"]  ["tan","nat"]  ["bat"]
 ## Algorithm Breakdown
 
 ```java
-vector<String[]> groupAnagrams(String[] strs) {
+// import java.util.*;
+// import java.util.Arrays;
+// import java.util.Collections;
+List<List<String>> groupAnagrams(String[] strs) {
     // Handle empty input
-    if(strs.size() == 0) return vector<String[]>();
+    if(strs.length == 0) return new ArrayList<>();
 
     // Map: character count key . list of anagrams
-    unordered_map<String, String[]> hm;
+    HashMap<String, List<String>> hm = new HashMap<>();
     int count[26];  // Count array for 26 lowercase letters
 
     for(String s: strs) {
         // Reset count array
-        fill(begin(count), end(count), 0);
+        Arrays.fill(count, 0);
 
         // Count characters in current String
-        for(char c: s) count[c-'a']++;
+        for (char c : s.toCharArray()) count[c-'a']++;
 
         // Build key from character counts
         String key = "";
         for(int i = 0; i < 26; i++) {
             key += "#";           // Delimiter
-            key += to_string(count[i]);  // Count for each letter
+            key += String.valueOf(count[i]);  // Count for each letter
         }
 
         // Add String to appropriate group
-        if(!hm.contains(key)) hm[key] = String[]();
-        hm[key].push_back(s);
+        hm.computeIfAbsent(key, k -> new ArrayList<>()).add(s);
     }
 
     // Convert map values to result vector
-    vector<String[]> rtn;
-    for(var itr = hm.iterator(); itr != hm.iterator(); itr++) {
-        rtn.add(itr.second);
-    }
+    List<List<String>> rtn = new ArrayList<>();
+    for (var group : hm.values()) rtn.add(group);
 
     return rtn;
 }
@@ -224,17 +206,17 @@ vector<String[]> groupAnagrams(String[] strs) {
 // import java.util.Arrays;
 // import java.util.Collections;
 class Solution {
-    vector<String[]> groupAnagrams(String[] strs) {
-        unordered_map<String, String[]> hm;
+    public List<List<String>> groupAnagrams(String[] strs) {
+        HashMap<String, List<String>> hm = new HashMap<>();
 
         for(String s: strs) {
-            public String key = s;
+            String key = s;
             Arrays.sort(key);
-            hm[key].push_back(s);
+            hm.computeIfAbsent(key, k -> new ArrayList<>()).add(s);
         }
 
-        vector<String[]> rtn;
-        for(auto& [key, group] : hm) {
+        List<List<String>> rtn = new ArrayList<>();
+        for (var e : hm.entrySet()) {
             rtn.add(group);
         }
 
@@ -260,28 +242,18 @@ Uses prime numbers to create hash keys, avoiding string concatenation overhead.
 
 ```java
 class Solution {
-    vector<String[]> groupAnagrams(String[] strs) {
-        // Prime numbers for each letter
-        public int primes[26] = {2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97,101}
-        unordered_map<long, String[]> hm;
-
-        for(String s: strs) {
-            long key = 1;
-            for(char c: s) {
-                key *= primes[c - 'a'];
-            }
-            hm[key].push_back(s);
+    public List<List<String>> groupAnagrams(String[] strs) {
+        Map<String, List<String>> groups = new HashMap<>();
+        for (String s : strs) {
+            int[] count = new int[26];
+            for (char c : s.toCharArray()) count[c - 'a']++;
+            StringBuilder key = new StringBuilder();
+            for (int n : count) key.append('#').append(n);
+            groups.computeIfAbsent(key.toString(), x -> new ArrayList<>()).add(s);
         }
-
-        vector<String[]> rtn;
-        for(auto& [key, group] : hm) {
-            rtn.add(group);
-        }
-
-        return rtn;
+        return new ArrayList<>(groups.values());
     }
-}
-```
+}```
 
 **Pros:**
 - Fast key generation (multiplication)
@@ -311,11 +283,13 @@ class Solution {
 ### Character Count Array
 
 ```java
+// import java.util.Arrays;
+// import java.util.Collections;
 int count[26];  // For 26 lowercase letters a-z
-fill(begin(count), end(count), 0);  // Reset to zero
+Arrays.fill(count, 0);  // Reset to zero
 
 // Count characters
-for(char c: s) count[c-'a']++;  // 'a' maps to index 0, 'z' to 25
+for (char c : s.toCharArray()) count[c-'a']++;  // 'a' maps to index 0, 'z' to 25
 ```
 
 ### Key Construction
@@ -324,7 +298,7 @@ for(char c: s) count[c-'a']++;  // 'a' maps to index 0, 'z' to 25
 String key = "";
 for(int i = 0; i < 26; i++) {
     key += "#";              // Delimiter prevents ambiguity
-    key += to_string(count[i]);  // Count for letter at position i
+    key += String.valueOf(count[i]);  // Count for letter at position i
 }
 ```
 
@@ -335,12 +309,12 @@ for(int i = 0; i < 26; i++) {
 ### `HashSet.contains()` Method
 
 ```java
-if(!hm.contains(key)) hm[key] = String[]();
+if (!hm.containsKey(key)) hm.put(key, new ArrayList<>());
 ```
 
 Alternative (Java):
 ```java
-if(hm.find(key) == hm.iterator()) hm[key] = String[]();
+if(hm.find(key) == hm.iterator()) hm.put(key, new ArrayList<>());
 ```
 
 ## Common Mistakes

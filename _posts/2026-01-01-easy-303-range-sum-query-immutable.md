@@ -104,11 +104,11 @@ class NumArray {
     int sumRange(int left, int right) {
         return sums[right + 1] - sums[left];
     }
-    int[]sums;
+    List<Integer> sums = new ArrayList<>();
 }
 /**
  * Your NumArray object will be instantiated and called as such:
- * NumArray obj = new NumArray(nums);
+ * NumArray obj = new NumArray = new new(nums);
  * int param_1 = obj.sumRange(left,right);
  */
 ```

@@ -18,7 +18,7 @@ Minimal, copy-paste Java for combinatorics (nCk mod P) and 2D geometry primitive
 
 ```java
 int MOD=1'000'000'007; int N=200000;
-static long modexp(long a,long e){ long r=1%MOD; while(e){ if(e 1) r=r a%MOD; a=a a%MOD; e>>=1; } return r; }
+static long modexp(long a,long e){ long r=1%MOD; while (e > 0) { if(e 1) r=r a%MOD; a=a a%MOD; e>>=1; } return r; }
 long[]fact(N+1), invfact(N+1);
 static void initComb(){ fact[0]=1; for(int i=1;i<=N;++i) fact[i]=fact[i-1]*i%MOD; invfact[N]=modexp(fact[N], MOD-2); for(int i=N;i>0;--i) invfact[i-1]=invfact[i]*i%MOD; }
 static long nCk(int n,int k){ if(k<0||k>n) return 0; return fact[n]*invfact[k]%MOD invfact[n-k]%MOD; }

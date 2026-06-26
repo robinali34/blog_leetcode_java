@@ -108,33 +108,19 @@ There are several approaches to generate Gray codes:
 ## Solution 1: Backtracking Approach
 
 ```java
-// import java.util.*;
 class Solution {
-    public int[]grayCode(int n) {
-        int[]rtn;
-        rtn.add(0);
-        HashSet<Integer> isPresent = new HashSet<Integer>();
-        isPresent.add(0);
-        getGreyCode(rtn, n, isPresent);
-        return rtn;
-    }
-    boolean getGreyCode(int[] rtn, int n, HashSet<Integer>& isPresent) {
-        if (rtn.size() == (1 << n)) return true;
-        int current = rtn[rtn.size() - 1];
+    public List<Integer> grayCode(int n) {
+        List<Integer> result = new ArrayList<>();
+        result.add(0);
         for (int i = 0; i < n; i++) {
-            int next = current ^ (1 << i);
-            if(isPresent.find(next) == isPresent.iterator()) {
-                isPresent.add(next);
-                rtn.add(next);
-                if (getGreyCode(rtn, n, isPresent)) return true;
-                isPresent.remove(next);
-                rtn.removeLast();
+            int size = result.size();
+            for (int j = size - 1; j >= 0; j--) {
+                result.add(result.get(j) | (1 << i));
             }
         }
-        return false;
+        return result;
     }
-}
-```
+}```
 
 **Time Complexity:** O(2^n) - Exponential time due to backtracking
 **Space Complexity:** O(2^n) - For the result vector and visited set
@@ -143,12 +129,12 @@ class Solution {
 
 ```java
 class Solution {
-    public int[]grayCode(int n) {
-        int[]rtn;
+    public int[] grayCode(int n) {
+        List<Integer> rtn = new ArrayList<>();
         getGreyCode(rtn, n);
         return rtn;
     }
-    void getGreyCode(int[] rtn, int n) {
+    public void getGreyCode(int[] rtn, int n) {
         if (n == 0) {
             rtn.add(0);
             return;
@@ -171,11 +157,11 @@ class Solution {
 
 ```java
 class Solution {
-    public int[]grayCode(int n) {
-        int[]rtn;
+    public int[] grayCode(int n) {
+        List<Integer> rtn = new ArrayList<>();
         rtn.add(0);
         for(int i = 1; i <= n; i++) {
-            int pre = rtn.size();
+        int pre = rtn.size();
             int mask = 1 << (i - 1);
             for (int j = pre - 1; j >= 0; j--) {
                 rtn.add(mask | rtn[j]);
@@ -193,8 +179,8 @@ class Solution {
 
 ```java
 class Solution {
-    public int[]grayCode(int n) {
-        int[]rtn;
+    public int[] grayCode(int n) {
+        List<Integer> rtn = new ArrayList<>();
         for (int i = 0; i < (1 << n); i++) {
             rtn.add(i ^ (i >> 1));
         }
@@ -210,14 +196,14 @@ class Solution {
 
 ```java
 class Solution {
-    public int[]grayCode(int n) {
-        int[]rtn;
+    public int[] grayCode(int n) {
+        List<Integer> rtn = new ArrayList<>();
         getGreyCode(rtn, n);
         return rtn;
     }
     int nextNum = 0;
 
-    void getGreyCode(int[] rtn, int n) {
+    public void getGreyCode(int[] rtn, int n) {
         if(n == 0) {
             rtn.add(nextNum);
             return;

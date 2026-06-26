@@ -196,20 +196,21 @@ If `p = G` and `q = F`:
 
 ### Approach 1: Path Collection
 ```java
+// import java.util.*;
 Node lowestCommonAncestor(Node p, Node q) {
-    unordered_set<Node> path;
+    HashSet<Node> path = new HashSet<Node>();
 
     // Collect path from p to root
     Node curr = p;
-    while(curr) {
+    while (curr > 0) {
         path.add(curr);
         curr = curr.parent;
     }
 
     // Find first common node in path from q to root
     curr = q;
-    while(curr) {
-        if(path.count(curr)) return curr;
+    while (curr > 0) {
+        if(path.contains(curr)) return curr;
         curr = curr.parent;
     }
 
@@ -221,7 +222,7 @@ Node lowestCommonAncestor(Node p, Node q) {
 ```java
 static int getDepth(Node node) {
     int depth = 0;
-    while(node) {
+    while (node > 0) {
         depth++;
         node = node.parent;
     }

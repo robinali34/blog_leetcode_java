@@ -93,16 +93,16 @@ This problem requires finding the first and last occurrence of a target in a sor
 
 ```java
 class Solution {
-    public int[]searchRange(int[] nums, int target) {
+    public int[] searchRange(int[] nums, int target) {
         if(nums.length == 0) return {-1, -1}
         int left = lowerBound(nums, target);
         if (left == nums.length || nums[left] != target) {
             return {-1, -1}
         }
         int right = upperBound(nums, target) - 1;
-        return {left, right}
+        return new int[] {left, right}
     }
-    int lowerBound(int[] nums, int target) {
+        public int lowerBound(int[] nums, int target) {
         int left = 0, right = nums.length;
         while(left < right) {
             int mid = left + (right - left) / 2;
@@ -111,8 +111,7 @@ class Solution {
         }
         return left;
     }
-
-    int upperBound(int[] nums, int target) {
+        public int upperBound(int[] nums, int target) {
         int left = 0, right = nums.length;
         while(left < right) {
             int mid = left + (right - left) / 2;

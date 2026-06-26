@@ -103,14 +103,14 @@ class MyCalendar {
     }
 
     boolean book(int startTime, int endTime) {
-        int[] event{startTime, endTime}
-        var nextEvent = calendar.binary search (lower bound)(event);
-        if(nextEvent != calendar.iterator() && nextEvent.first < endTime) {
+        int[] eventnew int[] {startTime, endTime}
+        var nextEvent = calendar.floorKey(event);
+        if(nextEvent != calendar.iterator() && nextEvent[0] < endTime) {
             return false;
         }
         if(nextEvent != calendar.iterator()) {
             var preEvent = prev(nextEvent);
-            if(preEvent.second > startTime) {
+            if(preEvent[1] > startTime) {
                 return false;
             }
         }
@@ -231,18 +231,19 @@ Step 3: book(20, 30)
 Simple approach for small number of bookings:
 
 ```java
+// import java.util.*;
 class MyCalendar {
-    List<int[]> events;
+    List<int[]> events = new ArrayList<>();
     MyCalendar() {}
 
     boolean book(int start, int end) {
-        for (auto& [s, e] : events) {
+        for (var e : events.entrySet()) {
             // Check overlap: [s, e) and [start, end)
             if (start < e && s < end) {
                 return false;
             }
         }
-        events.add({start, end});
+        events.add(new int[] {start, end});
         return true;
     }
 }

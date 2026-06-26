@@ -103,6 +103,7 @@ This is an **incremental/dynamic** problem where we add land cells one by one an
 ### **Solution: Union-Find (Disjoint Set Union) with Path Compression and Union by Rank**
 
 ```java
+// import java.util.*;
 class UnionFind{
     UnionFind(int size) {
         parent.resize(size, -1);
@@ -152,14 +153,14 @@ class UnionFind{
     int cnt;
 }
 class Solution {
-    public int[]numIslands2(int m, int n, int[][]& positions) {
-        {% raw %}List<int[]> dirs = {{-1, 0}, {1, 0}, {0, 1}, {0, -1}};{% endraw %}
-        UnionFind dsu(m n);
-        int[]rtn;
-        for(auto position: positions) {
+    public int[] numIslands2(int m, int n, int[][] positions) {
+        {% raw %}List<int[]> dirs = {{-1, 0}, new int[] {1, 0}, new int[] {0, 1}, {0, -1}};{% endraw %}
+        UnionFind dsu = new UnionFind(m n);
+        List<Integer> rtn = new ArrayList<>();
+        for (int position : positions) {
             int landPosition = position[0] * n + position[1];
             dsu.addLand(landPosition);
-            for(auto& [dx, dy]: dirs) {
+            for (var e : dirs.entrySet()) {
                 int neighborX = position[0] + dx;
                 int neighborY = position[1] + dy;
                 int neighborPosition = neighborX n + neighborY;
@@ -306,10 +307,10 @@ Rebuild island count from scratch after each addition. This approach is too slow
 
 ```java
 class Solution {
-    public int[]numIslands2(int m, int n, int[][]& positions) {
+    public int[] numIslands2(int m, int n, int[][] positions) {
         int[][] grid = new int[m][n];
-        int[]result;
-        for (auto pos : positions) {
+        List<Integer> result = new ArrayList<>();
+        for (int pos : positions) {
             int r = pos[0], c = pos[1];
             if (grid[r][c] == 1) {
                 // duplicate: count stays same
@@ -321,7 +322,7 @@ class Solution {
         }
         return result;
     }
-    int countIslands(int[][]& grid) {
+        public int countIslands(int[][] grid) {
         int m = grid.length, n = grid[0].length;
         boolean[][] visited(m, boolean[](n, false));
         int count = 0;
@@ -335,7 +336,7 @@ class Solution {
         }
         return count;
     }
-    void dfs(int[][]& grid, boolean[][]& visited, int r, int c) {
+    public void dfs(int[][] grid, boolean[][]& visited, int r, int c) {
         int m = grid.length, n = grid[0].length;
         if (r < 0 || r >= m || c < 0 || c >= n || grid[r][c] == 0 || visited[r][c]) {
             return;

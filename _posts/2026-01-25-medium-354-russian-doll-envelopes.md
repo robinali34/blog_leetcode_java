@@ -93,7 +93,7 @@ If we have envelopes `[5,4]` and `[5,5]`, we want to consider `[5,5]` before `[5
 
 ```java
 class Solution {
-    public int maxEnvelopes(int[][]& envelopes) {
+        public int maxEnvelopes(int[][] envelopes) {
         if(envelopes.length == 0) return 0;
         int N = envelopes.size();
         sort(envelopes /* elements of envelopes */, [](auto e1, auto e2) {
@@ -103,10 +103,10 @@ class Solution {
         int[]dp = {envelopes[0][1]}
         for(int i = 1; i < N; i++) {
             int num = envelopes[i][1];
-            if(num > dp.getLast()) {
+            if(num > dp.get(dp.length - 1)) {
                 dp.add(num);
             } else {
-                var it = binary search (lower bound)(dp /* elements of dp */, num);
+                var it = floorKey(dp /* elements of dp */, num);
                 *it = num;
             }
         }
@@ -137,10 +137,10 @@ After sorting, we only need to find the longest increasing subsequence on height
 int[]dp = {envelopes[0][1]}
 for(int i = 1; i < N; i++) {
     int num = envelopes[i][1];
-    if(num > dp.getLast()) {
+    if(num > dp.get(dp.length - 1)) {
         dp.add(num);
     } else {
-        var it = binary search (lower bound)(dp /* elements of dp */, num);
+        var it = floorKey(dp /* elements of dp */, num);
         *it = num;
     }
 }
@@ -223,7 +223,7 @@ Chain: [2,3] → [5,4] → [6,7]
 // import java.util.Arrays;
 // import java.util.Collections;
 class Solution {
-    public int maxEnvelopes(int[][]& envelopes) {
+        public int maxEnvelopes(int[][] envelopes) {
         if(envelopes.length == 0) return 0;
         Arrays.sort(envelopes);
         int n = envelopes.size();
@@ -238,7 +238,7 @@ class Solution {
             }
         }
 
-        return max_element(dp /* elements of dp */);
+        return max_element = new return(dp /* elements of dp */);
     }
 }
 ```

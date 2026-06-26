@@ -106,7 +106,7 @@ Convert the problem to a subset sum problem using mathematical transformation.
 
 ```java
 class Solution {
-    public int findTargetSumWays(int[] nums, int target) {
+        public int findTargetSumWays(int[] nums, int target) {
         int totalSum = accumulate(nums /* elements of nums */, 0);
 
         // Check if target is achievable
@@ -120,7 +120,7 @@ class Solution {
 
         for(int num : nums) {
             for(int i = subsetSum; i >= num; i--) {
-                dp[i] += dp[i - num];
+                dp.put(i, dp.getOrDefault(i, 0) + dp[i - num];
             }
         }
 
@@ -214,7 +214,7 @@ dp[0] = 1;  // One way to make sum 0 (empty subset)
 ```java
 for(int num : nums) {
     for(int i = subsetSum; i >= num; i--) {
-        dp[i] += dp[i - num];
+        dp.put(i, dp.getOrDefault(i, 0) + dp[i - num];
     }
 }
 ```
@@ -228,10 +228,10 @@ for(int num : nums) {
 ### Approach 1: Brute Force (DFS)
 ```java
 class Solution {
-    public int findTargetSumWays(int[] nums, int target) {
-        return dfs(nums, 0, target);
+        public int findTargetSumWays(int[] nums, int target) {
+        return dfs = new return(nums, 0, target);
     }
-    int dfs(int[] nums, int index, int target) {
+        public int dfs(int[] nums, int index, int target) {
         if (index == nums.length) {
             return target == 0 ? 1 : 0;
         }
@@ -249,17 +249,17 @@ class Solution {
 ```java
 // import java.util.*;
 class Solution {
-    public int findTargetSumWays(int[] nums, int target) {
+        public int findTargetSumWays(int[] nums, int target) {
         HashMap<String, int> memo = new HashMap<String, int>();
-        return dfs(nums, 0, target, memo);
+        return dfs = new return(nums, 0, target, memo);
     }
-    int dfs(int[] nums, int index, int target, HashMap<String, int>& memo) {
+        public int dfs(int[] nums, int index, int target, HashMap<String, int>& memo) {
         if (index == nums.length) {
             return target == 0 ? 1 : 0;
         }
 
-        String key = to_string(index) + "," + to_string(target);
-        if (memo.count(key)) {
+        String key = String.valueOf(index) + "," + String.valueOf(target);
+        if (memo.contains(key)) {
             return memo[key];
         }
 

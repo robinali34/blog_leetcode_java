@@ -94,7 +94,7 @@ This is a classic **2D dynamic programming** problem. The key insight is that to
 
 ```java
 class Solution {
-    public int minPathSum(int[][]& grid) {
+        public int minPathSum(int[][] grid) {
         //dp: min sum to reach i, j grid
         // dp[0][0] = grid[0][0]
         // dp[i][0] = grid[i][0] + dp[i - 1][0]
@@ -218,9 +218,9 @@ We can optimize space to O(min(m, n)) by using a 1D array:
 
 ```java
 class Solution {
-    public int minPathSum(int[][]& grid) {
+        public int minPathSum(int[][] grid) {
         int N = grid.length, M = grid[0].length;
-        int[]dp(M);
+        int[] dp = new int[M];
 
         // Initialize first row
         dp[0] = grid[0][0];
@@ -230,7 +230,7 @@ class Solution {
 
         // Process remaining rows
         for(int i = 1; i < N; i++) {
-            dp[0] += grid[i][0];  // First column
+            dp.put(0, dp.getOrDefault(0, 0) + grid[i][0];  // First column
             for(int j = 1; j < M; j++) {
                 dp[j] = grid[i][j] + Math.min(dp[j], dp[j-1]);
             }

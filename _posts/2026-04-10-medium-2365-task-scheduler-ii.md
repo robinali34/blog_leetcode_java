@@ -78,8 +78,8 @@ Answer: 9 ✓
 ```java
 // import java.util.*;
 class Solution {
-    public long taskSchedulerII(int[] tasks, int space) {
-        HashMap<int, long> lastSeen = new HashMap<int, long>();
+        public long taskSchedulerII(int[] tasks, int space) {
+        HashMap<Integer, long> lastSeen = new HashMap<Integer, long>();
         long day = 0;
 
         for (int t : tasks) {

@@ -82,7 +82,7 @@ This problem is a variation of the prefix sum technique, but uses modulo arithme
 
 ```java
 class Solution {
-    public int subarraysDivByK(int[] nums, int k) {
+        public int subarraysDivByK(int[] nums, int k) {
         int prefixMod = 0, cnt = 0;
         int[] prefixMods = new int[k];
         prefixMods[0] = 1;

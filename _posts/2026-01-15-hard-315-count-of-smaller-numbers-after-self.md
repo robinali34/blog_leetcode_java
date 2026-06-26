@@ -124,15 +124,15 @@ This problem requires counting inversions (smaller elements to the right). We ne
 // import java.util.Arrays;
 // import java.util.Collections;
 class Fenwick {
-    public int n;
-    int[]bit;
+        int n;
+    List<Integer> bit = new ArrayList<>();
     int lowbit(int x) { return x & -x; }
     Fenwick(int _n) {}
 
     // Add delta at position x (1-indexed)
     void update(int x, int delta) {
         for (; x <= n; x += lowbit(x)) {
-            bit[x] += delta;
+            bit.put(x, bit.getOrDefault(x, 0) + delta;
         }
     }
 
@@ -146,7 +146,7 @@ class Fenwick {
     }
 }
 class Solution {
-    public int[]countSmaller(int[] nums) {
+    public int[] countSmaller(int[] nums) {
         int sz = nums.length;
         int[] res = new int[sz];
 
@@ -160,7 +160,7 @@ class Solution {
         // Process from right to left
         for (int i = sz - 1; i >= 0; --i) {
             // Find compressed index for nums[i]
-            int x = binary search (lower bound)(sorted /* elements of sorted */, nums[i]) - sorted.iterator() + 1;
+            int x = floorKey(sorted /* elements of sorted */, nums[i]) - sorted.iterator() + 1;
             // Query how many numbers < nums[i] have been seen
             res[i] = fw.query(x - 1);
             // Mark nums[i] as seen
@@ -275,18 +275,19 @@ Result: [2, 1, 1, 0] ✓
 Count inversions during merge sort:
 
 ```java
+// import java.util.*;
 class Solution {
-    public int[]countSmaller(int[] nums) {
+    public int[] countSmaller(int[] nums) {
         int n = nums.length;
         int[] res = new int[n];
-        List<int[]> indexed;
+        List<int[]> indexed = new ArrayList<>();
         for (int i = 0; i < n; i++) {
             indexed.add({nums[i], i});
         }
         mergeSort(indexed, 0, n - 1, res);
         return res;
     }
-    void mergeSort(List<int[]>& arr, int l, int r, int[] res) {
+    public void mergeSort(List<int[]>& arr, int l, int r, int[] res) {
         if (l >= r) return;
         int mid = l + (r - l) / 2;
         mergeSort(arr, l, mid, res);
@@ -294,8 +295,8 @@ class Solution {
         merge(arr, l, mid, r, res);
     }
 
-    void merge(List<int[]>& arr, int l, int mid, int r, int[] res) {
-        List<int[]> temp;
+    public void merge(List<int[]>& arr, int l, int mid, int r, int[] res) {
+        List<int[]> temp = new ArrayList<>();
         int i = l, j = mid + 1;
         int rightCount = 0;
 

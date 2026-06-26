@@ -60,13 +60,13 @@ The `start` parameter ensures we only pick elements after the current index, pre
 ```java
 class Solution {
     public int[][] subsets(int[] nums) {
-        int[][] rtn;
-        int[]path;
+        List<int[]> rtn = new ArrayList<>();
+        List<Integer> path = new ArrayList<>();
         dfs(nums, 0, path, rtn);
         return rtn;
     }
-    void dfs(int[] nums, int start,
-             int[] path, int[][]& rtn) {
+    public void dfs(int[] nums, int start,
+             int[] path, int[][] rtn) {
         rtn.add(path);
         for (int i = start; i < nums.length; i++) {
             path.add(nums[i]);
@@ -90,10 +90,10 @@ Each integer from `0` to `2^n - 1` represents a subset: bit `j` is set means inc
 class Solution {
     public int[][] subsets(int[] nums) {
         int n = nums.length;
-        int[][] rtn;
+        List<int[]> rtn = new ArrayList<>();
 
         for (int mask = 0; mask < (1 << n); mask++) {
-            int[]subset;
+            List<Integer> subset = new ArrayList<>();
             for (int j = 0; j < n; j++) {
                 if (mask & (1 << j))
                     subset.add(nums[j]);

@@ -92,19 +92,19 @@ The key insight is to preprocess the array once during construction, storing all
 ### Solution: Hash Map Approach (Optimized for Multiple Picks)
 
 ```java
+// import java.util.*;
 class Solution {
-    HashMap<Integer, int[]> pos;
+    HashMap<Integer, int[]> pos = new HashMap<Integer, int[]>();
     Solution(int[] nums) {
         // Preprocess: store all indices for each value
         for(int i = 0; i < nums.length; i++) {
             pos[nums[i]].push_back(i);
         }
     }
-
-    int pick(int target) {
+        public int pick(int target) {
         var indices = pos[target];
         // Randomly select one index from the stored indices
-        return indices[rand() % indices.size()];
+        return indices[new Random().nextInt() % indices.size()];
     }
 }
 ```
@@ -182,7 +182,7 @@ Solution(int[] nums) {
 ```java
 static int pick(int target) {
     var indices = pos[target];
-    return indices[rand() % indices.size()];
+    return indices[new Random().nextInt() % indices.size()];
 }
 ```
 
@@ -197,15 +197,14 @@ static int pick(int target) {
 
 ```java
 class Solution {
-    public int[] nums;
+    List<Integer> nums = new ArrayList<>();
     Solution(int[] nums) {}
-
-    int pick(int target) {
+        public int pick(int target) {
         int rtn = -1;
         for(int i = 0, cnt = 0; i < nums.length; ++i) {
             if(nums[i] == target) {
                 ++cnt;
-                if(rand() % cnt == 0) {
+                if(new Random().nextInt() % cnt == 0) {
                     rtn = i;
                 }
             }
@@ -254,10 +253,9 @@ class Solution {
 
 ```java
 class Solution {
-    public int[] nums;
+    List<Integer> nums = new ArrayList<>();
     Solution(int[] nums) {}
-
-    int pick(int target) {
+        public int pick(int target) {
         int count = 0;
         int result = -1;
 
@@ -265,7 +263,7 @@ class Solution {
             if(nums[i] == target) {
                 count++;
                 // With probability 1/count, select current index
-                if(rand() % count == 0) {
+                if(new Random().nextInt() % count == 0) {
                     result = i;
                 }
             }
@@ -291,12 +289,11 @@ class Solution {
 
 ```java
 class Solution {
-    public int[]nums;
+    List<Integer> nums = new ArrayList<>();
     Solution(int[] nums) {}
-
-    int pick(int target) {
+        public int pick(int target) {
         // First pass: collect all indices
-        int[]indices;
+        List<Integer> indices = new ArrayList<>();
         for(int i = 0; i < nums.length; i++) {
             if(nums[i] == target) {
                 indices.add(i);
@@ -304,7 +301,7 @@ class Solution {
         }
 
         // Second pass: random selection
-        return indices[rand() % indices.size()];
+        return indices[new Random().nextInt() % indices.size()];
     }
 }
 ```
@@ -340,7 +337,7 @@ Reservoir Sampling:
 ### Random Number Generation
 
 ```java
-rand() % indices.size()
+new Random().nextInt() % indices.size()
 ```
 
 **Why this works:**

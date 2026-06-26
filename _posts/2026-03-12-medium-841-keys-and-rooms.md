@@ -57,27 +57,27 @@ This is a **graph reachability** problem -- standard DFS or BFS from a starting 
 ```java
 // import java.util.*;
 class Solution {
-    public boolean canVisitAllRooms(int[][]& rooms) {
+        public boolean canVisitAllRooms(int[][] rooms) {
         int n = rooms.size();
         HashSet<Integer> visited = new HashSet<Integer>();
         Deque<Integer> st = new ArrayDeque<>();
 
         visited.add(0);
-        st.push(0);
+        st.offer(0);
 
-        while (!st.length == 0) {
-            int room = st.top();
-            st.pop();
+        while (!st.isEmpty()) {
+            int room = st.peek();
+            st.poll();
 
             for (int key : rooms[room]) {
-                if (!visited.count(key)) {
+                if (!visited.contains(key)) {
                     visited.add(key);
-                    st.push(key);
+                    st.offer(key);
                 }
             }
         }
 
-        return visited.size() == n;
+        return visited.length == n;
     }
 }
 ```
@@ -92,27 +92,27 @@ class Solution {
 ```java
 // import java.util.*;
 class Solution {
-    public boolean canVisitAllRooms(int[][]& rooms) {
+        public boolean canVisitAllRooms(int[][] rooms) {
         int n = rooms.size();
         HashSet<Integer> visited = new HashSet<Integer>();
         Queue<Integer> q = new LinkedList<>();
 
         visited.add(0);
-        q.push(0);
+        q.offer(0);
 
-        while (!q.length == 0) {
-            int room = q.getFirst();
-            q.pop();
+        while (!q.isEmpty()) {
+            int room = q.get(0);
+            q.poll();
 
             for (int key : rooms[room]) {
-                if (!visited.count(key)) {
+                if (!visited.contains(key)) {
                     visited.add(key);
-                    q.push(key);
+                    q.offer(key);
                 }
             }
         }
 
-        return visited.size() == n;
+        return visited.length == n;
     }
 }
 ```

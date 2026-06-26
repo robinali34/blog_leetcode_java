@@ -101,7 +101,7 @@ Use a hash map to track the first occurrence of each prefix sum and find the lon
 ```java
 // import java.util.*;
 class Solution {
-    public int longestWPI(int[] hours) {
+        public int longestWPI(int[] hours) {
         HashMap<Integer, Integer> seen = new HashMap<Integer, Integer>();
         int score = 0, res = 0;
 
@@ -112,7 +112,7 @@ class Solution {
             if(score > 0) res = i + 1;
             else if (seen.contains(score - 1)) res = Math.max(res, i - seen[score - 1]);
 
-            if(!seen.contains(score)) seen.put(score, i);
+            if(!seen.containsKey(score)) seen.put(score, i);
         }
 
         return res;
@@ -197,7 +197,7 @@ else if (seen.contains(score - 1)) res = Math.max(res, i - seen[score - 1]);
 
 ### 4. Hash Map Update
 ```java
-if(!seen.contains(score)) seen[score] = i;
+if(!seen.containsKey(score)) seen[score] = i;
 ```
 
 **Why only store first occurrence:**
@@ -210,7 +210,7 @@ if(!seen.contains(score)) seen[score] = i;
 ### Approach 1: Brute Force
 ```java
 class Solution {
-    public int longestWPI(int[] hours) {
+        public int longestWPI(int[] hours) {
         int n = hours.size();
         int maxLen = 0;
 
@@ -237,7 +237,7 @@ class Solution {
 ### Approach 2: Prefix Sum Array
 ```java
 class Solution {
-    public int longestWPI(int[] hours) {
+        public int longestWPI(int[] hours) {
         int n = hours.size();
         int[] prefix = new int[n + 1];
 

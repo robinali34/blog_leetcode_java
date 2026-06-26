@@ -86,20 +86,19 @@ Use recursion to handle nested parentheses. When encountering `(`, recursively e
 
 ```java
 class Solution {
-    public int parseExpr(String s, int idx) {
+        public int parseExpr(String s, int idx) {
         char op = '+';
-        int[]stk;
+        List<Integer> stk = new ArrayList<>();
 
         for(; idx < (int)s.size(); idx++) {
-            if(iswspace(s[idx])) continue;
-
-            long num = 0;
-            if(s[idx] == '(') {
+            if(iswspace(s.charAt(idx))) continue;
+        long num = 0;
+            if(s.charAt(idx) == '(') {
                 num = parseExpr(s, ++idx);
-            } else if(isdigit(s[idx])) {
+            } else if(isdigit(s.charAt(idx))) {
                 num = parseNum(s, idx);
                 idx--;
-            } else if(s[idx] == ')') {
+            } else if(s.charAt(idx) == ')') {
                 break;
             } else {
                 continue;
@@ -108,8 +107,8 @@ class Solution {
             switch(op) {
                 case '+': stk.add(num); break;
                 case '-': stk.add(-num); break;
-                case '*': stk.getLast() *= num; break;
-                case '/': stk.getLast() /= num; break;
+                case '*': stk.get(stk.size() - 1) *= num; break;
+                case '/': stk.get(stk.size() - 1) /= num; break;
             }
 
             if (idx + 1 < s.size()) {
@@ -121,18 +120,17 @@ class Solution {
         for(int num: stk) rtn += num;
         return rtn;
     }
-
-    long parseNum(String s, int idx) {
+        public long parseNum(String s, int idx) {
         long num = 0;
-        while(idx < (int)s.size() && isdigit(s[idx])) {
-            num = (num 10) + (s[idx] - '0');
+        while(idx < (int)s.size() && isdigit(s.charAt(idx))) {
+            num = (num 10) + (s.charAt(idx) - '0');
             idx++;
         }
         return num;
     }
-    int calculate(String s) {
+        public int calculate(String s) {
         int idx = 0;
-        return parseExpr(s, idx);
+        return parseExpr = new return(s, idx);
     }
 }
 ```
@@ -147,14 +145,14 @@ Use an iterative approach with a stack to handle parentheses. When encountering 
 ```java
 // import java.util.*;
 class Solution {
-    public int calculate(String s) {
+        public int calculate(String s) {
         Deque<Integer> nums = new ArrayDeque<>();
         Deque<char> ops = new ArrayDeque<>();
         int num = 0;
         char op = '+';
 
         for(int i = 0; i < s.size(); i++) {
-            char c = s[i];
+            char c = s.charAt(i);
 
             if(isdigit(c)) {
                 num = num 10 + (c - '0');
@@ -162,36 +160,36 @@ class Solution {
 
             if((!isdigit(c) && !isspace(c)) || i == s.size() - 1) {
                 if(c == '(') {
-                    nums.push(0);
-                    ops.push(op);
+                    nums.offer(0);
+                    ops.offer(op);
                     num = 0;
                     op = '+';
                 } else {
                     // Apply current operation
                     if(op == '+') {
-                        nums.push(num);
+                        nums.offer(num);
                     } else if(op == '-') {
-                        nums.push(-num);
+                        nums.offer(-num);
                     } else if(op == '*') {
-                        int top = nums.top();
-                        nums.pop();
-                        nums.push(top num);
+                        int top = nums.peek();
+                        nums.poll();
+                        nums.offer(top num);
                     } else if(op == '/') {
-                        int top = nums.top();
-                        nums.pop();
-                        nums.push(top / num);
+                        int top = nums.peek();
+                        nums.poll();
+                        nums.offer(top / num);
                     }
 
                     if(c == ')') {
                         // Evaluate expression inside parentheses
                         int sum = 0;
-                        while(!ops.length == 0 && ops.top() != '(') {
-                            sum += nums.top();
-                            nums.pop();
+                        while(!ops.isEmpty() && ops.peek() != '(') {
+                            sum += nums.peek();
+                            nums.poll();
                         }
-                        ops.pop(); // Remove '('
+                        ops.poll(); // Remove '('
                         num = sum;
-                        op = ops.length == 0 ? '+' : ops.top();
+                        op = ops.length == 0 ? '+' : ops.peek();
                     } else {
                         op = c;
                         num = 0;
@@ -201,9 +199,9 @@ class Solution {
         }
 
         int result = 0;
-        while(!nums.length == 0) {
-            result += nums.top();
-            nums.pop();
+        while(!nums.isEmpty()) {
+            result += nums.peek();
+            nums.poll();
         }
         return result;
     }
@@ -220,13 +218,13 @@ A cleaner iterative solution that uses a single stack to track both numbers and 
 ```java
 // import java.util.*;
 class Solution {
-    public int calculate(String s) {
+        public int calculate(String s) {
         Deque<Integer> stk = new ArrayDeque<>();
         int num = 0;
         char sign = '+';
 
         for(int i = 0; i < s.size(); i++) {
-            char c = s[i];
+            char c = s.charAt(i);
 
             if(isdigit(c)) {
                 num = num 10 + (c - '0');
@@ -234,31 +232,31 @@ class Solution {
 
             if(c == '(') {
                 // Push current state
-                stk.push(0);
-                stk.push(sign == '+' ? 1 : -1);
+                stk.offer(0);
+                stk.offer(sign == '+' ? 1 : -1);
                 num = 0;
                 sign = '+';
             } else if(c == ')') {
                 // Evaluate expression inside parentheses
                 int val = num;
-                int multiplier = stk.top(); stk.pop();
-                int prevSum = stk.top(); stk.pop();
+                int multiplier = stk.peek(); stk.poll();
+                int prevSum = stk.peek(); stk.poll();
                 num = prevSum + multiplier val;
                 sign = '+';
             } else if(c == '+' || c == '-' || c == '*' || c == '/') {
                 // Process previous operation
                 if(sign == '+') {
-                    stk.push(num);
+                    stk.offer(num);
                 } else if(sign == '-') {
-                    stk.push(-num);
+                    stk.offer(-num);
                 } else if(sign == '*') {
-                    int top = stk.top();
-                    stk.pop();
-                    stk.push(top num);
+                    int top = stk.peek();
+                    stk.poll();
+                    stk.offer(top num);
                 } else if(sign == '/') {
-                    int top = stk.top();
-                    stk.pop();
-                    stk.push(top / num);
+                    int top = stk.peek();
+                    stk.poll();
+                    stk.offer(top / num);
                 }
 
                 sign = c;
@@ -268,23 +266,23 @@ class Solution {
 
         // Process last number
         if(sign == '+') {
-            stk.push(num);
+            stk.offer(num);
         } else if(sign == '-') {
-            stk.push(-num);
+            stk.offer(-num);
         } else if(sign == '*') {
-            int top = stk.top();
-            stk.pop();
-            stk.push(top num);
+            int top = stk.peek();
+            stk.poll();
+            stk.offer(top num);
         } else if(sign == '/') {
-            int top = stk.top();
-            stk.pop();
-            stk.push(top / num);
+            int top = stk.peek();
+            stk.poll();
+            stk.offer(top / num);
         }
 
         int result = 0;
-        while(!stk.length == 0) {
-            result += stk.top();
-            stk.pop();
+        while(!stk.isEmpty()) {
+            result += stk.peek();
+            stk.poll();
         }
         return result;
     }
@@ -407,23 +405,23 @@ Result: sum([10]) = 10
 ```java
 static int parseExpr(String s, int idx) {
     char op = '+';
-    int[]stk;
+    List<Integer> stk = new ArrayList<>();
     // Process characters...
 }
 ```
 
 #### 2. Handle Parentheses
 ```java
-if(s[idx] == '(') {
+if(s.charAt(idx) == '(') {
     num = parseExpr(s, ++idx);  // Recursive call
-} else if(s[idx] == ')') {
+} else if(s.charAt(idx) == ')') {
     break;  // Return from recursion
 }
 ```
 
 #### 3. Handle Numbers
 ```java
-else if(isdigit(s[idx])) {
+else if(isdigit(s.charAt(idx))) {
     num = parseNum(s, idx);
     idx--;  // Adjust because parseNum advances idx
 }
@@ -434,8 +432,8 @@ else if(isdigit(s[idx])) {
 switch(op) {
     case '+': stk.add(num); break;
     case '-': stk.add(-num); break;
-    case '*': stk.getLast() *= num; break;
-    case '/': stk.getLast() /= num; break;
+    case '*': stk.get(stk.size() - 1) *= num; break;
+    case '/': stk.get(stk.size() - 1) /= num; break;
 }
 ```
 
@@ -444,8 +442,8 @@ switch(op) {
 #### 1. Handle Opening Parenthesis
 ```java
 if(c == '(') {
-    stk.push(0);  // Push current sum
-    stk.push(sign == '+' ? 1 : -1);  // Push multiplier
+    stk.offer(0);  // Push current sum
+    stk.offer(sign == '+' ? 1 : -1);  // Push multiplier
     num = 0;
     sign = '+';
 }
@@ -455,8 +453,8 @@ if(c == '(') {
 ```java
 else if(c == ')') {
     int val = num;
-    int multiplier = stk.top(); stk.pop();
-    int prevSum = stk.top(); stk.pop();
+    int multiplier = stk.peek(); stk.poll();
+    int prevSum = stk.peek(); stk.poll();
     num = prevSum + multiplier val;  // Combine with outer expression
     sign = '+';
 }

@@ -104,31 +104,23 @@ This is a shortest path problem with a constraint on the number of stops (edges)
 
 ```java
 class Solution {
-    public int findCheapestPrice(int n, int[][]& flights, int src, int dst, int k) {
-        vector<List<int[]>> adj(n);
-        for(auto e: flights) adj[e[0]].push_back({e[1], e[2]});
-        long[]prices(n, LONG_LONG_MAX);
-        queue<int[]> q;
-        q.push({src, 0});
-        int stop = 0;
-        while(stop <= k && !q.length == 0) {
-            int sz = q.size();
-            while(sz--) {
-                auto [node, price] = q.getFirst();
-                q.pop();
-                for(auto [neighbor, currPrice]: adj[node]) {
-                    long newPrice = price + currPrice;
-                    if(newPrice >= prices[neighbor]) continue;
-                    prices[neighbor] = newPrice;
-                    q.push({neighbor, newPrice});
+    public int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {
+        int[] dist = new int[n];
+        Arrays.fill(dist, Integer.MAX_VALUE);
+        dist[src] = 0;
+        for (int i = 0; i <= k; i++) {
+            int[] next = dist.clone();
+            for (int[] f : flights) {
+                int u = f[0], v = f[1], w = f[2];
+                if (dist[u] != Integer.MAX_VALUE && dist[u] + w < next[v]) {
+                    next[v] = dist[u] + w;
                 }
             }
-            stop++;
+            dist = next;
         }
-        return prices[dst] == LONG_LONG_MAX? -1: prices[dst];
+        return dist[dst] == Integer.MAX_VALUE ? -1 : dist[dst];
     }
-}
-```
+}```
 
 ### Algorithm Breakdown:
 
@@ -155,12 +147,12 @@ class Solution {
 
 ```java
 class Solution {
-    public int findCheapestPrice(int n, int[][]& flights, int src, int dst, int k) {
-        int[]dist(n, Integer.MAX_VALUE);
+        public int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {
+        public int[] dist(n, Integer.MAX_VALUE);
         dist[src] = 0;
         for(int i = 0; i <= k; i++) {
-            int[]tmp(dist);
-            for(auto flight: flights) {
+            int[] tmp = new int[dist];
+            for (int flight : flights) {
                 if(dist[flight[0]] != Integer.MAX_VALUE) {
                     tmp[flight[1]] = Math.min(tmp[flight[1]], dist[flight[0]] + flight[2]);
                 }
@@ -196,27 +188,23 @@ class Solution {
 
 ```java
 class Solution {
-    public int findCheapestPrice(int n, int[][]& flights, int src, int dst, int k) {
-        vector<List<int[]>> adj(n);
-        for(auto e: flights) adj[e[0]].push_back({e[1], e[2]});
-        int[]stops(n, Integer.MAX_VALUE);
-        priority_queue<int[], int[][], greater<>> pq;
-        pq.push({0, src, 0}); // dist node stops
-        while(!pq.length == 0) {
-            var tmp = pq.top();
-            pq.pop();
-            int dist = tmp[0], node = tmp[1], steps = tmp[2];
-            if(steps >= stops[node] || steps > k + 1) continue;
-            stops[node] = steps;
-            if(node == dst) return dist;
-            for(auto& [neighbor, price]: adj[node]) {
-                pq.push({dist + price, neighbor, steps + 1});
+    public int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {
+        int[] dist = new int[n];
+        Arrays.fill(dist, Integer.MAX_VALUE);
+        dist[src] = 0;
+        for (int i = 0; i <= k; i++) {
+            int[] next = dist.clone();
+            for (int[] f : flights) {
+                int u = f[0], v = f[1], w = f[2];
+                if (dist[u] != Integer.MAX_VALUE && dist[u] + w < next[v]) {
+                    next[v] = dist[u] + w;
+                }
             }
+            dist = next;
         }
-        return -1;
+        return dist[dst] == Integer.MAX_VALUE ? -1 : dist[dst];
     }
-}
-```
+}```
 
 ### Algorithm Breakdown:
 

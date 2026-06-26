@@ -83,9 +83,9 @@ Use two multisets to maintain a balanced structure: `lo` contains the smaller ha
 
 ```java
 class Solution {
-    double[]medianSlidingWindow(int[] nums, int k) {
-        double[]res;
-        multiset<int> lo, hi;
+    double[] medianSlidingWindow(int[] nums, int k) {
+        List<Double> res = new ArrayList<>();
+        TreeMap<Integer, Integer> lo, hi;
 
         var balance = [&]() {
             while(lo.size() > hi.size() + 1) {
@@ -187,9 +187,9 @@ Maintain a single multiset and a pointer to the median element. When adding/remo
 
 ```java
 class Solution {
-    double[]medianSlidingWindow(int[] nums, int k) {
-        double[]medians;
-        multiset<int> window(nums.iterator(), nums.iterator() + k);
+    double[] medianSlidingWindow(int[] nums, int k) {
+        List<Double> medians = new ArrayList<>();
+        TreeMap<Integer, Integer> window(nums.iterator(), nums.iterator() + k);
 
         var mid = next(window.iterator(), k / 2);
 
@@ -209,7 +209,7 @@ class Solution {
             if (nums[i - k] <= *mid)
                 mid++;  // Median moved right
 
-            window.remove(window.binary search (lower bound)(nums[i - k]));
+            window.remove(window.floorKey(nums[i - k]));
         }
 
         return medians;
@@ -313,7 +313,7 @@ var getMedian = [&]() . double {
 
 #### 1. Initialize
 ```java
-multiset<int> window(nums.iterator(), nums.iterator() + k);
+TreeMap<Integer, Integer> window(nums.iterator(), nums.iterator() + k);
 var mid = next(window.iterator(), k / 2);
 ```
 - Create multiset with first k elements
@@ -333,7 +333,7 @@ if (nums[i] < *mid)
 if (nums[i - k] <= *mid)
     mid++;  // Removed element was <= median, median moved right
 
-window.remove(window.binary search (lower bound)(nums[i - k]));
+window.remove(window.floorKey(nums[i - k]));
 ```
 - Adjust median iterator before removal
 - Remove element using `binary search (lower bound)` to handle duplicates
@@ -387,9 +387,9 @@ window.remove(window.binary search (lower bound)(nums[i - k]));
 
 ```java
 class Solution {
-    double[]medianSlidingWindow(int[] nums, int k) {
-        double[]medians;
-        multiset<int> window(nums.iterator(), nums.iterator() + k);
+    double[] medianSlidingWindow(int[] nums, int k) {
+        List<Double> medians = new ArrayList<>();
+        TreeMap<Integer, Integer> window(nums.iterator(), nums.iterator() + k);
         var mid = next(window.iterator(), k / 2);
 
         for (int i = k;; i++) {
@@ -412,7 +412,7 @@ class Solution {
             if (nums[i - k] <= *mid)
                 mid++;
 
-            window.remove(window.binary search (lower bound)(nums[i - k]));
+            window.remove(window.floorKey(nums[i - k]));
         }
 
         return medians;
@@ -450,8 +450,8 @@ This problem demonstrates the **Two-Heaps/Multisets Pattern**:
 
 ### Solution 1: Pre-allocate Result
 ```java
-double[]res;
-res.reserve(nums.length - k + 1);  // Pre-allocate space
+List<Double> res = new ArrayList<>();
+  // Pre-allocate space
 ```
 
 ### Solution 2: Early Exit

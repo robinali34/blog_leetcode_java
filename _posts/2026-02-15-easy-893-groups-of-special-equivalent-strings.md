@@ -78,11 +78,11 @@ For each word, sort even-index and odd-index characters separately, concatenate 
 // import java.util.Arrays;
 // import java.util.Collections;
 class Solution {
-    public int numSpecialEquivGroups(String[] words) {
+        public int numSpecialEquivGroups(String[] words) {
         HashSet<String> groups = new HashSet<String>();
 
-        for (auto w : words) {
-            String even = "", odd = "";
+        for (int w : words) {
+        String even = "", odd = "";
 
             for (int i = 0; i < (int)w.size(); i++) {
                 if (i % 2 == 0) even += w[i];
@@ -112,11 +112,11 @@ Since characters are lowercase letters (only 26), we can avoid sorting by counti
 ```java
 // import java.util.*;
 class Solution {
-    public int numSpecialEquivGroups(String[] words) {
+        public int numSpecialEquivGroups(String[] words) {
         HashSet<String> groups = new HashSet<String>();
 
-        for (auto w : words) {
-            int even[26] = {0}
+        for (int w : words) {
+            int[] even = new int[26] = {0}
             int odd[26] = {0}
             for (int i = 0; i < (int)w.size(); i++) {
                 if (i % 2 == 0) even[w[i] - 'a']++;
@@ -124,8 +124,8 @@ class Solution {
             }
 
             String key = "";
-            for (int i = 0; i < 26; i++) key += to_string(even[i]) + "#";
-            for (int i = 0; i < 26; i++) key += to_string(odd[i]) + "#";
+            for (int i = 0; i < 26; i++) key += String.valueOf(even[i]) + "#";
+            for (int i = 0; i < 26; i++) key += String.valueOf(odd[i]) + "#";
 
             groups.add(key);
         }

@@ -75,14 +75,14 @@ Build each term from the previous one, iterating from term 2 to term `n`. For ea
 {% raw %}
 ```java
 class Solution {
-    public String countAndSay(int n) {
+        public String countAndSay(int n) {
         String curr = "1";
         for (int i = 2; i <= n; i++) {
             String next;
             for (int j = 0, k = 0; j < curr.size(); j = k) {
                 while (k < curr.size() && curr[k] == curr[j])
                     k++;
-                next += to_string(k - j) + curr[j];
+                next += String.valueOf(k - j) + curr[j];
             }
             curr = next;
         }

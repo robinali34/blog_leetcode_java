@@ -57,13 +57,13 @@ This is a classic **top-down DFS with state** pattern: pass extra information (t
 {% raw %}
 ```java
 class Solution {
-    public int goodNodes(TreeNode root) {
+        public int goodNodes(TreeNode root) {
         cnt = 0;
         dfs(root, Integer.MIN_VALUE);
         return cnt;
     }
     int cnt;
-    void dfs(TreeNode node, int maxVal) {
+    public void dfs(TreeNode node, int maxVal) {
         if (!node) return;
         if (node.val >= maxVal) {
             cnt++;
@@ -86,19 +86,19 @@ Carry `maxVal` alongside each node in the stack.
 {% raw %}
 ```java
 class Solution {
-    public int goodNodes(TreeNode root) {
+        public int goodNodes(TreeNode root) {
         if (!root) return 0;
         int count = 0;
-        stack<pair<TreeNode, int>> stk;
-        stk.push({root, root.val});
+        stack<TreeNode[]> stk;
+        stk.offer({root, root.val});
 
-        while (!stk.length == 0) {
-            auto [node, maxVal] = stk.top();
-            stk.pop();
+        while (!stk.isEmpty()) {
+            int[] nodepair = stk.peek(); int node = nodepair[0]; int maxVal = nodepair[1];
+            stk.poll();
             if (node.val >= maxVal) count++;
             int newMax = Math.max(maxVal, node.val);
-            if (node.right) stk.push({node.right, newMax});
-            if (node.left) stk.push({node.left, newMax});
+            if (node.right) stk.offer({node.right, newMax});
+            if (node.left) stk.offer({node.left, newMax});
         }
 
         return count;
@@ -117,19 +117,19 @@ Same idea, but level-by-level with a queue. Each entry carries its path maximum.
 {% raw %}
 ```java
 class Solution {
-    public int goodNodes(TreeNode root) {
+        public int goodNodes(TreeNode root) {
         if (!root) return 0;
         int count = 0;
-        queue<pair<TreeNode, int>> q;
-        q.push({root, root.val});
+        queue<TreeNode[]> q;
+        q.offer({root, root.val});
 
-        while (!q.length == 0) {
-            auto [node, maxVal] = q.getFirst();
-            q.pop();
+        while (!q.isEmpty()) {
+            auto [node, maxVal] = q.get(0);
+            q.poll();
             if (node.val >= maxVal) count++;
             int newMax = Math.max(maxVal, node.val);
-            if (node.left) q.push({node.left, newMax});
-            if (node.right) q.push({node.right, newMax});
+            if (node.left) q.offer({node.left, newMax});
+            if (node.right) q.offer({node.right, newMax});
         }
 
         return count;

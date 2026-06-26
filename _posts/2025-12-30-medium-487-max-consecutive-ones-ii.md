@@ -121,7 +121,7 @@ This problem requires finding the longest sequence of consecutive 1s when we can
 
 ```java
 class Solution {
-    public int findMaxConsecutiveOnes(int[] nums) {
+        public int findMaxConsecutiveOnes(int[] nums) {
         int n = nums.length;
         int rtn = 0, dp0 = 0, dp1 = 0;
         for(int i = 0; i < n; i++) {
@@ -225,8 +225,7 @@ if(nums[i] == 1) {
     dp0++;  // Continue without flip
 } else {
     // nums[i] == 0
-    dp1 = dp0 + 1;  // Flip this 0, use previous sequence
-    dp0 = 0;        // Can't extend without flip
+    dp1 = dp0 + 1;  // Flip this 0, use previous dp0 = 0; // Can't extend without flip
 }
 ```
 
