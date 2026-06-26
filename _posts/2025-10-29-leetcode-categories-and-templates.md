@@ -7,6 +7,7 @@ permalink: /posts/2025-10-29-leetcode-categories-and-templates/
 tags: [leetcode, templates, patterns, dp, graph, sliding-window, two-pointers, binary-search]
 ---
 
+{% raw %}
 # LeetCode Categories and Solution Templates
 
 A quick reference to the most common LeetCode categories and battle‑tested C++ templates to speed up implementation.
@@ -921,3 +922,4 @@ static int schedule(List<int[]>& iv){
     return cnt;
 }
 ```
+{% endraw %}

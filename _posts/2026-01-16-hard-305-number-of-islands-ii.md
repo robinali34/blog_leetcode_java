@@ -130,7 +130,7 @@ class UnionFind{
 }
 class Solution {
     public int[] numIslands2(int m, int n, int[][] positions) {
-        {% raw %}List<int[]> dirs = {{-1, 0}, new int[] {1, 0}, new int[] {0, 1}, {0, -1}};{% endraw %}
+        int[][] dirs = {{-1, 0}, {1, 0}, {0, 1}, {0, -1}};
         UnionFind dsu = new UnionFind(m n);
         List<Integer> rtn = new ArrayList<>();
         for (int position : positions) {
