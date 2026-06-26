@@ -103,93 +103,95 @@ Typical techniques for this pattern:
 A skiplist is a probabilistic data structure that maintains multiple levels of sorted linked lists. Higher levels act as "express lanes" for faster traversal.
 
 ```java
-int MAX_LEVEL = 32;
-double P_FACTOR = 0.25;
-
-class SkiplistNode {
-        int val_;
-    vector<SkiplistNode*> forward_;
-
-    SkiplistNode(int val, int maxLevel = MAX_LEVEL) {}
-}
 class Skiplist {
-    SkiplistNode head_;
-        int level_;
+    private static final int MAX_LEVEL = 32;
+    private static final double P = 0.25;
+    private final Random rand = new Random();
+    private final SkiplistNode head = new SkiplistNode(-1, MAX_LEVEL);
+    private int level = 0;
 
-    int randomLevel() {
-        int level = 1;
-        while((new Random().nextInt() / (double)RAND_MAX) < P_FACTOR && level < MAX_LEVEL) {
-            level++;
+    private static class SkiplistNode {
+        int val;
+        SkiplistNode[] forward;
+
+        SkiplistNode(int val, int maxLevel) {
+            this.val = val;
+            this.forward = new SkiplistNode[maxLevel];
         }
-        return level;
-    }
-    Skiplist() {
     }
 
-    boolean search(int target) {
-        SkiplistNode curr = this.head_;
-        for(int i = level_ - 1; i >= 0; i--) {
-            while(curr.forward_[i] && curr.forward_[i].val_ < target) {
-                curr = curr.forward_[i];
+    private int randomLevel() {
+        int lv = 1;
+        while (rand.nextDouble() < P && lv < MAX_LEVEL) {
+            lv++;
+        }
+        return lv;
+    }
+
+    public boolean search(int target) {
+        SkiplistNode curr = head;
+        for (int i = level - 1; i >= 0; i--) {
+            while (curr.forward[i] != null && curr.forward[i].val < target) {
+                curr = curr.forward[i];
             }
         }
-        curr = curr.forward_[0];
-        if(curr && curr.val_ == target) {
-            return true;
-        }
-        return false;
+        curr = curr.forward[0];
+        return curr != null && curr.val == target;
     }
 
-    void add(int num) {
-        vector<SkiplistNode*> update(MAX_LEVEL, head_);
-        SkiplistNode curr = this.head_;
+    public void add(int num) {
+        SkiplistNode[] update = new SkiplistNode[MAX_LEVEL];
+        Arrays.fill(update, head);
+        SkiplistNode curr = head;
 
-        for(int i = level_ - 1; i >= 0; i--) {
-            while(curr.forward_[i] && curr.forward_[i].val_ < num) {
-                curr = curr.forward_[i];
+        for (int i = level - 1; i >= 0; i--) {
+            while (curr.forward[i] != null && curr.forward[i].val < num) {
+                curr = curr.forward[i];
             }
             update[i] = curr;
         }
 
         int lv = randomLevel();
-        level_ = Math.max(level_, lv);
-        SkiplistNode newNode = new SkiplistNode = new new(num, lv);
+        if (lv > level) {
+            for (int i = level; i < lv; i++) {
+                update[i] = head;
+            }
+            level = lv;
+        }
 
-        for(int i = 0; i < lv; i++) {
-            newNode.forward_[i] = update[i].forward_[i];
-            update[i].forward_[i] = newNode;
+        SkiplistNode node = new SkiplistNode(num, lv);
+        for (int i = 0; i < lv; i++) {
+            node.forward[i] = update[i].forward[i];
+            update[i].forward[i] = node;
         }
     }
 
-    boolean erase(int num) {
-        vector<SkiplistNode*> update(MAX_LEVEL, null);
-        SkiplistNode curr = this.head_;
+    public boolean erase(int num) {
+        SkiplistNode[] update = new SkiplistNode[MAX_LEVEL];
+        SkiplistNode curr = head;
 
-        for(int i = level_ - 1; i >= 0; i--) {
-            while(curr.forward_[i] && curr.forward_[i].val_ < num) {
-                curr = curr.forward_[i];
+        for (int i = level - 1; i >= 0; i--) {
+            while (curr.forward[i] != null && curr.forward[i].val < num) {
+                curr = curr.forward[i];
             }
             update[i] = curr;
         }
 
-        curr = curr.forward_[0];
-        if(!curr || curr.val_ != num) {
+        curr = curr.forward[0];
+        if (curr == null || curr.val != num) {
             return false;
         }
 
-        for(int i = 0; i < level_; i++) {
-            if(update[i].forward_[i] != curr) {
+        for (int i = 0; i < level; i++) {
+            if (update[i].forward[i] != curr) {
                 break;
             }
-            update[i].forward_[i] = curr.forward_[i];
+            update[i].forward[i] = curr.forward[i];
         }
 
-        delete curr;
-
-        while(level_ > 1 && head_.forward_[level_ - 1] == null) {
-            level_--;
+        while (level > 1 && head.forward[level - 1] == null) {
+            level--;
         }
-
         return true;
     }
 }

@@ -668,32 +668,29 @@ BFS when state includes more than just position -- expand the visited array to c
 ---
 
 ```java
-// import java.util.*;
-// BFS with state (e.g., Shortest Path with Obstacle Elimination)
 static int shortestPath(int[][] grid, int k) {
     int m = grid.length, n = grid[0].length;
-    vector<boolean[][]> visited(m, boolean[][](n, boolean[](k + 1, false)));
-    queue<int[]> q; // {x, y, obstacles_eliminated, steps}
-
-    q.offer({0, 0, 0, 0});
+    boolean[][][] visited = new boolean[m][n][k + 1];
+    Queue<int[]> q = new ArrayDeque<>();
+    q.offer(new int[]{0, 0, 0, 0});
     visited[0][0][0] = true;
-    List<int[]> dirs = {{0,1\}, \{0,-1\}, \{1,0\}, \{-1,0}}
+    int[][] dirs = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
+
     while (!q.isEmpty()) {
-        var state = q.get(0);
-        q.poll();
+        int[] state = q.poll();
         int x = state[0], y = state[1], obstacles = state[2], steps = state[3];
 
         if (x == m - 1 && y == n - 1) {
             return steps;
         }
 
-        for (var e : dirs.entrySet()) {
-            int nx = x + dx, ny = y + dy;
+        for (int[] d : dirs) {
+            int nx = x + d[0], ny = y + d[1];
             if (nx >= 0 && nx < m && ny >= 0 && ny < n) {
                 int newObstacles = obstacles + grid[nx][ny];
                 if (newObstacles <= k && !visited[nx][ny][newObstacles]) {
                     visited[nx][ny][newObstacles] = true;
-                    q.offer({nx, ny, newObstacles, steps + 1});
+                    q.offer(new int[]{nx, ny, newObstacles, steps + 1});
                 }
             }
         }

@@ -87,30 +87,27 @@ Typical techniques for this pattern:
 Use a hash set to store dictionary roots and check prefixes for each word.
 
 ```java
-// import java.util.*;
 class Solution {
-        public String shortestRoot(HashSet<String> dicSet, String word) {
-        for(int i = 1; i <= word.size(); i++) {
-        String root = word.substring(0, i);
-            if(dicSet.contains(root)) {
-                return root;
+    private String shortestRoot(Set<String> roots, String word) {
+        for (int i = 1; i <= word.length(); i++) {
+            String prefix = word.substring(0, i);
+            if (roots.contains(prefix)) {
+                return prefix;
             }
         }
         return word;
     }
-        public String replaceWords(String[] dictionary, String sentence) {
-        istringstream sStream = new istringstream(sentence);
-        HashSet<String> dicSet(dictionary /* elements of dictionary */);
-        String word;
-        String newSentence;
 
-        while(getline(sStream, word, ' ')) {
-            newSentence.append(shortestRoot(dicSet, word));
-            newSentence.append(" ");
+    public String replaceWords(List<String> dictionary, String sentence) {
+        Set<String> roots = new HashSet<>(dictionary);
+        StringBuilder result = new StringBuilder();
+        for (String word : sentence.split(" ")) {
+            if (result.length() > 0) {
+                result.append(' ');
+            }
+            result.append(shortestRoot(roots, word));
         }
-
-        if(!newSentence.isEmpty()) newSentence.removeLast();
-        return newSentence;
+        return result.toString();
     }
 }
 ```
@@ -200,59 +197,59 @@ root
 
 ## Algorithm Breakdown
 
-### Solution 1: Hash Set
+### Solution 2: Trie
 
 ```java
-class TrieNode{
-        boolean isEnd;
-    vector<TrieNode*> children;
-    TrieNode() {isEnd = false;}
+class TrieNode {
+    TrieNode[] children = new TrieNode[26];
+    boolean isEnd;
 }
-class Trie {
-    public TrieNode root;
-    public Trie() {root = new TrieNode();}
 
-    public void insert(String word) {
-        TrieNode current = root;
-        for(char c: word) {
-            if(current.children[c - 'a'] == null) {
-                current.children[c - 'a'] = new TrieNode();
+class Trie {
+    private final TrieNode root = new TrieNode();
+
+    void insert(String word) {
+        TrieNode node = root;
+        for (char c : word.toCharArray()) {
+            int idx = c - 'a';
+            if (node.children[idx] == null) {
+                node.children[idx] = new TrieNode();
             }
-            current = current.children[c - 'a'];
+            node = node.children[idx];
         }
-        current.isEnd = true;
+        node.isEnd = true;
     }
-        public String shortestRoot(String word) {
-        TrieNode current = root;
-        for(int i = 0; i < word.size(); i++) {
-            char ch = word.charAt(i);
-            if(current.children[ch - 'a'] == null) {
+
+    String shortestRoot(String word) {
+        TrieNode node = root;
+        for (int i = 0; i < word.length(); i++) {
+            int idx = word.charAt(i) - 'a';
+            if (node.children[idx] == null) {
                 return word;
             }
-            current = current.children[ch - 'a'];
-            if(current.isEnd) {
+            node = node.children[idx];
+            if (node.isEnd) {
                 return word.substring(0, i + 1);
             }
         }
         return word;
     }
 }
+
 class Solution {
-        public String replaceWords(String[] dictionary, String sentence) {
-        istringstream sStream = new istringstream(sentence);
-        Trie dicTrie;
-
-        for(String word: dictionary) {
-            dicTrie.add(word);
+    public String replaceWords(List<String> dictionary, String sentence) {
+        Trie trie = new Trie();
+        for (String root : dictionary) {
+            trie.insert(root);
         }
-
-        String word, newSentence;
-        while(getline(sStream, word, ' ')) {
-            newSentence.append(dicTrie.shortestRoot(word) + " ");
+        StringBuilder result = new StringBuilder();
+        for (String word : sentence.split(" ")) {
+            if (result.length() > 0) {
+                result.append(' ');
+            }
+            result.append(trie.shortestRoot(word));
         }
-
-        if(!newSentence.isEmpty()) newSentence.removeLast();
-        return newSentence;
+        return result.toString();
     }
 }
 ```
@@ -266,22 +263,21 @@ class Solution {
 
 ```java
 class Solution {
-        public String replaceWords(String[] dictionary, String sentence) {
-        istringstream sStream = new istringstream(sentence);
-        String word, result;
-
-        while(getline(sStream, word, ' ')) {
-        String shortest = word;
-            for(String root : dictionary) {
-                if(word.substring(0, root.size()) == root && root.size() < shortest.size()) {
+    public String replaceWords(List<String> dictionary, String sentence) {
+        StringBuilder result = new StringBuilder();
+        for (String word : sentence.split(" ")) {
+            if (result.length() > 0) {
+                result.append(' ');
+            }
+            String shortest = word;
+            for (String root : dictionary) {
+                if (word.startsWith(root) && root.length() < shortest.length()) {
                     shortest = root;
                 }
             }
-            result += shortest + " ";
+            result.append(shortest);
         }
-
-        if(!result.isEmpty()) result.removeLast();
-        return result;
+        return result.toString();
     }
 }
 ```

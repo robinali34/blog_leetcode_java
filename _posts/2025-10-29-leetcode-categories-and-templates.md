@@ -564,32 +564,44 @@ int[][] levelOrder(TreeNode root){
 ## LCA (Binary Lifting)
 
 ```java
-K = 17; // adjust for n (e.g., 17 for n<=1e5)
-List<Integer> depth = new ArrayList<>();
-vector<array<int, K+1>> up;
+int K = 17; // adjust for n (e.g., 17 for n<=1e5)
+int[] depth;
+int[][] up;
 
-static void dfsLift(int u, int p, int[][] g){
+static void dfsLift(int u, int p, List<List<Integer>> g) {
     up[u][0] = p;
-    for(int k=1;k<=K;++k)
-        up[u][k] = (up[u][k-1] < 0) ? -1 : up[ up[u][k-1] ][k-1];
-    for(int v: g[u]) if(v != p){
-        depth[v] = depth[u] + 1;
-        dfsLift(v, u, g);
+    for (int k = 1; k <= K; k++) {
+        up[u][k] = up[u][k - 1] < 0 ? -1 : up[up[u][k - 1]][k - 1];
+    }
+    for (int v : g.get(u)) {
+        if (v != p) {
+            depth[v] = depth[u] + 1;
+            dfsLift(v, u, g);
+        }
     }
 }
 
-static int lift(int u, int k){
-    for(int i=0;i<=K;++i)
-        if(k & (1<<i)) u = (u<0) ? -1 : up[u][i];
+static int lift(int u, int steps) {
+    for (int i = 0; i <= K; i++) {
+        if ((steps & (1 << i)) != 0) {
+            u = u < 0 ? -1 : up[u][i];
+        }
+    }
     return u;
 }
 
-static int lca(int a, int b){
-    if(depth[a] < depth[b]) swap(a,b);
-    a = lift(a, depth[a]-depth[b]);
-    if(a == b) return a;
-    for(int i=K;i>=0;--i)
-        if(up[a][i] != up[b][i]){ a = up[a][i]; b = up[b][i]; }
+static int lca(int a, int b) {
+    if (depth[a] < depth[b]) {
+        int tmp = a; a = b; b = tmp;
+    }
+    a = lift(a, depth[a] - depth[b]);
+    if (a == b) return a;
+    for (int i = K; i >= 0; i--) {
+        if (up[a][i] != up[b][i]) {
+            a = up[a][i];
+            b = up[b][i];
+        }
+    }
     return up[a][0];
 }
 ```
@@ -713,14 +725,29 @@ int[]topoKahn(int n, int[][] g){
 ## Dijkstra (Shortest Path with Weights ≥ 0)
 
 ```java
-// import java.util.*;
-long[]dijkstra(int n, vector<List<int[]>>& g, int s){
-    long INF = (1LL<<60);
-    long[]dist(n, INF); dist[s]=0;
-    using P=long[]; priority_queue<P, P[], greater<P>> pq; pq.offer(new int[] {0, s});
-    while(!pq.isEmpty()){
-        int[] dpair = pq.peek(); int d = dpair[0]; int u = dpair[1]; pq.poll(); if(d!=dist[u]) continue;
-        for(auto [v,w]: g[u]) if(dist[v]>d+w){ dist[v]=d+w; pq.offer({dist[v],v}); }
+long[] dijkstra(int n, List<List<int[]>> g, int s) {
+    long INF = 1L << 60;
+    long[] dist = new long[n];
+    Arrays.fill(dist, INF);
+    dist[s] = 0;
+    PriorityQueue<long[]> pq = new PriorityQueue<>(
+        (a, b) -> Long.compare(a[0], b[0])
+    );
+    pq.offer(new long[]{0, s});
+
+    while (!pq.isEmpty()) {
+        long[] curr = pq.poll();
+        long d = curr[0];
+        int u = (int) curr[1];
+        if (d != dist[u]) continue;
+
+        for (int[] edge : g.get(u)) {
+            int v = edge[0], w = edge[1];
+            if (dist[v] > d + w) {
+                dist[v] = d + w;
+                pq.offer(new long[]{dist[v], v});
+            }
+        }
     }
     return dist;
 }

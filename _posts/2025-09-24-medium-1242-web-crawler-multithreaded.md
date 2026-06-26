@@ -91,65 +91,53 @@ Typical techniques for this pattern:
 **Space Complexity:** O(n) for storing visited URLs and results
 
 ```java
-// import java.util.*;
 /**
  * // This is the HtmlParser's API interface.
- * // You should not implement it, or speculate about its implementation class HtmlParser {
- *   public:
- *     String[]getUrls(String url);
+ * // You should not implement it, or speculate about its implementation
+ * interface HtmlParser {
+ *     public List<String> getUrls(String url);
  * }
  */
 class Solution {
-    public String[]crawl(String startUrl, HtmlParser htmlParser) {
-        StUrl = getStartUrl(startUrl);
-        q.offer(startUrl);
-        var eUrl = [&]() {
-            while (true > 0) {
-                mtxq.lock();
-                if(!q.size()) {
-                    mtxq.unlock();
-                    this_thread::sleep_for(chrono::milliseconds(20));
-                    mtxq.lock();
-                    if(!q.size()) {mtxq.unlock(); return;}
+    public List<String> crawl(String startUrl, HtmlParser htmlParser) {
+        String hostname = getHostname(startUrl);
+        Set<String> visited = ConcurrentHashMap.newKeySet();
+        Queue<String> queue = new ConcurrentLinkedQueue<>();
+        visited.add(startUrl);
+        queue.offer(startUrl);
+
+        ExecutorService pool = Executors.newFixedThreadPool(16);
+        for (int i = 0; i < 16; i++) {
+            pool.submit(() -> {
+                while (true) {
+                    String url = queue.poll();
+                    if (url == null) {
+                        break;
+                    }
+                    for (String next : htmlParser.getUrls(url)) {
+                        if (!getHostname(next).equals(hostname)) {
+                            continue;
+                        }
+                        if (visited.add(next)) {
+                            queue.offer(next);
+                        }
+                    }
                 }
-                String t=q.get(0);
-                q.poll();
-                if(getStartUrl(t)!=StUrl) {mtxq.unlock(); continue;}
-                mtxm.lock();
-                if(m.contains(t)) {mtxm.unlock();mtxq.unlock(); continue;}
-                m[t] = true;
-                mtxa.lock();
-                rtn.add(t);
-                mtxa.unlock();
-                mtxm.unlock();
-                mtxq.unlock();
-                String[]vec(htmlParser.getUrls(t));
-                mtxq.lock();
-                for (int s : vec) {q.offer(s);}
-                mtxq.unlock();
-            }
-            return;
+            });
         }
-        while(n--) pool.add(thread(eUrl));
-        for (int t : pool) t.join();
-        return rtn;
+        pool.shutdown();
+        try {
+            pool.awaitTermination(10, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+        return new ArrayList<>(visited);
     }
-    String[]rtn;
-    HashMap<String, boolean> m = new HashMap<String, boolean>();
-    lock mtxq, mtxm, mtxa;
-    String StUrl;
-    int n = thread::hardware_concurrency();
-    thread[]pool;
-    Queue<String> q = new LinkedList<>();
-        public String getStartUrl(String s){
-        int t = 3;
-        String rtn="";
-        for (char c : s.toCharArray()){
-            if(c== '/') t--;
-            if(!t) return rtn;
-            rtn.add(c);
-        }
-        return rtn;
+
+    private String getHostname(String url) {
+        int start = url.indexOf("://") + 3;
+        int end = url.indexOf('/', start);
+        return end == -1 ? url.substring(start) : url.substring(start, end);
     }
 }
 ```

@@ -1232,11 +1232,46 @@ Most tree interview problems are medium difficulty, DFS recursion, postorder rea
 | 1443 | Minimum Time to Collect All Apples in a Tree | [Link](https://leetcode.com/problems/minimum-time-to-collect-all-apples-in-a-tree/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/10/20/medium-1443-minimum-time-to-collect-all-apples-in-a-tree/) |
 
 ```java
-int K = 17; List<Integer> depth = new ArrayList<>(); vector<array<int,K+1>> up;
-static void dfsLift(int u,int p,int[][] g){ up[u][0]=p; for(int k=1;k<=K;++k) up[u][k]= up[u][k-1]<0?-1: up[up[u][k-1]][k-1];
-    for(int v:g[u]) if(v!=p){ depth[v]=depth[u]+1; dfsLift(v,u,g);} }
-static int lift(int u,int k){ for(int i=0;i<=K;++i) if(k&(1<<i)) u = (u<0)?-1: up[u][i]; return u; }
-static int lca(int a,int b){ if(depth[a]<depth[b]) swap(a,b); a=lift(a, depth[a]-depth[b]); if(a==b) return a; for(int i=K;i>=0;--i) if(up[a][i]!=up[b][i]){ a=up[a][i]; b=up[b][i]; } return up[a][0]; }
+int K = 17;
+int[] depth;
+int[][] up;
+
+static void dfsLift(int u, int p, List<List<Integer>> g) {
+    up[u][0] = p;
+    for (int k = 1; k <= K; k++) {
+        up[u][k] = up[u][k - 1] < 0 ? -1 : up[up[u][k - 1]][k - 1];
+    }
+    for (int v : g.get(u)) {
+        if (v != p) {
+            depth[v] = depth[u] + 1;
+            dfsLift(v, u, g);
+        }
+    }
+}
+
+static int lift(int u, int steps) {
+    for (int i = 0; i <= K; i++) {
+        if ((steps & (1 << i)) != 0) {
+            u = u < 0 ? -1 : up[u][i];
+        }
+    }
+    return u;
+}
+
+static int lca(int a, int b) {
+    if (depth[a] < depth[b]) {
+        int tmp = a; a = b; b = tmp;
+    }
+    a = lift(a, depth[a] - depth[b]);
+    if (a == b) return a;
+    for (int i = K; i >= 0; i--) {
+        if (up[a][i] != up[b][i]) {
+            a = up[a][i];
+            b = up[b][i];
+        }
+    }
+    return up[a][0];
+}
 ```
 
 | ID | Title | Link | Solution |

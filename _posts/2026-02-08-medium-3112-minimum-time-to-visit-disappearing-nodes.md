@@ -110,40 +110,48 @@ This is a shortest path problem with time constraints. We need to find the minim
 ### Solution 1: Using long long with LLONG_MAX
 
 ```java
-// import java.util.*;
 class Solution {
     public int[] minimumTime(int n, int[][] edges, int[] disappear) {
-        if(disappear[0] == 0) return int[](n, -1);
-
-        vector<List<int[]>> adjs(n);
-        for (int e : edges) {
-        int u = e[0], v = e[1], d = e[2];
-            adjs[u].emplace_back(v, d);
-            adjs[v].emplace_back(u, d);
+        List<List<int[]>> adj = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            adj.add(new ArrayList<>());
+        }
+        for (int[] e : edges) {
+            int u = e[0], v = e[1], w = e[2];
+            adj.get(u).add(new int[]{v, w});
+            adj.get(v).add(new int[]{u, w});
         }
 
-        long[]dist(n, Long.MAX_VALUE);
-        priority_queue<long[], List<List<long>>, greater<>> pq;
+        long[] dist = new long[n];
+        Arrays.fill(dist, Long.MAX_VALUE);
         dist[0] = 0;
-        pq.emplace(new int[] {0, 0});
-        while(!pq.isEmpty()) {
-            int[] tpair = pq.peek(); int t = tpair[0]; int u = tpair[1]; pq.poll();
-            if(t > dist[u]) continue;
-            if(t >= disappear[u]) continue;
-            for (int[] edge : adjs.get(u)) {
+        PriorityQueue<long[]> pq = new PriorityQueue<>(
+            (a, b) -> Long.compare(a[0], b[0])
+        );
+        pq.offer(new long[]{0, 0});
+
+        while (!pq.isEmpty()) {
+            long[] curr = pq.poll();
+            long t = curr[0];
+            int u = (int) curr[1];
+            if (t > dist[u]) continue;
+            if (t >= disappear[u]) continue;
+
+            for (int[] edge : adj.get(u)) {
+                int v = edge[0], w = edge[1];
                 long nt = t + w;
-                if(dist[v] > nt && nt < disappear[v]) {
+                if (nt < disappear[v] && nt < dist[v]) {
                     dist[v] = nt;
-                    pq.emplace({dist[v], v});
+                    pq.offer(new long[]{nt, v});
                 }
             }
         }
 
-        int[]rtn(n, -1);
-        for(int i = 0; i < n; i++) {
-            if(dist[i] != Long.MAX_VALUE) rtn[i] = dist[i];
+        int[] ans = new int[n];
+        for (int i = 0; i < n; i++) {
+            ans[i] = dist[i] == Long.MAX_VALUE ? -1 : (int) dist[i];
         }
-        return rtn;
+        return ans;
     }
 }
 ```
@@ -188,28 +196,36 @@ class Solution {
 ### Solution 2: Using int with -1 (Cleaner)
 
 ```java
-// import java.util.*;
 class Solution {
     public int[] minimumTime(int n, int[][] edges, int[] disappear) {
-        vector<List<int[]>> adj(n);
-        for (int e : edges) {
-        int u = e[0], v = e[1], w = e[2];
-            adj[u].emplace_back(v, w);
-            adj[v].emplace_back(u, w);
+        List<List<int[]>> adj = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            adj.add(new ArrayList<>());
         }
-        int[]dis(n, -1);
+        for (int[] e : edges) {
+            adj.get(e[0]).add(new int[]{e[1], e[2]});
+            adj.get(e[1]).add(new int[]{e[0], e[2]});
+        }
+
+        int[] dis = new int[n];
+        Arrays.fill(dis, -1);
         dis[0] = 0;
-        PriorityQueue<int[]> pq = new PriorityQueue<int[]>();
-        pq.emplace(0, 0);
-        while(!pq.isEmpty()) {
-            int[] dupair = pq.peek(); int du = dupair[0]; int u = dupair[1];
-            pq.poll();
-            if(dis[u] != -1 && du > dis[u]) continue;
+        PriorityQueue<int[]> pq = new PriorityQueue<>(
+            (a, b) -> Integer.compare(a[0], b[0])
+        );
+        pq.offer(new int[]{0, 0});
+
+        while (!pq.isEmpty()) {
+            int[] curr = pq.poll();
+            int du = curr[0], u = curr[1];
+            if (dis[u] != -1 && du > dis[u]) continue;
+
             for (int[] edge : adj.get(u)) {
+                int v = edge[0], w = edge[1];
                 int nd = du + w;
-                if(nd < disappear[v] && (dis[v] == -1 || nd < dis[v])) {
+                if (nd < disappear[v] && (dis[v] == -1 || nd < dis[v])) {
                     dis[v] = nd;
-                    pq.emplace(nd, v);
+                    pq.offer(new int[]{nd, v});
                 }
             }
         }

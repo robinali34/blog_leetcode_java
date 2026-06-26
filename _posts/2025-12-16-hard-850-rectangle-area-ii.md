@@ -78,66 +78,63 @@ Typical techniques for this pattern:
 This solution uses a sweep line algorithm with coordinate compression to handle large coordinate values efficiently.
 
 ```java
-// import java.util.*;
-// import java.util.Arrays;
-// import java.util.Collections;
 class Solution {
-        public int rectangleArea(int[][] rectangles) {
-        int OPEN = 1, CLOSE = -1, MOD = 1E9 + 7;
+    private static final int MOD = 1_000_000_007;
 
+    public int rectangleArea(int[][] rectangles) {
+        final int OPEN = 1, CLOSE = -1;
         List<Integer> xCoords = new ArrayList<>();
-        vector<array<int, 4>> events; // {y, type, x1, x2}
+        List<int[]> events = new ArrayList<>();
 
-        for (int rec : rectangles) {
+        for (int[] rec : rectangles) {
             xCoords.add(rec[0]);
             xCoords.add(rec[2]);
-            events.add({rec[1], OPEN, rec[0], rec[2]});
-            events.add({rec[3], CLOSE, rec[0], rec[2]});
+            events.add(new int[]{rec[1], OPEN, rec[0], rec[2]});
+            events.add(new int[]{rec[3], CLOSE, rec[0], rec[2]});
         }
 
-        // Coordinate compression
-        Arrays.sort(xCoords);
-        xCoords.remove(unique(xCoords /* elements of xCoords */), xCoords.iterator());
+        Collections.sort(xCoords);
+        int write = 0;
+        for (int i = 0; i < xCoords.size(); i++) {
+            if (write == 0 || !xCoords.get(i).equals(xCoords.get(write - 1))) {
+                xCoords.set(write++, xCoords.get(i));
+            }
+        }
+        xCoords = xCoords.subList(0, write);
 
-        HashMap<Integer, Integer> xIdx = new HashMap<Integer, Integer>();
-        for(int i = 0; i < xCoords.size(); i++) {
-            xIdx[xCoords[i]] = i;
+        HashMap<Integer, Integer> xIdx = new HashMap<>();
+        for (int i = 0; i < xCoords.size(); i++) {
+            xIdx.put(xCoords.get(i), i);
         }
 
-        // Sort events by y-coordinate (process OPEN before CLOSE at same y)
-        sort(events /* elements of events */, [](auto a, auto b){
-            if(a[0] != b[0]) return a[0] < b[0];
-            return a[1] > b[1];
+        events.sort((a, b) -> {
+            if (a[0] != b[0]) return Integer.compare(a[0], b[0]);
+            return Integer.compare(b[1], a[1]);
         });
 
         int n = xCoords.size();
-        int[] count = new int[n];  // Coverage count for each x-segment
-        long rtn = 0;
-        int curY = events[0][0];
+        int[] count = new int[n];
+        long area = 0;
+        int curY = events.get(0)[0];
 
-        for (int e : events) {
+        for (int[] e : events) {
             int y = e[0], type = e[1], x1 = e[2], x2 = e[3];
 
-            // Calculate total covered length
             long coveredLen = 0;
-            for(int i = 0; i < n - 1; i++) {
-                if(count[i] > 0) {
-                    coveredLen += xCoords[i + 1] - xCoords[i];
+            for (int i = 0; i < n - 1; i++) {
+                if (count[i] > 0) {
+                    coveredLen += (long) xCoords.get(i + 1) - xCoords.get(i);
                 }
             }
+            area = (area + coveredLen * (y - curY)) % MOD;
 
-            rtn = (rtn + coveredLen * (y - curY)) % MOD;
-
-            // Update coverage counts
-            int idx1 = xIdx[x1], idx2 = xIdx[x2];
-            for(int i = idx1; i < idx2; i++) {
-                count.put(i, count.getOrDefault(i, 0) + type;
+            int idx1 = xIdx.get(x1), idx2 = xIdx.get(x2);
+            for (int i = idx1; i < idx2; i++) {
+                count[i] += type;
             }
-
             curY = y;
         }
-
-        return (int)rtn;
+        return (int) area;
     }
 }
 ```

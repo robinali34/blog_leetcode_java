@@ -26,7 +26,7 @@ Find the minimum total cost of such a round trip.
 
 ## Requirements
 
-- Write a function `int minimizeRoundTripCost(vector<int>& outbound, vector<int>& returnTrip)`
+- Write a function `int minimizeRoundTripCost(int[] outbound, int[] returnTrip)`
 - Both lists are of length `n`, and the values range from 1 to 1000
 - Ensure the selected outbound precedes the return in the trip (index-wise)
 - Return the minimum total trip cost
@@ -143,7 +143,7 @@ Alternatively, we can find the minimum outbound price and minimum return price s
 
 ```java
 static int minimizeRoundTripCost(int[] outbound, int[] returnTrip) {
-    int n = outbound.size();
+    int n = outbound.length;
     int minCost = Integer.MAX_VALUE;
 
     // Try all possible pairs
@@ -207,10 +207,10 @@ static int minimizeRoundTripCost(int[] outbound, int[] returnTrip) {
 // import java.util.Arrays;
 // import java.util.Collections;
 static int minimizeRoundTripCost(int[] outbound, int[] returnTrip) {
-    int n = outbound.size();
+    int n = outbound.length;
 
     // Find minimum return price
-    int minReturn = Arrays.stream(returnTrip).Math.min().getAsInt();
+    int minReturn = Arrays.stream(returnTrip).min().getAsInt();
 
     // For each outbound, pair with minimum return
     int minCost = Integer.MAX_VALUE;
@@ -321,7 +321,7 @@ Instead of storing the entire `minReturn` array, we can iterate backwards and tr
 
 ```java
 static int minimizeRoundTripCost(int[] outbound, int[] returnTrip) {
-    int n = outbound.size();
+    int n = outbound.length;
     if (n < 2) {
         return Integer.MAX_VALUE;
     }
@@ -362,7 +362,7 @@ static int minimizeRoundTripCost(int[] outbound, int[] returnTrip) {
 
 ```java
 static int minimizeRoundTripCost(int[] outbound, int[] returnTrip) {
-    int n = outbound.size();
+    int n = outbound.length;
     int minCost = Integer.MAX_VALUE;
 
     for (int i = 0; i < n; ++i) {
@@ -560,38 +560,29 @@ Explanation:
 ### Test Case Verification Code
 ```java
 static void testMinimizeRoundTripCost() {
-    vector<pair<pair<int[], int[]>, int>> testCases = {
-        {{{9, 1, 5}, {4, 5, 3}}, 4},
-        {{{5, 7, 10}, {20, 9, 1}}, 6},
-        {{{1, 100, 200}, {1000, 400, 2}}, 3},
-        {{{8, 4, 2}, {5, 3, 6}}, 5},
-        {{{1, 2, 3}, {10, 9, 8}}, 9},
-    }
-    for (var e : testCases.entrySet()) {
-        auto& [outbound, returnTrip] = input;
+    Object[][] testCases = {
+        {new int[]{9, 1, 5}, new int[]{4, 5, 3}, 4},
+        {new int[]{5, 7, 10}, new int[]{20, 9, 1}, 6},
+        {new int[]{1, 100, 200}, new int[]{1000, 400, 2}, 3},
+        {new int[]{8, 4, 2}, new int[]{5, 3, 6}, 5},
+        {new int[]{1, 2, 3}, new int[]{10, 9, 8}, 9},
+    };
+
+    for (Object[] tc : testCases) {
+        int[] outbound = (int[]) tc[0];
+        int[] returnTrip = (int[]) tc[1];
+        int expected = (int) tc[2];
         int result = minimizeRoundTripCost(outbound, returnTrip);
-        assert(result == expected && "Test case failed");
-        cout << "✓ Passed: ";
-        cout << "outbound = {";
-        for (int i = 0; i < (int)outbound.size(); ++i) {
-            cout << outbound[i];
-            if (i < (int)outbound.size() - 1) cout << ", ";
-        }
-        cout << "}, returnTrip = {";
-        for (int i = 0; i < (int)returnTrip.size(); ++i) {
-            cout << returnTrip[i];
-            if (i < (int)returnTrip.size() - 1) cout << ", ";
-        }
-        cout << "} . " << result << endl;
+        assert result == expected : "Test case failed";
+        System.out.println("✓ Passed: outbound = " + Arrays.toString(outbound)
+            + ", returnTrip = " + Arrays.toString(returnTrip) + " → " + result);
     }
 
-    cout << "All test cases passed!" << endl;
+    System.out.println("All test cases passed!");
 }
 
-// Run tests
-static int main() {
+public static void main(String[] args) {
     testMinimizeRoundTripCost();
-    return 0;
 }
 ```
 ## Key Takeaways
