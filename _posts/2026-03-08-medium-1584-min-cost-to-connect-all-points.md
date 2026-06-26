@@ -7,6 +7,7 @@ tags: [leetcode, medium, graph, mst, kruskal, dsu]
 permalink: /2026/03/08/medium-1584-min-cost-to-connect-all-points/
 ---
 
+{% raw %}
 You are given an array `points` where `points[i] = [xi, yi]` represents a point on the 2D plane. The cost to connect two points is the **Manhattan distance**: `|xi - xj| + |yi - yj|`. Return the minimum cost to connect all points such that every pair of points has a path between them.
 
 ## Examples
@@ -31,24 +32,47 @@ Output: 18
 - `-10^6 <= xi, yi <= 10^6`
 - All pairs `(xi, yi)` are distinct
 
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **BFS / DFS traversal** *(this problem)* | O(V+E) | O(V) | Connectivity, flood fill |
+| Dijkstra | O((V+E)log V) | O(V) | Non-negative edge weights |
+| Union-Find (DSU) | O(α(n)) | O(n) | Dynamic connectivity |
+| Topological sort | O(V+E) | O(V) | DAG ordering, cycle detection |
+
 ## Thinking Process
 
 This is a **Minimum Spanning Tree (MST)** problem on a complete graph. Each point is a node, and the edge weight between any two points is their Manhattan distance.
 
 ### Kruskal's Algorithm
 
-1. Generate all $\binom{n}{2}$ edges with their Manhattan distance weights
+1. Generate all binom{n}{2} edges with their Manhattan distance weights
 2. Sort edges by weight (ascending)
 3. Greedily add edges using **DSU (Union-Find)** -- skip edges that would create a cycle
-4. Stop after adding $n - 1$ edges (MST is complete)
+4. Stop after adding n - 1 edges (MST is complete)
 
 ### Why Kruskal?
 
-For a complete graph with $n$ nodes, there are $O(n^2)$ edges. Kruskal's sorts them and processes greedily, giving $O(n^2 \log n)$ total. Prim's with a heap is also $O(n^2 \log n)$ here, but Kruskal + DSU is cleaner for complete graphs.
+For a complete graph with n nodes, there are O(n^2) edges. Kruskal's sorts them and processes greedily, giving O(n^2 log n) total. Prim's with a heap is also O(n^2 log n) here, but Kruskal + DSU is cleaner for complete graphs.
 
-## Approach: Kruskal's MST + DSU -- $O(n^2 \log n)$
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 135" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Graph BFS layers</text>
 
-{% raw %}
+  <circle cx="60" cy="70" r="16" fill="#D4D8E0" stroke="#8B8680"/><text x="60" y="74" text-anchor="middle" font-size="11">S</text>
+  <circle cx="140" cy="45" r="14" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="49" text-anchor="middle" font-size="10">a</text>
+  <circle cx="140" cy="95" r="14" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="99" text-anchor="middle" font-size="10">b</text>
+  <circle cx="210" cy="70" r="14" fill="#E8D5D0" stroke="#B8A5A0"/><text x="210" y="74" text-anchor="middle" font-size="10">t</text>
+  <line x1="74" y1="65" x2="126" y2="50" stroke="#9A9792" stroke-width="1.5"/>
+  <line x1="74" y1="75" x2="126" y2="95" stroke="#9A9792" stroke-width="1.5"/>
+  <line x1="154" y1="50" x2="196" y2="65" stroke="#9A9792" stroke-width="1.5"/>
+  <text x="140" y="125" text-anchor="middle" font-size="11" fill="#6B6560">BFS: expand by layers (queue)</text>
+
+</svg>
+
+## Approach: Kruskal's MST + DSU -- O(n^2 log n)
 ```java
 // import java.util.Arrays;
 // import java.util.Collections;
@@ -105,11 +129,24 @@ class Solution {
     }
 }
 ```
-{% endraw %}
 
-**Time**: $O(n^2 \log n)$ -- $O(n^2)$ edges, sorting dominates
-**Space**: $O(n^2)$ for the edge list
+### Solution Explanation
 
+**Approach:** BFS / DFS traversal (this problem)
+
+**Key idea:** This is a **Minimum Spanning Tree (MST)** problem on a complete graph. Each point is a node, and the edge weight between any two points is their Manhattan distance.
+
+**How the code works:**
+1. Generate all binom{n}{2} edges with their Manhattan distance weights
+2. Sort edges by weight (ascending)
+3. Greedily add edges using **DSU (Union-Find)** -- skip edges that would create a cycle
+4. Stop after adding n - 1 edges (MST is complete)
+
+**Walkthrough** — input `points = [[0,0],[2,2],[3,10],[5,2],[7,0]]`, expected output `20`:
+
+1. Initialize variables from the problem setup.
+2. Apply the main loop / recursion until the condition is met.
+3. Confirm the result matches the expected output.
 ## Walk-Through
 
 ```
@@ -129,21 +166,21 @@ MST cost = 20 ✓
 
 ## DSU (Union-Find) Recap
 
-- **Path compression** (`find`): flattens the tree so future finds are nearly $O(1)$
+- **Path compression** (`find`): flattens the tree so future finds are nearly O(1)
 - **Union by rank**: always attach the smaller tree under the larger root
-- Combined: amortized $O(\alpha(n))$ per operation (practically constant)
+- Combined: amortized O(α(n)) per operation (practically constant)
 
 ## Common Mistakes
 
-- Forgetting to stop after $n - 1$ edges (MST of $n$ nodes always has exactly $n - 1$ edges)
+- Forgetting to stop after n - 1 edges (MST of n nodes always has exactly n - 1 edges)
 - Generating duplicate edges (only iterate `j = i + 1` to `n`, not all pairs)
 - Using edge weight for rank in DSU (rank tracks tree height/size, not edge weight)
 
 ## Key Takeaways
 
-- **Complete graph MST** = generate all edges + Kruskal's. Simple and effective for $n \leq 1000$
+- **Complete graph MST** = generate all edges + Kruskal's. Simple and effective for n ≤ 1000
 - **DSU** is the natural companion to Kruskal's -- it answers "are these connected?" in near-constant time
-- For larger $n$, Prim's with adjacency list or geometric optimizations (e.g., only considering nearest neighbors) would be needed
+- For larger n, Prim's with adjacency list or geometric optimizations (e.g., only considering nearest neighbors) would be needed
 
 ## Related Problems
 
@@ -151,7 +188,14 @@ MST cost = 20 ✓
 - [1168. Optimize Water Distribution in a Village](https://leetcode.com/problems/optimize-water-distribution-in-a-village/) -- MST with virtual node
 - [261. Graph Valid Tree](https://leetcode.com/problems/graph-valid-tree/) -- DSU for connectivity check
 
+## References
+
+- [LC 1584: Min Cost to Connect All Points on LeetCode](https://leetcode.com/problems/min-cost-to-connect-all-points/)
+- [LeetCode Discuss — LC 1584: Min Cost to Connect All Points](https://leetcode.com/problems/min-cost-to-connect-all-points/discuss/)
+- [LeetCode Editorial](https://leetcode.com/problems/min-cost-to-connect-all-points/editorial/) *(may require premium)*
+
 ## Template Reference
 
 - [Graph](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-graph/)
 - [Data Structures (DSU)](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-data-structures/)
+{% endraw %}

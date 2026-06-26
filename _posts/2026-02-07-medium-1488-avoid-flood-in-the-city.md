@@ -7,10 +7,7 @@ permalink: /2026/02/07/medium-1488-avoid-flood-in-the-city/
 tags: [leetcode, medium, array, greedy, binary-search, set]
 ---
 
-# 1488. Avoid Flood in The City
-
-## Problem Statement
-
+{% raw %}
 You have infinitely many lakes, all initially empty. When it rains on lake `n`, that lake becomes full. If it rains on a lake that is already full, a flood happens. Your goal is to prevent all floods.
 
 You are given an integer array `rains` where:
@@ -56,14 +53,41 @@ Explanation: Lakes 1 and 2 are full after day 2; only one dry day (day 3). We ca
 - `1 <= rains.length <= 10^5`
 - `0 <= rains[i] <= 10^9`
 
-## Solution Approach
+## Thinking Process
 
-- **Track state:** For each lake, remember the **last day** it was filled (rained on). When we see rain on the same lake again, we must have dried it on some day **after** that last fill and **before** this day.
-- **Dry days:** Store indices where `rains[i] == 0` in a **sorted set** so we can quickly find the earliest dry day in a given range (e.g. first dry day ≥ last fill day).
-- **Greedy:** When lake `L` rains again, we need to use a dry day between `mp[L]` and `i`. Greedily pick the **earliest** such dry day (`binary search (lower bound)(mp[L])`) so we leave later dry days for other lakes. Assign that day to dry lake `L`, remove that day from the set, and update `mp[L] = i`. If no dry day exists in range, return `[]`.
-- **Output:** Rain days: `ans[i] = -1`. Dry days: use the chosen lake (or default 1 for unused dry days).
+1. **Last-rain index:** Knowing when each lake was last filled tells us we must dry it before the next rain on that lake.
 
-## Solution: Greedy + Sorted Set
+- The search space must shrink monotonically each step.
+- Decide which half still satisfies the predicate, discard the other.
+- Use `mid = left + (right - left) / 2` to avoid overflow.
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 130" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Binary search: shrink [lo … hi]</text>
+
+  <rect x="40" y="40" width="48" height="32" rx="4" fill="#D4D8E0" stroke="#8B8680"/>
+  <text x="64" y="58" text-anchor="middle" font-size="12" fill="#3A3530">lo</text>
+  <rect x="108" y="40" width="48" height="32" rx="4" fill="#E0D8E4" stroke="#A098A8"/>
+  <text x="132" y="58" text-anchor="middle" font-size="12" fill="#3A3530">mid</text>
+  <rect x="196" y="40" width="48" height="32" rx="4" fill="#E8D5D0" stroke="#B8A5A0"/>
+  <text x="220" y="58" text-anchor="middle" font-size="12" fill="#3A3530">hi</text>
+  <rect x="60" y="90" width="160" height="28" rx="4" fill="#FAF8F5" stroke="#D4D1CC"/>
+  <text x="140" y="108" text-anchor="middle" font-size="11" fill="#6B6560">discard half each step → O(log n)</text>
+  <path d="M132 72v12M220 72v12" stroke="#9A9792" stroke-width="1.5" marker-end="url(#a)"/>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Standard binary search** *(this problem)* | O(log n) | O(1) | Sorted array, `left <= right` |
+| Lower / upper bound | O(log n) | O(1) | First/last position, insert index |
+| Binary search on rotated array | O(log n) | O(1) | Identify sorted half, discard other |
+| Binary search on answer | O(n log M) | O(1) | Monotonic predicate over search space |
+
+## Solution
 
 ```java
 // import java.util.*;
@@ -91,32 +115,47 @@ class Solution {
 }
 ```
 
-### Algorithm Breakdown
+### Solution Explanation
 
-1. **`rtn`:** Result array; default `1` (any lake for dry days).
-2. **`st`:** Sorted set of indices where `rains[i] == 0` (dry days available).
-3. **`mp`:** Map lake → last index where it rained on that lake.
-4. **Loop:**  
-   - **Dry day (`rains[i] == 0`):** Add `i` to `st`.  
-   - **Rain day (`rains[i] > 0`):** Set `rtn[i] = -1`. If this lake was already full (`mp.contains(rains[i])`), find the earliest dry day ≥ `mp[rains[i]]` with `binary search (lower bound)(mp[rains[i]])`. If none, return `[]`. Else assign that day to dry this lake: `rtn[*it] = rains[i]`, erase `*it` from `st`. Then set `mp[rains[i]] = i`.
-5. Unused dry days remain as `1` (valid).
+**Approach:** Standard binary search (this problem)
 
-### Why Greedy Works
+**Key idea:** 1. **Last-rain index:** Knowing when each lake was last filled tells us we must dry it before the next rain on that lake.
 
-Using the **earliest** available dry day for a lake leaves more dry days for later lakes that might need to be dried before their next rain. If we used a later dry day, we might run out of dry days for another lake.
-
-### Complexity
-
-- **Time:** O(n log n) — each dry day is inserted and at most once erased from the set; at most n `binary search (lower bound)` calls.
-- **Space:** O(n).
-
-## Key Insights
-
+**How the code works:**
 1. **Last-rain index:** Knowing when each lake was last filled tells us we must dry it before the next rain on that lake.
-2. **Earliest dry day:** `binary search (lower bound)(mp[lake])` on the set of dry days gives the first valid day to dry that lake.
-3. **Default 1:** Dry days that are never needed can output any lake number; `1` is valid.
+- The search space must shrink monotonically each step.
+- Decide which half still satisfies the predicate, discard the other.
+- Use `mid = left + (right - left) / 2` to avoid overflow.
 
+**Walkthrough** — input `rains = [1,2,3,4]`, expected output `[-1,-1,-1,-1]`:
+
+No lake rains twice, so no flood. Dry days don't appear.
+
+**Time:** O(n log n) — each dry day is inserted and at most once erased from the set; at most n `lower_bound` calls. · **Space:** O(n).
 ## Related Problems
 
 - [1642. Furthest Building You Can Reach](https://leetcode.com/problems/furthest-building-you-can-reach/) — Greedy with limited resources
 - [871. Minimum Number of Refueling Stops](https://leetcode.com/problems/minimum-number-of-refueling-stops/) — Greedy + heap/set
+
+## Common Mistakes
+
+- Skipping edge cases (empty input, single element, boundaries).
+- Off-by-one errors in loops and index ranges.
+- Forgetting to handle the case when no valid answer exists.
+
+## Key Takeaways
+
+1. **Last-rain index:** Knowing when each lake was last filled tells us we must dry it before the next rain on that lake.
+2. **Earliest dry day:** `lower_bound(mp[lake])` on the set of dry days gives the first valid day to dry that lake.
+3. **Default 1:** Dry days that are never needed can output any lake number; `1` is valid.
+
+## References
+
+- [LC 1488: Avoid Flood in The City on LeetCode](https://leetcode.com/problems/avoid-flood-in-the-city/)
+- [LeetCode Discuss — LC 1488: Avoid Flood in The City](https://leetcode.com/problems/avoid-flood-in-the-city/discuss/)
+- [LeetCode Editorial](https://leetcode.com/problems/avoid-flood-in-the-city/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [Array & Matrix](/blog_leetcode_java/posts/2025-11-24-leetcode-templates-array-matrix/)
+{% endraw %}

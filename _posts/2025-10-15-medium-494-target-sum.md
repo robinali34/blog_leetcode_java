@@ -7,8 +7,7 @@ categories: leetcode algorithm medium java dynamic-programming dp subset-sum pro
 permalink: /posts/2025-10-15-medium-494-target-sum/
 ---
 
-# [Medium] 494. Target Sum
-
+{% raw %}
 You are given an integer array `nums` and an integer `target`.
 
 You want to build an expression out of `nums` by adding one of the symbols `+` and `-` before each integer in `nums` and then concatenate all the integers.
@@ -44,62 +43,39 @@ Output: 1
 - `0 <= sum(nums[i]) <= 1000`
 - `-1000 <= target <= 1000`
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+1. **Mathematical Transformation:** Convert to subset sum problem
 
-1. **Operation definition**: What operations can we perform? (Assumption: Add '+' or '-' before each number - assign sign to each number)
+- Define state: what subproblem does `dp[i]` (or `dp[i][j]`) represent?
+- Recurrence: how does the answer build from smaller indices?
+- Base cases first; optimize space if only prior row/layer is needed.
 
-2. **Expression evaluation**: How is the expression evaluated? (Assumption: Sum all numbers with their assigned signs - standard arithmetic)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 105" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">1D DP recurrence</text>
 
-3. **All numbers**: Must we use all numbers? (Assumption: Yes - must assign sign to every number in the array)
+  <text x="30" y="38" font-size="10" fill="#9A9792">dp[i]</text>
+  <rect x="30" y="42" width="36" height="28" rx="3" fill="#D4D8E0" stroke="#8B8680"/><text x="48" y="58" text-anchor="middle" font-size="11">0</text>
+  <rect x="66" y="42" width="36" height="28" rx="3" fill="#D4D8E0" stroke="#8B8680"/><text x="84" y="58" text-anchor="middle" font-size="11">1</text>
+  <rect x="102" y="42" width="36" height="28" rx="3" fill="#E0D8E4" stroke="#A098A8"/><text x="120" y="58" text-anchor="middle" font-size="11">2</text>
+  <rect x="138" y="42" width="36" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="156" y="58" text-anchor="middle" font-size="11">?</text>
+  <path d="M120 70v8M84 70v8" stroke="#C4956A" stroke-width="1.5"/>
+  <text x="120" y="95" text-anchor="middle" font-size="11" fill="#6B6560">dp[i] from smaller indices / subproblems</text>
 
-4. **Order preservation**: Can we reorder numbers? (Assumption: No - must maintain original order, only assign signs)
+</svg>
 
-5. **Return value**: What should we return? (Assumption: Count of ways to assign signs to get target sum - integer)
+## Common Approaches
 
-## Interview Deduction Process (20 minutes)
+Typical techniques for this pattern:
 
-### Step 1: Brute-Force Approach (5 minutes)
-**Initial Thought**: "I need to assign signs. Let me try all possible sign assignments."
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **1D DP** *(this problem)* | O(n) | O(n) or O(1) | Linear recurrence |
+| 2D DP | O(nm) | O(nm) or O(n) | Grid or two-sequence problems |
+| State machine DP | O(n) | O(1) | Buy/sell, hold/not-hold states |
+| Memoization (top-down) | Same as DP | O(n) | Recursive + cache |
 
-**Naive Solution**: Try all 2^n possible ways to assign + or - to each number, count how many sum to target.
-
-**Complexity**: O(2^n) time, O(n) space
-
-**Issues**:
-- Exponential time complexity
-- Tries all combinations
-- Very inefficient for large n
-- Doesn't leverage optimal substructure
-
-### Step 2: Semi-Optimized Approach (7 minutes)
-**Insight**: "This has optimal substructure. Number of ways to get target depends on ways to get smaller sums."
-
-**Improved Solution**: Use DP with memoization. dp[i][sum] = number of ways to get sum using first i numbers. Recurrence: dp[i][sum] = dp[i-1][sum-nums[i]] + dp[i-1][sum+nums[i]].
-
-**Complexity**: O(n × S) time where S is sum range, O(n × S) space
-
-**Improvements**:
-- Leverages optimal substructure
-- Polynomial time instead of exponential
-- Correctly counts all ways
-- Can optimize space
-
-### Step 3: Optimized Solution (8 minutes)
-**Final Optimization**: "Can transform to subset sum problem. Find ways to partition into two subsets with difference = target."
-
-**Best Solution**: Transform to subset sum: find ways to assign signs so sum = target. This is equivalent to finding ways to partition into two subsets with difference = target. Use DP with space optimization.
-
-**Complexity**: O(n × S) time, O(S) space
-
-**Key Realizations**:
-1. DP is natural approach - optimal substructure
-2. Transformation to subset sum simplifies problem
-3. O(n × S) time is optimal for DP approach
-4. Space can be optimized to O(S)
-
-## Solution: Dynamic Programming (Subset Sum)
+## Solution
 
 **Time Complexity:** O(n × sum)  
 **Space Complexity:** O(sum)
@@ -131,103 +107,35 @@ class Solution {
 }
 ```
 
-## How the Algorithm Works
+### Solution Explanation
 
-### Mathematical Transformation
+**Approach:** 1D DP (this problem)
 
-The key insight is to transform the problem into a subset sum problem:
+**Key idea:** 1. **Mathematical Transformation:** Convert to subset sum problem
 
-1. **Original Problem:** Find ways to assign `+` or `-` to each number
-2. **Transformation:** Let `S+` be the sum of numbers with `+` and `S-` be the sum of numbers with `-`
-3. **Equations:**
-   - `S+ - S- = target`
-   - `S+ + S- = totalSum`
-4. **Solving:** `S+ = (target + totalSum) / 2`
+**How the code works:**
+1. **Mathematical Transformation:** Convert to subset sum problem
+- Define state: what subproblem does `dp[i]` (or `dp[i][j]`) represent?
+- Recurrence: how does the answer build from smaller indices?
+- Base cases first; optimize space if only prior row/layer is needed.
 
-### Step-by-Step Example: `nums = [1,1,1,1,1], target = 3`
+**Walkthrough** — input `nums = [1,1,1,1,1], target = 3`, expected output `5`:
 
-| Step | Calculation | Value |
-|------|-------------|-------|
-| 1 | `totalSum = 1+1+1+1+1` | `5` |
-| 2 | `subsetSum = (3+5)/2` | `4` |
-| 3 | Find ways to make sum `4` | `5` ways |
+There are 5 ways to assign symbols to make the sum of nums equal to target 3.
+-1 + 1 + 1 + 1 + 1 = 3
++1 - 1 + 1 + 1 + 1 = 3
++1 + 1 - 1 + 1 + 1 = 3
++1 + 1 + 1 - 1 + 1 = 3
++1 + 1 + 1 + 1 - 1 = 3
 
-**DP Table for subsetSum = 4:**
-```
-nums = [1,1,1,1,1], target subsetSum = 4
-
-Initial: dp = [1,0,0,0,0]
-
-After num=1: dp = [1,1,0,0,0]
-After num=1: dp = [1,2,1,0,0]  
-After num=1: dp = [1,3,3,1,0]
-After num=1: dp = [1,4,6,4,1]
-After num=1: dp = [1,5,10,10,5]
-
-Answer: dp[4] = 5
-```
-
-### Visual Representation
-
-```
-Original Problem: [1,1,1,1,1] with target = 3
-
-Possible combinations:
-+1 +1 +1 +1 -1 = 3  ✓
-+1 +1 +1 -1 +1 = 3  ✓  
-+1 +1 -1 +1 +1 = 3  ✓
-+1 -1 +1 +1 +1 = 3  ✓
--1 +1 +1 +1 +1 = 3  ✓
-
-Total: 5 ways
-```
-
+| Approach | Time Complexity | Space Complexity |
+|----------|----------------|------------------|
+| Brute Force | O(2^n) | O(n) |
+| Memoization | O(n × sum) | O(n × sum) |
+| DP (Subset Sum) | O(n × sum) | O(sum) |
 ## Algorithm Breakdown
 
 ### 1. Validation Check
-```java
-if((target + totalSum) % 2 != 0 || abs(target) > totalSum) {
-    return 0;
-}
-```
-
-**Why this check?**
-- If `(target + totalSum)` is odd, `subsetSum` would be fractional (impossible)
-- If `abs(target) > totalSum`, it's impossible to achieve the target
-
-### 2. Subset Sum Calculation
-```java
-int subsetSum = (target + totalSum) / 2;
-```
-
-**Mathematical proof:**
-- `S+ - S- = target` (equation 1)
-- `S+ + S- = totalSum` (equation 2)
-- Adding equations: `2S+ = target + totalSum`
-- Therefore: `S+ = (target + totalSum) / 2`
-
-### 3. DP Array Initialization
-```java
-int[] dp = new int[subsetSum + 1];
-dp[0] = 1;  // One way to make sum 0 (empty subset)
-```
-
-### 4. Bottom-Up DP
-```java
-for(int num : nums) {
-    for(int i = subsetSum; i >= num; i--) {
-        dp.put(i, dp.getOrDefault(i, 0) + dp[i - num];
-    }
-}
-```
-
-**Why iterate backwards?**
-- Prevents using the same number twice in one iteration
-- Ensures we only use numbers from previous iterations
-
-## Alternative Approaches
-
-### Approach 1: Brute Force (DFS)
 ```java
 class Solution {
         public int findTargetSumWays(int[] nums, int target) {
@@ -244,10 +152,11 @@ class Solution {
 }
 ```
 
-**Time Complexity:** O(2^n)  
-**Space Complexity:** O(n)
+**Why this check?**
+- If `(target + totalSum)` is odd, `subsetSum` would be fractional (impossible)
+- If `abs(target) > totalSum`, it's impossible to achieve the target
 
-### Approach 2: Memoization
+### 2. Subset Sum Calculation
 ```java
 // import java.util.*;
 class Solution {
@@ -274,32 +183,44 @@ class Solution {
 }
 ```
 
-**Time Complexity:** O(n × sum)  
-**Space Complexity:** O(n × sum)
+**Mathematical proof:**
+- `S+ - S- = target` (equation 1)
+- `S+ + S- = totalSum` (equation 2)
+- Adding equations: `2S+ = target + totalSum`
+- Therefore: `S+ = (target + totalSum) / 2`
 
-## Complexity Analysis
+### 3. DP Array Initialization
+```cpp
+vector<int> dp(subsetSum + 1, 0);
+dp[0] = 1;  // One way to make sum 0 (empty subset)
+```
 
+### 4. Bottom-Up DP
+```cpp
+for(int num : nums) {
+    for(int i = subsetSum; i >= num; i--) {
+        dp[i] += dp[i - num];
+    }
+}
+```
+
+**Why iterate backwards?**
+- Prevents using the same number twice in one iteration
+- Ensures we only use numbers from previous iterations
+
+### Complexity
 | Approach | Time Complexity | Space Complexity |
 |----------|----------------|------------------|
 | Brute Force | O(2^n) | O(n) |
 | Memoization | O(n × sum) | O(n × sum) |
 | DP (Subset Sum) | O(n × sum) | O(sum) |
 
-## Edge Cases
+## Common Mistakes
 
 1. **Impossible target:** `nums = [1], target = 2` → `0`
 2. **Single element:** `nums = [1], target = 1` → `1`
 3. **Zero target:** `nums = [1,1], target = 0` → `2`
 4. **Large numbers:** `nums = [1000], target = 1000` → `1`
-
-## Key Insights
-
-1. **Mathematical Transformation:** Convert to subset sum problem
-2. **DP Optimization:** Use 1D array instead of 2D
-3. **Backward Iteration:** Prevents double counting
-4. **Early Validation:** Check feasibility before computation
-
-## Common Mistakes
 
 1. **Forgetting validation:** Not checking if target is achievable
 2. **Wrong iteration order:** Using forward iteration in DP
@@ -319,3 +240,17 @@ class Solution {
 2. **Space Efficient:** Uses 1D DP array instead of 2D
 3. **Early Termination:** Validates feasibility before computation
 4. **Optimal Complexity:** O(n × sum) is the best possible for this problem
+
+## References
+
+- [LC 494: Target Sum on LeetCode](https://leetcode.com/problems/target-sum/)
+- [LeetCode Discuss — LC 494: Target Sum](https://leetcode.com/problems/target-sum/discuss/)
+- [LeetCode Editorial](https://leetcode.com/problems/target-sum/editorial/) *(may require premium)*
+
+## Key Takeaways
+
+1. **Mathematical Transformation:** Convert to subset sum problem
+2. **DP Optimization:** Use 1D array instead of 2D
+3. **Backward Iteration:** Prevents double counting
+4. **Early Validation:** Check feasibility before computation
+{% endraw %}

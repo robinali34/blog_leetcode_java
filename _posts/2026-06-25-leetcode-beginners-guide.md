@@ -42,7 +42,7 @@ Every LeetCode problem has four parts:
 
 Here's exactly what happens when you solve a problem:
 
-1. **Pick a language** — select **Java** in the editor (new to Java? See the [Java Guide](/blog_leetcode_java/java-guide/))
+1. **Pick a language** -- C++, Python, Java, or others (new to C++? See the [C++ Guide](/blog_leetcode_java/cpp-guide/))
 2. **Write your code** in the browser editor — usually inside `class Solution { ... }`
 3. **Click "Run"** — tests your code against the visible examples
 4. **Click "Submit"** — tests against hundreds of hidden test cases
@@ -64,15 +64,15 @@ Here's something most beginners miss: **the constraints section tells you which 
 
 | Input size `n` | Target Complexity | What This Means | Typical Approaches |
 |---|---|---|---|
-| $n \le 10$ | $O(n!)$ or $O(2^n)$ | Try everything | Brute force, backtracking |
-| $n \le 20$ | $O(2^n)$ | Subsets / states | Bitmask DP |
-| $n \le 500$ | $O(n^3)$ | Triple loop is OK | Floyd-Warshall, matrix DP |
-| $n \le 5{,}000$ | $O(n^2)$ | Double loop is OK | DP, two pointers |
-| $n \le 10^5$ | $O(n \log n)$ | Sort + scan | Sorting, binary search |
-| $n \le 10^6$ | $O(n)$ | Single pass | HashMap, sliding window |
-| $n \le 10^9$ | $O(\log n)$ | No array at all | Binary search on answer, math |
+| n le 10 | O(n!) or O(2^n) | Try everything | Brute force, backtracking |
+| n le 20 | O(2^n) | Subsets / states | Bitmask DP |
+| n le 500 | O(n^3) | Triple loop is OK | Floyd-Warshall, matrix DP |
+| n le 5{,}000 | O(n^2) | Double loop is OK | DP, two pointers |
+| n le 10^5 | O(n log n) | Sort + scan | Sorting, binary search |
+| n le 10^6 | O(n) | Single pass | HashMap, sliding window |
+| n le 10^9 | O(log n) | No array at all | Binary search on answer, math |
 
-**Example:** If a problem says $1 \le n \le 10^5$, an $O(n^2)$ solution will be too slow ($10^{10}$ operations). You need $O(n \log n)$ or better -- think sorting or binary search.
+**Example:** If a problem says 1 le n le 10^5, an O(n^2) solution will be too slow (10^{10} operations). You need O(n log n) or better -- think sorting or binary search.
 
 ## Difficulty Levels Explained
 
@@ -156,7 +156,7 @@ Don't try to learn everything at once. Follow these phases in order -- each one 
 | Pattern | Key Problems | Template |
 |---|---|---|
 | Sliding Window | 3, 76, 424, 567 | [String Processing](/blog_leetcode_java/posts/2025-11-24-leetcode-templates-string-processing/) |
-| Two Pointers | 15, 11, 167, 42 | [Array & Matrix](/blog_leetcode_java/posts/2025-11-24-leetcode-templates-array-matrix/) |
+| Two Pointers | 15, 11, 167, 42 | [String Processing](/blog_leetcode_java/posts/2025-11-24-leetcode-templates-string-processing/) |
 | Binary Search | 33, 34, 153, 875 | [Search](/blog_leetcode_java/posts/2026-01-20-leetcode-templates-search/) |
 | BFS / DFS | 200, 133, 695, 994 | [BFS](/blog_leetcode_java/posts/2025-11-24-leetcode-templates-bfs/), [DFS](/blog_leetcode_java/posts/2025-11-24-leetcode-templates-dfs/) |
 | Dynamic Programming | 70, 198, 322, 300 | [DP](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-dp/) |
@@ -258,7 +258,7 @@ Follow the [NeetCode Roadmap](https://neetcode.io/roadmap) — work through cate
 | Category | Count | Template on this blog |
 |---|---|---|
 | Arrays & Hashing | 9 | [String Processing](/blog_leetcode_java/posts/2025-11-24-leetcode-templates-string-processing/) |
-| Two Pointers | 5 | [Array & Matrix](/blog_leetcode_java/posts/2025-11-24-leetcode-templates-array-matrix/) |
+| Two Pointers | 5 | [String Processing](/blog_leetcode_java/posts/2025-11-24-leetcode-templates-string-processing/) |
 | Sliding Window | 6 | [String Processing](/blog_leetcode_java/posts/2025-11-24-leetcode-templates-string-processing/) |
 | Stack (`Deque`) | 6 | [Stack](/blog_leetcode_java/posts/2025-11-13-leetcode-templates-stack/) |
 | Binary Search | 7 | [Search](/blog_leetcode_java/posts/2026-01-20-leetcode-templates-search/) |
@@ -594,8 +594,11 @@ Remember: the goal isn't to solve every problem. It's to **recognize patterns qu
 
 | Resource | Description |
 |---|---|
+| [Interview Prep Hub](/blog_leetcode_java/interview-prep/) | Central hub — NeetCode 150 tracker, Meta list, study order |
+| [NeetCode 150 Tracker](/blog_leetcode_java/neetcode-150-tracker.html) | Track NeetCode 150 with blog solution links |
 | [Java Guide](/blog_leetcode_java/java-guide/) | Learn Java for LeetCode — intro, learning path, language basics |
 | [LeetCode Templates Index](/blog_leetcode_java/leetcode-templates/) | All algorithm pattern templates on this blog |
+| [Meta-Style Question List](/blog_leetcode_java/posts/2025-09-24-meta-question-list/) | FAANG-style curated list with blog links |
 | [NeetCode 150 (official)](https://neetcode.io/practice/practice/neetcode150) | Curated 150-problem interview roadmap with progress tracking |
 | [All Solved Problems](/blog_leetcode_java/leetcode-questions-list.html) | Every problem solved on this blog, with links |
 | [Java Collections Quick Reference](/blog_leetcode_java/posts/2025-09-23-java-cheatsheet/) | Fast API lookup while coding |

@@ -7,8 +7,7 @@ permalink: /posts/2025-11-24-hard-489-robot-room-cleaner/
 tags: [leetcode, hard, dfs, backtracking, robot, simulation]
 ---
 
-# [Hard] 489. Robot Room Cleaner
-
+{% raw %}
 Given a robot cleaner in a room modeled as a grid.
 
 Each cell in the grid can be empty or blocked.
@@ -18,97 +17,6 @@ The robot cleaner with 4 given APIs can move forward, turn left or turn right. E
 When it tries to move into a blocked cell, its bumper sensor detects the obstacle and it stays on the current cell.
 
 Design an algorithm to clean the entire room using only the 4 given APIs shown below.
-
-```java
-interface Robot {
-  // returns true if next cell is open and robot moves into the cell.
-  // returns false if next cell is blocked and robot stays in the current cell.
-  static boolean move();
-
-  // Robot will stay in the same cell after calling turnLeft/turnRight.
-  // Each turn will be 90 degrees.
-  static void turnLeft();
-  static void turnRight();
-
-  // Clean the current cell.
-  static void clean();
-}
-```
-
-**Note:**
-
-- The input is only given to initialize the room and the robot's position internally. You must solve this problem "blindfolded". In other words, you must design the algorithm based only on the 4 given APIs and try it in the room first, then you may visualize the room layout.
-
-## Examples
-
-**Example 1:**
-```
-Input:
-room = [
-  [1,1,1,1,1,0,1,1],
-  [1,1,1,1,1,0,1,1],
-  [1,0,1,1,1,1,1,1],
-  [0,0,0,1,0,0,0,0],
-  [1,1,1,1,1,1,1,1]
-],
-row = 1,
-col = 3
-
-Explanation:
-All grids in the room are marked by either 0 or 1.
-0 means the cell is blocked, while 1 means the cell is accessible.
-The robot initially starts at the position of row=1, col=3.
-From the top left corner, its position is one row below and three columns right.
-```
-
-## Constraints
-
-- `m == room.length`
-- `n == room[i].length`
-- `1 <= m <= 100`
-- `1 <= n <= 200`
-- `room[i][j]` is either `0` or `1`.
-- `0 <= row < m`
-- `0 <= col < n`
-- `room[row][col] == 1`
-- All the empty cells can be visited from the starting position.
-
-## Clarification Questions
-
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
-
-1. **Robot operations**: What operations can the robot perform? (Assumption: move(), turnLeft(), turnRight(), clean() - can move forward, turn, and clean current cell)
-
-2. **Room structure**: How is the room structured? (Assumption: Grid with walls (1) and empty cells (0) - robot starts at unknown position)
-
-3. **Goal**: What are we trying to achieve? (Assumption: Clean all empty cells in the room using DFS backtracking)
-
-4. **Return value**: What should we return? (Assumption: Void - modify room state through clean() calls)
-
-5. **Position tracking**: Can we track robot position? (Assumption: No - must use relative movement and backtracking to explore all cells)
-
-## Interview Deduction Process (30 minutes)
-
-**Step 1: Brute-Force Approach (8 minutes)**
-
-Use DFS to explore all reachable cells. For each cell, try all four directions. However, without knowing the room boundaries, we need to track visited cells to avoid infinite loops. The challenge is that we don't know the room layout, so we must explore systematically. Use a visited set to track cleaned cells and their coordinates relative to the starting position.
-
-**Step 2: Semi-Optimized Approach (10 minutes)**
-
-Use DFS with backtracking: explore in one direction until hitting a wall, then backtrack and try other directions. Maintain a visited set using relative coordinates (since we don't know absolute coordinates). When hitting a wall, turn right (or use right-hand rule) to continue exploration. However, ensuring we visit all cells requires careful direction management and backtracking.
-
-**Step 3: Optimized Solution (12 minutes)**
-
-Use DFS with relative coordinate tracking. Start at (0,0) relative to initial position. For each cell, mark as visited and cleaned. Try all four directions: if move() succeeds, recursively explore that cell, then backtrack by moving back and turning to maintain orientation. Use a visited set with relative coordinates. The key is proper backtracking: after exploring a direction, move back to maintain the robot's position, ensuring we can explore all reachable areas. This achieves optimal exploration of all reachable cells. The insight is that we need to maintain both position tracking (relative coordinates) and orientation tracking (current direction) to ensure complete exploration and proper backtracking.
-
-## Solution: DFS Backtracking
-
-**Time Complexity:** O(N - O) where N is number of cells and O is number of obstacles  
-**Space Complexity:** O(N - O) for visited set and recursion stack
-
-This solution uses DFS backtracking with a visited set to track cleaned cells. The key insight is to always return the robot to its previous position after exploring a path.
-
-### Solution: DFS with Backtracking
 
 ```java
 /**
@@ -163,138 +71,92 @@ class Solution {
 }
 ```
 
-## How the Algorithm Works
+**Note:**
 
-### Step-by-Step Example
+- The input is only given to initialize the room and the robot's position internally. You must solve this problem "blindfolded". In other words, you must design the algorithm based only on the 4 given APIs and try it in the room first, then you may visualize the room layout.
 
+## Examples
+
+**Example 1:**
 ```
-Initial: Robot at (0,0), facing direction 0 (up)
+Input:
+room = [
+  [1,1,1,1,1,0,1,1],
+  [1,1,1,1,1,0,1,1],
+  [1,0,1,1,1,1,1,1],
+  [0,0,0,1,0,0,0,0],
+  [1,1,1,1,1,1,1,1]
+],
+row = 1,
+col = 3
 
-Step 1: Clean (0,0) and mark visited
-  Try direction 0 (up): Check (0-1,0) = (-1,0)
-    Not visited, try move() → blocked or out of bounds
-    Turn right → now facing direction 1 (right)
-  
-  Try direction 1 (right): Check (0,0+1) = (0,1)
-    Not visited, try move() → success!
-    Move to (0,1), call backtrack(robot, 0, 1, 1)
-    
-Step 2: At (0,1), facing direction 1 (right)
-  Clean (0,1) and mark visited
-  Try all 4 directions relative to current facing...
-  
-Step 3: After exploring (0,1), goBack() returns robot to (0,0)
-  Turn right twice → facing opposite direction (left)
-  Move → returns to (0,0)
-  Turn right twice → facing original direction (up)
-  
-Step 4: Continue exploring other directions from (0,0)
+Explanation:
+All grids in the room are marked by either 0 or 1.
+0 means the cell is blocked, while 1 means the cell is accessible.
+The robot initially starts at the position of row=1, col=3.
+From the top left corner, its position is one row below and three columns right.
 ```
 
-### Visual Representation
+## Constraints
 
-```
-Room Layout (1=accessible, 0=blocked):
-  0 1 2 3 4
-0 1 1 1 1 1
-1 1 1 1 1 1
-2 1 0 1 1 1
-3 0 0 0 1 0
+- `m == room.length`
+- `n == room[i].length`
+- `1 <= m <= 100`
+- `1 <= n <= 200`
+- `room[i][j]` is either `0` or `1`.
+- `0 <= row < m`
+- `0 <= col < n`
+- `room[row][col] == 1`
+- All the empty cells can be visited from the starting position.
 
-Robot Path (starting at 1,3):
-  Clean (1,3) → Explore all directions
-    Move right → Clean (1,4)
-    Move down → Clean (2,3)
-    Move left → Clean (1,2)
-    Move up → Clean (0,3)
-    ... continue DFS until all cells cleaned
-```
-
-## Key Insights
+## Thinking Process
 
 1. **Relative Directions**: Use `(d + i) % 4` to explore directions relative to current facing
-2. **Visited Set**: Track cleaned cells to avoid revisiting
-3. **Backtracking**: Always return robot to previous position after exploring
-4. **goBack Function**: Turn 180°, move, turn 180° to return to previous cell
-5. **Direction Array**: `dirs = \{\{-1,0\}, \{0,1\}, \{1,0\}, \{0,-1\}\}` represents [up, right, down, left]
 
-## Algorithm Breakdown
+- DFS explores one branch fully before backtracking.
+- Mark visited nodes to avoid cycles on graphs.
+- Return aggregated results from children to the parent.
 
-### Direction Management
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 165" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Tree DFS (bottom-up)</text>
 
-```java
-int[][] dirs = {/* */{-1, 0\}, \{0, 1\}, \{1, 0\}, \{0, -1}}
-// Index: 0=up, 1=right, 2=down, 3=left
+  <line x1="140" y1="42" x2="80" y2="88" stroke="#8E9AAF" stroke-width="2"/>
+  <line x1="140" y1="42" x2="200" y2="88" stroke="#8E9AAF" stroke-width="2"/>
+  <line x1="80" y1="88" x2="50" y2="128" stroke="#8E9AAF" stroke-width="2"/>
+  <line x1="200" y1="88" x2="230" y2="128" stroke="#8E9AAF" stroke-width="2"/>
+  <circle cx="140" cy="42" r="18" fill="#C9B1BD" stroke="#8E9AAF" stroke-width="2"/>
+  <text x="140" y="46" text-anchor="middle" font-size="12" fill="#3D3535">3</text>
+  <circle cx="80" cy="88" r="16" fill="#C9B1BD" stroke="#8E9AAF" stroke-width="2"/>
+  <text x="80" y="92" text-anchor="middle" font-size="11" fill="#3D3535">9</text>
+  <circle cx="200" cy="88" r="16" fill="#C9B1BD" stroke="#8E9AAF" stroke-width="2"/>
+  <text x="200" y="92" text-anchor="middle" font-size="11" fill="#3D3535">20</text>
+  <circle cx="50" cy="128" r="14" fill="#A8B5A2" stroke="#8E9AAF" stroke-width="1.5"/>
+  <text x="50" y="132" text-anchor="middle" font-size="10" fill="#3D3535">15</text>
+  <circle cx="230" cy="128" r="14" fill="#A8B5A2" stroke="#8E9AAF" stroke-width="1.5"/>
+  <text x="230" y="132" text-anchor="middle" font-size="10" fill="#3D3535">7</text>
+  <text x="140" y="155" text-anchor="middle" font-size="11" fill="#6B6560">post-order: combine left + right + 1</text>
 
-int new_d = (d + i) % 4;  // Relative direction
-int nx = x + dirs[new_d][0];
-int ny = y + dirs[new_d][1];
-```
+</svg>
 
-**Why relative directions?**
-- Robot maintains its facing direction
-- `(d + i) % 4` rotates relative to current facing
-- `i=0`: same direction, `i=1`: right turn, `i=2`: 180°, `i=3`: left turn
+## Common Approaches
 
-### Backtracking Function
+Typical techniques for this pattern:
 
-```java
-static void backtrack(Robot robot, int x, int y, int d) {
-    // Mark current cell as visited and clean
-    visited.add(new int[] {x, y});
-    robot.clean();
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Recursive DFS** *(this problem)* | O(n) | O(h) stack | Natural for trees and graphs |
+| Iterative DFS (stack) | O(n) | O(n) | Avoid recursion depth limits |
+| DFS with memoization | O(n) | O(n) | Overlapping subproblems on graphs |
+| Backtracking DFS | O(2^n) typical | O(n) | Enumerate choices with pruning |
 
-    // Try all 4 directions
-    for(int i = 0; i < 4; i++) {
-        int new_d = (d + i) % 4;
-        int nx = x + dirs[new_d][0];
-        int ny = y + dirs[new_d][1];
+## Solution
 
-        // If not visited and can move
-        if(!visited.contains(new int[] {nx, ny}) && robot.move()) {
-            // Explore recursively backtrack = new recursively(robot, nx, ny, new_d);
-            // Return to current position goBack = new position(robot);
-        }
-        // Turn right to try next direction
-        robot.turnRight();
-    }
-}
-```
+**Time Complexity:** O(N - O) where N is number of cells and O is number of obstacles  
+**Space Complexity:** O(N - O) for visited set and recursion stack
 
-### goBack Function
+This solution uses DFS backtracking with a visited set to track cleaned cells. The key insight is to always return the robot to its previous position after exploring a path.
 
-```java
-static void goBack(Robot robot) {
-    robot.turnRight();  // Turn 90° right
-    robot.turnRight();  // Turn 90° right (total 180°)
-    robot.move();       // Move back to previous cell
-    robot.turnRight();  // Turn 90° right
-    robot.turnRight();  // Turn 90° right (total 180°, restore original facing)
-}
-```
-
-**Why this works:**
-- After `backtrack` returns, robot is facing away from previous cell
-- Turn 180° to face previous cell
-- Move back
-- Turn 180° to restore original facing direction
-
-## Edge Cases
-
-1. **Single cell room**: Only one accessible cell → clean and return
-2. **All directions blocked**: Clean current cell, no recursion
-3. **Dead ends**: Backtrack correctly handles dead ends
-4. **Circular paths**: Visited set prevents infinite loops
-5. **Large room**: DFS handles any size room efficiently
-
-## Alternative Approaches
-
-### Approach 2: Explicit Direction Tracking
-
-**Time Complexity:** O(N - O)  
-**Space Complexity:** O(N - O)
-
-More explicit direction management:
+### Solution: DFS with Backtracking
 
 ```java
 class Solution {
@@ -330,8 +192,93 @@ class Solution {
 }
 ```
 
-## Complexity Analysis
+### Solution Explanation
 
+**Approach:** Recursive DFS (this problem)
+
+**Key idea:** 1. **Relative Directions**: Use `(d + i) % 4` to explore directions relative to current facing
+
+**How the code works:**
+1. **Relative Directions**: Use `(d + i) % 4` to explore directions relative to current facing
+- DFS explores one branch fully before backtracking.
+- Mark visited nodes to avoid cycles on graphs.
+- Return aggregated results from children to the parent.
+
+**Walkthrough** — input `room = [`:
+
+All grids in the room are marked by either 0 or 1.
+0 means the cell is blocked, while 1 means the cell is accessible.
+The robot initially starts at the position of row=1, col=3.
+From the top left corner, its position is one row below and three columns right.
+
+| Approach | Time | Space | Pros | Cons |
+|----------|------|-------|------|------|
+| **DFS Backtracking** | O(N-O) | O(N-O) | Simple, intuitive | Requires backtracking logic |
+| **Explicit Tracking** | O(N-O) | O(N-O) | Clear direction handling | Same complexity |
+## Algorithm Breakdown
+
+### Direction Management
+
+```cpp
+vector<vector<int>> dirs = \{\{-1, 0\}, \{0, 1\}, \{1, 0\}, \{0, -1\}\};
+// Index: 0=up, 1=right, 2=down, 3=left
+
+int new_d = (d + i) % 4;  // Relative direction
+int nx = x + dirs[new_d][0];
+int ny = y + dirs[new_d][1];
+```
+
+**Why relative directions?**
+- Robot maintains its facing direction
+- `(d + i) % 4` rotates relative to current facing
+- `i=0`: same direction, `i=1`: right turn, `i=2`: 180°, `i=3`: left turn
+
+### Backtracking Function
+
+```cpp
+void backtrack(Robot& robot, int x, int y, int d) {
+    // Mark current cell as visited and clean
+    visited.insert({x, y});
+    robot.clean();
+
+    // Try all 4 directions
+    for(int i = 0; i < 4; i++) {
+        int new_d = (d + i) % 4;
+        int nx = x + dirs[new_d][0];
+        int ny = y + dirs[new_d][1];
+
+        // If not visited and can move
+        if(!visited.count({nx, ny}) && robot.move()) {
+            // Explore recursively
+            backtrack(robot, nx, ny, new_d);
+            // Return to current position
+            goBack(robot);
+        }
+        // Turn right to try next direction
+        robot.turnRight();
+    }
+}
+```
+
+### goBack Function
+
+```cpp
+void goBack(Robot& robot) {
+    robot.turnRight();  // Turn 90° right
+    robot.turnRight();  // Turn 90° right (total 180°)
+    robot.move();       // Move back to previous cell
+    robot.turnRight();  // Turn 90° right
+    robot.turnRight();  // Turn 90° right (total 180°, restore original facing)
+}
+```
+
+**Why this works:**
+- After `backtrack` returns, robot is facing away from previous cell
+- Turn 180° to face previous cell
+- Move back
+- Turn 180° to restore original facing direction
+
+### Complexity
 | Approach | Time | Space | Pros | Cons |
 |----------|------|-------|------|------|
 | **DFS Backtracking** | O(N-O) | O(N-O) | Simple, intuitive | Requires backtracking logic |
@@ -341,8 +288,8 @@ class Solution {
 
 ### Direction Array
 
-```java
-int[][] dirs = {/* */{-1, 0\}, \{0, 1\}, \{1, 0\}, \{0, -1}}
+```cpp
+vector<vector<int>> dirs = \{\{-1, 0\}, \{0, 1\}, \{1, 0\}, \{0, -1\}\};
 //                    Index:   0        1       2        3
 //                  Meaning:  up     right   down     left
 ```
@@ -354,8 +301,8 @@ int[][] dirs = {/* */{-1, 0\}, \{0, 1\}, \{1, 0\}, \{0, -1}}
 
 ### Visited Set
 
-```java
-set<int[]> visited;
+```cpp
+set<pair<int, int>> visited;
 ```
 
 **Why use set?**
@@ -365,7 +312,7 @@ set<int[]> visited;
 
 ### Relative Direction Calculation
 
-```java
+```cpp
 int new_d = (d + i) % 4;
 ```
 
@@ -375,6 +322,12 @@ int new_d = (d + i) % 4;
 - `(d + i) % 4`: New direction after turning right `i` times
 
 ## Common Mistakes
+
+1. **Single cell room**: Only one accessible cell → clean and return
+2. **All directions blocked**: Clean current cell, no recursion
+3. **Dead ends**: Backtrack correctly handles dead ends
+4. **Circular paths**: Visited set prevents infinite loops
+5. **Large room**: DFS handles any size room efficiently
 
 1. **Forgetting goBack**: Not returning robot to previous position
 2. **Wrong direction calculation**: Not using relative directions
@@ -430,8 +383,8 @@ Similar problems:
 
 ## goBack Function Explanation
 
-```java
-static void goBack(Robot robot) {
+```cpp
+void goBack(Robot& robot) {
     robot.turnRight();  // 1st turn: 90° right
     robot.turnRight();  // 2nd turn: 90° right (total 180°)
     robot.move();       // Move back to previous cell
@@ -470,3 +423,21 @@ Turning left decrements index: (d + 3) % 4
 
 *This problem is an excellent example of DFS backtracking with state management, demonstrating how to handle robot navigation and exploration algorithms.*
 
+## Key Takeaways
+
+1. **Relative Directions**: Use `(d + i) % 4` to explore directions relative to current facing
+2. **Visited Set**: Track cleaned cells to avoid revisiting
+3. **Backtracking**: Always return robot to previous position after exploring
+4. **goBack Function**: Turn 180°, move, turn 180° to return to previous cell
+5. **Direction Array**: `dirs = \{\{-1,0\}, \{0,1\}, \{1,0\}, \{0,-1\}\}` represents [up, right, down, left]
+
+## References
+
+- [LC 489: Robot Room Cleaner on LeetCode](https://leetcode.com/problems/robot-room-cleaner/)
+- [LeetCode Discuss — LC 489: Robot Room Cleaner](https://leetcode.com/problems/robot-room-cleaner/discuss/)
+- [LeetCode Editorial](https://leetcode.com/problems/robot-room-cleaner/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [DFS](/blog_leetcode_java/posts/2025-11-24-leetcode-templates-dfs/)
+{% endraw %}

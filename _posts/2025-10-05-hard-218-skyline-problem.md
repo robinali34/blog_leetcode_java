@@ -7,8 +7,7 @@ categories: leetcode algorithm hard java sweep-line priority-queue data-structur
 permalink: /posts/2025-10-05-hard-218-skyline-problem/
 ---
 
-# [Hard] 218. The Skyline Problem
-
+{% raw %}
 A city's skyline is the outer contour of the silhouette formed by all the buildings in that city when viewed from a distance. Given the locations and heights of all the buildings, return the skyline formed by these buildings collectively.
 
 The geometric information of each building is given in the array `buildings` where `buildings[i] = [lefti, righti, heighti]`:
@@ -47,62 +46,7 @@ Output: [[0,3],[5,0]]
 - `1 <= heighti <= 2^31 - 1`
 - `buildings` is sorted by `lefti` in non-decreasing order.
 
-## Clarification Questions
-
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
-
-1. **Skyline definition**: What is a skyline? (Assumption: Outline formed by buildings - highest point at each x-coordinate)
-
-2. **Building representation**: How are buildings represented? (Assumption: [left, right, height] - building spans from left to right with given height)
-
-3. **Key points**: What are key points? (Assumption: Points where skyline height changes - [x, height] coordinates)
-
-4. **Overlapping buildings**: How should we handle overlapping buildings? (Assumption: Take maximum height at each x-coordinate - skyline is union of building heights)
-
-5. **Return format**: What should we return? (Assumption: List of key points [x, height] where skyline changes, sorted by x)
-
-## Interview Deduction Process (30 minutes)
-
-### Step 1: Brute-Force Approach (8 minutes)
-**Initial Thought**: "I need to find skyline. Let me check height at each x-coordinate."
-
-**Naive Solution**: For each x-coordinate, check all buildings that cover it, find maximum height. Add point when height changes.
-
-**Complexity**: O(n × W) time where W is width range, O(n) space
-
-**Issues**:
-- Very inefficient for large coordinate ranges
-- W can be up to 2^31
-- Doesn't leverage building structure
-- Timeout for large inputs
-
-### Step 2: Semi-Optimized Approach (10 minutes)
-**Insight**: "I can use sweep line algorithm. Process building start/end events, track active buildings."
-
-**Improved Solution**: Create events for building start and end. Sort events by x-coordinate. Use map/priority queue to track active building heights. Update skyline when max height changes.
-
-**Complexity**: O(n log n) time, O(n) space
-
-**Improvements**:
-- Sweep line is natural approach
-- O(n log n) time is much better
-- Handles all cases correctly
-- Still can be optimized
-
-### Step 3: Optimized Solution (12 minutes)
-**Final Optimization**: "Sweep line with priority queue is optimal. Can optimize with coordinate compression if needed."
-
-**Best Solution**: Sweep line with priority queue (max-heap) for active buildings. Process events sorted by x. When building starts, add to heap. When ends, mark for removal. Track max height changes.
-
-**Complexity**: O(n log n) time, O(n) space
-
-**Key Realizations**:
-1. Sweep line is key technique for interval problems
-2. Priority queue efficiently tracks max height
-3. O(n log n) time is optimal for sorting events
-4. Lazy removal from heap is efficient
-
-## Approach
+## Thinking Process
 
 This is a classic sweep line algorithm problem. The key insight is to process all building edges (start and end points) in sorted order and maintain the current maximum height at each position.
 
@@ -114,7 +58,30 @@ There are several approaches to solve this problem:
 4. **Sweep Line with Two Priority Queues**: Separate queues for active and past heights
 5. **Union Find Optimization**: Use Union Find to optimize the coordinate compression approach
 
-## Solution 1: Coordinate Compression + Brute Force
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 110" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Array + hash map</text>
+
+  <rect x="30" y="45" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="44" y="61" text-anchor="middle" font-size="10">2</text>
+  <rect x="62" y="45" width="28" height="28" rx="3" fill="#E0D8E4" stroke="#A098A8"/><text x="76" y="61" text-anchor="middle" font-size="10">7</text>
+  <rect x="106" y="45" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="120" y="61" text-anchor="middle" font-size="10">11</text>
+  <rect x="150" y="40" width="60" height="38" rx="4" fill="#FAF8F5" stroke="#D4D1CC"/>
+  <text x="180" y="61" text-anchor="middle" font-size="10" fill="#6B6560">map</text>
+  <text x="110" y="100" text-anchor="middle" font-size="11" fill="#6B6560">hash map for O(1) lookups</text>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Brute force** *(this problem)* | Often O(n^2) or O(2^n) | O(n) | Baseline; clarifies the optimization target |
+| Sort + scan | O(n log n) | O(1) | Pairs, intervals, greedy ordering |
+| Hash map / set | O(n) | O(n) | Frequency, membership, two-sum style |
+| Single-pass linear | O(n) | O(1) | Two pointers, sliding window, Kadane |
+
+## Solution
 
 ```java
 // import java.util.*;
@@ -151,224 +118,23 @@ class Solution {
 }
 ```
 
-**Time Complexity:** O(n²) - For each building, we update all positions it covers
-**Space Complexity:** O(n) - Edge set and height array
+### Solution Explanation
 
-### How it works:
-1. **Collect all unique x-coordinates** (building edges)
-2. **Create mapping** from coordinate to index
-3. **For each building**, update heights in the range [left, right)
-4. **Generate skyline** by checking height changes
+**Approach:** Brute force (this problem)
 
-## Solution 2: Sweep Line with Map
+**Key idea:** This is a classic sweep line algorithm problem. The key insight is to process all building edges (start and end points) in sorted order and maintain the current maximum height at each position.
 
-```java
-// import java.util.*;
-class Solution {
-    public int[][] getSkyline(int[][] buildings) {
-        List<int[]> pairs = new ArrayList<>();
-        for (int b : buildings) {
-        int left = b[0], right = b[1], height = b[2];
-            pairs.add(left, -height);
-            pairs.add(right, height);
-        }
-        sort(pairs /* elements of pairs */, [](int[]& a, int[]& b) {
-            if(a[0] != b[0]) return a[0] < b[0];
-            else return a[1] < b[1];
-        });
-        List<int[]> rtn = new ArrayList<>();
-        TreeMap<Integer, Integer> height_map = new TreeMap<>();
-        height_map.put(0, 1);
-        int pre = 0;
-        for (var e : pairs.entrySet()) {
-            if(h < 0) height_map[-h]++;
-            else {
-                height_map[h]--;
-                if(height_map.put(h,) height_map.remove(h));
-            }
-            int cur = height_map.rbegin().first;
-            if(cur != pre) {
-                rtn.add(new int[] {x, cur});
-                pre = cur;
-            }
-        }
-        return rtn;
-    }
-}
-```
+**How the code works:**
+1. **Coordinate Compression + Brute Force**: Compress coordinates and update heights for each building
+2. **Sweep Line with Map**: Use events and maintain height counts
+3. **Sweep Line with Priority Queue**: Use priority queue to track active buildings
+4. **Sweep Line with Two Priority Queues**: Separate queues for active and past heights
+5. **Union Find Optimization**: Use Union Find to optimize the coordinate compression approach
 
-**Time Complexity:** O(n log n) - Sorting + map operations
-**Space Complexity:** O(n) - Map and pairs vector
+**Walkthrough** — input `buildings = [[2,9,10],[3,7,15],[5,12,12],[15,20,10],[19,24,8]]`, expected output `[[2,10],[3,15],[7,12],[12,0],[15,10],[20,8],[24,0]]`:
 
-### How it works:
-1. **Create events**: Start events with negative height, end events with positive height
-2. **Sort events** by x-coordinate, then by height (negative heights first)
-3. **Process events**: Add/remove heights from map
-4. **Track maximum height** and add skyline points when it changes
-
-## Solution 3: Sweep Line with Priority Queue
-
-```java
-// import java.util.Arrays;
-// import java.util.Collections;
-class Solution {
-    public int[][] getSkyline(int[][] buildings) {
-        List<int[]> edges = new ArrayList<>();
-        for(int i = 0; i < buildings.size(); i++) {
-            edges.add({buildings[i][0], i});
-            edges.add({buildings[i][1], i});
-        }
-        Arrays.sort(edges);
-        PriorityQueue<int[]> live = new PriorityQueue<>((a, b) -> Integer.compare(a[0], b[0]));
-        List<int[]> rtn = new ArrayList<>();
-        int idx = 0;
-        while(idx < edges.length) {
-            int cur = edges[idx][0];
-            while(idx < edges.length && edges[idx][0] == cur) {
-                int b = edges[idx][1];
-                if(buildings[b][0] == cur) {
-                    int right = buildings[b][1];
-                    int height = buildings[b][2];
-                    live.offer(new int[] {height, right});
-                }
-                idx += 1;
-            }
-            while(!live.isEmpty() && live.peek().second <= cur) live.poll();
-            int curHeight = live.length == 0 ? 0: live.peek().first;
-            if(rtn.length == 0 || rtn[rtn.size() - 1][1] != curHeight) {
-                rtn.add(new int[] {cur, curHeight});
-            }
-        }
-        return rtn;
-    }
-}
-```
-
-**Time Complexity:** O(n log n) - Sorting + priority queue operations
-**Space Complexity:** O(n) - Priority queue and edges vector
-
-### How it works:
-1. **Create edge events** with building indices
-2. **Sort edges** by x-coordinate
-3. **Process events**: Add buildings to priority queue when they start
-4. **Remove expired buildings** from priority queue
-5. **Track maximum height** from active buildings
-
-## Solution 4: Sweep Line with Two Priority Queues
-
-```java
-// import java.util.*;
-class Solution {
-    public int[][] getSkyline(int[][] buildings) {
-        List<int[]> edges = new ArrayList<>();
-        for (int b : buildings) {
-            edges.add({b[0], b[2]});
-            edges.add({b[1], -b[2]});
-        }
-        sort(edges /* elements of edges */, [](int[] a, int[] b) {
-            if (a[0] != b[0]) return a[0] < b[0];
-            return a[1] > b[1];
-        });
-        PriorityQueue<Integer> live = new PriorityQueue<Integer>();
-        PriorityQueue<Integer> past = new PriorityQueue<Integer>();
-        List<int[]> rtn = new ArrayList<>();
-        int idx = 0;
-        while(idx < edges.length) {
-            int cur = edges[idx][0];
-            while(idx < edges.length && edges[idx][0] == cur) {
-                int height = edges[idx][1];
-                if(height > 0) live.offer(height);
-                else past.offer(-height);
-                idx += 1;
-            }
-            while(!live.isEmpty() && !past.isEmpty() && live.peek() == past.peek()) {
-                live.poll();
-                past.poll();
-            }
-            int curHeight = live.length == 0 ? 0: live.peek();
-            if(rtn.length == 0 || rtn[rtn.size() - 1][1] != curHeight) {
-                rtn.add(new int[] {cur, curHeight});
-            }
-        }
-        return rtn;
-    }
-}
-```
-
-**Time Complexity:** O(n log n) - Sorting + priority queue operations
-**Space Complexity:** O(n) - Two priority queues
-
-### How it works:
-1. **Create events**: Start with positive height, end with negative height
-2. **Sort events** by x-coordinate, then by height (descending)
-3. **Use two priority queues**: One for active heights, one for past heights
-4. **Remove matching heights** from both queues
-5. **Track maximum active height**
-
-## Solution 5: Union Find Optimization
-
-```java
-// import java.util.*;
-class UnionFind {
-    List<Integer> root = new ArrayList<>();
-    UnionFind(int n) {
-        iota(root /* elements of root */, 0);
-    }
-    int find(int x) {
-        if(root[x] != x) return find = new return(root[x]);
-        return root[x];
-    }
-    void merge(int x, int y) {
-        root[find(x)] = find(y);
-    }
-}
-class Solution {
-    public int[][] getSkyline(int[][] buildings) {
-        sort(buildings /* elements of buildings */, [](auto a, auto b) {
-            return a[2] > b[2];
-        });
-        TreeSet<Integer> edgeSet = new TreeSet<>();
-        for (int b : buildings) {
-            edgeSet.add(b[0]);
-            edgeSet.add(b[1]);
-        }
-        int[]edges(edgeSet /* elements of edgeSet */);
-        HashMap<Integer, Integer> edgeIdxMap = new HashMap<Integer, Integer>();
-        for(int i = 0; i < edges.length; i++) {
-            edgeIdxMap[edges[i]] = i;
-        }
-        UnionFind uf = new UnionFind(edges.length);
-        int[]heights(edges.length);
-        for (int b : buildings) {
-            int left = b[0], right = b[1], height = b[2];
-            int leftIdx = uf.find(edgeIdxMap[left]);
-            int rightIdx = edgeIdxMap[right];
-            while(leftIdx < rightIdx) {
-                heights.put(leftIdx, height);
-                uf.merge(leftIdx, rightIdx);
-                leftIdx = uf.find(++leftIdx);
-            }
-        }
-        List<int[]> rtn = new ArrayList<>();
-        for(int i = 0; i < edges.length; i++) {
-            if(i == 0 || heights[i] != heights[i - 1]) {
-                rtn.add({edges[i], heights[i]});
-            }
-        }
-        return rtn;
-    }
-}
-```
-
-**Time Complexity:** O(n²) in worst case, but optimized with Union Find
-**Space Complexity:** O(n) - Union Find and height arrays
-
-### How it works:
-1. **Sort buildings** by height (descending)
-2. **Process buildings** in height order
-3. **Use Union Find** to skip already processed positions
-4. **Update heights** only for unprocessed positions
-
+Figure A shows the buildings of the input.
+Figure B shows the skyline formed by those buildings. The red points in figure B represent the key points in the output list.
 ## Step-by-Step Example (Solution 2)
 
 Let's trace through `buildings = [[2,9,10],[3,7,15],[5,12,12],[15,20,10],[19,24,8]]`:
@@ -429,13 +195,21 @@ Let's trace through `buildings = [[2,9,10],[3,7,15],[5,12,12],[15,20,10],[19,24,
 4. **Edge cases** - Handle empty buildings, single building scenarios
 5. **Coordinate precision** - Handle large coordinate values
 
-## Edge Cases
-
 1. **Single building**: `[[1,2,3]]` → `[[1,3],[2,0]]`
 2. **Overlapping buildings**: Same height buildings
 3. **Adjacent buildings**: Buildings touching at edges
 4. **Large coordinates**: Integer overflow considerations
 5. **Empty input**: Return empty skyline
+
+## Key Takeaways
+
+- **Pattern:** Brute force (this problem)
+
+## References
+
+- [LC 218: The Skyline Problem on LeetCode](https://leetcode.com/problems/skyline-problem/)
+- [LeetCode Discuss — LC 218: The Skyline Problem](https://leetcode.com/problems/skyline-problem/discuss/)
+- [LeetCode Editorial](https://leetcode.com/problems/skyline-problem/editorial/) *(may require premium)*
 
 ## Related Problems
 
@@ -457,3 +231,4 @@ The Skyline Problem is a classic sweep line algorithm that tests understanding o
 **Recommended Solution**: Solution 2 (Sweep Line with Map) offers the best balance of efficiency, clarity, and correctness for most scenarios.
 
 The key insight is recognizing that skyline changes only occur at building edges, and we need to efficiently track the maximum height at each position while processing events in order.
+{% endraw %}

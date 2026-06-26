@@ -7,8 +7,7 @@ permalink: /posts/2025-11-13-hard-772-basic-calculator-iii/
 tags: [leetcode, hard, string, stack, calculator, recursion, expression-evaluation, parentheses]
 ---
 
-# [Hard] 772. Basic Calculator III
-
+{% raw %}
 Implement a basic calculator to evaluate a simple expression string.
 
 The expression string may contain open `(` and closing parentheses `)`, the plus `+` or minus sign `-`, **non-negative** integers and empty spaces.
@@ -49,35 +48,38 @@ Output: -12
 - `s` consists of digits, `'+'`, `'-'`, `'*'`, `'/'`, `'('`, `')'`, and `' '`.
 - `s` is a valid expression.
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+1. **Recursion for Parentheses**: Natural way to handle nested structures
 
-1. **Expression format**: What operations are supported? (Assumption: Addition '+', subtraction '-', multiplication '*', division '/', parentheses '()')
+- Stack matches nested or LIFO structure (parentheses, monotonic scans).
+- Push on open / larger; pop when the current element resolves pending work.
+- Monotonic stack finds next greater/smaller in O(n).
 
-2. **Operator precedence**: What is the precedence? (Assumption: Standard - parentheses first, then multiplication/division, then addition/subtraction)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 125" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Stack</text>
 
-3. **Division handling**: How should division be handled? (Assumption: Integer division - truncate toward zero)
+  <rect x="100" y="30" width="80" height="24" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="46" text-anchor="middle" font-size="10">top</text>
+  <rect x="100" y="54" width="80" height="24" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/>
+  <rect x="100" y="78" width="80" height="24" rx="3" fill="#D4D8E0" stroke="#8B8680"/>
+  <text x="200" y="70" font-size="11" fill="#6B6560">push / pop</text>
+  <path d="M90 42v60" stroke="#9A9792" stroke-width="1.5"/>
+  <text x="140" y="115" text-anchor="middle" font-size="11" fill="#6B6560">LIFO — monotonic stack scans array</text>
 
-4. **Return value**: What should we return? (Assumption: Integer result of evaluating the expression)
+</svg>
 
-5. **Whitespace**: Should we ignore whitespace? (Assumption: Yes - spaces can be ignored)
+## Common Approaches
 
-## Interview Deduction Process (30 minutes)
+Typical techniques for this pattern:
 
-**Step 1: Brute-Force Approach (8 minutes)**
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Monotonic stack** *(this problem)* | O(n) | O(n) | Next greater/smaller element |
+| Parentheses matching | O(n) | O(n) | Push open, pop on close |
+| Expression evaluation | O(n) | O(n) | Operand + operator stacks |
+| Stack simulation | O(n) | O(n) | Process in LIFO order |
 
-Use a recursive descent parser: parse the expression by handling parentheses recursively. For each level, evaluate expressions inside parentheses first, then replace them with their results. Handle operator precedence by doing multiple passes: first evaluate all multiplications/divisions, then all additions/subtractions. This approach works but requires multiple passes and can be inefficient, especially with deeply nested parentheses.
-
-**Step 2: Semi-Optimized Approach (10 minutes)**
-
-Convert the infix expression to postfix (RPN) using the shunting yard algorithm, then evaluate the postfix expression. This handles operator precedence correctly but requires two passes: one for conversion and one for evaluation. The conversion step uses a stack to handle operators and parentheses, which adds complexity. Alternatively, use two stacks (operands and operators) and evaluate on-the-fly, but managing operator precedence with two stacks can be tricky.
-
-**Step 3: Optimized Solution (12 minutes)**
-
-Use a single-pass approach with recursion for parentheses and a stack for operator precedence. When encountering '(', recursively evaluate the subexpression. For operators, use a stack to maintain operators in order of precedence: when encountering a lower-precedence operator, evaluate all higher-precedence operators first. Alternatively, use a cleaner approach: maintain a stack of numbers and signs, processing multiplication/division immediately and addition/subtraction by maintaining a running result. This achieves O(n) time with O(n) space for the recursion stack, handling nested parentheses naturally through recursion and operator precedence through immediate evaluation of high-precedence operations.
-
-## Solution 1: Recursive Approach
+## Solution
 
 **Time Complexity:** O(n)  
 **Space Complexity:** O(n) - Recursion stack depth
@@ -135,160 +137,29 @@ class Solution {
 }
 ```
 
-## Solution 2: Optimized Iterative Approach
+### Solution Explanation
 
-**Time Complexity:** O(n)  
-**Space Complexity:** O(n) - Stack for parentheses
+**Approach:** Monotonic stack (this problem)
 
-Use an iterative approach with a stack to handle parentheses. When encountering `(`, push current state onto stack. When encountering `)`, pop and combine with previous state.
+**Key idea:** 1. **Recursion for Parentheses**: Natural way to handle nested structures
 
-```java
-// import java.util.*;
-class Solution {
-        public int calculate(String s) {
-        Deque<Integer> nums = new ArrayDeque<>();
-        Deque<char> ops = new ArrayDeque<>();
-        int num = 0;
-        char op = '+';
+**How the code works:**
+1. **Recursion for Parentheses**: Natural way to handle nested structures
+- Stack matches nested or LIFO structure (parentheses, monotonic scans).
+- Push on open / larger; pop when the current element resolves pending work.
+- Monotonic stack finds next greater/smaller in O(n).
 
-        for(int i = 0; i < s.size(); i++) {
-            char c = s.charAt(i);
+**Walkthrough** — input `s = "1+1"`, expected output `2`:
 
-            if(isdigit(c)) {
-                num = num 10 + (c - '0');
-            }
+1. Initialize variables from the problem setup.
+2. Apply the main loop / recursion until the condition is met.
+3. Confirm the result matches the expected output.
 
-            if((!isdigit(c) && !isspace(c)) || i == s.size() - 1) {
-                if(c == '(') {
-                    nums.offer(0);
-                    ops.offer(op);
-                    num = 0;
-                    op = '+';
-                } else {
-                    // Apply current operation
-                    if(op == '+') {
-                        nums.offer(num);
-                    } else if(op == '-') {
-                        nums.offer(-num);
-                    } else if(op == '*') {
-                        int top = nums.peek();
-                        nums.poll();
-                        nums.offer(top num);
-                    } else if(op == '/') {
-                        int top = nums.peek();
-                        nums.poll();
-                        nums.offer(top / num);
-                    }
-
-                    if(c == ')') {
-                        // Evaluate expression inside parentheses
-                        int sum = 0;
-                        while(!ops.isEmpty() && ops.peek() != '(') {
-                            sum += nums.peek();
-                            nums.poll();
-                        }
-                        ops.poll(); // Remove '('
-                        num = sum;
-                        op = ops.length == 0 ? '+' : ops.peek();
-                    } else {
-                        op = c;
-                        num = 0;
-                    }
-                }
-            }
-        }
-
-        int result = 0;
-        while(!nums.isEmpty()) {
-            result += nums.peek();
-            nums.poll();
-        }
-        return result;
-    }
-}
-```
-
-## Solution 3: Simplified Optimized Approach
-
-**Time Complexity:** O(n)  
-**Space Complexity:** O(n) - Stack for parentheses
-
-A cleaner iterative solution that uses a single stack to track both numbers and operators, with special handling for parentheses.
-
-```java
-// import java.util.*;
-class Solution {
-        public int calculate(String s) {
-        Deque<Integer> stk = new ArrayDeque<>();
-        int num = 0;
-        char sign = '+';
-
-        for(int i = 0; i < s.size(); i++) {
-            char c = s.charAt(i);
-
-            if(isdigit(c)) {
-                num = num 10 + (c - '0');
-            }
-
-            if(c == '(') {
-                // Push current state
-                stk.offer(0);
-                stk.offer(sign == '+' ? 1 : -1);
-                num = 0;
-                sign = '+';
-            } else if(c == ')') {
-                // Evaluate expression inside parentheses
-                int val = num;
-                int multiplier = stk.peek(); stk.poll();
-                int prevSum = stk.peek(); stk.poll();
-                num = prevSum + multiplier val;
-                sign = '+';
-            } else if(c == '+' || c == '-' || c == '*' || c == '/') {
-                // Process previous operation
-                if(sign == '+') {
-                    stk.offer(num);
-                } else if(sign == '-') {
-                    stk.offer(-num);
-                } else if(sign == '*') {
-                    int top = stk.peek();
-                    stk.poll();
-                    stk.offer(top num);
-                } else if(sign == '/') {
-                    int top = stk.peek();
-                    stk.poll();
-                    stk.offer(top / num);
-                }
-
-                sign = c;
-                num = 0;
-            }
-        }
-
-        // Process last number
-        if(sign == '+') {
-            stk.offer(num);
-        } else if(sign == '-') {
-            stk.offer(-num);
-        } else if(sign == '*') {
-            int top = stk.peek();
-            stk.poll();
-            stk.offer(top num);
-        } else if(sign == '/') {
-            int top = stk.peek();
-            stk.poll();
-            stk.offer(top / num);
-        }
-
-        int result = 0;
-        while(!stk.isEmpty()) {
-            result += stk.peek();
-            stk.poll();
-        }
-        return result;
-    }
-}
-```
-
+| Solution | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Recursive** | O(n) | O(n) | Natural for nested structures |
+| **Iterative (2 stacks)** | O(n) | O(n) | More explicit state management |
+| **Simplified Iterative** | O(n) | O(n) | Cleaner code, single stack |
 ## How the Algorithms Work
 
 ### Key Insight: Handling Parentheses
@@ -389,86 +260,201 @@ End: process sign='/'
 Result: sum([10]) = 10
 ```
 
-## Key Insights
-
-1. **Recursion for Parentheses**: Natural way to handle nested structures
-2. **Stack for State**: Save evaluation state before entering parentheses
-3. **Operator Precedence**: Evaluate `*` and `/` immediately, defer `+` and `-`
-4. **Index Management**: Careful index tracking in recursive approach
-5. **Number Building**: Accumulate multi-digit numbers correctly
-
 ## Algorithm Breakdown
 
 ### Solution 1: Recursive
 
 #### 1. Parse Expression
 ```java
-static int parseExpr(String s, int idx) {
-    char op = '+';
-    List<Integer> stk = new ArrayList<>();
-    // Process characters...
+// import java.util.*;
+class Solution {
+        public int calculate(String s) {
+        Deque<Integer> nums = new ArrayDeque<>();
+        Deque<char> ops = new ArrayDeque<>();
+        int num = 0;
+        char op = '+';
+
+        for(int i = 0; i < s.size(); i++) {
+            char c = s.charAt(i);
+
+            if(isdigit(c)) {
+                num = num 10 + (c - '0');
+            }
+
+            if((!isdigit(c) && !isspace(c)) || i == s.size() - 1) {
+                if(c == '(') {
+                    nums.offer(0);
+                    ops.offer(op);
+                    num = 0;
+                    op = '+';
+                } else {
+                    // Apply current operation
+                    if(op == '+') {
+                        nums.offer(num);
+                    } else if(op == '-') {
+                        nums.offer(-num);
+                    } else if(op == '*') {
+                        int top = nums.peek();
+                        nums.poll();
+                        nums.offer(top num);
+                    } else if(op == '/') {
+                        int top = nums.peek();
+                        nums.poll();
+                        nums.offer(top / num);
+                    }
+
+                    if(c == ')') {
+                        // Evaluate expression inside parentheses
+                        int sum = 0;
+                        while(!ops.isEmpty() && ops.peek() != '(') {
+                            sum += nums.peek();
+                            nums.poll();
+                        }
+                        ops.poll(); // Remove '('
+                        num = sum;
+                        op = ops.length == 0 ? '+' : ops.peek();
+                    } else {
+                        op = c;
+                        num = 0;
+                    }
+                }
+            }
+        }
+
+        int result = 0;
+        while(!nums.isEmpty()) {
+            result += nums.peek();
+            nums.poll();
+        }
+        return result;
+    }
 }
 ```
 
 #### 2. Handle Parentheses
 ```java
-if(s.charAt(idx) == '(') {
-    num = parseExpr(s, ++idx);  // Recursive call
-} else if(s.charAt(idx) == ')') {
-    break;  // Return from recursion
+// import java.util.*;
+class Solution {
+        public int calculate(String s) {
+        Deque<Integer> stk = new ArrayDeque<>();
+        int num = 0;
+        char sign = '+';
+
+        for(int i = 0; i < s.size(); i++) {
+            char c = s.charAt(i);
+
+            if(isdigit(c)) {
+                num = num 10 + (c - '0');
+            }
+
+            if(c == '(') {
+                // Push current state
+                stk.offer(0);
+                stk.offer(sign == '+' ? 1 : -1);
+                num = 0;
+                sign = '+';
+            } else if(c == ')') {
+                // Evaluate expression inside parentheses
+                int val = num;
+                int multiplier = stk.peek(); stk.poll();
+                int prevSum = stk.peek(); stk.poll();
+                num = prevSum + multiplier val;
+                sign = '+';
+            } else if(c == '+' || c == '-' || c == '*' || c == '/') {
+                // Process previous operation
+                if(sign == '+') {
+                    stk.offer(num);
+                } else if(sign == '-') {
+                    stk.offer(-num);
+                } else if(sign == '*') {
+                    int top = stk.peek();
+                    stk.poll();
+                    stk.offer(top num);
+                } else if(sign == '/') {
+                    int top = stk.peek();
+                    stk.poll();
+                    stk.offer(top / num);
+                }
+
+                sign = c;
+                num = 0;
+            }
+        }
+
+        // Process last number
+        if(sign == '+') {
+            stk.offer(num);
+        } else if(sign == '-') {
+            stk.offer(-num);
+        } else if(sign == '*') {
+            int top = stk.peek();
+            stk.poll();
+            stk.offer(top num);
+        } else if(sign == '/') {
+            int top = stk.peek();
+            stk.poll();
+            stk.offer(top / num);
+        }
+
+        int result = 0;
+        while(!stk.isEmpty()) {
+            result += stk.peek();
+            stk.poll();
+        }
+        return result;
+    }
 }
 ```
 
 #### 3. Handle Numbers
-```java
-else if(isdigit(s.charAt(idx))) {
+```cpp
+else if(isdigit(s[idx])) {
     num = parseNum(s, idx);
     idx--;  // Adjust because parseNum advances idx
 }
 ```
 
 #### 4. Apply Operations
-```java
+```cpp
 switch(op) {
-    case '+': stk.add(num); break;
-    case '-': stk.add(-num); break;
-    case '*': stk.get(stk.size() - 1) *= num; break;
-    case '/': stk.get(stk.size() - 1) /= num; break;
+    case '+': stk.push_back(num); break;
+    case '-': stk.push_back(-num); break;
+    case '*': stk.back() *= num; break;
+    case '/': stk.back() /= num; break;
 }
 ```
 
 ### Solution 3: Simplified Iterative
 
 #### 1. Handle Opening Parenthesis
-```java
+```cpp
 if(c == '(') {
-    stk.offer(0);  // Push current sum
-    stk.offer(sign == '+' ? 1 : -1);  // Push multiplier
+    stk.push(0);  // Push current sum
+    stk.push(sign == '+' ? 1 : -1);  // Push multiplier
     num = 0;
     sign = '+';
 }
 ```
 
 #### 2. Handle Closing Parenthesis
-```java
+```cpp
 else if(c == ')') {
     int val = num;
-    int multiplier = stk.peek(); stk.poll();
-    int prevSum = stk.peek(); stk.poll();
-    num = prevSum + multiplier val;  // Combine with outer expression
+    int multiplier = stk.top(); stk.pop();
+    int prevSum = stk.top(); stk.pop();
+    num = prevSum + multiplier * val;  // Combine with outer expression
     sign = '+';
 }
 ```
 
-## Complexity Analysis
-
+### Complexity
 | Solution | Time | Space | Notes |
 |----------|------|-------|-------|
 | **Recursive** | O(n) | O(n) | Natural for nested structures |
 | **Iterative (2 stacks)** | O(n) | O(n) | More explicit state management |
 | **Simplified Iterative** | O(n) | O(n) | Cleaner code, single stack |
 
-## Edge Cases
+## Common Mistakes
 
 1. **Nested parentheses**: `"((1+2)*3)"` → `9`
 2. **No parentheses**: `"1+2*3"` → `7`
@@ -476,8 +462,6 @@ else if(c == ')') {
 4. **Negative results**: `"1-2"` → `-1`
 5. **Division truncation**: `"5/2"` → `2`
 6. **Multiple spaces**: `"1 + 2"` → `3`
-
-## Common Mistakes
 
 1. **Index management**: Not adjusting index after `parseNum` or after recursive call
 2. **Operator precedence**: Evaluating `+` before `*`
@@ -573,3 +557,21 @@ In recursive approach, be careful with index:
 
 *This problem combines expression evaluation with nested parentheses handling. The recursive approach naturally handles nesting, while the iterative approach provides more control over the evaluation process.*
 
+## Key Takeaways
+
+1. **Recursion for Parentheses**: Natural way to handle nested structures
+2. **Stack for State**: Save evaluation state before entering parentheses
+3. **Operator Precedence**: Evaluate `*` and `/` immediately, defer `+` and `-`
+4. **Index Management**: Careful index tracking in recursive approach
+5. **Number Building**: Accumulate multi-digit numbers correctly
+
+## References
+
+- [LC 772: Basic Calculator III on LeetCode](https://leetcode.com/problems/basic-calculator-iii/)
+- [LeetCode Discuss — LC 772: Basic Calculator III](https://leetcode.com/problems/basic-calculator-iii/discuss/)
+- [LeetCode Editorial](https://leetcode.com/problems/basic-calculator-iii/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [String Processing](/blog_leetcode_java/posts/2025-11-24-leetcode-templates-string-processing/)
+{% endraw %}

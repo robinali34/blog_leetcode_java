@@ -6,13 +6,45 @@ categories: [leetcode, medium, sliding-window, two-pointers, array]
 permalink: /2025/12/30/medium-683-k-empty-slots/
 ---
 
-# 683. K Empty Slots
+{% raw %}
+You have `n` bulbs in a row numbered from `1` to `n`. Initially, all the bulbs are turned off. On day `i` (for `i` from `0` to `n-1`), we turn on exactly one bulb. The position of this bulb is given by `bulbs[i]`.
 
-## Problem Statement
+Given an integer `k`, return the **minimum day number** such that there exist two turned-on bulbs that have **exactly `k` bulbs between them** that are all turned off. If there isn't such day, return `-1`.
+
+## Thinking Process
 
 You have `n` bulbs in a row numbered from `1` to `n`. Initially, all the bulbs are turned off. On day `i` (for `i` from `0` to `n-1`), we turn on exactly one bulb. The position of this bulb is given by `bulbs[i]`.
 
 Given an integer `k`, return the **minimum day number** such that there exist two turned-on bulbs that have **exactly `k` bulbs between them** that are all turned off. If there isn't such day, return `-1`.
+
+- Maintain a window `[left, right]` satisfying a constraint.
+- Expand `right` to grow; shrink `left` when invalid.
+- Fixed window: slide both pointers together.
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 115" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Sliding window</text>
+
+  <rect x="20" y="45" width="32" height="32" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="36" y="63" text-anchor="middle" font-size="11">a</text>
+  <rect x="52" y="45" width="32" height="32" rx="3" fill="#D4D8E0" stroke="#8B8680"/><text x="68" y="63" text-anchor="middle" font-size="11">b</text>
+  <rect x="84" y="45" width="32" height="32" rx="3" fill="#D4D8E0" stroke="#8B8680"/><text x="100" y="63" text-anchor="middle" font-size="11">c</text>
+  <rect x="116" y="45" width="32" height="32" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="132" y="63" text-anchor="middle" font-size="11">d</text>
+  <rect x="148" y="45" width="32" height="32" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="164" y="63" text-anchor="middle" font-size="11">e</text>
+  <rect x="52" y="38" width="64" height="42" rx="4" fill="none" stroke="#C4956A" stroke-width="2" stroke-dasharray="4"/>
+  <text x="84" y="32" text-anchor="middle" font-size="10" fill="#C4956A" font-weight="600">window</text>
+  <text x="110" y="105" text-anchor="middle" font-size="11" fill="#6B6560">expand right, shrink left when invalid</text>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Fixed-size window** *(this problem)* | O(n) | O(1) | Window size known upfront |
+| Variable-size window | O(n) | O(1) | Expand/shrink until valid |
+| Window + hash map | O(n) | O(k) | Track character/count frequencies |
+| Deque window max | O(n) | O(k) | Monotonic deque for max/min in window |
 
 ## Examples
 
@@ -42,56 +74,15 @@ Explanation: No such day exists where two bulbs are on with exactly one bulb off
 - All values in `bulbs` are **unique**.
 - `0 <= k <= n`
 
-## Clarification Questions
+## Algorithm Breakdown
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+### **Key Insight: Window Validation**
 
-1. **Bulb activation**: How are bulbs activated? (Assumption: bulbs[i] represents the day when bulb at position i+1 is turned on - day 1 activates bulb at position bulbs[0])
+The algorithm checks if a window `[left, right]` is valid by ensuring:
+- Both endpoints (`left` and `right`) are blooming bulbs
+- All bulbs between them (`left+1` to `right-1`) are **off** (bloom later)
 
-2. **K-empty slots definition**: What does "k empty slots" mean? (Assumption: Two bulbs are on with exactly k bulbs off between them - k consecutive off bulbs)
-
-3. **Optimization goal**: What are we optimizing for? (Assumption: Find the earliest day when k-empty slots condition is satisfied)
-
-4. **Return value**: What should we return? (Assumption: Integer - earliest day number, or -1 if condition never satisfied)
-
-5. **Position indexing**: How are positions indexed? (Assumption: Positions are 1-indexed - n bulbs at positions 1 to n)
-
-## Interview Deduction Process (20 minutes)
-
-**Step 1: Brute-Force Approach (5 minutes)**
-
-For each day, simulate turning on the bulb at that position. Then scan through all positions to check if there exist two turned-on bulbs with exactly k empty slots between them. This requires checking all pairs of turned-on bulbs, which is O(n²) per day, leading to O(n³) overall complexity. This is too slow for n up to 2×10^4.
-
-**Step 2: Semi-Optimized Approach (7 minutes)**
-
-Maintain a boolean array tracking which bulbs are on. For each new bulb turned on, check if it forms a k-empty slot pattern with existing bulbs. We can check left and right neighbors: if a bulb is on at position i-k-1 or i+k+1, check if all positions between them are off. This reduces to O(n) per day, giving O(n²) overall, which is still too slow for large inputs.
-
-**Step 3: Optimized Solution (8 minutes)**
-
-Use a sliding window approach with position-to-day mapping. Create an array `day[i]` representing the day when bulb at position i is turned on. For a valid k-empty slot pattern between positions i and j (where j = i + k + 1), all bulbs between them must be turned on AFTER both i and j. Check for each valid window [i, i+k+1]: if `max(day[i], day[i+k+1]) < min(day[i+1...i+k])`, then this window is valid. Track the minimum day when a valid window is found. This achieves O(n) time complexity by checking each window once, making it optimal for this problem.
-
-## Solution Approach
-
-This problem requires finding the earliest day when there exist two blooming bulbs with exactly `k` empty slots between them. We can solve this efficiently using a **sliding window approach** with position-to-day mapping.
-
-### Key Insights:
-
-1. **Position-to-Day Mapping**: Convert `bulbs[i] = position` to `days[position] = day` to know when each position blooms
-2. **Sliding Window**: Use a window of size `k + 2` (two blooming bulbs + k empty slots)
-3. **Validation**: Check if all bulbs between the two endpoints bloom later than both endpoints
-4. **Early Termination**: If a bulb between endpoints blooms earlier, it invalidates the window
-
-### Algorithm:
-
-1. **Build days array**: `days[i]` = day when position `i+1` blooms
-2. **Sliding window**: Check windows of size `k + 2`
-3. **Validation**: Ensure all middle bulbs bloom after both endpoints
-4. **Track minimum**: Keep track of minimum day when valid window found
-
-## Solution
-
-### **Solution: Sliding Window with Position Mapping**
-
+**Validation Condition:**
 ```java
 class Solution {
         public int kEmptySlots(int[] bulbs, int k) {
@@ -123,107 +114,6 @@ class Solution {
 }
 ```
 
-### **Algorithm Explanation:**
-
-1. **Build Days Array (Lines 5-8)**:
-   - Convert position-based input to day-based array
-   - `days[i]` = day when bulb at position `i+1` blooms
-   - Example: `bulbs = [1,3,2]` → `days = [1,3,2]` (position 1 blooms on day 1, position 2 on day 3, position 3 on day 2)
-
-2. **Sliding Window (Lines 9-25)**:
-   - Window size: `k + 2` (left endpoint, k empty slots, right endpoint)
-   - `left = 0`, `right = k + 1`
-   - Check if all bulbs between `left` and `right` bloom **after** both endpoints
-
-3. **Validation (Lines 12-19)**:
-   - For each position `i` between `left` and `right`:
-     - If `days[i] < days[left]` or `days[i] < days[right]`: invalid window
-     - Bulb `i` blooms before one of the endpoints → cannot have k empty slots
-     - Move `left` to `i` and update `right` accordingly
-
-4. **Update Result (Lines 20-23)**:
-   - If window is valid: both endpoints are on, k bulbs between are off
-   - Day when both are on: `max(days[left], days[right])`
-   - Track minimum day across all valid windows
-
-### **Example Walkthrough:**
-
-**For `bulbs = [1,3,2], k = 1`:**
-
-```
-Step 1: Build days array
-bulbs = [1, 3, 2]  (position 1 on day 1, position 3 on day 2, position 2 on day 3)
-days  = [1, 3, 2]  (days[0]=1, days[1]=3, days[2]=2)
-
-Step 2: Initialize sliding window
-left = 0, right = k + 1 = 2
-Window: positions [0, 2] with 1 empty slot at position 1
-
-Step 3: Validate window [0, 2]
-Check position 1 (between 0 and 2):
-- days[1] = 3
-- days[0] = 1, days[2] = 2
-- days[1] > days[0] ✓ and days[1] > days[2] ✓
-- Valid window!
-
-Step 4: Calculate result
-Both endpoints bloom on: max(days[0], days[2]) = max(1, 2) = 2
-rtn = min(INT_MAX, 2) = 2
-
-Step 5: Move to next window
-left = 2, right = 2 + 1 + 1 = 4 (out of bounds)
-Stop.
-
-Result: 2
-```
-
-**Visual Representation:**
-
-```
-Day 1: [1, 0, 0]  Position 1 blooms
-Day 2: [1, 0, 1]  Position 3 blooms → Valid! Positions 1 and 3 are on, position 2 is off
-Day 3: [1, 1, 1]  Position 2 blooms (too late, already found answer)
-```
-
-### **Another Example: `bulbs = [1,2,3], k = 1`**
-
-```
-Step 1: Build days array
-bulbs = [1, 2, 3]
-days  = [1, 2, 3]
-
-Step 2: Check window [0, 2]
-Check position 1:
-- days[1] = 2
-- days[0] = 1, days[2] = 3
-- days[1] = 2 > days[0] = 1 ✓
-- days[1] = 2 < days[2] = 3 ✗ (position 1 blooms before position 3)
-- Invalid window!
-
-Step 3: Move left to position 1
-left = 1, right = 1 + 1 + 1 = 3 (out of bounds)
-No valid window found.
-
-Result: -1
-```
-
-## Algorithm Breakdown
-
-### **Key Insight: Window Validation**
-
-The algorithm checks if a window `[left, right]` is valid by ensuring:
-- Both endpoints (`left` and `right`) are blooming bulbs
-- All bulbs between them (`left+1` to `right-1`) are **off** (bloom later)
-
-**Validation Condition:**
-```java
-for(int i = left + 1; i < right; i++) {
-    if(days[i] < days[left] || days[i] < days[right]) {
-        // Invalid: bulb i blooms before one of the endpoints
-    }
-}
-```
-
 **Why this works:**
 - If `days[i] < days[left]`: bulb `i` blooms before left endpoint → cannot have k empty slots
 - If `days[i] < days[right]`: bulb `i` blooms before right endpoint → cannot have k empty slots
@@ -232,7 +122,7 @@ for(int i = left + 1; i < right; i++) {
 ### **Optimization: Early Termination**
 
 When an invalid bulb is found, we don't need to check positions before it:
-```java
+```cpp
 if(days[i] < days[left] || days[i] < days[right]) {
     left = i;  // Move left to invalid position
     right = i + k + 1;  // Update right accordingly
@@ -242,8 +132,7 @@ if(days[i] < days[left] || days[i] < days[right]) {
 
 This optimization ensures we don't check redundant windows.
 
-## Complexity Analysis
-
+### Complexity
 ### **Time Complexity:** O(n)
 - **Build days array**: O(n) - single pass through bulbs
 - **Sliding window**: O(n) - each position visited at most once
@@ -262,23 +151,6 @@ This optimization ensures we don't check redundant windows.
 3. **Validation Logic**: All middle bulbs must bloom after both endpoints
 4. **Early Termination**: Skip invalid windows efficiently
 5. **Result Calculation**: Day when both endpoints are on = `max(days[left], days[right])`
-
-## Alternative Approaches
-
-### **Approach 1: Sliding Window (Current Solution)**
-- **Time**: O(n)
-- **Space**: O(n)
-- **Best for**: Efficient single-pass solution
-
-### **Approach 2: Brute Force**
-- **Time**: O(n²)
-- **Space**: O(n)
-- **Check all pairs**: For each pair of positions with k slots between, check if valid
-
-### **Approach 3: TreeSet/Ordered Set**
-- **Time**: O(n log n)
-- **Space**: O(n)
-- **Maintain active bulbs**: Use ordered set to track blooming bulbs and check gaps
 
 ## Detailed Example Walkthrough
 
@@ -335,6 +207,12 @@ No valid window found → Return -1
 3. **No solution**: All bulbs bloom in order, no valid window
 4. **Single valid window**: Only one pair of positions satisfies condition
 
+## Common Mistakes
+
+- Skipping edge cases (empty input, single element, boundaries).
+- Off-by-one errors in loops and index ranges.
+- Forgetting to handle the case when no valid answer exists.
+
 ## Related Problems
 
 - [683. K Empty Slots](https://leetcode.com/problems/k-empty-slots/) - Current problem
@@ -346,3 +224,19 @@ No valid window found → Return -1
 
 `Sliding Window`, `Two Pointers`, `Array`, `Medium`
 
+## Key Takeaways
+
+- Maintain a window `[left, right]` satisfying a constraint.
+- Expand `right` to grow; shrink `left` when invalid.
+- Fixed window: slide both pointers together.
+
+## References
+
+- [LC 683: K Empty Slots on LeetCode](https://leetcode.com/problems/k-empty-slots/)
+- [LeetCode Discuss — LC 683: K Empty Slots](https://leetcode.com/problems/k-empty-slots/discuss/)
+- [LeetCode Editorial](https://leetcode.com/problems/k-empty-slots/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [Arrays & Strings](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-arrays-strings/)
+{% endraw %}

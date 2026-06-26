@@ -166,6 +166,18 @@ backtrack(current_state):
             undo_choice()            ← backtrack
 ```
 
+```
+backtrack(current_state):
+    if is_solution(current_state):
+        record solution
+        return
+    for each choice in available_choices:
+        if is_valid(choice):        ← pruning
+            make_choice()
+            backtrack(next_state)    ← recurse
+            undo_choice()            ← backtrack
+```
+
 ## Permutations (All Arrangements)
 **When to use:** The problem asks for "all arrangements", "all orderings", "every possible order", or "rearrange".
 

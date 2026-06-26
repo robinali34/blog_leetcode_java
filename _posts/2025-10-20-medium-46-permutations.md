@@ -6,12 +6,9 @@ categories: leetcode algorithm medium backtracking recursion
 permalink: /2025/10/20/medium-46-permutations/
 ---
 
-# 46. Permutations
-
+{% raw %}
 **Difficulty:** Medium  
 **Category:** Backtracking, Recursion
-
-## Problem Statement
 
 Given an array `nums` of distinct integers, return **all the possible permutations**. You can return the answer in **any order**.
 
@@ -41,40 +38,12 @@ Output: [[1]]
 - `-10 <= nums[i] <= 10`
 - All the integers of `nums` are **unique**.
 
-## Clarification Questions
-
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
-
-1. **Permutation definition**: What is a permutation? (Assumption: All possible arrangements of array elements - order matters)
-
-2. **Element uniqueness**: Are all elements unique? (Assumption: Yes - per constraints, all integers are unique)
-
-3. **Output format**: Should we return all permutations or just count? (Assumption: Return all distinct permutations - list of lists)
-
-4. **Array modification**: Can we modify the input array? (Assumption: Typically yes for backtracking, but should clarify)
-
-5. **Empty array**: What if array is empty? (Assumption: Return [[]] - one permutation with no elements)
-
-## Interview Deduction Process (20 minutes)
-
-**Step 1: Brute-Force Approach (5 minutes)**
-
-Generate all possible arrangements by trying all positions for each element. Use nested loops or recursive generation without pruning. This approach works but generates duplicates and has exponential complexity. The challenge is ensuring all permutations are generated exactly once.
-
-**Step 2: Semi-Optimized Approach (7 minutes)**
-
-Use backtracking: build permutations incrementally. For each position, try each unused element. Use a visited set or boolean array to track which elements have been used. When permutation is complete (all positions filled), add to results. Backtrack by unmarking elements. This avoids duplicates but still explores all possibilities.
-
-**Step 3: Optimized Solution (8 minutes)**
-
-Use backtracking with in-place swapping. Instead of maintaining a separate array and visited set, swap elements in the original array. For position i, swap elements at positions i and j (where j >= i), recursively generate permutations for position i+1, then swap back. This achieves O(n! × n) time (n! permutations, each taking O(n) to build) with O(n) space for recursion stack. The key insight is that swapping allows us to use the array itself to track the current permutation state, eliminating the need for extra visited tracking.
-
-## Approach
+## Thinking Process
 
 This is a classic **backtracking** problem that requires generating all possible permutations of a given array. There are two main approaches:
 
 1. **Backtracking with Swapping:** Generate permutations by swapping elements in-place
-2. **permutation generation (library or backtracking):** Use Java Collections' built-in permutation generator
+2. **Java Collections next_permutation:** Use C++ Java Collections's built-in permutation generator
 
 ### Algorithm 1: Backtracking with Swapping
 1. **Start from index 0** and try each element at current position
@@ -83,11 +52,33 @@ This is a classic **backtracking** problem that requires generating all possible
 4. **Backtrack** by swapping back to original positions
 5. **Base case:** When we've placed all elements, add current permutation
 
-### Algorithm 2: permutation generation (library or backtracking)
+### Algorithm 2: Java Collections next_permutation
 1. **Sort the array** to get lexicographically smallest permutation
 2. **Use do-while loop** with `next_permutation()` to generate all permutations
 3. **Add each permutation** to result vector
 4. **Continue until** no more permutations exist
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 125" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Backtracking tree</text>
+
+  <circle cx="140" cy="30" r="12" fill="#E0D8E4" stroke="#A098A8"/><text x="140" y="34" text-anchor="middle" font-size="9">start</text>
+  <line x1="140" y1="42" x2="90" y2="65" stroke="#9A9792"/><line x1="140" y1="42" x2="190" y2="65" stroke="#9A9792"/>
+  <circle cx="90" cy="72" r="10" fill="#D4D8E0" stroke="#8B8680"/><circle cx="190" cy="72" r="10" fill="#D4D8E0" stroke="#8B8680"/>
+  <line x1="90" y1="82" x2="60" y2="100" stroke="#9A9792" stroke-dasharray="3"/><line x1="190" y1="82" x2="220" y2="100" stroke="#9A9792" stroke-dasharray="3"/>
+  <text x="140" y="118" text-anchor="middle" font-size="11" fill="#6B6560">choose → explore → undo (prune)</text>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Choose / explore / unchoose** *(this problem)* | O(2^n) | O(n) | Subsets, combinations |
+| Constraint pruning | Reduced search | O(n) | Early exit on invalid partial |
+| Sort + skip duplicates | O(2^n) | O(n) | Combination sum II style |
+| Path recording | O(n!) worst | O(n) | Permutations |
 
 ## Solution
 
@@ -114,7 +105,21 @@ class Solution {
 }
 ```
 
-### Solution 2: permutation generation (library or backtracking)
+### Solution Explanation
+
+**Approach:** Choose / explore / unchoose (this problem)
+
+**Key idea:** This is a classic **backtracking** problem that requires generating all possible permutations of a given array. There are two main approaches:
+
+**How the code works:**
+1. **Backtracking with Swapping:** Generate permutations by swapping elements in-place
+2. **Java Collections next_permutation:** Use C++ Java Collections's built-in permutation generator
+1. **Start from index 0** and try each element at current position
+2. **Swap elements** to place them at current position
+3. **Recursively generate** permutations for remaining positions
+4. **Backtrack** by swapping back to original positions
+
+### Solution 2: Java Collections next_permutation
 
 ```java
 // import java.util.Arrays;
@@ -130,7 +135,6 @@ class Solution {
     }
 }
 ```
-
 ## Explanation
 
 ### Solution 1: Backtracking with Swapping
@@ -164,7 +168,7 @@ Initial: [1,2,3], idx=0
       └─ Swap(2,2): [3,1,2] → idx=3, add [3,1,2]
 ```
 
-### Solution 2: permutation generation (library or backtracking)
+### Solution 2: Java Collections next_permutation
 
 **Step-by-Step Process:**
 
@@ -186,8 +190,6 @@ Sorted: [1,2,3]
 7. next_permutation returns false → Stop
 ```
 
-## Complexity Analysis
-
 ### Solution 1: Backtracking with Swapping
 **Time Complexity:** O(n! × n)
 - **Permutations:** n! permutations generated
@@ -198,7 +200,7 @@ Sorted: [1,2,3]
 - **Recursion depth:** O(n) for the call stack
 - **No additional space** for storing permutations during generation
 
-### Solution 2: permutation generation (library or backtracking)
+### Solution 2: Java Collections next_permutation
 **Time Complexity:** O(n! × n)
 - **Permutations:** n! permutations generated
 - **Each permutation:** O(n) time for `next_permutation()` and copying
@@ -207,102 +209,6 @@ Sorted: [1,2,3]
 **Space Complexity:** O(1)
 - **No recursion:** Iterative approach
 - **No additional space** beyond input and output
-
-## Key Insights
-
-1. **Backtracking Pattern:** Classic recursive approach with state restoration
-2. **In-place Generation:** Swapping allows generating permutations without extra space
-3. **Library efficiency:** `next_permutation()` is highly optimized
-4. **Lexicographic Order:** library approach generates permutations in sorted order
-5. **State Management:** Proper backtracking ensures all possibilities are explored
-
-## Comparison of Approaches
-
-| Approach | Time | Space | Advantages | Disadvantages |
-|----------|------|-------|------------|---------------|
-| **Backtracking** | O(n! × n) | O(n) | Educational, flexible | Recursive overhead |
-| **Library** | O(n! × n) | O(1) | Concise, optimized | Less control over order |
-
-## Alternative Approaches
-
-### Approach 3: Backtracking with Visited Array
-```java
-class Solution {
-    public int[][] permute(int[] nums) {
-        List<int[]> result = new ArrayList<>();
-        List<Integer> current = new ArrayList<>();
-        boolean[]used(nums.length, false);
-        backtrack(nums, current, used, result);
-        return result;
-    }
-    public void backtrack(int[] nums, int[] current,
-                   boolean[] used, int[][] result) {
-        if(current.size() == nums.length) {
-            result.add(current);
-            return;
-        }
-
-        for(int i = 0; i < nums.length; i++) {
-            if(used[i]) continue;
-
-            used[i] = true;
-            current.add(nums[i]);
-            backtrack(nums, current, used, result);
-            current.removeLast();
-            used[i] = false;
-        }
-    }
-}
-```
-
-### Approach 4: Iterative with Stack
-```java
-class Solution {
-    public int[][] permute(int[] nums) {
-        List<int[]> result = new ArrayList<>();
-        stack<int[]> stk;
-        stk.offer({});
-
-        while(!stk.isEmpty()) {
-            int[]current = stk.peek();
-            stk.poll();
-
-            if(current.size() == nums.length) {
-                result.add(current);
-                continue;
-            }
-
-            for(int num : nums) {
-                if(find(current /* elements of current */, num) == current.iterator()) {
-                    int[]next = current;
-                    next.add(num);
-                    stk.offer(next);
-                }
-            }
-        }
-
-        return result;
-    }
-}
-```
-
-## When to Use Each Approach
-
-### Use Backtracking with Swapping when:
-- **Memory is limited** (O(n) space vs O(n!) for visited approach)
-- **Need to understand** the algorithm deeply
-- **Custom modifications** are required
-
-### Use permutation generation (library or backtracking) when:
-- **Code simplicity** is priority
-- **Lexicographic order** is desired
-- **Performance** is critical (highly optimized)
-
-### Use Visited Array when:
-- **Clarity** is more important than space
-- **Need to track** which elements are used
-- **Modifying** the original array is not allowed
-
 ## Key Concepts
 
 1. **Permutations:** All possible arrangements of elements
@@ -312,3 +218,24 @@ class Solution {
 5. **Pruning:** Avoiding invalid or duplicate states
 
 This problem is fundamental for understanding backtracking algorithms and is commonly used in interviews to test recursive thinking and state management skills.
+
+## References
+
+- [LC 46: Permutations on LeetCode](https://leetcode.com/problems/permutations/)
+- [LeetCode Discuss — LC 46: Permutations](https://leetcode.com/problems/permutations/discuss/)
+- [LeetCode Editorial](https://leetcode.com/problems/permutations/editorial/) *(may require premium)*
+
+## Common Mistakes
+
+- Skipping edge cases (empty input, single element, boundaries).
+- Off-by-one errors in loops and index ranges.
+- Forgetting to handle the case when no valid answer exists.
+
+## Key Takeaways
+
+1. **Backtracking Pattern:** Classic recursive approach with state restoration
+2. **In-place Generation:** Swapping allows generating permutations without extra space
+3. **Java Collections Efficiency:** `next_permutation()` is highly optimized
+4. **Lexicographic Order:** Java Collections approach generates permutations in sorted order
+5. **State Management:** Proper backtracking ensures all possibilities are explored
+{% endraw %}

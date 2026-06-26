@@ -7,6 +7,7 @@ tags: [leetcode, medium, backtracking, dfs, bit-manipulation]
 permalink: /2026/03/05/medium-78-subsets/
 ---
 
+{% raw %}
 Given an integer array `nums` of **unique** elements, return all possible subsets (the power set). The solution must not contain duplicate subsets.
 
 ## Examples
@@ -31,9 +32,20 @@ Output: [[],[0]]
 - `-10 <= nums[i] <= 10`
 - All elements are **unique**
 
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Recursive DFS** *(this problem)* | O(n) | O(h) stack | Natural for trees and graphs |
+| Iterative DFS (stack) | O(n) | O(n) | Avoid recursion depth limits |
+| DFS with memoization | O(n) | O(n) | Overlapping subproblems on graphs |
+| Backtracking DFS | O(2^n) typical | O(n) | Enumerate choices with pruning |
+
 ## Thinking Process
 
-Every element has two choices: **include** or **exclude**. With `n` elements, there are $2^n$ subsets total.
+Every element has two choices: **include** or **exclude**. With `n` elements, there are 2^n subsets total.
 
 ### Backtracking Approach
 
@@ -54,9 +66,28 @@ dfs(start=0, path=[])        → record []
 
 The `start` parameter ensures we only pick elements after the current index, preventing duplicate subsets like `[2,1]` when `[1,2]` already exists.
 
-## Approach 1: Backtracking -- $O(n \cdot 2^n)$
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 165" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Tree DFS (bottom-up)</text>
 
-{% raw %}
+  <line x1="140" y1="42" x2="80" y2="88" stroke="#8E9AAF" stroke-width="2"/>
+  <line x1="140" y1="42" x2="200" y2="88" stroke="#8E9AAF" stroke-width="2"/>
+  <line x1="80" y1="88" x2="50" y2="128" stroke="#8E9AAF" stroke-width="2"/>
+  <line x1="200" y1="88" x2="230" y2="128" stroke="#8E9AAF" stroke-width="2"/>
+  <circle cx="140" cy="42" r="18" fill="#C9B1BD" stroke="#8E9AAF" stroke-width="2"/>
+  <text x="140" y="46" text-anchor="middle" font-size="12" fill="#3D3535">3</text>
+  <circle cx="80" cy="88" r="16" fill="#C9B1BD" stroke="#8E9AAF" stroke-width="2"/>
+  <text x="80" y="92" text-anchor="middle" font-size="11" fill="#3D3535">9</text>
+  <circle cx="200" cy="88" r="16" fill="#C9B1BD" stroke="#8E9AAF" stroke-width="2"/>
+  <text x="200" y="92" text-anchor="middle" font-size="11" fill="#3D3535">20</text>
+  <circle cx="50" cy="128" r="14" fill="#A8B5A2" stroke="#8E9AAF" stroke-width="1.5"/>
+  <text x="50" y="132" text-anchor="middle" font-size="10" fill="#3D3535">15</text>
+  <circle cx="230" cy="128" r="14" fill="#A8B5A2" stroke="#8E9AAF" stroke-width="1.5"/>
+  <text x="230" y="132" text-anchor="middle" font-size="10" fill="#3D3535">7</text>
+  <text x="140" y="155" text-anchor="middle" font-size="11" fill="#6B6560">post-order: combine left + right + 1</text>
+
+</svg>
+
+## Approach 1: Backtracking -- O(n · 2^n)
 ```java
 class Solution {
     public int[][] subsets(int[] nums) {
@@ -76,16 +107,21 @@ class Solution {
     }
 }
 ```
-{% endraw %}
 
-**Time**: $O(n \cdot 2^n)$ -- $2^n$ subsets, each up to $O(n)$ to copy
-**Space**: $O(n)$ recursion depth (excluding output)
+### Solution Explanation
 
-## Approach 2: Bitmask Enumeration -- $O(n \cdot 2^n)$
+**Approach:** Recursive DFS (this problem)
+
+**Key idea:** Every element has two choices: **include** or **exclude**. With `n` elements, there are 2^n subsets total.
+
+**Walkthrough** — input `nums = [1,2,3]`, expected output `[[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]`:
+
+1. Initialize variables from the problem setup.
+2. Apply the main loop / recursion until the condition is met.
+3. Confirm the result matches the expected output.
+## Approach 2: Bitmask Enumeration -- O(n · 2^n)
 
 Each integer from `0` to `2^n - 1` represents a subset: bit `j` is set means include `nums[j]`.
-
-{% raw %}
 ```java
 class Solution {
     public int[][] subsets(int[] nums) {
@@ -105,10 +141,9 @@ class Solution {
     }
 }
 ```
-{% endraw %}
 
-**Time**: $O(n \cdot 2^n)$
-**Space**: $O(n)$ per subset (excluding output)
+**Time**: O(n · 2^n)
+**Space**: O(n) per subset (excluding output)
 
 ## Common Mistakes
 
@@ -119,7 +154,7 @@ class Solution {
 ## Key Takeaways
 
 - **Backtracking template**: push → recurse → pop. The `start` index prevents revisiting earlier elements
-- **Bitmask alternative**: natural for small `n` ($\leq 20$), iterative and easy to reason about
+- **Bitmask alternative**: natural for small `n` (≤ 20), iterative and easy to reason about
 - This is the foundation for LC 90 (Subsets II with duplicates) -- just add a sort + skip condition
 
 ## Related Problems
@@ -129,6 +164,13 @@ class Solution {
 - [77. Combinations](https://leetcode.com/problems/combinations/) -- fixed-size subsets
 - [39. Combination Sum](https://leetcode.com/problems/combination-sum/) -- subsets with target sum
 
+## References
+
+- [LC 78: Subsets on LeetCode](https://leetcode.com/problems/subsets/)
+- [LeetCode Discuss — LC 78: Subsets](https://leetcode.com/problems/subsets/discuss/)
+- [LeetCode Editorial](https://leetcode.com/problems/subsets/editorial/) *(may require premium)*
+
 ## Template Reference
 
 - [Backtracking](/blog_leetcode_java/posts/2025-11-24-leetcode-templates-backtracking/)
+{% endraw %}

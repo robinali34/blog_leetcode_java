@@ -7,13 +7,43 @@ permalink: /2026/01/12/easy-844-backspace-string-compare/
 tags: [leetcode, easy, string, two-pointers, stack, simulation]
 ---
 
-# 844. Backspace String Compare
-
-## Problem Statement
-
+{% raw %}
 Given two strings `s` and `t`, return `true` *if they are equal when both are typed into empty text editors*. `'#'` means a backspace character.
 
 Note that after backspacing an empty text, the text will continue empty.
+
+## Thinking Process
+
+1. **Backwards Processing**: Processing from right to left handles backspaces naturally
+
+- Stack matches nested or LIFO structure (parentheses, monotonic scans).
+- Push on open / larger; pop when the current element resolves pending work.
+- Monotonic stack finds next greater/smaller in O(n).
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 110" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Two pointers</text>
+
+  <rect x="30" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="44" y="66" text-anchor="middle" font-size="10">1</text>
+  <rect x="62" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="76" y="66" text-anchor="middle" font-size="10">3</text>
+  <rect x="106" y="50" width="28" height="28" rx="3" fill="#E0D8E4" stroke="#A098A8"/><text x="120" y="66" text-anchor="middle" font-size="10">5</text>
+  <rect x="138" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="152" y="66" text-anchor="middle" font-size="10">7</text>
+  <rect x="170" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="184" y="66" text-anchor="middle" font-size="10">9</text>
+  <text x="44" y="42" text-anchor="middle" font-size="10" fill="#7A8EA0" font-weight="600">L</text>
+  <text x="184" y="42" text-anchor="middle" font-size="10" fill="#A08888" font-weight="600">R</text>
+  <text x="110" y="100" text-anchor="middle" font-size="11" fill="#6B6560">move L/R based on comparison</text>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Monotonic stack** *(this problem)* | O(n) | O(n) | Next greater/smaller element |
+| Parentheses matching | O(n) | O(n) | Push open, pop on close |
+| Expression evaluation | O(n) | O(n) | Operand + operator stacks |
+| Stack simulation | O(n) | O(n) | Process in LIFO order |
 
 ## Examples
 
@@ -43,89 +73,7 @@ Explanation: s becomes "c" while t becomes "b".
 - `1 <= s.length, t.length <= 200`
 - `s` and `t` only contain lowercase letters and `'#'` characters.
 
-## Clarification Questions
-
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
-
-1. **Backspace behavior**: What does '#' do? (Assumption: Backspace character - deletes the previous character in the string)
-
-2. **Comparison goal**: What are we comparing? (Assumption: Compare final strings after processing all backspaces)
-
-3. **Return value**: What should we return? (Assumption: Boolean - true if final strings are equal, false otherwise)
-
-4. **Empty string**: What if backspace deletes all characters? (Assumption: Result is empty string "")
-
-5. **Multiple backspaces**: What if there are multiple consecutive '#'? (Assumption: Each '#' deletes one character - can delete multiple characters)
-
-## Interview Deduction Process (10 minutes)
-
-### Step 1: Brute-Force Approach (2 minutes)
-**Initial Thought**: "I need to compare strings after backspaces. Let me build final strings first."
-
-**Naive Solution**: Process each string to build final string after backspaces, then compare.
-
-**Complexity**: O(n + m) time, O(n + m) space
-
-**Issues**:
-- Uses O(n + m) extra space
-- Two passes needed
-- Doesn't leverage two-pointer technique
-- Can be optimized
-
-### Step 2: Semi-Optimized Approach (3 minutes)
-**Insight**: "I can process strings from right to left, skipping characters deleted by backspaces."
-
-**Improved Solution**: Process strings from right to left. When encountering '#', skip next character. Compare characters as we go.
-
-**Complexity**: O(n + m) time, O(1) space
-
-**Improvements**:
-- O(1) space - no extra strings needed
-- Right-to-left processing handles backspaces naturally
-- Single pass comparison
-- Handles all cases correctly
-
-### Step 3: Optimized Solution (5 minutes)
-**Final Optimization**: "Right-to-left two-pointer approach is optimal."
-
-**Best Solution**: Right-to-left two-pointer approach is optimal. Process both strings from end. When encountering '#', skip characters. Compare characters directly.
-
-**Complexity**: O(n + m) time, O(1) space
-
-**Key Realizations**:
-1. Right-to-left processing is key insight
-2. O(n + m) time is optimal - must process each character
-3. O(1) space is optimal
-4. Two-pointer technique enables direct comparison
-
-## Solution Approach
-
-This problem can be solved in two ways:
-1. **Stack-based**: Build the final strings and compare (O(n) time, O(n) space)
-2. **Two Pointers (Backwards)**: Process strings backwards, skipping characters based on backspaces (O(n) time, O(1) space)
-
-The two-pointer approach is more space-efficient and processes strings in reverse to handle backspaces naturally.
-
-### Key Insights:
-
-1. **Backwards Processing**: Process from right to left to handle backspaces naturally
-2. **Skip Counter**: Track how many characters to skip due to backspaces
-3. **Character Matching**: Compare actual characters (after handling backspaces) from both strings
-4. **Early Termination**: Return `false` if characters don't match
-
-### Algorithm:
-
-1. **Initialize**: Two pointers at end of both strings, skip counters for both
-2. **While either string has characters**:
-   - Process backspaces in `s`: skip `#` and characters to be deleted
-   - Process backspaces in `t`: skip `#` and characters to be deleted
-   - Compare current characters: if they don't match, return `false`
-   - Move both pointers left
-3. **Return**: `true` if both pointers reached `-1` (both strings processed)
-
-## Solution
-
-### **Solution: Two Pointers (Backwards)**
+## Alternative Approach: Stack-Based
 
 ```java
 class Solution {
@@ -155,114 +103,6 @@ class Solution {
 }
 ```
 
-### **Algorithm Explanation:**
-
-1. **Initialize (Lines 6-7)**:
-   - `i = s.length() - 1`, `j = t.length() - 1`: Start from end of both strings
-   - `skipS = 0`, `skipT = 0`: Counters for characters to skip in each string
-
-2. **Main Loop (Line 8)**: Continue while either string has unprocessed characters
-
-3. **Process Backspaces in `s` (Lines 9-13)**:
-   - **If `s[i] == '#'`**: Increment `skipS` and move left (backspace found)
-   - **Else if `skipS > 0`**: Decrement `skipS` and move left (skip character due to backspace)
-   - **Else**: Break (found actual character to compare)
-
-4. **Process Backspaces in `t` (Lines 14-18)**: Same logic for string `t`
-
-5. **Compare Characters (Lines 19-20)**:
-   - If both pointers are valid (`i >= 0 && j >= 0`) and characters don't match, return `false`
-   - Move both pointers left
-
-6. **Return (Line 22)**: `i == j` ensures both strings are fully processed (both `-1`)
-
-### **Why This Works:**
-
-- **Backwards Processing**: Processing from right to left handles backspaces naturally
-- **Skip Counter**: Tracks how many characters to skip due to backspaces encountered
-- **Character Matching**: Only compares actual characters (after handling backspaces)
-- **Space Efficient**: O(1) space, no need to build final strings
-
-### **Example Walkthrough:**
-
-**For `s = "ab#c"`, `t = "ad#c"`:**
-
-```
-Initial: i = 3, j = 3, skipS = 0, skipT = 0
-
-Iteration 1:
-  Process s: i=3, s[3]='c', skipS=0 → break, i=3
-  Process t: j=3, t[3]='c', skipT=0 → break, j=3
-  Compare: s[3]='c' == t[3]='c' ✓
-  i=2, j=2
-
-Iteration 2:
-  Process s: i=2, s[2]='#', skipS++ → skipS=1, i=1
-            i=1, s[1]='b', skipS>0 → skipS--, skipS=0, i=0
-            i=0, s[0]='a', skipS=0 → break, i=0
-  Process t: j=2, t[2]='#', skipT++ → skipT=1, j=1
-            j=1, t[1]='d', skipT>0 → skipT--, skipT=0, j=0
-            j=0, t[0]='a', skipT=0 → break, j=0
-  Compare: s[0]='a' == t[0]='a' ✓
-  i=-1, j=-1
-
-Loop ends: i=-1, j=-1
-Return: i == j → -1 == -1 → true
-```
-
-**For `s = "ab##"`, `t = "c#d#"`:**
-
-```
-Initial: i = 3, j = 3, skipS = 0, skipT = 0
-
-Iteration 1:
-  Process s: i=3, s[3]='#', skipS++ → skipS=1, i=2
-            i=2, s[2]='#', skipS++ → skipS=2, i=1
-            i=1, s[1]='b', skipS>0 → skipS--, skipS=1, i=0
-            i=0, s[0]='a', skipS>0 → skipS--, skipS=0, i=-1
-  Process t: j=3, t[3]='#', skipT++ → skipT=1, j=2
-            j=2, t[2]='d', skipT>0 → skipT--, skipT=0, j=1
-            j=1, t[1]='#', skipT++ → skipT=1, j=0
-            j=0, t[0]='c', skipT>0 → skipT--, skipT=0, j=-1
-  Compare: i=-1, j=-1 (both exhausted)
-  i=-1, j=-1
-
-Loop ends: i=-1, j=-1
-Return: i == j → -1 == -1 → true
-```
-
-### **Complexity Analysis:**
-
-- **Time Complexity:** O(n + m) where n and m are lengths of `s` and `t`
-  - Each character is visited at most once
-  - Total: O(n + m)
-- **Space Complexity:** O(1)
-  - Only using a few variables: `i`, `j`, `skipS`, `skipT`
-  - No additional data structures
-
-## Alternative Approach: Stack-Based
-
-```java
-class Solution {
-        public boolean backspaceCompare(String s, String t) {
-        return buildString(s) == buildString(t);
-    }
-        public String buildString(String str) {
-        String result;
-        for(char c : str) {
-            if(c == '#') {
-                if(!result.isEmpty()) {
-                    result.removeLast();
-                }
-            } else {
-                result.add(c);
-            }
-        }
-        return result;
-    }
-}
-```
-
 **Time Complexity:** O(n + m)  
 **Space Complexity:** O(n + m)
 
@@ -270,22 +110,13 @@ class Solution {
 - **Stack-based**: Simpler to understand, but uses O(n + m) space
 - **Two Pointers**: More complex, but O(1) space - better for large inputs
 
-## Key Insights
-
-1. **Backwards Processing**: Processing from right to left handles backspaces naturally
-2. **Skip Counter**: Tracks characters to skip due to backspaces
-3. **Character Matching**: Only compares actual characters after handling backspaces
-4. **Space Efficiency**: Two-pointer approach achieves O(1) space
-
-## Edge Cases
+## Common Mistakes
 
 1. **All backspaces**: `s = "###"`, `t = "##"` → both become `""`, return `true`
 2. **Empty strings**: `s = ""`, `t = ""` → return `true`
 3. **Backspace at start**: `s = "#a"`, `t = "a"` → both become `"a"`, return `true`
 4. **Different lengths**: `s = "a#b"`, `t = "b"` → both become `"b"`, return `true`
 5. **No backspaces**: `s = "abc"`, `t = "abc"` → return `true`
-
-## Common Mistakes
 
 1. **Wrong skip logic**: Not properly handling consecutive backspaces
 2. **Index errors**: Off-by-one errors when moving pointers
@@ -299,7 +130,20 @@ class Solution {
 - [LC 1209: Remove All Adjacent Duplicates in String II](https://leetcode.com/problems/remove-all-adjacent-duplicates-in-string-ii/) - K duplicates version
 - [LC 1544: Make The String Great](https://leetcode.com/problems/make-the-string-great/) - Similar character removal pattern
 
----
+## Key Takeaways
 
-*This problem demonstrates the two-pointer technique with backwards processing. The key insight is that processing from right to left makes handling backspaces straightforward, and using skip counters allows O(1) space complexity.*
+1. **Backwards Processing**: Processing from right to left handles backspaces naturally
+2. **Skip Counter**: Tracks characters to skip due to backspaces
+3. **Character Matching**: Only compares actual characters after handling backspaces
+4. **Space Efficiency**: Two-pointer approach achieves O(1) space
 
+## References
+
+- [LC 844: Backspace String Compare on LeetCode](https://leetcode.com/problems/backspace-string-compare/)
+- [LeetCode Discuss — LC 844: Backspace String Compare](https://leetcode.com/problems/backspace-string-compare/discuss/)
+- [LeetCode Editorial](https://leetcode.com/problems/backspace-string-compare/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [String Processing](/blog_leetcode_java/posts/2025-11-24-leetcode-templates-string-processing/)
+{% endraw %}

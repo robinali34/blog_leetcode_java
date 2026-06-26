@@ -7,8 +7,7 @@ permalink: /posts/2025-11-18-medium-45-jump-game-ii/
 tags: [leetcode, medium, array, greedy, bfs, optimization]
 ---
 
-# [Medium] 45. Jump Game II
-
+{% raw %}
 You are given a **0-indexed** array of integers `nums` of length `n`. You are initially positioned at `nums[0]`.
 
 Each element `nums[i]` represents the maximum length of a forward jump from index `i`. In other words, if you are at `nums[i]`, you can jump to any `nums[i + j]` where:
@@ -42,61 +41,40 @@ Jump 1 step from index 0 to 1, then 3 steps to the last index.
 - `0 <= nums[i] <= 1000`
 - It's guaranteed that you can reach `nums[n - 1]`.
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+1. **BFS-like Level Traversal**: Each jump represents a "level" in BFS
 
-1. **Jump definition**: How do jumps work? (Assumption: From index i, can jump to any index from i+1 to i+nums[i] inclusive)
+- BFS visits nodes in non-decreasing distance from the source.
+- Queue guarantees shortest path in unweighted graphs.
+- Process level by level when counting layers or distances.
 
-2. **Minimum jumps**: What are we optimizing for? (Assumption: Minimum number of jumps to reach the last index)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 135" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Graph BFS layers</text>
 
-3. **Reachability**: Is it guaranteed we can reach the end? (Assumption: Yes - per constraints, guaranteed to reach nums[n-1])
+  <circle cx="60" cy="70" r="16" fill="#D4D8E0" stroke="#8B8680"/><text x="60" y="74" text-anchor="middle" font-size="11">S</text>
+  <circle cx="140" cy="45" r="14" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="49" text-anchor="middle" font-size="10">a</text>
+  <circle cx="140" cy="95" r="14" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="99" text-anchor="middle" font-size="10">b</text>
+  <circle cx="210" cy="70" r="14" fill="#E8D5D0" stroke="#B8A5A0"/><text x="210" y="74" text-anchor="middle" font-size="10">t</text>
+  <line x1="74" y1="65" x2="126" y2="50" stroke="#9A9792" stroke-width="1.5"/>
+  <line x1="74" y1="75" x2="126" y2="95" stroke="#9A9792" stroke-width="1.5"/>
+  <line x1="154" y1="50" x2="196" y2="65" stroke="#9A9792" stroke-width="1.5"/>
+  <text x="140" y="125" text-anchor="middle" font-size="11" fill="#6B6560">BFS: expand by layers (queue)</text>
 
-4. **Starting position**: Where do we start? (Assumption: Start at index 0 - first element)
+</svg>
 
-5. **Jump count**: Does staying at same position count as a jump? (Assumption: No - must move forward, each jump advances position)
+## Common Approaches
 
-## Interview Deduction Process (20 minutes)
+Typical techniques for this pattern:
 
-### Step 1: Brute-Force Approach (5 minutes)
-**Initial Thought**: "I need to find minimum jumps. Let me try all possible jump sequences."
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Queue BFS** *(this problem)* | O(n) | O(n) | Shortest path in unweighted graphs |
+| Multi-source BFS | O(n) | O(n) | Start from all sources simultaneously |
+| 0-1 BFS / deque | O(n) | O(n) | Weights 0 or 1 |
+| Level-order BFS | O(n) | O(w) | Process by depth/layer |
 
-**Naive Solution**: Use BFS/DFS to explore all possible jump paths from start to end, return minimum depth.
-
-**Complexity**: O(2^n) worst case time, O(n) space
-
-**Issues**:
-- Exponential time complexity
-- Explores many redundant paths
-- Very inefficient for large arrays
-- Doesn't leverage optimal substructure
-
-### Step 2: Semi-Optimized Approach (7 minutes)
-**Insight**: "I can use dynamic programming - minimum jumps to reach index i depends on previous indices."
-
-**Improved Solution**: DP array where dp[i] = minimum jumps to reach index i. For each index, update all reachable indices.
-
-**Complexity**: O(n²) time, O(n) space
-
-**Improvements**:
-- Polynomial time instead of exponential
-- Correctly finds minimum jumps
-- Still has room for optimization
-
-### Step 3: Optimized Solution (8 minutes)
-**Final Optimization**: "I can use greedy BFS - track the farthest reachable position at each jump level."
-
-**Best Solution**: Greedy BFS approach. Track current jump's farthest reach, next jump's farthest reach. When current jump ends, increment jump count and update boundaries.
-
-**Complexity**: O(n) time, O(1) space
-
-**Key Realizations**:
-1. Greedy BFS is optimal - O(n) time
-2. Only need to track jump boundaries, not all paths
-3. O(1) space - only need a few variables
-4. Much more efficient than DP or brute-force
-
-## Solution: Greedy BFS Approach
+## Solution
 
 **Time Complexity:** O(n) - Single pass through the array  
 **Space Complexity:** O(1) - Only using constant extra space
@@ -125,99 +103,45 @@ class Solution {
 }
 ```
 
-## How the Algorithm Works
+### Solution Explanation
 
-### Step-by-Step Example: `nums = [2,3,1,1,4]`
+**Approach:** Queue BFS (this problem)
 
-```
-Initial: rtn = 0, curEnd = 0, curFar = 0
+**Key idea:** 1. **BFS-like Level Traversal**: Each jump represents a "level" in BFS
 
-i = 0:
-  curFar = max(0, 0 + 2) = 2
-  i == curEnd (0), so jump!
-    rtn = 1
-    curEnd = 2  (can reach up to index 2 with 1 jump)
-
-i = 1:
-  curFar = max(2, 1 + 3) = 4
-  i != curEnd (1 != 2), continue
-
-i = 2:
-  curFar = max(4, 2 + 1) = 4
-  i == curEnd (2), so jump!
-    rtn = 2
-    curEnd = 4  (can reach up to index 4 with 2 jumps)
-
-i = 3:
-  curFar = max(4, 3 + 1) = 4
-  i != curEnd (3 != 4), continue
-
-Loop ends (i < n - 1, so i stops at 3)
-
-Result: rtn = 2
-```
-
-### Visual Representation
-
-```
-nums = [2, 3, 1, 1, 4]
-index:  0  1  2  3  4
-
-Jump 0: Start at index 0
-  Can reach: [0, 1, 2]  (curEnd = 2)
-  
-Jump 1: From indices [0, 1, 2]
-  From 0: can reach [0, 1, 2]
-  From 1: can reach [1, 2, 3, 4]  ← farthest!
-  From 2: can reach [2, 3]
-  curFar = 4, curEnd = 4
-  
-Jump 2: From indices [3, 4]
-  Already at index 4 (last index) ✓
-
-Total jumps: 2
-```
-
-### Another Example: `nums = [2,3,0,1,4]`
-
-```
-i = 0: curFar = 2, i == curEnd → jump, rtn=1, curEnd=2
-i = 1: curFar = max(2, 1+3) = 4, i != curEnd
-i = 2: curFar = max(4, 2+0) = 4, i == curEnd → jump, rtn=2, curEnd=4
-i = 3: curFar = max(4, 3+1) = 4, i != curEnd
-
-Result: 2 jumps
-```
-
-## Key Insights
-
+**How the code works:**
 1. **BFS-like Level Traversal**: Each jump represents a "level" in BFS
-2. **Greedy Choice**: Always extend to the farthest reachable position
-3. **curEnd Tracking**: Marks the boundary of current jump level
-4. **curFar Tracking**: Tracks the farthest position reachable from current level
-5. **Early Termination**: Stop at `n - 1` since we don't need to jump from last index
+- BFS visits nodes in non-decreasing distance from the source.
+- Queue guarantees shortest path in unweighted graphs.
+- Process level by level when counting layers or distances.
 
+**Walkthrough** — input `nums = [2,3,1,1,4]`, expected output `2`:
+
+The minimum number of jumps to reach the last index is 2. 
+Jump 1 step from index 0 to 1, then 3 steps to the last index.
+
+| Approach | Time | Space | Pros | Cons |
+|----------|------|-------|------|------|
+| **Greedy BFS** | O(n) | O(1) | Optimal, simple | Requires understanding |
+| **Dynamic Programming** | O(n²) | O(n) | Intuitive | Slower, more space |
+| **Explicit BFS** | O(n) | O(1) | Clear variable names | Slightly verbose |
 ## Algorithm Breakdown
 
 ```java
-static int jump(int[] nums) {
-    rtn = 0; // Number of jumps
-    int n = nums.length;
-    curEnd = 0; // End of current jump level
-    curFar = 0; // Farthest position reachable
+class Solution {
+        public int jump(int[] nums) {
+        int n = nums.length;
+        int[]dp(n, Integer.MAX_VALUE);
+        dp[0] = 0;
 
-    // Don't need to process last index
-    for(int i = 0; i < n - 1; i++) {
-        // Update farthest reachable position
-        curFar = Math.max(curFar, i + nums[i]);
-
-        // If we've reached the end of current level
-        if(i == curEnd) {
-            rtn++;              // Make a curEnd = curFar; // Update to next level boundary
+        for(int i = 0; i < n; i++) {
+            for(int j = 1; j <= nums[i] && i + j < n; j++) {
+                dp[i + j] = Math.min(dp[i + j], dp[i] + 1);
+            }
         }
-    }
 
-    return rtn;
+        return dp[n - 1];
+    }
 }
 ```
 
@@ -240,53 +164,16 @@ At each level, we greedily extend to the farthest position because:
 2. Extending farthest gives us the most options for the next jump
 3. This minimizes the total number of jumps
 
-## Edge Cases
+### Complexity
+| Approach | Time | Space | Pros | Cons |
+|----------|------|-------|------|------|
+| **Greedy BFS** | O(n) | O(1) | Optimal, simple | Requires understanding |
+| **Dynamic Programming** | O(n²) | O(n) | Intuitive | Slower, more space |
+| **Explicit BFS** | O(n) | O(1) | Clear variable names | Slightly verbose |
 
-1. **Single element**: `[0]` → return `0` (already at last index)
-2. **Can jump directly**: `[3,1,1,1]` → return `1` (one jump from start)
-3. **Need multiple jumps**: `[2,3,1,1,4]` → return `2`
-4. **Zeros in middle**: `[2,0,1,1,4]` → still solvable (guaranteed by constraints)
+## Implementation Details
 
-## Alternative Approaches
-
-### Approach 2: Dynamic Programming
-
-**Time Complexity:** O(n²)  
-**Space Complexity:** O(n)
-
-```java
-class Solution {
-        public int jump(int[] nums) {
-        int n = nums.length;
-        int[]dp(n, Integer.MAX_VALUE);
-        dp[0] = 0;
-
-        for(int i = 0; i < n; i++) {
-            for(int j = 1; j <= nums[i] && i + j < n; j++) {
-                dp[i + j] = Math.min(dp[i + j], dp[i] + 1);
-            }
-        }
-
-        return dp[n - 1];
-    }
-}
-```
-
-**Pros:**
-- More intuitive for some developers
-- Can track path if needed
-
-**Cons:**
-- O(n²) time complexity
-- O(n) space complexity
-- Slower for large inputs
-
-### Approach 3: Explicit BFS Levels
-
-**Time Complexity:** O(n)  
-**Space Complexity:** O(1)
-
-More explicit version of the greedy approach:
+### Why `i < n - 1`?
 
 ```java
 class Solution {
@@ -310,29 +197,6 @@ class Solution {
 }
 ```
 
-**Pros:**
-- More explicit variable names
-- Easier to understand BFS analogy
-
-**Cons:**
-- Slightly more verbose
-
-## Complexity Analysis
-
-| Approach | Time | Space | Pros | Cons |
-|----------|------|-------|------|------|
-| **Greedy BFS** | O(n) | O(1) | Optimal, simple | Requires understanding |
-| **Dynamic Programming** | O(n²) | O(n) | Intuitive | Slower, more space |
-| **Explicit BFS** | O(n) | O(1) | Clear variable names | Slightly verbose |
-
-## Implementation Details
-
-### Why `i < n - 1`?
-
-```java
-for(int i = 0; i < n - 1; i++)
-```
-
 We don't need to process the last index because:
 - If we reach `n - 1`, we're done (no need to jump from it)
 - The loop processes indices where we might need to make decisions
@@ -346,13 +210,18 @@ We don't need to process the last index because:
 
 ### Greedy Choice Property
 
-```java
-curFar = Math.max(curFar, i + nums[i]);
+```cpp
+curFar = max(curFar, i + nums[i]);
 ```
 
 This ensures we always know the farthest position reachable from the current level, allowing us to make the optimal greedy choice.
 
 ## Common Mistakes
+
+1. **Single element**: `[0]` → return `0` (already at last index)
+2. **Can jump directly**: `[3,1,1,1]` → return `1` (one jump from start)
+3. **Need multiple jumps**: `[2,3,1,1,4]` → return `2`
+4. **Zeros in middle**: `[2,0,1,1,4]` → still solvable (guaranteed by constraints)
 
 1. **Processing last index**: Including `i < n` instead of `i < n - 1`
 2. **Wrong initialization**: Not initializing `curEnd` and `curFar` to 0
@@ -404,16 +273,21 @@ Similar problems:
 3. **No Future Dependencies**: Decision at each level doesn't depend on future levels
 4. **Monotonicity**: Once we can reach a position, we can always reach it (no need to reconsider)
 
-## Comparison with Jump Game I
+## Key Takeaways
 
-| Aspect | Jump Game I | Jump Game II |
-|--------|-------------|--------------|
-| **Question** | Can reach last index? | Minimum jumps? |
-| **Approach** | Track farthest reachable | Track level boundaries |
-| **Complexity** | O(n) time, O(1) space | O(n) time, O(1) space |
-| **Return** | Boolean | Integer |
+1. **BFS-like Level Traversal**: Each jump represents a "level" in BFS
+2. **Greedy Choice**: Always extend to the farthest reachable position
+3. **curEnd Tracking**: Marks the boundary of current jump level
+4. **curFar Tracking**: Tracks the farthest position reachable from current level
+5. **Early Termination**: Stop at `n - 1` since we don't need to jump from last index
 
----
+## References
 
-*This problem is an excellent example of how greedy algorithms can solve optimization problems efficiently, demonstrating the power of BFS-like level traversal with greedy choices.*
+- [LC 45: Jump Game II on LeetCode](https://leetcode.com/problems/jump-game-ii/)
+- [LeetCode Discuss — LC 45: Jump Game II](https://leetcode.com/problems/jump-game-ii/discuss/)
+- [LeetCode Editorial](https://leetcode.com/problems/jump-game-ii/editorial/) *(may require premium)*
 
+## Template Reference
+
+- [Array & Matrix](/blog_leetcode_java/posts/2025-11-24-leetcode-templates-array-matrix/)
+{% endraw %}

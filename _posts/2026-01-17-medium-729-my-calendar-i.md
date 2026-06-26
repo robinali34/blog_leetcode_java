@@ -7,10 +7,7 @@ permalink: /2026/01/17/medium-729-my-calendar-i/
 tags: [leetcode, medium, array, binary-search, design, ordered-set, interval, overlap-detection]
 ---
 
-# 729. My Calendar I
-
-## Problem Statement
-
+{% raw %}
 You are implementing a program to use as your calendar. We can add a new event if adding the event will not cause a **double booking**.
 
 A **double booking** happens when two events have some non-empty intersection (i.e., some moment is common to both events.).
@@ -44,57 +41,43 @@ myCalendar.book(20, 25); // return True, The event can be booked, as the first e
 - `0 <= start < end <= 10^9`
 - At most `1000` calls will be made to `book`.
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+1. **Ordered Set**: `std::set` maintains sorted order automatically
 
-1. **Interval format**: Are intervals inclusive or exclusive? (Assumption: Half-open interval [start, end) - start is inclusive, end is exclusive)
+- The search space must shrink monotonically each step.
+- Decide which half still satisfies the predicate, discard the other.
+- Use `mid = left + (right - left) / 2` to avoid overflow.
 
-2. **Overlap definition**: What constitutes an overlap? (Assumption: Two intervals overlap if they share any common time point - [a, b) overlaps [c, d) if max(a, c) < min(b, d))
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 130" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Binary search: shrink [lo … hi]</text>
 
-3. **Adjacent intervals**: Can two intervals be adjacent (end of one equals start of another)? (Assumption: Yes - [10, 20) and [20, 30) don't overlap, can both be booked)
+  <rect x="40" y="40" width="48" height="32" rx="4" fill="#D4D8E0" stroke="#8B8680"/>
+  <text x="64" y="58" text-anchor="middle" font-size="12" fill="#3A3530">lo</text>
+  <rect x="108" y="40" width="48" height="32" rx="4" fill="#E0D8E4" stroke="#A098A8"/>
+  <text x="132" y="58" text-anchor="middle" font-size="12" fill="#3A3530">mid</text>
+  <rect x="196" y="40" width="48" height="32" rx="4" fill="#E8D5D0" stroke="#B8A5A0"/>
+  <text x="220" y="58" text-anchor="middle" font-size="12" fill="#3A3530">hi</text>
+  <rect x="60" y="90" width="160" height="28" rx="4" fill="#FAF8F5" stroke="#D4D1CC"/>
+  <text x="140" y="108" text-anchor="middle" font-size="11" fill="#6B6560">discard half each step → O(log n)</text>
+  <path d="M132 72v12M220 72v12" stroke="#9A9792" stroke-width="1.5" marker-end="url(#a)"/>
 
-4. **Return value**: What should book() return? (Assumption: Return true if booking succeeds (no overlap), false if it conflicts with existing booking)
+</svg>
 
-5. **Time range**: What's the valid range for start and end times? (Assumption: 0 <= start < end <= 10^9 per constraints)
+## Common Approaches
 
-## Interview Deduction Process (20 minutes)
+Typical techniques for this pattern:
 
-**Step 1: Brute-Force Approach (5 minutes)**
-
-Store all booked intervals in a list. For each `book(start, end)` call, check if the new interval overlaps with any existing interval. If no overlap, add it to the list and return true. Otherwise, return false. This approach has O(n) time per booking where n is the number of existing bookings, which is acceptable for small n but slow for many bookings.
-
-**Step 2: Semi-Optimized Approach (7 minutes)**
-
-Maintain intervals in a sorted list or set. When booking, use binary search to find the insertion position. Check overlap with the previous and next intervals only. This reduces overlap checking to O(1) after O(log n) binary search, giving O(log n) time per booking. However, insertion into a sorted list is O(n) in worst case.
-
-**Step 3: Optimized Solution (8 minutes)**
-
-Use a sorted data structure like `TreeMap` or `TreeSet`: store intervals as pairs `(start, end)` in sorted order. For each booking, use `binary search (lower bound)` to find the first interval with start >= new_start. Check overlap with this interval and the previous interval. If no overlap, insert and return true. This achieves O(log n) time per booking using balanced BST, which is optimal. The key insight is that we only need to check overlap with at most two intervals (the one that starts after our interval and the one that starts before), making binary search efficient.
-
-## Solution Approach
-
-This is an **interval overlap detection** problem. We need to efficiently check if a new interval overlaps with any existing intervals and insert it if no overlap exists.
-
-### Key Insights:
-
-1. **Half-Open Intervals**: `[start, end)` means start is inclusive, end is exclusive
-2. **Overlap Condition**: Two intervals `[s1, e1)` and `[s2, e2)` overlap if `s1 < e2 && s2 < e1`
-3. **Ordered Data Structure**: Use sorted structure to efficiently find potential overlaps
-4. **Binary Search**: Find the next event and check previous event for overlaps
-
-### Algorithm:
-
-1. **Maintain Sorted Intervals**: Store intervals sorted by start time
-2. **Find Next Event**: Use `binary search (lower bound)` to find first event with start >= new start
-3. **Check Overlaps**: 
-   - Check if next event overlaps (next.start < new.end)
-   - Check if previous event overlaps (prev.end > new.start)
-4. **Insert if Valid**: If no overlaps, insert the new interval
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Standard binary search** *(this problem)* | O(log n) | O(1) | Sorted array, `left <= right` |
+| Lower / upper bound | O(log n) | O(1) | First/last position, insert index |
+| Binary search on rotated array | O(log n) | O(1) | Identify sorted half, discard other |
+| Binary search on answer | O(n log M) | O(1) | Monotonic predicate over search space |
 
 ## Solution
 
-### **Solution: Ordered Set (TreeSet) with Binary Search**
+### **Solution: Ordered Set (std::set) with Binary Search**
 
 ```java
 class MyCalendar {
@@ -126,6 +109,18 @@ class MyCalendar {
  */
 ```
 
+### Solution Explanation
+
+**Approach:** Standard binary search (this problem)
+
+**Key idea:** 1. **Ordered Set**: `std::set` maintains sorted order automatically
+
+**How the code works:**
+1. **Ordered Set**: `std::set` maintains sorted order automatically
+- The search space must shrink monotonically each step.
+- Decide which half still satisfies the predicate, discard the other.
+- Use `mid = left + (right - left) / 2` to avoid overflow.
+
 ### **Algorithm Explanation:**
 
 1. **Data Structure**: `set<pair<int, int>>` maintains intervals sorted by start time
@@ -133,7 +128,7 @@ class MyCalendar {
    - O(log n) insertion and search
 
 2. **book() Method**:
-   - **Find Next Event (Line 8)**: `binary search (lower bound)({start, end})` finds first interval with start >= new start
+   - **Find Next Event (Line 8)**: `lower_bound({start, end})` finds first interval with start >= new start
    - **Check Next Overlap (Lines 9-11)**: If next event exists and its start < new end, they overlap
    - **Check Previous Overlap (Lines 12-16)**: If previous event exists and its end > new start, they overlap
    - **Insert (Line 17)**: If no overlaps, insert and return true
@@ -161,12 +156,12 @@ Step 1: book(10, 20)
 
 Step 2: book(15, 25)
   calendar = {(10, 20)}
-  nextEvent = binary search (lower bound)({15, 25}) = {(10, 20)} (start=10 < 15, but it's the closest)
-  Actually, binary search (lower bound) finds first with start >= 15, so:
+  nextEvent = lower_bound({15, 25}) = {(10, 20)} (start=10 < 15, but it's the closest)
+  Actually, lower_bound finds first with start >= 15, so:
     nextEvent = calendar.end() (no event with start >= 15)
   Wait, let me reconsider...
   
-  Actually: binary search (lower bound)({15, 25}) in set {(10, 20)}:
+  Actually: lower_bound({15, 25}) in set {(10, 20)}:
     - Compares (15, 25) with (10, 20)
     - Since 15 > 10, it continues
     - Reaches end, so nextEvent = end()
@@ -178,7 +173,7 @@ Step 2: book(15, 25)
 
 Step 3: book(20, 30)
   calendar = {(10, 20)}
-  nextEvent = binary search (lower bound)({20, 30}) = end() (no event with start >= 20)
+  nextEvent = lower_bound({20, 30}) = end() (no event with start >= 20)
   Check next: skip
   Check previous: prev(end()) = {(10, 20)}
     preEvent->second = 20 > 20 = startTime? No, 20 is not > 20
@@ -190,7 +185,7 @@ Step 3: book(20, 30)
 ### **Complexity Analysis:**
 
 - **Time Complexity:** O(log n) per `book()` call
-  - `binary search (lower bound)`: O(log n)
+  - `lower_bound`: O(log n)
   - `prev()`: O(1) for bidirectional iterators
   - `insert()`: O(log n)
   - Overall: O(log n) per operation
@@ -199,16 +194,7 @@ Step 3: book(20, 30)
   - Store up to n intervals
   - Each interval: O(1) space
   - Overall: O(n)
-
-## Key Insights
-
-1. **Ordered Set**: `TreeSet` maintains sorted order automatically
-2. **Binary Search**: `binary search (lower bound)` efficiently finds insertion point
-3. **Half-Open Intervals**: End is exclusive, so `[10, 20)` and `[20, 30)` don't overlap
-4. **Two Checks**: Only need to check next and previous events (at most 2)
-5. **Overlap Condition**: `s1 < e2 && s2 < e1` for intervals `[s1, e1)` and `[s2, e2)`
-
-## Edge Cases
+## Common Mistakes
 
 1. **Empty calendar**: First booking always succeeds
 2. **Adjacent intervals**: `[10, 20)` and `[20, 30)` don't overlap (half-open)
@@ -216,65 +202,11 @@ Step 3: book(20, 30)
 4. **Contained interval**: `[10, 30)` contains `[15, 25)` → overlap
 5. **Large ranges**: Handle up to 10^9 values
 
-## Common Mistakes
-
 1. **Inclusive end**: Treating end as inclusive instead of exclusive
 2. **Wrong overlap check**: Not checking both next and previous events
 3. **Iterator errors**: Not checking `end()` before dereferencing
 4. **Boundary conditions**: `prev(begin())` is undefined, always check `begin()` first
-5. **Comparison logic**: Confusing `binary search (lower bound)` behavior with custom comparators
-
-## Alternative Approaches
-
-### **Approach 2: Brute Force (Linear Scan)**
-
-Simple approach for small number of bookings:
-
-```java
-// import java.util.*;
-class MyCalendar {
-    List<int[]> events = new ArrayList<>();
-    MyCalendar() {}
-
-    boolean book(int start, int end) {
-        for (var e : events.entrySet()) {
-            // Check overlap: [s, e) and [start, end)
-            if (start < e && s < end) {
-                return false;
-            }
-        }
-        events.add(new int[] {start, end});
-        return true;
-    }
-}
-```
-
-**Time Complexity:** O(n) per `book()` call  
-**Space Complexity:** O(n)
-
-**When to Use:** Small number of bookings (n ≤ 1000), simplicity preferred
-
-### **Approach 3: Segment Tree / Interval Tree**
-
-For more complex queries (range queries, multiple calendars):
-
-```java
-// More complex but supports advanced queries
-// Typically overkill for this problem
-```
-
-**Time Complexity:** O(log n) per operation  
-**Space Complexity:** O(n)
-
-**When to Use:** Need range queries or more complex operations
-
-### **Comparison:**
-
-| Approach | Time per book() | Space | Code Complexity | Best For |
-|----------|----------------|-------|-----------------|----------|
-| **Ordered Set** | O(log n) | O(n) | Simple | General purpose |
-| **Brute Force** | O(n) | O(n) | Very simple | Small inputs |
-| **Segment Tree** | O(log n) | O(n) | Complex | Advanced queries |
+5. **Comparison logic**: Confusing `lower_bound` behavior with custom comparators
 
 ## Related Problems
 
@@ -284,7 +216,21 @@ For more complex queries (range queries, multiple calendars):
 - [LC 57: Insert Interval](https://leetcode.com/problems/insert-interval/) - Insert and merge intervals
 - [LC 252: Meeting Rooms](https://leetcode.com/problems/meeting-rooms/) - Check if intervals can be scheduled
 
----
+## Key Takeaways
 
-*This problem demonstrates the **Ordered Set (TreeSet)** pattern for interval overlap detection. The key insight is using binary search to efficiently find potential overlapping intervals and checking at most two candidates (next and previous events).*
+1. **Ordered Set**: `std::set` maintains sorted order automatically
+2. **Binary Search**: `lower_bound` efficiently finds insertion point
+3. **Half-Open Intervals**: End is exclusive, so `[10, 20)` and `[20, 30)` don't overlap
+4. **Two Checks**: Only need to check next and previous events (at most 2)
+5. **Overlap Condition**: `s1 < e2 && s2 < e1` for intervals `[s1, e1)` and `[s2, e2)`
 
+## References
+
+- [LC 729: My Calendar I on LeetCode](https://leetcode.com/problems/my-calendar-i/)
+- [LeetCode Discuss — LC 729: My Calendar I](https://leetcode.com/problems/my-calendar-i/discuss/)
+- [LeetCode Editorial](https://leetcode.com/problems/my-calendar-i/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [Array & Matrix](/blog_leetcode_java/posts/2025-11-24-leetcode-templates-array-matrix/)
+{% endraw %}

@@ -4,14 +4,288 @@ title: "Java Guide: Language Basics"
 date: 2026-06-24 10:00:00 -0700
 categories: java guide reference tutorial programming fundamentals
 permalink: /posts/2026-06-24-java-guide-basics/
-tags: [java, guide, basics, tutorial, leetcode, collections, arrays, strings, oop, templates, java-25, java-26]
+tags: [java, guide, basics, tutorial, leetcode, collections, arrays, strings, oop, templates, java-21, java-25, java-26]
 ---
 
 {% raw %}
 # Java Guide: Language Basics
 
-Part of the [Java Guide](/blog_leetcode_java/java-guide/) — practical Java for algorithm problems, from language fundamentals to copy-paste templates and modern releases. For a compact API lookup, see the [Java Collections Quick Reference](/blog_leetcode_java/posts/2025-09-23-java-cheatsheet/).
+A practical reference for learning C++ with a focus on competitive programming and technical interviews. Whether you're picking up C++ for the first time or brushing up before a contest, this page covers what matters.
 
+> **New to LeetCode?** Start with the [Beginner's Guide](/blog_leetcode_java/posts/2026-06-25-leetcode-beginners-guide/) to understand the platform, difficulty levels, and which problems to solve first.
+
+<svg viewBox="0 0 740 200" xmlns="http://www.w3.org/2000/svg" style="max-width: 100%; height: auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
+  <defs>
+    <marker id="guide-arr" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#8B8680"/>
+    </marker>
+  </defs>
+
+  <text x="370" y="22" font-size="13" fill="#5A5752" font-weight="700" text-anchor="middle">How This Guide Is Organized</text>
+
+  <!-- Part boxes - top row -->
+  <rect x="10" y="38" width="120" height="52" rx="8" fill="#E8D5D0" stroke="#C08070" stroke-width="1.8"/>
+  <text x="70" y="60" font-size="11" fill="#5A5752" font-weight="700" text-anchor="middle">Part 1</text>
+  <text x="70" y="78" font-size="9" fill="#7A7772" text-anchor="middle">Language Basics</text>
+
+  <rect x="145" y="38" width="120" height="52" rx="8" fill="#D4D8D0" stroke="#6B8B6B" stroke-width="1.8"/>
+  <text x="205" y="60" font-size="11" fill="#5A5752" font-weight="700" text-anchor="middle">Part 2</text>
+  <text x="205" y="78" font-size="9" fill="#7A7772" text-anchor="middle">Collections Toolkit</text>
+
+  <rect x="280" y="38" width="120" height="52" rx="8" fill="#D4D8E0" stroke="#7080A0" stroke-width="1.8"/>
+  <text x="340" y="60" font-size="11" fill="#5A5752" font-weight="700" text-anchor="middle">Part 3</text>
+  <text x="340" y="78" font-size="9" fill="#7A7772" text-anchor="middle">Patterns</text>
+
+  <rect x="415" y="38" width="120" height="52" rx="8" fill="#E8E3D8" stroke="#B8A880" stroke-width="1.8"/>
+  <text x="475" y="60" font-size="11" fill="#5A5752" font-weight="700" text-anchor="middle">Part 4</text>
+  <text x="475" y="78" font-size="9" fill="#7A7772" text-anchor="middle">Solution Template</text>
+
+  <!-- Arrows top row -->
+  <line x1="130" y1="64" x2="143" y2="64" stroke="#8B8680" stroke-width="1.5" marker-end="url(#guide-arr)"/>
+  <line x1="265" y1="64" x2="278" y2="64" stroke="#8B8680" stroke-width="1.5" marker-end="url(#guide-arr)"/>
+  <line x1="400" y1="64" x2="413" y2="64" stroke="#8B8680" stroke-width="1.5" marker-end="url(#guide-arr)"/>
+
+  <!-- Part boxes - bottom row -->
+  <rect x="145" y="115" width="150" height="52" rx="8" fill="#E8D5D0" stroke="#C08070" stroke-width="1.8"/>
+  <text x="220" y="137" font-size="11" fill="#5A5752" font-weight="700" text-anchor="middle">Part 5</text>
+  <text x="220" y="155" font-size="9" fill="#7A7772" text-anchor="middle">Learning Path (Roadmap)</text>
+
+  <rect x="320" y="115" width="150" height="52" rx="8" fill="#D4D8D0" stroke="#6B8B6B" stroke-width="1.8"/>
+  <text x="395" y="137" font-size="11" fill="#5A5752" font-weight="700" text-anchor="middle">Part 6</text>
+  <text x="395" y="155" font-size="9" fill="#7A7772" text-anchor="middle">Modern Java (21+)</text>
+
+  <rect x="495" y="115" width="150" height="52" rx="8" fill="#D4D8E0" stroke="#7080A0" stroke-width="1.8"/>
+  <text x="570" y="137" font-size="11" fill="#5A5752" font-weight="700" text-anchor="middle">Quick Ref</text>
+  <text x="570" y="155" font-size="9" fill="#7A7772" text-anchor="middle">Quick Reference</text>
+
+  <!-- Vertical connections -->
+  <line x1="205" y1="90" x2="220" y2="113" stroke="#8B8680" stroke-width="1.2" stroke-dasharray="4"/>
+  <line x1="340" y1="90" x2="395" y2="113" stroke="#8B8680" stroke-width="1.2" stroke-dasharray="4"/>
+  <line x1="475" y1="90" x2="570" y2="113" stroke="#8B8680" stroke-width="1.2" stroke-dasharray="4"/>
+
+  <!-- Legend -->
+  <text x="370" y="192" font-size="10" fill="#9A9792" text-anchor="middle">Top row: learn in order → Bottom row: reference anytime</text>
+</svg>
+
+---
+## Why Java for Algorithms?
+
+<svg viewBox="0 0 740 180" xmlns="http://www.w3.org/2000/svg" style="max-width: 100%; height: auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
+  <!-- Central node -->
+  <rect x="275" y="10" width="190" height="44" rx="22" fill="#D4D8E0" stroke="#7080A0" stroke-width="2"/>
+  <text x="370" y="37" font-size="14" fill="#3A3530" font-weight="700" text-anchor="middle">Java for Algorithms</text>
+
+  <!-- Branches -->
+  <line x1="275" y1="32" x2="145" y2="80" stroke="#B8B5B0" stroke-width="1.5"/>
+  <line x1="325" y1="54" x2="295" y2="80" stroke="#B8B5B0" stroke-width="1.5"/>
+  <line x1="415" y1="54" x2="445" y2="80" stroke="#B8B5B0" stroke-width="1.5"/>
+  <line x1="465" y1="32" x2="595" y2="80" stroke="#B8B5B0" stroke-width="1.5"/>
+
+  <!-- Speed -->
+  <rect x="40" y="78" width="150" height="40" rx="8" fill="#E8D5D0" stroke="#B8B5B0" stroke-width="1.2"/>
+  <text x="115" y="97" font-size="11" fill="#5A5752" font-weight="700" text-anchor="middle">Fastest Runtime</text>
+  <text x="115" y="112" font-size="9" fill="#9A9792" text-anchor="middle">compiled to native code</text>
+
+  <!-- Java Collections -->
+  <rect x="220" y="78" width="150" height="40" rx="8" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="1.2"/>
+  <text x="295" y="97" font-size="11" fill="#5A5752" font-weight="700" text-anchor="middle">Rich Java Collections</text>
+  <text x="295" y="112" font-size="9" fill="#9A9792" text-anchor="middle">containers + algorithms</text>
+
+  <!-- Control -->
+  <rect x="400" y="78" width="150" height="40" rx="8" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="1.2"/>
+  <text x="475" y="97" font-size="11" fill="#5A5752" font-weight="700" text-anchor="middle">Fine Control</text>
+  <text x="475" y="112" font-size="9" fill="#9A9792" text-anchor="middle">pointers, bits, memory</text>
+
+  <!-- Platform standard -->
+  <rect x="560" y="78" width="150" height="40" rx="8" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1.2"/>
+  <text x="635" y="97" font-size="11" fill="#5A5752" font-weight="700" text-anchor="middle">Industry Standard</text>
+  <text x="635" y="112" font-size="9" fill="#9A9792" text-anchor="middle">ICPC, CF, LC, interviews</text>
+
+  <!-- Bottom bar -->
+  <rect x="80" y="140" width="580" height="28" rx="14" fill="#FAF8F5" stroke="#D4D1CC" stroke-width="1.2"/>
+  <text x="370" y="159" font-size="11" fill="#5A5752" font-weight="600" text-anchor="middle">Result: Write less code → Run faster → Solve harder problems</text>
+</svg>
+
+| Advantage | Details |
+|---|---|
+| **Speed** | Compiled to native code -- fastest runtime of any mainstream language |
+| **Java Collections** | The Standard Template Library provides battle-tested containers and algorithms |
+| **Industry standard for CP** | Codeforces, ICPC, AtCoder, and LeetCode all favor C++ |
+| **Fine-grained control** | Pointers, memory layout, and bit manipulation are first-class citizens |
+| **Interview-friendly** | Many interviewers are comfortable reading C++ |
+
+---
+
+## Part 5: Learning Path
+
+Follow these stages in order. Each one builds on the last — don't skip ahead.
+
+<svg viewBox="0 0 780 340" xmlns="http://www.w3.org/2000/svg" style="max-width: 100%; height: auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
+  <defs>
+    <marker id="lp-arr" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#8B8680"/>
+    </marker>
+  </defs>
+
+  <!-- Stage 1 -->
+  <rect x="10" y="30" width="140" height="70" rx="10" fill="#E8D5D0" stroke="#C08070" stroke-width="2"/>
+  <text x="80" y="55" font-size="13" fill="#5A5752" font-weight="700" text-anchor="middle">Stage 1</text>
+  <text x="80" y="73" font-size="10" fill="#7A7772" text-anchor="middle">Syntax &amp; Basics</text>
+  <text x="80" y="88" font-size="9" fill="#9A9792" text-anchor="middle">1-2 weeks</text>
+
+  <!-- Arrow 1→2 -->
+  <line x1="150" y1="65" x2="168" y2="65" stroke="#8B8680" stroke-width="1.8" marker-end="url(#lp-arr)"/>
+
+  <!-- Stage 2 -->
+  <rect x="170" y="30" width="140" height="70" rx="10" fill="#D4D8D0" stroke="#6B8B6B" stroke-width="2"/>
+  <text x="240" y="55" font-size="13" fill="#5A5752" font-weight="700" text-anchor="middle">Stage 2</text>
+  <text x="240" y="73" font-size="10" fill="#7A7772" text-anchor="middle">Java Collections Mastery</text>
+  <text x="240" y="88" font-size="9" fill="#9A9792" text-anchor="middle">2-3 weeks</text>
+
+  <!-- Arrow 2→3 -->
+  <line x1="310" y1="65" x2="328" y2="65" stroke="#8B8680" stroke-width="1.8" marker-end="url(#lp-arr)"/>
+
+  <!-- Stage 3 -->
+  <rect x="330" y="30" width="140" height="70" rx="10" fill="#D4D8E0" stroke="#7080A0" stroke-width="2"/>
+  <text x="400" y="55" font-size="13" fill="#5A5752" font-weight="700" text-anchor="middle">Stage 3</text>
+  <text x="400" y="73" font-size="10" fill="#7A7772" text-anchor="middle">Pointers &amp; Memory</text>
+  <text x="400" y="88" font-size="9" fill="#9A9792" text-anchor="middle">1-2 weeks</text>
+
+  <!-- Arrow 3→4 -->
+  <line x1="470" y1="65" x2="488" y2="65" stroke="#8B8680" stroke-width="1.8" marker-end="url(#lp-arr)"/>
+
+  <!-- Stage 4 -->
+  <rect x="490" y="30" width="140" height="70" rx="10" fill="#E8E3D8" stroke="#B8A880" stroke-width="2"/>
+  <text x="560" y="55" font-size="13" fill="#5A5752" font-weight="700" text-anchor="middle">Stage 4</text>
+  <text x="560" y="73" font-size="10" fill="#7A7772" text-anchor="middle">Modern C++</text>
+  <text x="560" y="88" font-size="9" fill="#9A9792" text-anchor="middle">1 week</text>
+
+  <!-- Arrow 4→5 -->
+  <line x1="630" y1="65" x2="648" y2="65" stroke="#8B8680" stroke-width="1.8" marker-end="url(#lp-arr)"/>
+
+  <!-- Stage 5 -->
+  <rect x="650" y="30" width="120" height="70" rx="10" fill="#D4D1CC" stroke="#8B8680" stroke-width="2"/>
+  <text x="710" y="55" font-size="13" fill="#5A5752" font-weight="700" text-anchor="middle">Stage 5</text>
+  <text x="710" y="73" font-size="10" fill="#7A7772" text-anchor="middle">Algorithms</text>
+  <text x="710" y="88" font-size="9" fill="#9A9792" text-anchor="middle">Ongoing</text>
+
+  <!-- Details below each stage -->
+  <rect x="10" y="120" width="140" height="95" rx="8" fill="#FAF8F5" stroke="#E0DDD8" stroke-width="1"/>
+  <text x="20" y="138" font-size="9" fill="#5A5752">variables, types</text>
+  <text x="20" y="152" font-size="9" fill="#5A5752">if/else, for, while</text>
+  <text x="20" y="166" font-size="9" fill="#5A5752">functions, references</text>
+  <text x="20" y="180" font-size="9" fill="#5A5752">arrays, cin/cout</text>
+  <text x="20" y="200" font-size="9" fill="#3A6B3A" font-weight="600">10-15 Easy problems</text>
+
+  <rect x="170" y="120" width="140" height="95" rx="8" fill="#FAF8F5" stroke="#E0DDD8" stroke-width="1"/>
+  <text x="180" y="138" font-size="9" fill="#5A5752">vector, string, pair</text>
+  <text x="180" y="152" font-size="9" fill="#5A5752">map, set, unordered_*</text>
+  <text x="180" y="166" font-size="9" fill="#5A5752">stack, queue, pq</text>
+  <text x="180" y="180" font-size="9" fill="#5A5752">sort, lower_bound</text>
+  <text x="180" y="200" font-size="9" fill="#3A6B3A" font-weight="600">20-30 Easy/Med</text>
+
+  <rect x="330" y="120" width="140" height="95" rx="8" fill="#FAF8F5" stroke="#E0DDD8" stroke-width="1"/>
+  <text x="340" y="138" font-size="9" fill="#5A5752">pointers vs refs</text>
+  <text x="340" y="152" font-size="9" fill="#5A5752">ListNode*, TreeNode*</text>
+  <text x="340" y="166" font-size="9" fill="#5A5752">new/delete (avoid)</text>
+  <text x="340" y="180" font-size="9" fill="#5A5752">smart pointers</text>
+  <text x="340" y="200" font-size="9" fill="#3A6B3A" font-weight="600">LL + Tree problems</text>
+
+  <rect x="490" y="120" width="140" height="95" rx="8" fill="#FAF8F5" stroke="#E0DDD8" stroke-width="1"/>
+  <text x="500" y="138" font-size="9" fill="#5A5752">auto, structured bindings</text>
+  <text x="500" y="152" font-size="9" fill="#5A5752">lambdas, captures</text>
+  <text x="500" y="166" font-size="9" fill="#5A5752">initializer_list</text>
+  <text x="500" y="180" font-size="9" fill="#5A5752">range-based for</text>
+  <text x="500" y="200" font-size="9" fill="#3A6B3A" font-weight="600">Refactor solutions</text>
+
+  <rect x="650" y="120" width="120" height="95" rx="8" fill="#FAF8F5" stroke="#E0DDD8" stroke-width="1"/>
+  <text x="660" y="138" font-size="9" fill="#5A5752">two pointers</text>
+  <text x="660" y="152" font-size="9" fill="#5A5752">BFS, DFS</text>
+  <text x="660" y="166" font-size="9" fill="#5A5752">DP patterns</text>
+  <text x="660" y="180" font-size="9" fill="#5A5752">graph, backtracking</text>
+  <text x="660" y="200" font-size="9" fill="#3A6B3A" font-weight="600">Templates blog</text>
+
+  <!-- Timeline bar -->
+  <rect x="10" y="240" width="760" height="30" rx="15" fill="#F0EBE6" stroke="#D4D1CC" stroke-width="1"/>
+  <rect x="10" y="240" width="140" height="30" rx="15" fill="#E8D5D0"/>
+  <rect x="150" y="240" width="180" height="30" fill="#D4D8D0"/>
+  <rect x="330" y="240" width="140" height="30" fill="#D4D8E0"/>
+  <rect x="470" y="240" width="120" height="30" fill="#E8E3D8"/>
+  <rect x="590" y="240" width="180" height="30" rx="15" fill="#D4D1CC"/>
+
+  <text x="80" y="260" font-size="10" fill="#5A5752" font-weight="600" text-anchor="middle">Week 1-2</text>
+  <text x="240" y="260" font-size="10" fill="#5A5752" font-weight="600" text-anchor="middle">Week 3-5</text>
+  <text x="400" y="260" font-size="10" fill="#5A5752" font-weight="600" text-anchor="middle">Week 6-7</text>
+  <text x="530" y="260" font-size="10" fill="#5A5752" font-weight="600" text-anchor="middle">Week 8</text>
+  <text x="680" y="260" font-size="10" fill="#5A5752" font-weight="600" text-anchor="middle">Week 9+</text>
+
+  <!-- Milestone markers -->
+  <text x="390" y="305" font-size="12" fill="#3A6B3A" font-weight="700" text-anchor="middle">Milestones</text>
+  <text x="80" y="325" font-size="10" fill="#5A5752" text-anchor="middle">"I can write C++"</text>
+  <text x="240" y="325" font-size="10" fill="#5A5752" text-anchor="middle">"I know which container"</text>
+  <text x="400" y="325" font-size="10" fill="#5A5752" text-anchor="middle">"I get pointers"</text>
+  <text x="560" y="325" font-size="10" fill="#5A5752" text-anchor="middle">"Cleaner code"</text>
+  <text x="710" y="325" font-size="10" fill="#5A5752" text-anchor="middle">"Interview ready"</text>
+</svg>
+
+### Stage 1 — Syntax & Basics (1-2 weeks)
+
+- [ ] Variables, types, operators
+- [ ] Control flow (if/else, for, while)
+- [ ] Functions (pass by value, reference, const reference)
+- [ ] Arrays and strings
+- [ ] Basic I/O (`cin`, `cout`)
+
+**Practice:** Solve 10-15 LeetCode Easy problems using C++.
+
+### Stage 2 — Java Collections Mastery (2-3 weeks)
+
+- [ ] `vector`, `string`, `pair`
+- [ ] `unordered_map`, `unordered_set`
+- [ ] `set`, `map`, `multiset`
+- [ ] `stack`, `queue`, `deque`
+- [ ] `priority_queue` (min-heap, max-heap)
+- [ ] `sort`, `lower_bound`, `upper_bound`
+- [ ] Iterators and range-based for loops
+
+**Practice:** Solve 20-30 LeetCode Easy/Medium problems. For each one, ask: "Which Java Collections container makes this easier?"
+
+### Stage 3 — Pointers & Memory (1-2 weeks)
+
+- [ ] Pointers vs references
+- [ ] `new` / `delete` (and why to avoid them)
+- [ ] `ListNode*`, `TreeNode*` patterns
+- [ ] Smart pointers (`unique_ptr`, `shared_ptr`) — for real projects, not LeetCode
+
+**Practice:** Solve linked list and tree problems (LC 206, 21, 141, 104, 226, 102).
+
+### Stage 4 — Modern C++ Features (1 week)
+
+- [ ] `auto` type deduction
+- [ ] Structured bindings (`auto& [k, v]`)
+- [ ] Lambda functions and captures
+- [ ] `initializer_list` (`min({a, b, c})`)
+- [ ] Range-based for with references
+
+### Stage 5 — Algorithm Templates (Ongoing)
+
+At this point, you're ready to focus on algorithms rather than language features. Work through the [LeetCode Templates](/blog_leetcode_java/leetcode-templates/) on this blog:
+
+1. [Arrays & Strings](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-arrays-strings/) — two pointers, sliding window
+2. [Search](/blog_leetcode_java/posts/2026-01-20-leetcode-templates-search/) — binary search patterns
+3. [DFS](/blog_leetcode_java/posts/2025-11-24-leetcode-templates-dfs/) / [BFS](/blog_leetcode_java/posts/2025-11-24-leetcode-templates-bfs/) — graph and tree traversal
+4. [Dynamic Programming](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-dp/) — 1D, 2D, bitmask
+5. [Graph](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-graph/) — topological sort, Dijkstra, DSU
+
+---
+
+## Resources
+
+- [cppreference.com](https://en.cppreference.com/) — the definitive C++ reference
+- [C++ Core Guidelines](https://isocpp.github.io/CppCoreGuidelines/) — best practices by Bjarne Stroustrup
+- [Compiler Explorer (Godbolt)](https://godbolt.org/) — see what your C++ compiles to
+- [LeetCode Templates on this blog](/blog_leetcode_java/leetcode-templates/) — algorithm patterns in C++
+- [LeetCode Beginner's Guide](/blog_leetcode_java/posts/2026-06-25-leetcode-beginners-guide/) — getting started with the platform
 ## Contents
 
 - [Why these features exist](#why-these-features-exist)
@@ -32,9 +306,6 @@ Part of the [Java Guide](/blog_leetcode_java/java-guide/) — practical Java for
 ## Why these features exist
 
 Java’s core types and `java.util` collections are not random — each one maps to a recurring need in algorithm problems. Before memorizing APIs, ask **what operation you need** (index access, uniqueness, ordering, LIFO, etc.) and pick the matching tool.
-
-{% endraw %}
-
 <section class="template-diagrams" aria-label="Why Java features exist">
   <div class="template-diagram-grid">
     <figure class="template-diagram-card template-diagram-card-wide">
@@ -46,8 +317,6 @@ Java’s core types and `java.util` collections are not random — each one maps
     </figure>
   </div>
 </section>
-
-{% raw %}
 
 **Quick decision guide**
 
@@ -331,9 +600,6 @@ Arrays.sort(people, Comparator.comparingInt(p . p[0]));
 ## Collections framework
 
 Import from `java.util`.
-
-{% endraw %}
-
 <section class="template-diagrams" aria-label="Java collections map">
   <div class="template-diagram-grid">
     <figure class="template-diagram-card template-diagram-card-wide">
@@ -345,8 +611,6 @@ Import from `java.util`.
     </figure>
   </div>
 </section>
-
-{% raw %}
 
 ### `List` — ordered, allows duplicates
 
@@ -612,9 +876,6 @@ private void dfs(int[] nums, int start, List<Integer> path, List<List<Integer>> 
 ## Common LeetCode templates
 
 Copy-paste skeletons. Pair with the [LeetCode Templates](/blog_leetcode_java/leetcode-templates/) index for category-specific variants.
-
-{% endraw %}
-
 <section class="template-diagrams" aria-label="Java to LeetCode templates">
   <div class="template-diagram-grid">
     <figure class="template-diagram-card template-diagram-card-wide">
@@ -626,8 +887,6 @@ Copy-paste skeletons. Pair with the [LeetCode Templates](/blog_leetcode_java/lee
     </figure>
   </div>
 </section>
-
-{% raw %}
 
 ### Two pointers (sorted array)
 
@@ -932,5 +1191,4 @@ int cleared = x & (x - 1);
 - [Java Collections Quick Reference](/blog_leetcode_java/posts/2025-09-23-java-cheatsheet/) — cheat sheet for APIs used in contests
 - [LeetCode Templates](/blog_leetcode_java/leetcode-templates/) — pattern index for common problem types
 - [LeetCode Categories and Solution Templates](/blog_leetcode_java/posts/2025-10-29-leetcode-categories-and-templates/) — master template guide
-
 {% endraw %}

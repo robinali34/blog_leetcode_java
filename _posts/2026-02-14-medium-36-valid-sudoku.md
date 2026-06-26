@@ -7,6 +7,7 @@ tags: [leetcode, medium, bitmask, grid, hash]
 permalink: /2026/02/14/medium-36-valid-sudoku/
 ---
 
+{% raw %}
 Determine if a `9 x 9` Sudoku board is valid. Only the filled cells need to be validated according to the following rules:
 
 1. Each **row** must contain the digits `1-9` without repetition.
@@ -90,6 +91,14 @@ The 9 sub-boxes are indexed as:
 
 Common wrong formula: `(i % 3) * 3 + (j % 3)` -- this gives position *within* a box, not the box index.
 
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 90" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Bit manipulation</text>
+
+  <text x="40" y="50" font-family="monospace" font-size="14" fill="#3A3530">1 0 1 1 0 1 0</text>
+  <text x="40" y="75" font-size="11" fill="#6B6560">XOR pairs · masks · shifts</text>
+
+</svg>
+
 ## Approach
 
 Single pass over all 81 cells. For each filled cell:
@@ -98,12 +107,21 @@ Single pass over all 81 cells. For each filled cell:
 3. Check if `mask` already exists in `row[i]`, `col[j]`, or `box[boxIndex]`
 4. If yes, return `false`. Otherwise, set the bit.
 
-**Time Complexity**: $O(81)$ = $O(1)$
-**Space Complexity**: $O(1)$ (27 integers)
+**Time Complexity**: O(81) = O(1)
+**Space Complexity**: O(1) (27 integers)
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **XOR tricks** *(this problem)* | O(n) | O(1) | Single number, swap without temp |
+| Bit masks | O(2^n) | O(n) | Subset enumeration |
+| Brian Kernighan | O(log n) | O(1) | Count set bits |
+| Shift operations | O(n) | O(1) | Power of two, divide by 2 |
 
 ## Solution
-
-{% raw %}
 ```java
 class Solution {
         public boolean isValidSudoku(char[][]& board) {
@@ -131,8 +149,10 @@ class Solution {
     }
 }
 ```
-{% endraw %}
 
+### Solution Explanation
+
+**Fixed size 9x9** -- maximum 81 cells, so time complexity is essentially constant. This problem is not about performance; it's about **clean constraint modeling**.
 ## Common Mistakes
 
 - Using `unordered_set` inside loops -- slower and messier than bitmask
@@ -145,12 +165,19 @@ This problem tests:
 - **Constraint modeling** -- 27 groups validated in one pass
 - **Bitmask usage** -- one integer per constraint group
 - **Grid indexing mapping** -- the `(i/3)*3 + (j/3)` trick
-- **Clean $O(1)$ structure design** -- no containers, just arrays
+- **Clean O(1) structure design** -- no containers, just arrays
 
 ## Related Problems
 
 - [37. Sudoku Solver](https://leetcode.com/problems/sudoku-solver/) -- backtracking extension
 
+## References
+
+- [LC 36: Valid Sudoku on LeetCode](https://leetcode.com/problems/valid-sudoku/)
+- [LeetCode Discuss — LC 36: Valid Sudoku](https://leetcode.com/problems/valid-sudoku/discuss/)
+- [LeetCode Editorial](https://leetcode.com/problems/valid-sudoku/editorial/) *(may require premium)*
+
 ## Template Reference
 
 - [Math & Bit Manipulation](/blog_leetcode_java/posts/2025-11-24-leetcode-templates-math-bit-manipulation/)
+{% endraw %}

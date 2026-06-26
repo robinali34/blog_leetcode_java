@@ -91,9 +91,6 @@ Graph algorithms are among the most versatile tools in competitive programming a
 **When to use:** "shortest path" or "minimum steps" on a grid or unweighted graph; "nearest exit"; "level-order traversal."
 
 Grid: 4-directional. Use for shortest path when all edges have weight 1.
-
-
-
 | ID | Title | Link |
 |----|--------|------|
 | 200 | Number of Islands | [Link](https://leetcode.com/problems/number-of-islands/) |
@@ -139,9 +136,6 @@ static int bfsGrid(char[][] g, int si, int sj, int ti, int tj) {
 **When to use:** "distance from nearest X"; "spread from multiple starting points simultaneously"; "rotting oranges" or "fire spreading" patterns.
 
 Start from multiple nodes (distance 0). Same as BFS with initial queue containing all sources.
-
-
-
 | ID | Title | Link |
 |----|--------|------|
 | 994 | Rotting Oranges | [Link](https://leetcode.com/problems/rotting-oranges/) |
@@ -376,7 +370,102 @@ static List<Integer> topoKahn(int n, List<List<Integer>> g) {
 
 Indegree-based. Edge (u, v) means u before v. Returns order or empty if cycle.
 
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 290" style="max-width: 100%; height: auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
+  <defs>
+    <marker id="ka" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0,8 3,0 6" fill="#8B8680"/>
+    </marker>
+  </defs>
+  <!-- Step titles -->
+  <text x="115" y="22" text-anchor="middle" font-size="12" fill="#3A3530" font-weight="bold">① Compute indegrees</text>
+  <text x="360" y="22" text-anchor="middle" font-size="12" fill="#3A3530" font-weight="bold">② Process A, B</text>
+  <text x="605" y="22" text-anchor="middle" font-size="12" fill="#3A3530" font-weight="bold">③ Process C, D</text>
+  <!-- Panel dividers -->
+  <line x1="234" y1="8" x2="234" y2="282" stroke="#E8E3D8" stroke-width="1" stroke-dasharray="4,3"/>
+  <line x1="486" y1="8" x2="486" y2="282" stroke="#E8E3D8" stroke-width="1" stroke-dasharray="4,3"/>
+  <!-- ===== PANEL 1: Initial indegrees ===== -->
+  <!-- Edges (drawn first, behind nodes) -->
+  <line x1="70" y1="100" x2="120" y2="121" stroke="#8B8680" stroke-width="1.5" marker-end="url(#ka)"/>
+  <line x1="70" y1="155" x2="120" y2="135" stroke="#8B8680" stroke-width="1.5" marker-end="url(#ka)"/>
+  <line x1="158" y1="128" x2="178" y2="128" stroke="#8B8680" stroke-width="1.5" marker-end="url(#ka)"/>
+  <!-- Node A (indegree 0) — enqueued -->
+  <circle cx="52" cy="92" r="20" fill="#D4D8D0" stroke="#8B8680" stroke-width="1.5"/>
+  <text x="52" y="97" text-anchor="middle" font-size="14" fill="#3A3530" font-weight="bold">A</text>
+  <rect x="68" y="74" width="20" height="15" rx="3" fill="#D4D8D0" stroke="#8B8680" stroke-width="1"/>
+  <text x="78" y="85" text-anchor="middle" font-size="9" fill="#3A3530" font-weight="bold">0</text>
+  <!-- Node B (indegree 0) — enqueued -->
+  <circle cx="52" cy="163" r="20" fill="#D4D8D0" stroke="#8B8680" stroke-width="1.5"/>
+  <text x="52" y="168" text-anchor="middle" font-size="14" fill="#3A3530" font-weight="bold">B</text>
+  <rect x="68" y="145" width="20" height="15" rx="3" fill="#D4D8D0" stroke="#8B8680" stroke-width="1"/>
+  <text x="78" y="156" text-anchor="middle" font-size="9" fill="#3A3530" font-weight="bold">0</text>
+  <!-- Node C (indegree 2) -->
+  <circle cx="138" cy="128" r="20" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="138" y="133" text-anchor="middle" font-size="14" fill="#3A3530" font-weight="bold">C</text>
+  <rect x="154" y="110" width="20" height="15" rx="3" fill="#E8D5D0" stroke="#B8B5B0" stroke-width="1"/>
+  <text x="164" y="121" text-anchor="middle" font-size="9" fill="#5A5752">2</text>
+  <!-- Node D (indegree 1) -->
+  <circle cx="200" cy="128" r="20" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="200" y="133" text-anchor="middle" font-size="14" fill="#3A3530" font-weight="bold">D</text>
+  <rect x="216" y="110" width="20" height="15" rx="3" fill="#E8D5D0" stroke="#B8B5B0" stroke-width="1"/>
+  <text x="226" y="121" text-anchor="middle" font-size="9" fill="#5A5752">1</text>
+  <!-- Queue -->
+  <rect x="15" y="210" width="205" height="32" rx="5" fill="#F0EBE6" stroke="#B8B5B0" stroke-width="1"/>
+  <text x="26" y="230" font-size="11" fill="#5A5752">Queue:</text>
+  <rect x="75" y="215" width="26" height="22" rx="3" fill="#D4D8D0" stroke="#8B8680" stroke-width="1"/>
+  <text x="88" y="230" text-anchor="middle" font-size="11" fill="#3A3530" font-weight="bold">A</text>
+  <rect x="105" y="215" width="26" height="22" rx="3" fill="#D4D8D0" stroke="#8B8680" stroke-width="1"/>
+  <text x="118" y="230" text-anchor="middle" font-size="11" fill="#3A3530" font-weight="bold">B</text>
+  <text x="26" y="265" font-size="11" fill="#7A7772">Output: [ ]</text>
+  <!-- ===== PANEL 2: Process A, B ===== -->
+  <!-- Faded edges -->
+  <line x1="312" y1="100" x2="357" y2="121" stroke="#D4D8E0" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="312" y1="155" x2="357" y2="135" stroke="#D4D8E0" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="398" y1="128" x2="418" y2="128" stroke="#8B8680" stroke-width="1.5" marker-end="url(#ka)"/>
+  <!-- A — processed -->
+  <circle cx="294" cy="92" r="20" fill="#FAF8F5" stroke="#B8B5B0" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="294" y="97" text-anchor="middle" font-size="14" fill="#9A9792">A</text>
+  <text x="294" y="76" text-anchor="middle" font-size="10" fill="#9A9792">✓</text>
+  <!-- B — processed -->
+  <circle cx="294" cy="163" r="20" fill="#FAF8F5" stroke="#B8B5B0" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="294" y="168" text-anchor="middle" font-size="14" fill="#9A9792">B</text>
+  <text x="294" y="147" text-anchor="middle" font-size="10" fill="#9A9792">✓</text>
+  <!-- C (indegree 2→0) — now enqueued -->
+  <circle cx="380" cy="128" r="20" fill="#D4D8D0" stroke="#8B8680" stroke-width="1.5"/>
+  <text x="380" y="133" text-anchor="middle" font-size="14" fill="#3A3530" font-weight="bold">C</text>
+  <rect x="396" y="110" width="32" height="15" rx="3" fill="#D4D8D0" stroke="#8B8680" stroke-width="1"/>
+  <text x="412" y="121" text-anchor="middle" font-size="8" fill="#3A3530" font-weight="bold">2→0</text>
+  <!-- D (indegree 1) -->
+  <circle cx="440" cy="128" r="20" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="440" y="133" text-anchor="middle" font-size="14" fill="#3A3530" font-weight="bold">D</text>
+  <rect x="456" y="110" width="20" height="15" rx="3" fill="#E8D5D0" stroke="#B8B5B0" stroke-width="1"/>
+  <text x="466" y="121" text-anchor="middle" font-size="9" fill="#5A5752">1</text>
+  <!-- Queue -->
+  <rect x="257" y="210" width="205" height="32" rx="5" fill="#F0EBE6" stroke="#B8B5B0" stroke-width="1"/>
+  <text x="268" y="230" font-size="11" fill="#5A5752">Queue:</text>
+  <rect x="320" y="215" width="26" height="22" rx="3" fill="#D4D8D0" stroke="#8B8680" stroke-width="1"/>
+  <text x="333" y="230" text-anchor="middle" font-size="11" fill="#3A3530" font-weight="bold">C</text>
+  <text x="268" y="265" font-size="11" fill="#7A7772">Output: [A, B]</text>
+  <!-- ===== PANEL 3: Process C, D — done ===== -->
+  <!-- All edges faded -->
+  <line x1="554" y1="100" x2="597" y2="121" stroke="#D4D8E0" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="554" y1="155" x2="597" y2="135" stroke="#D4D8E0" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="640" y1="128" x2="655" y2="128" stroke="#D4D8E0" stroke-width="1" stroke-dasharray="3,2"/>
+  <!-- All nodes processed -->
+  <circle cx="536" cy="92" r="20" fill="#FAF8F5" stroke="#B8B5B0" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="536" y="97" text-anchor="middle" font-size="14" fill="#9A9792">A</text>
+  <circle cx="536" cy="163" r="20" fill="#FAF8F5" stroke="#B8B5B0" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="536" y="168" text-anchor="middle" font-size="14" fill="#9A9792">B</text>
+  <circle cx="619" cy="128" r="20" fill="#FAF8F5" stroke="#B8B5B0" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="619" y="133" text-anchor="middle" font-size="14" fill="#9A9792">C</text>
+  <circle cx="677" cy="128" r="20" fill="#FAF8F5" stroke="#B8B5B0" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="677" y="133" text-anchor="middle" font-size="14" fill="#9A9792">D</text>
+  <!-- Queue (empty) -->
+  <rect x="500" y="210" width="205" height="32" rx="5" fill="#F0EBE6" stroke="#B8B5B0" stroke-width="1"/>
+  <text x="511" y="230" font-size="11" fill="#9A9792">Queue: (empty)</text>
+  <!-- Final output -->
+  <rect x="500" y="255" width="205" height="28" rx="5" fill="#D4D8D0" stroke="#8B8680" stroke-width="1.5"/>
+  <text x="602" y="274" text-anchor="middle" font-size="12" fill="#3A3530" font-weight="bold">Output: [A, B, C, D] ✓</text>
+</svg>
 
 
 
@@ -510,9 +599,6 @@ Nonnegative weights. Adjacency list: g[u] = [(v, w), ...]. Returns distances fro
 \[
 \text{nextTime} = \max(\text{curTime},\ \text{open}[ni][nj]) + 1
 \]
-
-
-
 ---
 
 ```java

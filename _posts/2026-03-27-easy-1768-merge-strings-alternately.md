@@ -7,6 +7,7 @@ tags: [leetcode, easy, string, two-pointers]
 permalink: /2026/03/27/easy-1768-merge-strings-alternately/
 ---
 
+{% raw %}
 Given two strings `word1` and `word2`, merge them by adding letters in alternating order, starting with `word1`. If one string is longer, append the remaining letters at the end.
 
 ## Examples
@@ -44,9 +45,32 @@ Explanation: a p b q + remaining "cd"
 
 Use two pointers `i` and `j` to walk through both strings simultaneously. In each iteration, take one character from `word1` (if available), then one from `word2` (if available). The loop continues until both strings are exhausted, naturally handling unequal lengths.
 
-## Solution: Two Pointers -- $O(m + n)$
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 110" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Two pointers</text>
 
-{% raw %}
+  <rect x="30" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="44" y="66" text-anchor="middle" font-size="10">1</text>
+  <rect x="62" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="76" y="66" text-anchor="middle" font-size="10">3</text>
+  <rect x="106" y="50" width="28" height="28" rx="3" fill="#E0D8E4" stroke="#A098A8"/><text x="120" y="66" text-anchor="middle" font-size="10">5</text>
+  <rect x="138" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="152" y="66" text-anchor="middle" font-size="10">7</text>
+  <rect x="170" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="184" y="66" text-anchor="middle" font-size="10">9</text>
+  <text x="44" y="42" text-anchor="middle" font-size="10" fill="#7A8EA0" font-weight="600">L</text>
+  <text x="184" y="42" text-anchor="middle" font-size="10" fill="#A08888" font-weight="600">R</text>
+  <text x="110" y="100" text-anchor="middle" font-size="11" fill="#6B6560">move L/R based on comparison</text>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Opposite ends** *(this problem)* | O(n) | O(1) | Sorted array pair search, reversal |
+| Slow / fast pointers | O(n) | O(1) | Linked list middle, cycle detection |
+| Same-direction chase | O(n) | O(1) | Remove duplicates in-place |
+| Sliding window (variable) | O(n) | O(1) | Subarray with constraint |
+
+## Solution
 ```java
 class Solution {
         public String mergeAlternately(String word1, String word2) {
@@ -67,11 +91,16 @@ class Solution {
     }
 }
 ```
-{% endraw %}
 
-**Time**: $O(m + n)$
-**Space**: $O(1)$ auxiliary (output excluded)
+### Solution Explanation
 
+**Approach:** Opposite ends (this problem)
+
+**Key idea:** Use two pointers `i` and `j` to walk through both strings simultaneously. In each iteration, take one character from `word1` (if available), then one from `word2` (if available). The loop continues until both strings are exhausted, naturally handling unequal lengths.
+
+**Walkthrough** — input `word1 = "abc", word2 = "pqr"`, expected output `"apbqcr"`:
+
+a p b q c r
 ## Key Details
 
 **`reserve(m + n)`**: Pre-allocates the result string to avoid reallocations during appending. Not required for correctness but good practice.
@@ -94,6 +123,13 @@ class Solution {
 - [21. Merge Two Sorted Lists](https://leetcode.com/problems/merge-two-sorted-lists/) -- merge pattern on linked lists
 - [986. Interval List Intersections](https://leetcode.com/problems/interval-list-intersections/) -- two-pointer on intervals
 
+## References
+
+- [LC 1768: Merge Strings Alternately on LeetCode](https://leetcode.com/problems/merge-strings-alternately/)
+- [LeetCode Discuss — LC 1768: Merge Strings Alternately](https://leetcode.com/problems/merge-strings-alternately/discuss/)
+- [LeetCode Editorial](https://leetcode.com/problems/merge-strings-alternately/editorial/) *(may require premium)*
+
 ## Template Reference
 
 - [Arrays & Strings](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-arrays-strings/)
+{% endraw %}

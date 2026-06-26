@@ -6,15 +6,47 @@ categories: [leetcode, medium, dijkstra, shortest-path, graph, dynamic-programmi
 permalink: /2025/12/28/medium-1976-number-of-ways-to-arrive-at-destination/
 ---
 
-# 1976. Number of Ways to Arrive at Destination
-
-## Problem Statement
-
+{% raw %}
 You are in a city that consists of `n` intersections numbered from `0` to `n - 1` with **bi-directional** roads between some intersections. The inputs are generated such that you can reach any intersection from any other intersection and that there is **at most one** road between any two intersections.
 
 You are given an integer `n` and an array `roads` where `roads[i] = [ui, vi, timei]` means that there is a road between intersections `ui` and `vi` that takes `timei` minutes to travel. You want to know how many ways you can travel from intersection `0` to intersection `n - 1` in the **shortest amount of time**.
 
 Return *the **number of ways** you can arrive at your destination in the **shortest amount of time***. Since the answer may be large, return it **modulo** `10^9 + 7`.
+
+## Thinking Process
+
+You are in a city that consists of `n` intersections numbered from `0` to `n - 1` with **bi-directional** roads between some intersections. The inputs are generated such that you can reach any intersection from any other intersection and that there is **at most one** road between any two intersections.
+
+You are given an integer `n` and an array `roads` where `roads[i] = [ui, vi, timei]` means that there is a road between intersections `ui` and `vi` that takes `timei` minutes to travel. You want to know how many ways you can travel from intersection `0` to intersection `n - 1` in the **shortest amount of time**.
+
+- Define state: what subproblem does `dp[i]` (or `dp[i][j]`) represent?
+- Recurrence: how does the answer build from smaller indices?
+- Base cases first; optimize space if only prior row/layer is needed.
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 135" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Graph BFS layers</text>
+
+  <circle cx="60" cy="70" r="16" fill="#D4D8E0" stroke="#8B8680"/><text x="60" y="74" text-anchor="middle" font-size="11">S</text>
+  <circle cx="140" cy="45" r="14" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="49" text-anchor="middle" font-size="10">a</text>
+  <circle cx="140" cy="95" r="14" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="99" text-anchor="middle" font-size="10">b</text>
+  <circle cx="210" cy="70" r="14" fill="#E8D5D0" stroke="#B8A5A0"/><text x="210" y="74" text-anchor="middle" font-size="10">t</text>
+  <line x1="74" y1="65" x2="126" y2="50" stroke="#9A9792" stroke-width="1.5"/>
+  <line x1="74" y1="75" x2="126" y2="95" stroke="#9A9792" stroke-width="1.5"/>
+  <line x1="154" y1="50" x2="196" y2="65" stroke="#9A9792" stroke-width="1.5"/>
+  <text x="140" y="125" text-anchor="middle" font-size="11" fill="#6B6560">BFS: expand by layers (queue)</text>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **1D DP** *(this problem)* | O(n) | O(n) or O(1) | Linear recurrence |
+| 2D DP | O(nm) | O(nm) or O(n) | Grid or two-sequence problems |
+| State machine DP | O(n) | O(1) | Buy/sell, hold/not-hold states |
+| Memoization (top-down) | Same as DP | O(n) | Recursive + cache |
 
 ## Examples
 
@@ -48,57 +80,9 @@ Explanation: There is only one way to go from intersection 0 to intersection 1, 
 - There is at most one road connecting any two intersections.
 - You can reach any intersection from any other intersection.
 
-## Clarification Questions
+## Dijkstra's Template
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
-
-1. **Graph structure**: What is the graph structure? (Assumption: Undirected weighted graph - roads connect intersections with travel times)
-
-2. **Optimization goal**: What are we optimizing for? (Assumption: Shortest path from intersection 0 to intersection n-1)
-
-3. **Path counting**: What should we count? (Assumption: Number of different shortest paths from 0 to n-1)
-
-4. **Return value**: What should we return? (Assumption: Integer - number of shortest paths modulo 10^9 + 7)
-
-5. **Path uniqueness**: What makes paths different? (Assumption: Different sequences of intersections - same length but different routes)
-
-## Interview Deduction Process (20 minutes)
-
-**Step 1: Brute-Force Approach (5 minutes)**
-
-Use DFS to explore all paths from node 0 to node n-1. Keep track of the current path and total time. When reaching node n-1, record the time. After exploring all paths, find the minimum time and count how many paths have that minimum time. This approach has exponential time complexity O(2^V) in worst case, which is too slow for graphs with many nodes.
-
-**Step 2: Semi-Optimized Approach (7 minutes)**
-
-Use BFS with distance tracking: perform BFS from node 0, tracking the shortest distance to each node. When multiple paths reach a node with the same distance, increment a counter. However, BFS only works for unweighted graphs. For weighted graphs, we need Dijkstra's algorithm. Use Dijkstra's to find shortest distances, then use DFS or DP to count paths with shortest distance. This requires two passes and careful implementation.
-
-**Step 3: Optimized Solution (8 minutes)**
-
-Combine Dijkstra's algorithm with path counting in a single pass: use a priority queue to find shortest paths, maintaining both `shortestTime[i]` (shortest distance) and `pathCount[i]` (number of shortest paths). When exploring neighbors, if we find a shorter path, update the distance and reset the count. If we find an equal path, accumulate the count. This achieves O((V + E) log V) time complexity, which is optimal for finding shortest paths in weighted graphs. The key insight is that we can count paths during Dijkstra's execution by tracking how many ways we can reach each node with the shortest distance.
-
-## Solution Approach
-
-This problem requires finding the **number of shortest paths** from node `0` to node `n-1` in a weighted, undirected graph. This is a classic application of **Dijkstra's algorithm** combined with **dynamic programming** to count paths.
-
-### Key Insights:
-
-1. **Dijkstra's Algorithm**: Find shortest distances from source (node 0) to all nodes
-2. **Path Counting**: Count number of ways to reach each node with shortest distance
-3. **Multiple Paths**: When multiple paths have the same shortest distance, accumulate the count
-4. **Modulo Arithmetic**: Handle large numbers with `10^9 + 7`
-
-### Algorithm:
-
-1. **Build adjacency list**: Create graph representation from roads
-2. **Dijkstra's Algorithm**: Use priority queue to find shortest paths
-3. **Path Counting**: 
-   - If shorter path found: update distance and reset count
-   - If equal path found: add to count
-4. **Return**: Number of shortest paths to destination
-
-## Solution
-
-### **Solution: Dijkstra's Algorithm with Path Counting**
+Here's the general template for Dijkstra's algorithm with path counting:
 
 ```java
 class Solution {
@@ -139,130 +123,6 @@ class Solution {
     }
 }```
 
-### **Algorithm Explanation:**
-
-1. **Graph Construction (Lines 5-9)**:
-   - Build bidirectional adjacency list
-   - Each edge stores `(neighbor, weight)`
-
-2. **Initialization (Lines 10-15)**:
-   - `shortestTime[i]`: Shortest time to reach node `i` (initialized to `LLONG_MAX`)
-   - `pathCount[i]`: Number of shortest paths to node `i` (initialized to 0)
-   - Start node: `shortestTime[0] = 0`, `pathCount[0] = 1`
-   - Priority queue: `(time, node)` pairs, min-heap
-
-3. **Dijkstra's Algorithm (Lines 16-30)**:
-   - Extract node with minimum time
-   - Skip if outdated (already found shorter path)
-   - For each neighbor:
-     - **Shorter path found**: Update distance and reset count
-     - **Equal path found**: Add to count (modulo)
-
-4. **Result**: Return `pathCount[n-1]` - number of shortest paths to destination
-
-### **Example Walkthrough:**
-
-**For `n = 7, roads = [[0,6,7],[0,1,2],[1,2,3],[1,3,3],[6,3,3],[3,5,1],[6,5,1],[2,5,1],[0,4,5],[4,6,2]]`:**
-
-```
-Graph:
-0 --2-- 1 --3-- 2
-|       |       |
-7       3       1
-|       |       |
-6 --1-- 5 --1-- 3
-|       |
-2       1
-|
-4
-
-Dijkstra's Execution:
-
-Step 1: Start at node 0
-- shortestTime[0] = 0, pathCount[0] = 1
-- Explore: 0→1 (time=2), 0→4 (time=5), 0→6 (time=7)
-
-Step 2: Process node 1 (time=2)
-- shortestTime[1] = 2, pathCount[1] = 1
-- Explore: 1→2 (time=2+3=5), 1→3 (time=2+3=5)
-
-Step 3: Process node 4 (time=5)
-- shortestTime[4] = 5, pathCount[4] = 1
-- Explore: 4→6 (time=5+2=7)
-
-Step 4: Process node 2 (time=5)
-- shortestTime[2] = 5, pathCount[2] = 1
-- Explore: 2→5 (time=5+1=6)
-
-Step 5: Process node 3 (time=5)
-- shortestTime[3] = 5, pathCount[3] = 1
-- Explore: 3→5 (time=5+1=6), 3→6 (time=5+3=8)
-
-Step 6: Process node 5 (time=6)
-- shortestTime[5] = 6, pathCount[5] = 2 (from node 2 and 3)
-- Explore: 5→6 (time=6+1=7)
-
-Step 7: Process node 6 (time=7)
-- Found paths with time=7:
-  - 0→6 (direct): pathCount = 1
-  - 0→4→6: pathCount = 1
-  - 0→1→2→5→6: pathCount = 1
-  - 0→1→3→5→6: pathCount = 1
-- pathCount[6] = 1 + 1 + 1 + 1 = 4
-
-Result: 4 ways to reach node 6 with shortest time 7
-```
-
-## Dijkstra's Template
-
-Here's the general template for Dijkstra's algorithm with path counting:
-
-```java
-// import java.util.*;
-static int countShortestPaths(int n, vector<List<int[]>>& adjList, int start, int end) {
-    int MOD = 1e9 + 7;
-    long INF = Long.MAX_VALUE;
-
-    // Distance and path count arrays
-    long[]dist(n, INF);
-    int[] pathCount = new int[n];
-
-    // Priority queue: (distance, node)
-    priority_queue<long[], List<List<long>>, greater<>> pq;
-
-    // Initialize start node
-    dist[start] = 0;
-    pathCount[start] = 1;
-    pq.emplace(0, start);
-
-    while (!pq.isEmpty()) {
-        int[] currDistpair = pq.peek(); int currDist = currDistpair[0]; int currNode = currDistpair[1];
-        pq.poll();
-
-        // Skip if outdated (already found shorter path)
-        if (currDist > dist[currNode]) continue;
-
-        // Explore neighbors
-        for (int[] edge : adjList.get(currNode)) {
-            long newDist = currDist + weight;
-
-            // Found shorter path: update distance and reset count
-            if (newDist < dist[neighbor]) {
-                dist[neighbor] = newDist;
-                pathCount[neighbor] = pathCount[currNode];
-                pq.emplace(newDist, neighbor);
-            }
-            // Found equal path: add to count
-            else if (newDist == dist[neighbor]) {
-                pathCount[neighbor] = (pathCount[neighbor] + pathCount[currNode]) % MOD;
-            }
-        }
-    }
-
-    return pathCount[end];
-}
-```
-
 ### **Key Template Components:**
 
 1. **Data Structures**:
@@ -283,8 +143,7 @@ static int countShortestPaths(int n, vector<List<int[]>>& adjList, int start, in
 
 4. **Modulo**: Apply `MOD` to prevent overflow
 
-## Complexity Analysis
-
+### Complexity
 ### **Time Complexity:** O((V + E) log V)
 - **Priority queue operations**: O(E log V) - each edge processed once
 - **Graph traversal**: O(V + E) - visit all nodes and edges
@@ -306,22 +165,11 @@ static int countShortestPaths(int n, vector<List<int[]>>& adjList, int start, in
 5. **Bidirectional Graph**: Roads are undirected (both directions)
 6. **Outdated Skip**: Skip nodes with outdated distances in priority queue
 
-## Alternative Approaches
+## Common Mistakes
 
-### **Approach 1: Dijkstra + DP (Current Solution)**
-- **Time**: O((V + E) log V)
-- **Space**: O(V + E)
-- **Best for**: General graphs with non-negative weights
-
-### **Approach 2: BFS (Unweighted Graphs Only)**
-- **Time**: O(V + E)
-- **Space**: O(V + E)
-- **Limitation**: Only works for unweighted graphs
-
-### **Approach 3: Floyd-Warshall (All Pairs)**
-- **Time**: O(V³)
-- **Space**: O(V²)
-- **Use case**: Need shortest paths between all pairs
+- Skipping edge cases (empty input, single element, boundaries).
+- Off-by-one errors in loops and index ranges.
+- Forgetting to handle the case when no valid answer exists.
 
 ## Related Problems
 
@@ -334,3 +182,19 @@ static int countShortestPaths(int n, vector<List<int[]>>& adjList, int start, in
 
 `Dijkstra's Algorithm`, `Shortest Path`, `Graph`, `Dynamic Programming`, `Path Counting`, `Medium`
 
+## Key Takeaways
+
+- Define state: what subproblem does `dp[i]` (or `dp[i][j]`) represent?
+- Recurrence: how does the answer build from smaller indices?
+- Base cases first; optimize space if only prior row/layer is needed.
+
+## References
+
+- [LC 1976: Number of Ways to Arrive at Destination on LeetCode](https://leetcode.com/problems/number-of-ways-to-arrive-at-destination/)
+- [LeetCode Discuss — LC 1976: Number of Ways to Arrive at Destination](https://leetcode.com/problems/number-of-ways-to-arrive-at-destination/discuss/)
+- [LeetCode Editorial](https://leetcode.com/problems/number-of-ways-to-arrive-at-destination/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [Graph](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-graph/)
+{% endraw %}

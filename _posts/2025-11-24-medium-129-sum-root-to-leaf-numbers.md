@@ -7,8 +7,7 @@ permalink: /posts/2025-11-24-medium-129-sum-root-to-leaf-numbers/
 tags: [leetcode, medium, tree, dfs, recursion, binary-tree]
 ---
 
-# [Medium] 129. Sum Root to Leaf Numbers
-
+{% raw %}
 You are given the `root` of a binary tree containing digits from `0` to `9` only.
 
 Each root-to-leaf path in the tree represents a number.
@@ -48,35 +47,47 @@ Therefore, sum = 495 + 491 + 40 = 1026.
 - `0 <= Node.val <= 9`
 - The depth of the tree will not exceed `10`.
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+1. **Path Accumulation**: Build the number incrementally by multiplying by 10 and adding the current digit
 
-1. **Number formation**: How are numbers formed? (Assumption: Concatenate node values along root-to-leaf path - e.g., 1->2->3 forms 123)
+- Trees have no cycles — recursion is natural.
+- Combine results from left and right subtrees at each node.
+- Base case is usually `null`; height drives stack space.
 
-2. **Sum calculation**: What should we sum? (Assumption: Sum all root-to-leaf numbers - sum of all path numbers)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 165" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Tree DFS (bottom-up)</text>
 
-3. **Return value**: What should we return? (Assumption: Integer - sum of all root-to-leaf numbers)
+  <line x1="140" y1="42" x2="80" y2="88" stroke="#8E9AAF" stroke-width="2"/>
+  <line x1="140" y1="42" x2="200" y2="88" stroke="#8E9AAF" stroke-width="2"/>
+  <line x1="80" y1="88" x2="50" y2="128" stroke="#8E9AAF" stroke-width="2"/>
+  <line x1="200" y1="88" x2="230" y2="128" stroke="#8E9AAF" stroke-width="2"/>
+  <circle cx="140" cy="42" r="18" fill="#C9B1BD" stroke="#8E9AAF" stroke-width="2"/>
+  <text x="140" y="46" text-anchor="middle" font-size="12" fill="#3D3535">3</text>
+  <circle cx="80" cy="88" r="16" fill="#C9B1BD" stroke="#8E9AAF" stroke-width="2"/>
+  <text x="80" y="92" text-anchor="middle" font-size="11" fill="#3D3535">9</text>
+  <circle cx="200" cy="88" r="16" fill="#C9B1BD" stroke="#8E9AAF" stroke-width="2"/>
+  <text x="200" y="92" text-anchor="middle" font-size="11" fill="#3D3535">20</text>
+  <circle cx="50" cy="128" r="14" fill="#A8B5A2" stroke="#8E9AAF" stroke-width="1.5"/>
+  <text x="50" y="132" text-anchor="middle" font-size="10" fill="#3D3535">15</text>
+  <circle cx="230" cy="128" r="14" fill="#A8B5A2" stroke="#8E9AAF" stroke-width="1.5"/>
+  <text x="230" y="132" text-anchor="middle" font-size="10" fill="#3D3535">7</text>
+  <text x="140" y="155" text-anchor="middle" font-size="11" fill="#6B6560">post-order: combine left + right + 1</text>
 
-4. **Single node**: What if tree has one node? (Assumption: Return that node's value - single path)
+</svg>
 
-5. **Node values**: What is the range of node values? (Assumption: Per constraints, 0 <= Node.val <= 9 - single digits)
+## Common Approaches
 
-## Interview Deduction Process (20 minutes)
+Typical techniques for this pattern:
 
-**Step 1: Brute-Force Approach (5 minutes)**
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Recursive DFS** *(this problem)* | O(n) | O(h) stack | Natural for trees and graphs |
+| Iterative DFS (stack) | O(n) | O(n) | Avoid recursion depth limits |
+| DFS with memoization | O(n) | O(n) | Overlapping subproblems on graphs |
+| Backtracking DFS | O(2^n) typical | O(n) | Enumerate choices with pruning |
 
-Find all root-to-leaf paths, convert each path to a number, and sum all numbers. Use DFS to collect all paths, storing each path as a list of values. Then for each path, convert to number and sum. This requires O(n × h) space to store all paths where h is height, and O(n × h) time to process them.
-
-**Step 2: Semi-Optimized Approach (7 minutes)**
-
-Use DFS with backtracking: maintain current path sum as we traverse. When reaching a leaf, add the current number to total sum. Backtrack by removing the last digit. This avoids storing all paths but still requires careful backtracking logic to maintain the correct number representation.
-
-**Step 3: Optimized Solution (8 minutes)**
-
-Use recursive DFS passing the current number down the tree. For each node, update current number = current × 10 + node.val. When reaching a leaf, return the current number. For internal nodes, return sum of left subtree + sum of right subtree. This achieves O(n) time to visit all nodes and O(h) space for recursion stack, which is optimal. The key insight is that we don't need to store paths - we can build the number incrementally as we traverse and accumulate sums at leaf nodes.
-
-## Solution: DFS with Path Accumulation
+## Solution
 
 **Time Complexity:** O(n) where n is the number of nodes  
 **Space Complexity:** O(h) where h is the height of the tree (recursion stack)
@@ -117,6 +128,31 @@ class Solution {
     }
 }
 ```
+
+### Solution Explanation
+
+**Approach:** Recursive DFS (this problem)
+
+**Key idea:** 1. **Path Accumulation**: Build the number incrementally by multiplying by 10 and adding the current digit
+
+**How the code works:**
+1. **Path Accumulation**: Build the number incrementally by multiplying by 10 and adding the current digit
+- Trees have no cycles — recursion is natural.
+- Combine results from left and right subtrees at each node.
+- Base case is usually `null`; height drives stack space.
+
+**Walkthrough** — input `root = [1,2,3]`, expected output `25`:
+
+The root-to-leaf path 1->2 represents the number 12.
+The root-to-leaf path 1->3 represents the number 13.
+Therefore, sum = 12 + 13 = 25.
+
+| Approach | Time | Space | Pros | Cons |
+|----------|------|-------|------|------|
+| **Recursive DFS (Preorder)** | O(n) | O(h) | Simple, elegant | Recursion overhead |
+| **Morris Traversal** | O(n) | O(1) | Optimal space | Complex implementation |
+| **Iterative DFS** | O(n) | O(h) | No recursion | More code |
+| **BFS** | O(n) | O(w) | Level-order | More space for wide trees |
 
 **Key Points:**
 - Uses preorder traversal (process node, then left, then right)
@@ -201,8 +237,6 @@ class Solution {
 - **Temporary links**: Uses right pointers of leaf nodes to create temporary links
 - **Backtracking**: Divides `currNum` by 10 to backtrack when removing links
 - **Complex logic**: More complex but achieves optimal space complexity
-
-## How the Algorithm Works
 
 ### Key Insight: Path Accumulation
 
@@ -295,124 +329,11 @@ Traversal:
 Final: 495 + 491 + 40 = 1026
 ```
 
-## Key Insights
-
-1. **Path Accumulation**: Build the number incrementally by multiplying by 10 and adding the current digit
-2. **Leaf Detection**: Only add to sum when reaching a leaf node (no children)
-3. **Recursive Sum**: Combine results from left and right subtrees
-4. **Base Case**: Return 0 for null nodes (handles empty subtrees)
-
 ## Algorithm Breakdown
 
 ### Solution 1: Recursive Preorder
 
 #### Helper Function: `preorder(node, currNum, rootToLeaf)`
-
-```java
-static void preorder(TreeNode node, int currNum, int rootToLeaf) {
-    if (node == null) return;
-```
-
-**Why:** Handle null nodes gracefully. Return early if node is null.
-
-```java
-currNum = currNum 10 + node.val;
-```
-
-**Why:** Build the current path number by:
-- Multiplying previous sum by 10 (shift digits left)
-- Adding current node's value (append new digit)
-
-```java
-if (node.left == null && node.right == null) {
-        rootToLeaf += currNum;
-    }
-```
-
-**Why:** Leaf node reached. Add the complete path number to the total sum.
-
-```java
-preorder(node.left, currNum, rootToLeaf);
-    preorder(node.right, currNum, rootToLeaf);
-```
-
-**Why:** Continue traversal to both subtrees. `currNum` is passed by value, so each recursive call gets its own copy.
-
-#### Main Function: `sumNumbers(root)`
-
-```java
-static int sumNumbers(TreeNode root) {
-    int rootToLeaf = 0;
-    preorder(root, 0, rootToLeaf);
-    return rootToLeaf;
-}
-```
-
-**Why:** Initialize sum to 0, start preorder traversal from root, return accumulated sum.
-
-**Key Difference from Previous Approach:**
-- Uses `void` function that accumulates result in a reference parameter
-- Passes `currNum` by value (each call gets independent copy)
-- More explicit about accumulating the sum
-
-### Solution 2: Morris Traversal
-
-#### Key Components
-
-**1. Finding Predecessor:**
-```java
-predecessor = root.left;
-steps = 1;
-while (predecessor.right != null && predecessor.right != root) {
-    predecessor = predecessor.right;
-    steps++;
-}
-```
-- Find the rightmost node in the left subtree
-- Track number of steps for backtracking
-
-**2. Creating Temporary Link:**
-```java
-if (predecessor.right == null) {
-    currNum = currNum 10 + root.val;
-    predecessor.right = root;  // Create link
-    root = root.left;
-}
-```
-- Create temporary link from predecessor to current node
-- This allows us to return to current node later
-
-**3. Removing Link and Backtracking:**
-```java
-else {
-    if (predecessor.left == null) {
-        rootToLeaf += currNum;
-    }
-    for (int i = 0; i < steps; i++) {
-        currNum /= 10;  // Backtrack number
-    }
-    predecessor.right = null;  // Remove link
-    root = root.right;
-}
-```
-- When we return via temporary link, we've finished left subtree
-- Backtrack `currNum` by dividing by 10 for each step
-- Remove temporary link to restore tree structure
-
-## Edge Cases
-
-1. **Single node**: Tree with one node returns that node's value
-2. **All left children**: Skewed tree to the left
-3. **All right children**: Skewed tree to the right
-4. **Node with value 0**: Zero values are handled correctly
-5. **Deep tree**: Up to depth 10 (constraint)
-
-## Alternative Approaches
-
-### Approach 2: Iterative DFS with Stack
-
-**Time Complexity:** O(n)  
-**Space Complexity:** O(h)
 
 ```java
 class Solution {
@@ -446,18 +367,7 @@ class Solution {
 }
 ```
 
-**Pros:**
-- Avoids recursion stack overflow
-- More control over traversal order
-
-**Cons:**
-- More verbose
-- Still O(h) space for stack
-
-### Approach 3: BFS with Queue
-
-**Time Complexity:** O(n)  
-**Space Complexity:** O(w) where w is the maximum width
+**Why:** Handle null nodes gracefully. Return early if node is null.
 
 ```java
 class Solution {
@@ -491,16 +401,90 @@ class Solution {
 }
 ```
 
-**Pros:**
-- Level-order traversal
-- Can be useful for certain tree structures
+**Why:** Build the current path number by:
+- Multiplying previous sum by 10 (shift digits left)
+- Adding current node's value (append new digit)
 
-**Cons:**
-- Uses more space for wide trees
-- Less intuitive for this problem
+```cpp
+    if (node->left == nullptr && node->right == nullptr) {
+        rootToLeaf += currNum;
+    }
+```
 
-## Complexity Analysis
+**Why:** Leaf node reached. Add the complete path number to the total sum.
 
+```cpp
+    preorder(node->left, currNum, rootToLeaf);
+    preorder(node->right, currNum, rootToLeaf);
+```
+
+**Why:** Continue traversal to both subtrees. `currNum` is passed by value, so each recursive call gets its own copy.
+
+#### Main Function: `sumNumbers(root)`
+
+```cpp
+int sumNumbers(TreeNode* root) {
+    int rootToLeaf = 0;
+    preorder(root, 0, rootToLeaf);
+    return rootToLeaf;
+}
+```
+
+**Why:** Initialize sum to 0, start preorder traversal from root, return accumulated sum.
+
+**Key Difference from Previous Approach:**
+- Uses `void` function that accumulates result in a reference parameter
+- Passes `currNum` by value (each call gets independent copy)
+- More explicit about accumulating the sum
+
+### Solution 2: Morris Traversal
+
+#### Key Components
+
+**1. Finding Predecessor:**
+```cpp
+predecessor = root->left;
+steps = 1;
+while (predecessor->right != nullptr && predecessor->right != root) {
+    predecessor = predecessor->right;
+    steps++;
+}
+```
+
+- Find the rightmost node in the left subtree
+- Track number of steps for backtracking
+
+**2. Creating Temporary Link:**
+```cpp
+if (predecessor->right == nullptr) {
+    currNum = currNum * 10 + root->val;
+    predecessor->right = root;  // Create link
+    root = root->left;
+}
+```
+
+- Create temporary link from predecessor to current node
+- This allows us to return to current node later
+
+**3. Removing Link and Backtracking:**
+```cpp
+else {
+    if (predecessor->left == nullptr) {
+        rootToLeaf += currNum;
+    }
+    for (int i = 0; i < steps; i++) {
+        currNum /= 10;  // Backtrack number
+    }
+    predecessor->right = nullptr;  // Remove link
+    root = root->right;
+}
+```
+
+- When we return via temporary link, we've finished left subtree
+- Backtrack `currNum` by dividing by 10 for each step
+- Remove temporary link to restore tree structure
+
+### Complexity
 | Approach | Time | Space | Pros | Cons |
 |----------|------|-------|------|------|
 | **Recursive DFS (Preorder)** | O(n) | O(h) | Simple, elegant | Recursion overhead |
@@ -524,8 +508,8 @@ Multiplying by 10 shifts digits left, making room for the new digit.
 
 ### Recursive Call Structure
 
-```java
-return dfs(node.left, sum) + dfs(node.right, sum);
+```cpp
+return dfs(node->left, sum) + dfs(node->right, sum);
 ```
 
 **Breakdown:**
@@ -546,6 +530,12 @@ Leaf: return 12
 ```
 
 ## Common Mistakes
+
+1. **Single node**: Tree with one node returns that node's value
+2. **All left children**: Skewed tree to the left
+3. **All right children**: Skewed tree to the right
+4. **Node with value 0**: Zero values are handled correctly
+5. **Deep tree**: Up to depth 10 (constraint)
 
 1. **Forgetting to multiply by 10**: Results in incorrect number construction
 2. **Not checking for leaf nodes**: May double-count or miss paths
@@ -726,7 +716,20 @@ Step 3: num = num × 10 + d₃ = (d₁ × 10 + d₂) × 10 + d₃ = d₁ × 100 
 
 This matches the mathematical formula!
 
----
+## Key Takeaways
 
-*This problem demonstrates how to traverse a binary tree while accumulating path information, using DFS to efficiently compute the sum of all root-to-leaf numbers.*
+1. **Path Accumulation**: Build the number incrementally by multiplying by 10 and adding the current digit
+2. **Leaf Detection**: Only add to sum when reaching a leaf node (no children)
+3. **Recursive Sum**: Combine results from left and right subtrees
+4. **Base Case**: Return 0 for null nodes (handles empty subtrees)
 
+## References
+
+- [LC 129: Sum Root to Leaf Numbers on LeetCode](https://leetcode.com/problems/sum-root-to-leaf-numbers/)
+- [LeetCode Discuss — LC 129: Sum Root to Leaf Numbers](https://leetcode.com/problems/sum-root-to-leaf-numbers/discuss/)
+- [LeetCode Editorial](https://leetcode.com/problems/sum-root-to-leaf-numbers/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [Trees](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-trees/)
+{% endraw %}

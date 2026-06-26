@@ -7,8 +7,7 @@ categories: leetcode algorithm medium java dfs bfs graph problem-solving
 permalink: /posts/2025-10-19-medium-417-pacific-atlantic-water-flow/
 ---
 
-# [Medium] 417. Pacific Atlantic Water Flow
-
+{% raw %}
 There is an `m x n` rectangular island that borders both the **Pacific Ocean** and the **Atlantic Ocean**. The Pacific Ocean touches the island's left and top edges, and the Atlantic Ocean touches the island's right and bottom edges.
 
 The island is partitioned into a grid of square cells. You are given an `m x n` integer matrix `heights` where `heights[r][c]` represents the **height above sea level** of the cell at coordinate `(r, c)`.
@@ -47,61 +46,41 @@ Explanation: All cells can flow to both Pacific and Atlantic oceans.
 - `1 <= m, n <= 200`
 - `0 <= heights[i][j] <= 10^5`
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+1. **Instead of checking** if each cell can reach oceans
+1. **Visited tracking:** Prevents infinite loops
 
-1. **Water flow rule**: How does water flow? (Assumption: Water flows from higher to lower or equal height - can flow to adjacent cells with same or lower height)
+- Model entities as nodes and relationships as edges.
+- Pick traversal (BFS/DFS) or shortest-path (Dijkstra) based on weights.
+- Union-Find helps when connectivity updates are frequent.
 
-2. **Ocean boundaries**: Where are the oceans located? (Assumption: Pacific Ocean is top and left edges, Atlantic Ocean is bottom and right edges)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 135" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Graph BFS layers</text>
 
-3. **Flow direction**: In which directions can water flow? (Assumption: Up, down, left, right - 4 directions, no diagonals)
+  <circle cx="60" cy="70" r="16" fill="#D4D8E0" stroke="#8B8680"/><text x="60" y="74" text-anchor="middle" font-size="11">S</text>
+  <circle cx="140" cy="45" r="14" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="49" text-anchor="middle" font-size="10">a</text>
+  <circle cx="140" cy="95" r="14" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="99" text-anchor="middle" font-size="10">b</text>
+  <circle cx="210" cy="70" r="14" fill="#E8D5D0" stroke="#B8A5A0"/><text x="210" y="74" text-anchor="middle" font-size="10">t</text>
+  <line x1="74" y1="65" x2="126" y2="50" stroke="#9A9792" stroke-width="1.5"/>
+  <line x1="74" y1="75" x2="126" y2="95" stroke="#9A9792" stroke-width="1.5"/>
+  <line x1="154" y1="50" x2="196" y2="65" stroke="#9A9792" stroke-width="1.5"/>
+  <text x="140" y="125" text-anchor="middle" font-size="11" fill="#6B6560">BFS: expand by layers (queue)</text>
 
-4. **Output format**: What should we return? (Assumption: List of coordinates [row, col] where water can flow to both oceans)
+</svg>
 
-5. **Cell height**: What does heights[i][j] represent? (Assumption: Height/elevation of cell at position (i, j) - water flows downhill)
+## Common Approaches
 
-## Interview Deduction Process (20 minutes)
+Typical techniques for this pattern:
 
-### Step 1: Brute-Force Approach (5 minutes)
-**Initial Thought**: "I need to find cells that can reach both oceans. Let me check each cell individually."
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Recursive DFS** *(this problem)* | O(n) | O(h) stack | Natural for trees and graphs |
+| Iterative DFS (stack) | O(n) | O(n) | Avoid recursion depth limits |
+| DFS with memoization | O(n) | O(n) | Overlapping subproblems on graphs |
+| Backtracking DFS | O(2^n) typical | O(n) | Enumerate choices with pruning |
 
-**Naive Solution**: For each cell, perform DFS/BFS to check if it can reach Pacific and Atlantic oceans separately.
-
-**Complexity**: O(m × n × (m + n)) time, O(m × n) space
-
-**Issues**:
-- Repeats work for cells in same connected component
-- Very inefficient - exponential worst case
-- Doesn't leverage the fact that water flows from oceans inward
-- Timeout for large grids
-
-### Step 2: Semi-Optimized Approach (7 minutes)
-**Insight**: "Instead of starting from each cell, I can start from ocean boundaries and work inward."
-
-**Improved Solution**: Start DFS/BFS from all Pacific boundary cells, mark reachable cells. Then start from all Atlantic boundary cells, mark reachable cells. Find intersection of both sets.
-
-**Complexity**: O(m × n) time, O(m × n) space
-
-**Improvements**:
-- Much more efficient - only two traversals
-- Leverages water flow direction (from oceans)
-- Each cell visited at most twice
-- Handles all cases correctly
-
-### Step 3: Optimized Solution (8 minutes)
-**Final Optimization**: "I can use two visited sets or a single traversal with two flags per cell."
-
-**Best Solution**: Use two boolean matrices (or sets) to track cells reachable from Pacific and Atlantic. Perform DFS/BFS from each ocean boundary, then find intersection. Can optimize by using single traversal with flags.
-
-**Key Realizations**:
-1. Starting from boundaries is key insight
-2. Two traversals (one per ocean) is optimal approach
-3. O(m × n) time is optimal - must check all cells
-4. Can use union of two sets or intersection of reachable sets
-5. DFS/BFS both work, BFS might be slightly more intuitive
-
-## Solution: DFS from Ocean Boundaries
+## Solution
 
 **Time Complexity:** O(m × n) where m and n are dimensions of the grid  
 **Space Complexity:** O(m × n) for visited arrays and recursion stack
@@ -149,8 +128,7 @@ class Solution {
 }
 ```
 
-## How the Algorithm Works
-
+### Solution Explanation
 **Key Insight:** Instead of checking if each cell can reach both oceans, start from ocean boundaries and find all reachable cells.
 
 **Steps:**
@@ -217,111 +195,6 @@ Atlantic reachable cells:
 
 ### DFS Function:
 ```java
-static void dfs(int[][] heights, boolean[][]& visited, int row, int col) {
-    visited[row][col] = true;
-    for (int dir : dirs) {
-        int newRow = row + dir[0], newCol = col + dir[1];
-        if(newRow < 0 || newRow >= m || newCol < 0 || newCol >= n) continue;
-        if(visited[newRow][newCol] || heights[row][col] > heights[newRow][newCol]) continue;
-
-        dfs(heights, visited, newRow, newCol);
-    }
-}
-```
-
-**Process:**
-1. **Mark current cell** as visited
-2. **Check all 4 directions** (up, down, left, right)
-3. **Skip invalid cells** (out of bounds, already visited)
-4. **Skip higher cells** (water can't flow uphill)
-5. **Recursively visit** reachable cells
-
-### Boundary DFS:
-```java
-// Pacific boundaries
-for(int i = 0; i < m; i++) dfs(heights, pacific, i, 0);
-for(int j = 0; j < n; j++) dfs(heights, pacific, 0, j);
-
-// Atlantic boundaries
-for(int i = m - 1; i >= 0; i--) dfs(heights, atlantic, i, n - 1);
-for(int j = n - 1; j >= 0; j--) dfs(heights, atlantic, m - 1, j);
-```
-
-**Process:**
-1. **Pacific boundaries:** Left edge and top edge
-2. **Atlantic boundaries:** Right edge and bottom edge
-3. **DFS from each boundary** to find reachable cells
-4. **Mark visited cells** in respective arrays
-
-## Complexity Analysis
-
-| Operation | Time Complexity | Space Complexity |
-|-----------|----------------|------------------|
-| Pacific DFS | O(m × n) | O(m × n) |
-| Atlantic DFS | O(m × n) | O(m × n) |
-| Intersection | O(m × n) | O(1) |
-| **Total** | **O(m × n)** | **O(m × n)** |
-
-Where m and n are the dimensions of the grid.
-
-## Edge Cases
-
-1. **Single cell:** `heights = [[5]]` → `[[0,0]]`
-2. **All same height:** `heights = [[1,1],[1,1]]` → `[[0,0],[0,1],[1,0],[1,1]]`
-3. **Increasing heights:** `heights = [[1,2],[3,4]]` → `[[0,0],[0,1],[1,0],[1,1]]`
-4. **Decreasing heights:** `heights = [[4,3],[2,1]]` → `[[0,0],[0,1],[1,0],[1,1]]`
-
-## Key Insights
-
-### Reverse Thinking:
-1. **Instead of checking** if each cell can reach oceans
-2. **Start from ocean boundaries** and find reachable cells
-3. **Much more efficient** than checking each cell individually
-4. **O(m × n) complexity** instead of O(m² × n²)
-
-### DFS Properties:
-1. **Visited tracking:** Prevents infinite loops
-2. **Boundary checking:** Ensures valid coordinates
-3. **Height constraint:** Water flows downhill or level
-4. **Recursive exploration:** Finds all reachable cells
-
-## Detailed Example Walkthrough
-
-### Example: `heights = [[2,1],[1,2]]`
-
-**Step 1: Pacific boundaries**
-- Left edge: `(0,0), (1,0)`
-- Top edge: `(0,0), (0,1)`
-
-**Pacific DFS:**
-```
-[0,0] → [0,1] → [1,1]
-[1,0] → [1,1]
-```
-
-**Step 2: Atlantic boundaries**
-- Right edge: `(0,1), (1,1)`
-- Bottom edge: `(1,0), (1,1)`
-
-**Atlantic DFS:**
-```
-[0,1] → [0,0] → [1,0]
-[1,1] → [1,0]
-```
-
-**Step 3: Intersection**
-**All cells can reach both oceans:**
-- `[0,0]`: Pacific ✓, Atlantic ✓
-- `[0,1]`: Pacific ✓, Atlantic ✓
-- `[1,0]`: Pacific ✓, Atlantic ✓
-- `[1,1]`: Pacific ✓, Atlantic ✓
-
-**Final result:** `[[0,0],[0,1],[1,0],[1,1]]`
-
-## Alternative Approaches
-
-### Approach 1: BFS from Boundaries
-```java
 class Solution {
     int[][] dirs = {&#123;0, 1&#125;, &#123;0, -1&#125;, &#123;1, 0&#125;, &#123;-1, 0&#125;}
     public void bfs(int[][] heights, boolean[][]& visited, queue<int[]>& q) {
@@ -382,10 +255,14 @@ class Solution {
 }
 ```
 
-**Time Complexity:** O(m × n)  
-**Space Complexity:** O(m × n)
+**Process:**
+1. **Mark current cell** as visited
+2. **Check all 4 directions** (up, down, left, right)
+3. **Skip invalid cells** (out of bounds, already visited)
+4. **Skip higher cells** (water can't flow uphill)
+5. **Recursively visit** reachable cells
 
-### Approach 2: Union-Find
+### Boundary DFS:
 ```java
 class Solution {
     List<Integer> parent = new ArrayList<>();
@@ -476,10 +353,61 @@ class Solution {
 }
 ```
 
-**Time Complexity:** O(m × n × α(m × n))  
-**Space Complexity:** O(m × n)
+**Process:**
+1. **Pacific boundaries:** Left edge and top edge
+2. **Atlantic boundaries:** Right edge and bottom edge
+3. **DFS from each boundary** to find reachable cells
+4. **Mark visited cells** in respective arrays
+
+### Complexity
+| Operation | Time Complexity | Space Complexity |
+|-----------|----------------|------------------|
+| Pacific DFS | O(m × n) | O(m × n) |
+| Atlantic DFS | O(m × n) | O(m × n) |
+| Intersection | O(m × n) | O(1) |
+| **Total** | **O(m × n)** | **O(m × n)** |
+
+Where m and n are the dimensions of the grid.
+
+## Detailed Example Walkthrough
+
+### Example: `heights = [[2,1],[1,2]]`
+
+**Step 1: Pacific boundaries**
+- Left edge: `(0,0), (1,0)`
+- Top edge: `(0,0), (0,1)`
+
+**Pacific DFS:**
+```
+[0,0] → [0,1] → [1,1]
+[1,0] → [1,1]
+```
+
+**Step 2: Atlantic boundaries**
+- Right edge: `(0,1), (1,1)`
+- Bottom edge: `(1,0), (1,1)`
+
+**Atlantic DFS:**
+```
+[0,1] → [0,0] → [1,0]
+[1,1] → [1,0]
+```
+
+**Step 3: Intersection**
+**All cells can reach both oceans:**
+- `[0,0]`: Pacific ✓, Atlantic ✓
+- `[0,1]`: Pacific ✓, Atlantic ✓
+- `[1,0]`: Pacific ✓, Atlantic ✓
+- `[1,1]`: Pacific ✓, Atlantic ✓
+
+**Final result:** `[[0,0],[0,1],[1,0],[1,1]]`
 
 ## Common Mistakes
+
+1. **Single cell:** `heights = [[5]]` → `[[0,0]]`
+2. **All same height:** `heights = [[1,1],[1,1]]` → `[[0,0],[0,1],[1,0],[1,1]]`
+3. **Increasing heights:** `heights = [[1,2],[3,4]]` → `[[0,0],[0,1],[1,0],[1,1]]`
+4. **Decreasing heights:** `heights = [[4,3],[2,1]]` → `[[0,0],[0,1],[1,0],[1,1]]`
 
 1. **Wrong direction:** Starting from each cell instead of ocean boundaries
 2. **Missing boundary cells:** Not including all boundary cells in DFS
@@ -512,3 +440,24 @@ class Solution {
 2. **Optimality:** Produces correct ocean reachability
 3. **Efficiency:** O(m × n) time complexity
 4. **Simplicity:** Easy to understand and implement
+
+## References
+
+- [LC 417: Pacific Atlantic Water Flow on LeetCode](https://leetcode.com/problems/pacific-atlantic-water-flow/)
+- [LeetCode Discuss — LC 417: Pacific Atlantic Water Flow](https://leetcode.com/problems/pacific-atlantic-water-flow/discuss/)
+- [LeetCode Editorial](https://leetcode.com/problems/pacific-atlantic-water-flow/editorial/) *(may require premium)*
+
+## Key Takeaways
+
+### Reverse Thinking:
+1. **Instead of checking** if each cell can reach oceans
+2. **Start from ocean boundaries** and find reachable cells
+3. **Much more efficient** than checking each cell individually
+4. **O(m × n) complexity** instead of O(m² × n²)
+
+### DFS Properties:
+1. **Visited tracking:** Prevents infinite loops
+2. **Boundary checking:** Ensures valid coordinates
+3. **Height constraint:** Water flows downhill or level
+4. **Recursive exploration:** Finds all reachable cells
+{% endraw %}

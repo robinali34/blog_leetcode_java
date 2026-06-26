@@ -60,15 +60,15 @@ New to LeetCode or Java? Start here. For a curated interview path, see the [Neet
 
 | Guide | Description |
 |---|---|
+| [Interview Prep Hub](/blog_leetcode_java/interview-prep/) | Central starting point — NeetCode tracker, Meta list, study order |
+| [NeetCode 150 Tracker](/blog_leetcode_java/neetcode-150-tracker.html) | Track NeetCode 150 with blog solution links |
 | [LeetCode Beginner's Guide](/blog_leetcode_java/posts/2026-06-25-leetcode-beginners-guide/) | What LeetCode is, how it works, difficulty levels, Blind 75, **NeetCode 150 full problem list**, and a step-by-step roadmap |
 | [Java Guide](/blog_leetcode_java/java-guide/) | Learn Java for LeetCode — language essentials, collections, patterns, and modern Java features |
 | [LeetCode Templates Index](/blog_leetcode_java/leetcode-templates/) | All algorithm pattern templates with relationship diagram |
+| [Meta-Style Question List](/blog_leetcode_java/posts/2025-09-24-meta-question-list/) | FAANG-style curated list with blog solution links |
 | [NeetCode 150 (official)](https://neetcode.io/practice/practice/neetcode150) | 150 curated problems with progress tracking on NeetCode |
 
 ---
-
-*Last updated: June 25, 2026*
-*Total problems solved: 313*
 
 ## All LeetCode Problems
 

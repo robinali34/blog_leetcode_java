@@ -459,6 +459,304 @@ Postorder : left → right → root
 
 Each recursive call returns information about its subtree. Process children first, then combine results and return upward. Used for: height, balance, diameter, subtree properties.
 
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 270" style="max-width: 100%; height: auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
+  <text x="340" y="16" text-anchor="middle" fill="#5A5752" font-size="13" font-weight="bold">Computing Max Depth — values return upward</text>
+  <!-- tree edges -->
+  <line x1="340" y1="50" x2="190" y2="130" stroke="#B8B5B0" stroke-width="2"/>
+  <line x1="340" y1="50" x2="490" y2="130" stroke="#B8B5B0" stroke-width="2"/>
+  <line x1="190" y1="130" x2="110" y2="210" stroke="#B8B5B0" stroke-width="2"/>
+  <line x1="190" y1="130" x2="270" y2="210" stroke="#B8B5B0" stroke-width="2"/>
+  <!-- return value pills on edges (child → parent) -->
+  <rect x="133" y="160" width="36" height="18" rx="9" fill="#F0EBE6" stroke="#B8B5B0" stroke-width="1"/>
+  <text x="151" y="173" text-anchor="middle" fill="#5A5752" font-size="10" font-weight="bold">↑ 0</text>
+  <rect x="213" y="160" width="36" height="18" rx="9" fill="#F0EBE6" stroke="#B8B5B0" stroke-width="1"/>
+  <text x="231" y="173" text-anchor="middle" fill="#5A5752" font-size="10" font-weight="bold">↑ 0</text>
+  <rect x="243" y="78" width="36" height="18" rx="9" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="1"/>
+  <text x="261" y="91" text-anchor="middle" fill="#3A3530" font-size="10" font-weight="bold">↑ 1</text>
+  <rect x="398" y="78" width="36" height="18" rx="9" fill="#F0EBE6" stroke="#B8B5B0" stroke-width="1"/>
+  <text x="416" y="91" text-anchor="middle" fill="#5A5752" font-size="10" font-weight="bold">↑ 0</text>
+  <!-- nodes -->
+  <circle cx="340" cy="50" r="22" fill="#E8D5D0" stroke="#8B8680" stroke-width="2"/>
+  <text x="340" y="51" text-anchor="middle" dominant-baseline="central" fill="#3A3530" font-size="15" font-weight="bold">1</text>
+  <circle cx="190" cy="130" r="22" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="2"/>
+  <text x="190" y="131" text-anchor="middle" dominant-baseline="central" fill="#3A3530" font-size="15" font-weight="bold">2</text>
+  <circle cx="490" cy="130" r="22" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="2"/>
+  <text x="490" y="131" text-anchor="middle" dominant-baseline="central" fill="#3A3530" font-size="15" font-weight="bold">3</text>
+  <circle cx="110" cy="210" r="22" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="2"/>
+  <text x="110" y="211" text-anchor="middle" dominant-baseline="central" fill="#3A3530" font-size="15" font-weight="bold">4</text>
+  <circle cx="270" cy="210" r="22" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="2"/>
+  <text x="270" y="211" text-anchor="middle" dominant-baseline="central" fill="#3A3530" font-size="15" font-weight="bold">5</text>
+  <!-- computation annotations -->
+  <text x="340" y="28" text-anchor="middle" fill="#3A3530" font-size="11" font-weight="bold">1 + max(1, 0) = 2</text>
+  <text x="190" y="164" text-anchor="middle" fill="#5A5752" font-size="10">1+max(0,0) = 1</text>
+  <text x="490" y="160" text-anchor="middle" fill="#7A7772" font-size="10">leaf → 0</text>
+  <text x="110" y="242" text-anchor="middle" fill="#7A7772" font-size="10">leaf → 0</text>
+  <text x="270" y="242" text-anchor="middle" fill="#7A7772" font-size="10">leaf → 0</text>
+  <!-- legend -->
+  <rect x="530" y="200" width="140" height="50" rx="6" fill="#FAF8F5" stroke="#B8B5B0" stroke-width="1"/>
+  <text x="600" y="219" text-anchor="middle" fill="#3A3530" font-size="12" font-weight="bold">Result: depth = 2</text>
+  <rect x="545" y="228" width="28" height="14" rx="7" fill="#F0EBE6" stroke="#B8B5B0" stroke-width="1"/>
+  <text x="559" y="239" text-anchor="middle" fill="#5A5752" font-size="8" font-weight="bold">↑ n</text>
+  <text x="578" y="239" fill="#7A7772" font-size="10">return value</text>
+</svg>
+
+
+
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 104 | Maximum Depth of Binary Tree | [Link](https://leetcode.com/problems/maximum-depth-of-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/19/easy-104-maximum-depth-of-binary-tree/) |
+| 110 | Balanced Binary Tree | [Link](https://leetcode.com/problems/balanced-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/06/easy-110-balanced-binary-tree/) |
+| 543 | Diameter of Binary Tree | [Link](https://leetcode.com/problems/diameter-of-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/06/easy-543-diameter-of-binary-tree/) |
+| 124 | Binary Tree Maximum Path Sum | [Link](https://leetcode.com/problems/binary-tree-maximum-path-sum/) | - |
+| 1376 | Time Needed to Inform All Employees | [Link](https://leetcode.com/problems/time-needed-to-inform-all-employees/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/17/medium-1376-time-needed-to-inform-all-employees/) |
+
+---
+
+### Pattern 3: DFS with Global Result
+
+**When to use:** Max path sum, longest path — the optimal answer may span across left and right subtrees, but each recursive call can only return one branch upward.
+
+While traversing, update a **global variable** tracking the best result. The recursive function returns a per-node value, but the answer lives outside the recursion.
+
+
+
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 543 | Diameter of Binary Tree | [Link](https://leetcode.com/problems/diameter-of-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/06/easy-543-diameter-of-binary-tree/) |
+| 124 | Binary Tree Maximum Path Sum | [Link](https://leetcode.com/problems/binary-tree-maximum-path-sum/) | - |
+| 1448 | Count Good Nodes in Binary Tree | [Link](https://leetcode.com/problems/count-good-nodes-in-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/18/medium-1448-count-good-nodes-in-binary-tree/) |
+
+---
+
+### Pattern 4: Root-to-Leaf Path Tracking
+
+**When to use:** Root-to-leaf paths, path sum collection — any problem that needs the full path from root to the current node.
+
+Maintain a path from root to the current node. **Push → recurse → pop** (backtracking). Used for returning paths, validating sequences, and path sum collection.
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 265" style="max-width: 100%; height: auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
+  <text x="350" y="16" text-anchor="middle" fill="#5A5752" font-size="13" font-weight="bold">Path Tracking — collecting root-to-leaf path [1→2→4]</text>
+  <!-- tree edges (highlighted path in darker stroke) -->
+  <line x1="190" y1="50" x2="110" y2="130" stroke="#8B8680" stroke-width="3"/>
+  <line x1="110" y1="130" x2="60" y2="210" stroke="#8B8680" stroke-width="3"/>
+  <line x1="190" y1="50" x2="270" y2="130" stroke="#B8B5B0" stroke-width="1.5"/>
+  <line x1="110" y1="130" x2="160" y2="210" stroke="#B8B5B0" stroke-width="1.5"/>
+  <!-- nodes (highlighted path = warm fill, others = neutral) -->
+  <circle cx="190" cy="50" r="22" fill="#E8D5D0" stroke="#8B8680" stroke-width="2"/>
+  <text x="190" y="51" text-anchor="middle" dominant-baseline="central" fill="#3A3530" font-size="15" font-weight="bold">1</text>
+  <circle cx="110" cy="130" r="22" fill="#E8D5D0" stroke="#8B8680" stroke-width="2"/>
+  <text x="110" y="131" text-anchor="middle" dominant-baseline="central" fill="#3A3530" font-size="15" font-weight="bold">2</text>
+  <circle cx="270" cy="130" r="22" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="270" y="131" text-anchor="middle" dominant-baseline="central" fill="#3A3530" font-size="15" font-weight="bold">3</text>
+  <circle cx="60" cy="210" r="22" fill="#E8D5D0" stroke="#8B8680" stroke-width="2"/>
+  <text x="60" y="211" text-anchor="middle" dominant-baseline="central" fill="#3A3530" font-size="15" font-weight="bold">4</text>
+  <text x="60" y="242" text-anchor="middle" fill="#5A5752" font-size="10" font-weight="bold">✓ leaf</text>
+  <circle cx="160" cy="210" r="22" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="160" y="211" text-anchor="middle" dominant-baseline="central" fill="#3A3530" font-size="15" font-weight="bold">5</text>
+  <!-- side panel: path tracking steps -->
+  <rect x="360" y="30" width="310" height="220" rx="8" fill="#FAF8F5" stroke="#B8B5B0" stroke-width="1"/>
+  <text x="515" y="52" text-anchor="middle" fill="#5A5752" font-size="12" font-weight="bold">push → recurse → pop</text>
+  <line x1="375" y1="60" x2="655" y2="60" stroke="#B8B5B0" stroke-width="0.5"/>
+  <text x="380" y="82" fill="#3A3530" font-size="11" font-weight="bold">push(1)</text>
+  <rect x="470" y="68" width="110" height="20" rx="4" fill="#E8D5D0" stroke="#B8B5B0" stroke-width="1"/>
+  <text x="525" y="82" text-anchor="middle" fill="#3A3530" font-size="11">path = [1]</text>
+  <text x="380" y="110" fill="#3A3530" font-size="11" font-weight="bold">push(2)</text>
+  <rect x="470" y="96" width="110" height="20" rx="4" fill="#E8D5D0" stroke="#B8B5B0" stroke-width="1"/>
+  <text x="525" y="110" text-anchor="middle" fill="#3A3530" font-size="11">path = [1, 2]</text>
+  <text x="380" y="138" fill="#3A3530" font-size="11" font-weight="bold">push(4)</text>
+  <rect x="470" y="124" width="110" height="20" rx="4" fill="#E8D5D0" stroke="#B8B5B0" stroke-width="1"/>
+  <text x="525" y="138" text-anchor="middle" fill="#3A3530" font-size="11">path = [1, 2, 4]</text>
+  <text x="595" y="138" fill="#5A5752" font-size="10" font-weight="bold">✓</text>
+  <text x="515" y="162" text-anchor="middle" fill="#5A5752" font-size="11">leaf → result.add([1, 2, 4])</text>
+  <line x1="375" y1="172" x2="655" y2="172" stroke="#B8B5B0" stroke-width="0.5"/>
+  <text x="380" y="192" fill="#9A9792" font-size="11">pop(4)  →  path = [1, 2]</text>
+  <text x="380" y="212" fill="#9A9792" font-size="11">pop(2)  →  path = [1]</text>
+  <text x="380" y="232" fill="#7A7772" font-size="10" font-style="italic">backtracking restores path state</text>
+</svg>
+
+
+
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 112 | Path Sum | [Link](https://leetcode.com/problems/path-sum/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/19/easy-112-path-sum/) |
+| 113 | Path Sum II | [Link](https://leetcode.com/problems/path-sum-ii/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/06/medium-113-path-sum-ii/) |
+| 257 | Binary Tree Paths | [Link](https://leetcode.com/problems/binary-tree-paths/) | - |
+
+---
+
+### Pattern 5: BFS / Level Order Traversal
+
+**When to use:** Level-order, right-side view, zigzag traversal — any problem that processes nodes layer by layer.
+
+Traverse the tree **level by level** using a queue. Used for level processing, shortest depth, and breadth exploration.
+
+
+
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 102 | Binary Tree Level Order Traversal | [Link](https://leetcode.com/problems/binary-tree-level-order-traversal/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/07/medium-102-binary-tree-level-order-traversal/) |
+| 107 | Binary Tree Level Order Traversal II | [Link](https://leetcode.com/problems/binary-tree-level-order-traversal-ii/) | - |
+| 111 | Minimum Depth of Binary Tree | [Link](https://leetcode.com/problems/minimum-depth-of-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/19/easy-111-minimum-depth-of-binary-tree/) |
+
+---
+
+### Pattern 6: Lowest Common Ancestor (LCA)
+
+**When to use:** Lowest common ancestor — find the deepest node that is an ancestor of both target nodes.
+
+Postorder DFS: if both subtrees contain a target, the current node is the LCA.
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 280" style="max-width: 100%; height: auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
+  <text x="350" y="16" text-anchor="middle" fill="#5A5752" font-size="13" font-weight="bold">Lowest Common Ancestor — p=5, q=1</text>
+  <!-- tree edges -->
+  <line x1="350" y1="55" x2="200" y2="135" stroke="#B8B5B0" stroke-width="2"/>
+  <line x1="350" y1="55" x2="500" y2="135" stroke="#B8B5B0" stroke-width="2"/>
+  <line x1="200" y1="135" x2="130" y2="215" stroke="#B8B5B0" stroke-width="1.5"/>
+  <line x1="200" y1="135" x2="270" y2="215" stroke="#B8B5B0" stroke-width="1.5"/>
+  <line x1="500" y1="135" x2="430" y2="215" stroke="#B8B5B0" stroke-width="1.5"/>
+  <line x1="500" y1="135" x2="570" y2="215" stroke="#B8B5B0" stroke-width="1.5"/>
+  <!-- LCA node (3) — warm highlight with stronger border -->
+  <circle cx="350" cy="55" r="24" fill="#E8D5D0" stroke="#8B8680" stroke-width="2.5"/>
+  <text x="350" y="56" text-anchor="middle" dominant-baseline="central" fill="#3A3530" font-size="16" font-weight="bold">3</text>
+  <text x="350" y="24" text-anchor="middle" fill="#3A3530" font-size="12" font-weight="bold">★ LCA</text>
+  <!-- p node (5) — blue-grey highlight -->
+  <circle cx="200" cy="135" r="22" fill="#D4D8E0" stroke="#8B8680" stroke-width="2.5"/>
+  <text x="200" y="136" text-anchor="middle" dominant-baseline="central" fill="#3A3530" font-size="15" font-weight="bold">5</text>
+  <rect x="217" y="117" width="18" height="16" rx="3" fill="#D4D8E0" stroke="#8B8680" stroke-width="1"/>
+  <text x="226" y="129" text-anchor="middle" fill="#3A3530" font-size="10" font-weight="bold">p</text>
+  <!-- q node (1) — blue-grey highlight -->
+  <circle cx="500" cy="135" r="22" fill="#D4D8E0" stroke="#8B8680" stroke-width="2.5"/>
+  <text x="500" y="136" text-anchor="middle" dominant-baseline="central" fill="#3A3530" font-size="15" font-weight="bold">1</text>
+  <rect x="517" y="117" width="18" height="16" rx="3" fill="#D4D8E0" stroke="#8B8680" stroke-width="1"/>
+  <text x="526" y="129" text-anchor="middle" fill="#3A3530" font-size="10" font-weight="bold">q</text>
+  <!-- other nodes — neutral -->
+  <circle cx="130" cy="215" r="20" fill="#F0EBE6" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="130" y="216" text-anchor="middle" dominant-baseline="central" fill="#5A5752" font-size="14">6</text>
+  <circle cx="270" cy="215" r="20" fill="#F0EBE6" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="270" y="216" text-anchor="middle" dominant-baseline="central" fill="#5A5752" font-size="14">2</text>
+  <circle cx="430" cy="215" r="20" fill="#F0EBE6" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="430" y="216" text-anchor="middle" dominant-baseline="central" fill="#5A5752" font-size="14">0</text>
+  <circle cx="570" cy="215" r="20" fill="#F0EBE6" stroke="#B8B5B0" stroke-width="1.5"/>
+  <text x="570" y="216" text-anchor="middle" dominant-baseline="central" fill="#5A5752" font-size="14">8</text>
+  <!-- annotations showing how left/right results meet -->
+  <rect x="118" y="247" width="116" height="18" rx="4" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="0.5"/>
+  <text x="176" y="260" text-anchor="middle" fill="#5A5752" font-size="10">left = found p ✓</text>
+  <rect x="440" y="247" width="120" height="18" rx="4" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="0.5"/>
+  <text x="500" y="260" text-anchor="middle" fill="#5A5752" font-size="10">right = found q ✓</text>
+  <text x="350" y="278" text-anchor="middle" fill="#3A3530" font-size="11" font-weight="bold">left &amp;&amp; right → return root (node 3 is LCA)</text>
+</svg>
+
+
+
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 236 | Lowest Common Ancestor of a Binary Tree | [Link](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/19/medium-236-lowest-common-ancestor-of-a-binary-tree/) |
+| 235 | Lowest Common Ancestor of a BST | [Link](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/) | - |
+
+---
+
+### Pattern 7: Binary Search Tree (BST) Pattern
+
+**When to use:** Validate BST, search, insert, delete — any problem that leverages the BST property (`left < root < right`) for pruning or ordered processing.
+
+BST property: `left < root < right`. Inorder traversal produces sorted order. This enables pruning and ordered processing.
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 300" style="max-width: 100%; height: auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
+  <text x="350" y="16" text-anchor="middle" fill="#5A5752" font-size="13" font-weight="bold">Binary Search Tree — left &lt; root &lt; right</text>
+  <!-- tree edges -->
+  <line x1="350" y1="55" x2="200" y2="135" stroke="#B8B5B0" stroke-width="2"/>
+  <line x1="350" y1="55" x2="500" y2="135" stroke="#B8B5B0" stroke-width="2"/>
+  <line x1="200" y1="135" x2="120" y2="215" stroke="#B8B5B0" stroke-width="2"/>
+  <line x1="200" y1="135" x2="280" y2="215" stroke="#B8B5B0" stroke-width="2"/>
+  <line x1="500" y1="135" x2="580" y2="215" stroke="#B8B5B0" stroke-width="2"/>
+  <!-- ordering labels on edges -->
+  <text x="258" y="86" text-anchor="middle" fill="#9A9792" font-size="13" font-weight="bold">&lt;</text>
+  <text x="440" y="86" text-anchor="middle" fill="#9A9792" font-size="13" font-weight="bold">&gt;</text>
+  <text x="148" y="170" text-anchor="middle" fill="#9A9792" font-size="13" font-weight="bold">&lt;</text>
+  <text x="252" y="170" text-anchor="middle" fill="#9A9792" font-size="13" font-weight="bold">&gt;</text>
+  <text x="552" y="170" text-anchor="middle" fill="#9A9792" font-size="13" font-weight="bold">&gt;</text>
+  <!-- nodes -->
+  <circle cx="350" cy="55" r="24" fill="#D4D8D0" stroke="#8B8680" stroke-width="2"/>
+  <text x="350" y="56" text-anchor="middle" dominant-baseline="central" fill="#3A3530" font-size="16" font-weight="bold">8</text>
+  <circle cx="200" cy="135" r="22" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="2"/>
+  <text x="200" y="136" text-anchor="middle" dominant-baseline="central" fill="#3A3530" font-size="15" font-weight="bold">3</text>
+  <circle cx="500" cy="135" r="22" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="2"/>
+  <text x="500" y="136" text-anchor="middle" dominant-baseline="central" fill="#3A3530" font-size="15" font-weight="bold">10</text>
+  <circle cx="120" cy="215" r="22" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="2"/>
+  <text x="120" y="216" text-anchor="middle" dominant-baseline="central" fill="#3A3530" font-size="15" font-weight="bold">1</text>
+  <circle cx="280" cy="215" r="22" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="2"/>
+  <text x="280" y="216" text-anchor="middle" dominant-baseline="central" fill="#3A3530" font-size="15" font-weight="bold">6</text>
+  <circle cx="580" cy="215" r="22" fill="#E8E3D8" stroke="#B8B5B0" stroke-width="2"/>
+  <text x="580" y="216" text-anchor="middle" dominant-baseline="central" fill="#3A3530" font-size="15" font-weight="bold">14</text>
+  <!-- inorder traversal (sorted output) -->
+  <rect x="80" y="260" width="540" height="30" rx="6" fill="#FAF8F5" stroke="#B8B5B0" stroke-width="1"/>
+  <text x="100" y="279" fill="#5A5752" font-size="11" font-weight="bold">Inorder:</text>
+  <text x="160" y="280" fill="#3A3530" font-size="13" font-weight="bold">1</text>
+  <text x="182" y="280" fill="#9A9792" font-size="12">→</text>
+  <text x="205" y="280" fill="#3A3530" font-size="13" font-weight="bold">3</text>
+  <text x="227" y="280" fill="#9A9792" font-size="12">→</text>
+  <text x="250" y="280" fill="#3A3530" font-size="13" font-weight="bold">6</text>
+  <text x="272" y="280" fill="#9A9792" font-size="12">→</text>
+  <text x="295" y="280" fill="#3A3530" font-size="13" font-weight="bold">8</text>
+  <text x="317" y="280" fill="#9A9792" font-size="12">→</text>
+  <text x="345" y="280" fill="#3A3530" font-size="13" font-weight="bold">10</text>
+  <text x="372" y="280" fill="#9A9792" font-size="12">→</text>
+  <text x="400" y="280" fill="#3A3530" font-size="13" font-weight="bold">14</text>
+  <text x="445" y="280" fill="#5A5752" font-size="11" font-style="italic">(sorted!)</text>
+</svg>
+
+
+
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 98 | Validate Binary Search Tree | [Link](https://leetcode.com/problems/validate-binary-search-tree/) | - |
+| 230 | Kth Smallest Element in a BST | [Link](https://leetcode.com/problems/kth-smallest-element-in-a-bst/) | - |
+| 235 | Lowest Common Ancestor of a BST | [Link](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/) | - |
+| 894 | All Possible Full Binary Trees | [Link](https://leetcode.com/problems/all-possible-full-binary-trees/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/04/12/medium-894-all-possible-full-binary-trees/) |
+
+---
+
+### Practice Roadmap
+
+| Day | Focus | Problems |
+|---|---|---|
+| 1 | Basics | LC 104 Maximum Depth, LC 102 Level Order, LC 257 Binary Tree Paths |
+| 2 | Intermediate | LC 110 Balanced Binary Tree, LC 543 Diameter, LC 236 LCA |
+| 3 | Advanced | LC 98 Validate BST, LC 230 Kth Smallest in BST, LC 124 Max Path Sum |
+
+### Quick Pattern Recognition
+
+If the problem mentions **height, diameter, path sum, ancestor, subtree, depth** → think **DFS on tree**.
+
+If the problem mentions **levels, shortest depth, layer traversal** → think **BFS with queue**.
+
+Most tree interview problems are medium difficulty, DFS recursion, postorder reasoning. If you can confidently solve LC 543, LC 236, and LC 124, you are well-prepared for senior-level tree questions.
+
+---
+
+```
+Preorder  : root → left → right
+Inorder   : left → root → right
+Postorder : left → right → root
+```
+
+
+
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 144 | Binary Tree Preorder Traversal | [Link](https://leetcode.com/problems/binary-tree-preorder-traversal/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/06/easy-144-binary-tree-preorder-traversal/) |
+| 94 | Binary Tree Inorder Traversal | [Link](https://leetcode.com/problems/binary-tree-inorder-traversal/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/06/easy-94-binary-tree-inorder-traversal/) |
+| 145 | Binary Tree Postorder Traversal | [Link](https://leetcode.com/problems/binary-tree-postorder-traversal/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/06/easy-145-binary-tree-postorder-traversal/) |
+| 104 | Maximum Depth of Binary Tree | [Link](https://leetcode.com/problems/maximum-depth-of-binary-tree/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/19/easy-104-maximum-depth-of-binary-tree/) |
+
+---
+
+### Pattern 2: DFS with Return Value (Bottom-Up)
+
+**When to use:** Height, diameter, balanced check — any problem where the answer depends on information from both subtrees.
+
+Each recursive call returns information about its subtree. Process children first, then combine results and return upward. Used for: height, balance, diameter, subtree properties.
+
 
 
 
@@ -1070,7 +1368,7 @@ Segment Tree is a data structure that allows efficient range queries and range u
 
 ### Binary Search on Segment Tree (Tree Walking)
 
-Instead of doing a binary search over an index and then a segment tree query ($O(\log^2 N)$), we descend the segment tree directly to find the first element satisfying a condition in $O(\log N)$.
+Instead of doing a binary search over an index and then a segment tree query (O(log^2 N)), we descend the segment tree directly to find the first element satisfying a condition in O(log N).
 
 #### Template: Find First Index >= X
 

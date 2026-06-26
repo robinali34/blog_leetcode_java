@@ -7,8 +7,7 @@ permalink: /posts/2025-11-18-medium-198-house-robber/
 tags: [leetcode, medium, dynamic-programming, dp, array, optimization]
 ---
 
-# [Medium] 198. House Robber
-
+{% raw %}
 You are a professional robber planning to rob houses along a street. Each house has a certain amount of money stashed. The only constraint stopping you from robbing each of them is that adjacent houses have security systems connected and **it will automatically contact the police if two adjacent houses were broken into on the same night**.
 
 Given an integer array `nums` representing the amount of money of each house, return *the maximum amount of money you can rob tonight **without alerting the police***.
@@ -36,35 +35,42 @@ Total amount you can rob = 2 + 9 + 1 = 12.
 - `1 <= nums.length <= 100`
 - `0 <= nums[i] <= 400`
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+1. **DP State Definition**: `dp[i]` represents the maximum money robbed up to house `i-1` (1-indexed)
+- `dp[i-1] + nums[i]`: Rob current house (can't rob previous)
+- `dp[i]`: Skip current house (keep previous maximum)
+- `dp[0] = 0` (no houses)
 
-1. **Robbery rules**: What are the robbery rules? (Assumption: Cannot rob two adjacent houses - must skip at least one house between robberies)
+- Define state: what subproblem does `dp[i]` (or `dp[i][j]`) represent?
+- Recurrence: how does the answer build from smaller indices?
+- Base cases first; optimize space if only prior row/layer is needed.
 
-2. **Optimization goal**: What are we optimizing for? (Assumption: Maximum money that can be robbed without alerting police)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 105" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">1D DP recurrence</text>
 
-3. **Return value**: What should we return? (Assumption: Integer - maximum money that can be robbed)
+  <text x="30" y="38" font-size="10" fill="#9A9792">dp[i]</text>
+  <rect x="30" y="42" width="36" height="28" rx="3" fill="#D4D8E0" stroke="#8B8680"/><text x="48" y="58" text-anchor="middle" font-size="11">0</text>
+  <rect x="66" y="42" width="36" height="28" rx="3" fill="#D4D8E0" stroke="#8B8680"/><text x="84" y="58" text-anchor="middle" font-size="11">1</text>
+  <rect x="102" y="42" width="36" height="28" rx="3" fill="#E0D8E4" stroke="#A098A8"/><text x="120" y="58" text-anchor="middle" font-size="11">2</text>
+  <rect x="138" y="42" width="36" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="156" y="58" text-anchor="middle" font-size="11">?</text>
+  <path d="M120 70v8M84 70v8" stroke="#C4956A" stroke-width="1.5"/>
+  <text x="120" y="95" text-anchor="middle" font-size="11" fill="#6B6560">dp[i] from smaller indices / subproblems</text>
 
-4. **House values**: What do nums[i] represent? (Assumption: Amount of money in house i - positive integers)
+</svg>
 
-5. **Empty array**: What if array is empty? (Assumption: Return 0 - no houses to rob)
+## Common Approaches
 
-## Interview Deduction Process (20 minutes)
+Typical techniques for this pattern:
 
-**Step 1: Brute-Force Approach (5 minutes)**
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **1D DP** *(this problem)* | O(n) | O(n) or O(1) | Linear recurrence |
+| 2D DP | O(nm) | O(nm) or O(n) | Grid or two-sequence problems |
+| State machine DP | O(n) | O(1) | Buy/sell, hold/not-hold states |
+| Memoization (top-down) | Same as DP | O(n) | Recursive + cache |
 
-Try all possible combinations of houses to rob: for each house, decide whether to rob it or skip it, ensuring we never rob two adjacent houses. Use recursion to explore all possibilities and return the maximum money. This approach has exponential time complexity O(2^n), which is too slow for large arrays.
-
-**Step 2: Semi-Optimized Approach (7 minutes)**
-
-Use recursion with memoization: for each position, compute the maximum money we can rob starting from that position. Memoize results to avoid recomputing the same subproblems. This reduces time to O(n) with O(n) space for memoization, but recursion overhead and stack space can be significant.
-
-**Step 3: Optimized Solution (8 minutes)**
-
-Use dynamic programming with bottom-up approach: `dp[i]` represents the maximum money we can rob from houses 0 to i. For each house i, we can either rob it (add nums[i] to dp[i-2]) or skip it (use dp[i-1]). The recurrence is `dp[i] = max(dp[i-1], dp[i-2] + nums[i])`. We can optimize space to O(1) by only keeping track of the last two values. This achieves O(n) time with O(1) space, which is optimal. The key insight is that this is a classic DP problem with overlapping subproblems, and we can solve it iteratively without recursion.
-
-## Solution: Dynamic Programming
+## Solution
 
 **Time Complexity:** O(n) - Single pass through the array  
 **Space Complexity:** O(n) - DP array (can be optimized to O(1))
@@ -94,106 +100,31 @@ class Solution {
 }
 ```
 
-## How the Algorithm Works
+### Solution Explanation
 
-### Step-by-Step Example: `nums = [2,7,9,3,1]`
+**Approach:** 1D DP (this problem)
 
-```
-Initial: dp[0] = 0, dp[1] = nums[0] = 2
+**Key idea:** 1. **DP State Definition**: `dp[i]` represents the maximum money robbed up to house `i-1` (1-indexed)
 
-i=1 (nums[1]=7):
-  Option 1: Rob house 2 → dp[0] + nums[1] = 0 + 7 = 7
-  Option 2: Skip house 2 → dp[1] = 2
-  dp[2] = max(7, 2) = 7
-
-i=2 (nums[2]=9):
-  Option 1: Rob house 3 → dp[1] + nums[2] = 2 + 9 = 11
-  Option 2: Skip house 3 → dp[2] = 7
-  dp[3] = max(11, 7) = 11
-
-i=3 (nums[3]=3):
-  Option 1: Rob house 4 → dp[2] + nums[3] = 7 + 3 = 10
-  Option 2: Skip house 4 → dp[3] = 11
-  dp[4] = max(10, 11) = 11
-
-i=4 (nums[4]=1):
-  Option 1: Rob house 5 → dp[3] + nums[4] = 11 + 1 = 12
-  Option 2: Skip house 5 → dp[4] = 11
-  dp[5] = max(12, 11) = 12
-
-Result: dp[5] = 12
-```
-
-### Visual Representation
-
-```
-Houses:    [2]  [7]  [9]  [3]  [1]
-Indices:    0    1    2    3    4
-
-DP State:
-dp[0] = 0                    (no houses)
-dp[1] = 2                    (rob house 0)
-dp[2] = max(0+7, 2) = 7      (rob house 1, skip house 0)
-dp[3] = max(2+9, 7) = 11     (rob house 2, skip house 1)
-dp[4] = max(7+3, 11) = 11    (skip house 3, keep previous)
-dp[5] = max(11+1, 11) = 12   (rob house 4)
-
-Optimal path: Rob houses 0, 2, 4 → 2 + 9 + 1 = 12
-```
-
-## Key Insights
-
+**How the code works:**
 1. **DP State Definition**: `dp[i]` represents the maximum money robbed up to house `i-1` (1-indexed)
-2. **Recurrence Relation**: `dp[i+1] = max(dp[i-1] + nums[i], dp[i])`
-   - `dp[i-1] + nums[i]`: Rob current house (can't rob previous)
-   - `dp[i]`: Skip current house (keep previous maximum)
-3. **Base Cases**: 
-   - `dp[0] = 0` (no houses)
-   - `dp[1] = nums[0]` (only first house)
-4. **1-Indexed DP Array**: Using `dp[i+1]` makes indexing cleaner and avoids edge cases
+- `dp[i-1] + nums[i]`: Rob current house (can't rob previous)
+- `dp[i]`: Skip current house (keep previous maximum)
+- `dp[0] = 0` (no houses)
+- Define state: what subproblem does `dp[i]` (or `dp[i][j]`) represent?
+- Recurrence: how does the answer build from smaller indices?
 
+**Walkthrough** — input `nums = [1,2,3,1]`, expected output `4`:
+
+Rob house 1 (money = 1) and then rob house 3 (money = 3).
+Total amount you can rob = 1 + 3 = 4.
+
+| Approach | Time | Space | Pros | Cons |
+|----------|------|-------|------|------|
+| **DP Array (1-indexed)** | O(n) | O(n) | Clear indexing, easy to understand | O(n) space |
+| **Space-Optimized** | O(n) | O(1) | Optimal space usage | Can't trace path |
+| **DP Array (0-indexed)** | O(n) | O(n) | Standard DP pattern | Requires base case handling |
 ## Algorithm Breakdown
-
-```java
-static int rob(int[] nums) {
-    // Edge cases
-    if(nums.length <) return 0;
-    if(nums.length == 1) return nums[0];
-
-    // DP array: dp[i] = max money up to house i-1
-    int[]dp(nums.length + 1);
-    dp[0] = 0;        // No houses
-    dp[1] = nums[0];  // Only first house
-
-    // For each house starting from index 1
-    for(int i = 1; i < nums.length; i++) {
-        // Choose: rob current house OR skip it
-        dp[i + 1] = Math.max(
-            dp[i - 1] + nums[i],  // Rob current (skip previous)
-            dp[i]                  // Skip current (keep previous max)
-        );
-    }
-
-    return dp[nums.length];  // Maximum for all houses
-}
-```
-
-## Edge Cases
-
-1. **Empty array**: `nums = []` → return `0`
-2. **Single house**: `nums = [5]` → return `5`
-3. **Two houses**: `nums = [2,1]` → return `max(2,1) = 2`
-4. **All zeros**: `nums = [0,0,0]` → return `0`
-5. **Alternating pattern**: `nums = [1,2,1,2]` → return `max(1+1, 2+2) = 4`
-
-## Alternative Approaches
-
-### Approach 2: Space-Optimized O(1) Space
-
-**Time Complexity:** O(n)  
-**Space Complexity:** O(1)
-
-Instead of storing the entire DP array, we only need the previous two values:
 
 ```java
 class Solution {
@@ -214,43 +145,7 @@ class Solution {
 }
 ```
 
-**Pros:**
-- O(1) space complexity
-- Same time complexity
-- More memory efficient
-
-**Cons:**
-- Slightly less intuitive
-- Can't trace back the optimal path
-
-### Approach 3: 0-Indexed DP Array
-
-**Time Complexity:** O(n)  
-**Space Complexity:** O(n)
-
-Standard 0-indexed approach:
-
-```java
-class Solution {
-        public int rob(int[] nums) {
-        if(nums.length == 0) return 0;
-        if(nums.length == 1) return nums[0];
-
-        public int[] dp(nums.length);
-        dp[0] = nums[0];
-        dp[1] = Math.max(nums[0], nums[1]);
-
-        for(int i = 2; i < nums.length; i++) {
-            dp[i] = Math.max(dp[i-1], dp[i-2] + nums[i]);
-        }
-
-        return dp[nums.length - 1];
-    }
-}
-```
-
-## Complexity Analysis
-
+### Complexity
 | Approach | Time | Space | Pros | Cons |
 |----------|------|-------|------|------|
 | **DP Array (1-indexed)** | O(n) | O(n) | Clear indexing, easy to understand | O(n) space |
@@ -277,32 +172,51 @@ This ensures we never rob two adjacent houses while maximizing the total amount.
 
 **1-Indexed (Your Solution):**
 ```java
-dp[0] = 0;           // No houses
-dp[1] = nums[0];     // First house
-dp[i+1] = Math.max(...);  // Current house at index i
+class Solution {
+        public int rob(int[] nums) {
+        if(nums.length == 0) return 0;
+        if(nums.length == 1) return nums[0];
+
+        public int[] dp(nums.length);
+        dp[0] = nums[0];
+        dp[1] = Math.max(nums[0], nums[1]);
+
+        for(int i = 2; i < nums.length; i++) {
+            dp[i] = Math.max(dp[i-1], dp[i-2] + nums[i]);
+        }
+
+        return dp[nums.length - 1];
+    }
+}
 ```
 
 **0-Indexed (Standard):**
-```java
+```cpp
 dp[0] = nums[0];     // First house
-dp[1] = Math.max(nums[0], nums[1]);  // First two houses
-dp[i] = Math.max(...);    // Current house at index i
+dp[1] = max(nums[0], nums[1]);  // First two houses
+dp[i] = max(...);    // Current house at index i
 ```
 
 Both approaches are correct; 1-indexed makes base cases simpler.
 
 ### Type Casting
 
-```java
-for(int i = 1; i < nums.length; i++)
+```cpp
+for(int i = 1; i < (int)nums.size(); i++)
 ```
 
 The `(int)` cast prevents comparison warnings between `int` and `size_t`. Alternatively:
-```java
-for(size_t i = 1; i < nums.length; i++)
+```cpp
+for(size_t i = 1; i < nums.size(); i++)
 ```
 
 ## Common Mistakes
+
+1. **Empty array**: `nums = []` → return `0`
+2. **Single house**: `nums = [5]` → return `5`
+3. **Two houses**: `nums = [2,1]` → return `max(2,1) = 2`
+4. **All zeros**: `nums = [0,0,0]` → return `0`
+5. **Alternating pattern**: `nums = [1,2,1,2]` → return `max(1+1, 2+2) = 4`
 
 1. **Forgetting edge cases**: Empty array or single element
 2. **Wrong recurrence**: Using `dp[i-2]` instead of `dp[i-1]` for 1-indexed
@@ -354,3 +268,24 @@ Similar problems:
 
 *This problem is a fundamental introduction to dynamic programming, teaching the "pick or skip" decision pattern that appears in many optimization problems.*
 
+## Key Takeaways
+
+1. **DP State Definition**: `dp[i]` represents the maximum money robbed up to house `i-1` (1-indexed)
+2. **Recurrence Relation**: `dp[i+1] = max(dp[i-1] + nums[i], dp[i])`
+   - `dp[i-1] + nums[i]`: Rob current house (can't rob previous)
+   - `dp[i]`: Skip current house (keep previous maximum)
+3. **Base Cases**: 
+   - `dp[0] = 0` (no houses)
+   - `dp[1] = nums[0]` (only first house)
+4. **1-Indexed DP Array**: Using `dp[i+1]` makes indexing cleaner and avoids edge cases
+
+## References
+
+- [LC 198: House Robber on LeetCode](https://leetcode.com/problems/house-robber/)
+- [LeetCode Discuss — LC 198: House Robber](https://leetcode.com/problems/house-robber/discuss/)
+- [LeetCode Editorial](https://leetcode.com/problems/house-robber/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [Dynamic Programming](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-dp/)
+{% endraw %}

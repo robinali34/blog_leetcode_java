@@ -7,8 +7,7 @@ permalink: /posts/2025-11-24-medium-56-merge-intervals/
 tags: [leetcode, medium, array, sorting, intervals, merge]
 ---
 
-# [Medium] 56. Merge Intervals
-
+{% raw %}
 Given an array of `intervals` where `intervals[i] = [starti, endi]`, merge all overlapping intervals, and return *an array of the non-overlapping intervals that cover all the intervals in the input*.
 
 ## Examples
@@ -33,62 +32,37 @@ Explanation: Intervals [1,4] and [4,5] are considered overlapping.
 - `intervals[i].length == 2`
 - `0 <= starti <= endi <= 10^4`
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+1. **Sorting is crucial**: Sort by start time to make overlapping intervals adjacent
 
-1. **Interval format**: Are intervals inclusive or exclusive? (Assumption: Typically inclusive on both ends [start, end] - need to clarify)
+- Clarify if the array is sorted, has negatives, or allows duplicates.
+- Prefix sums answer range queries; hash maps answer pair/count queries.
+- In-place tricks use swap/write index instead of extra arrays.
 
-2. **Overlap definition**: What constitutes an overlap? (Assumption: Two intervals overlap if they share any common point - [a, b] overlaps [c, d] if max(a, c) <= min(b, d))
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 105" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Intervals on timeline</text>
 
-3. **Merging rule**: How should we merge overlapping intervals? (Assumption: Combine into single interval [min(start1, start2), max(end1, end2)])
+  <line x1="30" y1="60" x2="250" y2="60" stroke="#D4D1CC" stroke-width="2"/>
+  <rect x="50" y="48" width="60" height="24" rx="3" fill="#D4D8E0" stroke="#8B8680"/>
+  <rect x="100" y="48" width="50" height="24" rx="3" fill="#E0D8E4" stroke="#A098A8"/>
+  <rect x="160" y="48" width="70" height="24" rx="3" fill="#E8D5D0" stroke="#B8A5A0"/>
+  <text x="140" y="95" text-anchor="middle" font-size="11" fill="#6B6560">sort by start → scan overlaps</text>
 
-4. **Output format**: Should we return merged intervals or modify input? (Assumption: Return new array of merged intervals - don't modify input)
+</svg>
 
-5. **Order requirement**: Does the order of intervals matter? (Assumption: No - can sort first, then merge - output order doesn't matter)
+## Common Approaches
 
-## Interview Deduction Process (20 minutes)
+Typical techniques for this pattern:
 
-### Step 1: Brute-Force Approach (5 minutes)
-**Initial Thought**: "I need to merge intervals. Let me check all pairs of intervals."
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Prefix sum** *(this problem)* | O(n) | O(n) | Range queries, subarray sum |
+| Sort + scan | O(n log n) | O(1) | Intervals, meeting rooms |
+| Kadane's algorithm | O(n) | O(1) | Maximum subarray |
+| Hash map counting | O(n) | O(n) | Frequency, two-sum variants |
 
-**Naive Solution**: Check all pairs of intervals, merge overlapping ones, repeat until no more merges possible.
-
-**Complexity**: O(n²) time, O(n) space
-
-**Issues**:
-- O(n²) time - inefficient
-- May need multiple passes
-- Doesn't leverage sorting
-- Can be optimized
-
-### Step 2: Semi-Optimized Approach (7 minutes)
-**Insight**: "I can sort intervals by start time, then merge adjacent overlapping intervals."
-
-**Improved Solution**: Sort intervals by start time. Traverse sorted intervals, merge with previous if overlapping.
-
-**Complexity**: O(n log n) time, O(n) space
-
-**Improvements**:
-- Sorting enables single-pass merging
-- O(n log n) time is much better
-- Handles all cases correctly
-- Clean and intuitive
-
-### Step 3: Optimized Solution (8 minutes)
-**Final Optimization**: "Sort and merge approach is optimal. Can optimize space by modifying in-place."
-
-**Best Solution**: Sort intervals by start time. Traverse and merge: if current overlaps with last merged interval, update end; otherwise add new interval.
-
-**Complexity**: O(n log n) time, O(n) space
-
-**Key Realizations**:
-1. Sorting is key insight
-2. O(n log n) time is optimal for sorting approach
-3. Single pass after sorting is efficient
-4. O(n) space for result is necessary
-
-## Solution: Sort and Merge
+## Solution
 
 **Time Complexity:** O(n log n) - dominated by sorting  
 **Space Complexity:** O(n) - for the merged result
@@ -118,125 +92,30 @@ class Solution {
 }
 ```
 
-## How the Algorithm Works
+### Solution Explanation
 
-### Key Insight: Sort First
+**Approach:** Prefix sum (this problem)
 
-**Why sort?**
-- After sorting by start time, overlapping intervals become adjacent
-- We only need to compare each interval with the last merged interval
-- If current interval doesn't overlap with last merged, it won't overlap with any previous ones
+**Key idea:** 1. **Sorting is crucial**: Sort by start time to make overlapping intervals adjacent
 
-### Step-by-Step Example: `intervals = [[1,3],[2,6],[8,10],[15,18]]`
-
-```
-Step 1: Sort intervals (already sorted)
-  intervals = [[1,3], [2,6], [8,10], [15,18]]
-
-Step 2: Initialize
-  merged = []
-
-Step 3: Process [1,3]
-  merged is empty → add [1,3]
-  merged = [[1,3]]
-
-Step 4: Process [2,6]
-  Check: merged.back()[1] = 3, current left = 2
-  Since 3 >= 2, intervals overlap → merge
-  merged.back()[1] = max(3, 6) = 6
-  merged = [[1,6]]
-
-Step 5: Process [8,10]
-  Check: merged.back()[1] = 6, current left = 8
-  Since 6 < 8, no overlap → add [8,10]
-  merged = [[1,6], [8,10]]
-
-Step 6: Process [15,18]
-  Check: merged.back()[1] = 10, current left = 15
-  Since 10 < 15, no overlap → add [15,18]
-  merged = [[1,6], [8,10], [15,18]]
-
-Final: [[1,6], [8,10], [15,18]]
-```
-
-**Visual Representation:**
-```
-Before:  [1,3]  [2,6]  [8,10]  [15,18]
-         └─┬─┘
-           └─── Overlap ───┘
-
-After:   [1,6]  [8,10]  [15,18]
-```
-
-## Key Insights
-
+**How the code works:**
 1. **Sorting is crucial**: Sort by start time to make overlapping intervals adjacent
-2. **Compare with last merged**: Only need to check overlap with the last interval in merged list
-3. **Overlap condition**: Two intervals `[a,b]` and `[c,d]` overlap if `c <= b`
-4. **Merge by extending**: When overlapping, extend end time to `max(b, d)`
+- Clarify if the array is sorted, has negatives, or allows duplicates.
+- Prefix sums answer range queries; hash maps answer pair/count queries.
+- In-place tricks use swap/write index instead of extra arrays.
 
+**Walkthrough** — input `intervals = [[1,3],[2,6],[8,10],[15,18]]`, expected output `[[1,6],[8,10],[15,18]]`:
+
+Since intervals [1,3] and [2,6] overlap, merge them into [1,6].
+
+| Approach | Time | Space | Pros | Cons |
+|----------|------|-------|------|------|
+| **Sort and Merge** | O(n log n) | O(n) | Simple, clear | Extra space |
+| **Custom Comparator** | O(n log n) | O(n) | Explicit | More verbose |
+| **In-Place** | O(n log n) | O(1) | Space efficient | Modifies input |
 ## Algorithm Breakdown
 
 ### Sorting
-
-```java
-// import java.util.Arrays;
-// import java.util.Collections;
-Arrays.sort(intervals);
-```
-
-**Why this works:**
-- `int[][]` / `List<List<Integer>>` sorts lexicographically
-- First compares `intervals[i][0]` (start time)
-- If equal, compares `intervals[i][1]` (end time)
-- This gives us intervals sorted by start time
-
-### Merging Logic
-
-```java
-if(merged.size() == 0 || merged.get(merged.size() - 1)[1] < left) {
-    merged.add(new int[] {left, right});
-} else {
-    merged.get(merged.size() - 1)[1] = Math.max(merged.get(merged.size() - 1)[1], right);
-}
-```
-
-**Breakdown:**
-- **Empty merged list**: First interval, add it
-- **No overlap**: `merged.back()[1] < left` means current interval starts after last ends
-- **Overlap**: `merged.back()[1] >= left` means intervals overlap, extend end time
-
-### Overlap Detection
-
-**Two intervals overlap if:**
-```
-[a, b] and [c, d] overlap when: c <= b
-```
-
-**Why `c <= b`?**
-- If `c <= b`, the start of second interval is before/at the end of first
-- This means they overlap or are adjacent (which counts as overlap)
-
-**Examples:**
-- `[1,3]` and `[2,6]`: `2 <= 3` → overlap ✓
-- `[1,4]` and `[4,5]`: `4 <= 4` → overlap ✓ (adjacent counts)
-- `[1,3]` and `[4,6]`: `4 <= 3` → no overlap ✗
-
-## Edge Cases
-
-1. **Empty input**: Return empty array
-2. **Single interval**: Return as-is
-3. **All intervals overlap**: Merge into one interval
-4. **No overlaps**: Return all intervals unchanged
-5. **Adjacent intervals**: `[1,4]` and `[4,5]` merge to `[1,5]`
-6. **Nested intervals**: `[1,6]` and `[2,4]` merge to `[1,6]`
-
-## Alternative Approaches
-
-### Approach 2: Custom Comparator
-
-**Time Complexity:** O(n log n)  
-**Space Complexity:** O(n)
 
 ```java
 class Solution {
@@ -263,18 +142,13 @@ class Solution {
 }
 ```
 
-**Pros:**
-- Explicit comparator makes intent clear
-- Slightly more readable
+**Why this works:**
+- `vector<vector<int>>` sorts lexicographically
+- First compares `intervals[i][0]` (start time)
+- If equal, compares `intervals[i][1]` (end time)
+- This gives us intervals sorted by start time
 
-**Cons:**
-- More verbose
-- Same complexity
-
-### Approach 3: In-Place Merging
-
-**Time Complexity:** O(n log n)  
-**Space Complexity:** O(1) excluding output
+### Merging Logic
 
 ```java
 // import java.util.Arrays;
@@ -300,16 +174,28 @@ class Solution {
 }
 ```
 
-**Pros:**
-- O(1) extra space (modifies input)
-- More memory efficient
+**Breakdown:**
+- **Empty merged list**: First interval, add it
+- **No overlap**: `merged.back()[1] < left` means current interval starts after last ends
+- **Overlap**: `merged.back()[1] >= left` means intervals overlap, extend end time
 
-**Cons:**
-- Modifies input array
-- Less intuitive
+### Overlap Detection
 
-## Complexity Analysis
+**Two intervals overlap if:**
+```
+[a, b] and [c, d] overlap when: c <= b
+```
 
+**Why `c <= b`?**
+- If `c <= b`, the start of second interval is before/at the end of first
+- This means they overlap or are adjacent (which counts as overlap)
+
+**Examples:**
+- `[1,3]` and `[2,6]`: `2 <= 3` → overlap ✓
+- `[1,4]` and `[4,5]`: `4 <= 4` → overlap ✓ (adjacent counts)
+- `[1,3]` and `[4,6]`: `4 <= 3` → no overlap ✗
+
+### Complexity
 | Approach | Time | Space | Pros | Cons |
 |----------|------|-------|------|------|
 | **Sort and Merge** | O(n log n) | O(n) | Simple, clear | Extra space |
@@ -323,10 +209,37 @@ class Solution {
 ```java
 // import java.util.Arrays;
 // import java.util.Collections;
-Arrays.sort(intervals);
+class Solution {
+    public int[][] mergeTwoArrays(
+        public int[][] arr1,
+        public int[][] arr2
+    ) {
+        // Combine both arrays
+        List<int[]> combined = new ArrayList<>();
+        combined.add(combined.iterator(), arr1 /* elements of arr1 */);
+        combined.add(combined.iterator(), arr2 /* elements of arr2 */);
+
+        // Sort by start time
+        Arrays.sort(combined);
+
+        // Merge overlapping intervals
+        List<int[]> merged = new ArrayList<>();
+        for(int i = 0; i < (int)combined.size(); i++) {
+            int left = combined[i][0], right = combined[i][1];
+
+            if(merged.size() == 0 || merged.get(merged.size() - 1)[1] < left) {
+                merged.add(new int[] {left, right});
+            } else {
+                merged.get(merged.size() - 1)[1] = Math.max(merged.get(merged.size() - 1)[1], right);
+            }
+        }
+
+        return merged;
+    }
+}
 ```
 
-**For `int[][]` / `List<List<Integer>>`:**
+**For `vector<vector<int>>`:**
 - Compares first element (`intervals[i][0]`)
 - If equal, compares second element (`intervals[i][1]`)
 - This sorts by start time, then by end time if starts are equal
@@ -340,8 +253,58 @@ After:  [[1,3], [2,6], [8,10]]
 ### Overlap Condition Explained
 
 ```java
-merged.get(merged.size() - 1)[1] < left  // No overlap
-merged.get(merged.size() - 1)[1] >= left // Overlap
+// import java.util.Arrays;
+// import java.util.Collections;
+class Solution {
+    // Helper function to merge intervals in one array
+    public int[][] mergeOneArray(int[][] intervals) {
+        if(intervals.length == 0) return {}
+        Arrays.sort(intervals);
+
+        List<int[]> merged = new ArrayList<>();
+        for(int i = 0; i < intervals.length; i++) {
+            int left = intervals[i][0], right = intervals[i][1];
+            if(merged.size() == 0 || merged.get(merged.size() - 1)[1] < left) {
+                merged.add(new int[] {left, right});
+            } else {
+                merged.get(merged.size() - 1)[1] = Math.max(merged.get(merged.size() - 1)[1], right);
+            }
+        }
+        return merged;
+    }
+    int[][] mergeTwoArrays(
+        int[][] arr1,
+        int[][] arr2
+    ) {
+        // Merge each array individually
+        int[][] merged1 = mergeOneArray(arr1);
+        int[][] merged2 = mergeOneArray(arr2);
+
+        // Merge the two merged arrays using two pointers
+        List<int[]> result = new ArrayList<>();
+        int i = 0, j = 0;
+
+        while(i < merged1.size() || j < merged2.size()) {
+            // Choose the interval with smaller start time
+            List<Integer> current = new ArrayList<>();
+            if(j >= merged2.size() ||
+               (i < merged1.size() && merged1[i][0] <= merged2[j][0])) {
+                current = merged1[i++];
+            } else {
+                current = merged2[j++];
+            }
+
+            // Merge with last interval in result if overlapping
+            if(result.size() == 0 || result.get(result.size() - 1)[1] < current[0]) {
+                result.add(current);
+            } else {
+                result.get(result.size() - 1)[1] = Math.max(result.get(result.size() - 1)[1], current[1]);
+            }
+        }
+
+        return result;
+    }
+}
 ```
 
 **Why this works:**
@@ -352,8 +315,8 @@ merged.get(merged.size() - 1)[1] >= left // Overlap
 
 ### Merge Operation
 
-```java
-merged.get(merged.size() - 1)[1] = Math.max(merged.get(merged.size() - 1)[1], right);
+```cpp
+merged.back()[1] = max(merged.back()[1], right);
 ```
 
 **Why max?**
@@ -362,6 +325,13 @@ merged.get(merged.size() - 1)[1] = Math.max(merged.get(merged.size() - 1)[1], ri
 - We keep the earlier start (`a`) and later end (`max(b,d)`)
 
 ## Common Mistakes
+
+1. **Empty input**: Return empty array
+2. **Single interval**: Return as-is
+3. **All intervals overlap**: Merge into one interval
+4. **No overlaps**: Return all intervals unchanged
+5. **Adjacent intervals**: `[1,4]` and `[4,5]` merge to `[1,5]`
+6. **Nested intervals**: `[1,6]` and `[2,4]` merge to `[1,6]`
 
 1. **Forgetting to sort**: Without sorting, algorithm fails
 2. **Wrong overlap condition**: Using `>=` instead of `<=` or vice versa
@@ -497,37 +467,36 @@ Explanation:
 
 The key insight is to combine both arrays, sort all intervals together, then apply the standard merge algorithm.
 
-```java
-// import java.util.Arrays;
-// import java.util.Collections;
+```cpp
 class Solution {
-    public int[][] mergeTwoArrays(
-        public int[][] arr1,
-        public int[][] arr2
+public:
+    vector<vector<int>> mergeTwoArrays(
+        vector<vector<int>>& arr1, 
+        vector<vector<int>>& arr2
     ) {
         // Combine both arrays
-        List<int[]> combined = new ArrayList<>();
-        combined.add(combined.iterator(), arr1 /* elements of arr1 */);
-        combined.add(combined.iterator(), arr2 /* elements of arr2 */);
-
+        vector<vector<int>> combined;
+        combined.insert(combined.end(), arr1.begin(), arr1.end());
+        combined.insert(combined.end(), arr2.begin(), arr2.end());
+        
         // Sort by start time
-        Arrays.sort(combined);
-
+        sort(combined.begin(), combined.end());
+        
         // Merge overlapping intervals
-        List<int[]> merged = new ArrayList<>();
+        vector<vector<int>> merged;
         for(int i = 0; i < (int)combined.size(); i++) {
             int left = combined[i][0], right = combined[i][1];
-
-            if(merged.size() == 0 || merged.get(merged.size() - 1)[1] < left) {
-                merged.add(new int[] {left, right});
+            
+            if(merged.size() == 0 || merged.back()[1] < left) {
+                merged.push_back({left, right});
             } else {
-                merged.get(merged.size() - 1)[1] = Math.max(merged.get(merged.size() - 1)[1], right);
+                merged.back()[1] = max(merged.back()[1], right);
             }
         }
-
+        
         return merged;
     }
-}
+};
 ```
 
 ### Alternative: More Efficient Approach
@@ -537,59 +506,60 @@ class Solution {
 
 First merge each array individually, then merge the two merged arrays using two pointers.
 
-```java
-// import java.util.Arrays;
-// import java.util.Collections;
+```cpp
 class Solution {
+private:
     // Helper function to merge intervals in one array
-    public int[][] mergeOneArray(int[][] intervals) {
-        if(intervals.length == 0) return {}
-        Arrays.sort(intervals);
-
-        List<int[]> merged = new ArrayList<>();
-        for(int i = 0; i < intervals.length; i++) {
+    vector<vector<int>> mergeOneArray(vector<vector<int>>& intervals) {
+        if(intervals.size() == 0) return {};
+        sort(intervals.begin(), intervals.end());
+        
+        vector<vector<int>> merged;
+        for(int i = 0; i < (int)intervals.size(); i++) {
             int left = intervals[i][0], right = intervals[i][1];
-            if(merged.size() == 0 || merged.get(merged.size() - 1)[1] < left) {
-                merged.add(new int[] {left, right});
+            if(merged.size() == 0 || merged.back()[1] < left) {
+                merged.push_back({left, right});
             } else {
-                merged.get(merged.size() - 1)[1] = Math.max(merged.get(merged.size() - 1)[1], right);
+                merged.back()[1] = max(merged.back()[1], right);
             }
         }
         return merged;
     }
-    int[][] mergeTwoArrays(
-        int[][] arr1,
-        int[][] arr2
+    
+public:
+    vector<vector<int>> mergeTwoArrays(
+        vector<vector<int>>& arr1, 
+        vector<vector<int>>& arr2
     ) {
         // Merge each array individually
-        int[][] merged1 = mergeOneArray(arr1);
-        int[][] merged2 = mergeOneArray(arr2);
-
+        vector<vector<int>> merged1 = mergeOneArray(arr1);
+        vector<vector<int>> merged2 = mergeOneArray(arr2);
+        
         // Merge the two merged arrays using two pointers
-        List<int[]> result = new ArrayList<>();
+        vector<vector<int>> result;
         int i = 0, j = 0;
-
+        
         while(i < merged1.size() || j < merged2.size()) {
             // Choose the interval with smaller start time
-            List<Integer> current = new ArrayList<>();
-            if(j >= merged2.size() ||
+            vector<int> current;
+            if(j >= merged2.size() || 
                (i < merged1.size() && merged1[i][0] <= merged2[j][0])) {
                 current = merged1[i++];
             } else {
                 current = merged2[j++];
             }
-
+            
             // Merge with last interval in result if overlapping
-            if(result.size() == 0 || result.get(result.size() - 1)[1] < current[0]) {
-                result.add(current);
+            if(result.size() == 0 || result.back()[1] < current[0]) {
+                result.push_back(current);
             } else {
-                result.get(result.size() - 1)[1] = Math.max(result.get(result.size() - 1)[1], current[1]);
+                result.back()[1] = max(result.back()[1], current[1]);
             }
         }
-
+        
         return result;
     }
-}
+};
 ```
 
 ### How the Two-Pointer Approach Works
@@ -646,3 +616,21 @@ Step 5: Only [15,18] remains
 ---
 
 *This problem is a classic interval merging problem that demonstrates the importance of sorting and efficient overlap detection.*
+
+## Key Takeaways
+
+1. **Sorting is crucial**: Sort by start time to make overlapping intervals adjacent
+2. **Compare with last merged**: Only need to check overlap with the last interval in merged list
+3. **Overlap condition**: Two intervals `[a,b]` and `[c,d]` overlap if `c <= b`
+4. **Merge by extending**: When overlapping, extend end time to `max(b, d)`
+
+## References
+
+- [LC 56: Merge Intervals on LeetCode](https://leetcode.com/problems/merge-intervals/)
+- [LeetCode Discuss — LC 56: Merge Intervals](https://leetcode.com/problems/merge-intervals/discuss/)
+- [LeetCode Editorial](https://leetcode.com/problems/merge-intervals/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [Array & Matrix](/blog_leetcode_java/posts/2025-11-24-leetcode-templates-array-matrix/)
+{% endraw %}

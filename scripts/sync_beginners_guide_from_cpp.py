@@ -33,8 +33,11 @@ JAVA_QUICK_LINKS = """## Quick Links
 
 | Resource | Description |
 |---|---|
+| [Interview Prep Hub](/blog_leetcode_java/interview-prep/) | Central hub — NeetCode 150 tracker, Meta list, study order |
+| [NeetCode 150 Tracker](/blog_leetcode_java/neetcode-150-tracker.html) | Track NeetCode 150 with blog solution links |
 | [Java Guide](/blog_leetcode_java/java-guide/) | Learn Java for LeetCode — intro, learning path, language basics |
 | [LeetCode Templates Index](/blog_leetcode_java/leetcode-templates/) | All algorithm pattern templates on this blog |
+| [Meta-Style Question List](/blog_leetcode_java/posts/2025-09-24-meta-question-list/) | FAANG-style curated list with blog links |
 | [NeetCode 150 (official)](https://neetcode.io/practice/practice/neetcode150) | Curated 150-problem interview roadmap with progress tracking |
 | [All Solved Problems](/blog_leetcode_java/leetcode-questions-list.html) | Every problem solved on this blog, with links |
 | [Java Collections Quick Reference](/blog_leetcode_java/posts/2025-09-23-java-cheatsheet/) | Fast API lookup while coding |

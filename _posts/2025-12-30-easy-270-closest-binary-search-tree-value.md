@@ -6,11 +6,42 @@ categories: [leetcode, easy, binary-search-tree, tree, recursion, binary-search]
 permalink: /2025/12/30/easy-270-closest-binary-search-tree-value/
 ---
 
-# 270. Closest Binary Search Tree Value
+{% raw %}
+Given the `root` of a binary search tree and a `target` value, return *the value in the BST that is closest to the `target`*. If there are multiple answers, print the smallest.
 
-## Problem Statement
+## Thinking Process
 
 Given the `root` of a binary search tree and a `target` value, return *the value in the BST that is closest to the `target`*. If there are multiple answers, print the smallest.
+
+- The search space must shrink monotonically each step.
+- Decide which half still satisfies the predicate, discard the other.
+- Use `mid = left + (right - left) / 2` to avoid overflow.
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 130" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Binary search: shrink [lo … hi]</text>
+
+  <rect x="40" y="40" width="48" height="32" rx="4" fill="#D4D8E0" stroke="#8B8680"/>
+  <text x="64" y="58" text-anchor="middle" font-size="12" fill="#3A3530">lo</text>
+  <rect x="108" y="40" width="48" height="32" rx="4" fill="#E0D8E4" stroke="#A098A8"/>
+  <text x="132" y="58" text-anchor="middle" font-size="12" fill="#3A3530">mid</text>
+  <rect x="196" y="40" width="48" height="32" rx="4" fill="#E8D5D0" stroke="#B8A5A0"/>
+  <text x="220" y="58" text-anchor="middle" font-size="12" fill="#3A3530">hi</text>
+  <rect x="60" y="90" width="160" height="28" rx="4" fill="#FAF8F5" stroke="#D4D1CC"/>
+  <text x="140" y="108" text-anchor="middle" font-size="11" fill="#6B6560">discard half each step → O(log n)</text>
+  <path d="M132 72v12M220 72v12" stroke="#9A9792" stroke-width="1.5" marker-end="url(#a)"/>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Standard binary search** *(this problem)* | O(log n) | O(1) | Sorted array, `left <= right` |
+| Lower / upper bound | O(log n) | O(1) | First/last position, insert index |
+| Binary search on rotated array | O(log n) | O(1) | Identify sorted half, discard other |
+| Binary search on answer | O(n log M) | O(1) | Monotonic predicate over search space |
 
 ## Examples
 
@@ -32,55 +63,25 @@ Output: 1
 - `0 <= Node.val <= 10^9`
 - `-10^9 <= target <= 10^9`
 
-## Clarification Questions
+## Algorithm Breakdown
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+### **Key Insight: BST Property Utilization**
 
-1. **Closest definition**: What does "closest" mean? (Assumption: Node value with minimum absolute difference from target - |node.val - target|)
+The algorithm uses BST property to narrow down the search:
 
-2. **BST properties**: What are BST properties? (Assumption: Left subtree < root < right subtree - can use this to prune search)
+- **If `target < root->val`**: 
+  - Closest value is either in left subtree or root itself
+  - Search left, then compare with root
+  
+- **If `target > root->val`**:
+  - Closest value is either root or in right subtree
+  - Search right, then compare with root
 
-3. **Return value**: What should we return? (Assumption: Integer - value of node closest to target)
+- **If `target == root->val`**:
+  - Root is the closest (distance = 0)
+  - Return root value
 
-4. **Tie-breaking**: What if multiple nodes are equally close? (Assumption: Return any one - typically return first found)
-
-5. **Empty tree**: What if tree is empty? (Assumption: Per constraints, tree has at least 1 node)
-
-## Interview Deduction Process (10 minutes)
-
-**Step 1: Brute-Force Approach (2 minutes)**
-
-Traverse the entire tree (inorder, preorder, or postorder) and collect all node values. Then find the value with minimum absolute difference from the target. This approach visits all nodes regardless of BST properties, giving O(n) time and O(n) space for storing values. It works but doesn't leverage BST properties for optimization.
-
-**Step 2: Semi-Optimized Approach (3 minutes)**
-
-Use BST properties: if target < node value, search left subtree; if target > node value, search right subtree. Track the closest value seen so far. This reduces the search space but still may need to explore both subtrees in some cases. Time complexity is O(h) where h is height, but worst case is still O(n) for unbalanced trees.
-
-**Step 3: Optimized Solution (5 minutes)**
-
-Use iterative or recursive traversal that leverages BST properties. At each node, update the closest value if current node is closer. Then, based on target comparison, decide to go left or right (can prune one subtree). Continue until reaching a leaf or null. This achieves O(h) time complexity where h is height, and O(1) space for iterative or O(h) for recursive. The key insight is that BST properties allow us to prune half the search space at each step, similar to binary search, making this optimal.
-
-## Solution Approach
-
-This problem requires finding the value in a BST that is closest to a given target. We can leverage the **BST property** to efficiently search for the closest value without exploring the entire tree.
-
-### Key Insights:
-
-1. **BST Property**: For any node, values in left subtree are smaller, values in right subtree are larger
-2. **Recursive Search**: Compare target with current node, then search in appropriate subtree
-3. **Compare Candidates**: When we have multiple candidates, compare distances to target
-4. **Early Termination**: Can stop early in some cases, but need to check both sides potentially
-
-### Algorithm:
-
-1. **Compare with root**: Check if root value is closer than current best
-2. **Search subtree**: Based on target vs root value, search left or right subtree
-3. **Compare results**: Compare candidate from subtree with root value
-4. **Return closest**: Return the value closest to target
-
-## Solution
-
-### **Solution: Recursive with Closer Value Comparison**
+### **Closer Value Logic**
 
 ```java
 /**
@@ -111,112 +112,6 @@ class Solution {
 }
 ```
 
-### **Algorithm Explanation:**
-
-1. **Helper Function `closerValue` (Lines 15-17)**:
-   - Compares two values (`lower` and `upper`) to determine which is closer to `target`
-   - Returns `lower` if `target - lower <= upper - target` (lower is closer or equal)
-   - Returns `upper` otherwise
-   - Handles tie-breaking: when distances are equal, prefers smaller value (lower)
-
-2. **Base Case (Line 20)**:
-   - If root is `nullptr`, return 0 (shouldn't happen per constraints, but safety check)
-
-3. **Target Less Than Root (Lines 21-23)**:
-   - If `root->val > target` and left subtree exists:
-     - Search left subtree recursively
-     - Compare result from left subtree with root value
-     - Return the closer one
-
-4. **Target Greater Than Root (Lines 24-26)**:
-   - If `root->val < target` and right subtree exists:
-     - Search right subtree recursively
-     - Compare root value with result from right subtree
-     - Return the closer one
-
-5. **Leaf Node or No Appropriate Subtree (Line 27)**:
-   - If we can't go further (leaf node or no appropriate subtree), return root value
-
-### **Example Walkthrough:**
-
-**Example 1: `root = [4,2,5,1,3], target = 3.714286`**
-
-```
-BST:
-      4
-     / \
-    2   5
-   / \
-  1   3
-
-Step 1: root = 4, target = 3.714286
-  root->val (4) > target (3.714286) → go left
-  root->left exists → recurse left
-
-Step 2: root = 2, target = 3.714286
-  root->val (2) < target (3.714286) → go right
-  root->right exists → recurse right
-
-Step 3: root = 3, target = 3.714286
-  root->val (3) < target (3.714286) → go right
-  root->right == nullptr → return 3
-
-Step 4: Back to root = 2
-  Compare: closerValue(2, 3, 3.714286)
-  target - 2 = 1.714286
-  3 - target = 0.285714
-  1.714286 > 0.285714 → return 3
-
-Step 5: Back to root = 4
-  Compare: closerValue(3, 4, 3.714286)
-  target - 3 = 0.714286
-  4 - target = 0.285714
-  0.714286 > 0.285714 → return 4
-
-Result: 4
-```
-
-**Visual Representation:**
-
-```
-Target: 3.714286
-
-Tree traversal:
-4 → 2 → 3 (leaf, return 3)
-     ↑
-     Compare 2 vs 3: 3 is closer
-     Return 3
-↑
-Compare 4 vs 3: 4 is closer (distance 0.286 vs 0.714)
-Return 4
-```
-
-## Algorithm Breakdown
-
-### **Key Insight: BST Property Utilization**
-
-The algorithm uses BST property to narrow down the search:
-
-- **If `target < root->val`**: 
-  - Closest value is either in left subtree or root itself
-  - Search left, then compare with root
-  
-- **If `target > root->val`**:
-  - Closest value is either root or in right subtree
-  - Search right, then compare with root
-
-- **If `target == root->val`**:
-  - Root is the closest (distance = 0)
-  - Return root value
-
-### **Closer Value Logic**
-
-```java
-static int closerValue(double lower, double upper, double target) {
-    return upper - target >= target - lower? lower : upper;
-}
-```
-
 This function determines which value is closer:
 - `target - lower`: Distance from lower to target
 - `upper - target`: Distance from target to upper
@@ -236,8 +131,7 @@ The recursion follows this pattern:
    - Compare subtree result with current value
    - Return closer value
 
-## Complexity Analysis
-
+### Complexity
 ### **Time Complexity:** O(h)
 - **h = height of tree**
 - **Best case (balanced BST)**: O(log n)
@@ -256,25 +150,6 @@ The recursion follows this pattern:
 3. **Compare Candidates**: Always compare subtree result with current node
 4. **Tie Breaking**: When distances are equal, prefer smaller value
 5. **Single Path**: Only traverse one path from root to leaf (not entire tree)
-
-## Alternative Approaches
-
-### **Approach 1: Recursive (Current Solution)**
-- **Time**: O(h)
-- **Space**: O(h) for recursion
-- **Best for**: Clear and intuitive solution
-
-### **Approach 2: Iterative**
-- **Time**: O(h)
-- **Space**: O(1)
-- **Use while loop**: Traverse tree iteratively, track closest value
-- **Best for**: Space-efficient solution
-
-### **Approach 3: In-Order Traversal**
-- **Time**: O(n)
-- **Space**: O(h)
-- **Traverse all nodes**: Find closest in sorted order
-- **Use case**: When you need all values sorted
 
 ## Detailed Example Walkthrough
 
@@ -343,6 +218,12 @@ class Solution {
 4. **Target very small**: Return minimum value in tree
 5. **Two nodes equally close**: Return smaller value (per constraints)
 
+## Common Mistakes
+
+- Skipping edge cases (empty input, single element, boundaries).
+- Off-by-one errors in loops and index ranges.
+- Forgetting to handle the case when no valid answer exists.
+
 ## Related Problems
 
 - [270. Closest Binary Search Tree Value](https://leetcode.com/problems/closest-binary-search-tree-value/) - Current problem
@@ -354,3 +235,19 @@ class Solution {
 
 `Binary Search Tree`, `Tree`, `Recursion`, `Binary Search`, `Easy`
 
+## Key Takeaways
+
+- The search space must shrink monotonically each step.
+- Decide which half still satisfies the predicate, discard the other.
+- Use `mid = left + (right - left) / 2` to avoid overflow.
+
+## References
+
+- [LC 270: Closest Binary Search Tree Value on LeetCode](https://leetcode.com/problems/closest-binary-search-tree-value/)
+- [LeetCode Discuss — LC 270: Closest Binary Search Tree Value](https://leetcode.com/problems/closest-binary-search-tree-value/discuss/)
+- [LeetCode Editorial](https://leetcode.com/problems/closest-binary-search-tree-value/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [Trees](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-trees/)
+{% endraw %}

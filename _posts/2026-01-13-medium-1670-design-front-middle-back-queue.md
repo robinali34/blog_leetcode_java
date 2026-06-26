@@ -7,10 +7,7 @@ permalink: /2026/01/13/medium-1670-design-front-middle-back-queue/
 tags: [leetcode, medium, design, deque, data-structure, two-deques]
 ---
 
-# 1670. Design Front Middle Back Queue
-
-## Problem Statement
-
+{% raw %}
 Design a queue that supports `push` and `pop` operations in the **front**, **middle**, and **back**.
 
 Implement the `FrontMiddleBackQueue` class:
@@ -56,59 +53,35 @@ q.popFront();     // return -1 -> [] (The queue is empty)
 - `1 <= val <= 10^9`
 - At most `1000` calls will be made to `pushFront`, `pushMiddle`, `pushBack`, `popFront`, `popMiddle`, and `popBack`.
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+1. **Two Deques Pattern**: Split queue into two halves for efficient middle access
 
-1. **Middle definition**: How is "middle" defined for pushMiddle and popMiddle? (Assumption: Middle is the position at index (size // 2) - for even size, it's the right-middle element)
+- Identify required operations and their frequency (get/put/insert).
+- Combine data structures: hash map + list, heap + map, trie + DFS.
+- Amortized O(1) often needs lazy cleanup or doubly-linked lists.
 
-2. **Empty queue operations**: What should pop operations return when queue is empty? (Assumption: Return -1 - standard convention for empty queue operations)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 115" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Design pattern</text>
 
-3. **Queue state**: Should we track the current size separately? (Assumption: Yes - tracking size helps determine middle position efficiently)
+  <rect x="40" y="45" width="70" height="36" rx="4" fill="#D4D8E0" stroke="#8B8680"/><text x="75" y="67" text-anchor="middle" font-size="10">API</text>
+  <rect x="150" y="45" width="90" height="36" rx="4" fill="#E0D8E4" stroke="#A098A8"/><text x="195" y="67" text-anchor="middle" font-size="10">hash + list</text>
+  <path d="M110 63h36" stroke="#8B8680" stroke-width="2" marker-end="url(#arr2)"/>
+  <defs><marker id="arr2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6" fill="#8B8680"/></marker></defs>
+  <text x="140" y="105" text-anchor="middle" font-size="11" fill="#6B6560">compose data structures for operations</text>
 
-4. **Data structure choice**: What data structure should we use? (Assumption: Deque or two stacks/queues - need efficient front, middle, and back operations)
+</svg>
 
-5. **Operation frequency**: Are all operations equally frequent? (Assumption: Need to clarify - but should optimize for O(1) operations if possible)
+## Common Approaches
 
-## Interview Deduction Process (20 minutes)
+Typical techniques for this pattern:
 
-**Step 1: Brute-Force Approach (5 minutes)**
-
-Use a single array or list. For pushMiddle, insert at middle position (shifting elements). For popMiddle, remove from middle position (shifting elements). This approach works but pushMiddle and popMiddle operations require O(n) time to shift elements, which is inefficient for frequent operations.
-
-**Step 2: Semi-Optimized Approach (7 minutes)**
-
-Use two deques or lists: one for the front half and one for the back half. Maintain balance between them so that the middle is always at the boundary. When pushing to middle, add to the end of front deque. When popping from middle, remove from end of front deque. However, maintaining balance when sizes differ requires careful management and potentially moving elements between deques.
-
-**Step 3: Optimized Solution (8 minutes)**
-
-Use two deques: frontDeque and backDeque. Maintain the invariant that frontDeque.size() == backDeque.size() or frontDeque.size() == backDeque.size() + 1. For pushMiddle, add to front of backDeque (or end of frontDeque depending on sizes). For popMiddle, remove from end of frontDeque. After each operation, rebalance if needed. This achieves O(1) amortized time for all operations. The key insight is that by maintaining two deques with balanced sizes, we can access the middle element efficiently, and rebalancing (moving one element) is O(1).
-
-## Solution Approach
-
-This problem requires implementing a queue with operations at front, middle, and back. The key challenge is efficiently accessing and modifying the middle element.
-
-### Key Insights:
-
-1. **Two Deques**: Use two deques (`front_cache` and `back_cache`) to split the queue
-2. **Balance Invariant**: Maintain `front_cache.size() <= back_cache.size() <= front_cache.size() + 1`
-3. **Middle Element**: 
-   - If sizes equal: middle is `front_cache.back()`
-   - If `back_cache` is larger: middle is `back_cache.front()`
-4. **Rebalancing**: After each operation, rebalance to maintain the invariant
-5. **Push Middle**: Add to end of `front_cache` (becomes new middle)
-
-### Algorithm:
-
-1. **Push Operations**:
-   - `pushFront`: Add to front of `front_cache`, rebalance
-   - `pushMiddle`: Add to back of `front_cache`, rebalance
-   - `pushBack`: Add to back of `back_cache`, rebalance
-2. **Pop Operations**:
-   - `popFront`: Remove from `front_cache` (or `back_cache` if `front_cache` empty), rebalance
-   - `popMiddle`: Remove from appropriate deque based on sizes, no rebalance needed
-   - `popBack`: Remove from `back_cache`, rebalance
-3. **Rebalance**: Ensure `front_cache.size() <= back_cache.size() <= front_cache.size() + 1`
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Hash map + list** *(this problem)* | O(1) avg | O(n) | LRU cache pattern |
+| Heap + hash map | O(log n) | O(n) | LFU, time-based store |
+| Trie (prefix tree) | O(m) | O(nm) | Word search, autocomplete |
+| Deque / circular buffer | O(1) | O(n) | Queue with fixed capacity |
 
 ## Solution
 
@@ -184,6 +157,31 @@ class FrontMiddleBackQueue {
     }
 }
 ```
+
+### Solution Explanation
+
+**Approach:** Hash map + list (this problem)
+
+**Key idea:** 1. **Two Deques Pattern**: Split queue into two halves for efficient middle access
+
+**How the code works:**
+1. **Two Deques Pattern**: Split queue into two halves for efficient middle access
+- Identify required operations and their frequency (get/put/insert).
+- Combine data structures: hash map + list, heap + map, trie + DFS.
+- Amortized O(1) often needs lazy cleanup or doubly-linked lists.
+
+**Walkthrough** — input `["FrontMiddleBackQueue", "pushFront", "pushBack", "pushMiddle", "pushMiddle", "popFront", "popMiddle", "popMiddle", "popBack", "popFront"]`, expected output `[null, null, null, null, null, 1, 3, 4, 2, -1]`:
+
+FrontMiddleBackQueue q = new FrontMiddleBackQueue();
+q.pushFront(1);   // [1]
+q.pushBack(2);    // [1, 2]
+q.pushMiddle(3);  // [1, 3, 2]
+q.pushMiddle(4);  // [1, 4, 3, 2]
+q.popFront();     // return 1 -> [4, 3, 2]
+q.popMiddle();    // return 3 -> [4, 2]
+q.popMiddle();    // return 4 -> [2]
+q.popBack();      // return 2 -> []
+q.popFront();     // return -1 -> [] (The queue is empty)
 
 ### **Algorithm Explanation:**
 
@@ -290,16 +288,7 @@ popBack():
   - Rebalancing is O(1) amortized (each element moved at most once)
 - **Space Complexity:** O(n) where n is number of elements in queue
   - Two deques store all elements
-
-## Key Insights
-
-1. **Two Deques Pattern**: Split queue into two halves for efficient middle access
-2. **Balance Invariant**: `front_cache.size() <= back_cache.size() <= front_cache.size() + 1`
-3. **Middle Element**: Always accessible in O(1) due to invariant
-4. **Rebalancing**: Maintains invariant after each modification
-5. **Push Middle**: Add to end of `front_cache` (becomes new middle)
-
-## Edge Cases
+## Common Mistakes
 
 1. **Empty queue**: All pop operations return `-1`
 2. **Single element**: After one push, one pop returns that element
@@ -307,67 +296,11 @@ popBack():
 4. **Many operations**: Rebalancing maintains efficiency
 5. **Alternating operations**: Balance maintained correctly
 
-## Common Mistakes
-
 1. **Wrong middle calculation**: Not handling the case when sizes are equal vs unequal
 2. **Missing rebalance**: Forgetting to rebalance after push/pop operations
 3. **Wrong rebalance logic**: Incorrectly moving elements between deques
 4. **Empty check**: Not checking if both deques are empty before popping
 5. **Pop from wrong deque**: Popping from `front_cache` when it's empty in `popFront()`
-
-## Alternative Approaches
-
-### **Approach 2: Single Deque with Index Calculation**
-
-```java
-// import java.util.*;
-class FrontMiddleBackQueue {
-    ArrayDeque<Integer> dq = new ArrayDeque<>();
-    FrontMiddleBackQueue() {}
-
-    void pushFront(int val) {
-        dq.push_front(val);
-    }
-
-    void pushMiddle(int val) {
-        int mid = dq.size() / 2;
-        dq.add(dq.iterator() + mid, val);
-    }
-
-    void pushBack(int val) {
-        dq.add(val);
-    }
-
-    int popFront() {
-        if(dq.length == 0) return -1;
-        int val = dq.get(0);
-        dq.removeFirst();
-        return val;
-    }
-
-    int popMiddle() {
-        if(dq.length == 0) return -1;
-        int mid = (dq.size() - 1) / 2;
-        int val = dq[mid];
-        dq.remove(dq.iterator() + mid);
-        return val;
-    }
-
-    int popBack() {
-        if(dq.length == 0) return -1;
-        int val = dq.get(dq.size() - 1);
-        dq.removeLast();
-        return val;
-    }
-}
-```
-
-**Time Complexity:** O(n) for `pushMiddle` and `popMiddle` (insertion/deletion in middle)  
-**Space Complexity:** O(n)
-
-**Comparison:**
-- **Two Deques**: O(1) amortized for all operations
-- **Single Deque**: O(n) for middle operations, O(1) for front/back
 
 ## Related Problems
 
@@ -376,7 +309,21 @@ class FrontMiddleBackQueue {
 - [LC 232: Implement Queue using Stacks](https://leetcode.com/problems/implement-queue-using-stacks/) - Queue with stacks
 - [LC 225: Implement Stack using Queues](https://leetcode.com/problems/implement-stack-using-queues/) - Stack with queues
 
----
+## Key Takeaways
 
-*This problem demonstrates the **Two Deques Pattern** for efficiently accessing middle elements in a queue. The key is maintaining a balance invariant between the two deques.*
+1. **Two Deques Pattern**: Split queue into two halves for efficient middle access
+2. **Balance Invariant**: `front_cache.size() <= back_cache.size() <= front_cache.size() + 1`
+3. **Middle Element**: Always accessible in O(1) due to invariant
+4. **Rebalancing**: Maintains invariant after each modification
+5. **Push Middle**: Add to end of `front_cache` (becomes new middle)
 
+## References
+
+- [LC 1670: Design Front Middle Back Queue on LeetCode](https://leetcode.com/problems/design-front-middle-back-queue/)
+- [LeetCode Discuss — LC 1670: Design Front Middle Back Queue](https://leetcode.com/problems/design-front-middle-back-queue/discuss/)
+- [LeetCode Editorial](https://leetcode.com/problems/design-front-middle-back-queue/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [Data Structure Design](/blog_leetcode_java/posts/2025-11-24-leetcode-templates-data-structure-design/)
+{% endraw %}

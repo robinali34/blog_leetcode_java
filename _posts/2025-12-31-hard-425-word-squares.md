@@ -6,13 +6,42 @@ categories: [leetcode, hard, backtracking, trie, recursion, string]
 permalink: /2025/12/31/hard-425-word-squares/
 ---
 
-# 425. Word Squares
+{% raw %}
+A **word square** is a sequence of words where the `k`-th row and `k`-th column read the same string.
 
-## Problem Statement
+Given an array of unique strings `words`, return *all the word squares you can build from `words`*. The same word from `words` can be used **multiple times**. You can return the answer in **any order**.
+
+## Thinking Process
 
 A **word square** is a sequence of words where the `k`-th row and `k`-th column read the same string.
 
 Given an array of unique strings `words`, return *all the word squares you can build from `words`*. The same word from `words` can be used **multiple times**. You can return the answer in **any order**.
+
+- Build solution incrementally; undo (backtrack) when constraints fail.
+- Prune branches early to avoid exploring invalid partial states.
+- Sort input to skip duplicate combinations efficiently.
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 125" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Backtracking tree</text>
+
+  <circle cx="140" cy="30" r="12" fill="#E0D8E4" stroke="#A098A8"/><text x="140" y="34" text-anchor="middle" font-size="9">start</text>
+  <line x1="140" y1="42" x2="90" y2="65" stroke="#9A9792"/><line x1="140" y1="42" x2="190" y2="65" stroke="#9A9792"/>
+  <circle cx="90" cy="72" r="10" fill="#D4D8E0" stroke="#8B8680"/><circle cx="190" cy="72" r="10" fill="#D4D8E0" stroke="#8B8680"/>
+  <line x1="90" y1="82" x2="60" y2="100" stroke="#9A9792" stroke-dasharray="3"/><line x1="190" y1="82" x2="220" y2="100" stroke="#9A9792" stroke-dasharray="3"/>
+  <text x="140" y="118" text-anchor="middle" font-size="11" fill="#6B6560">choose → explore → undo (prune)</text>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Choose / explore / unchoose** *(this problem)* | O(2^n) | O(n) | Subsets, combinations |
+| Constraint pruning | Reduced search | O(n) | Early exit on invalid partial |
+| Sort + skip duplicates | O(2^n) | O(n) | Combination sum II style |
+| Path recording | O(n!) worst | O(n) | Permutations |
 
 ## Examples
 
@@ -47,55 +76,9 @@ Output: [["baba","abat","baba","atan"],["baba","abat","baba","atal"]]
 - `words[i]` consists of only lowercase English letters.
 - All `words[i]` have the same length.
 
-## Clarification Questions
+## Backtracking Template
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
-
-1. **Word square definition**: What is a word square? (Assumption: N×N grid where kth row and kth column read the same word)
-
-2. **Square size**: What is the size of the square? (Assumption: N×N where N is the length of words)
-
-3. **Return format**: What should we return? (Assumption: List of all valid word squares - list of lists)
-
-4. **Word reuse**: Can we use the same word multiple times? (Assumption: Yes - same word can appear multiple times in square)
-
-5. **Order requirement**: Does order of squares matter? (Assumption: No - can return in any order)
-
-## Interview Deduction Process (30 minutes)
-
-**Step 1: Brute-Force Approach (8 minutes)**
-
-Try all possible combinations of words to form N×N squares. For each combination, check if it forms a valid word square (kth row equals kth column). This approach has exponential time complexity O(W^N) where W is the number of words and N is the word length, which is too slow even for small inputs.
-
-**Step 2: Semi-Optimized Approach (10 minutes)**
-
-Use backtracking with early pruning: build the square row by row. For each row, only consider words that match the required prefix (formed by the current column of previous rows). Use a hash map to group words by prefix for faster lookup. This reduces the search space significantly but still requires checking many combinations.
-
-**Step 3: Optimized Solution (12 minutes)**
-
-Use backtracking with Trie: build a Trie from all words, storing word indices at each node. When building row `i`, we need words that start with the prefix formed by column `i` of previous rows. Use the Trie to efficiently find all words matching a given prefix. This achieves much better performance: O(W × N) to build Trie, and backtracking with Trie pruning significantly reduces the search space. The key insight is that Trie allows O(prefix_length) prefix matching instead of checking all words, making the solution efficient enough for the constraints.
-
-## Solution Approach
-
-This problem requires constructing word squares where each row and corresponding column read the same string. We can solve this using **backtracking** combined with a **Trie** data structure to efficiently find words matching required prefixes.
-
-### Key Insights:
-
-1. **Word Square Property**: For a word square of size N×N, the k-th row and k-th column must be identical
-2. **Prefix Constraint**: When building row `i`, we need words that start with the prefix formed by column `i` of previous rows
-3. **Trie for Efficiency**: Use Trie to quickly find all words with a given prefix
-4. **Backtracking**: Build square row by row, backtracking when no valid words found
-
-### Algorithm:
-
-1. **Build Trie**: Construct Trie from all words, storing word indices at each node
-2. **Backtracking**: For each word as first row, recursively build remaining rows
-3. **Prefix Matching**: At each step, find words matching the required prefix
-4. **Complete Square**: When all N rows are filled, add to results
-
-## Solution
-
-### **Solution: Backtracking with Trie**
+Here's the general backtracking template used in this problem:
 
 ```java
 // import java.util.*;
@@ -164,157 +147,6 @@ class Solution {
 }
 ```
 
-### **Algorithm Explanation:**
-
-1. **TrieNode Structure (Lines 1-4)**:
-   - `children`: Map of characters to child TrieNodes
-   - `wordList`: List of word indices that share the prefix ending at this node
-
-2. **Build Trie (Lines 11-23)**:
-   - Create root TrieNode
-   - For each word, traverse characters and build Trie path
-   - At each node, add word index to `wordList` (all words with this prefix)
-
-3. **Get Words with Prefix (Lines 25-33)**:
-   - Traverse Trie following prefix characters
-   - If prefix doesn't exist, return empty list
-   - Return `wordList` at the final node (all words with this prefix)
-
-4. **Backtracking Function (Lines 35-47)**:
-   - **Base Case**: If `step == N`, square is complete → add to results
-   - **Build Prefix**: Extract prefix from current column (step-th character of each word in square)
-   - **Try Candidates**: For each word matching prefix, add to square and recurse
-   - **Backtrack**: Remove word after recursion to try next candidate
-
-5. **Main Function (Lines 48-60)**:
-   - Initialize: Set `N` (word length), build Trie
-   - Try each word as first row
-   - Start backtracking from step 1 (first row already filled)
-
-### **Example Walkthrough:**
-
-**For `words = ["area","lead","wall","lady","ball"]`:**
-
-```
-Word Square Property: Row i, Column j = Column i, Row j
-
-Example solution: ["ball","area","lead","lady"]
-b a l l
-a r e a
-l e a d
-l a d y
-
-Verification:
-- Row 1, Col 2 = "a" = Col 1, Row 2 = "a" ✓
-- Row 1, Col 3 = "l" = Col 1, Row 3 = "l" ✓
-- Row 2, Col 3 = "e" = Col 2, Row 3 = "e" ✓
-
-Step 1: Build Trie
-- Stores all words with each prefix
-- "a" → ["area", "lady"]
-- "b" → ["ball"]
-- "l" → ["lead", "lady"]
-- "w" → ["wall"]
-- "ar" → ["area"]
-- "le" → ["lead"]
-- etc.
-
-Step 2: Try "ball" as first row
-square = ["ball"]
-step = 1: prefix = "ball"[1] = "a" (column 1, row 2 must start with "a")
-  Words with prefix "a": ["area", "lady"]
-  Try "area": square = ["ball", "area"]
-    step = 2: prefix = "ball"[2] + "area"[2] = "l" + "e" = "le"
-      Words with prefix "le": ["lead"]
-      Try "lead": square = ["ball", "area", "lead"]
-        step = 3: prefix = "ball"[3] + "area"[3] + "lead"[3] = "l" + "a" + "a" = "laa"
-          Words with prefix "laa": []
-          Backtrack
-        Backtrack
-    Try "lady": square = ["ball", "lady"]
-      step = 2: prefix = "ball"[2] + "lady"[2] = "l" + "d" = "ld"
-        Words with prefix "ld": []
-        Backtrack
-    Backtrack
-  Backtrack
-
-Step 3: Try "wall" as first row
-square = ["wall"]
-step = 1: prefix = "wall"[1] = "a"
-  Words with prefix "a": ["area", "lady"]
-  Try "area": square = ["wall", "area"]
-    step = 2: prefix = "wall"[2] + "area"[2] = "l" + "e" = "le"
-      Words with prefix "le": ["lead"]
-      Try "lead": square = ["wall", "area", "lead"]
-        step = 3: prefix = "wall"[3] + "area"[3] + "lead"[3] = "l" + "a" + "a" = "laa"
-          Words with prefix "laa": []
-          Backtrack
-        Backtrack
-    Backtrack
-  Backtrack
-
-Wait, the example shows ["wall","area","lead","lady"] works. Let me check:
-w a l l
-a r e a
-l e a d
-l a d y
-
-For step = 3 with ["wall","area","lead"]:
-prefix = "wall"[3] + "area"[3] + "lead"[3] = "l" + "a" + "a" = "laa"
-But we need "lady" which starts with "lad", not "laa".
-
-Hmm, let me reconsider. Actually, I think the issue is that "lady" at step 3 needs to match:
-- Column 3 = "l" (from "wall") + "e" (from "area") + "a" (from "lead") = "lea"
-- But "lady"[2] = "d", not "e"
-
-Wait, I think I see the issue. The word square property means:
-- When we have rows 0..i-1 filled, row i must satisfy:
-  - row[i][j] = column[j][i] for all j
-  - column[j][i] = row[j][i] (since row j is already filled)
-  - So row[i][j] = row[j][i]
-
-So for ["wall","area","lead"]:
-- We need row 3 such that:
-  - row[3][0] = row[0][3] = "l"
-  - row[3][1] = row[1][3] = "a"  
-  - row[3][2] = row[2][3] = "a"
-- So prefix = "laa", but "lady" = "lady", so "lady"[2] = "d" ≠ "a"
-
-I think there might be an error in my understanding or the example. Let me assume the algorithm works correctly and the Trie efficiently finds matching words.
-```
-
-## Backtracking Template
-
-Here's the general backtracking template used in this problem:
-
-```java
-// import java.util.*;
-static void backtrack(int step, String[] square, List<List<String>>& rtn) {
-    // Base case: solution is complete
-    if(step == N) {
-        rtn.add(square);  // Add complete solution
-        return;
-    }
-
-    // Build constraint (prefix) for current step
-    String prefix = buildPrefix(step, square);
-
-    // Generate candidates (words matching prefix)
-    int[]candidates = getWordsWithPrefix(prefix);
-
-    // Try each candidate
-    for(int idx: candidates) {
-        // Make move: add candidate to solution
-        square.add(words[idx]);
-
-        // Recurse: explore further backtrack = new further(step + 1, square, rtn);
-
-        // Backtrack: remove candidate to try next
-        square.removeLast();
-    }
-}
-```
-
 ### **Key Template Components:**
 
 1. **Base Case**: When `step == N`, square is complete
@@ -345,8 +177,7 @@ The Trie stores all words with each prefix:
 3. **Complete**: When all rows filled, add to results
 4. **Backtrack**: Remove word and try next candidate
 
-## Complexity Analysis
-
+### Complexity
 ### **Time Complexity:** O(N × L × W^N)
 - **N**: Word length (number of rows)
 - **L**: Average word length
@@ -368,25 +199,6 @@ The Trie stores all words with each prefix:
 3. **Trie Optimization**: Fast prefix lookup instead of checking all words
 4. **Backtracking**: Build square row by row, backtrack when no valid words
 5. **Multiple Uses**: Same word can be used multiple times
-
-## Alternative Approaches
-
-### **Approach 1: Backtracking with Trie (Current Solution)**
-- **Time**: O(N × L × W^N)
-- **Space**: O(N × L × W)
-- **Best for**: Efficient prefix lookup
-
-### **Approach 2: Backtracking with Hash Map**
-- **Time**: O(N × L × W^N)
-- **Space**: O(N × L × W)
-- **Precompute**: Build hash map of prefix → words
-- **Similar performance**: But Trie is more memory efficient
-
-### **Approach 3: Brute Force**
-- **Time**: O(W^N)
-- **Space**: O(N)
-- **Generate all**: Try all combinations, check validity
-- **Inefficient**: No early pruning
 
 ## Detailed Example Walkthrough
 
@@ -442,10 +254,11 @@ step = 1: prefix = column 1 = "a"
 
 Actually, I realize the prefix building might work differently. Let me check the code again:
 
-```java
-String prefix;
-for(String word: square) {
-    prefix += word.charAt(step);
+```
+java
+string prefix;
+for(const string& word: square) {
+    prefix += word[step];
 }
 ```
 
@@ -455,9 +268,10 @@ prefix = "ball"[1] = "a"
 But we want words where the first character matches... wait, I think the issue is that step represents which row we're filling (0-indexed from second row).
 
 Actually, looking at the main function:
-```java
-for(String word: words) {
-    String[]square{word}
+```
+java
+for(const string& word: words) {
+    vector<string> square{word};
     backtrack(1, square, rtn);
 }
 ```
@@ -481,6 +295,12 @@ The key insight is that the Trie efficiently finds words matching prefixes, and 
 3. **All words same**: Can form squares if word length matches
 4. **Short words**: Words of length 1-4 as per constraints
 
+## Common Mistakes
+
+- Skipping edge cases (empty input, single element, boundaries).
+- Off-by-one errors in loops and index ranges.
+- Forgetting to handle the case when no valid answer exists.
+
 ## Related Problems
 
 - [425. Word Squares](https://leetcode.com/problems/word-squares/) - Current problem
@@ -492,3 +312,19 @@ The key insight is that the Trie efficiently finds words matching prefixes, and 
 
 `Backtracking`, `Trie`, `Recursion`, `String`, `Hard`
 
+## Key Takeaways
+
+- Build solution incrementally; undo (backtrack) when constraints fail.
+- Prune branches early to avoid exploring invalid partial states.
+- Sort input to skip duplicate combinations efficiently.
+
+## References
+
+- [LC 425: Word Squares on LeetCode](https://leetcode.com/problems/word-squares/)
+- [LeetCode Discuss — LC 425: Word Squares](https://leetcode.com/problems/word-squares/discuss/)
+- [LeetCode Editorial](https://leetcode.com/problems/word-squares/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [Backtracking](/blog_leetcode_java/posts/2025-11-24-leetcode-templates-backtracking/)
+{% endraw %}

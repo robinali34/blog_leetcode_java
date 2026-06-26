@@ -7,6 +7,7 @@ tags: [leetcode, medium, linked-list, randomized, reservoir-sampling]
 permalink: /2026/04/08/medium-382-linked-list-random-node/
 ---
 
+{% raw %}
 Given a singly linked list, return a **random** node's value. Each node must have an **equal probability** of being chosen.
 
 **Follow-up**: What if the linked list is extremely large and its length is unknown? Can you solve this without using extra space?
@@ -35,27 +36,52 @@ Each call returns 1, 2, or 3 with probability 1/3.
 
 ### Approach 1: Flatten to Array
 
-Copy all values into a vector in the constructor. `getRandom` picks a random index. Simple but uses $O(n)$ extra space.
+Copy all values into a vector in the constructor. `getRandom` picks a random index. Simple but uses O(n) extra space.
 
 ### Approach 2: Reservoir Sampling
 
 For the follow-up (unknown length, no extra space), use **Reservoir Sampling (k=1)**:
 
-Walk through the list. At the $i$-th node (1-indexed), replace the current pick with this node's value with probability $\frac{1}{i}$.
+Walk through the list. At the i-th node (1-indexed), replace the current pick with this node's value with probability frac{1}{i}.
 
 **Why this gives uniform probability**:
 
-The probability that node $j$ is the final pick:
+The probability that node j is the final pick:
 
-$$P(\text{picked at } j) \times P(\text{not replaced at } j{+}1) \times \ldots \times P(\text{not replaced at } n)$$
+$P(text{picked at } j) × P(text{not replaced at } j{+}1) × ldots × P(text{not replaced at } n)
 
-$$= \frac{1}{j} \times \frac{j}{j+1} \times \frac{j+1}{j+2} \times \ldots \times \frac{n-1}{n} = \frac{1}{n}$$
+= frac{1}{j} × frac{j}{j+1} × frac{j+1}{j+2} × ldots × frac{n-1}{n} = frac{1}{n}
 
-The fractions telescope, giving exactly $\frac{1}{n}$ for every node.
+The fractions telescope, giving exactly \frac{1}{n} for every node.
 
-## Solution 1: Flatten to Array -- $O(1)$ per query
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 115" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Linked list: pointer walk</text>
 
-{% raw %}
+  <rect x="30" y="50" width="44" height="32" rx="4" fill="#D4D8E0" stroke="#8B8680"/>
+  <text x="52" y="68" text-anchor="middle" font-size="12">1</text>
+  <path d="M74 66h16" stroke="#8B8680" stroke-width="2" marker-end="url(#arr)"/>
+  <rect x="90" y="50" width="44" height="32" rx="4" fill="#E0D8E4" stroke="#A098A8"/>
+  <text x="112" y="68" text-anchor="middle" font-size="12">2</text>
+  <path d="M134 66h16" stroke="#8B8680" stroke-width="2"/>
+  <rect x="150" y="50" width="44" height="32" rx="4" fill="#E8E3D8" stroke="#B8B5B0"/>
+  <text x="172" y="68" text-anchor="middle" font-size="12">3</text>
+  <text x="130" y="105" text-anchor="middle" font-size="11" fill="#6B6560">slow → → fast (2x speed)</text>
+  <defs><marker id="arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6" fill="#8B8680"/></marker></defs>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| Iterative pointer walk | O(n) | O(1) | Traversal, insertion |
+| **Dummy head node** *(this problem)* | O(n) | O(1) | Simplify head-edge cases |
+| Reversal (3-pointer) | O(n) | O(1) | Reverse sublist or full list |
+| Slow/fast pointers | O(n) | O(1) | Middle, cycle, merge lists |
+
+## Solution
 ```java
 class Solution {
     Solution(ListNode head) {
@@ -70,53 +96,21 @@ class Solution {
     List<Integer> v = new ArrayList<>();
 }
 ```
-{% endraw %}
 
-| Operation | Time | Space |
-|---|---|---|
-| Constructor | $O(n)$ | $O(n)$ |
-| `getRandom` | $O(1)$ | -- |
+### Solution Explanation
 
-## Solution 2: Reservoir Sampling -- $O(n)$ per query, $O(1)$ space
+**Approach:** Dummy head node (this problem)
 
-{% raw %}
-```java
-class Solution {
-    Solution(ListNode head) {
-        this.head = head;
-    }
-        public int getRandom() {
-        int rtn = head.val;
-        ListNode curr = head.next;
-        int i = 2;
-        while (curr > 0) {
-            if (new Random().nextInt() % i == 0) {
-                rtn = curr.val;
-            }
-            curr = curr.next;
-            i++;
-        }
-        return rtn;
-    }
-    ListNode head;
-}
-```
-{% endraw %}
+**Key idea:** ### Approach 1: Flatten to Array
 
-| Operation | Time | Space |
-|---|---|---|
-| Constructor | $O(1)$ | $O(1)$ |
-| `getRandom` | $O(n)$ | $O(1)$ |
+**How the code works:**
+**Why this gives uniform probability**:
 
-## Comparison
+**Walkthrough** — input `head = [1,2,3]`:
 
-| Approach | Constructor | `getRandom` | Extra Space | Unknown Length? |
-|---|---|---|---|---|
-| Array | $O(n)$ | $O(1)$ | $O(n)$ | No (must traverse first) |
-| Reservoir Sampling | $O(1)$ | $O(n)$ | $O(1)$ | Yes |
-
-**Trade-off**: Array is better when `getRandom` is called many times (amortized). Reservoir Sampling is better when memory is constrained or the list length is unknown/changing.
-
+1. Initialize variables from the problem setup.
+2. Apply the main loop / recursion until the condition is met.
+3. Confirm the result matches the expected output.
 ## Common Mistakes
 
 - Starting the index counter at 1 instead of 2 in reservoir sampling (node 1 is always picked initially)
@@ -125,7 +119,7 @@ class Solution {
 
 ## Key Takeaways
 
-- **Reservoir Sampling** solves "pick k items uniformly at random from a stream of unknown length" in $O(1)$ space
+- **Reservoir Sampling** solves "pick k items uniformly at random from a stream of unknown length" in O(1)$ space
 - The telescoping probability proof is elegant and worth understanding
 - This is a classic interview follow-up: "What if you can't store the data?"
 
@@ -135,6 +129,13 @@ class Solution {
 - [528. Random Pick with Weight](https://leetcode.com/problems/random-pick-with-weight/) -- weighted random selection
 - [876. Middle of the Linked List](https://leetcode.com/problems/middle-of-the-linked-list/) -- linked list traversal
 
+## References
+
+- [LC 382: Linked List Random Node on LeetCode](https://leetcode.com/problems/linked-list-random-node/)
+- [LeetCode Discuss — LC 382: Linked List Random Node](https://leetcode.com/problems/linked-list-random-node/discuss/)
+- [LeetCode Editorial](https://leetcode.com/problems/linked-list-random-node/editorial/) *(may require premium)*
+
 ## Template Reference
 
 - [Linked List](/blog_leetcode_java/posts/2025-11-24-leetcode-templates-linked-list/)
+{% endraw %}

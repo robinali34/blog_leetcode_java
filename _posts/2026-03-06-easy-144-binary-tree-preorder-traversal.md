@@ -7,6 +7,7 @@ tags: [leetcode, easy, tree, dfs, stack, morris]
 permalink: /2026/03/06/easy-144-binary-tree-preorder-traversal/
 ---
 
+{% raw %}
 Given the `root` of a binary tree, return the **preorder** traversal of its nodes' values. Preorder visits: **root → left → right**.
 
 ## Examples
@@ -42,21 +43,51 @@ Output: []
 - The number of nodes is in `[0, 100]`
 - `-100 <= Node.val <= 100`
 
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Recursive DFS** *(this problem)* | O(n) | O(h) stack | Natural for trees and graphs |
+| Iterative DFS (stack) | O(n) | O(n) | Avoid recursion depth limits |
+| DFS with memoization | O(n) | O(n) | Overlapping subproblems on graphs |
+| Backtracking DFS | O(2^n) typical | O(n) | Enumerate choices with pruning |
+
 ## Thinking Process
 
 Preorder traversal processes nodes in **root → left → right** order. Three standard implementations exist:
 
 1. **Recursive** -- direct translation of the definition
 2. **Iterative (stack)** -- simulate recursion with an explicit stack
-3. **Morris traversal** -- $O(1)$ space using threaded tree
+3. **Morris traversal** -- O(1) space using threaded tree
 
 ### Why Know All Three?
 
 The recursive solution is trivial. Interviewers often follow up with "can you do it iteratively?" or "can you do it in O(1) space?" -- that's where the stack and Morris approaches matter.
 
-## Approach 1: Recursive -- $O(n)$
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 165" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Tree DFS (bottom-up)</text>
 
-{% raw %}
+  <line x1="140" y1="42" x2="80" y2="88" stroke="#8E9AAF" stroke-width="2"/>
+  <line x1="140" y1="42" x2="200" y2="88" stroke="#8E9AAF" stroke-width="2"/>
+  <line x1="80" y1="88" x2="50" y2="128" stroke="#8E9AAF" stroke-width="2"/>
+  <line x1="200" y1="88" x2="230" y2="128" stroke="#8E9AAF" stroke-width="2"/>
+  <circle cx="140" cy="42" r="18" fill="#C9B1BD" stroke="#8E9AAF" stroke-width="2"/>
+  <text x="140" y="46" text-anchor="middle" font-size="12" fill="#3D3535">3</text>
+  <circle cx="80" cy="88" r="16" fill="#C9B1BD" stroke="#8E9AAF" stroke-width="2"/>
+  <text x="80" y="92" text-anchor="middle" font-size="11" fill="#3D3535">9</text>
+  <circle cx="200" cy="88" r="16" fill="#C9B1BD" stroke="#8E9AAF" stroke-width="2"/>
+  <text x="200" y="92" text-anchor="middle" font-size="11" fill="#3D3535">20</text>
+  <circle cx="50" cy="128" r="14" fill="#A8B5A2" stroke="#8E9AAF" stroke-width="1.5"/>
+  <text x="50" y="132" text-anchor="middle" font-size="10" fill="#3D3535">15</text>
+  <circle cx="230" cy="128" r="14" fill="#A8B5A2" stroke="#8E9AAF" stroke-width="1.5"/>
+  <text x="230" y="132" text-anchor="middle" font-size="10" fill="#3D3535">7</text>
+  <text x="140" y="155" text-anchor="middle" font-size="11" fill="#6B6560">post-order: combine left + right + 1</text>
+
+</svg>
+
+## Approach 1: Recursive -- O(n)
 ```java
 class Solution {
     public int[] preorderTraversal(TreeNode root) {
@@ -72,16 +103,26 @@ class Solution {
     }
 }
 ```
-{% endraw %}
 
-**Time**: $O(n)$
-**Space**: $O(h)$ recursion stack, where $h$ is tree height ($O(\log n)$ balanced, $O(n)$ skewed)
+### Solution Explanation
 
-## Approach 2: Iterative (Stack) -- $O(n)$
+**Approach:** Recursive DFS (this problem)
+
+**Key idea:** Preorder traversal processes nodes in **root → left → right** order. Three standard implementations exist:
+
+**How the code works:**
+1. **Recursive** -- direct translation of the definition
+2. **Iterative (stack)** -- simulate recursion with an explicit stack
+3. **Morris traversal** -- O(1) space using threaded tree
+
+**Walkthrough** — input `root = [1,null,2,3]`, expected output `[1,2,3]`:
+
+1. Initialize variables from the problem setup.
+2. Apply the main loop / recursion until the condition is met.
+3. Confirm the result matches the expected output.
+## Approach 2: Iterative (Stack) -- O(n)
 
 Push right child first, then left, so left is processed first (LIFO).
-
-{% raw %}
 ```java
 // import java.util.*;
 class Solution {
@@ -102,16 +143,13 @@ class Solution {
     }
 }
 ```
-{% endraw %}
 
-**Time**: $O(n)$
-**Space**: $O(h)$ for the stack
+**Time**: O(n)
+**Space**: O(h) for the stack
 
-## Approach 3: Morris Traversal -- $O(n)$ time, $O(n)$ space
+## Approach 3: Morris Traversal -- O(n) time, O(n) space
 
 Use the tree's null pointers to thread back to ancestors, avoiding a stack entirely. For preorder: visit the node **before** following the thread.
-
-{% raw %}
 ```java
 class Solution {
     public int[] preorderTraversal(TreeNode root) {
@@ -142,24 +180,29 @@ class Solution {
     }
 }
 ```
-{% endraw %}
 
-**Time**: $O(n)$ -- each edge traversed at most twice
-**Space**: $O(n)$ for the output vector; $O(1)$ auxiliary
+**Time**: O(n) -- each edge traversed at most twice
+**Space**: O(n) for the output vector; O(1) auxiliary
 
 ## Comparison
 
 | Approach | Time | Space | Notes |
 |---|---|---|---|
-| Recursive | $O(n)$ | $O(h)$ | Simplest, may stack overflow on deep trees |
-| Iterative Stack | $O(n)$ | $O(h)$ | Common interview follow-up |
-| Morris | $O(n)$ | $O(n)$ | $O(1)$ auxiliary; modifies tree temporarily, restores it |
+| Recursive | O(n) | O(h) | Simplest, may stack overflow on deep trees |
+| Iterative Stack | O(n) | O(h) | Common interview follow-up |
+| Morris | O(n) | O(n) | O(1) auxiliary; modifies tree temporarily, restores it |
+
+## Common Mistakes
+
+- Skipping edge cases (empty input, single element, boundaries).
+- Off-by-one errors in loops and index ranges.
+- Forgetting to handle the case when no valid answer exists.
 
 ## Key Takeaways
 
 - All three traversal orders (pre/in/post) share the same three implementation strategies
 - **Iterative stack trick for preorder**: push right before left so left pops first
-- **Morris**: useful when $O(1)$ space is required; temporarily modifies the tree but restores it
+- **Morris**: useful when O(1) space is required; temporarily modifies the tree but restores it
 
 ## Related Problems
 
@@ -167,6 +210,13 @@ class Solution {
 - [145. Binary Tree Postorder Traversal](https://leetcode.com/problems/binary-tree-postorder-traversal/) -- root after children
 - [102. Binary Tree Level Order Traversal](https://leetcode.com/problems/binary-tree-level-order-traversal/) -- BFS approach
 
+## References
+
+- [LC 144: Binary Tree Preorder Traversal on LeetCode](https://leetcode.com/problems/binary-tree-preorder-traversal/)
+- [LeetCode Discuss — LC 144: Binary Tree Preorder Traversal](https://leetcode.com/problems/binary-tree-preorder-traversal/discuss/)
+- [LeetCode Editorial](https://leetcode.com/problems/binary-tree-preorder-traversal/editorial/) *(may require premium)*
+
 ## Template Reference
 
 - [Trees](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-trees/)
+{% endraw %}

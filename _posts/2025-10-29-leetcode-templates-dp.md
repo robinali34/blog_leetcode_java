@@ -120,14 +120,14 @@ Every DP problem follows the same four steps. Before writing any code, answer th
 ## Summary: When to Use Each DP Type
 | Type | Signal in Problem | Time | Space |
 |---|---|---|---|
-| **1D Linear** | Sequence, "rob/skip", coin change | $O(n)$ or $O(n \times W)$ | $O(n)$ or $O(W)$ |
-| **2D Grid** | Matrix, paths, grid traversal | $O(m \times n)$ | $O(m \times n)$ |
-| **LIS** | Longest increasing/decreasing subsequence | $O(n^2)$ or $O(n \log n)$ | $O(n)$ |
-| **State Machine** | Buy/sell, hold/not hold, cooldown | $O(n \times k)$ | $O(n \times k)$ |
-| **Interval** | Merge/split ranges, balloons, palindromes | $O(n^3)$ | $O(n^2)$ |
-| **Tree** | DP on subtrees, tree paths | $O(n)$ | $O(n)$ |
-| **Digit** | "Count numbers in [1, N] with property" | $O(\text{digits} \times \text{states})$ | Same |
-| **Bitmask** | Small n ($\le 20$), subset selection | $O(2^n \times n)$ | $O(2^n \times n)$ |
+| **1D Linear** | Sequence, "rob/skip", coin change | O(n) or O(n × W) | O(n) or O(W) |
+| **2D Grid** | Matrix, paths, grid traversal | O(m × n) | O(m × n) |
+| **LIS** | Longest increasing/decreasing subsequence | O(n^2) or O(n log n) | O(n) |
+| **State Machine** | Buy/sell, hold/not hold, cooldown | O(n × k) | O(n × k) |
+| **Interval** | Merge/split ranges, balloons, palindromes | O(n^3) | O(n^2) |
+| **Tree** | DP on subtrees, tree paths | O(n) | O(n) |
+| **Digit** | "Count numbers in [1, N] with property" | O(text{digits} × text{states}) | Same |
+| **Bitmask** | Small n (le 20), subset selection | O(2^n × n) | O(2^n × n) |
 
 ## Contents
 - [1D DP (Linear)](#1d-dp-linear) -- House Robber, Coin Change, Knapsack
@@ -146,6 +146,90 @@ Every DP problem follows the same four steps. Before writing any code, answer th
 **When to use:** The problem involves a sequence (array, string) and asks for a maximum/minimum value or count. Each element either contributes to the answer or doesn't.
 
 ### The Pattern
+```
+dp[i] = best answer considering elements 0..i
+dp[i] depends on dp[i-1], dp[i-2], ... (look back at previous states)
+```
+
+### Example: House Robber (LC 198)
+
+> "Given an array of house values, find the max money you can rob without robbing two adjacent houses."
+
+**Thinking through the recipe:**
+
+1. **State:** `dp[i]` = max money from houses `0..i`
+2. **Transition:** For house `i`, either skip it (`dp[i-1]`) or rob it (`dp[i-2] + nums[i]`)
+3. **Base:** `dp[0] = nums[0]`, `dp[1] = max(nums[0], nums[1])`
+4. **Answer:** `dp[n-1]`
+
+<svg viewBox="0 0 700 200" xmlns="http://www.w3.org/2000/svg" style="max-width: 100%; height: auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
+  <!-- Houses -->
+  <text x="20" y="20" font-size="12" fill="#7A7772" font-weight="600">Houses:</text>
+  <rect x="90" y="5" width="60" height="30" rx="5" fill="#E8D5D0" stroke="#B8B5B0" stroke-width="1.2"/>
+  <text x="120" y="25" font-size="13" fill="#5A5752" font-weight="600" text-anchor="middle">2</text>
+  <rect x="170" y="5" width="60" height="30" rx="5" fill="#E8D5D0" stroke="#B8B5B0" stroke-width="1.2"/>
+  <text x="200" y="25" font-size="13" fill="#5A5752" font-weight="600" text-anchor="middle">7</text>
+  <rect x="250" y="5" width="60" height="30" rx="5" fill="#E8D5D0" stroke="#B8B5B0" stroke-width="1.2"/>
+  <text x="280" y="25" font-size="13" fill="#5A5752" font-weight="600" text-anchor="middle">9</text>
+  <rect x="330" y="5" width="60" height="30" rx="5" fill="#E8D5D0" stroke="#B8B5B0" stroke-width="1.2"/>
+  <text x="360" y="25" font-size="13" fill="#5A5752" font-weight="600" text-anchor="middle">3</text>
+  <rect x="410" y="5" width="60" height="30" rx="5" fill="#E8D5D0" stroke="#B8B5B0" stroke-width="1.2"/>
+  <text x="440" y="25" font-size="13" fill="#5A5752" font-weight="600" text-anchor="middle">1</text>
+
+  <!-- DP array -->
+  <text x="20" y="75" font-size="12" fill="#7A7772" font-weight="600">dp[i]:</text>
+  <rect x="90" y="58" width="60" height="30" rx="5" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="1.2"/>
+  <text x="120" y="78" font-size="13" fill="#3A6B3A" font-weight="700" text-anchor="middle">2</text>
+  <rect x="170" y="58" width="60" height="30" rx="5" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="1.2"/>
+  <text x="200" y="78" font-size="13" fill="#3A6B3A" font-weight="700" text-anchor="middle">7</text>
+  <rect x="250" y="58" width="60" height="30" rx="5" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="1.2"/>
+  <text x="280" y="78" font-size="13" fill="#3A6B3A" font-weight="700" text-anchor="middle">11</text>
+  <rect x="330" y="58" width="60" height="30" rx="5" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="1.2"/>
+  <text x="360" y="78" font-size="13" fill="#3A6B3A" font-weight="700" text-anchor="middle">11</text>
+  <rect x="410" y="58" width="60" height="30" rx="5" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="1.2"/>
+  <text x="440" y="78" font-size="13" fill="#3A6B3A" font-weight="700" text-anchor="middle">12</text>
+
+  <!-- Annotations -->
+  <text x="120" y="108" font-size="9" fill="#9A9792" text-anchor="middle">base</text>
+  <text x="200" y="108" font-size="9" fill="#9A9792" text-anchor="middle">max(2,7)</text>
+  <text x="280" y="108" font-size="9" fill="#9A9792" text-anchor="middle">max(7, 2+9)</text>
+  <text x="360" y="108" font-size="9" fill="#9A9792" text-anchor="middle">max(11, 7+3)</text>
+  <text x="440" y="108" font-size="9" fill="#9A9792" text-anchor="middle">max(11, 11+1)</text>
+
+  <!-- Result -->
+  <text x="510" y="78" font-size="12" fill="#3A6B3A" font-weight="700">→ Answer: 12</text>
+  <text x="510" y="98" font-size="10" fill="#9A9792">(rob houses 2, 9, 1)</text>
+
+  <!-- Formula -->
+  <rect x="90" y="130" width="460" height="50" rx="8" fill="#FAF8F5" stroke="#D4D1CC" stroke-width="1.2"/>
+  <text x="110" y="152" font-size="12" fill="#5A5752" font-weight="600">Transition:</text>
+  <text x="200" y="152" font-size="12" fill="#5A5752" font-family="monospace">dp[i] = max(dp[i-1], dp[i-2] + nums[i])</text>
+  <text x="200" y="170" font-size="10" fill="#9A9792">          skip i       rob i</text>
+</svg>
+
+
+### Template: 0/1 Knapsack
+
+> "Given items with weights and values, maximize total value without exceeding capacity W."
+
+The key insight: iterate items in the outer loop, **capacity in reverse** in the inner loop (to avoid using the same item twice).
+
+
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 509 | Fibonacci Number | [Link](https://leetcode.com/problems/fibonacci-number/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-18-easy-509-fibonacci-number/) |
+| 198 | House Robber | [Link](https://leetcode.com/problems/house-robber/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-18-medium-198-house-robber/) |
+| 279 | Perfect Squares | [Link](https://leetcode.com/problems/perfect-squares/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-12-14-medium-279-perfect-squares/) |
+| 322 | Coin Change | [Link](https://leetcode.com/problems/coin-change/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/10/20/medium-322-coin-change/) |
+| 494 | Target Sum | [Link](https://leetcode.com/problems/target-sum/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-15-medium-494-target-sum/) |
+| 139 | Word Break | [Link](https://leetcode.com/problems/word-break/) | - |
+| 487 | Max Consecutive Ones II | [Link](https://leetcode.com/problems/max-consecutive-ones-ii/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/12/30/medium-487-max-consecutive-ones-ii/) |
+| 983 | Minimum Cost For Tickets | [Link](https://leetcode.com/problems/minimum-cost-for-tickets/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-24-medium-983-minimum-cost-for-tickets/) |
+| 2466 | Count Ways To Build Good Strings | [Link](https://leetcode.com/problems/count-ways-to-build-good-strings/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-16-medium-2466-count-ways-to-build-good-strings/) |
+| 32 | Longest Valid Parentheses | [Link](https://leetcode.com/problems/longest-valid-parentheses/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-11-24-hard-32-longest-valid-parentheses/) |
+| 91 | Decode Ways | [Link](https://leetcode.com/problems/decode-ways/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/02/09/medium-91-decode-ways/) |
+| 416 | Partition Equal Subset Sum | [Link](https://leetcode.com/problems/partition-equal-subset-sum/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/02/11/medium-416-partition-equal-subset-sum/) |
+| 918 | Maximum Sum Circular Subarray | [Link](https://leetcode.com/problems/maximum-sum-circular-subarray/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/03/25/medium-918-maximum-sum-circular-subarray/) |
 
 ```
 dp[i] = best answer considering elements 0..i
@@ -368,6 +452,89 @@ static int knap01(int[] wt, int[] val, int W){
 **When to use:** The problem involves a 2D grid/matrix and asks about paths, areas, or values computed from neighboring cells.
 
 ### The Pattern
+```
+dp[i][j] = answer for subproblem ending at cell (i, j)
+dp[i][j] depends on dp[i-1][j] (above), dp[i][j-1] (left), dp[i-1][j-1] (diagonal)
+```
+
+### Example: Unique Paths with Obstacles (LC 63)
+
+> "Count paths from top-left to bottom-right in a grid (can only move right or down). Some cells are blocked."
+
+<svg viewBox="0 0 640 320" xmlns="http://www.w3.org/2000/svg" style="max-width: 100%; height: auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
+  <!-- Title -->
+  <text x="10" y="20" font-size="12" fill="#7A7772" font-weight="600">Grid (0 = open, 1 = blocked):</text>
+  <text x="350" y="20" font-size="12" fill="#7A7772" font-weight="600">DP table (number of paths):</text>
+
+  <!-- Grid -->
+  <rect x="10" y="35" width="60" height="40" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="1.2"/>
+  <text x="40" y="60" font-size="14" fill="#3A6B3A" font-weight="700" text-anchor="middle">0</text>
+  <rect x="70" y="35" width="60" height="40" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="1.2"/>
+  <text x="100" y="60" font-size="14" fill="#3A6B3A" font-weight="700" text-anchor="middle">0</text>
+  <rect x="130" y="35" width="60" height="40" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="1.2"/>
+  <text x="160" y="60" font-size="14" fill="#3A6B3A" font-weight="700" text-anchor="middle">0</text>
+
+  <rect x="10" y="75" width="60" height="40" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="1.2"/>
+  <text x="40" y="100" font-size="14" fill="#3A6B3A" font-weight="700" text-anchor="middle">0</text>
+  <rect x="70" y="75" width="60" height="40" fill="#E8D5D0" stroke="#C08070" stroke-width="1.8"/>
+  <text x="100" y="100" font-size="14" fill="#8B3A2A" font-weight="700" text-anchor="middle">1</text>
+  <rect x="130" y="75" width="60" height="40" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="1.2"/>
+  <text x="160" y="100" font-size="14" fill="#3A6B3A" font-weight="700" text-anchor="middle">0</text>
+
+  <rect x="10" y="115" width="60" height="40" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="1.2"/>
+  <text x="40" y="140" font-size="14" fill="#3A6B3A" font-weight="700" text-anchor="middle">0</text>
+  <rect x="70" y="115" width="60" height="40" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="1.2"/>
+  <text x="100" y="140" font-size="14" fill="#3A6B3A" font-weight="700" text-anchor="middle">0</text>
+  <rect x="130" y="115" width="60" height="40" fill="#D4D8D0" stroke="#B8B5B0" stroke-width="1.2"/>
+  <text x="160" y="140" font-size="14" fill="#3A6B3A" font-weight="700" text-anchor="middle">0</text>
+
+  <!-- Arrow -->
+  <text x="230" y="100" font-size="24" fill="#B8B5B0">→</text>
+
+  <!-- DP table -->
+  <rect x="350" y="35" width="60" height="40" fill="#D4D8E0" stroke="#8B8680" stroke-width="1.5"/>
+  <text x="380" y="60" font-size="14" fill="#3A3530" font-weight="700" text-anchor="middle">1</text>
+  <rect x="410" y="35" width="60" height="40" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="1.2"/>
+  <text x="440" y="60" font-size="14" fill="#3A3530" font-weight="700" text-anchor="middle">1</text>
+  <rect x="470" y="35" width="60" height="40" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="1.2"/>
+  <text x="500" y="60" font-size="14" fill="#3A3530" font-weight="700" text-anchor="middle">1</text>
+
+  <rect x="350" y="75" width="60" height="40" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="1.2"/>
+  <text x="380" y="100" font-size="14" fill="#3A3530" font-weight="700" text-anchor="middle">1</text>
+  <rect x="410" y="75" width="60" height="40" fill="#E8D5D0" stroke="#C08070" stroke-width="1.8"/>
+  <text x="440" y="100" font-size="14" fill="#8B3A2A" font-weight="700" text-anchor="middle">0</text>
+  <rect x="470" y="75" width="60" height="40" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="1.2"/>
+  <text x="500" y="100" font-size="14" fill="#3A3530" font-weight="700" text-anchor="middle">1</text>
+
+  <rect x="350" y="115" width="60" height="40" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="1.2"/>
+  <text x="380" y="140" font-size="14" fill="#3A3530" font-weight="700" text-anchor="middle">1</text>
+  <rect x="410" y="115" width="60" height="40" fill="#D4D8E0" stroke="#B8B5B0" stroke-width="1.2"/>
+  <text x="440" y="140" font-size="14" fill="#3A3530" font-weight="700" text-anchor="middle">1</text>
+  <rect x="470" y="115" width="60" height="40" fill="#D4D8E0" stroke="#8B8680" stroke-width="1.5"/>
+  <text x="500" y="140" font-size="14" fill="#3A6B3A" font-weight="700" text-anchor="middle">2</text>
+
+  <!-- Annotations -->
+  <text x="500" y="175" font-size="11" fill="#3A6B3A" font-weight="600" text-anchor="middle">Answer = 2</text>
+
+  <!-- Formula box -->
+  <rect x="10" y="190" width="520" height="120" rx="8" fill="#FAF8F5" stroke="#D4D1CC" stroke-width="1.2"/>
+  <text x="30" y="215" font-size="12" fill="#5A5752" font-weight="600">How each cell is computed:</text>
+  <text x="30" y="240" font-size="11" fill="#5A5752" font-family="monospace">if grid[i][j] == blocked:  dp[i][j] = 0</text>
+  <text x="30" y="260" font-size="11" fill="#5A5752" font-family="monospace">else:  dp[i][j] = dp[i-1][j] + dp[i][j-1]</text>
+  <text x="30" y="280" font-size="10" fill="#9A9792">                    ↑ from above   ↑ from left</text>
+  <text x="30" y="300" font-size="10" fill="#9A9792">First row and column: dp = 1 (only one path to reach each edge cell)</text>
+</svg>
+
+
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 62 | Unique Paths | [Link](https://leetcode.com/problems/unique-paths/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-09-24-medium-62-unique-paths/) |
+| 63 | Unique Paths II | [Link](https://leetcode.com/problems/unique-paths-ii/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/21/medium-63-unique-paths-ii/) |
+| 64 | Minimum Path Sum | [Link](https://leetcode.com/problems/minimum-path-sum/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/10/medium-64-minimum-path-sum/) |
+| 221 | Maximal Square | [Link](https://leetcode.com/problems/maximal-square/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/04/18/medium-221-maximal-square/) |
+| 418 | Sentence Screen Fitting | [Link](https://leetcode.com/problems/sentence-screen-fitting/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/12/31/medium-418-sentence-screen-fitting/) |
+| 568 | Maximum Vacation Days | [Link](https://leetcode.com/problems/maximum-vacation-days/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2025/12/31/hard-568-maximum-vacation-days/) |
+| 96 | Unique Binary Search Trees | [Link](https://leetcode.com/problems/unique-binary-search-trees/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-03-medium-96-unique-binary-search-trees/) |
 
 ```
 dp[i][j] = answer for subproblem ending at cell (i, j)
@@ -597,9 +764,15 @@ static int uniquePaths(int[][] g){
   <text x="360" y="235" font-size="10" fill="#9A9792">Tails array length = LIS length (but NOT the LIS)</text>
 </svg>
 
-### Template: $O(n^2)$ DP
-### Template: $O(n \log n)$ with Binary Search (Patience Sort)
+### Template: O(n^2) DP
+
+
+### Template: O(n log n) with Binary Search (Patience Sort)
+
+
 ### Template: Count Number of LIS (LC 673)
+
+
 | ID | Title | Link | Solution |
 |---|---|---|---|
 | 300 | Longest Increasing Subsequence | [Link](https://leetcode.com/problems/longest-increasing-subsequence/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-17-medium-300-longest-increasing-subsequence/) |
@@ -688,6 +861,26 @@ static int findNumberOfLIS(int[] nums) {
 **When to use:** The problem asks you to merge, split, or process contiguous ranges, and the optimal solution for a range depends on how you split it.
 
 **The pattern:** Solve small intervals first, then build up to the full range by trying every possible split point.
+```
+dp[i][j] = best answer for the subarray from index i to j
+For each split point k in [i, j):
+    dp[i][j] = best(dp[i][k] + dp[k+1][j] + merge_cost)
+```
+
+### Template
+
+
+### Example: Burst Balloons (LC 312)
+
+Think of it as: "which balloon do I burst **last** in the range `[i, j]`?"
+
+
+| ID | Title | Link | Solution |
+|---|---|---|---|
+| 312 | Burst Balloons | [Link](https://leetcode.com/problems/burst-balloons/) | - |
+| 516 | Longest Palindromic Subsequence | [Link](https://leetcode.com/problems/longest-palindromic-subsequence/) | - |
+| 1039 | Minimum Score Triangulation of Polygon | [Link](https://leetcode.com/problems/minimum-score-triangulation-of-polygon/) | - |
+| 1130 | Minimum Cost Tree From Leaf Values | [Link](https://leetcode.com/problems/minimum-cost-tree-from-leaf-values/) | - |
 
 ```
 dp[i][j] = best answer for the subarray from index i to j
@@ -883,7 +1076,11 @@ Instead of one DP array, maintain **multiple arrays** -- one for each state. At 
 </svg>
 
 ### Template: Basic Buy/Sell (unlimited transactions)
+
+
 ### Template: With Cooldown (3 states)
+
+
 | ID | Title | Link | Solution |
 |---|---|---|---|
 | 121 | Best Time to Buy and Sell Stock | [Link](https://leetcode.com/problems/best-time-to-buy-and-sell-stock/) | - |
@@ -989,9 +1186,13 @@ static int maxProfit(int[] prices) {
 </svg>
 
 ### Template: Tree DP (House Robber III, LC 337)
+
+
 ### Template: Max Path Sum (LC 124)
 
 Each node contributes its value + best single path from one child. But the answer can also be a path through the node connecting both children.
+
+
 | ID | Title | Link | Solution |
 |---|---|---|---|
 | 337 | House Robber III | [Link](https://leetcode.com/problems/house-robber-iii/) | - |
@@ -1048,13 +1249,15 @@ static int maxPathSum(TreeNode root) {
 | 968 | Binary Tree Cameras | [Link](https://leetcode.com/problems/binary-tree-cameras/) | - |
 
 ## DP with Binary Search
-**When to use:** A pure DP solution is $O(n^2)$ or worse, and binary search can help find the optimal transition in $O(\log n)$, bringing total time down.
+**When to use:** A pure DP solution is O(n^2) or worse, and binary search can help find the optimal transition in O(log n), bringing total time down.
 
 ### Template: Binary Search on Answer (LC 410)
 
 > "Split array into `m` subarrays to minimize the largest subarray sum."
 
 The insight: binary search on the answer (the maximum sum), and use a greedy check.
+
+
 | ID | Title | Link | Solution |
 |---|---|---|---|
 | 300 | Longest Increasing Subsequence | [Link](https://leetcode.com/problems/longest-increasing-subsequence/) | [Solution](https://robinali34.github.io/blog_leetcode_java/posts/2025-10-17-medium-300-longest-increasing-subsequence/) |
@@ -1133,6 +1336,8 @@ static boolean canSplit(int[] nums, int m, int maxSum) {
 - Any property-specific state (previous digit, digit sum, etc.)
 
 ### Template
+
+
 | ID | Title | Link | Solution |
 |---|---|---|---|
 | 233 | Number of Digit One | [Link](https://leetcode.com/problems/number-of-digit-one/) | - |
@@ -1154,11 +1359,13 @@ static long solveDP(long N){ sN=String.valueOf(N); memset(dp,-1,sizeof dp); retu
 | 1012 | Numbers With Repeated Digits | [Link](https://leetcode.com/problems/numbers-with-repeated-digits/) | - |
 
 ## Bitmask DP (TSP / subsets)
-**When to use:** The problem has a small set of items ($n \le 20$) and you need to track which items have been used. Each bit in a bitmask represents "used" (1) or "not used" (0).
+**When to use:** The problem has a small set of items (n le 20) and you need to track which items have been used. Each bit in a bitmask represents "used" (1) or "not used" (0).
 
-**The key constraint:** $n \le 20$ (otherwise $2^n$ states explode). If you see $n \le 15\text{-}20$ in the constraints, think bitmask.
+**The key constraint:** n le 20 (otherwise 2^n states explode). If you see n le 15text{-}20 in the constraints, think bitmask.
 
 ### Template: Traveling Salesman (TSP)
+
+
 | ID | Title | Link | Solution |
 |---|---|---|---|
 | 847 | Shortest Path Visiting All Nodes | [Link](https://leetcode.com/problems/shortest-path-visiting-all-nodes/) | - |

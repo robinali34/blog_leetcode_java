@@ -56,8 +56,10 @@ exclude:
 
 # Navigation
 header_pages:
+  - interview-prep.html
   - about.md
   - java-guide.html
+  - neetcode-150-tracker.md
   - leetcode-questions-list.md
   - leetcode-templates.html
 

@@ -7,6 +7,7 @@ tags: [leetcode, medium, bit-manipulation, greedy, bfs, math]
 permalink: /2026/04/20/medium-2571-minimum-operations-to-reduce-an-integer-to-0/
 ---
 
+{% raw %}
 Given a positive integer `n`, you can add or subtract any power of 2 in one operation. Return the **minimum number of operations** to reduce `n` to `0`.
 
 ## Examples
@@ -68,9 +69,32 @@ Scan from LSB to MSB:
 
 Each add/subtract counts as one operation. Shifting doesn't count (we're just moving to the next bit position).
 
-## Solution 1: Greedy Bit Manipulation -- $O(\log n)$ time, $O(1)$ space
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 135" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Graph BFS layers</text>
 
-{% raw %}
+  <circle cx="60" cy="70" r="16" fill="#D4D8E0" stroke="#8B8680"/><text x="60" y="74" text-anchor="middle" font-size="11">S</text>
+  <circle cx="140" cy="45" r="14" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="49" text-anchor="middle" font-size="10">a</text>
+  <circle cx="140" cy="95" r="14" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="99" text-anchor="middle" font-size="10">b</text>
+  <circle cx="210" cy="70" r="14" fill="#E8D5D0" stroke="#B8A5A0"/><text x="210" y="74" text-anchor="middle" font-size="10">t</text>
+  <line x1="74" y1="65" x2="126" y2="50" stroke="#9A9792" stroke-width="1.5"/>
+  <line x1="74" y1="75" x2="126" y2="95" stroke="#9A9792" stroke-width="1.5"/>
+  <line x1="154" y1="50" x2="196" y2="65" stroke="#9A9792" stroke-width="1.5"/>
+  <text x="140" y="125" text-anchor="middle" font-size="11" fill="#6B6560">BFS: expand by layers (queue)</text>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Queue BFS** *(this problem)* | O(n) | O(n) | Shortest path in unweighted graphs |
+| Multi-source BFS | O(n) | O(n) | Start from all sources simultaneously |
+| 0-1 BFS / deque | O(n) | O(n) | Weights 0 or 1 |
+| Level-order BFS | O(n) | O(w) | Process by depth/layer |
+
+## Solution
 ```java
 class Solution {
         public int minOperations(int n) {
@@ -92,90 +116,30 @@ class Solution {
     }
 }
 ```
-{% endraw %}
 
-### Walk-through: `n = 23 (10111₂)`
+### Solution Explanation
 
-```
-Step   n (binary)   Action     ops
-─────  ───────────  ─────────  ───
-  1    10111        n&3=11 → +1   1
-  2    11000        shift >>
-  3    1100         shift >>
-  4    110          shift >>
-  5    11           n&3=11 → +1   2
-  6    100          shift >>
-  7    10           shift >>
-  8    1            n==1 → +1     3
-```
+**Approach:** Queue BFS (this problem)
 
-Result: **3 operations** (not 6 -- the earlier walkthrough in the problem had a bug; let's verify: 23 + 1 = 24 = 11000₂, then 24 + 8 = 32 = 100000₂, then 32 - 32 = 0. That's 3 ops.)
+**Key idea:** ### Binary Perspective
 
-### Walk-through: `n = 7 (111₂)`
+**How the code works:**
+- **Bit is 0** -- shift right, nothing to do
+- **Bit is 1:**
+- If the next bit is also `1` (i.e., `n & 3 == 3`) -- **add 1** (carry forward to collapse the block)
+- Otherwise (isolated `1`) -- **subtract 1** (cheaper to just remove it)
 
-```
-Step   n (binary)   Action     ops
-─────  ───────────  ─────────  ───
-  1    111          n&3=11 → +1   1
-  2    1000         shift >>
-  3    100          shift >>
-  4    10           shift >>
-  5    1            n==1 → +1     2
-```
+**Walkthrough** — input `n = 39`, expected output `3`:
 
-Result: **2 operations** (7 + 1 = 8, 8 - 8 = 0)
-
-## Solution 2: BFS -- $O(n \log n)$ time, $O(n)$ space
-
-BFS explores all reachable states layer by layer, guaranteeing the shortest path. From any value, try adding or subtracting every power of 2.
-
-{% raw %}
-```java
-// import java.util.*;
-class Solution {
-        public int minOperations(int n) {
-        if (n == 0) return 0;
-
-        HashSet<Integer> visited = new HashSet<Integer>();
-        Queue<Integer> q = new LinkedList<>();
-        q.offer(n);
-        visited.add(n);
-        int ops = 0;
-
-        while (!q.isEmpty()) {
-            int size = q.size();
-            ops++;
-            for (int i = 0; i < size; ++i) {
-                int cur = q.get(0);
-                q.poll();
-
-                for (int p = 1; p <= 1 << 17; p <<= 1) {
-                    for (int next : {cur + p, cur - p}) {
-                        if (next == 0) return ops;
-                        if (next > 0 && next < (1 << 18) && !visited.contains(next)) {
-                            visited.add(next);
-                            q.offer(next);
-                        }
-                    }
-                }
-            }
-        }
-        return -1;
-    }
-}
-```
-{% endraw %}
-
-### Why the Bound `1 << 18`?
-
-Since `n <= 10^5 < 2^17`, adding a power of 2 can at most double the value. We cap the search space at `2^18` to prevent exploring irrelevant large numbers. In practice BFS terminates very quickly since the greedy answer is at most $O(\log n)$ operations.
-
+1. Initialize variables from the problem setup.
+2. Apply the main loop / recursion until the condition is met.
+3. Confirm the result matches the expected output.
 ## Comparison
 
 | Aspect | Greedy (Bit Manipulation) | BFS |
 |---|---|---|
-| Time | $O(\log n)$ | $O(n \log n)$ |
-| Space | $O(1)$ | $O(n)$ |
+| Time | O(log n) | O(n log n) |
+| Space | O(1) | O(n) |
 | Correctness proof | Requires greedy argument | Guaranteed (shortest path) |
 | Interview value | Shows deep bit intuition | Shows BFS modeling skill |
 | Best for | Production / follow-up optimization | Proving correctness / verification |
@@ -184,16 +148,16 @@ BFS is useful as a **verification tool**: run it on small inputs to confirm the 
 
 ## Why the Greedy is Optimal
 
-Consider a block of $k$ consecutive `1`s:
+Consider a block of k consecutive `1`s:
 
 | Strategy | Operations |
 |---|---|
-| Subtract each bit individually | $k$ |
-| Add 1 to collapse, then subtract the resulting bit | $2$ |
+| Subtract each bit individually | k |
+| Add 1 to collapse, then subtract the resulting bit | 2 |
 
-For $k \ge 3$, adding is strictly better. For $k = 2$ (like `11₂ = 3`), both cost 2 operations:
-- Add: $3 + 1 = 4$, $4 - 4 = 0$ (2 ops)
-- Subtract: $3 - 1 = 2$, $2 - 2 = 0$ (2 ops)
+For k ge 3, adding is strictly better. For k = 2 (like `11₂ = 3`), both cost 2 operations:
+- Add: 3 + 1 = 4, 4 - 4 = 0 (2 ops)
+- Subtract: 3 - 1 = 2, 2 - 2 = 0 (2 ops)
 
 The greedy chooses to add for `k >= 2`, which is safe since it never costs more.
 
@@ -209,7 +173,7 @@ The greedy chooses to add for `k >= 2`, which is safe since it never costs more.
 - **Think in binary** when the problem involves powers of 2
 - **Consecutive `1`s can be collapsed** by adding 1 -- this is the core greedy insight
 - Check `n & 3 == 3` (two lowest bits both set) to decide add vs subtract
-- BFS gives a provably optimal baseline; greedy gives $O(\log n)$ performance
+- BFS gives a provably optimal baseline; greedy gives O(log n) performance
 - The pattern "add to create carry, then subtract" appears in many bit manipulation problems
 
 ## Related Problems
@@ -219,6 +183,13 @@ The greedy chooses to add for `k >= 2`, which is safe since it never costs more.
 - [1342. Number of Steps to Reduce a Number to Zero](https://leetcode.com/problems/number-of-steps-to-reduce-a-number-to-zero/) -- simpler version with only divide/subtract
 - [260. Single Number III](https://leetcode.com/problems/single-number-iii/) -- bit manipulation with XOR
 
+## References
+
+- [LC 2571: Minimum Operations to Reduce an Integer to 0 on LeetCode](https://leetcode.com/problems/minimum-operations-to-reduce-an-integer-to-0/)
+- [LeetCode Discuss — LC 2571: Minimum Operations to Reduce an Integer to 0](https://leetcode.com/problems/minimum-operations-to-reduce-an-integer-to-0/discuss/)
+- [LeetCode Editorial](https://leetcode.com/problems/minimum-operations-to-reduce-an-integer-to-0/editorial/) *(may require premium)*
+
 ## Template Reference
 
 - [Math & Bit Manipulation](/blog_leetcode_java/posts/2025-11-24-leetcode-templates-math-bit-manipulation/)
+{% endraw %}

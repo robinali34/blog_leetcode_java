@@ -8,8 +8,6 @@ permalink: /posts/2025-12-14-medium-279-perfect-squares/
 ---
 
 {% raw %}
-# [Medium] 279. Perfect Squares
-
 Given an integer `n`, return *the least number of perfect square numbers that sum to* `n`.
 
 A **perfect square** is an integer that is the square of an integer; in other words, it is the product of some integer with itself. For example, `1`, `4`, `9`, and `16` are perfect squares while `3` and `11` are not.
@@ -40,62 +38,40 @@ Output: 1
 
 - `1 <= n <= 10^4`
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+1. **Mathematical approach**: Fastest but requires number theory knowledge
 
-1. **Perfect square definition**: What is a perfect square? (Assumption: A number that is the square of an integer - 1, 4, 9, 16, 25, etc.)
+- Define state: what subproblem does `dp[i]` (or `dp[i][j]`) represent?
+- Recurrence: how does the answer build from smaller indices?
+- Base cases first; optimize space if only prior row/layer is needed.
 
-2. **Sum requirement**: Can we use the same perfect square multiple times? (Assumption: Yes - can reuse perfect squares, e.g., 4 = 1 + 1 + 1 + 1)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 135" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Graph BFS layers</text>
 
-3. **Optimization goal**: What are we optimizing for? (Assumption: Minimize the number of perfect squares that sum to n)
+  <circle cx="60" cy="70" r="16" fill="#D4D8E0" stroke="#8B8680"/><text x="60" y="74" text-anchor="middle" font-size="11">S</text>
+  <circle cx="140" cy="45" r="14" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="49" text-anchor="middle" font-size="10">a</text>
+  <circle cx="140" cy="95" r="14" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="99" text-anchor="middle" font-size="10">b</text>
+  <circle cx="210" cy="70" r="14" fill="#E8D5D0" stroke="#B8A5A0"/><text x="210" y="74" text-anchor="middle" font-size="10">t</text>
+  <line x1="74" y1="65" x2="126" y2="50" stroke="#9A9792" stroke-width="1.5"/>
+  <line x1="74" y1="75" x2="126" y2="95" stroke="#9A9792" stroke-width="1.5"/>
+  <line x1="154" y1="50" x2="196" y2="65" stroke="#9A9792" stroke-width="1.5"/>
+  <text x="140" y="125" text-anchor="middle" font-size="11" fill="#6B6560">BFS: expand by layers (queue)</text>
 
-4. **All squares available**: Can we use any perfect square? (Assumption: Yes - can use any perfect square up to n)
+</svg>
 
-5. **Return value**: What should we return - count or list of squares? (Assumption: Return the minimum count - integer representing least number of perfect squares)
+## Common Approaches
 
-## Interview Deduction Process (20 minutes)
+Typical techniques for this pattern:
 
-### Step 1: Brute-Force Approach (5 minutes)
-**Initial Thought**: "I need to find minimum perfect squares. Let me try all possible combinations."
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **1D DP** *(this problem)* | O(n) | O(n) or O(1) | Linear recurrence |
+| 2D DP | O(nm) | O(nm) or O(n) | Grid or two-sequence problems |
+| State machine DP | O(n) | O(1) | Buy/sell, hold/not-hold states |
+| Memoization (top-down) | Same as DP | O(n) | Recursive + cache |
 
-**Naive Solution**: Recursively try all combinations of perfect squares that sum to n, return minimum count.
-
-**Complexity**: O(√n^n) worst case time, O(√n) space
-
-**Issues**:
-- Exponential time complexity
-- Tries many redundant combinations
-- Very inefficient for large n
-- Doesn't leverage optimal substructure
-
-### Step 2: Semi-Optimized Approach (7 minutes)
-**Insight**: "This is similar to coin change. I can use dynamic programming."
-
-**Improved Solution**: DP where dp[i] = minimum perfect squares needed for i. For each i, try all perfect squares ≤ i and take minimum.
-
-**Complexity**: O(n × √n) time, O(n) space
-
-**Improvements**:
-- Polynomial time instead of exponential
-- Correctly finds minimum
-- Much more efficient than brute-force
-- Can be optimized further
-
-### Step 3: Optimized Solution (8 minutes)
-**Final Optimization**: "DP is good, but can also use BFS for shortest path or mathematical theorem for some cases."
-
-**Best Solution**: DP approach is optimal for general case. Can also use BFS treating as shortest path problem, or Legendre's theorem for mathematical optimization in some cases.
-
-**Complexity**: O(n × √n) time, O(n) space
-
-**Key Realizations**:
-1. DP is natural approach - similar to coin change
-2. O(n × √n) time is reasonable for n ≤ 10^4
-3. BFS alternative treats it as graph shortest path
-4. Mathematical theorems can optimize but DP is more general
-
-## Solution 1: Mathematical Approach (Legendre's Theorem) - Recommended
+## Solution
 
 **Time Complexity:** O(√n)  
 **Space Complexity:** O(1)
@@ -138,6 +114,29 @@ class Solution {
 }
 ```
 
+### Solution Explanation
+
+**Approach:** 1D DP (this problem)
+
+**Key idea:** 1. **Mathematical approach**: Fastest but requires number theory knowledge
+
+**How the code works:**
+1. **Mathematical approach**: Fastest but requires number theory knowledge
+- Define state: what subproblem does `dp[i]` (or `dp[i][j]`) represent?
+- Recurrence: how does the answer build from smaller indices?
+- Base cases first; optimize space if only prior row/layer is needed.
+
+**Walkthrough** — input `n = 12`, expected output `3`:
+
+12 = 4 + 4 + 4.
+
+| Solution | Time | Space | Notes |
+|----------|------|-------|-------|
+| Mathematical | O(√n) | O(1) | Fastest, requires math knowledge |
+| DP | O(n×√n) | O(n) | Standard approach |
+| BFS | O(n×√n) | O(n) | Graph-based approach |
+| Optimized DP | O(n×√n) | O(n) | Better for multiple queries |
+
 ### How Solution 1 Works
 
 1. **Reduce by factors of 4**: 
@@ -166,168 +165,6 @@ class Solution {
 **Legendre's Three-Square Theorem**: A natural number can be expressed as the sum of three squares if and only if it is not of the form `4^a(8b + 7)` for nonnegative integers `a` and `b`.
 
 **Two-Square Theorem**: A number can be expressed as the sum of two squares if and only if in its prime factorization, every prime of the form `4k + 3` occurs with an even exponent.
-
-## Solution 2: Dynamic Programming
-
-**Time Complexity:** O(n × √n)  
-**Space Complexity:** O(n)
-
-Bottom-up DP approach similar to coin change problem.
-
-```java
-class Solution {
-        public int numSquares(int n) {
-        public int[] dp(n + 1, Integer.MAX_VALUE);
-        dp[0] = 0;
-
-        // Generate all perfect squares up to n
-        List<Integer> squares = new ArrayList<>();
-        for(int i = 1; i i <= n; i++) {
-            squares.add(i i);
-        }
-
-        // Fill DP array
-        for(int i = 1; i <= n; i++) {
-            for(int sq : squares) {
-                if(sq > i) break;
-                dp[i] = Math.min(dp[i], dp[i - sq] + 1);
-            }
-        }
-
-        return dp[n];
-    }
-}
-```
-
-### How Solution 2 Works
-
-1. **DP array**: `dp[i]` = minimum number of perfect squares that sum to `i`
-2. **Base case**: `dp[0] = 0` (0 squares needed for 0)
-3. **Transition**: For each `i`, try all perfect squares `sq ≤ i`
-   - `dp[i] = min(dp[i], dp[i - sq] + 1)`
-4. **Result**: `dp[n]` contains the answer
-
-### Example Walkthrough (DP)
-
-**n = 12:**
-```
-Squares: [1, 4, 9]
-
-dp[0] = 0
-dp[1] = min(∞, dp[0] + 1) = 1
-dp[2] = min(∞, dp[1] + 1) = 2
-dp[3] = min(∞, dp[2] + 1) = 3
-dp[4] = min(∞, dp[0] + 1, dp[3] + 1) = min(∞, 1, 4) = 1
-dp[5] = min(∞, dp[4] + 1, dp[1] + 1) = min(∞, 2, 2) = 2
-...
-dp[12] = min(∞, dp[11] + 1, dp[8] + 1, dp[3] + 1) = min(∞, 4, 3, 4) = 3
-```
-
-## Solution 3: BFS (Shortest Path)
-
-**Time Complexity:** O(n × √n)  
-**Space Complexity:** O(n)
-
-Treat as a graph problem where we find the shortest path from `n` to `0`.
-
-```java
-// import java.util.*;
-class Solution {
-        public int numSquares(int n) {
-        Queue<Integer> q = new LinkedList<>();
-        HashSet<Integer> visited = new HashSet<Integer>();
-
-        q.offer(n);
-        visited.add(n);
-        int level = 0;
-
-        while(!q.isEmpty()) {
-            int size = q.size();
-            level++;
-
-            while(size--) {
-                int curr = q.get(0);
-                q.poll();
-
-                // Try subtracting each perfect square
-                for(int i = 1; i i <= curr; i++) {
-                    int next = curr - i i;
-
-                    if(next == 0) {
-                        return level;
-                    }
-
-                    if(visited.find(next) == visited.iterator()) {
-                        visited.add(next);
-                        q.offer(next);
-                    }
-                }
-            }
-        }
-
-        return level;
-    }
-}
-```
-
-### How Solution 3 Works
-
-1. **Graph representation**: 
-   - Nodes: integers from `n` down to `0`
-   - Edges: subtract a perfect square to move to next node
-   - Goal: reach `0` in minimum steps
-
-2. **BFS traversal**:
-   - Start from `n`
-   - At each level, subtract all possible perfect squares
-   - First time we reach `0`, return the level (number of squares)
-
-3. **Visited tracking**: Avoid revisiting the same number
-
-## Solution 4: Optimized DP (Static Squares)
-
-**Time Complexity:** O(n × √n)  
-**Space Complexity:** O(n)
-
-Pre-compute perfect squares and use static array for better performance.
-
-```java
-class Solution {
-        public int numSquares(int n) {
-        static int[] dp = new int[1];
-
-        while(dp.length <= n) {
-        int m = dp.length;
-            int minSquares = Integer.MAX_VALUE;
-
-            for(int i = 1; i i <= m; i++) {
-                minSquares = Math.min(minSquares, dp[m - i i] + 1);
-            }
-
-            dp.add(minSquares);
-        }
-
-        return dp[n];
-    }
-}
-```
-
-### How Solution 4 Works
-
-- **Static DP array**: Reuses computation across multiple test cases
-- **Incremental building**: Only computes values up to `n` if needed
-- **Efficient**: Better for multiple queries
-
-## Comparison of Approaches
-
-| Aspect | Mathematical | DP | BFS | Optimized DP |
-|--------|--------------|----|----|--------------|
-| **Time Complexity** | O(√n) | O(n×√n) | O(n×√n) | O(n×√n) |
-| **Space Complexity** | O(1) | O(n) | O(n) | O(n) |
-| **Code Complexity** | Medium | Simple | Simple | Simple |
-| **Best For** | Single query | General case | General case | Multiple queries |
-| **Mathematical Knowledge** | High | Low | Low | Low |
-
 ## Example Walkthrough
 
 **Input:** `n = 12`
@@ -374,8 +211,7 @@ dp[12] = 3 (4+4+4)
 Result: 3
 ```
 
-## Complexity Analysis
-
+### Complexity
 | Solution | Time | Space | Notes |
 |----------|------|-------|-------|
 | Mathematical | O(√n) | O(1) | Fastest, requires math knowledge |
@@ -383,7 +219,7 @@ Result: 3
 | BFS | O(n×√n) | O(n) | Graph-based approach |
 | Optimized DP | O(n×√n) | O(n) | Better for multiple queries |
 
-## Edge Cases
+## Common Mistakes
 
 1. **Perfect square**: `n = 1, 4, 9, 16, ...` → return 1
 2. **Sum of 2 squares**: `n = 2, 5, 10, 13, ...` → return 2
@@ -391,21 +227,11 @@ Result: 3
 4. **Sum of 4 squares**: `n = 7, 15, 23, ...` → return 4
 5. **Large n**: `n = 10^4` → all solutions handle efficiently
 
-## Common Mistakes
-
 1. **Not reducing by 4**: Missing the optimization step
 2. **Wrong modulo check**: Using `n % 8 == 7` incorrectly
 3. **Integer overflow**: Not handling large squares correctly
 4. **DP initialization**: Forgetting to set `dp[0] = 0`
 5. **Square generation**: Not generating all squares up to `n`
-
-## Key Insights
-
-1. **Mathematical approach**: Fastest but requires number theory knowledge
-2. **DP approach**: Most intuitive, similar to coin change
-3. **BFS approach**: Natural for shortest path problems
-4. **Optimization**: Reducing by factors of 4 doesn't change the answer
-5. **Upper bound**: Maximum answer is 4 (Lagrange's theorem)
 
 ## Optimization Tips
 
@@ -436,6 +262,17 @@ This problem demonstrates multiple patterns:
 2. **Optimization**: Resource allocation problems
 3. **Algorithm Design**: Pattern matching in DP problems
 4. **Mathematical Research**: Number representation problems
+## References
 
+- [LC 279: Perfect Squares on LeetCode](https://leetcode.com/problems/perfect-squares/)
+- [LeetCode Discuss — LC 279: Perfect Squares](https://leetcode.com/problems/perfect-squares/discuss/)
+- [LeetCode Editorial](https://leetcode.com/problems/perfect-squares/editorial/) *(may require premium)*
+
+## Key Takeaways
+
+1. **Mathematical approach**: Fastest but requires number theory knowledge
+2. **DP approach**: Most intuitive, similar to coin change
+3. **BFS approach**: Natural for shortest path problems
+4. **Optimization**: Reducing by factors of 4 doesn't change the answer
+5. **Upper bound**: Maximum answer is 4 (Lagrange's theorem)
 {% endraw %}
-

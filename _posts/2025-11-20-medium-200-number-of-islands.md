@@ -7,8 +7,7 @@ permalink: /posts/2025-11-20-medium-200-number-of-islands/
 tags: [leetcode, medium, dfs, graph, matrix, connected-components]
 ---
 
-# [Medium] 200. Number of Islands
-
+{% raw %}
 Given an `m x n` 2D binary grid `grid` which represents a map of `'1'`s (land) and `'0'`s (water), return *the number of islands*.
 
 An **island** is surrounded by water and is formed by connecting adjacent lands horizontally or vertically. You may assume all four edges of the grid are surrounded by water.
@@ -44,35 +43,37 @@ Output: 3
 - `1 <= m, n <= 300`
 - `grid[i][j]` is `'0'` or `'1'`.
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+1. **Connected Components**: Each island is a connected component of '1's
 
-1. **Island definition**: What is an island? (Assumption: Group of connected '1's - horizontally or vertically adjacent, not diagonally)
+- Model entities as nodes and relationships as edges.
+- Pick traversal (BFS/DFS) or shortest-path (Dijkstra) based on weights.
+- Union-Find helps when connectivity updates are frequent.
 
-2. **Return value**: What should we return? (Assumption: Integer - count of islands in the grid)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 125" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Grid traversal</text>
 
-3. **Connection rules**: How are cells connected? (Assumption: Horizontal or vertical adjacency - up, down, left, right)
+  <rect x="50" y="40" width="28" height="28" fill="#D4D8E0" stroke="#8B8680"/><rect x="78" y="40" width="28" height="28" fill="#E8E3D8" stroke="#B8B5B0"/>
+  <rect x="106" y="40" width="28" height="28" fill="#E8E3D8" stroke="#B8B5B0"/><rect x="134" y="40" width="28" height="28" fill="#E8E3D8" stroke="#B8B5B0"/>
+  <rect x="50" y="68" width="28" height="28" fill="#E8E3D8" stroke="#B8B5B0"/><rect x="78" y="68" width="28" height="28" fill="#E0D8E4" stroke="#A098A8"/>
+  <rect x="106" y="68" width="28" height="28" fill="#E8E3D8" stroke="#B8B5B0"/><rect x="134" y="68" width="28" height="28" fill="#E8E3D8" stroke="#B8B5B0"/>
+  <text x="110" y="115" text-anchor="middle" font-size="11" fill="#6B6560">BFS/DFS flood from each cell</text>
 
-4. **Grid modification**: Can we modify the grid? (Assumption: Yes - can mark visited cells to avoid revisiting)
+</svg>
 
-5. **Empty grid**: What if grid is empty? (Assumption: Return 0 - no islands exist)
+## Common Approaches
 
-## Interview Deduction Process (20 minutes)
+Typical techniques for this pattern:
 
-**Step 1: Brute-Force Approach (5 minutes)**
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Recursive DFS** *(this problem)* | O(n) | O(h) stack | Natural for trees and graphs |
+| Iterative DFS (stack) | O(n) | O(n) | Avoid recursion depth limits |
+| DFS with memoization | O(n) | O(n) | Overlapping subproblems on graphs |
+| Backtracking DFS | O(2^n) typical | O(n) | Enumerate choices with pruning |
 
-For each cell, if it's land ('1'), increment island count and mark all connected land cells as visited using DFS or BFS. Use a separate visited array to track which cells have been processed. This approach works but requires O(m × n) extra space for the visited array.
-
-**Step 2: Semi-Optimized Approach (7 minutes)**
-
-Use DFS with in-place marking: instead of a separate visited array, mark visited cells by changing '1' to '0' or another marker. This eliminates the need for extra space. However, we need to be careful not to modify the grid if that's not allowed (but the problem allows modification).
-
-**Step 3: Optimized Solution (8 minutes)**
-
-Use DFS with in-place marking: iterate through the grid. When we find a '1', increment island count and perform DFS to mark all connected '1's as visited (change to '0' or '2'). This achieves O(m × n) time (each cell visited once) with O(1) extra space (if we modify the grid) or O(m × n) space for recursion stack. The key insight is that we can use the grid itself to mark visited cells, eliminating the need for a separate visited array and achieving optimal space complexity.
-
-## Solution: DFS with In-Place Marking
+## Solution
 
 **Time Complexity:** O(m × n) - Each cell is visited at most once  
 **Space Complexity:** O(m × n) - Worst case recursion stack depth
@@ -106,118 +107,30 @@ class Solution {
     }
 }```
 
-## How the Algorithm Works
+### Solution Explanation
 
-### Step-by-Step Example: `grid = [["1","1","0","0","0"],["1","1","0","0","0"],["0","0","1","0","0"],["0","0","0","1","1"]]`
+**Approach:** Recursive DFS (this problem)
 
-```
-Initial Grid:
-  0 1 2 3 4
-0 1 1 0 0 0
-1 1 1 0 0 0
-2 0 0 1 0 0
-3 0 0 0 1 1
+**Key idea:** 1. **Connected Components**: Each island is a connected component of '1's
 
-i=0, j=0: Found '1' → Start DFS
-  DFS(0,0): Mark (0,0) as '0'
-    DFS(-1,0): Out of bounds, return
-    DFS(0,-1): Out of bounds, return
-    DFS(1,0): Found '1' → Mark (1,0) as '0'
-      DFS(0,0): Already '0', return
-      DFS(1,-1): Out of bounds, return
-      DFS(2,0): Found '0', return
-      DFS(1,1): Found '1' → Mark (1,1) as '0'
-        DFS(0,1): Found '1' → Mark (0,1) as '0'
-          ... (explore all connected)
-    DFS(0,1): Already '0', return
-  cnt = 1
-
-i=0, j=2: Found '0', skip
-i=0, j=3: Found '0', skip
-...
-i=2, j=2: Found '1' → Start DFS
-  DFS(2,2): Mark (2,2) as '0'
-    ... (explore all connected)
-  cnt = 2
-
-i=3, j=3: Found '1' → Start DFS
-  DFS(3,3): Mark (3,3) as '0'
-    DFS(3,4): Found '1' → Mark (3,4) as '0'
-      ... (explore all connected)
-  cnt = 3
-
-Result: 3 islands
-```
-
-### Visual Representation
-
-```
-Island 1:        Island 2:    Island 3:
-  1 1             1            1 1
-  1 1             0            0 0
-  0 0             0            0 0
-```
-
-## Key Insights
-
+**How the code works:**
 1. **Connected Components**: Each island is a connected component of '1's
-2. **In-Place Marking**: Change '1' to '0' to mark visited cells (no extra visited array needed)
-3. **DFS Exploration**: Use DFS to explore all connected land cells
-4. **4-Directional**: Only check up, down, left, right (not diagonals)
-5. **Count on Discovery**: Increment count when finding a new '1' (start of new island)
+- Model entities as nodes and relationships as edges.
+- Pick traversal (BFS/DFS) or shortest-path (Dijkstra) based on weights.
+- Union-Find helps when connectivity updates are frequent.
 
+**Walkthrough** — input `grid = [`, expected output `1`:
+
+1. Initialize variables from the problem setup.
+2. Apply the main loop / recursion until the condition is met.
+3. Confirm the result matches the expected output.
+
+| Approach | Time | Space | Pros | Cons |
+|----------|------|-------|------|------|
+| **DFS In-Place** | O(m×n) | O(m×n) | Simple, intuitive | Recursion stack |
+| **BFS** | O(m×n) | O(min(m,n)) | Iterative, better space | More verbose |
+| **Union-Find** | O(m×n×α) | O(m×n) | Good for dynamic | Complex |
 ## Algorithm Breakdown
-
-```java
-static int numIslands(char[][]& grid) {
-    // Handle empty grid
-    if (grid.length == 0 || grid[0].length == 0) return 0;
-
-    cnt = 0; // Scan entire grid
-    for(int i = 0; i < grid.length; i++) {
-        for(int j = 0; j < grid[0].length; j++) {
-            // Found unvisited land cell
-            if(grid[i][j] == '1') {
-                // Explore entire island dfs = new island(grid, i, j);
-                // Count this island
-                cnt++;
-            }
-        }
-    }
-
-    return cnt;
-}
-
-static void dfs(char[][]& grid, int row, int col) {
-    // Base cases: out of bounds or water/visited
-    if (row < 0 || col < 0 ||
-        row >= grid.length || col >= grid[0].length ||
-        grid[row][col] != '1') {
-        return;
-    }
-
-    // Mark as visited by changing to '0'
-    grid[row][col] = '0';
-
-    // Explore all 4 directions dfs = new directions(grid, row - 1, col);  // Up dfs = new Up(grid, row, col - 1);   // Left dfs = new Left(grid, row + 1, col);   // Down dfs = new Down(grid, row, col + 1);   // Right
-}
-```
-
-## Edge Cases
-
-1. **Empty grid**: `[]` or `[[]]` → return `0`
-2. **No islands**: All `'0'` → return `0`
-3. **Single cell**: `[["1"]]` → return `1`
-4. **Single row**: `[["1","1","0"]]` → return `1`
-5. **Single column**: `[["1"],["1"],["0"]]` → return `1`
-6. **All land**: Entire grid is `'1'` → return `1`
-
-## Alternative Approaches
-
-### Approach 2: BFS (Breadth-First Search)
-
-**Time Complexity:** O(m × n)  
-**Space Complexity:** O(min(m, n)) - Queue size
 
 ```java
 class Solution {
@@ -258,18 +171,16 @@ class Solution {
 }
 ```
 
-**Pros:**
-- Iterative (no recursion stack)
-- Better space complexity for wide islands
+### Complexity
+| Approach | Time | Space | Pros | Cons |
+|----------|------|-------|------|------|
+| **DFS In-Place** | O(m×n) | O(m×n) | Simple, intuitive | Recursion stack |
+| **BFS** | O(m×n) | O(min(m,n)) | Iterative, better space | More verbose |
+| **Union-Find** | O(m×n×α) | O(m×n) | Good for dynamic | Complex |
 
-**Cons:**
-- More verbose
-- Requires queue data structure
+## Implementation Details
 
-### Approach 3: Union-Find (Disjoint Set)
-
-**Time Complexity:** O(m × n × α(m × n)) where α is inverse Ackermann  
-**Space Complexity:** O(m × n)
+### Boundary Checking
 
 ```java
 class Solution {
@@ -318,41 +229,13 @@ class Solution {
 }
 ```
 
-**Pros:**
-- Useful for dynamic island problems
-- Can handle online queries
-
-**Cons:**
-- More complex implementation
-- Overkill for this problem
-
-## Complexity Analysis
-
-| Approach | Time | Space | Pros | Cons |
-|----------|------|-------|------|------|
-| **DFS In-Place** | O(m×n) | O(m×n) | Simple, intuitive | Recursion stack |
-| **BFS** | O(m×n) | O(min(m,n)) | Iterative, better space | More verbose |
-| **Union-Find** | O(m×n×α) | O(m×n) | Good for dynamic | Complex |
-
-## Implementation Details
-
-### Boundary Checking
-
-```java
-if (row < 0 || col < 0 ||
-    row >= grid.length || col >= (int)grid[0].length ||
-    grid[row][col] != '1') {
-    return;
-}
-```
-
 **Why cast to `int`?**
 - Prevents comparison warnings between `int` and `size_t`
 - Ensures correct comparison behavior
 
 ### In-Place Marking
 
-```java
+```cpp
 grid[row][col] = '0';
 ```
 
@@ -363,13 +246,23 @@ grid[row][col] = '0';
 
 ### Direction Exploration Order
 
-```java
-dfs(grid, row - 1, col);  // Up dfs = new Up(grid, row, col - 1);  // Left dfs = new Left(grid, row + 1, col);  // Down dfs = new Down(grid, row, col + 1);  // Right
+```cpp
+dfs(grid, row - 1, col);  // Up
+dfs(grid, row, col - 1);  // Left
+dfs(grid, row + 1, col);  // Down
+dfs(grid, row, col + 1);  // Right
 ```
 
 Order doesn't matter - all 4 directions must be explored.
 
 ## Common Mistakes
+
+1. **Empty grid**: `[]` or `[[]]` → return `0`
+2. **No islands**: All `'0'` → return `0`
+3. **Single cell**: `[["1"]]` → return `1`
+4. **Single row**: `[["1","1","0"]]` → return `1`
+5. **Single column**: `[["1"],["1"],["0"]]` → return `1`
+6. **All land**: Entire grid is `'1'` → return `1`
 
 1. **Missing boundary checks**: Accessing `grid[-1][0]` or `grid[m][n]`
 2. **Not marking visited**: Infinite recursion if cells aren't marked
@@ -381,12 +274,12 @@ Order doesn't matter - all 4 directions must be explored.
 
 1. **Early Exit**: Can add early exit if all cells processed
 2. **Direction Array**: Use array for cleaner code:
-   ```java
-int[][] dirs = {/* */{-1,0\}, \{1,0\}, \{0,-1\}, \{0,1}}
-   for (int dir : dirs) {
+   ```cpp
+   vector<vector<int>> dirs = \{\{-1,0\}, \{1,0\}, \{0,-1\}, \{0,1\}\};
+   for(auto& dir : dirs) {
        dfs(grid, row + dir[0], col + dir[1]);
    }
-```
+   ```
 3. **BFS for Wide Islands**: Use BFS if islands are very wide (less stack depth)
 
 ## Related Problems
@@ -410,6 +303,7 @@ int[][] dirs = {/* */{-1,0\}, \{1,0\}, \{0,-1\}, \{0,1}}
 This problem demonstrates the **"Connected Components"** pattern:
 
 ```
+
 1. Scan grid for unvisited components
 2. Use DFS/BFS to explore entire component
 3. Mark visited to avoid revisiting
@@ -459,3 +353,21 @@ Similar problems:
 
 *This problem is a classic introduction to graph traversal algorithms, demonstrating how DFS can efficiently solve connected component problems.*
 
+## Key Takeaways
+
+1. **Connected Components**: Each island is a connected component of '1's
+2. **In-Place Marking**: Change '1' to '0' to mark visited cells (no extra visited array needed)
+3. **DFS Exploration**: Use DFS to explore all connected land cells
+4. **4-Directional**: Only check up, down, left, right (not diagonals)
+5. **Count on Discovery**: Increment count when finding a new '1' (start of new island)
+
+## References
+
+- [LC 200: Number of Islands on LeetCode](https://leetcode.com/problems/number-of-islands/)
+- [LeetCode Discuss — LC 200: Number of Islands](https://leetcode.com/problems/number-of-islands/discuss/)
+- [LeetCode Editorial](https://leetcode.com/problems/number-of-islands/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [DFS](/blog_leetcode_java/posts/2025-11-24-leetcode-templates-dfs/)
+{% endraw %}

@@ -7,10 +7,7 @@ permalink: /2026/01/17/hard-315-count-of-smaller-numbers-after-self/
 tags: [leetcode, hard, array, fenwick-tree, binary-indexed-tree, coordinate-compression, inversion-count]
 ---
 
-# 315. Count of Smaller Numbers After Self
-
-## Problem Statement
-
+{% raw %}
 You are given an integer array `nums` and you have to return a new array `counts`. The array `counts` has the property where `counts[i]` is the number of smaller elements to the right of `nums[i]`.
 
 ## Examples
@@ -43,51 +40,41 @@ Output: [0,0]
 - `1 <= nums.length <= 10^5`
 - `-10^4 <= nums[i] <= 10^4`
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+1. **Coordinate Compression**: Essential for handling negative numbers and large ranges
+- Use `unordered_map` for O(1) rank lookup after sorting
+- Maps distinct values to consecutive ranks [1, k]
 
-1. **"After self" definition**: What does "smaller numbers after self" mean? (Assumption: For each element at index i, count how many elements to the right (indices > i) have smaller values)
+- The search space must shrink monotonically each step.
+- Decide which half still satisfies the predicate, discard the other.
+- Use `mid = left + (right - left) / 2` to avoid overflow.
 
-2. **Duplicate values**: How should we handle duplicate values? (Assumption: Count only strictly smaller values - if nums[j] == nums[i] and j > i, don't count it)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 130" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Binary search: shrink [lo … hi]</text>
 
-3. **Output format**: Should we return counts for each position? (Assumption: Yes - return array where result[i] = count of smaller numbers after nums[i])
+  <rect x="40" y="40" width="48" height="32" rx="4" fill="#D4D8E0" stroke="#8B8680"/>
+  <text x="64" y="58" text-anchor="middle" font-size="12" fill="#3A3530">lo</text>
+  <rect x="108" y="40" width="48" height="32" rx="4" fill="#E0D8E4" stroke="#A098A8"/>
+  <text x="132" y="58" text-anchor="middle" font-size="12" fill="#3A3530">mid</text>
+  <rect x="196" y="40" width="48" height="32" rx="4" fill="#E8D5D0" stroke="#B8A5A0"/>
+  <text x="220" y="58" text-anchor="middle" font-size="12" fill="#3A3530">hi</text>
+  <rect x="60" y="90" width="160" height="28" rx="4" fill="#FAF8F5" stroke="#D4D1CC"/>
+  <text x="140" y="108" text-anchor="middle" font-size="11" fill="#6B6560">discard half each step → O(log n)</text>
+  <path d="M132 72v12M220 72v12" stroke="#9A9792" stroke-width="1.5" marker-end="url(#a)"/>
 
-4. **Array mutability**: Can the input array be modified? (Assumption: No - we need to preserve original array for counting)
+</svg>
 
-5. **Time complexity**: What's the expected time complexity? (Assumption: O(n log n) is optimal - need efficient data structure like Fenwick Tree or BST)
+## Common Approaches
 
-## Interview Deduction Process (30 minutes)
+Typical techniques for this pattern:
 
-**Step 1: Brute-Force Approach (8 minutes)**
-
-For each element nums[i], scan all elements after it (nums[i+1] to nums[n-1]) and count how many are smaller. This straightforward approach has O(n²) time complexity, which is too slow for arrays up to 10^5 elements.
-
-**Step 2: Semi-Optimized Approach (10 minutes)**
-
-Process from right to left, maintaining a sorted data structure (like a balanced BST or sorted list) of elements seen so far. For each element, insert it into the sorted structure and count how many elements are smaller. Using a balanced BST gives O(n log n) time, but implementing a balanced BST is complex. Alternatively, use a Fenwick Tree or Segment Tree for efficient range queries.
-
-**Step 3: Optimized Solution (12 minutes)**
-
-Use merge sort with counting: during the merge process, when merging two sorted halves, count inversions. When an element from the right half is smaller than an element from the left half, all remaining elements in the left half are larger, so we can count them. Alternatively, use Fenwick Tree (Binary Indexed Tree): process from right to left, for each element, query how many smaller elements have been inserted, then insert the current element. This achieves O(n log n) time with O(n) space, which is optimal. The key insight is that we need to count elements that appear after the current element and are smaller, which can be done efficiently using merge sort inversion counting or Fenwick Tree range queries.
-
-## Solution Approach
-
-This problem requires counting inversions (smaller elements to the right). We need an efficient data structure to track counts as we process elements from right to left.
-
-### Key Insights:
-
-1. **Right-to-Left Processing**: Process from right to left so we can query counts of already-seen elements
-2. **Coordinate Compression**: Map values to indices [1, k] for Fenwick Tree (handles negative numbers)
-3. **Fenwick Tree**: Efficiently track and query counts of smaller elements
-4. **Query Before Update**: Query count of elements < current, then update tree
-
-### Algorithm:
-
-1. **Coordinate Compression**: Map distinct values to [1, k]
-2. **Process Right to Left**: For each element from right to left
-3. **Query**: Count how many elements < current have been seen
-4. **Update**: Mark current element as seen in Fenwick Tree
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| Prefix sum | O(n) | O(n) | Range queries, subarray sum |
+| Sort + scan | O(n log n) | O(1) | Intervals, meeting rooms |
+| Kadane's algorithm | O(n) | O(1) | Maximum subarray |
+| **Hash map counting** *(this problem)* | O(n) | O(n) | Frequency, two-sum variants |
 
 ## Solution
 
@@ -144,6 +131,27 @@ class Solution {
     }
 }
 ```
+
+### Solution Explanation
+
+**Approach:** Hash map counting (this problem)
+
+**Key idea:** 1. **Coordinate Compression**: Essential for handling negative numbers and large ranges
+
+**How the code works:**
+1. **Coordinate Compression**: Essential for handling negative numbers and large ranges
+- Use `unordered_map` for O(1) rank lookup after sorting
+- Maps distinct values to consecutive ranks [1, k]
+- The search space must shrink monotonically each step.
+- Decide which half still satisfies the predicate, discard the other.
+- Use `mid = left + (right - left) / 2` to avoid overflow.
+
+**Walkthrough** — input `nums = [5,2,6,1]`, expected output `[2,1,1,0]`:
+
+To the right of 5 there are 2 smaller elements (2 and 1).
+To the right of 2 there is 1 smaller element (1).
+To the right of 6 there is 1 smaller element (1).
+To the right of 1 there is 0 smaller elements.
 
 ### **Algorithm Explanation:**
 
@@ -230,8 +238,28 @@ Step 3: Reverse result
   - Sorted array: O(n)
   - Fenwick Tree: O(n)
   - Overall: O(n)
+## Common Mistakes
 
-## Key Insights
+1. **Single element**: `nums = [5]` → return `[0]`
+2. **All same**: `nums = [1, 1, 1]` → return `[0, 0, 0]`
+3. **Negative numbers**: `nums = [-1, -2]` → coordinate compression handles it
+4. **Descending order**: `nums = [5, 4, 3, 2, 1]` → all counts are 0
+5. **Ascending order**: `nums = [1, 2, 3, 4, 5]` → counts increase
+
+1. **Left-to-right processing**: Would count elements to the left instead
+2. **Forgetting coordinate compression**: BIT requires positive indices
+3. **Wrong query index**: Using `query(x)` instead of `query(x-1)` for strictly smaller
+4. **Update before query**: Should query first, then update
+5. **Not handling duplicates**: Coordinate compression must preserve uniqueness
+
+## Related Problems
+
+- [LC 327: Count of Range Sum](https://leetcode.com/problems/count-of-range-sum/) - Similar inversion counting
+- [LC 493: Reverse Pairs](https://leetcode.com/problems/reverse-pairs/) - Count inversions with condition
+- [LC 1649: Create Sorted Array through Instructions](https://leetcode.com/problems/create-sorted-array-through-instructions/) - Fenwick Tree for cost calculation
+- [LC 307: Range Sum Query - Mutable](https://robinali34.github.io/blog_leetcode_java/2026/01/16/medium-307-range-sum-query-mutable/) - Fenwick Tree basics
+
+## Key Takeaways
 
 1. **Coordinate Compression**: Essential for handling negative numbers and large ranges
    - Use `unordered_map` for O(1) rank lookup after sorting
@@ -242,290 +270,13 @@ Step 3: Reverse result
 5. **Result Collection**: Use `push_back` and `reverse` for cleaner code when processing backwards
 6. **Rank Mapping**: `unordered_map` provides O(1) lookup vs O(log n) binary search
 
-## Edge Cases
+## References
 
-1. **Single element**: `nums = [5]` → return `[0]`
-2. **All same**: `nums = [1, 1, 1]` → return `[0, 0, 0]`
-3. **Negative numbers**: `nums = [-1, -2]` → coordinate compression handles it
-4. **Descending order**: `nums = [5, 4, 3, 2, 1]` → all counts are 0
-5. **Ascending order**: `nums = [1, 2, 3, 4, 5]` → counts increase
+- [LC 315: Count of Smaller Numbers After Self on LeetCode](https://leetcode.com/problems/count-of-smaller-numbers-after-self/)
+- [LeetCode Discuss — LC 315: Count of Smaller Numbers After Self](https://leetcode.com/problems/count-of-smaller-numbers-after-self/discuss/)
+- [LeetCode Editorial](https://leetcode.com/problems/count-of-smaller-numbers-after-self/editorial/) *(may require premium)*
 
-## Common Mistakes
+## Template Reference
 
-1. **Left-to-right processing**: Would count elements to the left instead
-2. **Forgetting coordinate compression**: BIT requires positive indices
-3. **Wrong query index**: Using `query(x)` instead of `query(x-1)` for strictly smaller
-4. **Update before query**: Should query first, then update
-5. **Not handling duplicates**: Coordinate compression must preserve uniqueness
-
-## Alternative Approaches
-
-### **Approach 2: Merge Sort (Divide and Conquer)**
-
-Count inversions during merge sort by tracking how many elements from the right subarray are smaller than each element in the left subarray.
-
-```java
-// import java.util.*;
-class Solution {
-    public int[] countSmaller(int[] nums) {
-        int n = nums.length;
-        int[] res = new int[n];
-        List<int[]> indexed = new ArrayList<>();
-        for (int i = 0; i < n; i++) {
-            indexed.add({nums[i], i});
-        }
-        mergeSort(indexed, 0, n - 1, res);
-        return res;
-    }
-    public void mergeSort(List<int[]>& arr, int l, int r, int[] res) {
-        if (l >= r) return;
-        int mid = l + (r - l) / 2;
-        mergeSort(arr, l, mid, res);
-        mergeSort(arr, mid + 1, r, res);
-        merge(arr, l, mid, r, res);
-    }
-
-    public void merge(List<int[]>& arr, int l, int mid, int r, int[] res) {
-        List<int[]> temp = new ArrayList<>();
-        int i = l, j = mid + 1;
-        rightCount = 0; // Count of elements from right subarray already merged
-
-        while (i <= mid && j <= r) {
-            if (arr[i].first > arr[j].first) {
-                // Right element is smaller, will be placed before left elements
-                rightCount++;
-                temp.add(arr[j++]);
-            } else {
-                // Left element is smaller/equal, add count of right elements already merged
-                res[arr[i].second] += rightCount;
-                temp.add(arr[i++]);
-            }
-        }
-
-        // Remaining left elements: all right elements were smaller
-        while (i <= mid) {
-            res[arr[i].second] += rightCount;
-            temp.add(arr[i++]);
-        }
-
-        // Remaining right elements: no left elements to count
-        while (j <= r) {
-            temp.add(arr[j++]);
-        }
-
-        // Copy back to original array
-        for (int k = 0; k < temp.size(); k++) {
-            arr[l + k] = temp[k];
-        }
-    }
-}
-```
-
-**Algorithm Explanation:**
-- **Divide**: Split array into halves recursively
-- **Conquer**: Merge sorted halves while counting inversions
-- **Key Insight**: When merging, if a right element is smaller than a left element, it contributes to the count for all remaining left elements
-
-**Time Complexity:** O(n log n)  
-**Space Complexity:** O(n)
-
-### **Approach 3: Segment Tree with Coordinate Compression**
-
-Similar to Fenwick Tree but using explicit segment tree structure.
-
-```java
-// import java.util.Arrays;
-// import java.util.Collections;
-class SegmentTree {
-        int n;
-    List<Integer> tree = new ArrayList<>();
-
-    void update(int node, int l, int r, int idx) {
-        if (l == r) {
-            tree.put(node, tree.getOrDefault(node, 0) + 1);
-            return;
-        }
-        int mid = l + (r - l) / 2;
-        if (idx <= mid) {
-            update(2 node + 1, l, mid, idx);
-        } else {
-            update(2 node + 2, mid + 1, r, idx);
-        }
-        tree[node] = tree[2 node + 1] + tree[2 node + 2];
-    }
-
-    int query(int node, int l, int r, int ql, int qr) {
-        if (qr < l || r < ql) return 0;
-        if (ql <= l && r <= qr) return tree[node];
-        int mid = l + (r - l) / 2;
-        return query(2 node + 1, l, mid, ql, qr) +
-               query(2 node + 2, mid + 1, r, ql, qr);
-    }
-    SegmentTree(int size) {}
-
-    void update(int idx) {
-        update(0, 0, n - 1, idx);
-    }
-
-    int query(int l, int r) {
-        return query = new return(0, 0, n - 1, l, r);
-    }
-}
-class Solution {
-    public int[] countSmaller(int[] nums) {
-        int n = nums.length;
-        int[] res = new int[n];
-
-        // Coordinate compression
-        int[]sorted(nums /* elements of nums */);
-        Arrays.sort(sorted);
-        sorted.remove(unique(sorted /* elements of sorted */), sorted.iterator());
-
-        SegmentTree st(sorted.size());
-
-        // Process from right to left
-        for (int i = n - 1; i >= 0; i--) {
-            int rank = floorKey(sorted /* elements of sorted */, nums[i]) - sorted.iterator();
-            // Query count of elements < nums[i]
-            if (rank > 0) {
-                res[i] = st.query(0, rank - 1);
-            }
-            // Mark nums[i] as seen
-            st.update(rank);
-        }
-
-        return res;
-    }
-}
-```
-
-**Time Complexity:** O(n log n)  
-**Space Complexity:** O(4n) = O(n)
-
-### **Approach 4: Binary Search Tree (BST)**
-
-Use an augmented BST that tracks the count of smaller elements.
-
-```java
-class Node{
-        int val, count, left_count;
-    Node left, *right;
-    Node(int val) {null}, right{null} {}
-    int less_or_equal() const{return count + left_count;}
-}
-class Solution {
-    public int[] countSmaller(int[] nums) {
-        if(nums.length == 0) return {}
-        reverse(nums /* elements of nums */);
-        Node root{new Node(nums[0])}
-        int[]rtn{0}
-        for(int i = 1; i < nums.length; i++) {
-            rtn.add(insert(root.get(), nums[i]));
-        }
-        reverse(rtn /* elements of rtn */);
-        return rtn;
-    }
-        public int insert(Node root, int val) {
-        if(root.val == val) {
-            root.count++;
-            return root.left_count;
-        } else if(val < root.val) {
-            root.left_count++;
-            if(!root.left) {
-                root.left = new Node = new new(val);
-                return 0;
-            }
-            return insert = new return(root.left, val);
-        } else {
-            if(!root.right) {
-                root.right = new Node = new new(val);
-                return root.less_or_equal();
-            }
-            return root.less_or_equal() + insert(root.right, val);
-        }
-    }
-}
-```
-
-**Algorithm Explanation:**
-- **BST Structure**: Each node stores:
-  - `val`: The value stored in the node
-  - `count`: Number of duplicates of this value
-  - `left_count`: Number of nodes in left subtree
-  - `left`, `right`: Pointers to children
-- **Helper Method `less_or_equal()`**: Returns `count + left_count` (elements ≤ current node)
-- **Insert Logic**: 
-  - If value equals node: increment `count`, return `left_count`
-  - If value < node: increment `left_count`, go left (create node if needed)
-  - If value > node: return `less_or_equal()` + count from right subtree (create node if needed)
-- **Processing Strategy**: 
-  - Reverse input array first
-  - Process left-to-right (which corresponds to right-to-left in original)
-  - Reverse result to get correct order
-- **Memory Management**: Uses `unique_ptr` for automatic cleanup and destructor for recursive deletion
-
-**Time Complexity:** 
-- Average: O(n log n)
-- Worst: O(n²) if tree becomes unbalanced
-
-**Space Complexity:** O(n)
-
-### **Approach 5: Binary Search with Sorted List**
-
-Maintain a sorted list and use binary search to find insertion position.
-
-```java
-class Solution {
-    public int[] countSmaller(int[] nums) {
-        int n = nums.length;
-        int[] res = new int[n];
-        List<Integer> sortedList = new ArrayList<>();
-
-        // Process from right to left
-        for (int i = n - 1; i >= 0; i--) {
-            // Find position where nums[i] should be inserted
-            var it = floorKey(sortedList /* elements of sortedList */, nums[i]);
-            // Count of elements smaller than nums[i]
-            res[i] = it - sortedList.iterator();
-            // Insert nums[i] at correct position
-            sortedList.add(it, nums[i]);
-        }
-
-        return res;
-    }
-}
-```
-
-**Algorithm Explanation:**
-- Maintain a sorted list of elements seen so far
-- For each element, find its insertion position using binary search
-- Count of smaller elements = insertion index
-- Insert element to maintain sorted order
-
-**Time Complexity:** O(n²) - `insert` operation is O(n)  
-**Space Complexity:** O(n)
-
-**When to Use:** Only for small inputs or when simplicity is preferred
-
-### **Comparison of All Approaches**
-
-| Approach | Time Complexity | Space Complexity | Code Complexity | Best For |
-|----------|----------------|------------------|-----------------|----------|
-| **Fenwick Tree** | O(n log n) | O(n) | Simple | General purpose, space-efficient |
-| **Merge Sort** | O(n log n) | O(n) | Moderate | When you need stable sort |
-| **Segment Tree** | O(n log n) | O(4n) | More verbose | When you need range queries later |
-| **BST** | O(n log n) avg, O(n²) worst | O(n) | Moderate | When tree structure is preferred |
-| **Binary Search + Insert** | O(n²) | O(n) | Simple | Small inputs only |
-| **Naive** | O(n²) | O(1) | Very simple | Not recommended for large inputs |
-
-## Related Problems
-
-- [LC 327: Count of Range Sum](https://leetcode.com/problems/count-of-range-sum/) - Similar inversion counting
-- [LC 493: Reverse Pairs](https://leetcode.com/problems/reverse-pairs/) - Count inversions with condition
-- [LC 1649: Create Sorted Array through Instructions](https://leetcode.com/problems/create-sorted-array-through-instructions/) - Fenwick Tree for cost calculation
-- [LC 307: Range Sum Query - Mutable](https://robinali34.github.io/blog_leetcode_java/2026/01/16/medium-307-range-sum-query-mutable/) - Fenwick Tree basics
-
----
-
-*This problem demonstrates the **Fenwick Tree (Binary Indexed Tree)** pattern for efficient inversion counting. The key insight is using coordinate compression to map values to indices and processing from right to left to count smaller elements efficiently.*
-
+- [Array & Matrix](/blog_leetcode_java/posts/2025-11-24-leetcode-templates-array-matrix/)
+{% endraw %}

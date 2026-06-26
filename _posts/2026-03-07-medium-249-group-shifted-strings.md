@@ -7,6 +7,7 @@ tags: [leetcode, medium, string, hash, canonical-form]
 permalink: /2026/03/07/medium-249-group-shifted-strings/
 ---
 
+{% raw %}
 We can "shift" a string by shifting each character to its successive character (with `z` wrapping to `a`). For example, `"abc"` can be shifted to `"bcd"`, ..., `"xyz"`, `"yza"`, `"zab"`.
 
 Given an array of strings, group all strings that belong to the same shifting sequence.
@@ -33,6 +34,17 @@ Output: [["a"]]
 - `1 <= strings[i].length <= 50`
 - `strings[i]` consists of lowercase English letters
 
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Two pointers on string** *(this problem)* | O(n) | O(1) | Palindrome, parsing |
+| Hash map / frequency | O(n) | O(k) | Anagram, character counts |
+| KMP / rolling hash | O(n) | O(n) | Pattern matching |
+| Stack parsing | O(n) | O(n) | Decode string, parentheses |
+
 ## Thinking Process
 
 Two strings belong to the same shift group if their **consecutive character differences** are identical. For example:
@@ -56,9 +68,21 @@ For each string, compute the difference between consecutive characters modulo 26
 
 Use `(str[i] - str[i-1] + 26) % 26` to handle the wrap-around from `z` to `a`.
 
-## Approach: Difference Key Hashing -- $O(n \cdot k)$
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 110" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Two pointers</text>
 
-{% raw %}
+  <rect x="30" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="44" y="66" text-anchor="middle" font-size="10">1</text>
+  <rect x="62" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="76" y="66" text-anchor="middle" font-size="10">3</text>
+  <rect x="106" y="50" width="28" height="28" rx="3" fill="#E0D8E4" stroke="#A098A8"/><text x="120" y="66" text-anchor="middle" font-size="10">5</text>
+  <rect x="138" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="152" y="66" text-anchor="middle" font-size="10">7</text>
+  <rect x="170" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="184" y="66" text-anchor="middle" font-size="10">9</text>
+  <text x="44" y="42" text-anchor="middle" font-size="10" fill="#7A8EA0" font-weight="600">L</text>
+  <text x="184" y="42" text-anchor="middle" font-size="10" fill="#A08888" font-weight="600">R</text>
+  <text x="110" y="100" text-anchor="middle" font-size="11" fill="#6B6560">move L/R based on comparison</text>
+
+</svg>
+
+## Approach: Difference Key Hashing -- O(n · k)
 ```java
 // import java.util.*;
 class Solution {
@@ -82,14 +106,21 @@ class Solution {
     }
 }
 ```
-{% endraw %}
 
-**Time**: $O(n \cdot k)$ where $n$ is the number of strings and $k$ is the average string length
-**Space**: $O(n \cdot k)$ for the map
+### Solution Explanation
 
+**Approach:** Two pointers on string (this problem)
+
+**Key idea:** Two strings belong to the same shift group if their **consecutive character differences** are identical. For example:
+
+**Walkthrough** — input `strings = ["abc","bcd","acef","xyz","az","ba","a","z"]`, expected output `[["acef"],["a","z"],["abc","bcd","xyz"],["az","ba"]]`:
+
+1. Initialize variables from the problem setup.
+2. Apply the main loop / recursion until the condition is met.
+3. Confirm the result matches the expected output.
 ## Why `+26` Before `%26`?
 
-In Java, the `%` operator can return negative values for negative operands. For example, `'a' - 'z' = -25`, and `-25 % 26 = -25` (implementation-defined but typically negative). Adding 26 first ensures the result is always in `[0, 25]`.
+In C++, the `%` operator can return negative values for negative operands. For example, `'a' - 'z' = -25`, and `-25 % 26 = -25` (implementation-defined but typically negative). Adding 26 first ensures the result is always in `[0, 25]`.
 
 ## Common Mistakes
 
@@ -99,7 +130,7 @@ In Java, the `%` operator can return negative values for negative operands. For 
 
 ## Key Takeaways
 
-- This is a **"group by canonical form"** problem, same pattern as [LC 49 Group Anagrams](https://leetcode.com/problems/group-anagrams/) and [LC 893 Groups of Special-Equivalent Strings](/blog_leetcode_java/2026/02/15/easy-893-groups-of-special-equivalent-strings/)
+- This is a **"group by canonical form"** problem, same pattern as [LC 49 Group Anagrams](https://leetcode.com/problems/group-anagrams/) and [LC 893 Groups of Special-Equivalent Strings](/2026/02/15/easy-893-groups-of-special-equivalent-strings/)
 - The canonical form here is the **difference sequence** rather than sorted characters
 - Always use a separator when building composite keys from numbers to avoid collisions
 
@@ -109,6 +140,13 @@ In Java, the `%` operator can return negative values for negative operands. For 
 - [893. Groups of Special-Equivalent Strings](https://leetcode.com/problems/groups-of-special-equivalent-strings/) -- group by even/odd split
 - [205. Isomorphic Strings](https://leetcode.com/problems/isomorphic-strings/) -- structural equivalence
 
+## References
+
+- [LC 249: Group Shifted Strings on LeetCode](https://leetcode.com/problems/group-shifted-strings/)
+- [LeetCode Discuss — LC 249: Group Shifted Strings](https://leetcode.com/problems/group-shifted-strings/discuss/)
+- [LeetCode Editorial](https://leetcode.com/problems/group-shifted-strings/editorial/) *(may require premium)*
+
 ## Template Reference
 
 - [String Processing](/blog_leetcode_java/posts/2025-11-24-leetcode-templates-string-processing/)
+{% endraw %}

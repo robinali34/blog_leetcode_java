@@ -6,15 +6,47 @@ categories: [leetcode, medium, union-find, dsu, graph, cycle-detection, dfs]
 permalink: /2025/12/29/medium-684-redundant-connection/
 ---
 
-# 684. Redundant Connection
-
-## Problem Statement
-
+{% raw %}
 In this problem, a tree is an **undirected graph** that is connected and has no cycles.
 
 You are given a graph that started as a tree with `n` nodes labeled from `1` to `n`, with one additional edge added. The added edge has two different vertices chosen from `1` to `n`, and was not an edge that already existed. The graph is represented as an array `edges` of length `n` where `edges[i] = [ai, bi]` indicates that there is an edge between nodes `ai` and `bi` in the graph.
 
 Return *an edge that can be removed so that the resulting graph is a tree of `n` nodes*. If there are multiple answers, return the answer that occurs **last** in the input.
+
+## Thinking Process
+
+In this problem, a tree is an **undirected graph** that is connected and has no cycles.
+
+You are given a graph that started as a tree with `n` nodes labeled from `1` to `n`, with one additional edge added. The added edge has two different vertices chosen from `1` to `n`, and was not an edge that already existed. The graph is represented as an array `edges` of length `n` where `edges[i] = [ai, bi]` indicates that there is an edge between nodes `ai` and `bi` in the graph.
+
+- Model entities as nodes and relationships as edges.
+- Pick traversal (BFS/DFS) or shortest-path (Dijkstra) based on weights.
+- Union-Find helps when connectivity updates are frequent.
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 135" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Graph BFS layers</text>
+
+  <circle cx="60" cy="70" r="16" fill="#D4D8E0" stroke="#8B8680"/><text x="60" y="74" text-anchor="middle" font-size="11">S</text>
+  <circle cx="140" cy="45" r="14" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="49" text-anchor="middle" font-size="10">a</text>
+  <circle cx="140" cy="95" r="14" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="99" text-anchor="middle" font-size="10">b</text>
+  <circle cx="210" cy="70" r="14" fill="#E8D5D0" stroke="#B8A5A0"/><text x="210" y="74" text-anchor="middle" font-size="10">t</text>
+  <line x1="74" y1="65" x2="126" y2="50" stroke="#9A9792" stroke-width="1.5"/>
+  <line x1="74" y1="75" x2="126" y2="95" stroke="#9A9792" stroke-width="1.5"/>
+  <line x1="154" y1="50" x2="196" y2="65" stroke="#9A9792" stroke-width="1.5"/>
+  <text x="140" y="125" text-anchor="middle" font-size="11" fill="#6B6560">BFS: expand by layers (queue)</text>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Recursive DFS** *(this problem)* | O(n) | O(h) stack | Natural for trees and graphs |
+| Iterative DFS (stack) | O(n) | O(n) | Avoid recursion depth limits |
+| DFS with memoization | O(n) | O(n) | Overlapping subproblems on graphs |
+| Backtracking DFS | O(2^n) typical | O(n) | Enumerate choices with pruning |
 
 ## Examples
 
@@ -42,80 +74,9 @@ Explanation: The edge [1,4] creates a cycle, so it should be removed.
 - There are no repeated edges.
 - The given graph is connected.
 
-## Clarification Questions
+## DSU Template
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
-
-1. **Redundant edge definition**: What makes an edge redundant? (Assumption: An edge that creates a cycle in an otherwise tree structure - the edge that forms the cycle)
-
-2. **Graph type**: Is the graph directed or undirected? (Assumption: Undirected - edges have no direction)
-
-3. **Tree property**: What is the base structure? (Assumption: Graph with n nodes and n edges - one extra edge makes it not a tree)
-
-4. **Return format**: What should we return if multiple redundant edges exist? (Assumption: Return the last edge in the input array that creates a cycle)
-
-5. **Edge representation**: How are edges represented? (Assumption: [ai, bi] where ai and bi are node labels, 1-indexed per constraints)
-
-## Interview Deduction Process (20 minutes)
-
-### Step 1: Brute-Force Approach (5 minutes)
-**Initial Thought**: "I need to find redundant edge. Let me check each edge to see if removing it breaks connectivity."
-
-**Naive Solution**: For each edge, remove it and check if graph remains connected. If removing edge breaks connectivity, it's not redundant.
-
-**Complexity**: O(n²) time, O(n) space
-
-**Issues**:
-- O(n²) time - inefficient
-- Repeats connectivity checks
-- Doesn't leverage Union-Find
-- Can be optimized
-
-### Step 2: Semi-Optimized Approach (7 minutes)
-**Insight**: "I can use Union-Find. The first edge that connects already-connected components is redundant."
-
-**Improved Solution**: Use Union-Find. Process edges in order. If edge connects already-connected components, it's redundant. Return first such edge.
-
-**Complexity**: O(n × α(n)) time, O(n) space
-
-**Improvements**:
-- Union-Find efficiently checks connectivity
-- O(n × α(n)) is nearly linear
-- Handles all cases correctly
-- Much more efficient
-
-### Step 3: Optimized Solution (8 minutes)
-**Final Optimization**: "Union-Find approach is optimal. Can also use DFS for cycle detection."
-
-**Best Solution**: Union-Find is optimal. Process edges, when find(u) == find(v), edge is redundant. Alternative: DFS to find cycle, return last edge in cycle.
-
-**Complexity**: O(n × α(n)) time, O(n) space
-
-**Key Realizations**:
-1. Union-Find is perfect for connectivity problems
-2. O(n × α(n)) is nearly linear - very efficient
-3. First edge connecting connected components is redundant
-4. DFS alternative exists but Union-Find is cleaner
-
-## Solution Approach
-
-This problem requires finding the edge that creates a cycle in an undirected graph. Since the graph started as a tree (connected, no cycles) and one edge was added, there is exactly one cycle. We need to find and return the redundant edge.
-
-### Key Insights:
-
-1. **Cycle Detection**: The redundant edge is the one that connects two nodes already in the same connected component
-2. **Union-Find (DSU)**: Efficiently detect cycles by checking if two nodes are already connected before adding an edge
-3. **DFS Approach**: Build graph and use DFS to detect cycles, then find the last edge in the cycle
-4. **Last Edge Priority**: If multiple edges form cycles, return the one that appears last in the input
-
-### Algorithm Options:
-
-1. **DSU Approach**: Process edges in order, return first edge that connects already-connected nodes
-2. **DFS Approach**: Build graph, find cycle, return last edge in cycle that appears in input
-
-## Solution 1: Union-Find (DSU) - Recommended
-
-### **Solution: DSU with Union by Rank**
+Here's the general template for Union-Find (DSU) with union by rank:
 
 ```java
 class Solution {
@@ -136,204 +97,6 @@ class Solution {
     }
 }```
 
-### **Algorithm Explanation:**
-
-1. **DSU Initialization (Lines 8-15)**:
-   - `parent[i] = i`: Each node is its own parent initially
-   - `rank[i] = 0`: All trees start with rank 0
-
-2. **Find with Path Compression (Lines 17-22)**:
-   - Recursively find root parent
-   - Path compression: `parent[x] = find(parent[x])` flattens tree
-   - Returns root of the set containing `x`
-
-3. **Union by Rank (Lines 24-38)**:
-   - Find roots of both nodes
-   - If same root: already connected → return `false` (cycle detected!)
-   - If different roots: merge sets using union by rank
-   - Attach smaller tree to larger tree to keep balanced
-
-4. **Main Solution (Lines 41-51)**:
-   - Process edges in order
-   - Convert 1-based to 0-based indexing: `edge[0] - 1, edge[1] - 1`
-   - If `unite` returns `false`: nodes already connected → cycle found!
-   - Return the redundant edge immediately
-
-### **Example Walkthrough:**
-
-**For `edges = [[1,2],[1,3],[2,3]]`:**
-
-```
-Initial: parent = [0,1,2], rank = [0,0,0]
-
-Edge [1,2]: unite(0, 1)
-- find(0) = 0, find(1) = 1 (different roots)
-- rank[0] == rank[1] → parent[1] = 0, rank[0]++
-- parent = [0,0,2], rank = [1,0,0]
-- Return true (no cycle)
-
-Edge [1,3]: unite(0, 2)
-- find(0) = 0, find(2) = 2 (different roots)
-- rank[0] > rank[2] → parent[2] = 0
-- parent = [0,0,0], rank = [1,0,0]
-- Return true (no cycle)
-
-Edge [2,3]: unite(1, 2)
-- find(1) = 0, find(2) = 0 (same root!)
-- Return false → CYCLE DETECTED!
-- Return [2,3]
-```
-
-## Solution 2: DFS Cycle Detection
-
-### **Solution: DFS to Find Cycle**
-
-```java
-// import java.util.*;
-class Solution {
-        int cycleStart = -1;
-    public void dfs(int src, boolean[] visited, vector<List<int[]>> adjList, int[] parent) {
-        visited[src] = true;
-        for (char p : adjList[src].toCharArray()) {
-            int adj = p[0];
-            if(!visited[adj]) {
-                parent[adj] = src;
-                dfs(adj, visited, adjList, parent);
-            } else if(adj != parent[src] && cycleStart == -1) {
-                cycleStart = adj;
-                parent[adj] = src;
-            }
-        }
-    }
-    public int[] findRedundantConnection(int[][] edges) {
-        int n = edges.length;
-        boolean[] visited = new boolean[n];
-        int[]parent(n, -1);
-        vector<List<int[]>> adjList(n);
-        for (int edge : edges) {
-            int u = edge[0] - 1;
-            int v = edge[1] - 1;
-            adjList.computeIfAbsent(u, k.new ArrayList<>()).add(new int[] new int[] new int[] {v, 0});
-            adjList.computeIfAbsent(v, k.new ArrayList<>()).add(new int[] new int[] new int[] {u, 0});
-        }
-        dfs(0, visited, adjList, parent);
-        HashMap<Integer, Integer> cycleNode = new HashMap<Integer, Integer>();
-        int node = cycleStart;
-        do {
-            cycleNode.put(node, 1);
-            node = parent[node];
-        } while (node != cycleStart);
-        for(int i = edges.length - 1; i >= 0; i--) {
-            if(cycleNode[edges[i][0] - 1] &&
-            cycleNode[edges[i][1] - 1]) {
-                return edges[i];
-            }
-        }
-        return {}
-    }
-}
-```
-
-### **Algorithm Explanation:**
-
-1. **Graph Construction (Lines 25-32)**:
-   - Build adjacency list from edges
-   - Convert 1-based to 0-based indexing
-   - Store bidirectional edges
-
-2. **DFS Cycle Detection (Lines 4-16)**:
-   - Perform DFS from node 0
-   - Track parent for each node
-   - If visiting an already-visited node that's not the parent: cycle found!
-   - Mark `cycleStart` when cycle detected
-
-3. **Cycle Extraction (Lines 33-38)**:
-   - Start from `cycleStart`
-   - Follow parent pointers to extract all nodes in cycle
-   - Store cycle nodes in `cycleNode` map
-
-4. **Find Last Edge in Cycle (Lines 39-44)**:
-   - Iterate edges from end to beginning
-   - Find first edge where both endpoints are in cycle
-   - Return that edge (last in input order)
-
-### **Example Walkthrough:**
-
-**For `edges = [[1,2],[1,3],[2,3]]`:**
-
-```
-Graph:
-1 -- 2
-|    |
-3 ---|
-
-DFS from node 0:
-- Visit 0 (node 1), parent[0] = -1
-- Visit 1 (node 2), parent[1] = 0
-- Visit 2 (node 3), parent[2] = 1
-- From 2, try to visit 0 (node 1)
-  - 0 is visited and 0 != parent[2] (1) → CYCLE!
-  - cycleStart = 0
-
-Extract cycle:
-- Start from 0: cycleNode[0] = 1
-- parent[0] = -1? No, wait... parent[0] was set to 2 in cycle detection
-- Follow: 0 → 2 → 1 → 0
-- cycleNode = {0, 1, 2}
-
-Find last edge in cycle:
-- Check edges from end: [2,3] → nodes 1,2 both in cycle → Return [2,3]
-```
-
-## DSU Template
-
-Here's the general template for Union-Find (DSU) with union by rank:
-
-```java
-class DSU {
-    List<Integer> parent = new ArrayList<>();
-    List<Integer> rank = new ArrayList<>();
-    DSU(int n) {
-        parent.resize(n);
-        rank.resize(n, 0);
-        for(int i = 0; i < n; i++) {
-            parent[i] = i;
-        }
-    }
-
-    // Find with path compression
-    int find(int x) {
-        if(parent[x] != x) {
-            parent[x] = find(parent[x]); // Path compression
-        }
-        return parent[x];
-    }
-
-    // Union by rank
-    boolean unite(int x, int y) {
-        x = find(x);
-        y = find(y);
-        if(x == y) return false; // Already in same set
-
-        // Union by rank: attach smaller tree to larger tree
-        if(rank[x] < rank[y]) {
-            parent[x] = y;
-        } else if(rank[x] > rank[y]) {
-            parent[y] = x;
-        } else {
-            parent[y] = x;
-            rank.put(x, rank.getOrDefault(x, 0) + 1);
-        }
-        return true;
-    }
-
-    // Check if two nodes are connected
-    boolean connected(int x, int y) {
-        return find(x) == find(y);
-    }
-}
-```
-
 ### **Key Template Components:**
 
 1. **Data Structures**:
@@ -353,8 +116,7 @@ class DSU {
    - Nearly O(1) per operation (inverse Ackermann function)
    - O(α(n)) where α grows extremely slowly
 
-## Complexity Analysis
-
+### Complexity
 ### **Solution 1: DSU**
 
 **Time Complexity:** O(n × α(n)) ≈ O(n)
@@ -404,22 +166,11 @@ class DSU {
 | **Edge Order** | Natural (process in order) | Need to track and search |
 | **Recommended** | ✅ Yes | ⚠️ Works but more complex |
 
-## Alternative Approaches
+## Common Mistakes
 
-### **Approach 1: DSU (Current Solution 1)**
-- **Time**: O(n × α(n)) ≈ O(n)
-- **Space**: O(n)
-- **Best for**: Cycle detection in undirected graphs
-
-### **Approach 2: DFS (Current Solution 2)**
-- **Time**: O(n)
-- **Space**: O(n)
-- **Use case**: When you need to extract full cycle information
-
-### **Approach 3: BFS Cycle Detection**
-- **Time**: O(n)
-- **Space**: O(n)
-- **Similar to DFS**: Can detect cycles but more complex
+- Skipping edge cases (empty input, single element, boundaries).
+- Off-by-one errors in loops and index ranges.
+- Forgetting to handle the case when no valid answer exists.
 
 ## Related Problems
 
@@ -432,3 +183,19 @@ class DSU {
 
 `Union-Find`, `DSU`, `Disjoint Set Union`, `Graph`, `Cycle Detection`, `DFS`, `Medium`
 
+## Key Takeaways
+
+- Model entities as nodes and relationships as edges.
+- Pick traversal (BFS/DFS) or shortest-path (Dijkstra) based on weights.
+- Union-Find helps when connectivity updates are frequent.
+
+## References
+
+- [LC 684: Redundant Connection on LeetCode](https://leetcode.com/problems/redundant-connection/)
+- [LeetCode Discuss — LC 684: Redundant Connection](https://leetcode.com/problems/redundant-connection/discuss/)
+- [LeetCode Editorial](https://leetcode.com/problems/redundant-connection/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [Graph](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-graph/)
+{% endraw %}

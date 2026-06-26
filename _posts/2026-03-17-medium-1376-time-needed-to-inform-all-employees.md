@@ -7,6 +7,7 @@ tags: [leetcode, medium, tree, dfs, bfs, graph]
 permalink: /2026/03/17/medium-1376-time-needed-to-inform-all-employees/
 ---
 
+{% raw %}
 A company has `n` employees numbered `0` to `n-1`. Each employee has exactly one direct manager given in `manager[i]`, except the head of the company (`manager[headID] == -1`). An employee needs `informTime[i]` minutes to inform **all** their direct subordinates. Return the total time needed to inform all employees.
 
 ## Examples
@@ -48,9 +49,9 @@ Explanation: Chain 6→5→4→3→2→1→0, total = 1+2+3+4+5+6 = 21.
 
 ## Thinking Process
 
-### Baseline (Naive) -- $O(n^2)$
+### Baseline (Naive) -- O(n^2)
 
-For each employee, walk up through `manager[i] → manager[manager[i]] → ... → head` and sum `informTime` along the path. Track the maximum. In a chain structure each walk is $O(n)$, giving $O(n^2)$ total.
+For each employee, walk up through `manager[i] → manager[manager[i]] → ... → head` and sum `informTime` along the path. Track the maximum. In a chain structure each walk is O(n), giving O(n^2) total.
 
 ### Bottleneck
 
@@ -66,13 +67,36 @@ Build an adjacency list and traverse once with DFS or BFS. Each node is visited 
 
 ### DFS Recurrence
 
-$$\text{time}(node) = \text{informTime}[node] + \max_{child}(\text{time}(child))$$
+$text{time}(node) = text{informTime}[node] + max_{child}(text{time}(child))
 
 Base case: leaf nodes have no children, so `max(child times) = 0`.
 
-## Solution 1: DFS -- $O(n)$
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 135" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Graph BFS layers</text>
 
-{% raw %}
+  <circle cx="60" cy="70" r="16" fill="#D4D8E0" stroke="#8B8680"/><text x="60" y="74" text-anchor="middle" font-size="11">S</text>
+  <circle cx="140" cy="45" r="14" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="49" text-anchor="middle" font-size="10">a</text>
+  <circle cx="140" cy="95" r="14" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="99" text-anchor="middle" font-size="10">b</text>
+  <circle cx="210" cy="70" r="14" fill="#E8D5D0" stroke="#B8A5A0"/><text x="210" y="74" text-anchor="middle" font-size="10">t</text>
+  <line x1="74" y1="65" x2="126" y2="50" stroke="#9A9792" stroke-width="1.5"/>
+  <line x1="74" y1="75" x2="126" y2="95" stroke="#9A9792" stroke-width="1.5"/>
+  <line x1="154" y1="50" x2="196" y2="65" stroke="#9A9792" stroke-width="1.5"/>
+  <text x="140" y="125" text-anchor="middle" font-size="11" fill="#6B6560">BFS: expand by layers (queue)</text>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Recursive DFS** *(this problem)* | O(n) | O(h) stack | Natural for trees and graphs |
+| Iterative DFS (stack) | O(n) | O(n) | Avoid recursion depth limits |
+| DFS with memoization | O(n) | O(n) | Overlapping subproblems on graphs |
+| Backtracking DFS | O(2^n) typical | O(n) | Enumerate choices with pruning |
+
+## Solution
 ```java
 // import java.util.*;
 class Solution {
@@ -94,49 +118,16 @@ class Solution {
     }
 }
 ```
-{% endraw %}
 
-**Time**: $O(n)$ -- each node visited once
-**Space**: $O(n)$ -- adjacency list + recursion stack
+### Solution Explanation
 
-## Solution 2: BFS -- $O(n)$
+**Approach:** Recursive DFS (this problem)
 
-Propagate accumulated time level by level. Track the maximum time seen at any node.
+**Key idea:** ### Baseline (Naive) -- O(n^2)$
 
-{% raw %}
-```java
-// import java.util.*;
-class Solution {
-        public int numOfMinutes(int n, int headID, int[] manager, int[] informTime) {
-        HashMap<Integer, int[]> graph = new HashMap<Integer, int[]>();
-        for (int i = 0; i < n; i++) {
-            if (manager[i] != -1) {
-                graph[manager[i]].push_back(i);
-            }
-        }
+**Walkthrough** — input `n = 1, headID = 0, manager = [-1], informTime = [0]`, expected output `0`:
 
-        queue<int[]> q;
-        q.offer(new int[] {headID, 0});
-        int maxTime = 0;
-
-        while (!q.isEmpty()) {
-            auto [node, time] = q.get(0);
-            q.poll();
-            maxTime = Math.max(maxTime, time);
-            for (int child : graph[node]) {
-                q.offer({child, time + informTime[node]});
-            }
-        }
-
-        return maxTime;
-    }
-}
-```
-{% endraw %}
-
-**Time**: $O(n)$
-**Space**: $O(n)$
-
+Only the head, no one to inform.
 ## Common Mistakes
 
 - Confusing the direction: edges go from manager to subordinates, not the other way
@@ -156,8 +147,15 @@ class Solution {
 - [841. Keys and Rooms](https://leetcode.com/problems/keys-and-rooms/) -- graph reachability via DFS/BFS
 - [207. Course Schedule](https://leetcode.com/problems/course-schedule/) -- directed graph traversal
 
+## References
+
+- [LC 1376: Time Needed to Inform All Employees on LeetCode](https://leetcode.com/problems/time-needed-to-inform-all-employees/)
+- [LeetCode Discuss — LC 1376: Time Needed to Inform All Employees](https://leetcode.com/problems/time-needed-to-inform-all-employees/discuss/)
+- [LeetCode Editorial](https://leetcode.com/problems/time-needed-to-inform-all-employees/editorial/) *(may require premium)*
+
 ## Template Reference
 
 - [Trees](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-trees/)
 - [DFS](/blog_leetcode_java/posts/2025-11-24-leetcode-templates-dfs/)
 - [BFS](/blog_leetcode_java/posts/2025-11-24-leetcode-templates-bfs/)
+{% endraw %}

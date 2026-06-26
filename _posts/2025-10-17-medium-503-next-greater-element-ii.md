@@ -7,8 +7,7 @@ categories: leetcode algorithm medium java monotonic-stack stack problem-solving
 permalink: /posts/2025-10-17-medium-503-next-greater-element-ii/
 ---
 
-# [Medium] 503. Next Greater Element II
-
+{% raw %}
 Given a circular integer array `nums` (i.e., the next element of `nums[nums.length - 1]` is `nums[0]`), return the **next greater number** for every element in `nums`.
 
 The **next greater number** of a number `x` is the first greater number to its **traversing-order next** in the array, which means you could search circularly to find its next greater number. If it doesn't exist, return `-1` for this number.
@@ -38,62 +37,38 @@ The second 3's next greater number is 4.
 - `1 <= nums.length <= 10^4`
 - `-10^9 <= nums[i] <= 10^9`
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+1. **Circular Processing:** Process array twice using modulo to handle circularity
 
-1. **Circular array**: What does "circular" mean? (Assumption: After reaching the end, wrap around to the beginning - array is treated as circular)
+- Stack matches nested or LIFO structure (parentheses, monotonic scans).
+- Push on open / larger; pop when the current element resolves pending work.
+- Monotonic stack finds next greater/smaller in O(n).
 
-2. **Next greater definition**: What does "next greater element" mean? (Assumption: First element to the right (wrapping around) that is strictly greater than current element)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 125" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Stack</text>
 
-3. **No greater element**: What should we return if no greater element exists? (Assumption: Return -1 - no next greater element found)
+  <rect x="100" y="30" width="80" height="24" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="46" text-anchor="middle" font-size="10">top</text>
+  <rect x="100" y="54" width="80" height="24" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/>
+  <rect x="100" y="78" width="80" height="24" rx="3" fill="#D4D8E0" stroke="#8B8680"/>
+  <text x="200" y="70" font-size="11" fill="#6B6560">push / pop</text>
+  <path d="M90 42v60" stroke="#9A9792" stroke-width="1.5"/>
+  <text x="140" y="115" text-anchor="middle" font-size="11" fill="#6B6560">LIFO — monotonic stack scans array</text>
 
-4. **Duplicate values**: How should we handle duplicate values? (Assumption: Need strictly greater - equal values don't count)
+</svg>
 
-5. **Array modification**: Can we modify the input array? (Assumption: No - just find next greater elements, don't modify)
+## Common Approaches
 
-## Interview Deduction Process (20 minutes)
+Typical techniques for this pattern:
 
-### Step 1: Brute-Force Approach (5 minutes)
-**Initial Thought**: "I need to find next greater element in circular array. Let me check all elements after current."
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Monotonic stack** *(this problem)* | O(n) | O(n) | Next greater/smaller element |
+| Parentheses matching | O(n) | O(n) | Push open, pop on close |
+| Expression evaluation | O(n) | O(n) | Operand + operator stacks |
+| Stack simulation | O(n) | O(n) | Process in LIFO order |
 
-**Naive Solution**: For each element, scan forward (wrapping around) to find first greater element.
-
-**Complexity**: O(n²) time, O(1) space
-
-**Issues**:
-- O(n²) time - inefficient
-- Repeats work for similar elements
-- Doesn't leverage monotonic stack
-- Can be optimized
-
-### Step 2: Semi-Optimized Approach (7 minutes)
-**Insight**: "I can use monotonic stack like LC 496, but need to handle circular property."
-
-**Improved Solution**: Use monotonic stack. Process array twice (or use modulo indexing) to handle circular property. Stack stores indices of elements waiting for next greater.
-
-**Complexity**: O(n) time, O(n) space
-
-**Improvements**:
-- Monotonic stack is efficient
-- Handles circular property correctly
-- O(n) time is much better
-- Single pass with proper indexing
-
-### Step 3: Optimized Solution (8 minutes)
-**Final Optimization**: "Process array twice or use modulo indexing. Stack approach is optimal."
-
-**Best Solution**: Monotonic stack with circular handling. Process indices from 0 to 2n-1 using modulo. Stack stores indices. When current element > stack top, update result and pop.
-
-**Complexity**: O(n) time, O(n) space
-
-**Key Realizations**:
-1. Monotonic stack is perfect for "next greater" problems
-2. Circular property handled by processing twice or modulo
-3. O(n) time is optimal - each element processed once
-4. O(n) space for stack is necessary
-
-## Solution: Monotonic Stack
+## Solution
 
 **Time Complexity:** O(n)  
 **Space Complexity:** O(n)
@@ -122,115 +97,32 @@ class Solution {
 }
 ```
 
-## How the Algorithm Works
+### Solution Explanation
 
-### Key Insight: Monotonic Stack with Circular Processing
+**Approach:** Monotonic stack (this problem)
 
-The key insight is to process the array twice (using modulo) to handle the circular nature, while maintaining a monotonic stack that stores **values** in decreasing order.
+**Key idea:** 1. **Circular Processing:** Process array twice using modulo to handle circularity
 
-**Key Differences from Index-based Approach:**
-- **Store values** in stack instead of indices
-- **Compare values** directly instead of accessing through indices
-- **Simpler logic** with cleaner code
+**How the code works:**
+1. **Circular Processing:** Process array twice using modulo to handle circularity
+- Stack matches nested or LIFO structure (parentheses, monotonic scans).
+- Push on open / larger; pop when the current element resolves pending work.
+- Monotonic stack finds next greater/smaller in O(n).
 
-**Steps:**
-1. **Process array twice** using `i % n` to handle circularity
-2. **Maintain monotonic stack** with values in decreasing order
-3. **Pop smaller or equal values** from stack until we find a greater element
-4. **Store result** for current position
+**Walkthrough** — input `nums = [1,2,1]`, expected output `[2,-1,2]`:
 
-### Step-by-Step Example: `nums = [1,2,1]`
+The first 1's next greater number is 2; 
+The number 2 can't find next greater number. 
+The second 1's next greater number is 2.
 
-| Iteration | i | idx | nums[idx] | Stack | Action | rtn |
-|-----------|---|-----|-----------|-------|--------|-----|
-| 1 | 7 | 1 | 2 | [] | Push 2 | [-1,-1,-1] |
-| 2 | 6 | 0 | 1 | [2] | 2 > 1, keep 2, rtn[0]=2, push 1 | [2,-1,-1] |
-| 3 | 5 | 2 | 1 | [1,2] | 1 ≤ 1, pop 1, 2 > 1, rtn[2]=2, push 1 | [2,-1,2] |
-| 4 | 4 | 1 | 2 | [1,2] | 1 ≤ 2, pop 1, 2 ≤ 2, pop 2, push 2 | [2,-1,2] |
-| 5 | 3 | 0 | 1 | [2] | 2 > 1, keep 2, rtn[0]=2, push 1 | [2,-1,2] |
-| 6 | 2 | 2 | 1 | [1,2] | 1 ≤ 1, pop 1, 2 > 1, rtn[2]=2, push 1 | [2,-1,2] |
-| 7 | 1 | 1 | 2 | [1,2] | 1 ≤ 2, pop 1, 2 ≤ 2, pop 2, push 2 | [2,-1,2] |
-| 8 | 0 | 0 | 1 | [2] | 2 > 1, keep 2, rtn[0]=2, push 1 | [2,-1,2] |
-
-**Final result:** `[2,-1,2]` ✓
-
-### Visual Representation
-
-```
-nums = [1, 2, 1]
-       0  1  2
-
-Processing order (circular): 2 → 1 → 0 → 2 → 1 → 0
-
-Step 1: Process index 2 (value 1)
-Stack: [] → [2]
-res: [-1, -1, -1]
-
-Step 2: Process index 1 (value 2)  
-Stack: [2] → [1] (pop 2 because 1 ≤ 2)
-res: [-1, -1, -1]
-
-Step 3: Process index 0 (value 1)
-Stack: [1] → [0] (pop 1 because 1 ≤ 1)
-res: [-1, -1, -1]
-
-Step 4: Process index 2 again (value 1)
-Stack: [0] → [2] (pop 0 because 1 ≤ 1)
-res: [-1, -1, -1]
-
-Step 5: Process index 1 again (value 2)
-Stack: [2] → [1] (keep 2, set res[1] = nums[2] = 1)
-res: [-1, 1, -1]
-
-Step 6: Process index 0 again (value 1)
-Stack: [1, 2] → [0] (keep 1, set res[0] = nums[1] = 2)
-res: [2, 1, -1]
-
-Wait, let me recalculate this more carefully...
-```
-
+| Approach | Time Complexity | Space Complexity |
+|----------|----------------|------------------|
+| Brute Force | O(n²) | O(1) |
+| Two Pass Stack | O(n) | O(n) |
+| Monotonic Stack | O(n) | O(n) |
 ## Algorithm Breakdown
 
 ### 1. Initialize Variables
-```java
-// import java.util.*;
-int n = nums.length;
-Deque<Integer> st = new ArrayDeque<>();
-int[]rtn(n, -1);
-```
-
-**Purpose:** Set up result array and stack for values.
-
-### 2. Process Array Twice (Circular)
-```java
-for(int i = 2 n + 1; i >= 0; i--) {
-    int idx = i % n;
-    // Process nums[idx]
-}
-```
-
-**Purpose:** Handle circular nature by processing array twice (note: `2 * n + 1` ensures we process twice).
-
-### 3. Maintain Monotonic Stack
-```java
-while(!st.isEmpty() && st.peek() <= nums[idx]) {
-    st.poll();
-}
-```
-
-**Purpose:** Remove values that are smaller or equal to maintain decreasing order.
-
-### 4. Find Next Greater Element
-```java
-if(!st.isEmpty()) rtn[idx] = st.peek();
-st.offer(nums[idx]);
-```
-
-**Purpose:** Set result and push current value to stack.
-
-## Alternative Approaches
-
-### Approach 1: Brute Force
 ```java
 class Solution {
     public int[] nextGreaterElements(int[] nums) {
@@ -252,10 +144,9 @@ class Solution {
 }
 ```
 
-**Time Complexity:** O(n²)  
-**Space Complexity:** O(1)
+**Purpose:** Set up result array and stack for values.
 
-### Approach 2: Two Pass with Stack
+### 2. Process Array Twice (Circular)
 ```java
 // import java.util.*;
 class Solution {
@@ -286,33 +177,38 @@ class Solution {
 }
 ```
 
-**Time Complexity:** O(n)  
-**Space Complexity:** O(n)
+**Purpose:** Handle circular nature by processing array twice (note: `2 * n + 1` ensures we process twice).
 
-## Complexity Analysis
+### 3. Maintain Monotonic Stack
+```cpp
+while(!st.empty() && st.top() <= nums[idx]) {
+    st.pop();
+}
+```
 
+**Purpose:** Remove values that are smaller or equal to maintain decreasing order.
+
+### 4. Find Next Greater Element
+```cpp
+if(!st.empty()) rtn[idx] = st.top();
+st.push(nums[idx]);
+```
+
+**Purpose:** Set result and push current value to stack.
+
+### Complexity
 | Approach | Time Complexity | Space Complexity |
 |----------|----------------|------------------|
 | Brute Force | O(n²) | O(1) |
 | Two Pass Stack | O(n) | O(n) |
 | Monotonic Stack | O(n) | O(n) |
 
-## Edge Cases
+## Common Mistakes
 
 1. **Single element:** `nums = [1]` → `[-1]`
 2. **All same elements:** `nums = [2,2,2]` → `[-1,-1,-1]`
 3. **Increasing sequence:** `nums = [1,2,3]` → `[2,3,-1]`
 4. **Decreasing sequence:** `nums = [3,2,1]` → `[-1,-1,-1]`
-
-## Key Insights
-
-1. **Circular Processing:** Process array twice using modulo to handle circularity
-2. **Value-based Stack:** Store values in stack instead of indices for simpler logic
-3. **Monotonic Stack:** Maintain stack with values in decreasing order
-4. **Backward Processing:** Process from right to left for efficient stack operations
-5. **Direct Comparison:** Compare values directly without index lookups
-
-## Common Mistakes
 
 1. **Wrong comparison:** Using `<` instead of `<=` in while condition
 2. **Missing circular handling:** Not processing array twice
@@ -530,3 +426,18 @@ Actually, let me just provide the correct tracing without getting stuck on this 
 3. **Circular Handling:** Processes array twice to handle circularity
 4. **Space Efficient:** O(n) space for stack and result
 5. **Elegant Solution:** Clean and easy to understand
+
+## References
+
+- [LC 503: Next Greater Element II on LeetCode](https://leetcode.com/problems/next-greater-element-ii/)
+- [LeetCode Discuss — LC 503: Next Greater Element II](https://leetcode.com/problems/next-greater-element-ii/discuss/)
+- [LeetCode Editorial](https://leetcode.com/problems/next-greater-element-ii/editorial/) *(may require premium)*
+
+## Key Takeaways
+
+1. **Circular Processing:** Process array twice using modulo to handle circularity
+2. **Value-based Stack:** Store values in stack instead of indices for simpler logic
+3. **Monotonic Stack:** Maintain stack with values in decreasing order
+4. **Backward Processing:** Process from right to left for efficient stack operations
+5. **Direct Comparison:** Compare values directly without index lookups
+{% endraw %}

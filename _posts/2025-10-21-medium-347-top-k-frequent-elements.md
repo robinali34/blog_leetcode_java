@@ -7,18 +7,14 @@ permalink: /posts/2025-10-21-medium-347-top-k-frequent-elements/
 tags: [leetcode, medium, array, hash-table, heap, bucket-sort, quickselect]
 ---
 
-# LC 347: Top K Frequent Elements
-
+{% raw %}
 **Difficulty:** Medium  
 **Category:** Array, Hash Table, Heap, Bucket Sort, Quickselect  
 **Companies:** Amazon, Google, Facebook, Microsoft, Apple
 
-## Problem Statement
-
 Given an integer array `nums` and an integer `k`, return the `k` most frequent elements. You may return the answer in **any order**.
 
-### Examples
-
+## Examples
 **Example 1:**
 ```
 Input: nums = [1,1,1,2,2,3], k = 2
@@ -31,67 +27,11 @@ Input: nums = [1], k = 1
 Output: [1]
 ```
 
-### Constraints
-
+## Constraints
 - `1 <= nums.length <= 10^5`
 - `-10^4 <= nums[i] <= 10^4`
 - `k` is in the range `[1, the number of unique elements in the array]`
 - It is **guaranteed** that the answer is **unique**
-
-## Clarification Questions
-
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
-
-1. **Frequency calculation**: How is frequency calculated? (Assumption: Count occurrences of each element in the array)
-
-2. **Tie-breaking**: When elements have the same frequency, how should we break ties? (Assumption: Return any k elements - order doesn't matter, per problem statement answer is unique)
-
-3. **K validity**: Is k guaranteed to be valid? (Assumption: Yes - per constraints, k is in range [1, number of unique elements])
-
-4. **Return format**: Should we return k elements or all elements with same frequency? (Assumption: Return exactly k elements - top k most frequent)
-
-5. **Element uniqueness**: Can the same element appear multiple times in result? (Assumption: No - each element appears once in the result)
-
-## Interview Deduction Process (20 minutes)
-
-### Step 1: Brute-Force Approach (5 minutes)
-**Initial Thought**: "I need to find top k frequent elements. Let me count frequencies and sort."
-
-**Naive Solution**: Count frequency of each element, sort by frequency, return top k elements.
-
-**Complexity**: O(n log n) time, O(n) space
-
-**Issues**:
-- O(n log n) time when O(n log k) is possible
-- Sorts all elements when only need top k
-- Doesn't leverage heap
-- Can be optimized
-
-### Step 2: Semi-Optimized Approach (7 minutes)
-**Insight**: "I can use min-heap of size k to track top k elements."
-
-**Improved Solution**: Count frequencies, use min-heap of size k. For each element, if heap size < k, add; else if frequency > heap top, replace top.
-
-**Complexity**: O(n log k) time, O(n) space
-
-**Improvements**:
-- O(n log k) time is better than O(n log n)
-- Heap efficiently maintains top k
-- Handles all cases correctly
-- Can optimize further
-
-### Step 3: Optimized Solution (8 minutes)
-**Final Optimization**: "Min-heap approach is optimal. Can also use bucket sort for specific cases."
-
-**Best Solution**: Min-heap approach is optimal. Count frequencies, use min-heap of size k to maintain top k frequent elements. Alternative: bucket sort if frequency range is small.
-
-**Complexity**: O(n log k) time, O(n) space
-
-**Key Realizations**:
-1. Heap is perfect for top-k problems
-2. O(n log k) time is optimal for heap approach
-3. Min-heap of size k maintains top k efficiently
-4. Bucket sort alternative exists for small ranges
 
 ## Solution Approaches
 
@@ -126,110 +66,23 @@ class Solution {
     }
 }```
 
-### Approach 2: Quickselect
+### Solution Explanation
 
-**Algorithm:**
-1. Count frequency of each element
-2. Create array of unique elements
-3. Use quickselect to find k-th largest frequency
-4. Return elements with frequencies >= k-th largest
+**Approach:** Min/max heap (this problem)
 
-**Time Complexity:** O(n) average, O(n²) worst case  
-**Space Complexity:** O(n)
+**Key idea:** 1. **Bucket Sort Advantage**: Most efficient with O(n) time complexity
 
-```java
-class Solution {
-    public int[] topKFrequent(int[] nums, int k) {
-        Map<Integer, Integer> freq = new HashMap<>();
-        for (int num : nums) freq.put(num, freq.getOrDefault(num, 0) + 1);
-        List<Integer> unique = new ArrayList<>(freq.keySet());
-        quickselect(unique, freq, 0, unique.size() - 1, unique.size() - k);
-        int[] result = new int[k];
-        for (int i = 0; i < k; i++) result[i] = unique.get(unique.size() - k + i);
-        return result;
-    }
+**How the code works:**
+1. **Bucket Sort Advantage**: Most efficient with O(n) time complexity
+- Heap gives fast access to min/max without full sorting.
+- Size-k heap handles Top-K in O(n log k).
+- Lazy deletion when elements leave the heap before removal.
 
-    private void quickselect(List<Integer> arr, Map<Integer, Integer> freq, int l, int r, int k) {
-        if (l >= r) return;
-        int pivot = l + new Random().nextInt(r - l + 1);
-        int p = partition(arr, freq, l, r, pivot);
-        if (p == k) return;
-        if (k < p) quickselect(arr, freq, l, p - 1, k);
-        else quickselect(arr, freq, p + 1, r, k);
-    }
+**Walkthrough** — input `nums = [1,1,1,2,2,3], k = 2`, expected output `[1,2]`:
 
-    private int partition(List<Integer> arr, Map<Integer, Integer> freq, int l, int r, int pivotIdx) {
-        int pivotFreq = freq.get(arr.get(pivotIdx));
-        swap(arr, pivotIdx, r);
-        int store = l;
-        for (int i = l; i < r; i++) {
-            if (freq.get(arr.get(i)) < pivotFreq) {
-                swap(arr, store, i);
-                store++;
-            }
-        }
-        swap(arr, store, r);
-        return store;
-    }
-
-    private void swap(List<Integer> arr, int i, int j) {
-        int tmp = arr.get(i);
-        arr.set(i, arr.get(j));
-        arr.set(j, tmp);
-    }
-}```
-
-### Approach 3: Min Heap
-
-**Algorithm:**
-1. Count frequency of each element
-2. Use min heap of size k to maintain top k frequent elements
-3. For each element, if heap size < k, add it
-4. If heap size = k and current element has higher frequency than minimum in heap, replace it
-
-**Time Complexity:** O(n log k)  
-**Space Complexity:** O(n)
-
-```java
-class Solution {
-    public int[] topKFrequent(int[] nums, int k) {
-        Map<Integer, Integer> freq = new HashMap<>();
-        for (int num : nums) freq.put(num, freq.getOrDefault(num, 0) + 1);
-        PriorityQueue<int[]> minHeap = new PriorityQueue<>((a, b) -> Integer.compare(a[0], b[0]));
-        for (var e : freq.entrySet()) {
-            minHeap.offer(new int[] {e.getValue(), e.getKey()});
-            if (minHeap.size() > k) minHeap.poll();
-        }
-        int[] result = new int[k];
-        for (int i = k - 1; i >= 0; i--) result[i] = minHeap.poll()[1];
-        return result;
-    }
-}```
-
-### Approach 4: Max Heap
-
-**Algorithm:**
-1. Count frequency of each element
-2. Use max heap to store all elements with their frequencies
-3. Extract top k elements from heap
-
-**Time Complexity:** O(n log n)  
-**Space Complexity:** O(n)
-
-```java
-class Solution {
-    public int[] topKFrequent(int[] nums, int k) {
-        Map<Integer, Integer> freq = new HashMap<>();
-        for (int num : nums) freq.put(num, freq.getOrDefault(num, 0) + 1);
-        PriorityQueue<int[]> maxHeap = new PriorityQueue<>((a, b) -> Integer.compare(b[0], a[0]));
-        for (var e : freq.entrySet()) maxHeap.offer(new int[] {e.getValue(), e.getKey()});
-        int[] result = new int[k];
-        for (int i = 0; i < k; i++) result[i] = maxHeap.poll()[1];
-        return result;
-    }
-}```
-
-## Complexity Analysis
+1. Initialize variables from the problem setup.
+2. Apply the main loop / recursion until the condition is met.
+3. Confirm the result matches the expected output.
 
 | Approach | Time Complexity | Space Complexity | Best When |
 |----------|-----------------|------------------|-----------|
@@ -237,14 +90,6 @@ class Solution {
 | Quickselect | O(n) avg, O(n²) worst | O(n) | Large datasets, k ≈ n |
 | Min Heap | O(n log k) | O(n) | k << n, memory efficient |
 | Max Heap | O(n log n) | O(n) | Simple implementation |
-
-## Key Insights
-
-1. **Bucket Sort Advantage**: Most efficient with O(n) time complexity
-2. **Frequency Range**: Maximum frequency is at most n (array length)
-3. **Heap Trade-offs**: Min heap better when k is small, max heap simpler but less efficient
-4. **Quickselect Optimization**: Good average case but worst case can be O(n²)
-
 ## Algorithm Comparison
 
 ### Bucket Sort vs Heap Approaches
@@ -278,11 +123,61 @@ class Solution {
 
 ## Implementation Notes
 
-1. **Bucket Sort**: Use `int[][]` / `List<List<Integer>>` where index represents frequency
+1. **Bucket Sort**: Use `vector<vector<int>>` where index represents frequency
 2. **Quickselect**: Random pivot selection for better average performance
 3. **Heap**: Use `priority_queue` with custom comparator for min/max heap
 4. **Hash Map**: `unordered_map` for O(1) frequency counting
 
----
+## Common Mistakes
 
-*This problem demonstrates the importance of choosing the right algorithm based on constraints and requirements. Bucket sort provides optimal O(n) solution for this specific problem.*
+- Skipping edge cases (empty input, single element, boundaries).
+- Off-by-one errors in loops and index ranges.
+- Forgetting to handle the case when no valid answer exists.
+
+## Key Takeaways
+
+1. **Bucket Sort Advantage**: Most efficient with O(n) time complexity
+2. **Frequency Range**: Maximum frequency is at most n (array length)
+3. **Heap Trade-offs**: Min heap better when k is small, max heap simpler but less efficient
+4. **Quickselect Optimization**: Good average case but worst case can be O(n²)
+
+## References
+
+- [LC 347: Top K Frequent Elements on LeetCode](https://leetcode.com/problems/top-k-frequent-elements/)
+- [LeetCode Discuss — LC 347: Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/discuss/)
+- [LeetCode Editorial](https://leetcode.com/problems/top-k-frequent-elements/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [Array & Matrix](/blog_leetcode_java/posts/2025-11-24-leetcode-templates-array-matrix/)
+
+## Thinking Process
+
+1. **Bucket Sort Advantage**: Most efficient with O(n) time complexity
+
+- Heap gives fast access to min/max without full sorting.
+- Size-k heap handles Top-K in O(n log k).
+- Lazy deletion when elements leave the heap before removal.
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 120" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Binary heap</text>
+
+  <circle cx="140" cy="35" r="16" fill="#E0D8E4" stroke="#A098A8"/><text x="140" y="39" text-anchor="middle" font-size="11">1</text>
+  <circle cx="90" cy="75" r="14" fill="#D4D8E0" stroke="#8B8680"/><text x="90" y="79" text-anchor="middle" font-size="10">3</text>
+  <circle cx="190" cy="75" r="14" fill="#D4D8E0" stroke="#8B8680"/><text x="190" y="79" text-anchor="middle" font-size="10">2</text>
+  <line x1="140" y1="51" x2="90" y2="61" stroke="#9A9792"/><line x1="140" y1="51" x2="190" y2="61" stroke="#9A9792"/>
+  <text x="140" y="110" text-anchor="middle" font-size="11" fill="#6B6560">parent ≤ children (min-heap)</text>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Min/max heap** *(this problem)* | O(n log k) | O(k) | Top-K, streaming median |
+| Two heaps | O(n log n) | O(n) | Median from data stream |
+| Heap + lazy deletion | O(n log n) | O(n) | Delayed removal |
+| Priority-driven search | O(n log n) | O(n) | Dijkstra, best-first expansion |
+{% endraw %}

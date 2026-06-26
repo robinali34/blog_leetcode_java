@@ -8,8 +8,6 @@ permalink: /posts/2025-12-18-medium-547-number-of-provinces/
 ---
 
 {% raw %}
-# [Medium] 547. Number of Provinces
-
 There are `n` cities. Some of them are connected, while some are not. If city `a` is connected directly with city `b`, and city `b` is connected directly with city `c`, then city `a` is connected indirectly with city `c`.
 
 A **province** is a group of directly or indirectly connected cities and no other cities outside of the group.
@@ -41,35 +39,40 @@ Output: 3
 - `isConnected[i][i] == 1`
 - `isConnected[i][j] == isConnected[j][i]`
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+1. **Connected Components**: Provinces are connected components in the graph
 
-1. **Province definition**: What is a province? (Assumption: Group of directly or indirectly connected cities - connected component)
+- Model entities as nodes and relationships as edges.
+- Pick traversal (BFS/DFS) or shortest-path (Dijkstra) based on weights.
+- Union-Find helps when connectivity updates are frequent.
 
-2. **Connection matrix**: How is connectivity represented? (Assumption: isConnected[i][j] = 1 means cities i and j are directly connected)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 135" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Graph BFS layers</text>
 
-3. **Return value**: What should we return? (Assumption: Integer - number of provinces (connected components))
+  <circle cx="60" cy="70" r="16" fill="#D4D8E0" stroke="#8B8680"/><text x="60" y="74" text-anchor="middle" font-size="11">S</text>
+  <circle cx="140" cy="45" r="14" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="49" text-anchor="middle" font-size="10">a</text>
+  <circle cx="140" cy="95" r="14" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="99" text-anchor="middle" font-size="10">b</text>
+  <circle cx="210" cy="70" r="14" fill="#E8D5D0" stroke="#B8A5A0"/><text x="210" y="74" text-anchor="middle" font-size="10">t</text>
+  <line x1="74" y1="65" x2="126" y2="50" stroke="#9A9792" stroke-width="1.5"/>
+  <line x1="74" y1="75" x2="126" y2="95" stroke="#9A9792" stroke-width="1.5"/>
+  <line x1="154" y1="50" x2="196" y2="65" stroke="#9A9792" stroke-width="1.5"/>
+  <text x="140" y="125" text-anchor="middle" font-size="11" fill="#6B6560">BFS: expand by layers (queue)</text>
 
-4. **Self-connection**: Are cities connected to themselves? (Assumption: Yes - isConnected[i][i] = 1 per constraints)
+</svg>
 
-5. **Transitivity**: Is connection transitive? (Assumption: Yes - if A connects to B and B connects to C, then A connects to C)
+## Common Approaches
 
-## Interview Deduction Process (20 minutes)
+Typical techniques for this pattern:
 
-**Step 1: Brute-Force Approach (5 minutes)**
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Recursive DFS** *(this problem)* | O(n) | O(h) stack | Natural for trees and graphs |
+| Iterative DFS (stack) | O(n) | O(n) | Avoid recursion depth limits |
+| DFS with memoization | O(n) | O(n) | Overlapping subproblems on graphs |
+| Backtracking DFS | O(2^n) typical | O(n) | Enumerate choices with pruning |
 
-For each city, check all other cities to see if they're connected directly or indirectly. Use a visited array and for each unvisited city, perform DFS/BFS to mark all connected cities. Count how many times we need to start a new DFS/BFS (each represents a province). This approach works but requires careful tracking of visited cities and may have redundant checks.
-
-**Step 2: Semi-Optimized Approach (7 minutes)**
-
-Use DFS: for each unvisited city, perform DFS to mark all cities in its province as visited. Count the number of DFS calls (each represents one province). This avoids redundant checks by using a visited array. Time complexity is O(n²) where n is the number of cities, as we may check all connections. This works well but can be optimized with Union-Find for better average performance.
-
-**Step 3: Optimized Solution (8 minutes)**
-
-Use Union-Find (Disjoint Set Union) to group connected cities. For each connection in the matrix, union the two cities. After processing all connections, count the number of distinct roots (each root represents a province). Union-Find achieves O(n² × α(n)) time where α is the inverse Ackermann function (effectively constant), making it very efficient. Alternatively, DFS/BFS also works in O(n²) time. The key insight is that provinces are connected components, and Union-Find naturally groups them efficiently, especially when we need to process connections incrementally.
-
-## Solution 1: Union-Find (Disjoint Set Union) - Recommended
+## Solution
 
 **Time Complexity:** O(n² × α(n)) where α is the inverse Ackermann function  
 **Space Complexity:** O(n) - For parent array
@@ -116,6 +119,30 @@ class Solution {
 }
 ```
 
+### Solution Explanation
+
+**Approach:** Recursive DFS (this problem)
+
+**Key idea:** 1. **Connected Components**: Provinces are connected components in the graph
+
+**How the code works:**
+1. **Connected Components**: Provinces are connected components in the graph
+- Model entities as nodes and relationships as edges.
+- Pick traversal (BFS/DFS) or shortest-path (Dijkstra) based on weights.
+- Union-Find helps when connectivity updates are frequent.
+
+**Walkthrough** — input `isConnected = [[1,1,0],[1,1,0],[0,0,1]]`, expected output `2`:
+
+1. Initialize variables from the problem setup.
+2. Apply the main loop / recursion until the condition is met.
+3. Confirm the result matches the expected output.
+
+| Solution | Time | Space | Notes |
+|----------|------|-------|-------|
+| Union-Find | O(n² × α(n)) | O(n) | Path compression makes α(n) ≈ constant |
+| DFS | O(n²) | O(n) | Simple and intuitive |
+| BFS | O(n²) | O(n) | Iterative, no recursion |
+
 ### How Solution 1 Works
 
 1. **Initialization**: Each city starts as its own parent (separate province)
@@ -126,98 +153,6 @@ class Solution {
 ### Key Insight
 
 A province is a connected component. Union-Find groups all connected cities under the same root, so counting roots gives the number of provinces.
-
-## Solution 2: DFS (Depth-First Search)
-
-**Time Complexity:** O(n²) - Visit each city once  
-**Space Complexity:** O(n) - For visited array and recursion stack
-
-Use DFS to explore all cities in a province.
-
-```java
-class Solution {
-    public void dfs(int[][] isConnected, boolean[] visited, int city) {
-        visited[city] = true;
-        for(int j = 0; j < isConnected.size(); j++) {
-            if(isConnected[city][j] == 1 && !visited[j]) {
-                dfs(isConnected, visited, j);
-            }
-        }
-    }
-        public int findCircleNum(int[][] isConnected) {
-        int n = isConnected.size();
-        boolean[] visited = new boolean[n];
-        int provinces = 0;
-
-        for(int i = 0; i < n; i++) {
-            if(!visited[i]) {
-                dfs(isConnected, visited, i);
-                provinces++;
-            }
-        }
-
-        return provinces;
-    }
-}
-```
-
-### How Solution 2 Works
-
-1. **Visit each city**: Iterate through all cities
-2. **DFS exploration**: For each unvisited city, start DFS to mark all connected cities
-3. **Count provinces**: Each DFS call represents one province
-
-## Solution 3: BFS (Breadth-First Search)
-
-**Time Complexity:** O(n²)  
-**Space Complexity:** O(n)
-
-Use BFS instead of DFS for iterative exploration.
-
-```java
-// import java.util.*;
-class Solution {
-        public int findCircleNum(int[][] isConnected) {
-        int n = isConnected.size();
-        boolean[] visited = new boolean[n];
-        int provinces = 0;
-
-        for(int i = 0; i < n; i++) {
-            if(!visited[i]) {
-                Queue<Integer> q = new LinkedList<>();
-                q.offer(i);
-                visited[i] = true;
-
-                while(!q.isEmpty()) {
-                    int city = q.get(0);
-                    q.poll();
-
-                    for(int j = 0; j < n; j++) {
-                        if(isConnected[city][j] == 1 && !visited[j]) {
-                            visited[j] = true;
-                            q.offer(j);
-                        }
-                    }
-                }
-
-                provinces++;
-            }
-        }
-
-        return provinces;
-    }
-}
-```
-
-## Comparison of Approaches
-
-| Aspect | Union-Find | DFS | BFS |
-|--------|-----------|-----|-----|
-| **Time Complexity** | O(n² × α(n)) | O(n²) | O(n²) |
-| **Space Complexity** | O(n) | O(n) | O(n) |
-| **Code Simplicity** | Moderate | Simple | Moderate |
-| **Best For** | Dynamic connectivity | Static graph | Static graph |
-
 ## Example Walkthrough
 
 **Input:** `isConnected = [[1,1,0],[1,1,0],[0,0,1]]`
@@ -275,34 +210,24 @@ i=2: Not visited
 Result: 2 provinces
 ```
 
-## Complexity Analysis
-
+### Complexity
 | Solution | Time | Space | Notes |
 |----------|------|-------|-------|
 | Union-Find | O(n² × α(n)) | O(n) | Path compression makes α(n) ≈ constant |
 | DFS | O(n²) | O(n) | Simple and intuitive |
 | BFS | O(n²) | O(n) | Iterative, no recursion |
 
-## Edge Cases
+## Common Mistakes
 
 1. **Single city**: `[[1]]` → return 1
 2. **All connected**: All cities in one province → return 1
 3. **None connected**: Each city is separate → return n
 4. **Self-loops**: `isConnected[i][i] == 1` (handled automatically)
 
-## Common Mistakes
-
 1. **Not using path compression**: Leads to O(n) find operations
 2. **Wrong root counting**: Counting `parent[i] == i` before path compression
 3. **Symmetric matrix**: Only need to check upper or lower triangle (but checking all is fine)
 4. **Visited array**: In DFS/BFS, forgetting to mark visited
-
-## Key Insights
-
-1. **Connected Components**: Provinces are connected components in the graph
-2. **Symmetric Matrix**: `isConnected[i][j] == isConnected[j][i]` (undirected graph)
-3. **Self-loops**: `isConnected[i][i] == 1` (each city connects to itself)
-4. **Union-Find Efficiency**: Path compression makes find operations nearly O(1)
 
 ## Optimization Tips
 
@@ -332,6 +257,16 @@ Similar problems:
 - Max Area of Island
 - Friend Circles (same problem)
 - Accounts Merge
+## References
 
+- [LC 547: Number of Provinces on LeetCode](https://leetcode.com/problems/number-of-provinces/)
+- [LeetCode Discuss — LC 547: Number of Provinces](https://leetcode.com/problems/number-of-provinces/discuss/)
+- [LeetCode Editorial](https://leetcode.com/problems/number-of-provinces/editorial/) *(may require premium)*
+
+## Key Takeaways
+
+1. **Connected Components**: Provinces are connected components in the graph
+2. **Symmetric Matrix**: `isConnected[i][j] == isConnected[j][i]` (undirected graph)
+3. **Self-loops**: `isConnected[i][i] == 1` (each city connects to itself)
+4. **Union-Find Efficiency**: Path compression makes find operations nearly O(1)
 {% endraw %}
-

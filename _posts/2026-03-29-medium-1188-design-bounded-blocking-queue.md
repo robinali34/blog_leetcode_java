@@ -7,6 +7,7 @@ tags: [leetcode, medium, concurrency, design, semaphore, producer-consumer]
 permalink: /2026/03/29/medium-1188-design-bounded-blocking-queue/
 ---
 
+{% raw %}
 Implement a thread-safe bounded blocking queue with the following methods:
 - `BoundedBlockingQueue(int capacity)` -- initialize with max capacity
 - `void enqueue(int element)` -- add element to the back; **blocks** if the queue is full until space is available
@@ -66,9 +67,29 @@ enqueue(x):                    dequeue():
 
 `empty.acquire()` must come **before** `mutex.acquire()`. If reversed, a producer could hold the mutex while blocking on `empty`, preventing any consumer from acquiring the mutex to dequeue -- **deadlock**.
 
-## Solution: Three Counting Semaphores (Java)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 115" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Design pattern</text>
 
-{% raw %}
+  <rect x="40" y="45" width="70" height="36" rx="4" fill="#D4D8E0" stroke="#8B8680"/><text x="75" y="67" text-anchor="middle" font-size="10">API</text>
+  <rect x="150" y="45" width="90" height="36" rx="4" fill="#E0D8E4" stroke="#A098A8"/><text x="195" y="67" text-anchor="middle" font-size="10">hash + list</text>
+  <path d="M110 63h36" stroke="#8B8680" stroke-width="2" marker-end="url(#arr2)"/>
+  <defs><marker id="arr2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6" fill="#8B8680"/></marker></defs>
+  <text x="140" y="105" text-anchor="middle" font-size="11" fill="#6B6560">compose data structures for operations</text>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Hash map + list** *(this problem)* | O(1) avg | O(n) | LRU cache pattern |
+| Heap + hash map | O(log n) | O(n) | LFU, time-based store |
+| Trie (prefix tree) | O(m) | O(nm) | Word search, autocomplete |
+| Deque / circular buffer | O(1) | O(n) | Queue with fixed capacity |
+
+## Solution
 ```java
 // import java.util.*;
 // import java.util.concurrent.*;
@@ -106,68 +127,27 @@ class BoundedBlockingQueue {
     Semaphore<> lock;
 }
 ```
-{% endraw %}
 
-**Time**: $O(1)$ per operation (excluding blocking wait)
-**Space**: $O(k)$ where $k$ = capacity
+### Solution Explanation
 
-## Solution 2: Mutex + Two Condition Variables (Java)
+**Approach:** Hash map + list (this problem)
 
-Use two condition variables -- `notFull` for producers and `notEmpty` for consumers -- with a single mutex protecting the shared queue.
+**Key idea:** This is the classic **bounded producer-consumer** problem. We need to coordinate:
 
-{% raw %}
-```java
-// import java.util.*;
-// import java.util.concurrent.*;
-class BoundedBlockingQueue {
-    BoundedBlockingQueue(int capacity) {}
+**How the code works:**
+1. **Producers** (`enqueue`) must block when the queue is full
+2. **Consumers** (`dequeue`) must block when the queue is empty
+3. **Mutual exclusion** on the shared queue
 
-    void enqueue(int element) {
+**Walkthrough** — input `capacity = 2`, expected output `[1,0,2]`:
 
-        notFull.wait(lock, [&]() {
-            return q.size() < capacity;
-        });
-        q.offer(element);
-        notEmpty.notify_one();
-    }
-
-    int dequeue() {
-
-        notEmpty.wait(lock, [&]() {
-            return !q.isEmpty();
-        });
-        int val = q.get(0);
-        q.poll();
-        notFull.notify_one();
-        return val;
-    }
-
-    int size() {
-
-        return q.size();
-    }
-    Queue<Integer> q = new LinkedList<>();
-    int capacity;
-    ReentrantLock lock = new ReentrantLock() = new ReentrantLock() = new ReentrantLock();
-    Condition notFull;
-    Condition notEmpty;
-}
-```
-{% endraw %}
-
-**Time**: $O(1)$ per operation (excluding blocking wait)
-**Space**: $O(k)$ where $k$ = capacity
-
-### How It Differs from Semaphores
-
-The mutex is held during the entire `wait → push/pop → notify` sequence. The condition variable atomically releases the lock while sleeping and re-acquires it on wakeup. This means the capacity check (`q.size() < capacity`) and the queue modification happen under the same lock -- no separate "acquire slot then acquire mutex" ordering to worry about, so **no deadlock risk from lock ordering**.
-
+Cannot enqueue(3) until a dequeue makes space.
 ## Comparison
 
-| Approach | Mechanism | Java Version | Deadlock Risk |
+| Approach | Mechanism | C++ Version | Deadlock Risk |
 |---|---|---|---|
-| Three Semaphores | `counting_semaphore` × 3 | Modern Java | Must acquire in correct order |
-| Mutex + 2 CVs | `mutex` + `condition_variable` × 2 | Java | None (single lock) |
+| Three Semaphores | `counting_semaphore` × 3 | Java20 | Must acquire in correct order |
+| Mutex + 2 CVs | `mutex` + `condition_variable` × 2 | Java11 | None (single lock) |
 
 ## Execution Trace
 
@@ -194,7 +174,7 @@ enqueue(2): empty(1→0), push 2
 
 **`counting_semaphore<>` vs `binary_semaphore`**: `counting_semaphore` can count higher than 1, tracking multiple available slots/items. The mutex semaphore only ever goes 0↔1, but using `counting_semaphore<>` with initial value 1 is equivalent.
 
-**Why not use `ReentrantLock` / `synchronized`?** You could -- replacing the mutex semaphore with `ReentrantLock` / `synchronized` and `lock_guard` works fine. Using all semaphores keeps the pattern uniform.
+**Why not use `std::mutex`?** You could -- replacing the mutex semaphore with `std::mutex` and `lock_guard` works fine. Using all semaphores keeps the pattern uniform.
 
 ## Common Mistakes
 
@@ -214,3 +194,14 @@ enqueue(2): empty(1→0), push 2
 - [1114. Print in Order](https://leetcode.com/problems/print-in-order/) -- sequential ordering
 - [1116. Print Zero Even Odd](https://leetcode.com/problems/print-zero-even-odd/) -- multi-thread coordination
 - [362. Design Hit Counter](https://leetcode.com/problems/design-hit-counter/) -- queue-based design
+
+## References
+
+- [LC 1188: Design Bounded Blocking Queue on LeetCode](https://leetcode.com/problems/design-bounded-blocking-queue/)
+- [LeetCode Discuss — LC 1188: Design Bounded Blocking Queue](https://leetcode.com/problems/design-bounded-blocking-queue/discuss/)
+- [LeetCode Editorial](https://leetcode.com/problems/design-bounded-blocking-queue/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [Data Structure Design](/blog_leetcode_java/posts/2025-11-24-leetcode-templates-data-structure-design/)
+{% endraw %}

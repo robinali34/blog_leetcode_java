@@ -7,10 +7,7 @@ permalink: /2026/02/03/medium-743-network-delay-time/
 tags: [leetcode, medium, graph, shortest-path, dijkstra]
 ---
 
-# 743. Network Delay Time
-
-## Problem Statement
-
+{% raw %}
 You are given a network of `n` nodes, labeled from `1` to `n`. You are also given `times`, a list of travel times as directed edges `times[i] = (ui, vi, wi)`, where `ui` is the source node, `vi` is the target node, and `wi` is the time it takes for a signal to travel from source to target.
 
 We will send a signal from a given node `k`. Return the **minimum time** it takes for all the `n` nodes to receive the signal. If it is impossible for all the `n` nodes to receive the signal, return `-1`.
@@ -55,50 +52,42 @@ Explanation: Node 2 cannot send a signal to node 1, so it's impossible for all n
 - `0 <= wi <= 100`
 - There will not be any multiple edges (i.e., no duplicate edges).
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+1. **Dijkstra's Algorithm**: Optimal for single-source shortest paths with non-negative weights
+- Adjacency matrix: Better for dense graphs (O(n²) time)
+- Adjacency list + min-heap: Better for sparse graphs (O((n+m)log n) time) - **This is already optimal!**
 
-1. **Graph properties**: What type of graph is this? (Assumption: Directed weighted graph - edges have direction and weights representing time)
+- Model entities as nodes and relationships as edges.
+- Pick traversal (BFS/DFS) or shortest-path (Dijkstra) based on weights.
+- Union-Find helps when connectivity updates are frequent.
 
-2. **Node numbering**: How are nodes numbered? (Assumption: Nodes are numbered from 1 to n, but we'll use 0-indexed arrays internally)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 135" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Graph BFS layers</text>
 
-3. **All nodes reachable**: What if not all nodes are reachable from node k? (Assumption: Return -1 if any node is unreachable)
+  <circle cx="60" cy="70" r="16" fill="#D4D8E0" stroke="#8B8680"/><text x="60" y="74" text-anchor="middle" font-size="11">S</text>
+  <circle cx="140" cy="45" r="14" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="49" text-anchor="middle" font-size="10">a</text>
+  <circle cx="140" cy="95" r="14" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="99" text-anchor="middle" font-size="10">b</text>
+  <circle cx="210" cy="70" r="14" fill="#E8D5D0" stroke="#B8A5A0"/><text x="210" y="74" text-anchor="middle" font-size="10">t</text>
+  <line x1="74" y1="65" x2="126" y2="50" stroke="#9A9792" stroke-width="1.5"/>
+  <line x1="74" y1="75" x2="126" y2="95" stroke="#9A9792" stroke-width="1.5"/>
+  <line x1="154" y1="50" x2="196" y2="65" stroke="#9A9792" stroke-width="1.5"/>
+  <text x="140" y="125" text-anchor="middle" font-size="11" fill="#6B6560">BFS: expand by layers (queue)</text>
 
-4. **Minimum time definition**: What does "minimum time for all nodes to receive the signal" mean? (Assumption: The maximum shortest distance from node k to any node - the time when the last node receives the signal)
+</svg>
 
-5. **Edge weights**: Can edge weights be negative? (Assumption: No - all weights are non-negative (0 <= wi <= 100), so we can use Dijkstra's algorithm)
+## Common Approaches
 
-## Interview Deduction Process (20 minutes)
+Typical techniques for this pattern:
 
-**Step 1: Brute-Force Approach (5 minutes)**
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **BFS / DFS traversal** *(this problem)* | O(V+E) | O(V) | Connectivity, flood fill |
+| Dijkstra | O((V+E)log V) | O(V) | Non-negative edge weights |
+| Union-Find (DSU) | O(α(n)) | O(n) | Dynamic connectivity |
+| Topological sort | O(V+E) | O(V) | DAG ordering, cycle detection |
 
-Use BFS/DFS to explore all paths from node k, keeping track of minimum time to reach each node. This approach has exponential time complexity in worst case due to exploring all possible paths.
-
-**Step 2: Semi-Optimized Approach (7 minutes)**
-
-Use Bellman-Ford algorithm to find shortest paths from node k to all other nodes. This works for any graph but has O(n*m) time complexity, where m is the number of edges.
-
-**Step 3: Optimized Solution (8 minutes)**
-
-Use Dijkstra's algorithm since all edge weights are non-negative. We can use either:
-- Adjacency matrix with O(n²) time complexity
-- Adjacency list with priority queue for O((n+m)log n) time complexity
-
-The answer is the maximum shortest distance from node k to any node, or -1 if any node is unreachable.
-
-## Solution Approach
-
-This is a classic shortest path problem. We need to find the shortest distance from node k to all other nodes, then return the maximum of these distances.
-
-### Key Insights:
-
-1. **Shortest Path Problem**: Find shortest paths from a single source (node k) to all destinations
-2. **Dijkstra's Algorithm**: Optimal choice since all edge weights are non-negative
-3. **Maximum Distance**: The answer is the maximum shortest distance, representing when the last node receives the signal
-4. **Unreachable Nodes**: If any node has distance LLONG_MAX, return -1
-
-## Solution 1: Dijkstra's Algorithm with Adjacency Matrix
+## Solution
 
 ```java
 class Solution {
@@ -131,6 +120,27 @@ class Solution {
         return ans;
     }
 }```
+
+### Solution Explanation
+
+**Approach:** BFS / DFS traversal (this problem)
+
+**Key idea:** 1. **Dijkstra's Algorithm**: Optimal for single-source shortest paths with non-negative weights
+
+**How the code works:**
+1. **Dijkstra's Algorithm**: Optimal for single-source shortest paths with non-negative weights
+- Adjacency matrix: Better for dense graphs (O(n²) time)
+- Adjacency list + min-heap: Better for sparse graphs (O((n+m)log n) time) - **This is already optimal!**
+- Model entities as nodes and relationships as edges.
+- Pick traversal (BFS/DFS) or shortest-path (Dijkstra) based on weights.
+- Union-Find helps when connectivity updates are frequent.
+
+**Walkthrough** — input `times = [[2,1,1],[2,3,1],[3,4,1]], n = 4, k = 2`, expected output `2`:
+
+The signal starts at node 2. At time 0, node 2 receives the signal.
+At time 1, nodes 1 and 3 receive the signal.
+At time 2, node 4 receives the signal.
+So the minimum time for all nodes to receive the signal is 2.
 
 ### Algorithm Breakdown:
 
@@ -149,208 +159,6 @@ class Solution {
 - **Relaxation**: Updates distances to neighbors if a shorter path is found
 - **Early Termination**: If `u == -1`, all remaining nodes are unreachable, so we can break early
 
-### Complexity Analysis:
-
-- **Time Complexity**: O(n²) - For each of n nodes, we scan all n nodes to find minimum
-- **Space Complexity**: O(n²) - Adjacency matrix
-
-## Solution 2: Adjacency List - Version A: BFS (Without Dijkstra)
-
-This solution uses BFS with a regular queue. While BFS doesn't guarantee shortest paths in general weighted graphs, **it works correctly for this problem** because:
-
-1. **We update distances whenever a shorter path is found** - The key is the condition `if (d < dist[to])`
-2. **We re-queue nodes when their distance improves** - This allows us to explore all possible paths
-3. **Eventually converges** - Since we only update when finding shorter paths, the algorithm will eventually find all shortest paths, though it may process nodes multiple times
-
-**Note:** This approach is less efficient than Dijkstra's algorithm but is simpler to implement and works correctly for this problem.
-
-```java
-class Solution {
-        public int networkDelayTime(int[][] times, int n, int k) {
-        List<List<int[]>> graph = new ArrayList<>();
-        for (int i = 0; i <= n; i++) graph.add(new ArrayList<>());
-        for (int[] t : times) graph.get(t.charAt(0)).add(new int[] {t.charAt(1), t.charAt(2)});
-        int[] dist = new int[n + 1];
-        Arrays.fill(dist, Integer.MAX_VALUE);
-        dist[k] = 0;
-        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> Integer.compare(a[0], b[0]));
-        pq.offer(new int[] {0, k});
-        while (!pq.isEmpty()) {
-            int[] cur = pq.poll();
-            int d = cur[0], u = cur[1];
-            if (d > dist[u]) continue;
-            for (int[] e : graph.get(u)) {
-                int v = e[0], w = e[1];
-                if (dist[u] + w < dist[v]) {
-                    dist[v] = dist[u] + w;
-                    pq.offer(new int[] {dist[v], v});
-                }
-            }
-        }
-        int ans = 0;
-        for (int i = 1; i <= n; i++) {
-            if (dist[i] == Integer.MAX_VALUE) return -1;
-            ans = Math.max(ans, dist[i]);
-        }
-        return ans;
-    }
-}```
-
-### Why This Works:
-
-- **Distance Update**: We only update `dist[to]` when we find a shorter path (`d < dist[to]`)
-- **Re-queuing**: When a node's distance improves, we add it back to the queue to explore paths from it
-- **Convergence**: Eventually, all shortest paths will be found, though nodes may be processed multiple times
-- **Correctness**: Unlike standard BFS, this version continues until no more distance improvements are possible
-
-### Complexity Analysis:
-
-- **Time Complexity**: O(n*m) worst case - May process nodes multiple times (each edge can be relaxed multiple times)
-- **Space Complexity**: O(n+m) - Adjacency list and queue
-
-## Solution 3: Adjacency List - Version B: Dijkstra with Min-Heap (Optimal)
-
-**This is the optimal implementation!** This solution uses Dijkstra's algorithm with a min-heap (priority queue with `greater<>` comparator) and is the best practical approach for this problem.
-
-```java
-class Solution {
-    public int networkDelayTime(int[][] times, int n, int k) {
-        List<List<int[]>> graph = new ArrayList<>();
-        for (int i = 0; i <= n; i++) graph.add(new ArrayList<>());
-        for (int[] t : times) graph.get(t[0]).add(new int[] {t[1], t[2]});
-        int[] dist = new int[n + 1];
-        Arrays.fill(dist, Integer.MAX_VALUE);
-        dist[k] = 0;
-        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> Integer.compare(a[0], b[0]));
-        pq.offer(new int[] {0, k});
-        while (!pq.isEmpty()) {
-            int[] cur = pq.poll();
-            int d = cur[0], u = cur[1];
-            if (d > dist[u]) continue;
-            for (int[] e : graph.get(u)) {
-                int v = e[0], w = e[1];
-                if (dist[u] + w < dist[v]) {
-                    dist[v] = dist[u] + w;
-                    pq.offer(new int[] {dist[v], v});
-                }
-            }
-        }
-        int ans = 0;
-        for (int i = 1; i <= n; i++) {
-            if (dist[i] == Integer.MAX_VALUE) return -1;
-            ans = Math.max(ans, dist[i]);
-        }
-        return ans;
-    }
-}```
-
-### Algorithm Breakdown:
-
-1. **Build Adjacency List**: Create list of neighbors for each node with edge weights
-2. **Initialize**: Set `dist[k-1] = 0`, push `(0, k-1)` to min-heap
-3. **Dijkstra's Algorithm**: While heap is not empty:
-   - Pop node `x` with minimum distance
-   - Skip if already processed (distance outdated - lazy deletion)
-   - Relax edges: For each neighbor `y`, update distance if shorter path found
-4. **Result**: Return maximum distance, or -1 if any node is unreachable
-
-### Why This Works:
-
-- **Min-Heap (Priority Queue)**: `priority_queue` with `greater<>` comparator creates a min-heap, efficiently finding the node with minimum distance in O(log n) time
-- **Lazy Deletion**: Skip outdated entries with `if(dist[x] < time) continue` - this avoids expensive heap updates
-- **Adjacency List**: More space-efficient for sparse graphs
-- **Optimal Implementation**: This is already the optimal practical implementation for Dijkstra's algorithm
-
-### Complexity Analysis:
-
-- **Time Complexity**: O((n+m)log n) - Each edge is processed once, min-heap operations (insert/extract-min) are O(log n)
-- **Space Complexity**: O(n+m) - Adjacency list and min-heap
-
-### Further Optimization Notes:
-
-- **Theoretical Optimization**: Fibonacci heap can achieve O(n log n + m) time complexity, but it's not practical due to high constant factors and complexity
-- **Current Implementation**: The binary min-heap (priority_queue) is already optimal for practical purposes
-- **Lazy Deletion**: The `if(dist[x] < time) continue` check is crucial - it allows us to avoid expensive decrease-key operations by simply adding duplicate entries and skipping outdated ones
-
-### Sample Test Case Run:
-
-**Input:** `times = [[2,1,1],[2,3,1],[3,4,1]]`, `n = 4`, `k = 2`
-
-**Solution 3 Execution:**
-
-```
-Initial: dist = [LLONG_MAX, 0, LLONG_MAX, LLONG_MAX], q = [(0, 1)]
-
-Iteration 1:
-  Pop: (0, 1) - node 2 (0-indexed: node 1)
-  dist[1] = 0
-  Neighbors of node 2:
-    - Node 1 (0-indexed: node 0): dist[0] = min(LLONG_MAX, 0+1) = 1, push (1, 0)
-    - Node 3 (0-indexed: node 2): dist[2] = min(LLONG_MAX, 0+1) = 1, push (1, 2)
-  q = [(1, 0), (1, 2)]
-  dist = [1, 0, 1, LLONG_MAX]
-
-Iteration 2:
-  Pop: (1, 0) - node 1
-  dist[0] = 1
-  Neighbors of node 1: None
-  q = [(1, 2)]
-  dist = [1, 0, 1, LLONG_MAX]
-
-Iteration 3:
-  Pop: (1, 2) - node 3
-  dist[2] = 1
-  Neighbors of node 3:
-    - Node 4 (0-indexed: node 3): dist[3] = min(LLONG_MAX, 1+1) = 2, push (2, 3)
-  q = [(2, 3)]
-  dist = [1, 0, 1, 2]
-
-Iteration 4:
-  Pop: (2, 3) - node 4
-  dist[3] = 2
-  Neighbors of node 4: None
-  q = []
-  dist = [1, 0, 1, 2]
-
-Result: max(dist) = max(1, 0, 1, 2) = 2
-Return: 2 ✓
-```
-
-**Verification:**
-- Node 2 receives signal at time 0 ✓
-- Nodes 1 and 3 receive signal at time 1 ✓
-- Node 4 receives signal at time 2 ✓
-- Maximum time = 2 ✓
-
-**Output:** `2` ✓
-
----
-
-**Another Example:** `times = [[1,2,1]]`, `n = 2`, `k = 2`
-
-```
-Initial: dist = [LLONG_MAX, LLONG_MAX], q = [(0, 1)] (node 2, 0-indexed: node 1)
-
-Iteration 1:
-  Pop: (0, 1) - node 2
-  dist[1] = 0
-  Neighbors of node 2: None
-  q = []
-  dist = [LLONG_MAX, 0]
-
-Result: max(dist) = max(LLONG_MAX, 0) = LLONG_MAX
-Return: -1 ✓
-```
-
-**Verification:**
-- Node 2 receives signal at time 0 ✓
-- Node 1 is unreachable from node 2 ✗
-- Return -1 ✓
-
-**Output:** `-1` ✓
-
-## Complexity Analysis
-
 ### Solution 1 (Adjacency Matrix):
 - **Time Complexity**: O(n²) - For each of n nodes, scan all n nodes to find minimum
 - **Space Complexity**: O(n²) - Adjacency matrix
@@ -362,8 +170,20 @@ Return: -1 ✓
 ### Solution 3 (Adjacency List + Min-Heap):
 - **Time Complexity**: O((n+m)log n) - Each edge processed once, min-heap operations are O(log n)
 - **Space Complexity**: O(n+m) - Adjacency list and min-heap
+## Related Problems
 
-## Key Insights
+- [787. Cheapest Flights Within K Stops](https://leetcode.com/problems/cheapest-flights-within-k-stops/) - Shortest path with constraints
+- [1514. Path with Maximum Probability](https://leetcode.com/problems/path-with-maximum-probability/) - Maximum probability path
+- [1631. Path With Minimum Effort](https://leetcode.com/problems/path-with-minimum-effort/) - Minimum effort path
+- [1334. Find the City With the Smallest Number of Neighbors at a Threshold Distance](https://leetcode.com/problems/find-the-city-with-the-smallest-number-of-neighbors-at-a-threshold-distance/) - Shortest paths with threshold
+
+## Common Mistakes
+
+- Skipping edge cases (empty input, single element, boundaries).
+- Off-by-one errors in loops and index ranges.
+- Forgetting to handle the case when no valid answer exists.
+
+## Key Takeaways
 
 1. **Dijkstra's Algorithm**: Optimal for single-source shortest paths with non-negative weights
 2. **Data Structure Choice**: 
@@ -375,19 +195,13 @@ Return: -1 ✓
 6. **BFS Limitation**: BFS with a regular queue does NOT work correctly for weighted graphs - always use Dijkstra's algorithm for shortest paths with weights
 7. **Min-Heap Implementation**: `priority_queue<pair<int, int>, vector<pair<int, int>>, greater<>>` creates a min-heap where the smallest distance is at the top
 
-## Comparison of Approaches
+## References
 
-| Approach | Time Complexity | Space Complexity | Correctness | Best For |
-|----------|----------------|------------------|-------------|----------|
-| Adjacency Matrix | O(n²) | O(n²) | ✓ Correct | Dense graphs (many edges) |
-| Adjacency List + BFS | O(n*m) | O(n+m) | ✓ Correct | Simple implementation, works but less efficient |
-| Adjacency List + Min-Heap | O((n+m)log n) | O(n+m) | ✓ Correct | Sparse graphs (few edges) - **Optimal!** |
+- [LC 743: Network Delay Time on LeetCode](https://leetcode.com/problems/network-delay-time/)
+- [LeetCode Discuss — LC 743: Network Delay Time](https://leetcode.com/problems/network-delay-time/discuss/)
+- [LeetCode Editorial](https://leetcode.com/problems/network-delay-time/editorial/) *(may require premium)*
 
-**Note:** The "Adjacency List + Min-Heap" approach (Solution 3) is the optimal practical implementation. While Fibonacci heap theoretically achieves O(n log n + m), the binary min-heap (priority_queue) is faster in practice due to lower constant factors.
+## Template Reference
 
-## Related Problems
-
-- [787. Cheapest Flights Within K Stops](https://leetcode.com/problems/cheapest-flights-within-k-stops/) - Shortest path with constraints
-- [1514. Path with Maximum Probability](https://leetcode.com/problems/path-with-maximum-probability/) - Maximum probability path
-- [1631. Path With Minimum Effort](https://leetcode.com/problems/path-with-minimum-effort/) - Minimum effort path
-- [1334. Find the City With the Smallest Number of Neighbors at a Threshold Distance](https://leetcode.com/problems/find-the-city-with-the-smallest-number-of-neighbors-at-a-threshold-distance/) - Shortest paths with threshold
+- [Graph](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-graph/)
+{% endraw %}

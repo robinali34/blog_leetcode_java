@@ -7,6 +7,7 @@ tags: [leetcode, medium, bit-manipulation, math]
 permalink: /2026/02/14/medium-29-divide-two-integers/
 ---
 
+{% raw %}
 Given two integers `dividend` and `divisor`, divide two integers **without** using multiplication, division, and mod operator. Return the quotient after dividing `dividend` by `divisor`. The integer division should truncate toward zero.
 
 ## Examples
@@ -50,7 +51,7 @@ while dividend >= divisor:
     count++
 ```
 
-Worst case: $O(2^{31})$ -- TLE. We need $O(\log n)$.
+Worst case: O(2^{31}) -- TLE. We need O(log n).
 
 ### Think in Binary (Core Insight)
 
@@ -63,6 +64,14 @@ divisor * (2^k) == divisor << k
 So we greedily subtract the largest shifted divisor. This makes it **logarithmic**.
 
 > Division = Binary decomposition of quotient.
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 90" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Bit manipulation</text>
+
+  <text x="40" y="50" font-family="monospace" font-size="14" fill="#3A3530">1 0 1 1 0 1 0</text>
+  <text x="40" y="75" font-size="11" fill="#6B6560">XOR pairs · masks · shifts</text>
+
+</svg>
 
 ## Approach (Bitwise Greedy)
 
@@ -85,38 +94,6 @@ The absolute value of `INT_MIN` overflows a 32-bit int. Using `long long` avoids
 Use XOR to detect result sign:
 
 ```java
-negative = (dividend > 0) ^ (divisor > 0)
-```
-
-### Step 3: Main Loop
-
-For `i` from 31 down to 0:
-- Check: `if ((dividend >> i) >= divisor)`
-- If yes: `dividend -= divisor << i`, `result += 1 << i`
-
-Each bit of the quotient is determined from most significant to least significant, exactly like binary long division.
-
-### Complexity
-
-| Metric | Value |
-|--------|-------|
-| Time | $O(\log n)$ -- 32 iterations for 32-bit int |
-| Space | $O(1)$ |
-
-## Edge Cases
-
-**Case 1:** `dividend = INT_MIN, divisor = -1` -- Answer = `INT_MAX` (overflow guard)
-
-**Case 2:** `dividend = 0` -- Answer = `0`
-
-**Case 3:** `divisor = INT_MIN` -- Only returns `1` if `dividend == INT_MIN`, else `0`
-
-**Case 4:** Mixed signs `(+,+)`, `(-,-)`, `(+,-)`, `(-,+)` -- handled by XOR sign detection
-
-## Solution
-
-{% raw %}
-```java
 class Solution {
         public int divide(int dividend, int divisor) {
         // Handle overflow case
@@ -137,21 +114,43 @@ class Solution {
     }
 }
 ```
-{% endraw %}
 
-### Why This Solution Works Well
+### Solution Explanation
 
-- Logarithmic time
-- No illegal operators
-- Overflow-safe
-- Bitwise optimized
-- Clean edge-case handling
+**Approach:** XOR tricks (this problem)
 
-## Alternative: Exponential Doubling
+**Key idea:** Focus on: time complexity, overflow safety, bit manipulation tricks, edge case coverage, mathematical transformation.
 
-Instead of iterating over all 32 bits, repeatedly double `divisor` until it exceeds `dividend`, then subtract:
+**Walkthrough** — input `dividend = 10, divisor = 3`, expected output `3`:
 
-{% raw %}
+10/3 = 3.33333.. which is truncated to 3.
+
+| Metric | Value |
+|--------|-------|
+| Time | O(log n) -- 32 iterations for 32-bit int |
+| Space | O(1) |
+## Edge Cases
+
+**Case 1:** `dividend = INT_MIN, divisor = -1` -- Answer = `INT_MAX` (overflow guard)
+
+**Case 2:** `dividend = 0` -- Answer = `0`
+
+**Case 3:** `divisor = INT_MIN` -- Only returns `1` if `dividend == INT_MIN`, else `0`
+
+**Case 4:** Mixed signs `(+,+)`, `(-,-)`, `(+,-)`, `(-,+)` -- handled by XOR sign detection
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **XOR tricks** *(this problem)* | O(n) | O(1) | Single number, swap without temp |
+| Bit masks | O(2^n) | O(n) | Subset enumeration |
+| Brian Kernighan | O(log n) | O(1) | Count set bits |
+| Shift operations | O(n) | O(1) | Power of two, divide by 2 |
+
+## Solution
 ```java
 class Solution {
         public int divide(int dividend, int divisor) {
@@ -179,9 +178,55 @@ class Solution {
     }
 }
 ```
-{% endraw %}
 
-Also $O(\log n)$.
+### Why This Solution Works Well
+
+- Logarithmic time
+- No illegal operators
+- Overflow-safe
+- Bitwise optimized
+- Clean edge-case handling
+
+## Alternative: Exponential Doubling
+
+Instead of iterating over all 32 bits, repeatedly double `divisor` until it exceeds `dividend`, then subtract:
+```cpp
+class Solution {
+public:
+    int divide(int dividend, int divisor) {
+        if (dividend == INT_MIN && divisor == -1)
+            return INT_MAX;
+
+        bool negative = (dividend < 0) ^ (divisor < 0);
+        long long a = llabs((long long)dividend);
+        long long b = llabs((long long)divisor);
+        long long result = 0;
+
+        while (a >= b) {
+            long long temp = b;
+            long long multiple = 1;
+
+            while (a >= (temp << 1)) {
+                temp <<= 1;
+                multiple <<= 1;
+            }
+
+            a -= temp;
+            result += multiple;
+        }
+
+        return negative ? -(int)result : (int)result;
+    }
+};
+```
+
+Also O(log n).
+
+## Common Mistakes
+
+- Skipping edge cases (empty input, single element, boundaries).
+- Off-by-one errors in loops and index ranges.
+- Forgetting to handle the case when no valid answer exists.
 
 ## Key Takeaways
 
@@ -191,6 +236,13 @@ This problem tests:
 - **Signed range awareness** -- asymmetric 32-bit range
 - **Greedy binary decomposition** -- the core algorithmic insight
 
+## References
+
+- [LC 29: Divide Two Integers on LeetCode](https://leetcode.com/problems/divide-two-integers/)
+- [LeetCode Discuss — LC 29: Divide Two Integers](https://leetcode.com/problems/divide-two-integers/discuss/)
+- [LeetCode Editorial](https://leetcode.com/problems/divide-two-integers/editorial/) *(may require premium)*
+
 ## Template Reference
 
 - [Math & Bit Manipulation](/blog_leetcode_java/posts/2025-11-24-leetcode-templates-math-bit-manipulation/)
+{% endraw %}

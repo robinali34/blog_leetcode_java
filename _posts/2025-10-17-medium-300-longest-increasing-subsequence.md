@@ -7,8 +7,7 @@ categories: leetcode algorithm medium java dynamic-programming dp binary-search 
 permalink: /posts/2025-10-17-medium-300-longest-increasing-subsequence/
 ---
 
-# [Medium] 300. Longest Increasing Subsequence
-
+{% raw %}
 Given an integer array `nums`, return the length of the longest strictly increasing subsequence.
 
 A **subsequence** is a sequence that can be derived from an array by deleting some or no elements without changing the order of the remaining elements.
@@ -41,62 +40,42 @@ Explanation: The longest increasing subsequence is [7], therefore the length is 
 - `1 <= nums.length <= 2500`
 - `-10^4 <= nums[i] <= 10^4`
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+1. **Subproblem:** Length of LIS ending at each position
+1. **Patience sorting:** Maintain smallest tail elements
 
-1. **Subsequence definition**: What is a subsequence? (Assumption: Sequence that maintains relative order but doesn't need to be contiguous - can skip elements)
+- The search space must shrink monotonically each step.
+- Decide which half still satisfies the predicate, discard the other.
+- Use `mid = left + (right - left) / 2` to avoid overflow.
 
-2. **Increasing definition**: What makes a subsequence increasing? (Assumption: Strictly increasing - each element must be greater than the previous one)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 130" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Binary search: shrink [lo … hi]</text>
 
-3. **Return value**: Should we return the subsequence or just length? (Assumption: Return length - integer representing longest increasing subsequence length)
+  <rect x="40" y="40" width="48" height="32" rx="4" fill="#D4D8E0" stroke="#8B8680"/>
+  <text x="64" y="58" text-anchor="middle" font-size="12" fill="#3A3530">lo</text>
+  <rect x="108" y="40" width="48" height="32" rx="4" fill="#E0D8E4" stroke="#A098A8"/>
+  <text x="132" y="58" text-anchor="middle" font-size="12" fill="#3A3530">mid</text>
+  <rect x="196" y="40" width="48" height="32" rx="4" fill="#E8D5D0" stroke="#B8A5A0"/>
+  <text x="220" y="58" text-anchor="middle" font-size="12" fill="#3A3530">hi</text>
+  <rect x="60" y="90" width="160" height="28" rx="4" fill="#FAF8F5" stroke="#D4D1CC"/>
+  <text x="140" y="108" text-anchor="middle" font-size="11" fill="#6B6560">discard half each step → O(log n)</text>
+  <path d="M132 72v12M220 72v12" stroke="#9A9792" stroke-width="1.5" marker-end="url(#a)"/>
 
-4. **Duplicate values**: How should we handle duplicate values? (Assumption: Based on "increasing", duplicates don't count - need strictly greater values)
+</svg>
 
-5. **Empty array**: What if array is empty? (Assumption: Return 0 - no subsequence exists)
+## Common Approaches
 
-## Interview Deduction Process (20 minutes)
+Typical techniques for this pattern:
 
-### Step 1: Brute-Force Approach (5 minutes)
-**Initial Thought**: "I need to find longest increasing subsequence. Let me try all possible subsequences."
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Standard binary search** *(this problem)* | O(log n) | O(1) | Sorted array, `left <= right` |
+| Lower / upper bound | O(log n) | O(1) | First/last position, insert index |
+| Binary search on rotated array | O(log n) | O(1) | Identify sorted half, discard other |
+| Binary search on answer | O(n log M) | O(1) | Monotonic predicate over search space |
 
-**Naive Solution**: Generate all possible subsequences, check if each is increasing, track maximum length.
-
-**Complexity**: O(2^n × n) time, O(n) space
-
-**Issues**:
-- Exponential time complexity
-- Generates many invalid subsequences
-- Very inefficient
-- Doesn't leverage optimal substructure
-
-### Step 2: Semi-Optimized Approach (7 minutes)
-**Insight**: "This has optimal substructure. Length of LIS ending at i depends on LIS ending at previous positions."
-
-**Improved Solution**: Use DP where dp[i] = length of LIS ending at index i. For each i, check all previous positions j where nums[j] < nums[i], take maximum dp[j] + 1.
-
-**Complexity**: O(n²) time, O(n) space
-
-**Improvements**:
-- Leverages optimal substructure
-- O(n²) time instead of exponential
-- Correctly finds LIS length
-- Can be optimized further
-
-### Step 3: Optimized Solution (8 minutes)
-**Final Optimization**: "I can use binary search with patience sorting to achieve O(n log n) time."
-
-**Best Solution**: Use binary search with patience sorting. Maintain array of smallest tail values for each LIS length. For each number, find position to replace using binary search. This achieves O(n log n) time.
-
-**Complexity**: O(n log n) time, O(n) space
-
-**Key Realizations**:
-1. DP is natural approach but O(n²)
-2. Binary search optimization achieves O(n log n)
-3. Patience sorting is key technique
-4. O(n log n) time is optimal
-
-## Solution 1: Dynamic Programming
+## Solution
 
 **Time Complexity:** O(n²)  
 **Space Complexity:** O(n)
@@ -126,34 +105,27 @@ class Solution {
 }
 ```
 
-## Solution 2: Binary Search with Patience Sorting
+### Solution Explanation
 
-**Time Complexity:** O(n log n)  
-**Space Complexity:** O(n)
+**Approach:** Standard binary search (this problem)
 
-Use binary search to maintain a sorted array representing the smallest tail element of all increasing subsequences of different lengths.
+**Key idea:** 1. **Subproblem:** Length of LIS ending at each position
 
-```java
-class Solution {
-        public int lengthOfLIS(int[] nums) {
-        List<Integer> sub = new ArrayList<>();
-        sub.add(nums[0]);
+**How the code works:**
+1. **Subproblem:** Length of LIS ending at each position
+1. **Patience sorting:** Maintain smallest tail elements
+- The search space must shrink monotonically each step.
+- Decide which half still satisfies the predicate, discard the other.
+- Use `mid = left + (right - left) / 2` to avoid overflow.
 
-        for(int i = 1; i < nums.length; i++) {
-        int num = nums[i];
-            if(num > sub.get(sub.size() - 1)) {
-                sub.add(num);
-            } else {
-                var it = floorKey(sub /* elements of sub */, num);
-                *it = num;
-            }
-        }
+**Walkthrough** — input `nums = [10,9,2,5,3,7,101,18]`, expected output `4`:
 
-        return sub.size();
-    }
-}
-```
+The longest increasing subsequence is [2,3,7,18], therefore the length is 4.
 
+| Approach | Time Complexity | Space Complexity |
+|----------|----------------|------------------|
+| Dynamic Programming | O(n²) | O(n) |
+| Binary Search | O(n log n) | O(n) |
 ## How the Algorithms Work
 
 ### Solution 1: Dynamic Programming Approach
@@ -213,19 +185,23 @@ class Solution {
 ### Solution 1: Dynamic Programming
 
 ```java
-int[]dp(nums.length, -1);
-dp[0] = 1;
-int rtn = 1;
+class Solution {
+        public int lengthOfLIS(int[] nums) {
+        List<Integer> sub = new ArrayList<>();
+        sub.add(nums[0]);
 
-for(int i = 1; i < nums.length; i++) {
-    int max_pre = 0;
-    for(int j = 0; j < i; j++) {
-        if(nums[i] > nums[j]) {
-            max_pre = Math.max(max_pre, dp[j]);
+        for(int i = 1; i < nums.length; i++) {
+        int num = nums[i];
+            if(num > sub.get(sub.size() - 1)) {
+                sub.add(num);
+            } else {
+                var it = floorKey(sub /* elements of sub */, num);
+                *it = num;
+            }
         }
+
+        return sub.size();
     }
-    dp[i] = max_pre + 1;
-    rtn = Math.max(rtn, dp[i]);
 }
 ```
 
@@ -238,16 +214,27 @@ for(int i = 1; i < nums.length; i++) {
 ### Solution 2: Binary Search
 
 ```java
-List<Integer> sub = new ArrayList<>();
-sub.add(nums[0]);
+class Solution {
+        public int lengthOfLIS(int[] nums) {
+        public int[] memo(nums.length, -1);
+        int maxLen = 0;
+        for(int i = 0; i < nums.length; i++) {
+            maxLen = Math.max(maxLen, dfs(nums, i, memo));
+        }
+        return maxLen;
+    }
+        public int dfs(int[] nums, int index, int[] memo) {
+        if(memo[index] != -1) return memo[index];
 
-for(int i = 1; i < nums.length; i++) {
-    int num = nums[i];
-    if(num > sub.get(sub.size() - 1)) {
-        sub.add(num);
-    } else {
-        var it = floorKey(sub /* elements of sub */, num);
-        *it = num;
+        int maxLen = 1;
+        for(int i = index + 1; i < nums.length; i++) {
+            if(nums[i] > nums[index]) {
+                maxLen = Math.max(maxLen, 1 + dfs(nums, i, memo));
+            }
+        }
+
+        memo[index] = maxLen;
+        return maxLen;
     }
 }
 ```
@@ -258,40 +245,23 @@ for(int i = 1; i < nums.length; i++) {
 3. **Otherwise**, find position using binary search and replace
 4. **Return** size of maintained array
 
-## Complexity Analysis
-
+### Complexity
 | Approach | Time Complexity | Space Complexity |
 |----------|----------------|------------------|
 | Dynamic Programming | O(n²) | O(n) |
 | Binary Search | O(n log n) | O(n) |
 
-## Edge Cases
+## Common Mistakes
 
 1. **Single element:** `nums = [1]` → `1`
 2. **All same elements:** `nums = [7,7,7,7]` → `1`
 3. **Decreasing sequence:** `nums = [5,4,3,2,1]` → `1`
 4. **Increasing sequence:** `nums = [1,2,3,4,5]` → `5`
 
-## Key Insights
-
-### Solution 1 (DP):
-1. **Subproblem:** Length of LIS ending at each position
-2. **Overlapping subproblems:** Previous positions contribute to current
-3. **Optimal substructure:** Optimal solution contains optimal solutions to subproblems
-4. **Bottom-up approach:** Build solution from smaller subproblems
-
-### Solution 2 (Binary Search):
-1. **Patience sorting:** Maintain smallest tail elements
-2. **Binary search:** Efficiently find insertion position
-3. **Greedy approach:** Always maintain smallest possible tail elements
-4. **Length tracking:** Size of array equals LIS length
-
-## Common Mistakes
-
 1. **Wrong DP definition:** Not considering all previous positions
 2. **Incorrect initialization:** Not setting `dp[0] = 1`
 3. **Missing global maximum:** Not tracking maximum across all positions
-4. **Binary search errors:** Wrong comparison in `binary search (lower bound)`
+4. **Binary search errors:** Wrong comparison in `lower_bound`
 
 ## Detailed Example Walkthrough
 
@@ -410,8 +380,8 @@ i=5: [3,4,5,6]              (6 > 5, append: smallest tail for length 4 is 6)
    - But this is coincidental - `sub` tracks smallest tails, not the actual sequence
 
 4. **Binary Search in Action:**
-   - `binary search (lower bound)([3,10,20], 4)` → finds position 1 (where 10 is)
-   - `binary search (lower bound)([3,4,20], 5)` → finds position 2 (where 20 is)
+   - `lower_bound([3,10,20], 4)` → finds position 1 (where 10 is)
+   - `lower_bound([3,4,20], 5)` → finds position 2 (where 20 is)
    - Both replacements happen in the middle, not at the end
 
 **Final result:** 4 (Length of sub array = LIS length)
@@ -441,38 +411,6 @@ After 6:  [3, 4, 5, 6]
             └─ Length 2 tail = 4 (unchanged)
 ```
 
-## Alternative Approaches
-
-### Approach 1: Recursive with Memoization
-```java
-class Solution {
-        public int lengthOfLIS(int[] nums) {
-        public int[] memo(nums.length, -1);
-        int maxLen = 0;
-        for(int i = 0; i < nums.length; i++) {
-            maxLen = Math.max(maxLen, dfs(nums, i, memo));
-        }
-        return maxLen;
-    }
-        public int dfs(int[] nums, int index, int[] memo) {
-        if(memo[index] != -1) return memo[index];
-
-        int maxLen = 1;
-        for(int i = index + 1; i < nums.length; i++) {
-            if(nums[i] > nums[index]) {
-                maxLen = Math.max(maxLen, 1 + dfs(nums, i, memo));
-            }
-        }
-
-        memo[index] = maxLen;
-        return maxLen;
-    }
-}
-```
-
-**Time Complexity:** O(n²)  
-**Space Complexity:** O(n)
-
 ## Related Problems
 
 - [673. Number of Longest Increasing Subsequence](https://leetcode.com/problems/number-of-longest-increasing-subsequence/) | [Solution](https://robinali34.github.io/blog_leetcode_java/2026/01/09/medium-673-number-of-longest-increasing-subsequence/)
@@ -493,3 +431,24 @@ class Solution {
 2. **Binary search optimization:** O(log n) per element instead of O(n)
 3. **Greedy correctness:** Always maintains optimal tail elements
 4. **Optimal complexity:** O(n log n) is optimal for this problem
+
+## References
+
+- [LC 300: Longest Increasing Subsequence on LeetCode](https://leetcode.com/problems/longest-increasing-subsequence/)
+- [LeetCode Discuss — LC 300: Longest Increasing Subsequence](https://leetcode.com/problems/longest-increasing-subsequence/discuss/)
+- [LeetCode Editorial](https://leetcode.com/problems/longest-increasing-subsequence/editorial/) *(may require premium)*
+
+## Key Takeaways
+
+### Solution 1 (DP):
+1. **Subproblem:** Length of LIS ending at each position
+2. **Overlapping subproblems:** Previous positions contribute to current
+3. **Optimal substructure:** Optimal solution contains optimal solutions to subproblems
+4. **Bottom-up approach:** Build solution from smaller subproblems
+
+### Solution 2 (Binary Search):
+1. **Patience sorting:** Maintain smallest tail elements
+2. **Binary search:** Efficiently find insertion position
+3. **Greedy approach:** Always maintain smallest possible tail elements
+4. **Length tracking:** Size of array equals LIS length
+{% endraw %}

@@ -7,10 +7,7 @@ permalink: /2026/01/14/medium-310-minimum-height-trees/
 tags: [leetcode, medium, graph, tree, topological-sort, bfs, peeling-leaves]
 ---
 
-# 310. Minimum Height Trees
-
-## Problem Statement
-
+{% raw %}
 A tree is an undirected graph in which any two vertices are connected by **exactly** one path. In other words, any connected graph without simple cycles is a tree.
 
 You are given a tree of `n` nodes labelled from `0` to `n - 1`. The tree is represented as an array `edges` where `edges[i] = [ai, bi]` indicates that there is an undirected edge between nodes `ai` and `bi` in the tree.
@@ -43,55 +40,38 @@ Output: [3,4]
 - All the pairs `(ai, bi)` are distinct.
 - The given input is **guaranteed** to be a tree and there will be **no repeated** edges.
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+1. **Tree Centers**: At most 2 centers exist (middle of longest path)
 
-1. **Tree structure**: Is the graph guaranteed to be a tree? (Assumption: Yes - per constraints, input is guaranteed to be a tree with n-1 edges)
+- Model entities as nodes and relationships as edges.
+- Pick traversal (BFS/DFS) or shortest-path (Dijkstra) based on weights.
+- Union-Find helps when connectivity updates are frequent.
 
-2. **Height definition**: How is tree height defined? (Assumption: Height is the number of edges in the longest path from root to any leaf)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 135" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Graph BFS layers</text>
 
-3. **Root selection**: Can we choose any node as root? (Assumption: Yes - we want to find which node(s) as root give minimum height)
+  <circle cx="60" cy="70" r="16" fill="#D4D8E0" stroke="#8B8680"/><text x="60" y="74" text-anchor="middle" font-size="11">S</text>
+  <circle cx="140" cy="45" r="14" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="49" text-anchor="middle" font-size="10">a</text>
+  <circle cx="140" cy="95" r="14" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="99" text-anchor="middle" font-size="10">b</text>
+  <circle cx="210" cy="70" r="14" fill="#E8D5D0" stroke="#B8A5A0"/><text x="210" y="74" text-anchor="middle" font-size="10">t</text>
+  <line x1="74" y1="65" x2="126" y2="50" stroke="#9A9792" stroke-width="1.5"/>
+  <line x1="74" y1="75" x2="126" y2="95" stroke="#9A9792" stroke-width="1.5"/>
+  <line x1="154" y1="50" x2="196" y2="65" stroke="#9A9792" stroke-width="1.5"/>
+  <text x="140" y="125" text-anchor="middle" font-size="11" fill="#6B6560">BFS: expand by layers (queue)</text>
 
-4. **Multiple centers**: Can there be multiple minimum height trees? (Assumption: Yes - there can be 1 or 2 center nodes that give minimum height)
+</svg>
 
-5. **Return format**: Should we return all possible roots or just one? (Assumption: Return all nodes that can serve as root for minimum height trees)
+## Common Approaches
 
-## Interview Deduction Process (20 minutes)
+Typical techniques for this pattern:
 
-**Step 1: Brute-Force Approach (5 minutes)**
-
-For each node, calculate the height of the tree when that node is the root (using BFS or DFS). Return the node(s) with minimum height. This approach requires O(n) time per node to calculate height, giving O(n²) overall complexity, which is too slow for large trees.
-
-**Step 2: Semi-Optimized Approach (7 minutes)**
-
-Use the fact that minimum height trees have roots at the "center" of the tree. Find the diameter of the tree (longest path), and the center nodes of the diameter are the roots. However, finding the diameter requires two BFS passes, and identifying center nodes requires additional processing. This approach works but can be complex to implement correctly.
-
-**Step 3: Optimized Solution (8 minutes)**
-
-Use topological sort (leaf removal): repeatedly remove leaf nodes (nodes with degree 1) until 1 or 2 nodes remain. These remaining nodes are the roots of minimum height trees. The key insight is that leaves contribute to tree height, so removing them iteratively reveals the center. This achieves O(n) time complexity. Alternatively, use two BFS passes to find diameter endpoints, then find the center of the diameter. The topological approach is simpler and more intuitive: keep removing leaves until the "core" remains, which naturally identifies the optimal roots.
-
-## Solution Approach
-
-This problem requires finding the center(s) of a tree. The key insight is that **minimum height trees have their roots at the center(s) of the longest path (diameter) in the tree**.
-
-### Key Insights:
-
-1. **Tree Centers**: A tree has at most 2 centers (nodes at the middle of the longest path)
-2. **Peeling Leaves**: Repeatedly remove leaves (nodes with degree 1) until 1 or 2 nodes remain
-3. **Topological Sort**: Similar to Kahn's algorithm, process nodes with indegree 1
-4. **Remaining Nodes**: The 1 or 2 nodes remaining after peeling are the centers (MHT roots)
-
-### Algorithm:
-
-1. **Build Graph**: Create adjacency list and calculate degrees
-2. **Find Leaves**: Initialize queue with all nodes having degree 1
-3. **Peel Leaves Iteratively**:
-   - Process all leaves at current level
-   - Remove leaves and update degrees of neighbors
-   - Add new leaves (degree becomes 1) to queue
-   - Continue until ≤ 2 nodes remain
-4. **Return Centers**: Remaining nodes are the MHT roots
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Queue BFS** *(this problem)* | O(n) | O(n) | Shortest path in unweighted graphs |
+| Multi-source BFS | O(n) | O(n) | Start from all sources simultaneously |
+| 0-1 BFS / deque | O(n) | O(n) | Weights 0 or 1 |
+| Level-order BFS | O(n) | O(w) | Process by depth/layer |
 
 ## Solution
 
@@ -126,6 +106,22 @@ class Solution {
         return new ArrayList<>(q);
     }
 }```
+
+### Solution Explanation
+
+**Approach:** Queue BFS (this problem)
+
+**Key idea:** 1. **Tree Centers**: At most 2 centers exist (middle of longest path)
+
+**How the code works:**
+1. **Tree Centers**: At most 2 centers exist (middle of longest path)
+- Model entities as nodes and relationships as edges.
+- Pick traversal (BFS/DFS) or shortest-path (Dijkstra) based on weights.
+- Union-Find helps when connectivity updates are frequent.
+
+**Walkthrough** — input `n = 4, edges = [[1,0],[1,2],[1,3]]`, expected output `[1]`:
+
+As shown, the height of the tree when rooted at node 1 is 1, which is the minimum possible.
 
 ### **Algorithm Explanation:**
 
@@ -247,16 +243,7 @@ Centers: 3 and 4 (both are valid MHT roots)
   - Adjacency list: O(n)
   - Degree array: O(n)
   - Queue: O(n)
-
-## Key Insights
-
-1. **Tree Centers**: At most 2 centers exist (middle of longest path)
-2. **Peeling Leaves**: Repeatedly remove leaves until centers remain
-3. **Batch Processing**: Process all leaves at same level together
-4. **Convergence**: Always converges to 1 or 2 nodes
-5. **MHT Roots**: Centers minimize maximum distance to any leaf
-
-## Edge Cases
+## Common Mistakes
 
 1. **Single node**: `n = 1` → return `[0]`
 2. **Two nodes**: `n = 2, edges = [[0,1]]` → return `[0,1]` (both are centers)
@@ -264,204 +251,11 @@ Centers: 3 and 4 (both are valid MHT roots)
 4. **Star tree**: `n = 4, edges = [[0,1],[0,2],[0,3]]` → return `[0]` (center)
 5. **Balanced tree**: Returns 1 or 2 centers depending on structure
 
-## Common Mistakes
-
 1. **Not handling single node**: Forgetting edge case `n == 1`
 2. **Wrong stopping condition**: Should stop when `remainingNodes <= 2`, not `== 0`
 3. **Not batch processing**: Processing leaves one at a time instead of by level
 4. **Wrong degree update**: Not updating degrees correctly when removing leaves
 5. **Not tracking remaining nodes**: Forgetting to decrement `remainingNodes`
-
-## Alternative Approaches
-
-### **Approach 2: Two-Pass BFS (Find Diameter)**
-
-Find the longest path (diameter) in the tree, then return the middle node(s).
-
-```java
-// import java.util.*;
-class Solution {
-    public int[] findMinHeightTrees(int n, int[][] edges) {
-        if(n == 1) return {0}
-        int[][] adj(n);
-        for (int e : edges) {
-            adj[e[0]].push_back(e[1]);
-            adj[e[1]].push_back(e[0]);
-        }
-
-        // First BFS: Find one end of diameter
-        int u = bfs(adj, 0, n).first;
-
-        // Second BFS: Find other end and path
-        auto [v, parent] = bfs(adj, u, n);
-
-        // Find middle node(s) of diameter
-        List<Integer> path = new ArrayList<>();
-        int curr = v;
-        while(curr != -1) {
-            path.add(curr);
-            curr = parent[curr];
-        }
-
-        int len = path.size();
-        if(len % 2 == 0) {
-            return {path[len/2 - 1], path[len/2]}
-        } else {
-            return {path[len/2]}
-        }
-    }
-    pair<int, int[]> bfs(int[][] adj, int start, int n) {
-        Queue<Integer> q = new LinkedList<>();
-        int[]parent(n, -1);
-        boolean[] visited = new boolean[n];
-        q.offer(start);
-        visited[start] = true;
-        int farthest = start;
-
-        while(!q.isEmpty()) {
-            int u = q.get(0);
-            q.poll();
-            farthest = u;
-            for(int v: adj[u]) {
-                if(!visited[v]) {
-                    visited[v] = true;
-                    parent[v] = u;
-                    q.offer(v);
-                }
-            }
-        }
-        return new int[] new int[] new int[] {farthest, parent}
-    }
-}
-```
-
-**Time Complexity:** O(n) - Two BFS passes  
-**Space Complexity:** O(n)
-
-### **Approach 3: Two-Pass DFS (Find Diameter)**
-
-Similar to BFS approach but using DFS to find the diameter. Uses recursion to find farthest nodes.
-
-```java
-class Solution {
-    public int[] findMinHeightTrees(int n, int[][] edges) {
-        if(n == 1) return {0}
-        int[][] adj(n);
-        for (int e : edges) {
-            adj[e[0]].push_back(e[1]);
-            adj[e[1]].push_back(e[0]);
-        }
-
-        // First DFS: Find one end of diameter
-        int farthestNode = 0;
-        int maxDist = 0;
-        int[]parent1(n, -1);
-        dfs(adj, 0, -1, 0, farthestNode, maxDist, parent1);
-        u = farthestNode; // Second DFS: Find other end and path
-        farthestNode = u;
-        maxDist = 0;
-        int[]parent2(n, -1);
-        dfs(adj, u, -1, 0, farthestNode, maxDist, parent2);
-        v = farthestNode; // Reconstruct path from u to v
-        List<Integer> path = new ArrayList<>();
-        int curr = v;
-        while(curr != -1) {
-            path.add(curr);
-            curr = parent2[curr];
-        }
-
-        // Find middle node(s) of diameter
-        int len = path.size();
-        if(len % 2 == 0) {
-            return {path[len/2 - 1], path[len/2]}
-        } else {
-            return {path[len/2]}
-        }
-    }
-    public void dfs(int[][] adj, int u, int parent, int dist,
-             int farthestNode, int maxDist, int[] parentArr) {
-        parentArr[u] = parent;
-
-        if(dist > maxDist) {
-            maxDist = dist;
-            farthestNode = u;
-        }
-
-        for(int v: adj[u]) {
-            if(v == parent) continue;
-            dfs(adj, v, u, dist + 1, farthestNode, maxDist, parentArr);
-        }
-    }
-}
-```
-
-**Time Complexity:** O(n) - Two DFS passes  
-**Space Complexity:** O(n) - Recursion stack
-
-**Algorithm Explanation:**
-1. **First DFS**: Start from any node (0), find the farthest node `u` by tracking distance
-2. **Second DFS**: Start from `u`, find the farthest node `v` and build path using parent array
-3. **Find Centers**: Middle node(s) of the path from `u` to `v` are the centers
-
-**Key Points:**
-- DFS recursively explores all paths from a starting node
-- Tracks the farthest node and maximum distance encountered
-- Parent array allows path reconstruction
-
-### **Approach 4: DFS with Height Calculation**
-
-Calculate height of tree when rooted at each node, return nodes with minimum height. This is less efficient but demonstrates the problem definition directly.
-
-```java
-class Solution {
-    public int[] findMinHeightTrees(int n, int[][] edges) {
-        if(n == 1) return {0}
-        int[][] adj(n);
-        for (int e : edges) {
-            adj[e[0]].push_back(e[1]);
-            adj[e[1]].push_back(e[0]);
-        }
-
-        int minHeight = Integer.MAX_VALUE;
-        List<Integer> result = new ArrayList<>();
-
-        // Try each node as root
-        for(int root = 0; root < n; root++) {
-            int height = dfs(adj, root, -1);
-            if(height < minHeight) {
-                minHeight = height;
-                result = {root}
-            } else if(height == minHeight) {
-                result.add(root);
-            }
-        }
-
-        return result;
-    }
-        public int dfs(int[][] adj, int u, int parent) {
-        int maxHeight = 0;
-        for(int v: adj[u]) {
-            if(v == parent) continue;
-            maxHeight = Math.max(maxHeight, dfs(adj, v, u));
-        }
-        return maxHeight + 1;
-    }
-}
-```
-
-**Time Complexity:** O(n²) - For each node, DFS takes O(n)  
-**Space Complexity:** O(n) - Recursion stack
-
-**Note:** This approach is less efficient (O(n²)) compared to peeling leaves (O(n)), but it directly implements the problem definition.
-
-**Comparison:**
-
-| Approach | Time | Space | Complexity | Notes |
-|----------|------|-------|------------|-------|
-| **Peeling Leaves (BFS)** | O(n) | O(n) | Low | Most intuitive, recommended |
-| **Two-Pass BFS** | O(n) | O(n) | Medium | Directly finds diameter |
-| **Two-Pass DFS** | O(n) | O(n) | Medium | Similar to BFS, uses recursion |
-| **DFS Height Calculation** | O(n²) | O(n) | Low | Direct implementation, less efficient |
 
 ## Related Problems
 
@@ -470,7 +264,21 @@ class Solution {
 - [LC 310: Minimum Height Trees](https://leetcode.com/problems/minimum-height-trees/) - This problem
 - [LC 323: Number of Connected Components](https://leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/) - Graph connectivity
 
----
+## Key Takeaways
 
-*This problem demonstrates the **Peeling Leaves** pattern for finding tree centers. The key insight is that minimum height trees have their roots at the center(s) of the longest path, which can be found by repeatedly removing leaves until 1 or 2 nodes remain.*
+1. **Tree Centers**: At most 2 centers exist (middle of longest path)
+2. **Peeling Leaves**: Repeatedly remove leaves until centers remain
+3. **Batch Processing**: Process all leaves at same level together
+4. **Convergence**: Always converges to 1 or 2 nodes
+5. **MHT Roots**: Centers minimize maximum distance to any leaf
 
+## References
+
+- [LC 310: Minimum Height Trees on LeetCode](https://leetcode.com/problems/minimum-height-trees/)
+- [LeetCode Discuss — LC 310: Minimum Height Trees](https://leetcode.com/problems/minimum-height-trees/discuss/)
+- [LeetCode Editorial](https://leetcode.com/problems/minimum-height-trees/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [Graph](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-graph/)
+{% endraw %}

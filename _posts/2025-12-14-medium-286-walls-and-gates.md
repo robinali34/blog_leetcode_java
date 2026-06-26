@@ -8,8 +8,6 @@ permalink: /posts/2025-12-14-medium-286-walls-and-gates/
 ---
 
 {% raw %}
-# [Medium] 286. Walls and Gates
-
 You are given an `m x n` grid `rooms` initialized with these three possible values:
 
 - `-1` A wall or an obstacle.
@@ -45,35 +43,40 @@ Output: [[2147483647]]
 - `1 <= m, n <= 250`
 - `rooms[i][j]` is `-1`, `0`, or `2^31 - 1`.
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+1. **Multi-source BFS**: Start from all gates simultaneously for efficiency
 
-1. **Cell types**: What do the values represent? (Assumption: -1 = wall (obstacle), 0 = gate, 2^31-1 = empty room (INF))
+- BFS visits nodes in non-decreasing distance from the source.
+- Queue guarantees shortest path in unweighted graphs.
+- Process level by level when counting layers or distances.
 
-2. **Distance calculation**: How is distance calculated? (Assumption: Minimum steps from nearest gate to each empty room - BFS distance)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 135" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Graph BFS layers</text>
 
-3. **Modification requirement**: Should we modify the grid? (Assumption: Yes - replace INF values with actual distances from nearest gate)
+  <circle cx="60" cy="70" r="16" fill="#D4D8E0" stroke="#8B8680"/><text x="60" y="74" text-anchor="middle" font-size="11">S</text>
+  <circle cx="140" cy="45" r="14" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="49" text-anchor="middle" font-size="10">a</text>
+  <circle cx="140" cy="95" r="14" fill="#E8E3D8" stroke="#B8B5B0"/><text x="140" y="99" text-anchor="middle" font-size="10">b</text>
+  <circle cx="210" cy="70" r="14" fill="#E8D5D0" stroke="#B8A5A0"/><text x="210" y="74" text-anchor="middle" font-size="10">t</text>
+  <line x1="74" y1="65" x2="126" y2="50" stroke="#9A9792" stroke-width="1.5"/>
+  <line x1="74" y1="75" x2="126" y2="95" stroke="#9A9792" stroke-width="1.5"/>
+  <line x1="154" y1="50" x2="196" y2="65" stroke="#9A9792" stroke-width="1.5"/>
+  <text x="140" y="125" text-anchor="middle" font-size="11" fill="#6B6560">BFS: expand by layers (queue)</text>
 
-4. **Return value**: What should we return? (Assumption: Void - modify rooms array in-place)
+</svg>
 
-5. **Movement rules**: How can we move? (Assumption: Horizontal or vertical movement - 4 directions, cannot pass through walls)
+## Common Approaches
 
-## Interview Deduction Process (20 minutes)
+Typical techniques for this pattern:
 
-**Step 1: Brute-Force Approach (5 minutes)**
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Queue BFS** *(this problem)* | O(n) | O(n) | Shortest path in unweighted graphs |
+| Multi-source BFS | O(n) | O(n) | Start from all sources simultaneously |
+| 0-1 BFS / deque | O(n) | O(n) | Weights 0 or 1 |
+| Level-order BFS | O(n) | O(w) | Process by depth/layer |
 
-For each empty room (INF value), run BFS to find the nearest gate. Update the room with the distance found. This approach has O(m × n × (m × n)) time complexity in worst case, which is too slow for large grids.
-
-**Step 2: Semi-Optimized Approach (7 minutes)**
-
-Start BFS from each gate separately, updating distances as we go. However, this still requires multiple BFS passes, and we need to track the minimum distance across all gates for each room, which adds complexity.
-
-**Step 3: Optimized Solution (8 minutes)**
-
-Use multi-source BFS: initialize the queue with all gates (distance 0). Perform BFS from all gates simultaneously. When visiting a room, if the current distance is smaller than the stored value, update it and add neighbors to the queue. This achieves O(m × n) time - we visit each cell at most once. The key insight is that BFS naturally finds shortest paths, and starting from all gates simultaneously ensures each room gets the distance from its nearest gate in a single pass.
-
-## Solution 1: Multi-Source BFS (Recommended)
+## Solution
 
 **Time Complexity:** O(m × n) - Each cell is visited at most once  
 **Space Complexity:** O(m × n) - For the queue
@@ -123,6 +126,29 @@ class Solution {
     }
 }
 ```
+### Solution Explanation
+
+**Approach:** Queue BFS (this problem)
+
+**Key idea:** 1. **Multi-source BFS**: Start from all gates simultaneously for efficiency
+
+**How the code works:**
+1. **Multi-source BFS**: Start from all gates simultaneously for efficiency
+- BFS visits nodes in non-decreasing distance from the source.
+- Queue guarantees shortest path in unweighted graphs.
+- Process level by level when counting layers or distances.
+
+**Walkthrough** — input `rooms = [[2147483647,-1,0,2147483647],[2147483647,2147483647,2147483647,-1],[2147483647,-1,2147483647,-1],[0,-1,2147483647,2147483647]]`, expected output `[[3,-1,0,1],[2,2,1,-1],[1,-1,2,-1],[0,-1,3,4]]`:
+
+1. Initialize variables from the problem setup.
+2. Apply the main loop / recursion until the condition is met.
+3. Confirm the result matches the expected output.
+
+| Operation | Time | Space |
+|-----------|------|-------|
+| Find all gates | O(m×n) | O(1) |
+| BFS traversal | O(m×n) | O(m×n) |
+| **Overall** | **O(m×n)** | **O(m×n)** |
 
 ### How Solution 1 Works
 
@@ -147,68 +173,6 @@ class Solution {
 - **Single-source BFS** would require running BFS from each gate separately → O(k × m × n) where k is number of gates
 - **Multi-source BFS** processes all gates together → O(m × n)
 - Each cell is visited once, and the first visit (from nearest gate) sets the correct distance
-
-## Solution 2: DFS (Alternative - Less Efficient)
-
-**Time Complexity:** O((m × n)^2) in worst case  
-**Space Complexity:** O(m × n) - Recursion stack
-
-DFS approach starting from each gate. Less efficient because it may revisit cells multiple times.
-
-```java
-class Solution {
-        int EMPTY = Integer.MAX_VALUE;
-    int GATE = 0;
-    int[] dirs = new int[4][2] = {new int[] {1, 0}, {-1, 0}, new int[] {0, 1}, {0, -1}}
-    public void dfs(int[][] rooms, int row, int col, int distance) {
-        if(row < 0 || row >= rooms.size() || col < 0 || col >= rooms[0].length ||
-           rooms[row][col] < distance) {
-            return;
-        }
-
-        rooms[row][col] = distance;
-
-        for (int dir : dirs) {
-            dfs(rooms, row + dir[0], col + dir[1], distance + 1);
-        }
-    }
-    public void wallsAndGates(int[][] rooms) {
-        int ROWS = rooms.size(), COLS = rooms[0].length;
-        if(ROWS == 0 || COLS == 0) return;
-
-        // Start DFS from each gate
-        for(int row = 0; row < ROWS; row++) {
-            for(int col = 0; col < COLS; col++) {
-                if(rooms[row][col] == GATE) {
-                    dfs(rooms, row, col, 0);
-                }
-            }
-        }
-    }
-}
-```
-
-### How Solution 2 Works
-
-1. **DFS from each gate**: Start DFS from every gate with distance 0
-2. **Pruning**: If current distance >= existing distance in cell, skip (already found shorter path)
-3. **Update**: Set cell to current distance and continue DFS
-
-### Why BFS is Better
-
-- **BFS**: Guarantees shortest path, each cell visited once
-- **DFS**: May revisit cells, requires pruning check, less efficient
-
-## Comparison of Approaches
-
-| Aspect | Multi-Source BFS | DFS |
-|--------|------------------|-----|
-| **Time Complexity** | O(m×n) | O((m×n)²) worst case |
-| **Space Complexity** | O(m×n) | O(m×n) |
-| **Optimality** | Guaranteed shortest path | Requires pruning |
-| **Code Simplicity** | Excellent | Good |
-| **Efficiency** | Better | Less efficient |
-
 ## Example Walkthrough
 
 **Input:** 
@@ -258,15 +222,14 @@ Final Result:
 ]
 ```
 
-## Complexity Analysis
-
+### Complexity
 | Operation | Time | Space |
 |-----------|------|-------|
 | Find all gates | O(m×n) | O(1) |
 | BFS traversal | O(m×n) | O(m×n) |
 | **Overall** | **O(m×n)** | **O(m×n)** |
 
-## Edge Cases
+## Common Mistakes
 
 1. **No gates**: All rooms remain `INF`
 2. **No empty rooms**: Only walls and gates
@@ -274,21 +237,11 @@ Final Result:
 4. **All gates**: Every cell is a gate
 5. **Isolated rooms**: Rooms that cannot reach any gate remain `INF`
 
-## Common Mistakes
-
 1. **Single-source BFS**: Running BFS from each gate separately (inefficient)
 2. **Not checking bounds**: Forgetting to check array bounds before accessing
 3. **Wrong condition**: Using `rooms[nrow][ncol] == EMPTY` instead of `!= EMPTY` for visited check
 4. **Distance calculation**: Forgetting to add 1 when updating distance
 5. **Modifying input**: Not handling the case where input is empty
-
-## Key Insights
-
-1. **Multi-source BFS**: Start from all gates simultaneously for efficiency
-2. **In-place update**: Use the grid itself to track distances (no extra space needed)
-3. **BFS guarantees shortest path**: First visit to a cell gives the shortest distance
-4. **Walls are obstacles**: Skip walls (`-1`) during traversal
-5. **Empty check**: Only process cells that are `EMPTY` (not yet visited)
 
 ## Optimization Tips
 
@@ -329,6 +282,17 @@ Similar problems:
 3. **Network Routing**: Find nearest gateway/router
 4. **Emergency Evacuation**: Find nearest exit in emergency scenarios
 5. **Facility Location**: Find optimal locations based on multiple sources
+## References
 
+- [LC 286: Walls and Gates on LeetCode](https://leetcode.com/problems/walls-and-gates/)
+- [LeetCode Discuss — LC 286: Walls and Gates](https://leetcode.com/problems/walls-and-gates/discuss/)
+- [LeetCode Editorial](https://leetcode.com/problems/walls-and-gates/editorial/) *(may require premium)*
+
+## Key Takeaways
+
+1. **Multi-source BFS**: Start from all gates simultaneously for efficiency
+2. **In-place update**: Use the grid itself to track distances (no extra space needed)
+3. **BFS guarantees shortest path**: First visit to a cell gives the shortest distance
+4. **Walls are obstacles**: Skip walls (`-1`) during traversal
+5. **Empty check**: Only process cells that are `EMPTY` (not yet visited)
 {% endraw %}
-

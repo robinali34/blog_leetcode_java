@@ -7,6 +7,7 @@ tags: [leetcode, hard, dfs, memoization, topological-sort, bfs, matrix]
 permalink: /2026/04/18/hard-329-longest-increasing-path-in-a-matrix/
 ---
 
+{% raw %}
 Given an `m x n` integers matrix, return the length of the **longest strictly increasing path**.
 
 From each cell, you can move in four directions: up, down, left, or right. You may not move diagonally or outside the boundary.
@@ -75,9 +76,29 @@ Think of the grid as a **DAG**: draw an edge `u → v` whenever `matrix[v] > mat
 3. Process layer by layer; each layer = one step in the path
 4. Number of BFS layers = answer
 
-## Solution 1: DFS + Memoization -- $O(mn)$ time, $O(mn)$ space
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 125" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Grid traversal</text>
 
-{% raw %}
+  <rect x="50" y="40" width="28" height="28" fill="#D4D8E0" stroke="#8B8680"/><rect x="78" y="40" width="28" height="28" fill="#E8E3D8" stroke="#B8B5B0"/>
+  <rect x="106" y="40" width="28" height="28" fill="#E8E3D8" stroke="#B8B5B0"/><rect x="134" y="40" width="28" height="28" fill="#E8E3D8" stroke="#B8B5B0"/>
+  <rect x="50" y="68" width="28" height="28" fill="#E8E3D8" stroke="#B8B5B0"/><rect x="78" y="68" width="28" height="28" fill="#E0D8E4" stroke="#A098A8"/>
+  <rect x="106" y="68" width="28" height="28" fill="#E8E3D8" stroke="#B8B5B0"/><rect x="134" y="68" width="28" height="28" fill="#E8E3D8" stroke="#B8B5B0"/>
+  <text x="110" y="115" text-anchor="middle" font-size="11" fill="#6B6560">BFS/DFS flood from each cell</text>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Recursive DFS** *(this problem)* | O(n) | O(h) stack | Natural for trees and graphs |
+| Iterative DFS (stack) | O(n) | O(n) | Avoid recursion depth limits |
+| DFS with memoization | O(n) | O(n) | Overlapping subproblems on graphs |
+| Backtracking DFS | O(2^n) typical | O(n) | Enumerate choices with pruning |
+
+## Solution
 ```java
 class Solution {
         public int longestIncreasingPath(int[][] matrix) {
@@ -114,109 +135,30 @@ class Solution {
     }
 }
 ```
-{% endraw %}
+### Solution Explanation
 
-### Why No Visited Array?
+**Approach:** Recursive DFS (this problem)
 
-Unlike typical grid DFS, we don't need a `visited` set. The **strictly increasing** constraint guarantees no cycles -- you can never return to a cell you've already visited on the current path since its value would have to be both smaller and larger.
+**Key idea:** ### Why Brute Force Fails
 
-### Why Memoization Works
+**How the code works:**
+1. Compute **indegree** of each cell (number of strictly-smaller neighbors)
+2. Start BFS from all cells with indegree 0 (local minima)
+3. Process layer by layer; each layer = one step in the path
+4. Number of BFS layers = answer
 
-Once `dp[r][c]` is computed, every future call that reaches `(r, c)` returns immediately. Each cell is fully explored exactly once, so total work across all DFS calls is $O(mn)$.
+**Walkthrough** — input `9  9  4`, expected output `4`:
 
-## Solution 2: Topological Sort (BFS) -- $O(mn)$ time, $O(mn)$ space
-
-{% raw %}
-```java
-class Solution {
-        public int longestIncreasingPath(int[][] matrix) {
-        if (matrix.length == 0) return 0;
-        int rows = matrix.length;
-        int cols = matrix[0].length;
-
-        int[][] indegree = new int[rows][cols];
-        int dirs[4][2] = {new int[] {1, 0}, {-1, 0}, new int[] {0, 1}, {0, -1}}
-        for (int r = 0; r < rows; ++r) {
-            for (int c = 0; c < cols; ++c) {
-                for (int d : dirs) {
-                    int nr = r + d[0];
-                    int nc = c + d[1];
-                    if (nr >= 0 && nr < rows && nc >= 0 && nc < cols &&
-                        matrix[nr][nc] < matrix[r][c]) {
-                        indegree[r][c]++;
-                    }
-                }
-            }
-        }
-
-        queue<int[]> q;
-        for (int r = 0; r < rows; ++r) {
-            for (int c = 0; c < cols; ++c) {
-                if (indegree[r][c] == 0) {
-                    q.offer(new int[] {r, c});
-                }
-            }
-        }
-
-        int pathLen = 0;
-        while (!q.isEmpty()) {
-            int size = q.size();
-            pathLen++;
-            for (int i = 0; i < size; ++i) {
-                auto [r, c] = q.get(0);
-                q.poll();
-                for (int d : dirs) {
-                    int nr = r + d[0];
-                    int nc = c + d[1];
-                    if (nr >= 0 && nr < rows && nc >= 0 && nc < cols &&
-                        matrix[nr][nc] > matrix[r][c]) {
-                        if (--indegree[nr][nc] == 0) {
-                            q.offer(new int[] {nr, nc});
-                        }
-                    }
-                }
-            }
-        }
-        return pathLen;
-    }
-}
-```
-{% endraw %}
-
-### Walk-through
-
-```
-Matrix:
-  9  9  4
-  6  6  8
-  2  1  1
-
-Indegree (# of strictly smaller neighbors):
-  2  2  1
-  1  1  2
-  0  0  0
-
-Layer 0 (indegree=0): (2,0)=2, (2,1)=1, (2,2)=1   pathLen=1
-  Process: decrement neighbors' indegrees
-
-Layer 1: (1,0)=6, (1,1)=6, (0,2)=4                  pathLen=2
-
-Layer 2: (0,0)=9, (0,1)=9, (1,2)=8                  pathLen=3
-
-Layer 3: (nothing new? let's trace...)
-  Actually: after layer 1, (1,2)=8 gets indegree 0
-  After layer 2, nothing remains
-
-pathLen = 4  ✓
-```
-
+1. Initialize variables from the problem setup.
+2. Apply the main loop / recursion until the condition is met.
+3. Confirm the result matches the expected output.
 ## Comparison
 
 | Aspect | DFS + Memoization | Topological Sort (BFS) |
 |---|---|---|
 | Approach | Top-down recursion with cache | Bottom-up layer-by-layer |
-| Recursion | Yes (stack depth up to $mn$) | No (iterative) |
-| Space | $O(mn)$ dp + recursion stack | $O(mn)$ indegree + queue |
+| Recursion | Yes (stack depth up to mn) | No (iterative) |
+| Space | O(mn) dp + recursion stack | O(mn) indegree + queue |
 | When to prefer | Simpler to write, natural for path problems | Avoids stack overflow on large inputs |
 | Key insight | Strictly increasing = no cycles = safe to memo | Grid as DAG, longest path via topo sort |
 
@@ -231,7 +173,7 @@ pathLen = 4  ✓
 - **DFS + memoization on grid** is a core pattern: define `dp[i][j]` as the answer starting from `(i, j)`, recurse on valid neighbors, cache results
 - **Strictly increasing** guarantees a DAG -- no cycles means memoization is safe and topological sort applies
 - The BFS approach reveals the problem's structure: it's just **longest path in a DAG** disguised as a grid problem
-- Both solutions are $O(mn)$ -- choose based on whether you prefer recursive or iterative style
+- Both solutions are O(mn) -- choose based on whether you prefer recursive or iterative style
 
 ## Related Problems
 
@@ -241,7 +183,14 @@ pathLen = 4  ✓
 - [221. Maximal Square](https://leetcode.com/problems/maximal-square/) -- grid DP with neighbor transitions
 - [207. Course Schedule](https://leetcode.com/problems/course-schedule/) -- topological sort on explicit DAG
 
+## References
+
+- [LC 329: Longest Increasing Path in a Matrix on LeetCode](https://leetcode.com/problems/longest-increasing-path-in-a-matrix/)
+- [LeetCode Discuss — LC 329: Longest Increasing Path in a Matrix](https://leetcode.com/problems/longest-increasing-path-in-a-matrix/discuss/)
+- [LeetCode Editorial](https://leetcode.com/problems/longest-increasing-path-in-a-matrix/editorial/) *(may require premium)*
+
 ## Template Reference
 
 - [DFS](/blog_leetcode_java/posts/2025-11-24-leetcode-templates-dfs/)
 - [Dynamic Programming](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-dp/)
+{% endraw %}

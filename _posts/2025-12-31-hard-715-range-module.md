@@ -6,10 +6,7 @@ categories: [leetcode, hard, design, data-structures, interval, map, tree-map]
 permalink: /2025/12/31/hard-715-range-module/
 ---
 
-# 715. Range Module
-
-## Problem Statement
-
+{% raw %}
 A Range Module is a module that tracks ranges of numbers. Design a data structure to track the ranges represented as **half-open intervals** `[left, right)`.
 
 Implement the `RangeModule` class:
@@ -43,64 +40,6 @@ rangeModule.queryRange(16, 17); // Returns true (the number 16 in [16, 17) is st
 - `1 <= left < right <= 10^9`
 - At most `10^4` calls will be made to `addRange`, `queryRange`, and `removeRange`.
 
-## Clarification Questions
-
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
-
-1. **Range format**: Are ranges inclusive or exclusive? (Assumption: Half-open interval [left, right) - left is inclusive, right is exclusive)
-
-2. **Overlapping ranges**: How should we handle overlapping ranges when adding? (Assumption: Merge overlapping ranges - union of all tracked ranges)
-
-3. **Partial removal**: What happens when removing a range that partially overlaps tracked ranges? (Assumption: Remove only the overlapping portion - split ranges if needed)
-
-4. **Query definition**: What does queryRange check? (Assumption: Returns true if every number in [left, right) is being tracked)
-
-5. **Range boundaries**: What's the valid range for left and right? (Assumption: 1 <= left < right <= 10^9 per constraints)
-
-## Interview Deduction Process (30 minutes)
-
-### Step 1: Brute-Force Approach (8 minutes)
-**Initial Thought**: "I need to track ranges. Let me use a simple list and check/merge manually."
-
-**Naive Solution**: Store all intervals in an unsorted list. For each operation, linearly scan through all intervals to find overlaps, then manually merge or split.
-
-**Complexity**: O(n) per operation, O(n^2) worst case for merging
-
-**Issues**:
-- O(n) per operation - linear scan through all intervals
-- O(n^2) worst case when merging requires checking all pairs
-- No efficient way to find overlapping intervals
-- Complex merge/split logic with many edge cases
-- Doesn't scale well for many operations
-
-### Step 2: Semi-Optimized Approach (10 minutes)
-**Insight**: "I need sorted intervals for efficient operations. A sorted vector with binary search can help find positions quickly."
-
-**Improved Solution**: Maintain intervals in a sorted vector. Use binary search to find insertion points, but still need O(n) for vector insertions/deletions.
-
-**Complexity**: O(log n) search + O(n) insertion/deletion per operation
-
-**Improvements**:
-- Binary search reduces search time to O(log n)
-- Still O(n) for insertions/deletions due to vector shifting
-- Better than brute-force but not optimal
-- Query becomes O(log n) which is good
-
-### Step 3: Optimized Solution (12 minutes)
-**Final Optimization**: "A sorted map (TreeMap) provides O(log n) operations and efficient merging. It handles insertions/deletions efficiently."
-
-**Best Solution**: Use `TreeMap` to store intervals sorted by start point. Use `binary search (upper bound)()` to find insertion points, then merge or split intervals as needed.
-
-**Complexity**: O(k log n) per operation where k = number of intervals affected
-
-**Key Realizations**:
-1. `TreeMap` provides O(log n) operations and automatic sorting
-2. `binary search (upper bound)()` efficiently finds insertion points in O(log n)
-3. Merge logic handles overlapping intervals elegantly by extending boundaries
-4. Split logic handles partial overlaps correctly by truncating/creating intervals
-5. O(k log n) complexity where k is number of intervals affected (typically small)
-6. Much more efficient than linear approaches for many operations
-
 ## Solution Structure Breakdown
 
 ### Evolution from Naive to Optimized
@@ -116,7 +55,7 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 - **Improvement**: Faster search, but still O(n) for modifications
 
 **Optimized Approach** (Sorted Map):
-- **Structure**: `TreeMap` for automatic sorting and O(log n) operations
+- **Structure**: `std::map` for automatic sorting and O(log n) operations
 - **Complexity**: O(k log n) where k = intervals affected
 - **Enhancement**: Efficient merge/split operations
 
@@ -128,22 +67,37 @@ Before diving into the solution, here are 5 important clarifications and assumpt
 | **Semi-Opt** | Sorted vector | O(log n) | O(n) | O(n) |
 | **Optimized** | Sorted map | O(log n) | O(log n) | O(k log n) |
 
-## Solution Approach
+## Thinking Process
 
-This problem requires efficiently managing intervals (ranges) with support for adding, querying, and removing. We can use a **sorted map** (like `TreeMap` in Java) to store non-overlapping intervals, where keys are start points and values are end points.
+A Range Module is a module that tracks ranges of numbers. Design a data structure to track the ranges represented as **half-open intervals** `[left, right)`.
 
-### Key Insights:
+Implement the `RangeModule` class:
 
-1. **Sorted Map**: Use `map<int, int>` to store intervals in sorted order by start point
-2. **Merge Intervals**: When adding, merge overlapping or adjacent intervals
-3. **Split Intervals**: When removing, split intervals that partially overlap
-4. **Query Check**: Check if query range is completely contained in an existing interval
+- Identify required operations and their frequency (get/put/insert).
+- Combine data structures: hash map + list, heap + map, trie + DFS.
+- Amortized O(1) often needs lazy cleanup or doubly-linked lists.
 
-### Algorithm:
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 115" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Design pattern</text>
 
-1. **addRange**: Find overlapping intervals, merge them, remove subsumed intervals
-2. **queryRange**: Check if query range is completely within a single interval
-3. **removeRange**: Split intervals that overlap with removal range
+  <rect x="40" y="45" width="70" height="36" rx="4" fill="#D4D8E0" stroke="#8B8680"/><text x="75" y="67" text-anchor="middle" font-size="10">API</text>
+  <rect x="150" y="45" width="90" height="36" rx="4" fill="#E0D8E4" stroke="#A098A8"/><text x="195" y="67" text-anchor="middle" font-size="10">hash + list</text>
+  <path d="M110 63h36" stroke="#8B8680" stroke-width="2" marker-end="url(#arr2)"/>
+  <defs><marker id="arr2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6" fill="#8B8680"/></marker></defs>
+  <text x="140" y="105" text-anchor="middle" font-size="11" fill="#6B6560">compose data structures for operations</text>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Hash map + list** *(this problem)* | O(1) avg | O(n) | LRU cache pattern |
+| Heap + hash map | O(log n) | O(n) | LFU, time-based store |
+| Trie (prefix tree) | O(m) | O(nm) | Word search, autocomplete |
+| Deque / circular buffer | O(1) | O(n) | Queue with fixed capacity |
 
 ## Solution
 
@@ -361,7 +315,7 @@ class RangeModule {
 **Purpose**: Add interval `[left, right)`, merging with overlapping intervals.
 
 **Steps**:
-1. **Find insertion point** (Line 11): `binary search (upper bound)(left)` finds first interval starting after `left`
+1. **Find insertion point** (Line 11): `upper_bound(left)` finds first interval starting after `left`
 2. **Check previous interval** (Lines 12-19):
    - If previous interval ends at or after `right`: already covered, return
    - If previous interval ends at or after `left`: merge by extending `left` to previous start
@@ -374,7 +328,7 @@ class RangeModule {
 ```
 Initial: intervals = {[10, 20]}
 addRange(15, 25):
-  it = binary search (upper bound)(15) → points to [10, 20]
+  it = upper_bound(15) → points to [10, 20]
   prev(it) = [10, 20]
   start->second (20) >= left (15) → merge
   left = 10
@@ -388,7 +342,7 @@ addRange(15, 25):
 **Purpose**: Check if entire range `[left, right)` is tracked.
 
 **Steps**:
-1. **Find candidate interval** (Line 27): `binary search (upper bound)(left)` finds first interval after `left`
+1. **Find candidate interval** (Line 27): `upper_bound(left)` finds first interval after `left`
 2. **Check previous interval** (Line 28): Move to previous interval (might contain `left`)
 3. **Verify coverage** (Line 30): Check if previous interval completely covers `[left, right)`
 
@@ -396,7 +350,7 @@ addRange(15, 25):
 ```
 intervals = {[10, 20]}
 queryRange(12, 18):
-  it = binary search (upper bound)(12) → points to [10, 20]
+  it = upper_bound(12) → points to [10, 20]
   prev(it) = [10, 20]
   Check: right (18) <= it->second (20) → true
 ```
@@ -406,7 +360,7 @@ queryRange(12, 18):
 **Purpose**: Remove interval `[left, right)` from tracked ranges.
 
 **Steps**:
-1. **Find starting point** (Line 34): `binary search (upper bound)(left)` finds first interval after `left`
+1. **Find starting point** (Line 34): `upper_bound(left)` finds first interval after `left`
 2. **Handle previous interval** (Lines 35-50):
    - If previous interval completely contains `[left, right)`:
      - Split into `[start, left)` and `[right, end)` if needed
@@ -420,7 +374,7 @@ queryRange(12, 18):
 ```
 intervals = {[10, 20]}
 removeRange(14, 16):
-  it = binary search (upper bound)(14) → points to [10, 20]
+  it = upper_bound(14) → points to [10, 20]
   prev(it) = [10, 20]
   start->second (20) >= right (16) → split needed
   start->first (10) != left (14) → truncate to [10, 14)
@@ -481,8 +435,7 @@ Using `map<int, int>` provides:
 2. Removing intervals completely within `[left, right)`
 3. Creating new interval for part extending beyond `right`
 
-## Complexity Analysis
-
+### Complexity
 ### **Time Complexity:**
 - **addRange**: O(k log n) where k = number of intervals to merge
 - **queryRange**: O(log n) - binary search in map
@@ -509,22 +462,11 @@ Using `map<int, int>` provides:
 4. **Remove entire interval**: Removing completely removes interval
 5. **Query outside range**: Returns false if no interval covers query
 
-## Alternative Approaches
+## Common Mistakes
 
-### **Approach 1: Map-Based (Current Solution)**
-- **Time**: O(k log n) per operation
-- **Space**: O(n)
-- **Best for**: Efficient interval management
-
-### **Approach 2: Segment Tree**
-- **Time**: O(log max_value) per operation
-- **Space**: O(max_value)
-- **Use case**: When range of values is limited
-
-### **Approach 3: Balanced BST of Intervals**
-- **Time**: O(k log n) per operation
-- **Space**: O(n)
-- **Similar**: Custom interval tree structure
+- Skipping edge cases (empty input, single element, boundaries).
+- Off-by-one errors in loops and index ranges.
+- Forgetting to handle the case when no valid answer exists.
 
 ## Related Problems
 
@@ -537,3 +479,19 @@ Using `map<int, int>` provides:
 
 `Design`, `Data Structures`, `Interval`, `Map`, `Tree Map`, `Hard`
 
+## Key Takeaways
+
+- Identify required operations and their frequency (get/put/insert).
+- Combine data structures: hash map + list, heap + map, trie + DFS.
+- Amortized O(1) often needs lazy cleanup or doubly-linked lists.
+
+## References
+
+- [LC 715: Range Module on LeetCode](https://leetcode.com/problems/range-module/)
+- [LeetCode Discuss — LC 715: Range Module](https://leetcode.com/problems/range-module/discuss/)
+- [LeetCode Editorial](https://leetcode.com/problems/range-module/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [Data Structure Design](/blog_leetcode_java/posts/2025-11-24-leetcode-templates-data-structure-design/)
+{% endraw %}

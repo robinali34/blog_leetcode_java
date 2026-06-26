@@ -7,7 +7,7 @@ permalink: /posts/2025-10-29-leetcode-templates-data-structures/
 tags: [leetcode, templates, data-structures, algorithms]
 ---
 {% raw %}
-This page is your toolbox of essential data structures for LeetCode. Each template is self-contained Java you can copy directly into your solution. They range from beginner-friendly (binary search, prefix sum) to advanced (segment tree, sparse table) — start with what you need and come back for more as you level up.
+This page is your toolbox of essential data structures for LeetCode. Each template is self-contained C++ you can copy directly into your solution. They range from beginner-friendly (binary search, prefix sum) to advanced (segment tree, sparse table) — start with what you need and come back for more as you level up.
 
 > **This is the foundation.** These data structures are the building blocks that other templates (DFS, BFS, DP) build on. Master binary search and prefix sums first, then work outward — you'll see them appear inside graph, tree, and dynamic programming solutions.
 

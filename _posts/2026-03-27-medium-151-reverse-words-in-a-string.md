@@ -7,6 +7,7 @@ tags: [leetcode, medium, string, two-pointers]
 permalink: /2026/03/27/medium-151-reverse-words-in-a-string/
 ---
 
+{% raw %}
 Given an input string `s`, reverse the order of the **words**. A word is a sequence of non-space characters. Words are separated by at least one space. Return a string with words in reverse order, joined by a single space (no leading/trailing spaces, no extra spaces between words).
 
 ## Examples
@@ -52,14 +53,37 @@ Trim leading/trailing spaces, scan left to right building words, and push each c
 
 ### Approach 2: Reverse Entire String + Reverse Each Word (In-Place)
 
-For an $O(1)$ extra space solution:
+For an O(1) extra space solution:
 1. Reverse the entire string
 2. Reverse each individual word
 3. Clean up extra spaces
 
-## Solution 1: Deque -- $O(n)$
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 110" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Two pointers</text>
 
-{% raw %}
+  <rect x="30" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="44" y="66" text-anchor="middle" font-size="10">1</text>
+  <rect x="62" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="76" y="66" text-anchor="middle" font-size="10">3</text>
+  <rect x="106" y="50" width="28" height="28" rx="3" fill="#E0D8E4" stroke="#A098A8"/><text x="120" y="66" text-anchor="middle" font-size="10">5</text>
+  <rect x="138" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="152" y="66" text-anchor="middle" font-size="10">7</text>
+  <rect x="170" y="50" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="184" y="66" text-anchor="middle" font-size="10">9</text>
+  <text x="44" y="42" text-anchor="middle" font-size="10" fill="#7A8EA0" font-weight="600">L</text>
+  <text x="184" y="42" text-anchor="middle" font-size="10" fill="#A08888" font-weight="600">R</text>
+  <text x="110" y="100" text-anchor="middle" font-size="11" fill="#6B6560">move L/R based on comparison</text>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Opposite ends** *(this problem)* | O(n) | O(1) | Sorted array pair search, reversal |
+| Slow / fast pointers | O(n) | O(1) | Linked list middle, cycle detection |
+| Same-direction chase | O(n) | O(1) | Remove duplicates in-place |
+| Sliding window (variable) | O(n) | O(1) | Subarray with constraint |
+
+## Solution
 ```java
 // import java.util.*;
 class Solution {
@@ -91,60 +115,32 @@ class Solution {
     }
 }
 ```
-{% endraw %}
 
-**Time**: $O(n)$
-**Space**: $O(n)$ -- deque stores all words
+### Solution Explanation
 
-## Solution 2: Reverse Twice (In-Place) -- $O(1)$ extra space
+**Approach:** Opposite ends (this problem)
 
-{% raw %}
-```java
-class Solution {
-        public String reverseWords(String s) {
-        reverse(s /* elements of s */);
-        int n = s.size();
-        int write = 0;
-        for (int i = 0; i < n; i++) {
-            if (s.charAt(i) != ' ') {
-                if (write !) s[write++] = ' ';
-                int j = i;
-                while (j < n && s.charAt(j) != ' ') s[write++] = s[j++];
-                reverse(s.iterator() + write - (j - i), s.iterator() + write);
-                i = j;
-            }
-        }
-        s.resize(write);
-        return s;
-    }
-}
-```
-{% endraw %}
+**Key idea:** ### Key Challenges
 
-**Time**: $O(n)$
-**Space**: $O(1)$ auxiliary (modifies string in-place)
+**How the code works:**
+1. **Leading/trailing spaces** -- must be stripped
+2. **Multiple spaces between words** -- must be collapsed to one
+3. **Reverse word order** -- not character order
+1. Reverse the entire string
+2. Reverse each individual word
+3. Clean up extra spaces
 
-### How It Works
+**Walkthrough** — input `s = "the sky is blue"`, expected output `"blue is sky the"`:
 
-```
-Original:   "  hello world  "
-Reverse all: "  dlrow olleh  "
-Copy + reverse each word:
-  "world" → write at 0..4
-  "hello" → write at 6..10
-Resize:     "world hello"
-```
-
-1. **Reverse all** flips word order but scrambles each word
-2. **Reverse each word** unscrambles individual words
-3. **Compact** during the copy removes extra spaces
-
+1. Initialize variables from the problem setup.
+2. Apply the main loop / recursion until the condition is met.
+3. Confirm the result matches the expected output.
 ## Comparison
 
 | Approach | Time | Extra Space | Notes |
 |---|---|---|---|
-| Deque | $O(n)$ | $O(n)$ | Clean, easy to understand |
-| Reverse Twice | $O(n)$ | $O(1)$ | In-place, interview follow-up |
+| Deque | O(n) | O(n) | Clean, easy to understand |
+| Reverse Twice | O(n) | O(1) | In-place, interview follow-up |
 
 ## Common Mistakes
 
@@ -155,7 +151,7 @@ Resize:     "world hello"
 ## Key Takeaways
 
 - **"Reverse word order"** has two classic approaches: collect-in-reverse (deque/stack) or reverse-entire-then-reverse-each-word
-- The in-place "reverse twice" technique is a common interview follow-up: "Can you do it in $O(1)$ space?"
+- The in-place "reverse twice" technique is a common interview follow-up: "Can you do it in O(1) space?"
 - Trimming and compacting spaces is the fiddly part -- the deque approach sidesteps it by only collecting non-empty words
 
 ## Related Problems
@@ -165,6 +161,13 @@ Resize:     "world hello"
 - [58. Length of Last Word](https://leetcode.com/problems/length-of-last-word/) -- word parsing with trailing spaces
 - [1768. Merge Strings Alternately](https://leetcode.com/problems/merge-strings-alternately/) -- string traversal
 
+## References
+
+- [LC 151: Reverse Words in a String on LeetCode](https://leetcode.com/problems/reverse-words-in-a-string/)
+- [LeetCode Discuss — LC 151: Reverse Words in a String](https://leetcode.com/problems/reverse-words-in-a-string/discuss/)
+- [LeetCode Editorial](https://leetcode.com/problems/reverse-words-in-a-string/editorial/) *(may require premium)*
+
 ## Template Reference
 
 - [String Processing](/blog_leetcode_java/posts/2025-11-24-leetcode-templates-string-processing/)
+{% endraw %}

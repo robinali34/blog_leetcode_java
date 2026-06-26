@@ -7,13 +7,10 @@ permalink: /posts/2025-10-22-medium-426-convert-binary-search-tree-to-sorted-dou
 tags: [leetcode, medium, tree, linked-list, bst, inorder-traversal, recursion]
 ---
 
-# LC 426: Convert Binary Search Tree to Sorted Doubly Linked List
-
+{% raw %}
 **Difficulty:** Medium  
 **Category:** Tree, Linked List, DFS  
 **Companies:** Amazon, Microsoft, Facebook
-
-## Problem Statement
 
 Convert a Binary Search Tree to a sorted Circular Doubly Linked List in-place.
 
@@ -21,8 +18,7 @@ Think of the left and right pointers as synonymous to the previous and next poin
 
 We want to do the transformation in-place. After the transformation, the left pointer of the tree node should point to its predecessor, and the right pointer should point to its successor. You should return the pointer to the smallest element of the linked list.
 
-### Examples
-
+## Examples
 **Example 1:**
 ```
 Input: root = [4,2,5,1,3]
@@ -36,39 +32,10 @@ Input: root = [2,1,3]
 Output: [1,2,3]
 ```
 
-### Constraints
-
+## Constraints
 - `-1000 <= Node.val <= 1000`
 - `Node.left.val < Node.val < Node.right.val` (BST property)
 - `1 <= Number of Nodes <= 1000`
-
-## Clarification Questions
-
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
-
-1. **Doubly linked list**: What is the structure? (Assumption: Each node has left (prev) and right (next) pointers, circular list)
-
-2. **Sorting order**: What order should nodes be in? (Assumption: In-order traversal order - sorted ascending by value)
-
-3. **Return value**: What should we return? (Assumption: Head of the circular doubly linked list - smallest value node)
-
-4. **Tree modification**: Can we modify the tree? (Assumption: Yes - convert in-place by modifying pointers)
-
-5. **Circular list**: Should the list be circular? (Assumption: Yes - last node's right points to first, first node's left points to last)
-
-## Interview Deduction Process (20 minutes)
-
-**Step 1: Brute-Force Approach (5 minutes)**
-
-Perform in-order traversal to collect all nodes in a list. Then iterate through the list and connect each node to the next node, and connect the last node to the first to make it circular. This approach works but requires O(n) extra space for the list.
-
-**Step 2: Semi-Optimized Approach (7 minutes)**
-
-Use in-order traversal with a previous pointer: perform in-order traversal, maintaining a pointer to the previously visited node. Connect previous to current and current to previous as we traverse. After traversal, connect the last node to the first. This uses O(1) extra space but requires careful pointer management.
-
-**Step 3: Optimized Solution (8 minutes)**
-
-Use in-order traversal with global previous pointer: perform in-order traversal, maintaining a global `prev` pointer. For each node, set `prev->right = current` and `current->left = prev`, then update `prev = current`. After traversal, connect the last node (prev) to the first node (head) to make it circular. This achieves O(n) time with O(h) space for recursion (or O(1) with iterative traversal), which is optimal. The key insight is that in-order traversal visits nodes in sorted order, and we can build the doubly linked list incrementally by connecting nodes as we visit them.
 
 ## Solution Approaches
 
@@ -111,16 +78,25 @@ class Solution {
 }
 ```
 
-### Approach 2: Inorder Traversal with Return Values
+### Solution Explanation
 
-**Algorithm:**
-1. Perform inorder traversal
-2. Return the head and tail of the doubly linked list
-3. Connect the head and tail to make it circular
+**Approach:** Divide & conquer on tree (this problem)
 
-**Time Complexity:** O(n)  
-**Space Complexity:** O(h)
+**Key idea:** Difficulty:** Medium
 
+**How the code works:**
+**Difficulty:** Medium
+**Category:** Tree, Linked List, DFS
+- Trees have no cycles — recursion is natural.
+- Combine results from left and right subtrees at each node.
+- Base case is usually `null`; height drives stack space.
+
+**Walkthrough** — input `root = [4,2,5,1,3]`, expected output `[1,2,3,4,5]`:
+
+The figure below shows the transformed BST. The solid line indicates the successor relationship, while the dashed line means the predecessor relationship.
+## Implementation Details
+
+### Global Variables Approach
 ```java
 class Solution {
     Node treeToDoublyList(Node root) {
@@ -152,17 +128,7 @@ class Solution {
 }
 ```
 
-### Approach 3: Iterative Inorder Traversal
-
-**Algorithm:**
-1. Use iterative inorder traversal with stack
-2. Process nodes in sorted order
-3. Build doubly linked list incrementally
-4. Connect first and last nodes
-
-**Time Complexity:** O(n)  
-**Space Complexity:** O(h)
-
+### Circular Connection
 ```java
 // import java.util.*;
 class Solution {
@@ -201,53 +167,6 @@ class Solution {
 }
 ```
 
-## Algorithm Analysis
-
-### Approach Comparison
-
-| Approach | Time | Space | Pros | Cons |
-|----------|------|-------|------|------|
-| Global Variables | O(n) | O(h) | Simple, clean | Uses global state |
-| Return Values | O(n) | O(h) | No global variables | More complex |
-| Iterative | O(n) | O(h) | No recursion | More code |
-
-### Key Insights
-
-1. **Inorder Traversal**: BST inorder gives sorted order
-2. **Doubly Linked List**: Each node needs left and right pointers
-3. **Circular Connection**: Connect first and last nodes
-4. **In-place Transformation**: Modify existing tree structure
-
-## Implementation Details
-
-### Global Variables Approach
-```java
-Node first = null, *last = null;
-
-static void inorder(Node node) {
-    if(node) {
-        inorder(node.left);
-        // Process current node
-        if(last) {
-            last.right = node;
-            node.left = last;
-        } else {
-            first = node;  // First node in sorted order
-        }
-        last = node;
-        inorder(node.right);
-    }
-}
-```
-
-### Circular Connection
-```java
-// After inorder traversal
-last.right = first;  // Last points to first
-first.left = last;   // First points to last
-return first;         // Return smallest element
-```
-
 ## Edge Cases
 
 1. **Empty Tree**: `nullptr` → return `nullptr`
@@ -261,6 +180,12 @@ return first;         // Return smallest element
 - How would you handle duplicate values?
 - What if you needed a non-circular doubly linked list?
 - How would you optimize for very large trees?
+
+## Common Mistakes
+
+- Skipping edge cases (empty input, single element, boundaries).
+- Off-by-one errors in loops and index ranges.
+- Forgetting to handle the case when no valid answer exists.
 
 ## Related Problems
 
@@ -282,6 +207,56 @@ return first;         // Return smallest element
 3. **Space Efficiency**: O(h) space for recursion stack
 4. **Robustness**: Handles all edge cases correctly
 
----
+## Key Takeaways
 
-*This problem demonstrates the power of inorder traversal on BSTs and shows how tree structures can be transformed into linked list structures while maintaining sorted order.*
+- **Pattern:** Divide & conquer on tree (this problem)
+- Difficulty:** Medium
+- Category:** Tree, Linked List, DFS
+
+## References
+
+- [LC 426: Convert Binary Search Tree to Sorted Doubly Linked List on LeetCode](https://leetcode.com/problems/convert-binary-search-tree-to-sorted-doubly-linked-list/)
+- [LeetCode Discuss — LC 426: Convert Binary Search Tree to Sorted Doubly Linked List](https://leetcode.com/problems/convert-binary-search-tree-to-sorted-doubly-linked-list/discuss/)
+- [LeetCode Editorial](https://leetcode.com/problems/convert-binary-search-tree-to-sorted-doubly-linked-list/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [Trees](/blog_leetcode_java/posts/2025-10-29-leetcode-templates-trees/)
+
+## Thinking Process
+
+**Difficulty:** Medium
+
+**Category:** Tree, Linked List, DFS
+
+- Trees have no cycles — recursion is natural.
+- Combine results from left and right subtrees at each node.
+- Base case is usually `null`; height drives stack space.
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 115" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Linked list: pointer walk</text>
+
+  <rect x="30" y="50" width="44" height="32" rx="4" fill="#D4D8E0" stroke="#8B8680"/>
+  <text x="52" y="68" text-anchor="middle" font-size="12">1</text>
+  <path d="M74 66h16" stroke="#8B8680" stroke-width="2" marker-end="url(#arr)"/>
+  <rect x="90" y="50" width="44" height="32" rx="4" fill="#E0D8E4" stroke="#A098A8"/>
+  <text x="112" y="68" text-anchor="middle" font-size="12">2</text>
+  <path d="M134 66h16" stroke="#8B8680" stroke-width="2"/>
+  <rect x="150" y="50" width="44" height="32" rx="4" fill="#E8E3D8" stroke="#B8B5B0"/>
+  <text x="172" y="68" text-anchor="middle" font-size="12">3</text>
+  <text x="130" y="105" text-anchor="middle" font-size="11" fill="#6B6560">slow → → fast (2x speed)</text>
+  <defs><marker id="arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6" fill="#8B8680"/></marker></defs>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| Recursive DFS | O(n) | O(h) | Depth, path sum, subtree queries |
+| BFS level-order | O(n) | O(w) | Level traversal, zigzag |
+| Inorder on BST | O(n) | O(h) | Sorted order, successor |
+| **Divide & conquer on tree** *(this problem)* | O(n) | O(h) | Diameter, max path |
+{% endraw %}

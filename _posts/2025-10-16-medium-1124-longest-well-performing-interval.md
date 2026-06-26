@@ -7,8 +7,7 @@ categories: leetcode algorithm medium java hash-map prefix-sum problem-solving
 permalink: /posts/2025-10-16-medium-1124-longest-well-performing-interval/
 ---
 
-# [Medium] 1124. Longest Well-Performing Interval
-
+{% raw %}
 We are given `hours`, a list of the number of hours worked per day for a given employee.
 
 A day is considered to be a **tiring day** if and only if the number of hours worked is (strictly) greater than 8.
@@ -38,62 +37,37 @@ Explanation: All intervals have more non-tiring days than tiring days.
 - `1 <= hours.length <= 10^4`
 - `0 <= hours[i] <= 16`
 
-## Clarification Questions
+## Thinking Process
 
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
+1. **Prefix Sum Transformation:** Convert to binary scoring system
 
-1. **Well-performing definition**: What makes an interval "well-performing"? (Assumption: Number of tiring days (hours[i] > 8) is strictly greater than number of non-tiring days)
+- Identify the pattern from constraints (sorted? graph? optimal substructure?).
+- Write brute force first mentally, then optimize the bottleneck.
+- Verify edge cases: empty input, single element, duplicates.
 
-2. **Interval format**: Are intervals inclusive or exclusive? (Assumption: Inclusive on both ends - [i, j] includes both endpoints)
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 105" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Intervals on timeline</text>
 
-3. **Return value**: What should we return? (Assumption: Length of longest well-performing interval - integer)
+  <line x1="30" y1="60" x2="250" y2="60" stroke="#D4D1CC" stroke-width="2"/>
+  <rect x="50" y="48" width="60" height="24" rx="3" fill="#D4D8E0" stroke="#8B8680"/>
+  <rect x="100" y="48" width="50" height="24" rx="3" fill="#E0D8E4" stroke="#A098A8"/>
+  <rect x="160" y="48" width="70" height="24" rx="3" fill="#E8D5D0" stroke="#B8A5A0"/>
+  <text x="140" y="95" text-anchor="middle" font-size="11" fill="#6B6560">sort by start → scan overlaps</text>
 
-4. **Empty array**: What if no well-performing interval exists? (Assumption: Return 0 - no valid interval)
+</svg>
 
-5. **Single element**: Can a single day be well-performing? (Assumption: No - need comparison, so minimum length is 2 if possible)
+## Common Approaches
 
-## Interview Deduction Process (20 minutes)
+Typical techniques for this pattern:
 
-### Step 1: Brute-Force Approach (5 minutes)
-**Initial Thought**: "I need to find longest well-performing interval. Let me check all possible intervals."
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Brute force** *(this problem)* | Often O(n^2) or O(2^n) | O(n) | Baseline; clarifies the optimization target |
+| Sort + scan | O(n log n) | O(1) | Pairs, intervals, greedy ordering |
+| Hash map / set | O(n) | O(n) | Frequency, membership, two-sum style |
+| Single-pass linear | O(n) | O(1) | Two pointers, sliding window, Kadane |
 
-**Naive Solution**: Check all possible intervals [i, j], for each count tiring vs non-tiring days, track maximum length where tiring > non-tiring.
-
-**Complexity**: O(n²) time, O(1) space
-
-**Issues**:
-- O(n²) time - inefficient for large n
-- Repeats counting for overlapping intervals
-- Doesn't leverage prefix sum property
-- Can be optimized
-
-### Step 2: Semi-Optimized Approach (7 minutes)
-**Insight**: "I can use prefix sum. Convert to +1/-1 array, then find longest interval with sum > 0."
-
-**Improved Solution**: Convert hours to +1 (tiring) and -1 (non-tiring). Use prefix sum. Find longest interval [i, j] where prefix[j] - prefix[i-1] > 0.
-
-**Complexity**: O(n²) time with prefix sum, O(n) space
-
-**Improvements**:
-- Prefix sum simplifies counting
-- Still O(n²) for checking all intervals
-- Better than brute-force counting
-- Can optimize further
-
-### Step 3: Optimized Solution (8 minutes)
-**Final Optimization**: "I can use hash map to track first occurrence of each prefix sum, then find longest interval."
-
-**Best Solution**: Use prefix sum with hash map. Track first occurrence of each prefix sum value. For each position, if current prefix sum > 0, interval [0, i] is valid. Otherwise, find smallest prefix sum < current to maximize interval length.
-
-**Complexity**: O(n) time, O(n) space
-
-**Key Realizations**:
-1. Prefix sum transformation is key insight
-2. Hash map tracks first occurrence efficiently
-3. O(n) time is optimal - single pass
-4. O(n) space for hash map is necessary
-
-## Solution: Hash Map with Prefix Sum
+## Solution
 
 **Time Complexity:** O(n)  
 **Space Complexity:** O(n)
@@ -122,94 +96,30 @@ class Solution {
 }
 ```
 
-## How the Algorithm Works
+### Solution Explanation
 
-### Key Insight: Prefix Sum Transformation
+**Approach:** Brute force (this problem)
 
-1. **Convert to binary array:** `> 8` becomes `+1`, `≤ 8` becomes `-1`
-2. **Calculate prefix sums:** Track cumulative score
-3. **Find longest interval:** Where prefix sum difference is positive
+**Key idea:** 1. **Prefix Sum Transformation:** Convert to binary scoring system
 
-### Step-by-Step Example: `hours = [9,9,6,0,6,6,9]`
+**How the code works:**
+1. **Prefix Sum Transformation:** Convert to binary scoring system
+- Identify the pattern from constraints (sorted? graph? optimal substructure?).
+- Write brute force first mentally, then optimize the bottleneck.
+- Verify edge cases: empty input, single element, duplicates.
 
-| Index | Hours | Score | Prefix Sum | Action | Result |
-|-------|-------|-------|------------|--------|--------|
-| 0 | 9 | +1 | 1 | `score > 0` | `res = 1` |
-| 1 | 9 | +1 | 2 | `score > 0` | `res = 2` |
-| 2 | 6 | -1 | 1 | `score > 0` | `res = 3` |
-| 3 | 0 | -1 | 0 | Check `seen[0-1]` | No match |
-| 4 | 6 | -1 | -1 | Check `seen[-1-1]` | No match |
-| 5 | 6 | -1 | -2 | Check `seen[-2-1]` | No match |
-| 6 | 9 | +1 | -1 | Check `seen[-1-1]` | No match |
+**Walkthrough** — input `hours = [9,9,6,0,6,6,9]`, expected output `3`:
 
-**Hash Map State:**
-```
-seen = {1: 0, 2: 1, 0: 3, -1: 4, -2: 5, -1: 6}
-```
+The longest well-performing interval is [9,9,6].
 
-**Final Answer:** 3
-
-### Visual Representation
-
-```
-hours:    [9, 9, 6, 0, 6, 6, 9]
-scores:   [+1,+1,-1,-1,-1,-1,+1]
-prefix:   [1,  2,  1,  0, -1, -2, -1]
-
-Intervals:
-[0,0]: score=1  > 0 ✓ (length=1)
-[0,1]: score=2  > 0 ✓ (length=2)  
-[0,2]: score=1  > 0 ✓ (length=3) ← Longest
-[0,3]: score=0  = 0 ✗
-[0,4]: score=-1 < 0 ✗
-[0,5]: score=-2 < 0 ✗
-[0,6]: score=-1 < 0 ✗
-```
-
+| Approach | Time Complexity | Space Complexity |
+|----------|----------------|------------------|
+| Brute Force | O(n²) | O(1) |
+| Prefix Sum Array | O(n²) | O(n) |
+| Hash Map (Optimal) | O(n) | O(n) |
 ## Algorithm Breakdown
 
 ### 1. Score Calculation
-```java
-if(hours[i] > 8) score++;
-else score--;
-```
-
-**Transformation:**
-- `hours[i] > 8` → `+1` (tiring day)
-- `hours[i] ≤ 8` → `-1` (non-tiring day)
-
-### 2. Direct Positive Sum Check
-```java
-if(score > 0) res = i + 1;
-```
-
-**Why this works:**
-- If `score > 0`, the entire interval from start to current position is well-performing
-- Length = `i + 1` (0-indexed to 1-indexed conversion)
-
-### 3. Hash Map Lookup
-```java
-else if (seen.contains(score - 1)) res = Math.max(res, i - seen[score - 1]);
-```
-
-**Mathematical reasoning:**
-- We want `prefix[j] - prefix[i] > 0`
-- If current `score = k`, we look for `score - 1 = k - 1`
-- This ensures `prefix[j] - prefix[k-1] = k - (k-1) = 1 > 0`
-
-### 4. Hash Map Update
-```java
-if(!seen.containsKey(score)) seen[score] = i;
-```
-
-**Why only store first occurrence:**
-- We want the longest interval
-- First occurrence gives us the earliest starting point
-- Later occurrences would give shorter intervals
-
-## Alternative Approaches
-
-### Approach 1: Brute Force
 ```java
 class Solution {
         public int longestWPI(int[] hours) {
@@ -233,10 +143,11 @@ class Solution {
 }
 ```
 
-**Time Complexity:** O(n²)  
-**Space Complexity:** O(1)
+**Transformation:**
+- `hours[i] > 8` → `+1` (tiring day)
+- `hours[i] ≤ 8` → `-1` (non-tiring day)
 
-### Approach 2: Prefix Sum Array
+### 2. Direct Positive Sum Check
 ```java
 class Solution {
         public int longestWPI(int[] hours) {
@@ -261,32 +172,43 @@ class Solution {
 }
 ```
 
-**Time Complexity:** O(n²)  
-**Space Complexity:** O(n)
+**Why this works:**
+- If `score > 0`, the entire interval from start to current position is well-performing
+- Length = `i + 1` (0-indexed to 1-indexed conversion)
 
-## Complexity Analysis
+### 3. Hash Map Lookup
+```cpp
+else if (seen.contains(score - 1)) res = max(res, i - seen[score - 1]);
+```
 
+**Mathematical reasoning:**
+- We want `prefix[j] - prefix[i] > 0`
+- If current `score = k`, we look for `score - 1 = k - 1`
+- This ensures `prefix[j] - prefix[k-1] = k - (k-1) = 1 > 0`
+
+### 4. Hash Map Update
+```cpp
+if(!seen.contains(score)) seen[score] = i;
+```
+
+**Why only store first occurrence:**
+- We want the longest interval
+- First occurrence gives us the earliest starting point
+- Later occurrences would give shorter intervals
+
+### Complexity
 | Approach | Time Complexity | Space Complexity |
 |----------|----------------|------------------|
 | Brute Force | O(n²) | O(1) |
 | Prefix Sum Array | O(n²) | O(n) |
 | Hash Map (Optimal) | O(n) | O(n) |
 
-## Edge Cases
+## Common Mistakes
 
 1. **All tiring days:** `hours = [9,9,9]` → `3`
 2. **All non-tiring days:** `hours = [6,6,6]` → `0`
 3. **Single element:** `hours = [9]` → `1`
 4. **Mixed but no valid interval:** `hours = [6,6,9]` → `1`
-
-## Key Insights
-
-1. **Prefix Sum Transformation:** Convert to binary scoring system
-2. **Hash Map Optimization:** Store first occurrence for longest interval
-3. **Mathematical Insight:** Look for `score - 1` to ensure positive difference
-4. **Single Pass:** Process each element exactly once
-
-## Common Mistakes
 
 1. **Wrong score calculation:** Not handling the binary transformation correctly
 2. **Incorrect hash map lookup:** Looking for wrong score value
@@ -350,3 +272,17 @@ Final result: 3
 2. **Hash Map Lookup:** O(1) average case for score lookup
 3. **Mathematical Insight:** Elegant transformation to prefix sum problem
 4. **Space Efficient:** Only stores necessary prefix sum positions
+
+## References
+
+- [LC 1124: Longest Well-Performing Interval on LeetCode](https://leetcode.com/problems/longest-well-performing-interval/)
+- [LeetCode Discuss — LC 1124: Longest Well-Performing Interval](https://leetcode.com/problems/longest-well-performing-interval/discuss/)
+- [LeetCode Editorial](https://leetcode.com/problems/longest-well-performing-interval/editorial/) *(may require premium)*
+
+## Key Takeaways
+
+1. **Prefix Sum Transformation:** Convert to binary scoring system
+2. **Hash Map Optimization:** Store first occurrence for longest interval
+3. **Mathematical Insight:** Look for `score - 1` to ensure positive difference
+4. **Single Pass:** Process each element exactly once
+{% endraw %}

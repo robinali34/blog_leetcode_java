@@ -7,18 +7,14 @@ permalink: /posts/2025-10-20-easy-1207-unique-number-of-occurrences/
 tags: [leetcode, easy, array, hash-table, counting]
 ---
 
-# LC 1207: Unique Number of Occurrences
-
+{% raw %}
 **Difficulty:** Easy  
 **Category:** Array, Hash Table  
 **Companies:** Amazon, Google, Microsoft
 
-## Problem Statement
-
 Given an array of integers `arr`, return `true` if the number of occurrences of each value in the array is **unique**, or `false` otherwise.
 
-### Examples
-
+## Examples
 **Example 1:**
 ```
 Input: arr = [1,2,2,1,1,3]
@@ -40,65 +36,9 @@ Output: true
 Explanation: The value -3 has 3 occurrences, 0 has 2 occurrences, 1 has 4 occurrences, and 10 has 1 occurrence. No two values have the same number of occurrences.
 ```
 
-### Constraints
-
+## Constraints
 - `1 <= arr.length <= 1000`
 - `-1000 <= arr[i] <= 1000`
-
-## Clarification Questions
-
-Before diving into the solution, here are 5 important clarifications and assumptions to discuss during an interview:
-
-1. **Occurrence definition**: What does "occurrence" mean? (Assumption: Number of times each value appears in the array)
-
-2. **Unique occurrences**: What makes occurrences "unique"? (Assumption: Each occurrence count appears only once - no two values have the same count)
-
-3. **Return value**: What should we return? (Assumption: Boolean - true if all occurrence counts are unique, false otherwise)
-
-4. **Empty array**: What if array is empty? (Assumption: Return true - no occurrences means all are unique)
-
-5. **Single element**: What if array has one element? (Assumption: Return true - one occurrence count is unique)
-
-## Interview Deduction Process (10 minutes)
-
-### Step 1: Brute-Force Approach (2 minutes)
-**Initial Thought**: "I need to check if occurrence counts are unique. Let me count occurrences manually."
-
-**Naive Solution**: Count occurrences of each value manually, then check if all counts are unique by comparing all pairs.
-
-**Complexity**: O(n²) time, O(n) space
-
-**Issues**:
-- O(n²) time - inefficient
-- Manual comparison is error-prone
-- Doesn't leverage hash set
-- Can be optimized
-
-### Step 2: Semi-Optimized Approach (3 minutes)
-**Insight**: "I can use hash map to count occurrences, then check uniqueness."
-
-**Improved Solution**: Use hash map to count occurrences. Then check if all counts are unique by comparing counts or using another data structure.
-
-**Complexity**: O(n) time, O(n) space
-
-**Improvements**:
-- Hash map enables efficient counting
-- O(n) time is much better
-- Still need to check uniqueness
-- Can optimize uniqueness check
-
-### Step 3: Optimized Solution (5 minutes)
-**Final Optimization**: "Use hash set to check uniqueness of counts."
-
-**Best Solution**: Use hash map to count occurrences, then use hash set to check if all counts are unique. If set size equals map size, all counts are unique.
-
-**Complexity**: O(n) time, O(n) space
-
-**Key Realizations**:
-1. Hash map for counting is standard
-2. Hash set for uniqueness check is elegant
-3. O(n) time is optimal - must process each element
-4. O(n) space is optimal for both structures
 
 ## Solution Approaches
 
@@ -127,16 +67,25 @@ class Solution {
 }
 ```
 
-### Approach 2: Early Termination Optimization
+### Solution Explanation
 
-**Algorithm:**
-1. Count frequency of each element using hash map
-2. While inserting frequencies into hash set, check for duplicates
-3. Return false immediately if duplicate frequency found
+**Approach:** Prefix sum (this problem)
 
-**Time Complexity:** O(n)  
-**Space Complexity:** O(n)
+**Key idea:** Difficulty:** Easy
 
+**How the code works:**
+**Difficulty:** Easy
+**Category:** Array, Hash Table
+- Clarify if the array is sorted, has negatives, or allows duplicates.
+- Prefix sums answer range queries; hash maps answer pair/count queries.
+- In-place tricks use swap/write index instead of extra arrays.
+
+**Walkthrough** — input `arr = [1,2,2,1,1,3]`, expected output `true`:
+
+The value 1 has 3 occurrences, 2 has 2 occurrences, and 3 has 1 occurrence. No two values have the same number of occurrences.
+## Implementation Details
+
+### Hash Set Insert Behavior
 ```java
 // import java.util.*;
 class Solution {
@@ -153,16 +102,7 @@ class Solution {
 }
 ```
 
-### Approach 3: Array-Based Counting
-
-**Algorithm:**
-1. Use array to count frequencies (since values are in range [-1000, 1000])
-2. Use another array to count frequency counts
-3. Check if any frequency count exceeds 1
-
-**Time Complexity:** O(n)  
-**Space Complexity:** O(1) - fixed size arrays
-
+### Array Offset Technique
 ```java
 class Solution {
         public boolean uniqueOccurrences(int[] arr) {
@@ -187,38 +127,6 @@ class Solution {
 }
 ```
 
-## Algorithm Analysis
-
-### Approach Comparison
-
-| Approach | Time | Space | Pros | Cons |
-|----------|------|-------|------|------|
-| Hash Map + Set | O(n) | O(n) | Simple, readable | Extra space for set |
-| Early Termination | O(n) | O(n) | Early exit optimization | Slightly more complex |
-| Array Counting | O(n) | O(1) | Constant space | Limited to small ranges |
-
-### Key Insights
-
-1. **Frequency Counting**: Use hash map to count occurrences of each element
-2. **Duplicate Detection**: Use hash set to detect duplicate frequencies
-3. **Size Comparison**: If set size equals map size, all frequencies are unique
-4. **Early Termination**: Can optimize by checking for duplicates during insertion
-
-## Implementation Details
-
-### Hash Set Insert Behavior
-```java
-// insert() returns iterator[]
-// second is true if insertion successful (no duplicate)
-if(!occurs.add(freq).second) return false;
-```
-
-### Array Offset Technique
-```java
-// Offset by 1000 to handle negative numbers
-freq[num + 1000]++;
-```
-
 ## Edge Cases
 
 1. **Single Element**: `[1]` → true (frequency 1 is unique)
@@ -232,6 +140,12 @@ freq[num + 1000]++;
 - How would you handle floating-point numbers?
 - What if you needed to find which frequencies are duplicated?
 - How would you optimize for very large arrays?
+
+## Common Mistakes
+
+- Skipping edge cases (empty input, single element, boundaries).
+- Off-by-one errors in loops and index ranges.
+- Forgetting to handle the case when no valid answer exists.
 
 ## Related Problems
 
@@ -253,6 +167,52 @@ freq[num + 1000]++;
 3. **Scalability**: Hash map approach works for any range
 4. **Robustness**: All approaches handle edge cases correctly
 
----
+## Key Takeaways
 
-*This problem demonstrates the importance of choosing the right data structure based on constraints and requirements, showing how different approaches can optimize for different aspects.*
+- **Pattern:** Prefix sum (this problem)
+- Difficulty:** Easy
+- Category:** Array, Hash Table
+
+## References
+
+- [LC 1207: Unique Number of Occurrences on LeetCode](https://leetcode.com/problems/unique-number-of-occurrences/)
+- [LeetCode Discuss — LC 1207: Unique Number of Occurrences](https://leetcode.com/problems/unique-number-of-occurrences/discuss/)
+- [LeetCode Editorial](https://leetcode.com/problems/unique-number-of-occurrences/editorial/) *(may require premium)*
+
+## Template Reference
+
+- [Array & Matrix](/blog_leetcode_java/posts/2025-11-24-leetcode-templates-array-matrix/)
+
+## Thinking Process
+
+**Difficulty:** Easy
+
+**Category:** Array, Hash Table
+
+- Clarify if the array is sorted, has negatives, or allows duplicates.
+- Prefix sums answer range queries; hash maps answer pair/count queries.
+- In-place tricks use swap/write index instead of extra arrays.
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 110" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Array + hash map</text>
+
+  <rect x="30" y="45" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="44" y="61" text-anchor="middle" font-size="10">2</text>
+  <rect x="62" y="45" width="28" height="28" rx="3" fill="#E0D8E4" stroke="#A098A8"/><text x="76" y="61" text-anchor="middle" font-size="10">7</text>
+  <rect x="106" y="45" width="28" height="28" rx="3" fill="#E8E3D8" stroke="#B8B5B0"/><text x="120" y="61" text-anchor="middle" font-size="10">11</text>
+  <rect x="150" y="40" width="60" height="38" rx="4" fill="#FAF8F5" stroke="#D4D1CC"/>
+  <text x="180" y="61" text-anchor="middle" font-size="10" fill="#6B6560">map</text>
+  <text x="110" y="100" text-anchor="middle" font-size="11" fill="#6B6560">hash map for O(1) lookups</text>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| **Prefix sum** *(this problem)* | O(n) | O(n) | Range queries, subarray sum |
+| Sort + scan | O(n log n) | O(1) | Intervals, meeting rooms |
+| Kadane's algorithm | O(n) | O(1) | Maximum subarray |
+| Hash map counting | O(n) | O(n) | Frequency, two-sum variants |
+{% endraw %}

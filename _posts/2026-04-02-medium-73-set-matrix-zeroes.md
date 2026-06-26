@@ -7,6 +7,7 @@ tags: [leetcode, medium, matrix, array, in-place]
 permalink: /2026/04/02/medium-73-set-matrix-zeroes/
 ---
 
+{% raw %}
 Given an `m x n` integer matrix, if an element is `0`, set its **entire row and column** to `0`. You must do it **in place**.
 
 ## Examples
@@ -30,21 +31,41 @@ Output: [[0,0,0,0],[0,4,5,0],[0,3,1,0]]
 - `m == matrix.length`, `n == matrix[0].length`
 - `1 <= m, n <= 200`
 - `-2^31 <= matrix[i][j] <= 2^31 - 1`
-- **Follow-up**: Can you solve it with $O(1)$ extra space?
+- **Follow-up**: Can you solve it with O(1) extra space?
 
 ## Thinking Process
 
 The naive approach (modify while scanning) corrupts the matrix -- new zeros trigger more zeros than intended. We need to **record which rows and columns to zero out first**, then apply.
 
 Three levels of space usage:
-1. **$O(m + n)$**: Use separate sets/arrays for row and column markers
-2. **$O(1)$**: Use the matrix's own first row and first column as markers
+1. **O(m + n)**: Use separate sets/arrays for row and column markers
+2. **O(1)**: Use the matrix's own first row and first column as markers
 
-## Solution 1: Hash Sets -- $O(m \cdot n)$ time, $O(m + n)$ space
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 125" style="max-width:100%;height:auto;display:block;margin:1.5em auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<text x="50%" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="#5A5752">Grid traversal</text>
+
+  <rect x="50" y="40" width="28" height="28" fill="#D4D8E0" stroke="#8B8680"/><rect x="78" y="40" width="28" height="28" fill="#E8E3D8" stroke="#B8B5B0"/>
+  <rect x="106" y="40" width="28" height="28" fill="#E8E3D8" stroke="#B8B5B0"/><rect x="134" y="40" width="28" height="28" fill="#E8E3D8" stroke="#B8B5B0"/>
+  <rect x="50" y="68" width="28" height="28" fill="#E8E3D8" stroke="#B8B5B0"/><rect x="78" y="68" width="28" height="28" fill="#E0D8E4" stroke="#A098A8"/>
+  <rect x="106" y="68" width="28" height="28" fill="#E8E3D8" stroke="#B8B5B0"/><rect x="134" y="68" width="28" height="28" fill="#E8E3D8" stroke="#B8B5B0"/>
+  <text x="110" y="115" text-anchor="middle" font-size="11" fill="#6B6560">BFS/DFS flood from each cell</text>
+
+</svg>
+
+## Common Approaches
+
+Typical techniques for this pattern:
+
+| Approach | Time | Space | Notes |
+|----------|------|-------|-------|
+| Row/column traversal | O(nm) | O(1) | Simulation, spiral |
+| BFS/DFS on grid | O(nm) | O(nm) | Islands, shortest path |
+| **Matrix as graph** *(this problem)* | O(nm) | O(nm) | 4/8-directional neighbors |
+| Transpose / rotate | O(nm) | O(1) | In-place rotation tricks |
+
+## Solution
 
 Scan for zeros, record their rows and columns, then zero out.
-
-{% raw %}
 ```java
 // import java.util.*;
 class Solution {
@@ -73,99 +94,28 @@ class Solution {
     }
 }
 ```
-{% endraw %}
 
-**Time**: $O(m \cdot n)$
-**Space**: $O(m + n)$
+### Solution Explanation
 
-## Solution 2: In-Place Markers -- $O(m \cdot n)$ time, $O(1)$ space
+**Approach:** Matrix as graph (this problem)
 
-Use the **first row** and **first column** of the matrix itself as marker arrays. Two boolean flags track whether row 0 and column 0 originally contained zeros.
+**Key idea:** The naive approach (modify while scanning) corrupts the matrix -- new zeros trigger more zeros than intended. We need to **record which rows and columns to zero out first**, then apply.
 
-### Algorithm
+**How the code works:**
+1. **O(m + n)**: Use separate sets/arrays for row and column markers
+2. **O(1)**: Use the matrix's own first row and first column as markers
 
-1. Check if row 0 or column 0 originally have any zeros (save in flags)
-2. For cells `[1..R-1][1..C-1]`: if `matrix[i][j] == 0`, mark `matrix[i][0] = 0` and `matrix[0][j] = 0`
-3. Zero out cells `[1..R-1][1..C-1]` based on markers in row 0 / column 0
-4. Finally, zero out row 0 and column 0 if their flags are set
+**Walkthrough** — input `[[1,1,1],[1,0,1],[1,1,1]]`, expected output `[[1,0,1],[0,0,0],[1,0,1]]`:
 
-### Why Process Row 0 / Column 0 Last?
-
-If we zero them out early, we lose the marker information stored there. The flags preserve the original state.
-
-{% raw %}
-```java
-class Solution {
-    public void setZeroes(int[][] matrix) {
-        int R = matrix.length;
-        int C = matrix[0].length;
-
-        boolean firstRowZero = false;
-        boolean firstColZero = false;
-        for (int j = 0; j < C; ++j)
-            if (matrix[0][j] == 0) firstRowZero = true;
-        for (int i = 0; i < R; ++i)
-            if (matrix[i][0] == 0) firstColZero = true;
-
-        for (int i = 1; i < R; ++i) {
-            for (int j = 1; j < C; ++j) {
-                if (matrix[i][j] == 0) {
-                    matrix[i][0] = 0;
-                    matrix[0][j] = 0;
-                }
-            }
-        }
-
-        for (int i = 1; i < R; ++i) {
-            for (int j = 1; j < C; ++j) {
-                if (matrix[i][0] == 0 || matrix[0][j] == 0)
-                    matrix[i][j] = 0;
-            }
-        }
-
-        if (firstRowZero)
-            for (int j = 0; j < C; ++j)
-                matrix[0][j] = 0;
-        if (firstColZero)
-            for (int i = 0; i < R; ++i)
-                matrix[i][0] = 0;
-    }
-}
-```
-{% endraw %}
-
-**Time**: $O(m \cdot n)$
-**Space**: $O(1)$
-
-### Walk-through
-
-```
-Input:
-  [[0, 1, 2, 0],
-   [3, 4, 5, 2],
-   [1, 3, 1, 5]]
-
-Step 1: firstRowZero = true (matrix[0][0]=0), firstColZero = true (matrix[0][0]=0)
-
-Step 2: Scan [1..2][1..3] — no zeros found, markers unchanged
-
-Step 3: Apply markers to [1..2][1..3] — no changes (no markers set beyond originals)
-
-Step 4: firstRowZero → zero out row 0: [0,0,0,0]
-        firstColZero → zero out col 0: all [i][0] = 0
-
-Result:
-  [[0, 0, 0, 0],
-   [0, 4, 5, 2],
-   [0, 3, 1, 5]]  ✓
-```
-
+1. Initialize variables from the problem setup.
+2. Apply the main loop / recursion until the condition is met.
+3. Confirm the result matches the expected output.
 ## Comparison
 
 | Approach | Time | Space | Notes |
 |---|---|---|---|
-| Hash Sets | $O(m \cdot n)$ | $O(m + n)$ | Simple and clear |
-| In-Place Markers | $O(m \cdot n)$ | $O(1)$ | Uses matrix itself; interview follow-up |
+| Hash Sets | O(m · n) | O(m + n) | Simple and clear |
+| In-Place Markers | O(m · n) | O(1) | Uses matrix itself; interview follow-up |
 
 ## Common Mistakes
 
@@ -176,7 +126,7 @@ Result:
 ## Key Takeaways
 
 - **"Mark then apply"** is the core pattern -- never modify and read from the same data simultaneously
-- Using the matrix's own borders as storage is a classic $O(1)$ space trick
+- Using the matrix's own borders as storage is a classic O(1) space trick
 - The order of operations is critical: scan → mark → apply interior → apply borders
 
 ## Related Problems
@@ -186,6 +136,13 @@ Result:
 - [54. Spiral Matrix](https://leetcode.com/problems/spiral-matrix/) -- matrix traversal
 - [59. Spiral Matrix II](https://leetcode.com/problems/spiral-matrix-ii/) -- matrix filling
 
+## References
+
+- [LC 73: Set Matrix Zeroes on LeetCode](https://leetcode.com/problems/set-matrix-zeroes/)
+- [LeetCode Discuss — LC 73: Set Matrix Zeroes](https://leetcode.com/problems/set-matrix-zeroes/discuss/)
+- [LeetCode Editorial](https://leetcode.com/problems/set-matrix-zeroes/editorial/) *(may require premium)*
+
 ## Template Reference
 
 - [Array & Matrix](/blog_leetcode_java/posts/2025-11-24-leetcode-templates-array-matrix/)
+{% endraw %}
